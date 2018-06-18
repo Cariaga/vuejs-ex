@@ -29,6 +29,20 @@ app.get('/users/:userId/', function (req, res) {
   res.send(req.params)
 })
 
+app.get('/notification/', function (req, res) {
+    var NotificationData ="{
+  "Notification": [
+    {
+      "Titles": "asf",
+      "Date": "asf",
+      "Time": "asf",
+      "Description": "asf"
+    }
+  ]
+}"
+  res.send(NotificationData)
+})
+
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
