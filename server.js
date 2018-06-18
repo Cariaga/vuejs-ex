@@ -48,7 +48,6 @@ app.get('/notification/', function (req, res) {
 
 .post('/register', (req, res) => {
   var var1 = req.body.var1;
-  var var2 = req.body.var2;
   res.send("test");
 })
 
