@@ -24,6 +24,11 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
+//parameter test
+app.get('/users/:userId/', function (req, res) {
+  res.send(req.params)
+})
+
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
