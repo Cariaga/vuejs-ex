@@ -36,7 +36,8 @@ app.get('/users/:userId/', function (req, res) {
 })
 
 app.get('/notification/', function (req, res) {
-    var NotificationData ={
+    var NotificationData =
+    {
   "Notification": [
     {
       "Titles": "Event Coming",
@@ -51,10 +52,7 @@ app.get('/notification/', function (req, res) {
 })
 
 app.post('/register',function (req, res) {
-  var v = req.body.var1;
-  console.log(v);
-  console.log(req.body);
-  res.send(v);
+  res.send("name is set to " + req.query.name);
 });
 
 
