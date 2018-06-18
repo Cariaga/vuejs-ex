@@ -52,6 +52,13 @@ app.get('/notification/', function (req, res) {
 })
 
 app.get('/register',function (req, res) {
+  v
+  let UserName= req.query.UserName;
+  let Password = req.query.Password;
+  let Name = req.query.Name;
+  let Surname = req.query.Surname;
+  let Email= req.query.Email;
+  
   res.send("name is set to " + req.query.name);
 });
 
