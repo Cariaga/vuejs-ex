@@ -30,7 +30,7 @@ app.get('/users/:userId/', function (req, res) {
 })
 
 app.get('/notification/', function (req, res) {
-    var NotificationData ="{
+    var NotificationData ={
   "Notification": [
     {
       "Titles": "asf",
@@ -39,7 +39,7 @@ app.get('/notification/', function (req, res) {
       "Description": "asf"
     }
   ]
-}"
+}
   res.send(NotificationData)
 })
 
