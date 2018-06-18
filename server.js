@@ -8,6 +8,7 @@ var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
 var mongoose = require('mongoose'); // mongoose for mongodb
 var database = require('./config/database'); //load the database config
+var request = require('request');
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -48,7 +49,7 @@ app.get('/notification/', function (req, res) {
 .post('/register', (req, res) => {
   var var1 = req.body.var1;
   var var2 = req.body.var2;
-  res.send(var1+" "+var2);
+  res.send(res.body);
 })
 
 // listen (start app with node server.js) ======================================
