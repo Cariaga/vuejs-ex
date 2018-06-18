@@ -48,7 +48,7 @@ app.get('/notification/', function (req, res) {
 
 .post('/register', (req, res) => {
   var var1 = req.body.var1;
-  res.send("test");
+  res.send(var1);
 })
 
 // listen (start app with node server.js) ======================================
