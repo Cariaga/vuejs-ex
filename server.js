@@ -17,9 +17,6 @@ app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
 
-
-app.use(app.router);//required by post request
-
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
