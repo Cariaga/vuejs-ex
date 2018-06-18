@@ -94,6 +94,57 @@ app.get('/login',function (req, res) {
   }
 });
 
+app.get('/deposit',function (req, res) {
+  
+  let DepositName;
+  let DepositAmount;
+
+  if(!isNullOrEmpty(DepositName)){
+    if(!isNullOrEmpty(DepositAmount)){
+      res.send("Valid");
+    }else{
+      res.send("Invalid");
+    }
+  }else{
+    res.send("Invalid");
+  }
+});
+
+app.get('/withdraw',function (req, res) {
+  let Amount;
+  let Bank;
+  let AccountNumber;
+  let Name;
+  let ContactNumber;
+  let WithdrawPassword;
+
+  if(!isNullOrEmpty(Amount)){
+    if(!isNullOrEmpty(Bank)){
+      if(!isNullOrEmpty(AccountNumber)){
+        if(!isNullOrEmpty(Name)){
+          if(!isNullOrEmpty(ContactNumber)){
+            if(!isNullOrEmpty(WithdrawPassword)){
+              res.send("Valid");
+            }else{
+              res.send("Invalid")
+            }
+          }else{
+            res.send("Invalid");
+          }
+        }else{
+          res.send("Invalid");
+        }
+      }else{
+        res.send("Invalid");
+      }
+    }else{
+      res.send("Invalid");
+    }
+  }else{
+    res.send("Invalid");
+  }
+
+});
 
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
