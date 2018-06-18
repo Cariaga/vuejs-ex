@@ -48,7 +48,7 @@ app.get('/notification/', function (req, res) {
 })
 
 app.get('/register',function (req, res) {
-  v
+  
   let UserName= req.query.UserName;
   let Password = req.query.Password;
   let Name = req.query.Name;
@@ -63,6 +63,17 @@ app.get('/register',function (req, res) {
           }
         }
       }
+    }
+  }
+});
+
+app.get('/login',function (req, res) {
+  
+  let UserName= req.query.UserName;
+  let Password = req.query.Password;
+  if(typeof UserName !== 'undefined' ){
+    if(typeof Password  !== 'undefined'){
+      res.send("Valid");
     }
   }
 });
