@@ -9,6 +9,8 @@ var bodyParser = require('body-parser'); // pull information from HTML POST (exp
 var mongoose = require('mongoose'); // mongoose for mongodb
 var database = require('./config/database'); //load the database config
 var request = require('request');
+var isNullOrEmpty = require('is-null-or-empty');
+
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -54,11 +56,11 @@ app.get('/register',function (req, res) {
   let Name = req.query.Name;
   let Surname = req.query.Surname;
   let Email= req.query.Email;
-  if(typeof UserName !== 'undefined'){
-    if(typeof Password  !== 'undefined'){
-      if(typeof Name  !== 'undefined'){
-        if(typeof Surname  !== 'undefined'){
-          if(typeof Email  !== 'undefined'){
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(Password)){
+      if(!isNullOrEmpty(Name)){
+        if(!isNullOrEmpty(Surname)){
+          if(!isNullOrEmpty(Email)){
             res.send("Valid");
           }else{
             res.send("Invalid");
@@ -81,8 +83,8 @@ app.get('/login',function (req, res) {
   
   let UserName= req.query.UserName;
   let Password = req.query.Password;
-  if(typeof UserName !== 'undefined' ){
-    if(typeof Password  !== 'undefined'){
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(Password)){
       res.send("Valid");
     }else{
       res.send("Invalid");

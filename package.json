@@ -10,7 +10,8 @@
     "morgan"         : "^1.1.1",
     "mongoose"       : "^4.4.12",
     "serve-static":"1.13.2",
-    "request":"^2.87.0"
+    "request":"^2.87.0",
+    "is-null-or-empty":"^0.0.1"
   },
   "scripts": {
     "start": "node server.js"
