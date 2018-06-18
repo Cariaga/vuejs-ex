@@ -46,10 +46,11 @@ app.get('/notification/', function (req, res) {
   res.send(JSON.stringify(NotificationData, null, 3));
 })
 
-.post('/register', (req, res) => {
+app.post('/register',function (req, res) {
   var v = req.body.var1;
   res.send(v);
-})
+});
+
 
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
