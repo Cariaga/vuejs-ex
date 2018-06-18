@@ -45,6 +45,13 @@ app.get('/notification/', function (req, res) {
   res.send(JSON.stringify(NotificationData, null, 3));
 })
 
+.post('/register', (req, res) => {
+  var var1 = req.body.var1;
+  var var2 = req.body.var2;
+  res.send(var1+" "+var2);
+
+})
+
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
