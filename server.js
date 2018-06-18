@@ -55,10 +55,10 @@ app.get('/register',function (req, res) {
   let Surname = req.query.Surname;
   let Email= req.query.Email;
   if(typeof UserName !== 'undefined'){
-    if(Password  !== 'undefined'){
-      if(Name  !== 'undefined'){
-        if(Surname  !== 'undefined'){
-          if(Email  !== 'undefined'){
+    if(typeof Password  !== 'undefined'){
+      if(typeof Name  !== 'undefined'){
+        if(typeof Surname  !== 'undefined'){
+          if(typeof Email  !== 'undefined'){
             res.send("Valid");
           }
         }
