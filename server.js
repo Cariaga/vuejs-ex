@@ -51,7 +51,7 @@ app.get('/notification/', function (req, res) {
   res.send(JSON.stringify(NotificationData, null, 3));
 })
 
-app.post('/register',function (req, res) {
+app.get('/register',function (req, res) {
   res.send("name is set to " + req.query.name);
 });
 
