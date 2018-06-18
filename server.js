@@ -34,10 +34,10 @@ app.get('/notification/', function (req, res) {
     var NotificationData ={
   "Notification": [
     {
-      "Titles": "asf",
-      "Date": "asf",
-      "Time": "asf",
-      "Description": "asf"
+      "Titles": "Event Coming",
+      "Date": "10/10/2018",
+      "Time": "12:00AM",
+      "Description": "Some Event going"
     }
   ]
 }
