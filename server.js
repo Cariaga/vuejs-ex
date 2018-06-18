@@ -48,6 +48,8 @@ app.get('/notification/', function (req, res) {
 
 app.post('/register',function (req, res) {
   var v = req.body.var1;
+  console.log(v);
+  console.log(req.body);
   res.send(v);
 });
 
