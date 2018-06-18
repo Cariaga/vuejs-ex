@@ -25,10 +25,6 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
-
-
-
 //parameter test
 app.get('/users/:userId/', function (req, res) {
  
@@ -58,8 +54,17 @@ app.get('/register',function (req, res) {
   let Name = req.query.Name;
   let Surname = req.query.Surname;
   let Email= req.query.Email;
-  
-  res.send("name is set to " + req.query.name);
+  if(typeof UserName !== 'undefined'){
+    if(Password  !== 'undefined'){
+      if(Name  !== 'undefined'){
+        if(Surname  !== 'undefined'){
+          if(Email  !== 'undefined'){
+            res.send("Valid");
+          }
+        }
+      }
+    }
+  }
 });
 
 
