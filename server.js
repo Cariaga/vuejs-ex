@@ -60,10 +60,20 @@ app.get('/register',function (req, res) {
         if(typeof Surname  !== 'undefined'){
           if(typeof Email  !== 'undefined'){
             res.send("Valid");
+          }else{
+            res.send("Invalid");
           }
+        }else{
+          res.send("Invalid");
         }
+      }else{
+        res.send("Invalid");
       }
+    }else{
+      res.send("Invalid");
     }
+  }else{
+    res.send("Invalid");
   }
 });
 
@@ -74,7 +84,11 @@ app.get('/login',function (req, res) {
   if(typeof UserName !== 'undefined' ){
     if(typeof Password  !== 'undefined'){
       res.send("Valid");
+    }else{
+      res.send("Invalid");
     }
+  }else{
+    res.send("Invalid");
   }
 });
 
