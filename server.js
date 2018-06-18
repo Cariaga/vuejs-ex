@@ -26,6 +26,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 //parameter test
 app.get('/users/:userId/', function (req, res) {
+ 
   res.send(req.params)
 })
 
@@ -40,7 +41,8 @@ app.get('/notification/', function (req, res) {
     }
   ]
 }
-  res.send(NotificationData)
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(NotificationData, null, 3));
 })
 
 // listen (start app with node server.js) ======================================
