@@ -96,8 +96,8 @@ app.get('/login',function (req, res) {
 
 app.get('/deposit',function (req, res) {
   
-  let DepositName;
-  let DepositAmount;
+  let DepositName= req.query.DepositName;
+  let DepositAmount =req.query.DepositAmount;
 
   if(!isNullOrEmpty(DepositName)){
     if(!isNullOrEmpty(DepositAmount)){
@@ -111,12 +111,12 @@ app.get('/deposit',function (req, res) {
 });
 
 app.get('/withdraw',function (req, res) {
-  let Amount;
-  let Bank;
-  let AccountNumber;
-  let Name;
-  let ContactNumber;
-  let WithdrawPassword;
+  let Amount = req.query.Amount;
+  let Bank = req.query.Bank;
+  let AccountNumber = req.query.AccountNumber;
+  let Name =req.query.Name ;
+  let ContactNumber= req.query.ContactNumber;
+  let WithdrawPassword = req.query.WithdrawPassword;
 
   if(!isNullOrEmpty(Amount)){
     if(!isNullOrEmpty(Bank)){
