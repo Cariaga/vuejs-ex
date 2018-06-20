@@ -58,6 +58,12 @@ db.on('error', console.error.bind(console, 'connection error:'));
       var count = results.length;
       console.log(count);
     });
+    
+// Equivalent
+/*var HeadOffice = new Schema({
+  Distributor: [new Schema({ name: 'string' })]
+});*/
+
 
 
 
