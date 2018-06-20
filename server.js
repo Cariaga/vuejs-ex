@@ -28,11 +28,12 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 
-var db = Mongoose.connect('mongodb://localhost/dbname', function(error){
+var db = Mongoose.connect(database.url, function(error){
     if(error) console.log(error);
 
         console.log("connection successful");
-});d
+});
+
 
 console.log("Ready Connection State :" +mongoose.connection.readyState);
 
