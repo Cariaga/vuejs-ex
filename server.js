@@ -53,8 +53,12 @@ db.on('error', console.error.bind(console, 'connection error:'));
     });
 
    // var queried = Book.collection.find({price:5});//not working
-    var count = Book.count({});
-    console.log(count);
+
+    Book.find().exec(function (err, results) {
+      var count = results.length;
+      console.log(count);
+    });
+
 
 
 /*
