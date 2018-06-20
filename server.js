@@ -41,7 +41,8 @@ app.get('/users/:userId/', function (req, res) {
 })
 
 app.get('/connectiontest/', function (req, res) {
- 
+ //mongoose.connection.readyState == 0; // not connected
+//mongoose.connection.readyState == 1; // connected
   res.send("mongoose.connection.readyState : "+mongoose.connection.readyState)
 })
 
