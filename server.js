@@ -51,7 +51,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
         console.log("Multiple documents inserted to Collection");
       }
     });
-    Book.find({price:5});
+    var queried = Book.find({price:5});
+    console.log(queried);
 
 /*
 var db = Mongoose.connect(database.url, function(error){
