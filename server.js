@@ -26,6 +26,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+console.log("Ready Connection State :" +mongoose.connection.readyState);
 
 //parameter test
 app.get('/users/:userId/', function (req, res) {
