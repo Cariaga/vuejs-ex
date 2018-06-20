@@ -54,7 +54,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
    // var queried = Book.collection.find({price:5});//not working
     var count = Book.count({});
-    console.log(queried);
+    console.log(count);
 
 
 /*
