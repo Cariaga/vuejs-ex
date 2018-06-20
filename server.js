@@ -22,10 +22,35 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse applicati
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
+
 // connect to MongoDB database
 mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+
+// define Schema
+    var BookSchema = mongoose.Schema({
+      name: String,
+      price: Number,
+      quantity: Number
+    });
+ 
+    // compile schema to model
+    var Book = mongoose.model('Book', BookSchema, 'bookstore');
+ 
+    // documents array
+    var books = [{ name: 'Mongoose Tutorial', price: 10, quantity: 25 },
+                    { name: 'NodeJS tutorial', price: 15, quantity: 5 },
+                    { name: 'MongoDB Tutorial', price: 20, quantity: 2 }];
+ 
+    // save multiple documents to the collection referenced by Book Model
+    Book.collection.insert(books, function (err, docs) {
+      if (err){ 
+          return console.error(err);
+      } else {
+        console.log("Multiple documents inserted to Collection");
+      }
+    });
 
 /*
 var db = Mongoose.connect(database.url, function(error){
@@ -39,7 +64,7 @@ app.get('/users/:userId/', function (req, res) {
  
   res.send(req.params)
 })
-//testing db connection
+//testing db connection test for mongoose
 app.get('/connectiontest/', function (req, res) {
  //mongoose.connection.readyState == 0; // not connected
 //mongoose.connection.readyState == 1; // connected
