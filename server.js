@@ -51,7 +51,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
         console.log("Multiple documents inserted to Collection");
       }
     });
-    var queried = book.find({price:5});
+
+    var queried = Book.collection.find({price:5});
     console.log(queried);
 
 
