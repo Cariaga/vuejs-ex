@@ -27,15 +27,12 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
+/*
 var db = Mongoose.connect(database.url, function(error){
     if(error) console.log(error);
 
         console.log("connection successful");
-});
-
-
-console.log("Ready Connection State :" +mongoose.connection.readyState);
+});*/
 
 //parameter test
 app.get('/users/:userId/', function (req, res) {
