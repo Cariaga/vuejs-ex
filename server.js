@@ -54,6 +54,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
     var queried = Book.find({price:5});
     console.log(queried);
 
+
 /*
 var db = Mongoose.connect(database.url, function(error){
     if(error) console.log(error);
