@@ -26,6 +26,14 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+
+
+var db = Mongoose.connect('mongodb://localhost/dbname', function(error){
+    if(error) console.log(error);
+
+        console.log("connection successful");
+});d
+
 console.log("Ready Connection State :" +mongoose.connection.readyState);
 
 //parameter test
@@ -33,6 +41,12 @@ app.get('/users/:userId/', function (req, res) {
  
   res.send(req.params)
 })
+
+app.get('/connectiontest/', function (req, res) {
+ 
+  res.send("mongoose.connection.readyState : "+mongoose.connection.readyState)
+})
+
 
 app.get('/notification/', function (req, res) {
     var NotificationData =
