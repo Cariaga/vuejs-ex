@@ -152,7 +152,7 @@ app.all('/*', function(req, res, next) {
   res.setheader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setheader('Access-Control-Allow-Headers', 'Content-Type');
   res.setheader("Access-Control-Allow-Headers", "X-Requested-With");
-  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
 
