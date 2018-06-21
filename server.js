@@ -159,6 +159,37 @@ var BlackList = mongoose.Schema(BlackListID: {
 							}
 						});
 
+var BankInformation = mongoose.Schema(Name: {
+						type: 'String'
+						},
+						BankName: {
+							type: 'String'
+						},
+						SecurityCode: {
+							type: 'String'
+						});
+var SupportTicket = mongoose.Schema(SupportTicketID: {
+							type: 'String'
+						},
+						Title: {
+							type: 'String'
+						},
+						Description: {
+							type: 'String'
+						},
+						Reason: {
+							type: 'String'
+						},
+						Date: {
+							type: 'String'
+						},
+						Time: {
+							type: 'String'
+						},
+						Status: {
+							type: 'String'
+						});
+
 
 // define Schema
     var BookSchema = mongoose.Schema({
