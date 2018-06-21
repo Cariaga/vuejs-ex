@@ -34,84 +34,82 @@ db.on('error', console.error.bind(console, 'connection error:'));
 let HeadOffice = mongoose.Schema({});
     
 
-let Distributor = mongoose.Schema(DistributorID: {type: 'String'});
+let Distributor = mongoose.Schema(DistributorID:  'String');
 
-let Contact = mongoose.Schema(ContactID: {type: 'String'},
-				Email: {type: 'String'},
-				PhoneNumber: {type: 'String'});
+let Contact = mongoose.Schema(ContactID:  'String',
+				Email:  'String',
+				PhoneNumber: 'String');
 	
-let Contact = mongoose.Schema(ShopID: {type: 'String'},
-				Name: {type: 'String'},
-				RegisteredDate: {type: 'Number'},
-				RegisteredTime: {type: 'String'},
-				Description: {type: 'String'});
+let Contact = mongoose.Schema(ShopID:  'String',
+				Name: 'String',
+				RegisteredDate: 'Number',
+				RegisteredTime: 'String',
+				Description:'String');
 
-let Player = mongoose.Schema(UserID: {type: 'String'},
-			     ScreenName: {type: 'String'},
-			     Name: {type: 'String'},
-			     Surname: {type: 'String'},
-			     RegisteredDate: {type: 'String'},
-			     RegisteredTime: {
-			     type: 'String'},
-			     CurrentRoomName: {
-			     type: 'String'});
+let Player = mongoose.Schema(UserID:'String',
+			     ScreenName:'String',
+			     Name:'String',
+			     Surname:'String',
+			     RegisteredDate:'String',
+			     RegisteredTime: 'String',
+			     CurrentRoomName:'String');
 
-let GameHistory = mongoose.Schema(SeasonID: {type: 'String'},
-				  RoundID: {type: 'String'},
-				  RoomID: {type: 'String'},
-				  Rank: {type: 'String'},
-				  Score: {type: 'Number'},
-				  Card: {type: 'String'},
-				  Date: {type: 'String'},
-				  Time: {type: 'String'},
-				  BeforePoints: {type: 'String'},
-				  AfterPoints: {type: 'String'});
+let GameHistory = mongoose.Schema(SeasonID: 'String',
+				  RoundID:'String',
+				  RoomID:'String',
+				  Rank:  'String',
+				  Score: 'Number',
+				  Card:'String',
+				  Date: 'String',
+				  Time:'String',
+				  BeforePoints: 'String',
+				  AfterPoints:'String');
 
-let LoginHistory = mongoose.Schema(HistoryID: {type: 'String'},
-				   IP: {type: 'String'},
-				   Time: {type: 'String'},
-				   Date: {type: 'String'});
-let UserAccount = mongoose.Schema(AccountType: {type: 'String'},
-				  UserName: {type: 'String'},
-				  Password: {type: 'String'},
-				  Verify: {type: 'Boolean'});
+let LoginHistory = mongoose.Schema(HistoryID:'String',
+				   IP: 'String',
+				   Time: 'String',
+				   Date:'String');
+let UserAccount = mongoose.Schema(AccountType:'String',
+				  UserName: 'String',
+				  Password:'String',
+				  Verify: 'Boolean');
 
-let BlackList = mongoose.Schema(BlackListID: {type: 'String'},
-				Reason: {type: 'String'},
-				Time: {type: 'String'},
-				Date: {type: 'String'},
-				ReleaseDate: {type: 'String'});
+let BlackList = mongoose.Schema(BlackListID: 'String',
+				Reason:  'String',
+				Time: 'String',
+				Date: 'String',
+				ReleaseDate:  'String');
 
-let BankInformation = mongoose.Schema(Name: {type: 'String'},
-				      BankName: {type: 'String'},
-				      SecurityCode: {type: 'String'});
+let BankInformation = mongoose.Schema(Name:  'String',
+				      BankName:  'String',
+				      SecurityCode: 'String');
 
-let SupportTicket = mongoose.Schema(SupportTicketID: {type: 'String'},
-				    Title: {type: 'String'},
-				    Description: {type: 'String'},
-				    Reason: {type: 'String'},
-				    Date: {type: 'String'},
-				    Time: {type: 'String'},
-				    Status: {type: 'String'});
+let SupportTicket = mongoose.Schema(SupportTicketID: 'String',
+				    Title: 'String',
+				    Description: 'String',
+				    Reason: 'String',
+				    Date:  'String',
+				    Time: 'String',
+				    Status: 'String');
 
-let Notification = mongoose.Schema(NotificationID: {type: 'String'},
-				   NotificationType: {type: 'String'},
-				   Title: {type: 'String'},
-				   Time: {type: 'String'},
-				   Date: {type: 'String'},
-				   Description: {type: 'String'});
+let Notification = mongoose.Schema(NotificationID: 'String',
+				   NotificationType: 'String',
+				   Title: 'String',
+				   Time:'String',
+				   Date:  'String',
+				   Description: 'String');
 
-let DepositHistory = mongoose.Schema(UserID: {type: 'String'},
-				     Time: {type: 'String'},
-				     Date: {type: 'String'},
-				     Amount: {type: 'Number'},
-				     Status: {type: 'String'});
+let DepositHistory = mongoose.Schema(UserID:'String'},
+				     Time: 'String',
+				     Date: 'String',
+				     Amount: 'Number',
+				     Status: 'String');
 
-let WithdrawHistory = mongoose.Schema(UserID: {type: 'String'},
-				      Time: {type: 'String'},
-				      Date: {type: 'String'},
-				      Amount: {type: 'Number'},
-				      Status: {type: 'String'});
+let WithdrawHistory = mongoose.Schema(UserID: 'String',
+				      Time: 'String',
+				      Date: 'String',
+				      Amount:'Number',
+				      Status:  'String');
 
 
 
