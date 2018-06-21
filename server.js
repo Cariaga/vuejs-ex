@@ -31,27 +31,14 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 
 
-var HeadOffice = mongoose.Schema({
-		Contact: {
-			ContactID: {
-				type: 'String'
-			},
-			Email: {
-				type: 'String'
-			},
-			PhoneNumber: {
-				type: 'String'
-			}
-		});
+var HeadOffice = mongoose.Schema({});
     
 
-var Distributor = mongoose.Schema({
-		DistributorID: {
+var Distributor = mongoose.Schema(DistributorID: {
 				type: 'String'
 			});
 
-var Contact = mongoose.Schema({
-		ContactID: {
+var Contact = mongoose.Schema(ContactID: {
 					type: 'String'
 				},
 				Email: {
@@ -60,8 +47,44 @@ var Contact = mongoose.Schema({
 				PhoneNumber: {
 					type: 'String'
 				});
+	
+var Contact = mongoose.Schema(ShopID: {
+					type: 'String'
+				},
+				Name: {
+					type: 'String'
+				},
+				RegisteredDate: {
+					type: 'Number'
+				},
+				RegisteredTime: {
+					type: 'String'
+				},
+				Description: {
+					type: 'String'
+				});
 
-
+var Player = mongoose.Schema(UserID: {
+					type: 'String'
+					},
+					ScreenName: {
+					type: 'String'
+					},
+					Name: {
+						type: 'String'
+					},
+					Surname: {
+						type: 'String'
+					},
+					RegisteredDate: {
+						type: 'String'
+					},
+					RegisteredTime: {
+						type: 'String'
+					},
+					CurrentRoomName: {
+						type: 'String'
+					});
 
 
 
