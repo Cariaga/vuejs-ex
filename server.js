@@ -148,15 +148,16 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 
 //to enable CORS required to
 app.all('/*', function(req, res, next) {
+  
+  next();
+});
+
+app.get('/jsontest/', function (req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
   res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
-
-app.get('/jsontest/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify([{"userId": 1,"id": 1,"title": "delectus aut autem","completed": false}], null, 3));
 })
