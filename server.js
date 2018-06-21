@@ -36,7 +36,7 @@ let Contact = mongoose.Schema({ContactID:  'String',
 				Email:  'String',
 				PhoneNumber: 'String'});
 	
-let Contact = mongoose.Schema({ShopID:  'String',
+let Shop = mongoose.Schema({ShopID:  'String',
 				Name: 'String',
 				RegisteredDate: 'Number',
 				RegisteredTime: 'String',
