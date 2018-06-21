@@ -116,6 +116,7 @@ let Notification = mongoose.Schema({NotificationID: 'String',
 				   Time:'String',
 				   Date:  'String',
 				   Description: 'String'});
+
 /*
 let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
@@ -129,11 +130,22 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 				      Amount:'Number',
 				      Status:  'String'});*/
 
+var NewHeadOffice = [{}];
+
+
+
+HeadOffice.collection.insert(NewHeadOffice, function (err, docs) {
+      if (err){ 
+          return console.error(err);
+      } else {
+        console.log("Multiple documents inserted to Collection");
+      }
+    });
 
 
 
 // define Schema
-    var BookSchema = mongoose.Schema({
+    /*var BookSchema = mongoose.Schema({
       name: String,
       price: Number,
       quantity: Number
@@ -154,14 +166,15 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
       } else {
         console.log("Multiple documents inserted to Collection");
       }
-    });
+    });*/
 
    // var queried = Book.collection.find({price:5});//not working
 
-    Book.find().exec(function (err, results) {
+  /*  Book.find().exec(function (err, results) {
       var count = results.length;
       console.log(count);
-    });
+    });*/
+
     
 // Equivalent
 /*var HeadOffice = new Schema({
