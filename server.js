@@ -76,103 +76,42 @@ let UserAccount = mongoose.Schema(AccountType: {type: 'String'},
 				  Password: {type: 'String'},
 				  Verify: {type: 'Boolean'});
 
-let BlackList = mongoose.Schema(BlackListID: {
-							type: 'String'
-							},
-							Reason: {
-								type: 'String'
-							},
-							Time: {
-								type: 'String'
-							},
-							Date: {
-								type: 'String'
-							},
-							ReleaseDate: {
-								type: 'String'
-							}
-						});
+let BlackList = mongoose.Schema(BlackListID: {type: 'String'},
+				Reason: {type: 'String'},
+				Time: {type: 'String'},
+				Date: {type: 'String'},
+				ReleaseDate: {type: 'String'});
 
-let BankInformation = mongoose.Schema(Name: {
-						type: 'String'
-						},
-						BankName: {
-							type: 'String'
-						},
-						SecurityCode: {
-							type: 'String'
-						});
-let SupportTicket = mongoose.Schema(SupportTicketID: {
-							type: 'String'
-						},
-						Title: {
-							type: 'String'
-						},
-						Description: {
-							type: 'String'
-						},
-						Reason: {
-							type: 'String'
-						},
-						Date: {
-							type: 'String'
-						},
-						Time: {
-							type: 'String'
-						},
-						Status: {
-							type: 'String'
-						});
+let BankInformation = mongoose.Schema(Name: {type: 'String'},
+				      BankName: {type: 'String'},
+				      SecurityCode: {type: 'String'});
 
-let Notification = mongoose.Schema(NotificationID: {
-			type: 'String'
-		},
-		NotificationType: {
-			type: 'String'
-		},
-		Title: {
-			type: 'String'
-		},
-		Time: {
-			type: 'String'
-		},
-		Date: {
-			type: 'String'
-		},
-		Description: {
-			type: 'String'
-		});
+let SupportTicket = mongoose.Schema(SupportTicketID: {type: 'String'},
+				    Title: {type: 'String'},
+				    Description: {type: 'String'},
+				    Reason: {type: 'String'},
+				    Date: {type: 'String'},
+				    Time: {type: 'String'},
+				    Status: {type: 'String'});
 
-let DepositHistory = mongoose.Schema(UserID: {
-			type: 'String'
-		},
-		Time: {
-			type: 'String'
-		},
-		Date: {
-			type: 'String'
-		},
-		Amount: {
-			type: 'Number'
-		},
-		Status: {
-			type: 'String'
-		});
-let WithdrawHistory = mongoose.Schema(UserID: {
-			type: 'String'
-		},
-		Time: {
-			type: 'String'
-		},
-		Date: {
-			type: 'String'
-		},
-		Amount: {
-			type: 'Number'
-		},
-		Status: {
-			type: 'String'
-		});
+let Notification = mongoose.Schema(NotificationID: {type: 'String'},
+				   NotificationType: {type: 'String'},
+				   Title: {type: 'String'},
+				   Time: {type: 'String'},
+				   Date: {type: 'String'},
+				   Description: {type: 'String'});
+
+let DepositHistory = mongoose.Schema(UserID: {type: 'String'},
+				     Time: {type: 'String'},
+				     Date: {type: 'String'},
+				     Amount: {type: 'Number'},
+				     Status: {type: 'String'});
+
+let WithdrawHistory = mongoose.Schema(UserID: {type: 'String'},
+				      Time: {type: 'String'},
+				      Date: {type: 'String'},
+				      Amount: {type: 'Number'},
+				      Status: {type: 'String'});
 
 
 
