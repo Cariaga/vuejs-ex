@@ -31,14 +31,14 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 
 
-var HeadOffice = mongoose.Schema({});
+let HeadOffice = mongoose.Schema({});
     
 
-var Distributor = mongoose.Schema(DistributorID: {
+let Distributor = mongoose.Schema(DistributorID: {
 				type: 'String'
 			});
 
-var Contact = mongoose.Schema(ContactID: {
+let Contact = mongoose.Schema(ContactID: {
 					type: 'String'
 				},
 				Email: {
@@ -48,7 +48,7 @@ var Contact = mongoose.Schema(ContactID: {
 					type: 'String'
 				});
 	
-var Contact = mongoose.Schema(ShopID: {
+let Contact = mongoose.Schema(ShopID: {
 					type: 'String'
 				},
 				Name: {
@@ -64,7 +64,7 @@ var Contact = mongoose.Schema(ShopID: {
 					type: 'String'
 				});
 
-var Player = mongoose.Schema(UserID: {
+let Player = mongoose.Schema(UserID: {
 					type: 'String'
 					},
 					ScreenName: {
@@ -86,7 +86,7 @@ var Player = mongoose.Schema(UserID: {
 						type: 'String'
 					});
 
-var GameHistory = mongoose.Schema(SeasonID: {
+let GameHistory = mongoose.Schema(SeasonID: {
 						type: 'String'
 						},
 						RoundID: {
@@ -117,7 +117,7 @@ var GameHistory = mongoose.Schema(SeasonID: {
 							type: 'String'
 						});
 
-var LoginHistory = mongoose.Schema(HistoryID: {
+let LoginHistory = mongoose.Schema(HistoryID: {
 						type: 'String'
 						},
 						IP: {
@@ -129,7 +129,7 @@ var LoginHistory = mongoose.Schema(HistoryID: {
 						Date: {
 							type: 'String'
 						});
-var UserAccount = mongoose.Schema(AccountType: {
+let UserAccount = mongoose.Schema(AccountType: {
 							type: 'String'
 						},
 						UserName: {
@@ -142,7 +142,7 @@ var UserAccount = mongoose.Schema(AccountType: {
 							type: 'Boolean'
 						});
 
-var BlackList = mongoose.Schema(BlackListID: {
+let BlackList = mongoose.Schema(BlackListID: {
 							type: 'String'
 							},
 							Reason: {
@@ -159,7 +159,7 @@ var BlackList = mongoose.Schema(BlackListID: {
 							}
 						});
 
-var BankInformation = mongoose.Schema(Name: {
+let BankInformation = mongoose.Schema(Name: {
 						type: 'String'
 						},
 						BankName: {
@@ -168,7 +168,7 @@ var BankInformation = mongoose.Schema(Name: {
 						SecurityCode: {
 							type: 'String'
 						});
-var SupportTicket = mongoose.Schema(SupportTicketID: {
+let SupportTicket = mongoose.Schema(SupportTicketID: {
 							type: 'String'
 						},
 						Title: {
@@ -190,7 +190,7 @@ var SupportTicket = mongoose.Schema(SupportTicketID: {
 							type: 'String'
 						});
 
-var Notification = mongoose.Schema(NotificationID: {
+let Notification = mongoose.Schema(NotificationID: {
 			type: 'String'
 		},
 		NotificationType: {
@@ -209,7 +209,7 @@ var Notification = mongoose.Schema(NotificationID: {
 			type: 'String'
 		});
 
-var DepositHistory = mongoose.Schema(UserID: {
+let DepositHistory = mongoose.Schema(UserID: {
 			type: 'String'
 		},
 		Time: {
@@ -224,7 +224,7 @@ var DepositHistory = mongoose.Schema(UserID: {
 		Status: {
 			type: 'String'
 		});
-var WithdrawHistory = mongoose.Schema(UserID: {
+let WithdrawHistory = mongoose.Schema(UserID: {
 			type: 'String'
 		},
 		Time: {
