@@ -190,6 +190,57 @@ var SupportTicket = mongoose.Schema(SupportTicketID: {
 							type: 'String'
 						});
 
+var Notification = mongoose.Schema(NotificationID: {
+			type: 'String'
+		},
+		NotificationType: {
+			type: 'String'
+		},
+		Title: {
+			type: 'String'
+		},
+		Time: {
+			type: 'String'
+		},
+		Date: {
+			type: 'String'
+		},
+		Description: {
+			type: 'String'
+		});
+
+var DepositHistory = mongoose.Schema(UserID: {
+			type: 'String'
+		},
+		Time: {
+			type: 'String'
+		},
+		Date: {
+			type: 'String'
+		},
+		Amount: {
+			type: 'Number'
+		},
+		Status: {
+			type: 'String'
+		});
+var WithdrawHistory = mongoose.Schema(UserID: {
+			type: 'String'
+		},
+		Time: {
+			type: 'String'
+		},
+		Date: {
+			type: 'String'
+		},
+		Amount: {
+			type: 'Number'
+		},
+		Status: {
+			type: 'String'
+		});
+
+
 
 // define Schema
     var BookSchema = mongoose.Schema({
