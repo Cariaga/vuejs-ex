@@ -146,6 +146,9 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
   Distributor: [new Schema({ name: 'string' })]
 });*/
 
+
+//to enable CORS required for json request get put post and http cross
+//https must be enabled
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -163,18 +166,6 @@ app.use(function (req, res, next) {
 
     // Pass to next layer of middleware
     next();
-});
-
-//to enable CORS required for json request get put post and http cross
-//https must be enabled
-app.all('/*', function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Content-Type', 'application/json');
-  next();
 });
 
 
