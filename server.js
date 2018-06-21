@@ -29,8 +29,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 
-
-
 let Contact = mongoose.Schema({ContactID:  'String',
 				Email:  'String',
 				PhoneNumber: 'String'});
