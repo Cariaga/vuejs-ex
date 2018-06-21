@@ -150,7 +150,7 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 app.get('/jsontest/', function (req, res) {
  //mongoose.connection.readyState == 0; // not connected
 //mongoose.connection.readyState == 1; // connected
-  res.send("[
+  res.send('[
   {
     "userId": 1,
     "id": 1,
@@ -169,7 +169,7 @@ app.get('/jsontest/', function (req, res) {
     "title": "fugiat veniam minus",
     "completed": false
   }
-]");
+]');
 })
 
 
