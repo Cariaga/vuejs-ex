@@ -165,7 +165,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-//to enable CORS required to
+//to enable CORS required for json request get put post and http cross
+//https must be enabled
 app.all('/*', function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
