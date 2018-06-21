@@ -115,9 +115,14 @@ let NotificationSchema = mongoose.Schema({NotificationID: 'String',
 				   Title: 'String',
 				   Time:'String',
 				   Date:  'String',
+<<<<<<< HEAD
            Description: 'String'});
            
            
+=======
+				   Description: 'String'});
+
+>>>>>>> 6fa82b6a16be5c90e555d3fe4610ace71c65dfcb
 /*
 let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
@@ -131,6 +136,7 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 				      Amount:'Number',
 				      Status:  'String'});*/
 
+<<<<<<< HEAD
   
 var HeadOffice = mongoose.model('HeadOffice', HeadOfficeSchema, 'HeadOffice');
 var Distributor = mongoose.model('Distributor', DistributorSchema, 'Distributor');
@@ -221,11 +227,24 @@ ToAddHeadOffice.save(function (err) {
   // saved!
 });
 
+=======
+var NewHeadOffice = [{}];
+
+
+
+HeadOffice.collection.insert(NewHeadOffice, function (err, docs) {
+      if (err){ 
+          return console.error(err);
+      } else {
+        console.log("Multiple documents inserted to Collection");
+      }
+    });
+>>>>>>> 6fa82b6a16be5c90e555d3fe4610ace71c65dfcb
 
 
 
 // define Schema
-    var BookSchema = mongoose.Schema({
+    /*var BookSchema = mongoose.Schema({
       name: String,
       price: Number,
       quantity: Number
@@ -246,14 +265,15 @@ ToAddHeadOffice.save(function (err) {
       } else {
         console.log("Multiple documents inserted to Collection");
       }
-    });
+    });*/
 
    // var queried = Book.collection.find({price:5});//not working
 
-    Book.find().exec(function (err, results) {
+  /*  Book.find().exec(function (err, results) {
       var count = results.length;
       console.log(count);
-    });
+    });*/
+
     
 // Equivalent
 /*var HeadOffice = new Schema({
