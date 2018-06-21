@@ -147,6 +147,30 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 });*/
 
 
+app.get('/jsontest/', function (req, res) {
+ //mongoose.connection.readyState == 0; // not connected
+//mongoose.connection.readyState == 1; // connected
+  res.send("[
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "delectus aut autem",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 2,
+    "title": "quis ut nam facilis et officia qui",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 3,
+    "title": "fugiat veniam minus",
+    "completed": false
+  }
+]");
+})
 
 
 /*
