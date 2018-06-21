@@ -29,11 +29,11 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 
-let Contact = mongoose.Schema({ContactID:  'String',
+let ContactSchema = mongoose.Schema({ContactID:  'String',
 				Email:  'String',
 				PhoneNumber: 'String'});
 
-let GameHistory = mongoose.Schema({SeasonID: 'String',
+let GameHistorySchema = mongoose.Schema({SeasonID: 'String',
 				  RoundID:'String',
 				  RoomID:'String',
 				  Rank:  'String',
@@ -44,27 +44,27 @@ let GameHistory = mongoose.Schema({SeasonID: 'String',
 				  BeforePoints: 'String',
 				  AfterPoints:'String'});
 
-let LoginHistory = mongoose.Schema({HistoryID:'String',
+let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
 				   Time: 'String',
 				   Date:'String'});
 
-let UserAccount = mongoose.Schema({AccountType:'String',
+let UserAccountSchema = mongoose.Schema({AccountType:'String',
 				  UserName: 'String',
 				  Password:'String',
 				  Verify: 'Boolean'});
 
-let BankInformation = mongoose.Schema({Name:  'String',
+let BankInformationSchema = mongoose.Schema({Name:  'String',
 				      BankName:  'String',
 				      SecurityCode: 'String'});
 
-let BlackList = mongoose.Schema({BlackListID: 'String',
+let BlackListSchema = mongoose.Schema({BlackListID: 'String',
 				Reason:  'String',
 				Time: 'String',
 				Date: 'String',
 				ReleaseDate:  'String'});
 
-let SupportTicket = mongoose.Schema({SupportTicketID: 'String',
+let SupportTicketSchema = mongoose.Schema({SupportTicketID: 'String',
 				    Title: 'String',
 				    Description: 'String',
 				    Reason: 'String',
@@ -72,50 +72,52 @@ let SupportTicket = mongoose.Schema({SupportTicketID: 'String',
 				    Time: 'String',
 				    Status: 'String'});
 
-let Player = mongoose.Schema({UserID:'String',
+let PlayerSchema = mongoose.Schema({UserID:'String',
 			     ScreenName:'String',
 			     Name:'String',
 			     Surname:'String',
 			     RegisteredDate:'String',
 			     RegisteredTime: 'String',
 			     CurrentRoomName:'String',
-			     GameHistory:[GameHistory],
-			     LoginHistory:[LoginHistory],
-			     UserAccount:[UserAccount],
-			     BankInformation:[BankInformation],
-			     BlackList:[BlackList],
-			     SupportTicket:[SupportTicket]
+			     GameHistory:[GameHistorySchema],
+			     LoginHistory:[LoginHistorySchema],
+			     UserAccount:[UserAccountSchema],
+			     BankInformation:[BankInformationSchema],
+			     BlackList:[BlackListSchema],
+			     SupportTicket:[SupportTicketSchema]
 			     });
 
 
 
-let Shop = mongoose.Schema({ShopID:  'String',
+let ShopSchema = mongoose.Schema({ShopID:  'String',
 				Name: 'String',
 				RegisteredDate: 'Number',
 				RegisteredTime: 'String',
 				Description:'String',
-			    	Contact:[Contact],
-			    	Shop:[Player]
+			    	Contact:[ContactSchema],
+			    	Shop:[PlayerSchema]
 			   });
 
 
-let Distributor = mongoose.Schema({DistributorID:'String',
-				   Shop:[Shop],
-				   Contact:[Contact]
+let DistributorSchema = mongoose.Schema({DistributorID:'String',
+				   Shop:[ShopSchema],
+				   Contact:[ContactSchema]
 				  
 				  });
-let HeadOffice = mongoose.Schema({Distributor:[Distributor],
-				 Contact:[Contact]
+let HeadOfficeSchema = mongoose.Schema({Distributor:[DistributorSchema],
+				 Contact:[ContactSchema]
 				 });
 
 
 
-let Notification = mongoose.Schema({NotificationID: 'String',
+let NotificationSchema = mongoose.Schema({NotificationID: 'String',
 				   NotificationType: 'String',
 				   Title: 'String',
 				   Time:'String',
 				   Date:  'String',
-				   Description: 'String'});
+           Description: 'String'});
+           
+           
 /*
 let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
@@ -128,6 +130,96 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 				      Date: 'String',
 				      Amount:'Number',
 				      Status:  'String'});*/
+
+  
+var HeadOffice = mongoose.model('HeadOffice', HeadOfficeSchema, 'HeadOffice');
+var Distributor = mongoose.model('Distributor', DistributorSchema, 'Distributor');
+var Shop = mongoose.model('Shop', ShopSchema, 'Shop');
+var Player = mongoose.model('Player', PlayerSchema, 'Player');
+var SupportTicket = mongoose.model('SupportTicket', SupportTicketSchema, 'SupportTicket');
+var BlackList = mongoose.model('BlackList', BlackListSchema, 'BlackList');
+var BankInformation = mongoose.model('BankInformation', BankInformationSchema, 'BankInformation');
+var UserAccount = mongoose.model('UserAccount', UserAccountSchema, 'UserAccount');
+var LoginHistory = mongoose.model('LoginHistory', LoginHistory, 'LoginHistory');
+var GameHistory = mongoose.model('GameHistory', GameHistorySchema, 'GameHistory');
+var Contact = mongoose.model('GameHistory', ContactSchema, 'Contact');
+
+var ToAddContact = new Contact({ });
+ToAddContact.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+var ToAddGameHistory = new GameHistory({ });
+ToAddGameHistory.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+var ToAddLoginHistory = new LoginHistory({ });
+ToAddLoginHistory.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+var ToAddUserAccount = new UserAccount({ });
+ToAddUserAccount.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+var ToAddBankInformation = new BankInformation({ });
+ToAddBankInformation.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+var ToAddBlackList = new BlackList({ });
+ToAddBlackList.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+
+var ToAddSupportTicket = new SupportTicket({ });
+ToAddSupportTicket.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+
+var ToAddPlayer = new Player({ 
+           ScreenName:'String',
+			     Name:'String',
+			     Surname:'String',
+			     RegisteredDate:'String',
+			     RegisteredTime: 'String',
+			     CurrentRoomName:'String'
+ });
+ToAddPlayer.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+
+var ToAddShop = new Shop({ ToAddPlayer,ToAddContact });
+ToAddShop.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+
+var ToAddDistributor = new Distributor({ ToAddShop });
+ToAddDistributor.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+var ToAddHeadOffice = new HeadOffice({ Distributor:ToAddDistributor,Contact:ToAddContact });
+ToAddHeadOffice.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
 
 
 
