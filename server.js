@@ -95,7 +95,7 @@ let Notification = mongoose.Schema({NotificationID: 'String',
 				   Date:  'String',
 				   Description: 'String'});
 
-let DepositHistory = mongoose.Schema({UserID:'String'},
+let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
 				     Date: 'String',
 				     Amount: 'Number',
