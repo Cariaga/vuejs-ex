@@ -86,8 +86,78 @@ var Player = mongoose.Schema(UserID: {
 						type: 'String'
 					});
 
+var GameHistory = mongoose.Schema(SeasonID: {
+						type: 'String'
+						},
+						RoundID: {
+							type: 'String'
+						},
+						RoomID: {
+							type: 'String'
+						},
+						Rank: {
+							type: 'String'
+						},
+						Score: {
+							type: 'Number'
+						},
+						Card: {
+							type: 'String'
+						},
+						Date: {
+							type: 'String'
+						},
+						Time: {
+							type: 'String'
+						},
+						BeforePoints: {
+							type: 'String'
+						},
+						AfterPoints: {
+							type: 'String'
+						});
 
+var LoginHistory = mongoose.Schema(HistoryID: {
+						type: 'String'
+						},
+						IP: {
+							type: 'String'
+						},
+						Time: {
+							type: 'String'
+						},
+						Date: {
+							type: 'String'
+						});
+var UserAccount = mongoose.Schema(AccountType: {
+							type: 'String'
+						},
+						UserName: {
+							type: 'String'
+						},
+						Password: {
+							type: 'String'
+						},
+						Verify: {
+							type: 'Boolean'
+						});
 
+var BlackList = mongoose.Schema(BlackListID: {
+							type: 'String'
+							},
+							Reason: {
+								type: 'String'
+							},
+							Time: {
+								type: 'String'
+							},
+							Date: {
+								type: 'String'
+							},
+							ReleaseDate: {
+								type: 'String'
+							}
+						});
 
 
 // define Schema
