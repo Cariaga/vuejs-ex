@@ -28,6 +28,45 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
+
+
+
+var HeadOffice = mongoose.Schema({
+		Contact: {
+			ContactID: {
+				type: 'String'
+			},
+			Email: {
+				type: 'String'
+			},
+			PhoneNumber: {
+				type: 'String'
+			}
+		});
+    
+
+var Distributor = mongoose.Schema({
+		DistributorID: {
+				type: 'String'
+			});
+
+var Contact = mongoose.Schema({
+		ContactID: {
+					type: 'String'
+				},
+				Email: {
+					type: 'String'
+				},
+				PhoneNumber: {
+					type: 'String'
+				});
+
+
+
+
+
+
+
 // define Schema
     var BookSchema = mongoose.Schema({
       name: String,
