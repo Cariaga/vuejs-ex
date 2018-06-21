@@ -28,27 +28,12 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-let HeadOffice = mongoose.Schema({});
-    
-let Distributor = mongoose.Schema({DistributorID:'String'});
+
+
 
 let Contact = mongoose.Schema({ContactID:  'String',
 				Email:  'String',
 				PhoneNumber: 'String'});
-	
-let Shop = mongoose.Schema({ShopID:  'String',
-				Name: 'String',
-				RegisteredDate: 'Number',
-				RegisteredTime: 'String',
-				Description:'String'});
-
-let Player = mongoose.Schema({UserID:'String',
-			     ScreenName:'String',
-			     Name:'String',
-			     Surname:'String',
-			     RegisteredDate:'String',
-			     RegisteredTime: 'String',
-			     CurrentRoomName:'String'});
 
 let GameHistory = mongoose.Schema({SeasonID: 'String',
 				  RoundID:'String',
@@ -65,20 +50,21 @@ let LoginHistory = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
 				   Time: 'String',
 				   Date:'String'});
+
 let UserAccount = mongoose.Schema({AccountType:'String',
 				  UserName: 'String',
 				  Password:'String',
 				  Verify: 'Boolean'});
+
+let BankInformation = mongoose.Schema({Name:  'String',
+				      BankName:  'String',
+				      SecurityCode: 'String'});
 
 let BlackList = mongoose.Schema({BlackListID: 'String',
 				Reason:  'String',
 				Time: 'String',
 				Date: 'String',
 				ReleaseDate:  'String'});
-
-let BankInformation = mongoose.Schema({Name:  'String',
-				      BankName:  'String',
-				      SecurityCode: 'String'});
 
 let SupportTicket = mongoose.Schema({SupportTicketID: 'String',
 				    Title: 'String',
@@ -88,13 +74,51 @@ let SupportTicket = mongoose.Schema({SupportTicketID: 'String',
 				    Time: 'String',
 				    Status: 'String'});
 
+let Player = mongoose.Schema({UserID:'String',
+			     ScreenName:'String',
+			     Name:'String',
+			     Surname:'String',
+			     RegisteredDate:'String',
+			     RegisteredTime: 'String',
+			     CurrentRoomName:'String',
+			     GameHistory:[GameHistory],
+			     LoginHistory:[LoginHistory],
+			     UserAccount:[UserAccount],
+			     BankInformation:[BankInformation],
+			     BlackList:[BlackList],
+			     SupportTicket:[SupportTicket]
+			     });
+
+
+
+let Shop = mongoose.Schema({ShopID:  'String',
+				Name: 'String',
+				RegisteredDate: 'Number',
+				RegisteredTime: 'String',
+				Description:'String',
+			    	Contact:[Contact],
+			    	Shop:[Player]
+			   });
+
+
+let Distributor = mongoose.Schema({DistributorID:'String',
+				   Shop:[Shop],
+				   Contact:[Contact]
+				  
+				  });
+let HeadOffice = mongoose.Schema({Distributor:[Distributor],
+				 Contact:[Contact]
+				 });
+
+
+
 let Notification = mongoose.Schema({NotificationID: 'String',
 				   NotificationType: 'String',
 				   Title: 'String',
 				   Time:'String',
 				   Date:  'String',
 				   Description: 'String'});
-
+/*
 let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
 				     Date: 'String',
@@ -105,7 +129,7 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 				      Time: 'String',
 				      Date: 'String',
 				      Amount:'Number',
-				      Status:  'String'});
+				      Status:  'String'});*/
 
 
 
