@@ -40,9 +40,17 @@ var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost +
 //connect to Mysql database
 
 var mysqlClient = mysql.createConnection(mysqlString);
+
+mysqlClient.query('SELECT * from users', function(err, rows, fields) {
+  if(err) console.log(err);
+  console.log('The solution is: ', rows);
+  mysqlClient.end();
+});
+
+/*
 mysqlClient.connect(function(err){
   if (err) console.log( "SOME ERROR :" +err);
-});
+});*/
 
 
 
