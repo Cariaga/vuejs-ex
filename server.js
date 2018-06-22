@@ -151,7 +151,7 @@ var ToAddContact = new Contact({ });
   // saved!
 });*/
 
-var ToAddGameHistory ={
+var ToAddGameHistory =[{
           SeasonID: 'somthing',
 				  RoundID:'somthing',
 				  RoomID:'somthing',
@@ -162,7 +162,7 @@ var ToAddGameHistory ={
 				  Time:'somthing',
 				  BeforePoints: 'somthing',
 				  AfterPoints:'somthing'
- };
+ }];
 
 
  GameHistory.collection.insert(ToAddGameHistory, function (err, docs) {
