@@ -35,15 +35,15 @@ let ContactSchema = mongoose.Schema({ContactID:  'String',
 				PhoneNumber: 'String'});
 
 let GameHistorySchema = mongoose.Schema({SeasonID: 'String',
-				  RoundID:'String',
-				  RoomID:'String',
-				  Rank:  'String',
-				  Score: 'Number',
-				  Card:'String',
-				  Date: 'String',
-				  Time:'String',
-				  BeforePoints: 'String',
-				  AfterPoints:'String'});
+				  RoundID:String,
+				  RoomID:String,
+				  Rank:  String,
+				  Score: Number,
+				  Card:String,
+				  Date: String,
+				  Time:String,
+				  BeforePoints: String,
+				  AfterPoints:String});
 
 let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
@@ -197,7 +197,7 @@ HeadOffice.collection.insert(NewHeadOffice, function (err, docs) {
 
 
 // define Schema
-    /*var BookSchema = mongoose.Schema({
+    var BookSchema = mongoose.Schema({
       name: String,
       price: Number,
       quantity: Number
@@ -218,14 +218,14 @@ HeadOffice.collection.insert(NewHeadOffice, function (err, docs) {
       } else {
         console.log("Multiple documents inserted to Collection");
       }
-    });*/
+    });
 
    // var queried = Book.collection.find({price:5});//not working
 
-  /*  Book.find().exec(function (err, results) {
+    Book.find().exec(function (err, results) {
       var count = results.length;
       console.log(count);
-    });*/
+    });
 
     
 // Equivalent
