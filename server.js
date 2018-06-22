@@ -150,7 +150,7 @@ var ToAddContact = new Contact({ });
   // saved!
 });*/
 
-var ToAddGameHistory = new GameHistory({
+var ToAddGameHistory = new GameHistorySchema({
           SeasonID: 'String',
 				  RoundID:'String',
 				  RoomID:'String',
