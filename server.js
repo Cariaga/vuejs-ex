@@ -164,9 +164,13 @@ var ToAddGameHistory =new GameHistory({
 				  AfterPoints:'somthing'
  });
 
- ToAddGameHistory.save(function (err, record) {
-  if (err) return console.error(err);
-  console.log(record.SeasonID + " saved to GameHistory collection.");
+ 
+ ToAddGameHistory.collection.insert(books, function (err, docs) {
+  if (err){ 
+      return console.error(err);
+  } else {
+    console.log("Multiple documents inserted to Collection");
+  }
 });
 
 
