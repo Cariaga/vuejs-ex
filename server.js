@@ -145,7 +145,7 @@ var UserAccount = mongoose.model('UserAccount', UserAccountSchema, 'UserAccount'
 var LoginHistory = mongoose.model('LoginHistory', LoginHistorySchema, 'LoginHistory');
 var GameHistory = mongoose.model('GameHistory', GameHistorySchema,'GameHistory');
 var Contact = mongoose.model('GameHistory', ContactSchema, 'Contact');
-
+console.log("Passed GameHistory");
 
 var ToAddContact = new Contact({ });
 /*ToAddContact.save(function (err) {
