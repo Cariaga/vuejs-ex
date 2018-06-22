@@ -31,8 +31,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 var mysqlHost = process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost';
 var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
-var mysqlUser = 'user'; //mysql username
-var mysqlPass = 'user'; //mysql password
+var mysqlUser = 'root'; //mysql username
+var mysqlPass = 'root'; //mysql password
 var mysqlDb   = 'sampledb'; //mysql database name
 
 var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost + ':' + mysqlPort + '/' + mysqlDb;
