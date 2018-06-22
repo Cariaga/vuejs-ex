@@ -150,87 +150,26 @@ var ToAddContact = new Contact({ });
   // saved!
 });*/
 
-var ToAddGameHistory = new GameHistorySchema({
-          SeasonID: 'String',
-				  RoundID:'String',
-				  RoomID:'String',
-				  Rank:  'String',
-				  Score: 'Number',
-				  Card:'String',
-				  Date: 'String',
-				  Time:'String',
-				  BeforePoints: 'String',
-				  AfterPoints:'String'
- });
+var ToAddGameHistory = {
+          SeasonID: 'somthing',
+				  RoundID:'somthing',
+				  RoomID:'somthing',
+				  Rank:  'somthing',
+				  Score: 8,
+				  Card:'somthing',
+				  Date: 'somthing',
+				  Time:'somthing',
+				  BeforePoints: 'somthing',
+				  AfterPoints:'somthing'
+ };
+ GameHistory.insert(ToAddGameHistory);
+
+
 /*ToAddGameHistory.save(function (err) {
   if (err) return handleError(err);
   // saved!
 });*/
 
-var ToAddLoginHistory = new LoginHistory({ });
-/*ToAddLoginHistory.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-var ToAddUserAccount = new UserAccount({ });
-/*ToAddUserAccount.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-var ToAddBankInformation = new BankInformation({ });
-/*ToAddBankInformation.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-var ToAddBlackList = new BlackList({ });
-/*ToAddBlackList.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-
-var ToAddSupportTicket = new SupportTicket({ });
-/*ToAddSupportTicket.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-
-var ToAddPlayer = new Player({ 
-           ScreenName:'String',
-			     Name:'String',
-			     Surname:'String',
-			     RegisteredDate:'String',
-			     RegisteredTime: 'String',
-			     CurrentRoomName:'String'
- });
-/*ToAddPlayer.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-
-var ToAddShop = new Shop({ ToAddPlayer,ToAddContact });
-/*ToAddShop.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-
-var ToAddDistributor = new Distributor({ Shop:ToAddShop, });
-/*ToAddDistributor.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});*/
-
-var ToAddHeadOffice = new HeadOffice({ Distributor:ToAddDistributor,Contact:ToAddContact });
-ToAddHeadOffice.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});
 
 var NewHeadOffice = [{}];
 
