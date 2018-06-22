@@ -34,7 +34,7 @@ let ContactSchema = mongoose.Schema({ContactID:  'String',
 				Email:  'String',
 				PhoneNumber: 'String'});
 
-let GameHistorySchema = mongoose.Schema({
+let GameHistorySchema = db.Schema({
           SeasonID: {type:String, default: ""},
 				  RoundID:{type:String, default: ""},
 				  RoomID:{type:String, default: ""},
@@ -58,6 +58,7 @@ let UserAccountSchema = mongoose.Schema({AccountType:'String',
 				  Password:'String',
 				  Verify: 'Boolean'});
 console.log("Passed UserAccountSchema");
+
 let BankInformationSchema = mongoose.Schema({Name:  'String',
 				      BankName:  'String',
 				      SecurityCode: 'String'});
