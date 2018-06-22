@@ -45,18 +45,19 @@ let GameHistorySchema = mongoose.Schema({
 				  Time:{type:String, default: ""},
 				  BeforePoints: {type:String, default: ""},
           AfterPoints:{type:String, default: ""}});
-          
+
 console.log("Passed GameHistorySchema");
 let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
 				   Time: 'String',
 				   Date:'String'});
+console.log("Passed LoginHistorySchema");
 
 let UserAccountSchema = mongoose.Schema({AccountType:'String',
 				  UserName: 'String',
 				  Password:'String',
 				  Verify: 'Boolean'});
-
+console.log("Passed UserAccountSchema");
 let BankInformationSchema = mongoose.Schema({Name:  'String',
 				      BankName:  'String',
 				      SecurityCode: 'String'});
