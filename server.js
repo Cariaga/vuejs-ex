@@ -115,14 +115,9 @@ let NotificationSchema = mongoose.Schema({NotificationID: 'String',
 				   Title: 'String',
 				   Time:'String',
 				   Date:  'String',
-<<<<<<< HEAD
            Description: 'String'});
            
            
-=======
-				   Description: 'String'});
-
->>>>>>> 6fa82b6a16be5c90e555d3fe4610ace71c65dfcb
 /*
 let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
@@ -136,7 +131,6 @@ let WithdrawHistory = mongoose.Schema({UserID: 'String',
 				      Amount:'Number',
 				      Status:  'String'});*/
 
-<<<<<<< HEAD
   
 var HeadOffice = mongoose.model('HeadOffice', HeadOfficeSchema, 'HeadOffice');
 var Distributor = mongoose.model('Distributor', DistributorSchema, 'Distributor');
@@ -151,47 +145,47 @@ var GameHistory = mongoose.model('GameHistory', GameHistorySchema, 'GameHistory'
 var Contact = mongoose.model('GameHistory', ContactSchema, 'Contact');
 
 var ToAddContact = new Contact({ });
-ToAddContact.save(function (err) {
+/*ToAddContact.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 var ToAddGameHistory = new GameHistory({ });
-ToAddGameHistory.save(function (err) {
+/*ToAddGameHistory.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 var ToAddLoginHistory = new LoginHistory({ });
-ToAddLoginHistory.save(function (err) {
+/*ToAddLoginHistory.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 var ToAddUserAccount = new UserAccount({ });
-ToAddUserAccount.save(function (err) {
+/*ToAddUserAccount.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 var ToAddBankInformation = new BankInformation({ });
-ToAddBankInformation.save(function (err) {
+/*ToAddBankInformation.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 var ToAddBlackList = new BlackList({ });
-ToAddBlackList.save(function (err) {
+/*ToAddBlackList.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 
 var ToAddSupportTicket = new SupportTicket({ });
-ToAddSupportTicket.save(function (err) {
+/*ToAddSupportTicket.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 
 var ToAddPlayer = new Player({ 
@@ -202,24 +196,24 @@ var ToAddPlayer = new Player({
 			     RegisteredTime: 'String',
 			     CurrentRoomName:'String'
  });
-ToAddPlayer.save(function (err) {
+/*ToAddPlayer.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 
 var ToAddShop = new Shop({ ToAddPlayer,ToAddContact });
-ToAddShop.save(function (err) {
+/*ToAddShop.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 
-var ToAddDistributor = new Distributor({ ToAddShop });
-ToAddDistributor.save(function (err) {
+var ToAddDistributor = new Distributor({ Shop:ToAddShop, });
+/*ToAddDistributor.save(function (err) {
   if (err) return handleError(err);
   // saved!
-});
+});*/
 
 var ToAddHeadOffice = new HeadOffice({ Distributor:ToAddDistributor,Contact:ToAddContact });
 ToAddHeadOffice.save(function (err) {
@@ -227,7 +221,6 @@ ToAddHeadOffice.save(function (err) {
   // saved!
 });
 
-=======
 var NewHeadOffice = [{}];
 
 
@@ -239,7 +232,6 @@ HeadOffice.collection.insert(NewHeadOffice, function (err, docs) {
         console.log("Multiple documents inserted to Collection");
       }
     });
->>>>>>> 6fa82b6a16be5c90e555d3fe4610ace71c65dfcb
 
 
 
