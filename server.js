@@ -34,7 +34,7 @@ let ContactSchema = mongoose.Schema({ContactID:  'String',
 				Email:  'String',
 				PhoneNumber: 'String'});
 
-let GameHistorySchema = db.Schema({
+let GameHistorySchema = mongoose.Schema({
           SeasonID: {type:String, default: ""},
 				  RoundID:{type:String, default: ""},
 				  RoomID:{type:String, default: ""},
