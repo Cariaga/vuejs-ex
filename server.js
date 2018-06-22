@@ -48,15 +48,7 @@ const connection = mysql.createConnection({
   database : process.env.OPENSHIFT_APP_NAME
 });
  
-// simple query
-connection.query(
-  'SELECT 1',
-  function(err, results, fields) {
-    console.log(err);
-    console.log(results); // results contains rows returned by server
-    console.log(fields); // fields contains extra meta data about results, if available
-  }
-);
+
  
 // with placeholder
 /*connection.query(
@@ -70,7 +62,16 @@ connection.query(
 
 
 
-
+app.get('/mysqltest', function (req, res) {
+  // simple query
+connection.query(
+  'SELECT 1',
+  function(err, results, fields) {
+    console.log(err);
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+  }
+)
 
 
 
@@ -120,6 +121,7 @@ app.get('/jsontest/', function (req, res) {
   
   res.send(JSON.stringify([{"userId": 1,"id": 1,"title": "delectus aut autem","completed": false},{"userId": 12,"id": 12,"title": "delectus aut autem2","completed": false}], null, 3));
 })
+
 
 
 /*
