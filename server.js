@@ -11,7 +11,7 @@ var Schema = mongoose.Schema;
 var database = require('./config/database'); //load the database config
 var request = require('request');
 var isNullOrEmpty = require('is-null-or-empty');
-
+var mysql      = require('mysql');
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -29,7 +29,20 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
+//connect to Mysql database
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'user',
+  password : 'user'
+});
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+ 
+  console.log('connected as id ' + connection.threadId);
+});
 
 
 //to enable CORS required for json request get put post and http cross
