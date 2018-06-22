@@ -7,6 +7,7 @@ var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
 var mongoose = require('mongoose'); // mongoose for mongodb
+var Schema = mongoose.Schema;
 var database = require('./config/database'); //load the database config
 var request = require('request');
 var isNullOrEmpty = require('is-null-or-empty');
@@ -163,10 +164,11 @@ var ToAddGameHistory =new GameHistory({
 				  AfterPoints:'somthing'
  });
 
- ToAddGameHistory.save(function (err, book) {
+ ToAddGameHistory.save(function (err, record) {
   if (err) return console.error(err);
-  console.log(ToAddGameHistory.SeasonID + " saved to GameHistory collection.");
+  console.log(record.SeasonID + " saved to GameHistory collection.");
 });
+
 
 
 
