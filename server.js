@@ -33,8 +33,9 @@ db.on('error', console.error.bind(console, 'connection error:'));
  
 // simple query
 
-app.get('/testsql', function (req, res) {
-    var mysqlHost =process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost';
+app.get('/testsql/:ip/', function (req, res) {
+    var mysqlHost =req.params.ip;
+    
   var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
   var mysqlUser = 'user'; //mysql username
   var mysqlPass = 'user'; //mysql password
