@@ -129,7 +129,7 @@ let NotificationSchema = mongoose.Schema({NotificationID: 'String',
            Description: 'String'});
            
 console.log("Passed NotificationSchema");   
-       
+
 /*
 let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
@@ -154,7 +154,7 @@ var BankInformation = mongoose.model('BankInformation', BankInformationSchema, '
 var UserAccount = mongoose.model('UserAccount', UserAccountSchema, 'UserAccount');
 var LoginHistory = mongoose.model('LoginHistory', LoginHistorySchema, 'LoginHistory');
 var GameHistory = mongoose.model('GameHistory', GameHistorySchema,'GameHistory');
-var Contact = mongoose.model('GameHistory', ContactSchema, 'Contact');
+var Contact = mongoose.model('Contact', ContactSchema, 'Contact');
 console.log("Passed GameHistory");
 
 var ToAddContact = new Contact({ });
