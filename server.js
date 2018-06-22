@@ -105,17 +105,21 @@ let ShopSchema = mongoose.Schema({ShopID:  'String',
 			    	Shop:[PlayerSchema]
 			   });
 
+console.log("Passed ShopSchema");
 
 let DistributorSchema = mongoose.Schema({DistributorID:'String',
 				   Shop:[ShopSchema],
 				   Contact:[ContactSchema]
 				  
-				  });
+          });
+console.log("Passed DistributorSchema");
+
+
 let HeadOfficeSchema = mongoose.Schema({Distributor:[DistributorSchema],
 				 Contact:[ContactSchema]
 				 });
 
-
+console.log("Passed HeadOfficeSchema");
 
 let NotificationSchema = mongoose.Schema({NotificationID: 'String',
 				   NotificationType: 'String',
@@ -124,7 +128,8 @@ let NotificationSchema = mongoose.Schema({NotificationID: 'String',
 				   Date:  'String',
            Description: 'String'});
            
-           
+console.log("Passed NotificationSchema");   
+       
 /*
 let DepositHistory = mongoose.Schema({UserID:'String',
 				     Time: 'String',
