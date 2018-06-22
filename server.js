@@ -150,7 +150,18 @@ var ToAddContact = new Contact({ });
   // saved!
 });*/
 
-var ToAddGameHistory = new GameHistory({ });
+var ToAddGameHistory = new GameHistory({
+          SeasonID: 'String',
+				  RoundID:'String',
+				  RoomID:'String',
+				  Rank:  'String',
+				  Score: 'Number',
+				  Card:'String',
+				  Date: 'String',
+				  Time:'String',
+				  BeforePoints: 'String',
+				  AfterPoints:'String'
+ });
 /*ToAddGameHistory.save(function (err) {
   if (err) return handleError(err);
   // saved!
