@@ -30,6 +30,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 var mysqlHost = process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost';
+mysqlHost= 'https://mysql-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/';
 var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
 var mysqlUser = 'root'; //mysql username
 var mysqlPass = 'root'; //mysql password
