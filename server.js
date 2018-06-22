@@ -41,11 +41,11 @@ var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost +
 
 // create the connection to database
 const connection = mysql.createConnection({
-  host     : '127.0.0.1',
-  port     : '3306',
-  user     : 'user',
-  password : 'user',
-  database: 'sampledb'
+  host     : process.env.OPENSHIFT_MYSQL_DB_HOST,
+  user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+  password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+  port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
+  database : process.env.OPENSHIFT_APP_NAME
 });
  
 // simple query
