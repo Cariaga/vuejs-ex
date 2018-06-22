@@ -143,7 +143,7 @@ var BlackList = mongoose.model('BlackList', BlackListSchema, 'BlackList');
 var BankInformation = mongoose.model('BankInformation', BankInformationSchema, 'BankInformation');
 var UserAccount = mongoose.model('UserAccount', UserAccountSchema, 'UserAccount');
 var LoginHistory = mongoose.model('LoginHistory', LoginHistorySchema, 'LoginHistory');
-var GameHistory = mongoose.model('GameHistory', GameHistorySchema);
+var GameHistory = db.model('GameHistory', GameHistorySchema);
 var Contact = mongoose.model('GameHistory', ContactSchema, 'Contact');
 
 
