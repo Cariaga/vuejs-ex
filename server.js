@@ -29,28 +29,29 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-var mysqlHost =process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost';
-var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
-var mysqlUser = 'user'; //mysql username
-var mysqlPass = 'user'; //mysql password
-var mysqlDb   = 'sampledb'; //mysql database name
 
-var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost + ':' + mysqlPort + '/' + mysqlDb;
-
-
-
-// create the connection to database
-const connection = mysql.createConnection({
-  host     : process.env.OPENSHIFT_MYSQL_DB_HOST,
-  user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME,
-  password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
-  port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
-  database : process.env.OPENSHIFT_APP_NAME
-});
  
 // simple query
 
 app.get('/testsql', function (req, res) {
+    var mysqlHost =process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost';
+  var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
+  var mysqlUser = 'user'; //mysql username
+  var mysqlPass = 'user'; //mysql password
+  var mysqlDb   = 'sampledb'; //mysql database name
+
+  var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost + ':' + mysqlPort + '/' + mysqlDb;
+
+
+
+  // create the connection to database
+  const connection = mysql.createConnection({
+    host     : process.env.OPENSHIFT_MYSQL_DB_HOST,
+    user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+    password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+    port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
+    database : process.env.OPENSHIFT_APP_NAME
+  });
   connection.query(
     'SELECT 1',
     function(err, results, fields) {
