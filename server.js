@@ -45,7 +45,7 @@ let GameHistorySchema = mongoose.Schema({
 				  Time:'String',
 				  BeforePoints: 'String',
 AfterPoints:'String'*/});
-console.log("Passed");
+console.log("Passed GameHistorySchema");
 let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
 				   Time: 'String',
@@ -143,7 +143,7 @@ var BlackList = mongoose.model('BlackList', BlackListSchema, 'BlackList');
 var BankInformation = mongoose.model('BankInformation', BankInformationSchema, 'BankInformation');
 var UserAccount = mongoose.model('UserAccount', UserAccountSchema, 'UserAccount');
 var LoginHistory = mongoose.model('LoginHistory', LoginHistorySchema, 'LoginHistory');
-var GameHistory = mongoose.model('GameHistory', GameHistorySchema);
+var GameHistory = mongoose.model('GameHistory', GameHistorySchema,'GameHistory');
 var Contact = mongoose.model('GameHistory', ContactSchema, 'Contact');
 
 
@@ -183,7 +183,7 @@ var ToAddGameHistory =[{
   // saved!
 });*/
 
-
+/*
 var NewHeadOffice = [{}];
 
 
@@ -228,7 +228,7 @@ HeadOffice.collection.insert(NewHeadOffice, function (err, docs) {
       var count = results.length;
       console.log(count);
     });
-
+*/
     
 // Equivalent
 /*var HeadOffice = new Schema({
