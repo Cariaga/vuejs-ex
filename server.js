@@ -45,7 +45,7 @@ let GameHistorySchema = mongoose.Schema({
 				  Time:'String',
 				  BeforePoints: 'String',
 				  AfterPoints:'String'});
-
+console.log("Passed");
 let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
 				   Time: 'String',
