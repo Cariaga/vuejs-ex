@@ -41,7 +41,7 @@ var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost +
 
 var mysqlClient = mysql.createConnection(mysqlString);
 
-mysqlClient.query('SELECT * from users', function(err, rows, fields) {
+mysqlClient.query('SELECT 1 as id, 103 as value UNION SELECT 2 as id, 556 as value', function(err, rows, fields) {
   if(err) console.log(err);
   console.log('The solution is: ', rows);
   mysqlClient.end();
