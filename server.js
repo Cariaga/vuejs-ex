@@ -29,20 +29,20 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
+var mysqlHost = process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost';
+var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
+var mysqlUser = 'user'; //mysql username
+var mysqlPass = 'user'; //mysql password
+var mysqlDb   = 'sampledb'; //mysql database name
+
+var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost + ':' + mysqlPort + '/' + mysqlDb;
+
 //connect to Mysql database
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'user',
-  password : 'user'
+var mysqlClient = mysql.createConnection(mysqlString);
+mysqlClient.connect(function(err){
+  if (err) console.log(err);
 });
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
- 
-  console.log('connected as id ' + connection.threadId);
-});
+
 
 
 //to enable CORS required for json request get put post and http cross
