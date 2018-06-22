@@ -38,13 +38,13 @@ let GameHistorySchema = mongoose.Schema({
           SeasonID: 'String',
 				  RoundID:'String',
 				  RoomID:'String',
-				  Rank:  'String',
+				 /* Rank:  'String',
 				  Score: 'Number',
 				  Card:'String',
 				  Date: 'String',
 				  Time:'String',
 				  BeforePoints: 'String',
-				  AfterPoints:'String'});
+AfterPoints:'String'*/});
 console.log("Passed");
 let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
