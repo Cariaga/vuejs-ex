@@ -89,7 +89,7 @@ let PlayerSchema = mongoose.Schema({UserID:'String',
 			     SupportTicket:[SupportTicketSchema]
 			     });
 
-
+console.log("Passed PlayerSchema");
 
 let ShopSchema = mongoose.Schema({ShopID:  'String',
 				Name: 'String',
