@@ -35,16 +35,16 @@ let ContactSchema = mongoose.Schema({ContactID:  'String',
 				PhoneNumber: 'String'});
 
 let GameHistorySchema = mongoose.Schema({
-          SeasonID: String,
-				  RoundID:String,
-				  RoomID:String,
-				  Rank:  String,
-				  Score: Number,
-				  Card:String,
-				  Date: String,
-				  Time:String,
-				  BeforePoints: String,
-				  AfterPoints:String});
+          SeasonID: 'String',
+				  RoundID:'String',
+				  RoomID:'String',
+				  Rank:  'String',
+				  Score: 'Number',
+				  Card:'String',
+				  Date: 'String',
+				  Time:'String',
+				  BeforePoints: 'String',
+				  AfterPoints:'String'});
 
 let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
