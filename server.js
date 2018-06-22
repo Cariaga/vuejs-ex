@@ -38,12 +38,12 @@ var mysqlDb   = 'sampledb'; //mysql database name
 var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost + ':' + mysqlPort + '/' + mysqlDb;
 
 //connect to Mysql database
-/*
+
 var mysqlClient = mysql.createConnection(mysqlString);
 mysqlClient.connect(function(err){
   if (err) console.log(err);
 });
-*/
+
 
 
 //to enable CORS required for json request get put post and http cross
