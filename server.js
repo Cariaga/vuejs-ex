@@ -11,8 +11,8 @@ var Schema = mongoose.Schema;
 var database = require('./config/database'); //load the database config
 var request = require('request');
 var isNullOrEmpty = require('is-null-or-empty');
-var mysql      = require('mysql');
-var orm = require("orm");
+const mysql = require('mysql2');
+
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('combined')); // log every request to the console
@@ -39,53 +39,30 @@ var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost +
 
 
 
-orm.connect(mysqlString, function (err, db) {
-  if (err) throw err;
- 
-    var Person = db.define("person", {
-        name      : String,
-        surname   : String,
-        age       : Number, // FLOAT
-        male      : Boolean,
-        continent : [ "Europe", "America", "Asia", "Africa", "Australia", "Antarctica" ], // ENUM type
-        photo     : Buffer, // BLOB/BINARY
-        data      : Object // JSON encoded
-    }, {
-        methods: {
-            fullName: function () {
-                return this.name + ' ' + this.surname;
-            }
-        },
-        validations: {
-            age: orm.enforce.ranges.number(18, undefined, "under-age")
-        }
-    });
- 
-    // add the table to the database
-    db.sync(function(err) {
-        if (err) throw err;
- 
-        // add a row to the person table
-        Person.create({ id: 1, name: "John", surname: "Doe", age: 27 }, function(err) {
-            if (err) throw err;
- 
-                // query the person table by surname
-                Person.find({ surname: "Doe" }, function (err, people) {
-                    // SQL: "SELECT * FROM person WHERE surname = 'Doe'"
-                	if (err) throw err;
- 
-                    console.log("People found: %d", people.length);
-                    console.log("First person: %s, age %d", people[0].fullName(), people[0].age);
- 
-                    people[0].age = 16;
-                    people[0].save(function (err) {
-                        // err.msg = "under-age";
-                });
-            });
- 
-        });
-    });
+// create the connection to database
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'user',
+  database: 'sampledb'
 });
+ 
+// simple query
+connection.query(
+  'SELECT * FROM `table` WHERE `name` = "Page" AND `age` > 45',
+  function(err, results, fields) {
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+  }
+);
+ 
+// with placeholder
+connection.query(
+  'SELECT * FROM `table` WHERE `name` = ? AND `age` > ?',
+  ['Page', 45],
+  function(err, results) {
+    console.log(results);
+  }
+);
 
 
 
