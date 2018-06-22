@@ -143,7 +143,7 @@ var BlackList = mongoose.model('BlackList', BlackListSchema, 'BlackList');
 var BankInformation = mongoose.model('BankInformation', BankInformationSchema, 'BankInformation');
 var UserAccount = mongoose.model('UserAccount', UserAccountSchema, 'UserAccount');
 var LoginHistory = mongoose.model('LoginHistory', LoginHistorySchema, 'LoginHistory');
-var GameHistory = db.model('GameHistory', GameHistorySchema);
+var GameHistory = mongoose.model('GameHistory', GameHistorySchema);
 var Contact = mongoose.model('GameHistory', ContactSchema, 'Contact');
 
 
@@ -152,7 +152,7 @@ var ToAddContact = new Contact({ });
   if (err) return handleError(err);
   // saved!
 });*/
-
+/*
 var ToAddGameHistory =[{
           SeasonID: 'somthing',
 				  RoundID:'somthing',
@@ -173,7 +173,7 @@ var ToAddGameHistory =[{
   } else {
     console.log("Multiple documents inserted to Collection");
   }
-});
+});*/
 
 
 
