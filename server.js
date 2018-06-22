@@ -35,16 +35,17 @@ let ContactSchema = mongoose.Schema({ContactID:  'String',
 				PhoneNumber: 'String'});
 
 let GameHistorySchema = mongoose.Schema({
-          SeasonID: 'String',
-				  RoundID:'String',
-				  RoomID:'String'/*,
-				  Rank:  'String',
-				  Score: 'Number',
-				  Card:'String',
-				  Date: 'String',
-				  Time:'String',
-				  BeforePoints: 'String',
-AfterPoints:'String'*/});
+          SeasonID: {type:String, default: ""},
+				  RoundID:{type:String, default: ""},
+				  RoomID:{type:String, default: ""},
+				  Rank:  {type:String, default: ""},
+				  Score: {type:Number, default: 0},
+				  Card:{type:String, default: ""},
+				  Date: {type:String, default: ""},
+				  Time:{type:String, default: ""},
+				  BeforePoints: {type:String, default: ""},
+          AfterPoints:{type:String, default: ""}});
+          
 console.log("Passed GameHistorySchema");
 let LoginHistorySchema = mongoose.Schema({HistoryID:'String',
 				   IP: 'String',
@@ -72,7 +73,9 @@ let SupportTicketSchema = mongoose.Schema({SupportTicketID: 'String',
 				    Reason: 'String',
 				    Date:  'String',
 				    Time: 'String',
-				    Status: 'String'});
+            Status: 'String'});
+            
+console.log("Passed SupportTicketSchema");
 
 let PlayerSchema = mongoose.Schema({UserID:'String',
 			     ScreenName:'String',
