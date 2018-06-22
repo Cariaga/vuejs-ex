@@ -48,10 +48,10 @@ app.get('/testsql/:ip/', function (req, res) {
   // create the connection to database
   const connection = mysql.createConnection({
     host     : mysqlHost,
-    user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME,
-    password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+    user     : 'user',
+    password : 'user',
     port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
-    database : process.env.OPENSHIFT_APP_NAME
+    database : 'sampledb'
   });
   connection.query(
     'SELECT 1',
