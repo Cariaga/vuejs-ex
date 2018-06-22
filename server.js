@@ -29,7 +29,7 @@ mongoose.connect(database.url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-var mysqlHost ='172.31.34.149' /*process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost'*/;
+var mysqlHost =process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost';
 var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
 var mysqlUser = 'user'; //mysql username
 var mysqlPass = 'user'; //mysql password
