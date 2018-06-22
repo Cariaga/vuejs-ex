@@ -1,4 +1,4 @@
-
+const mysql = require('mysql2');
 let ContactSchema = mongoose.Schema({ContactID:  'String',
 				Email:  'String',
 				PhoneNumber: 'String'});
