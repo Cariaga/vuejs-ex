@@ -41,9 +41,9 @@ var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost +
 
 var mysqlClient = mysql.createConnection(mysqlString);
 mysqlClient.connect(function(err){
-  if (err) console.log(err);
+  if (err) console.log( "SOME ERROR :" +err);
 });
-
+connection.end();
 
 
 //to enable CORS required for json request get put post and http cross
