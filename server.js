@@ -151,7 +151,7 @@ var ToAddContact = new Contact({ });
   // saved!
 });*/
 
-var ToAddGameHistory =new GameHistory({
+var ToAddGameHistory ={
           SeasonID: 'somthing',
 				  RoundID:'somthing',
 				  RoomID:'somthing',
@@ -162,10 +162,10 @@ var ToAddGameHistory =new GameHistory({
 				  Time:'somthing',
 				  BeforePoints: 'somthing',
 				  AfterPoints:'somthing'
- });
+ };
 
- 
- ToAddGameHistory.collection.insert(books, function (err, docs) {
+
+ GameHistory.collection.insert(ToAddGameHistory, function (err, docs) {
   if (err){ 
       return console.error(err);
   } else {
