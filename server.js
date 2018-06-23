@@ -68,7 +68,7 @@ Item.findAll({
   where: {
     name: 'Laptop'
   }
-});;
+});
 
 
 
