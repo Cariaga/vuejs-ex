@@ -52,17 +52,17 @@ app.use(function (req, res, next) {
   next();
 });
 
-
+var sequelize = new Sequelize('sampledb', 'user', 'user', {
+  host:'172.30.166.206',
+  port: 3306,
+  dialect: 'mysql'
+});
 
 app.get('/testseq', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
  
 //Setting up the config
-var sequelize = new Sequelize('sampledb', 'user', 'user', {
-    host:'172.30.166.206',
-    port: 3306,
-    dialect: 'mysql'
-});
+
 
  //model
  var Item = sequelize.define('Item', {
