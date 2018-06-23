@@ -35,7 +35,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 
 
-app.get('/testsql/:ip/', function (req, res) {
+app.get('/testseq', function (req, res) {
 
  
 //Setting up the config
