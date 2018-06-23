@@ -95,7 +95,7 @@ var result = Item.findAll({
   var Data = result.map(function(item) {
       return item;
   });
-  res.send(JSON.stringify({Data}, null, "\t"));
+  res.send(JSON.stringify({Data}, null, 4));
 });
 });
 // simple query
