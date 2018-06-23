@@ -58,11 +58,6 @@ var sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
-app.get('/testseq', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
- 
-//Setting up the config
-
 
  //model
  var Item = sequelize.define('Item', {
@@ -75,6 +70,19 @@ app.get('/testseq', function (req, res) {
   description: Sequelize.STRING,
   qty: Sequelize.INTEGER
 });
+
+
+
+
+
+
+app.get('/testseq', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+ 
+//Setting up the config
+
+
+
 
 var item1 = Item.build({
   name:'Laptop',
@@ -99,6 +107,7 @@ var result = Item.findAll({
   
   res.send(beautify(Data, null, 2, 100));
 });
+
 });
 // simple query
 
