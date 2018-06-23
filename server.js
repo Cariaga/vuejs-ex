@@ -65,15 +65,15 @@ item1.save().catch(error => {
 });
 
 
-Item.findAll({
+var result = Item.findAll({
   where: {
     name: 'Laptop'
   }
 });
-
-Item.then(function(tagData){
-  console.log(tagData.toJSON());
-})
+result.then(function(user) {
+  console.log("inside then function"+user);
+  return user;
+});
 
 
 });
