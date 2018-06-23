@@ -63,27 +63,14 @@ item1.save().catch(error => {
   console.log("error inserting");
 })
 
-//finding
-Item.find({}).complete(function (err,data) {
-  console.log(data);
-});
 
-//Updating Laptop to Computer
-Item.find({where:{name:'Laptop'}}).complete(function (err, data) {
-  if(err){
-    console.log(err);
+Item.findAll({
+  where: {
+    name: 'Laptop'
   }
-  if(data){
-    data.updateAttributes({
-    name:'Computer'
-  }).success(function (data1) {
-    console.log(data1);
-  })
- }
-});
-
-});
-
+}).then(function(tagData){
+  console.log(tagData.toJSON());
+})
 
 
 
