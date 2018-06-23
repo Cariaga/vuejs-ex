@@ -61,16 +61,14 @@ var item1 = Item.build({
 item1.save().catch(error => {
   // mhhh, wth!
   console.log("error inserting");
-})
+});
 
 
 Item.findAll({
   where: {
     name: 'Laptop'
   }
-}).then(function(tagData){
-  console.log(tagData.toJSON());
-})
+});;
 
 
 
