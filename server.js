@@ -71,6 +71,10 @@ Item.findAll({
   }
 });
 
+Item.then(function(tagData){
+  console.log(tagData.toJSON());
+})
+
 
 });
 // simple query
