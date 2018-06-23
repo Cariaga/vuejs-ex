@@ -124,7 +124,6 @@ app.get('/testsql/:ip/', function (req, res) {
       res.send(results);
     }
   );
-  
 })
 
  
