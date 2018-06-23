@@ -73,7 +73,7 @@ var result = Item.findAll({
   var names = result.map(function(item) {
       return item.name;
   });
-  console.log(names);
+  res.send(names);
 });
 
 
