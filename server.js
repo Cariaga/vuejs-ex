@@ -58,14 +58,11 @@ var item1 = Item.build({
   description: 'Acer 2340TL',
   qty: 23
 });
-//Inserting Data into database
-item1.save().complete(function (err) {
-if (err) {
-  console.log('Error in Inserting Record');
-} else {
-  console.log('Data successfully inserted');
-}
-});
+item1.save().catch(error => {
+  // mhhh, wth!
+  console.log("error inserting");
+})
+
 //finding
 Item.find({}).complete(function (err,data) {
   console.log(data);
