@@ -63,14 +63,14 @@ item1.save().catch(error => {
   console.log("error inserting");
 });
 
-
+/*
 Item.findAll({
   where: {
     name: 'Laptop'
   }
 });
 
-
+*/
 
 
 
