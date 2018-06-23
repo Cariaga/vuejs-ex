@@ -14,7 +14,8 @@
     "serve-static":"1.13.2",
     "request":"^2.87.0",
     "is-null-or-empty":"^0.0.1",
-    "sequelize":"^4.38.0"
+    "sequelize":"^4.38.0",
+    "prettyjson":"^1.2.1"
    
   },
   "scripts": {
