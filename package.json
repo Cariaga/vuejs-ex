@@ -13,7 +13,8 @@
     "mysql2":"^1.5.3",
     "serve-static":"1.13.2",
     "request":"^2.87.0",
-    "is-null-or-empty":"^0.0.1"
+    "is-null-or-empty":"^0.0.1",
+    "sequelize":"^4.38.0"
    
   },
   "scripts": {

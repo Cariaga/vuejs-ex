@@ -12,6 +12,7 @@ var database = require('./config/database'); //load the database config
 var request = require('request');
 var isNullOrEmpty = require('is-null-or-empty');
 const mysql = require('mysql2');
+var Sequelize = require('sequelize');
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -31,19 +32,79 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 
  
+
+
+
+app.get('/testsql/:ip/', function (req, res) {
+
+ 
+//Setting up the config
+var sequelize = new Sequelize('sampledb', 'user', 'user', {
+    host:'172.30.166.206',
+    port: 3306,
+    dialect: 'mysql'
+});
+
+sequelize.authenticate().complete(function (err) {
+  if (err) {
+     console.log('There is connection in ERROR');
+  } else {
+     console.log('Connection has been established successfully');
+  }
+ });
+ //model
+ var Item = sequelize.define('Item', {
+  id: Sequelize.STRING,
+  name:Sequelize.STRING,
+  description: Sequelize.STRING,
+  qty: Sequelize.INTEGER
+});
+
+var item1 = Item.build({
+  id: 1,
+  name:'Laptop',
+  description: 'Acer 2340TL',
+  qty: 23
+});
+//Inserting Data into database
+item1.save().complete(function (err) {
+if (err) {
+  console.log('Error in Inserting Record');
+} else {
+  console.log('Data successfully inserted');
+}
+});
+//finding
+Item.find({}).complete(function (err,data) {
+  console.log(data);
+});
+
+//Updating Laptop to Computer
+Item.find({where:{name:'Laptop'}}).complete(function (err, data) {
+  if(err){
+    console.log(err);
+  }
+  if(data){
+    data.updateAttributes({
+    name:'Computer'
+  }).success(function (data1) {
+    console.log(data1);
+  })
+ }
+});
+
+});
+
+
+
+
+
+
 // simple query
 
 app.get('/testsql/:ip/', function (req, res) {
     var mysqlHost =req.params.ip;
     
-  var mysqlPort = process.env.OPENSHIFT_MYSQL_DB_PORT || 3306;
-  var mysqlUser = 'user'; //mysql username
-  var mysqlPass = 'user'; //mysql password
-  var mysqlDb   = 'sampledb'; //mysql database name
-
-  var mysqlString = 'mysql://'   + mysqlUser + ':' + mysqlPass + '@' + mysqlHost + ':' + mysqlPort + '/' + mysqlDb;
-
-
 
   // create the connection to database
   //get the ip from services tab in openshift cluster ip
@@ -63,7 +124,6 @@ app.get('/testsql/:ip/', function (req, res) {
       res.send(results);
     }
   );
- 
 })
 
  
