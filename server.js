@@ -92,10 +92,10 @@ var result = Item.findAll({
     name: 'Laptop'
   }
 }).then(function(result) {
-  var names = result.map(function(item) {
-      return item.name;
+  var Data = result.map(function(item) {
+      return item;
   });
-  res.send(JSON.stringify({names}, null, "\t"));
+  res.send(JSON.stringify({Data}, null, "\t"));
 });
 });
 // simple query
