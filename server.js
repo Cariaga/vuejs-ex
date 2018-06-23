@@ -58,20 +58,20 @@ var item1 = Item.build({
   description: 'Acer 2340TL',
   qty: 23
 });
-/*
+
 item1.save().catch(error => {
   // mhhh, wth!
   console.log("error inserting");
 });
-*/
-/*
+
+
 Item.findAll({
   where: {
     name: 'Laptop'
   }
 });
 
-*/
+
 
 
 });
