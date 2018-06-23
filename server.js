@@ -96,7 +96,7 @@ var result = Item.findAll({
       return item;
   });
   
-  res.send(prettyjson.render(Data));
+  res.send(JSON.stringify({Data}, null, 4));
 });
 });
 // simple query
