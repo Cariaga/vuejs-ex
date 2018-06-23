@@ -97,7 +97,7 @@ var result = Item.findAll({
       return item;
   });
   
-  res.send(beautify(Data, null, 2, 100);
+  res.send(beautify(Data, null, 2, 100));
 });
 });
 // simple query
