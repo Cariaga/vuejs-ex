@@ -70,7 +70,7 @@ var result = Item.findAll({
     name: 'Laptop'
   }
 });
-res.send(result);
+res.send(result.map( (r) => (r.toJSON())));
 
 });
 // simple query
