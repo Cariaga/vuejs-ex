@@ -13,7 +13,8 @@ var request = require('request');
 var isNullOrEmpty = require('is-null-or-empty');
 const mysql = require('mysql2');
 var Sequelize = require('sequelize');
-var prettyjson = require('prettyjson');
+var beautify = require("json-beautify");
+
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('combined')); // log every request to the console
@@ -96,7 +97,7 @@ var result = Item.findAll({
       return item;
   });
   
-  res.send(JSON.stringify({Data}, null, 4));
+  res.send(beautify(Data, null, 2, 100);
 });
 });
 // simple query
