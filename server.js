@@ -69,8 +69,13 @@ var result = Item.findAll({
   where: {
     name: 'Laptop'
   }
+}).then(function(result) {
+  var names = result.map(function(item) {
+      return item.name;
+  });
+  console.log(names);
 });
-res.send(result.map( (r) => (r.toJSON())));
+
 
 });
 // simple query
