@@ -69,12 +69,8 @@ var result = Item.findAll({
   where: {
     name: 'Laptop'
   }
-}).then(function(user) {
-  console.log("inside then function"+user);
-  return user;
-  res.send(result);
 });
-
+res.send(result);
 
 });
 // simple query
