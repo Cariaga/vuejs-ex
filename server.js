@@ -50,7 +50,11 @@ var sequelize = new Sequelize('sampledb', 'user', 'user', {
 });
 
 var item1 = Item.build({
-  id: 1,
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true // Automatically gets converted to SERIAL for postgres
+  },
   name:'Laptop',
   description: 'Acer 2340TL',
   qty: 23
