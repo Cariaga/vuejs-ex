@@ -55,7 +55,7 @@ app.use(function (req, res, next) {
 
 
 app.get('/testseq', function (req, res) {
-
+  res.setHeader('Content-Type', 'application/json');
  
 //Setting up the config
 var sequelize = new Sequelize('sampledb', 'user', 'user', {
