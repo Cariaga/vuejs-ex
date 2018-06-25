@@ -14,6 +14,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 const mysql = require('mysql2');
 var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
+require("./routes/test")(app);
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
