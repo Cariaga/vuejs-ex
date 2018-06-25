@@ -70,8 +70,8 @@ let ShopSchema = mongoose.Schema({ShopID:  'String',
 				RegisteredDate: 'Number',
 				RegisteredTime: 'String',
 				Description:'String',
-			    	Contact:[ContactSchema],
-			    	Shop:[PlayerSchema]
+			    Contact:[ContactSchema],
+			    Shop:[PlayerSchema]
 			   });
 
 console.log("Passed ShopSchema");
