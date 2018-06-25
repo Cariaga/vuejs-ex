@@ -341,13 +341,11 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
 
 });
-app.get('/Api/v1/SupportTicket/?Offset?Limit?Sort', function (req, res) {
-  res.send("Un SupportTicket Offset Limit Sort");
-});/*
+
 app.get('/Api/v1/SupportTicket', function (req, res) {
-  res.send("SupportTicket");
+  res.send("SupportTicket" +res.query.Offset +" "+res.query.Limit+" "+res.query.Limit);
 });
-*/
+
 
 
 
