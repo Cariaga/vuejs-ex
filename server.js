@@ -83,6 +83,9 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Reason)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Status)){
+
+  }
 });
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
@@ -92,11 +95,36 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Reason)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Status)){
+
+  }
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+
   res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
 //---SupportTicket ROUTING END
@@ -115,6 +143,9 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
   let Description = req.params.Description;
   let Time = req.params.Time;
   let Date = req.params.Date;
+  if(!isNullOrEmpty(NotificationType)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+
+  }
 });
 
 app.get('/Api/v1/Notification', function (req, res) {
@@ -152,6 +183,9 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
+
+  }
 });
 
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
@@ -160,11 +194,35 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
+
+  }
 });
 app.get('/Api/v1/BlackList', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
   res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
 });
 //---BlackList ROUTING END
@@ -177,11 +235,35 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   let DeviceCpu = req.params.DeviceCpu;
   let Time = req.params.Time;
   let Date = req.params.Date;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(IP)&&!isNullOrEmpty(DeviceName)&&!isNullOrEmpty(DeviceRam)&&!isNullOrEmpty(DeviceCpu)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+
+  }
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
   res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---LoginHistory ROUTING END
@@ -193,7 +275,9 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
   let Expiration = req.params.Expiration;
   let Time = req.params.Time;
   let Date = req.params.Date;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(BankName)&&!isNullOrEmpty(SecurityCode)&&!isNullOrEmpty(Expiration)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
 
+  }
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
   let Offset =  req.query.Offset;
@@ -236,6 +320,7 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   let RequestedTIME = req.params.RequestedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
+  
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
@@ -352,6 +437,9 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
   let Date = req.params.Date;
   let BeforePoints = req.params.BeforePoints;
   let AfterPoints = req.params.AfterPoints;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(RoundID)&&!isNullOrEmpty(RoomID)&&!isNullOrEmpty(Rank)&&!isNullOrEmpty(Score)&&!isNullOrEmpty(Card)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)&&!isNullOrEmpty(BeforePoints)&&!isNullOrEmpty(AfterPoints)){
+
+  }
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -387,12 +475,18 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
+
+  }
 });
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
+
+  }
 });
 app.get('/Api/v1/UserInfo', function (req, res) {
   let Offset =  req.query.Offset;
@@ -427,11 +521,17 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
+  if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
+
+  }
 });
 app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
+  if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
+
+  }
 });
 app.get('/Api/v1/AccessControl', function (req, res) {
   let Offset =  req.query.Offset;
@@ -471,6 +571,9 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   let ValidKey = req.params.ValidKey;
   let RegisteredDate = req.params.RegisteredDate;
   let RegisteredTime = req.params.RegisteredTime;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(AccessID)&&!isNullOrEmpty(UserName)&&!isNullOrEmpty(Password)&&!isNullOrEmpty(Verify)&&!isNullOrEmpty(ValidKey)&&!isNullOrEmpty(RegisteredDate)&&!isNullOrEmpty(RegisteredTime)){
+
+  }
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   let Offset =  req.query.Offset;
@@ -508,6 +611,9 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   let Name = req.params.Name;
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(ShopID)&&!isNullOrEmpty(ScreenName)&&!isNullOrEmpty(Name)&&!isNullOrEmpty(Surname)&&!isNullOrEmpty(CurrentRoomName)){
+
+  }
 });
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
@@ -516,6 +622,9 @@ app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname
   let Name = req.params.Name;
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(ShopID)&&!isNullOrEmpty(ScreenName)&&!isNullOrEmpty(Name)&&!isNullOrEmpty(Surname)&&!isNullOrEmpty(CurrentRoomName)){
+
+  }
 });
 app.get('/Api1/Player', function (req, res) {
   let Offset =  req.query.Offset;
@@ -550,12 +659,18 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(DistributorID)&&!isNullOrEmpty(Description)){
+
+  }
 });
 
 app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(DistributorID)&&!isNullOrEmpty(Description)){
+
+  }
 });
 
 app.get('/Api/v1/Shop', function (req, res) {
@@ -591,11 +706,17 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   let UserAccountID = req.params.UserAccountID;
   let HeadOfficeID = req.params.HeadOfficeID;
   let Name = req.params.Name;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Name)){
+
+  }
 });
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let HeadOfficeID = req.params.HeadOfficeID;
   let Name = req.params.Name;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Name)){
+
+  }
 });
 app.get('/Api/v1/Distributor', function (req, res) {
   let Offset =  req.query.Offset;
@@ -630,11 +751,17 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   let UserAccountID = req.params.UserAccountID;
   let Name = req.params.Name;
   let Description = req.params.Description;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Description)){
+
+  }
 });
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
   let HeadOfficeID = req.params.HeadOfficeID;
   let UserAccountID = req.params.UserAccountID;
   let Description = req.params.Description;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Description)){
+
+  }
 });
 app.get('/Api/v1/HeadOffice', function (req, res) {
   let Offset =  req.query.Offset;
