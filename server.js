@@ -344,8 +344,8 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
 app.get('/Api/v1/SupportTicket', function (req, res) {
   res.send("SupportTicket");
 });
-app.get('/Api/v1/SupportTicket/Offset?Limit?Sort?/', function (req, res) {
-  res.send("Un Implemented");
+app.get('/Api/v1/SupportTicket?Offset?Limit?Sort/', function (req, res) {
+  res.send("Un SupportTicket?Offset?Limit?Sort");
 });
 
 
