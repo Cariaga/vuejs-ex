@@ -194,7 +194,7 @@ var GameHistory =sequelize.define('sampledb', {
 
 
 
-
+/*
 var DepositHistory =sequelize.define('sampledb', {
   DepositHistoryID: {
     type: Sequelize.INTEGER,
@@ -214,7 +214,7 @@ var DepositHistory =sequelize.define('sampledb', {
   RejectedTIME: Sequelize.TIME,
   ProcessingTIME: Sequelize.TIME,
 });
-/*
+
 var WithdrawHistory =sequelize.define('sampledb', {
   WithdrawHistoryID: {
     type: Sequelize.INTEGER,
