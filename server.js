@@ -245,7 +245,9 @@ app.get('/Api/v1/UserInfo', function (req, res) {
 //---UserInfo ROUTING END
 //---AccessControl ROUTING START
 app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function (req, res) {
-
+  let AccessID = req.params.AccessID;
+  let AccessName = req.params.AccessName;
+  let AccessTags = req.params.AccessTags;
 });
 app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
 
@@ -259,7 +261,14 @@ app.get('/Api/v1/AccessControl', function (req, res) {
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
 app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
-  
+  let UserAccountID = req.params.UserAccountID;
+  let AccessID = req.params.AccessID;
+  let UserName = req.params.UserName;
+  let Password = req.params.Password;
+  let Verify = req.params.Verify;
+  let ValidKey = req.params.ValidKey;
+  let RegisteredDate = req.params.RegisteredDate;
+  let RegisteredTime = req.params.RegisteredTime;
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   let Offset =  req.query.Offset;
@@ -270,10 +279,20 @@ app.get('/Api/v1/UserAccount', function (req, res) {
 //---UserAccount ROUTING START
 //---Player ROUTING START
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let ShopID = req.params.ShopID;
+  let ScreenName = req.params.ScreenName;
+  let Name = req.params.Name;
+  let Surname = req.params.Surname;
+  let CurrentRoomName = req.params.CurrentRoomName;
 });
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let ShopID = req.params.ShopID;
+  let ScreenName = req.params.ScreenName;
+  let Name = req.params.Name;
+  let Surname = req.params.Surname;
+  let CurrentRoomName = req.params.CurrentRoomName;
 });
 app.get('/Api1/Player', function (req, res) {
   let Offset =  req.query.Offset;
@@ -284,11 +303,15 @@ app.get('/Api1/Player', function (req, res) {
 //---Player ROUTING START
 //---Shop ROUTING START
 app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let DistributorID = req.params.DistributorID;
+  let Description = req.params.Description;
 });
 
 app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let DistributorID = req.params.DistributorID;
+  let Description = req.params.Description;
 });
 
 app.get('/Api/v1/Shop', function (req, res) {
@@ -300,10 +323,14 @@ app.get('/Api/v1/Shop', function (req, res) {
 //---Shop ROUTING END
 //---Distributor ROUTING START
 app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let HeadOfficeID = req.params.HeadOfficeID;
+  let Name = req.params.Name;
 });
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let HeadOfficeID = req.params.HeadOfficeID;
+  let Name = req.params.Name;
 });
 app.get('/Api/v1/Distributor', function (req, res) {
   let Offset =  req.query.Offset;
@@ -314,10 +341,14 @@ app.get('/Api/v1/Distributor', function (req, res) {
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
 app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Name = req.params.Name;
+  let Description = req.params.Description;
 });
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
-
+  let HeadOfficeID = req.params.HeadOfficeID;
+  let UserAccountID = req.params.UserAccountID;
+  let Description = req.params.Description;
 });
 app.get('/Api/v1/HeadOffice', function (req, res) {
   let Offset =  req.query.Offset;
