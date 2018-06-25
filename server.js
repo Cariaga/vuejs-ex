@@ -296,7 +296,7 @@ var SupportTicket =sequelize.define('sampledb', {
   Date:Sequelize.DATE,
   Status: Sequelize.STRING
 });
-/*
+
 var Notification =sequelize.define('sampledb', {
   NotificationID: {//PK
     type: Sequelize.INTEGER,
@@ -309,7 +309,7 @@ var Notification =sequelize.define('sampledb', {
   Time: Sequelize.TIME,
   Date:Sequelize.DATE
 });
-*/
+
 
  //model
  var Item = sequelize.define('Item', {
