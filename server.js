@@ -326,11 +326,9 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
 
 });
 app.get('/Api/v1/SupportTicket?Offset?Limit?Sort/', function (req, res) {
-
-});
-app.get('/Api/v1/SupportTicket?Offset?Limit?Sort/', function (req, res) {
   res.send("Un Implemented");
 });
+
 
 
 //---SupportTicket ROUTING END
