@@ -322,7 +322,7 @@ var Notification =sequelize.define('sampledb', {
   description: Sequelize.STRING,
   qty: Sequelize.INTEGER
 });
-/*
+
 //---SupportTicket ROUTING START
 app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
 
@@ -486,7 +486,7 @@ app.get('/Api/v1/HeadOffice?Offset?Limit?Sort/', function (req, res) {
 
 });
 //---HeadOffice ROUTING END
-*/
+
 
 app.get('/testseq', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
