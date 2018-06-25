@@ -252,7 +252,7 @@ var BankInformation =sequelize.define('sampledb', {
   Date:Sequelize.DATE,//Date Added
 });
 
-/*
+
 
 var  LoginHistory =sequelize.define('sampledb', {
   LoginHistoryID: {
@@ -268,6 +268,7 @@ var  LoginHistory =sequelize.define('sampledb', {
   Time: Sequelize.TIME,
   Date:Sequelize.DATE
 });
+/*
 var BlackList =sequelize.define('sampledb', {
   BlackListID: {
     type: Sequelize.INTEGER,
