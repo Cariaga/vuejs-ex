@@ -15,7 +15,7 @@ const mysql = require('mysql2');
 var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
 require("./routes/test")(app);
-var Models = require("./Models/Models")(app);
+var Models = require("./Models/Models");
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('combined')); // log every request to the console
