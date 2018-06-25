@@ -535,8 +535,6 @@ app.get('/testseq', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
  
 //Setting up the config
-
-
 var item1 = Models.Item.build({
   name:'Laptop',
   description: 'Acer 2340TL',

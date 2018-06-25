@@ -18,4 +18,4 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
     qty: Sequelize.INTEGER
   });
 
-  module.exports =Item;
+  module.exports.Item =Item;
