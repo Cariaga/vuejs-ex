@@ -220,14 +220,14 @@ var WithdrawHistory =sequelize.define('sampledb', {
   WithdrawHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
-  UserAccountID:Sequelize.STRING,//FK One WithdrawHistoryID Many UserAccountID
+ /* UserAccountID:Sequelize.STRING,//FK One WithdrawHistoryID Many UserAccountID
   Amount:Sequelize.NUMBER,
   BankNameUsed:  Sequelize.STRING,
   SecurityCodeUsed: Sequelize.STRING,
   Status:Sequelize.STRING,
- /* RequestedDATE: Sequelize.DATE,
+  RequestedDATE: Sequelize.DATE,
   ApprovedDATE: Sequelize.DATE,
   RejectedDATE: Sequelize.DATE,
   ProcessingDATE: Sequelize.DATE,
