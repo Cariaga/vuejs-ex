@@ -323,6 +323,17 @@ var Notification =sequelize.define('sampledb', {
   qty: Sequelize.INTEGER
 });
 
+//--API START
+app.get('/Api/', function (req, res) {
+  res.send('pick version');
+});
+//API END
+
+app.get('/Api/v1', function (req, res) {
+  res.send('v1 version');
+});
+
+
 //---SupportTicket ROUTING START
 app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
 
