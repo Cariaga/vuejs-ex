@@ -330,7 +330,7 @@ app.get('/Api/', function (req, res) {
 //API version END
 //--API START
 app.get('/Api/v1', function (req, res) {
-  res.send('v1 version');
+  res.send('Api v1 version');
 });
 //--API version START
 
