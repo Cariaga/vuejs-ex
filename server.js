@@ -113,7 +113,7 @@ var Player =sequelize.define('sampledb', {
 	CurrentRoomName:Sequelize.STRING,
 });
 
-/*
+
 
 var UserAccount =sequelize.define('sampledb', {//the main schema
   UserID: {//PK
@@ -153,7 +153,7 @@ var AccessControl =sequelize.define('sampledb', {//A flexible way of access cont
   AccessName: Sequelize.STRING,
   AccessTags: Sequelize.STRING,// comma delimited tags for access
 });
-
+/*
 
 
 var UserInfo =sequelize.define('sampledb', {
