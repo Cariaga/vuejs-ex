@@ -522,27 +522,27 @@ app.get('/Api1/Player', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
+    res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
+    res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
+    res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
+    res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
+    res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
+    res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
+    res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
-  res.send("Player "+Offset+" "+ Limit+" "+Sort);
+ 
 });
 //---Player ROUTING START
 //---Shop ROUTING START
