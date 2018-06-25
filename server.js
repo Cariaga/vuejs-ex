@@ -58,7 +58,7 @@ var sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 //we have Dedicated Headoffice,distributer,shop tables because if we used account type we would have a many to many relationship issue and alot of inner joins queries
-/*var HeadOffice =sequelize.define('sampledb', {
+var HeadOffice =sequelize.define('sampledb', {
   HeadOfficeID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -82,7 +82,7 @@ var Distributor =sequelize.define('sampledb', {
   Name:Sequelize.STRING,
 });
 
-
+/*
 
 var Shop =sequelize.define('sampledb', {
   ShopsID: {
