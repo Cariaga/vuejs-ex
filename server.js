@@ -490,7 +490,7 @@ app.get('/testseq', function (req, res) {
 //Setting up the config
 
 
-
+/*
 
 var item1 = Item.build({
   name:'Laptop',
@@ -515,6 +515,7 @@ var result = Item.findAll({
   
   res.send(beautify(Data, null, 2, 100));
 });
+*/
 
 });
 // simple query
