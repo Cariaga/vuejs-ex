@@ -327,12 +327,12 @@ var Notification =sequelize.define('sampledb', {
 app.get('/Api/', function (req, res) {
   res.send('pick version');
 });
-//API END
-
+//API version END
+//--API START
 app.get('/Api/v1', function (req, res) {
   res.send('v1 version');
 });
-
+//--API version START
 
 //---SupportTicket ROUTING START
 app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
