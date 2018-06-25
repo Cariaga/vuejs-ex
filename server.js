@@ -82,7 +82,7 @@ var Distributor =sequelize.define('sampledb', {
   Name:Sequelize.STRING,
 });
 
-/*
+
 
 var Shop =sequelize.define('sampledb', {
   ShopsID: {
@@ -113,7 +113,7 @@ var Player =sequelize.define('sampledb', {
 	CurrentRoomName:Sequelize.STRING,
 });
 
-
+/*
 
 var UserAccount =sequelize.define('sampledb', {//the main schema
   UserID: {//PK
