@@ -269,5 +269,12 @@ const Notification =sequelize.define('sampledb', {
     description: Sequelize.STRING,
     qty: Sequelize.INTEGER
   });
-
+  module.exports.GameHistory =GameHistory;
+  module.exports.DepositHistory =DepositHistory;
+  module.exports.WithdrawHistory =WithdrawHistory;
+  module.exports.BankInformation =BankInformation;
+  module.exports.LoginHistory =LoginHistory;
+  module.exports.BlackList =BlackList;
+  module.exports.SupportTicket =SupportTicket;
+  module.exports.Notification =Notification;
   module.exports.Item =Item;
