@@ -202,7 +202,7 @@ var DepositHistory =sequelize.define('sampledb', {
     autoIncrement: true
   },
   UserAccountID:Sequelize.STRING,//FK One Deposit UserAccountID can have many DepositHistory
-  Amount:Sequelize.NUMBER,
+  Amount:Sequelize.INTEGER,
   BankNameUsed:  Sequelize.STRING,
   SecurityCodeUsed: Sequelize.STRING,
   Status:Sequelize.STRING,//Current Status
@@ -222,8 +222,8 @@ var WithdrawHistory =sequelize.define('sampledb', {
     primaryKey: true,
     autoIncrement: true
   },
- /* UserAccountID:Sequelize.STRING,//FK One WithdrawHistoryID Many UserAccountID
-  Amount:Sequelize.NUMBER,
+  UserAccountID:Sequelize.STRING,//FK One WithdrawHistoryID Many UserAccountID
+  Amount:Sequelize.INTEGER,
   BankNameUsed:  Sequelize.STRING,
   SecurityCodeUsed: Sequelize.STRING,
   Status:Sequelize.STRING,
@@ -234,7 +234,7 @@ var WithdrawHistory =sequelize.define('sampledb', {
   RequestedTIME: Sequelize.TIME,
   ApprovedTIME: Sequelize.TIME,
   RejectedTIME: Sequelize.TIME,
-  ProcessingTIME: Sequelize.TIME,*/
+  ProcessingTIME: Sequelize.TIME,
 });
 
 var BankInformation =sequelize.define('sampledb', {
