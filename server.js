@@ -281,7 +281,7 @@ var BlackList =sequelize.define('sampledb', {
   ReportDate:  Sequelize.DATE,
   ReleaseDate: Sequelize.DATE
 });
-/*
+
 var SupportTicket =sequelize.define('sampledb', {
   SupportTicketID: {//PK Can be used to Connect to A user Chat Room Name 
     type: Sequelize.INTEGER,
@@ -296,6 +296,7 @@ var SupportTicket =sequelize.define('sampledb', {
   Date:Sequelize.DATE,
   Status: Sequelize.STRING
 });
+/*
 var Notification =sequelize.define('sampledb', {
   NotificationID: {//PK
     type: Sequelize.INTEGER,
