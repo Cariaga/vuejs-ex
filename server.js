@@ -15,7 +15,7 @@ const mysql = require('mysql2');
 var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
 require("./routes/test")(app);
-
+var Models = require("./Models/Models")(app);
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('combined')); // log every request to the console
@@ -312,17 +312,7 @@ const Notification =sequelize.define('sampledb', {
 });
 
 
- //model
- var Item = sequelize.define('Item', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true 
-  },
-  name:Sequelize.STRING,
-  description: Sequelize.STRING,
-  qty: Sequelize.INTEGER
-});
+
 
 //--API START
 app.get('/Api/', function (req, res) {
@@ -547,19 +537,19 @@ app.get('/testseq', function (req, res) {
 //Setting up the config
 
 
-var item1 = Item.build({
+var item1 = Models.Item.build({
   name:'Laptop',
   description: 'Acer 2340TL',
   qty: 23
 });
-Item.sync({alter : true});
+Models.Item.sync({alter : true});
 item1.save().catch(error => {
   // mhhh, wth!
   console.log("error inserting");
 });
 
 
-var result = Item.findAll({
+var result = Models.Item.findAll({
   where: {
     name: 'Laptop'
   }
