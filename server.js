@@ -76,10 +76,22 @@ app.get('/Api/v1', function (req, res) {
 
 //---SupportTicket ROUTING START
 app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Title = req.params.Title;
+  let Description = req.params.Description;
+  let Reason = req.params.Reason;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+  let Status = req.params.Status;
 });
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Title = req.params.Title;
+  let Description = req.params.Description;
+  let Reason = req.params.Reason;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+  let Status = req.params.Status;
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
   let Offset =  req.query.Offset;
@@ -106,11 +118,19 @@ app.get('/Api/v1/Notification', function (req, res) {
 //---Notification ROUTING END
 //---BlackList ROUTING START
 app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Title = req.params.Title;
+  let Description = req.params.Description;
+  let ReportDate = req.params.ReportDate;
+  let ReleaseDate = req.params.ReleaseDate;
 });
 
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Title = req.params.Title;
+  let Description = req.params.Description;
+  let ReportDate = req.params.ReportDate;
+  let ReleaseDate = req.params.ReleaseDate;
 });
 app.get('/Api/v1/BlackList', function (req, res) {
   let Offset =  req.query.Offset;
@@ -121,7 +141,13 @@ app.get('/Api/v1/BlackList', function (req, res) {
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let IP = req.params.IP;
+  let DeviceName = req.params.DeviceName;
+  let DeviceRam = req.params.DeviceRam;
+  let DeviceCpu = req.params.DeviceCpu;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -132,6 +158,12 @@ app.get('/Api/v1/LoginHistory', function (req, res) {
 //---LoginHistory ROUTING END
 //---BankInformation ROUTING START
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let BankName = req.params.BankName;
+  let SecurityCode = req.params.SecurityCode;
+  let Expiration = req.params.Expiration;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
 
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
@@ -143,7 +175,17 @@ app.get('/Api/v1/BankInformation', function (req, res) {
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START
 app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Amount = req.params.Amount;
+  let BankNameUsed = req.params.BankNameUsed;
+  let Status = req.params.Status;
+  let RequestedDATE = req.params.RequestedDATE;
+  let ApprovedDATE = req.params.ApprovedDATE;
+  let RejectedDATE = req.params.RejectedDATE;
+  let ProcessingDATE = req.params.ProcessingDATE;
+  let RequestedTIME = req.params.RequestedTIME;
+  let RejectedTIME = req.params.RejectedTIME;
+  let ProcessingTIME = req.params.ProcessingTIME;
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
 
@@ -183,10 +225,16 @@ app.get('/Api/v1/GameHistory', function (req, res) {
 //---GameHistory ROUTING END
 //---UserInfo ROUTING START
 app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Email = req.params.Email;
+  let PhoneNumber = req.params.PhoneNumber;
+  let TelephoneNumber = req.params.TelephoneNumber;
 });
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let Email = req.params.Email;
+  let PhoneNumber = req.params.PhoneNumber;
+  let TelephoneNumber = req.params.TelephoneNumber;
 });
 app.get('/Api/v1/UserInfo', function (req, res) {
   let Offset =  req.query.Offset;
