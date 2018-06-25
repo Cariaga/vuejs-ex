@@ -227,14 +227,14 @@ var WithdrawHistory =sequelize.define('sampledb', {
   BankNameUsed:  Sequelize.STRING,
   SecurityCodeUsed: Sequelize.STRING,
   Status:Sequelize.STRING,
-  RequestedDATE: Sequelize.DATE,
+ /* RequestedDATE: Sequelize.DATE,
   ApprovedDATE: Sequelize.DATE,
   RejectedDATE: Sequelize.DATE,
   ProcessingDATE: Sequelize.DATE,
   RequestedTIME: Sequelize.TIME,
   ApprovedTIME: Sequelize.TIME,
   RejectedTIME: Sequelize.TIME,
-  ProcessingTIME: Sequelize.TIME,
+  ProcessingTIME: Sequelize.TIME,*/
 });
 
 var BankInformation =sequelize.define('sampledb', {
