@@ -1,4 +1,4 @@
-var HeadOffice =sequelize.define('sampledb', {
+/*var HeadOffice =sequelize.define('sampledb', {
     HeadOfficeID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
@@ -217,4 +217,4 @@ var HeadOffice =sequelize.define('sampledb', {
     Description:  Sequelize.STRING,
     Time: Sequelize.TIME,
     Date:Sequelize.DATE
-  });
+  });*/
