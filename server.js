@@ -153,7 +153,7 @@ var AccessControl =sequelize.define('sampledb', {//A flexible way of access cont
   AccessName: Sequelize.STRING,
   AccessTags: Sequelize.STRING,// comma delimited tags for access
 });
-/*
+
 
 
 var UserInfo =sequelize.define('sampledb', {
@@ -193,7 +193,7 @@ var GameHistory =sequelize.define('sampledb', {
 });
 
 
-
+/*
 
 var DepositHistory =sequelize.define('sampledb', {
   DepositHistoryID: {
