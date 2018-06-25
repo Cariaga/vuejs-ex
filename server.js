@@ -53,13 +53,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-var sequelize = new Sequelize('sampledb', 'user', 'user', {
+const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
   dialect: 'mysql'
 });
 //we have Dedicated Headoffice,distributer,shop tables because if we used account type we would have a many to many relationship issue and alot of inner joins queries
-var HeadOffice =sequelize.define('sampledb', {
+const  HeadOffice =sequelize.define('sampledb', {
   HeadOfficeID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -72,7 +72,7 @@ var HeadOffice =sequelize.define('sampledb', {
 
 
 
-var Distributor =sequelize.define('sampledb', {
+const  Distributor =sequelize.define('sampledb', {
   DistributorID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -85,7 +85,7 @@ var Distributor =sequelize.define('sampledb', {
 
 
 
-var Shop =sequelize.define('sampledb', {
+const  Shop =sequelize.define('sampledb', {
   ShopsID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -100,7 +100,7 @@ var Shop =sequelize.define('sampledb', {
 
 
 
-var Player =sequelize.define('sampledb', {
+const Player =sequelize.define('sampledb', {
   PlayersID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -116,7 +116,7 @@ var Player =sequelize.define('sampledb', {
 
 
 
-var UserAccount =sequelize.define('sampledb', {//the main schema
+const UserAccount =sequelize.define('sampledb', {//the main schema
   UserID: {//PK
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -140,7 +140,7 @@ var UserAccount =sequelize.define('sampledb', {//the main schema
 });
 
 
-var AccessControl =sequelize.define('sampledb', {//A flexible way of access control Account Privileges 
+const AccessControl =sequelize.define('sampledb', {//A flexible way of access control Account Privileges 
   AccessControlID: {//PK
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -157,7 +157,7 @@ var AccessControl =sequelize.define('sampledb', {//A flexible way of access cont
 
 
 
-var UserInfo =sequelize.define('sampledb', {
+const UserInfo =sequelize.define('sampledb', {
   UserInfoID: {//PK
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -175,7 +175,7 @@ var UserInfo =sequelize.define('sampledb', {
 
 
 
-var GameHistory =sequelize.define('sampledb', {
+const GameHistory =sequelize.define('sampledb', {
   GameHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -196,7 +196,7 @@ var GameHistory =sequelize.define('sampledb', {
 
 
 
-var DepositHistory =sequelize.define('sampledb', {
+const DepositHistory =sequelize.define('sampledb', {
   DepositHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -217,7 +217,7 @@ var DepositHistory =sequelize.define('sampledb', {
 });
 
 
-var WithdrawHistory =sequelize.define('sampledb', {
+const WithdrawHistory =sequelize.define('sampledb', {
   WithdrawHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -238,7 +238,7 @@ var WithdrawHistory =sequelize.define('sampledb', {
   ProcessingTIME: Sequelize.TIME,
 });
 
-var BankInformation =sequelize.define('sampledb', {
+const BankInformation =sequelize.define('sampledb', {
   BankInformationID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -255,7 +255,7 @@ var BankInformation =sequelize.define('sampledb', {
 
 
 
-var  LoginHistory =sequelize.define('sampledb', {
+const  LoginHistory =sequelize.define('sampledb', {
   LoginHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -270,7 +270,7 @@ var  LoginHistory =sequelize.define('sampledb', {
   Date:Sequelize.DATE
 });
 
-var BlackList =sequelize.define('sampledb', {
+const BlackList =sequelize.define('sampledb', {
   BlackListID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -283,7 +283,7 @@ var BlackList =sequelize.define('sampledb', {
   ReleaseDate: Sequelize.DATE
 });
 
-var SupportTicket =sequelize.define('sampledb', {
+const SupportTicket =sequelize.define('sampledb', {
   SupportTicketID: {//PK Can be used to Connect to A user Chat Room Name 
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -298,7 +298,7 @@ var SupportTicket =sequelize.define('sampledb', {
   Status: Sequelize.STRING
 });
 
-var Notification =sequelize.define('sampledb', {
+const Notification =sequelize.define('sampledb', {
   NotificationID: {//PK
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -342,15 +342,12 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
 
 });
-
 app.get('/Api/v1/SupportTicket', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
-
-
 //---SupportTicket ROUTING END
 //---Notification ROUTING START
 app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
@@ -376,7 +373,6 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
 
 });
-
 app.get('/Api/v1/BlackList', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -551,8 +547,6 @@ app.get('/testseq', function (req, res) {
 //Setting up the config
 
 
-/*
-
 var item1 = Item.build({
   name:'Laptop',
   description: 'Acer 2340TL',
@@ -576,7 +570,7 @@ var result = Item.findAll({
   
   res.send(beautify(Data, null, 2, 100));
 });
-*/
+
 
 });
 // simple query
