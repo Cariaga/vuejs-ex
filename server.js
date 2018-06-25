@@ -368,7 +368,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
 
 });
 app.get('/Api/v1/LoginHistory?Offset?Limit?Sort/', function (req, res) {
-
+  res.send("LoginHistory?Offset?Limit?Sort");
 });
 //---LoginHistory ROUTING END
 //---BankInformation ROUTING START
