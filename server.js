@@ -214,7 +214,7 @@ var DepositHistory =sequelize.define('sampledb', {
   RejectedTIME: Sequelize.TIME,
   ProcessingTIME: Sequelize.TIME,
 });
-*/
+
 
 var WithdrawHistory =sequelize.define('sampledb', {
   WithdrawHistoryID: {
@@ -236,7 +236,7 @@ var WithdrawHistory =sequelize.define('sampledb', {
   RejectedTIME: Sequelize.TIME,
   ProcessingTIME: Sequelize.TIME,
 });
-/*
+*/
 var BankInformation =sequelize.define('sampledb', {
   BankInformationID: {
     type: Sequelize.INTEGER,
@@ -252,7 +252,7 @@ var BankInformation =sequelize.define('sampledb', {
   Date:Sequelize.DATE,//Date Added
 });
 
-
+/*
 
 var  LoginHistory =sequelize.define('sampledb', {
   LoginHistoryID: {
