@@ -350,8 +350,6 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
 });
 
 
-
-
 //---SupportTicket ROUTING END
 //---Notification ROUTING START
 app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
@@ -362,8 +360,11 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
 
 });
 
-app.get('/Api/v1/Notification?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/Notification', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("Notification "+Offset+" "+ Limit+" "+Sort);
 });
 //---Notification ROUTING END
 //---BlackList ROUTING START
@@ -375,24 +376,33 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
 
 });
 
-app.get('/Api/v1/BlackList?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/BlackList', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
 });
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
 
 });
-app.get('/Api/v1/LoginHistory?Offset?Limit?Sort/', function (req, res) {
-  res.send("LoginHistory?Offset?Limit?Sort");
+app.get('/Api/v1/LoginHistory', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---LoginHistory ROUTING END
 //---BankInformation ROUTING START
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function (req, res) {
 
 });
-app.get('/Api/v1/BankInformation?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/BankInformation', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("BankInformation "+Offset+" "+ Limit+" "+Sort);
 });
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START
@@ -402,8 +412,11 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
 
 });
-app.get('/Api/v1/WithdrawHistory?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/WithdrawHistory', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("WithdrawHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
@@ -414,16 +427,22 @@ app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:Ba
 
 });
 
-app.get('/Api/v1/DepositHistory?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/DepositHistory', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---DepositHistory ROUTING END
 //---GameHistory ROUTING START
 app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function (req, res) {
 
 });
-app.get('/Api/v1/GameHistory?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/GameHistory', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---GameHistory ROUTING END
 //---UserInfo ROUTING START
@@ -433,8 +452,11 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
 
 });
-app.get('/Api/v1/UserInfo?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/UserInfo', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("UserInfo "+Offset+" "+ Limit+" "+Sort);
 });
 //---UserInfo ROUTING END
 //---AccessControl ROUTING START
@@ -444,16 +466,22 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
 app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
 
 });
-app.get('/Api/v1/AccessControl?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/AccessControl', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("AccessControl "+Offset+" "+ Limit+" "+Sort);
 });
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
 app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
-
+  
 });
-app.get('/Api/v1/UserAccount?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/UserAccount', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
 //---UserAccount ROUTING START
 //---Player ROUTING START
@@ -463,8 +491,11 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
 
 });
-app.get('/Api1/Player?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api1/Player', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("Player "+Offset+" "+ Limit+" "+Sort);
 });
 //---Player ROUTING START
 //---Shop ROUTING START
@@ -476,8 +507,11 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
 
 });
 
-app.get('/Api/v1/Shop?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/Shop', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
 });
 //---Shop ROUTING END
 //---Distributor ROUTING START
@@ -487,8 +521,11 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
 
 });
-app.get('/Api/v1/Distributor?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/Distributor', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
 });
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
@@ -498,8 +535,11 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
 
 });
-app.get('/Api/v1/HeadOffice?Offset?Limit?Sort/', function (req, res) {
-
+app.get('/Api/v1/HeadOffice', function (req, res) {
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
 });
 //---HeadOffice ROUTING END
 
