@@ -268,7 +268,7 @@ var  LoginHistory =sequelize.define('sampledb', {
   Time: Sequelize.TIME,
   Date:Sequelize.DATE
 });
-/*
+
 var BlackList =sequelize.define('sampledb', {
   BlackListID: {
     type: Sequelize.INTEGER,
@@ -281,6 +281,7 @@ var BlackList =sequelize.define('sampledb', {
   ReportDate:  Sequelize.DATE,
   ReleaseDate: Sequelize.DATE
 });
+/*
 var SupportTicket =sequelize.define('sampledb', {
   SupportTicketID: {//PK Can be used to Connect to A user Chat Room Name 
     type: Sequelize.INTEGER,
