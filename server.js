@@ -102,11 +102,19 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
 //---SupportTicket ROUTING END
 //---Notification ROUTING START
 app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
-
+  let NotificationType = req.params.NotificationType;
+  let Title = req.params.Title;
+  let Description = req.params.Description;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
 });
 
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
-
+  let NotificationType = req.params.NotificationType;
+  let Title = req.params.Title;
+  let Description = req.params.Description;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
 });
 
 app.get('/Api/v1/Notification', function (req, res) {
@@ -188,7 +196,19 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   let ProcessingTIME = req.params.ProcessingTIME;
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-
+  let WithdrawHistoryID = req.params.WithdrawHistoryID;
+  let UserAccountID = req.params.UserAccountID;
+  let Amount = req.params.Amount;
+  let BankNameUsed = req.params.BankNameUsed;
+  let SecurityCodeUsed = req.params.SecurityCodeUsed;
+  let Status = req.params.Status;
+  let RequestedDATE = req.params.RequestedDATE;
+  let ApprovedDATE = req.params.ApprovedDATE;
+  let RejectedDATE = req.params.RejectedDATE;
+  let ProcessingDATE = req.params.ProcessingDATE;
+  let RequestedTIME = req.params.RequestedTIME;
+  let RejectedTIME = req.params.RejectedTIME;
+  let ProcessingTIME = req.params.ProcessingTIME;
 });
 app.get('/Api/v1/WithdrawHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -199,10 +219,34 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
 app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-
+  let WithdrawHistoryID = req.params.WithdrawHistoryID;
+  let UserAccountID = req.params.UserAccountID;
+  let Amount = req.params.Amount;
+  let BankNameUsed = req.params.BankNameUsed;
+  let SecurityCodeUsed = req.params.SecurityCodeUsed;
+  let Status = req.params.Status;
+  let RequestedDATE = req.params.RequestedDATE;
+  let ApprovedDATE = req.params.ApprovedDATE;
+  let RejectedDATE = req.params.RejectedDATE;
+  let ProcessingDATE = req.params.ProcessingDATE;
+  let RequestedTIME = req.params.RequestedTIME;
+  let RejectedTIME = req.params.RejectedTIME;
+  let ProcessingTIME = req.params.ProcessingTIME;
 });
 app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-
+  let WithdrawHistoryID = req.params.WithdrawHistoryID;
+  let UserAccountID = req.params.UserAccountID;
+  let Amount = req.params.Amount;
+  let BankNameUsed = req.params.BankNameUsed;
+  let SecurityCodeUsed = req.params.SecurityCodeUsed;
+  let Status = req.params.Status;
+  let RequestedDATE = req.params.RequestedDATE;
+  let ApprovedDATE = req.params.ApprovedDATE;
+  let RejectedDATE = req.params.RejectedDATE;
+  let ProcessingDATE = req.params.ProcessingDATE;
+  let RequestedTIME = req.params.RequestedTIME;
+  let RejectedTIME = req.params.RejectedTIME;
+  let ProcessingTIME = req.params.ProcessingTIME; 
 });
 
 app.get('/Api/v1/DepositHistory', function (req, res) {
@@ -214,7 +258,16 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 //---DepositHistory ROUTING END
 //---GameHistory ROUTING START
 app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function (req, res) {
-
+  let UserAccountID = req.params.UserAccountID;
+  let RoundID = req.params.RoundID;
+  let RoomID = req.params.RoomID;
+  let Rank = req.params.Rank;
+  let Score = req.params.Score;
+  let Card = req.params.Card;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+  let BeforePoints = req.params.BeforePoints;
+  let AfterPoints = req.params.AfterPoints;
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -250,7 +303,9 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
   let AccessTags = req.params.AccessTags;
 });
 app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
-
+  let AccessID = req.params.AccessID;
+  let AccessName = req.params.AccessName;
+  let AccessTags = req.params.AccessTags;
 });
 app.get('/Api/v1/AccessControl', function (req, res) {
   let Offset =  req.query.Offset;
