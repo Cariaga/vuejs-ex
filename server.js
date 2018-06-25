@@ -342,8 +342,8 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
 
 });
 
-app.get('/Api/v1/SupportTicket/?Offset', function (req, res) {
-  res.send("SupportTicket");
+app.get('/Api/v1/SupportTicket', function (req, res) {
+  res.send("SupportTicket"+req.query.id);
 });
 
 
