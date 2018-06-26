@@ -873,7 +873,17 @@ app.get('/Api1/Player', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    res.send("Player "+Offset+" "+ Limit+" "+Sort);
+    let result = Models.Item.findAll({
+      where: {
+        name: 'Laptop'
+      }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      res.send(beautify(Data, null, 2, 100));
+    });
+    //res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
     res.send("Player "+Offset+" "+ Limit+" "+Sort);
