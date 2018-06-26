@@ -951,7 +951,7 @@ app.get('/Api/v1/Shop', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    let result = Models.Player.findAll({ 
+    let result = Models.Shop.findAll({ 
       where: {
         ShopID: {
           ne: null//not null
