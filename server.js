@@ -128,7 +128,23 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.SupportTicket.findAll({ 
+      where: {
+        SupportTicketID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -198,7 +214,23 @@ app.get('/Api/v1/Notification', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.Notification.findAll({ 
+      where: {
+        NotificationID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -263,7 +295,23 @@ app.get('/Api/v1/BlackList', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.BlackList.findAll({ 
+      where: {
+        BlackListID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -323,7 +371,23 @@ app.get('/Api/v1/LoginHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.LoginHistory.findAll({ 
+      where: {
+        LoginHistoryID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -380,7 +444,23 @@ app.get('/Api/v1/BankInformation', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.BankInformation.findAll({ 
+      where: {
+        BankInformationID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -467,7 +547,23 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.WithdrawHistory.findAll({ 
+      where: {
+        WithdrawHistoryID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -559,7 +655,23 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.DepositHistory.findAll({ 
+      where: {
+        DepositHistoryID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -628,7 +740,23 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.GameHistory.findAll({ 
+      where: {
+        GameHistoryID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -685,7 +813,23 @@ app.get('/Api/v1/UserInfo', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.UserInfoID.findAll({ 
+      where: {
+        UserID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -740,7 +884,23 @@ app.get('/Api/v1/AccessControl', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.AccessControl.findAll({ 
+      where: {
+        AccessControlID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -803,7 +963,23 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.UserAccount.findAll({ 
+      where: {
+        UserID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -1024,7 +1200,23 @@ app.get('/Api/v1/Distributor', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.Distributor.findAll({ 
+      where: {
+        DistributorID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -1080,7 +1272,23 @@ app.get('/Api/v1/HeadOffice', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    let result = Models.HeadOffice.findAll({ 
+      where: {
+        HeadOfficeID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
 
+      res.send("Error "+result);
+    });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 

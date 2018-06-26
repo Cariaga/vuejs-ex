@@ -63,7 +63,7 @@ const Player =sequelize.define('sampledb', {
 
 
 const UserAccount =sequelize.define('sampledb', {//the main schema
-  UserID: {//PK
+  UserID: {//PK only used in this part
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true 
