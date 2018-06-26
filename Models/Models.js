@@ -139,9 +139,6 @@ const GameHistory =sequelize.define('sampledb', {
   AfterPoints: Sequelize.INTEGER
 });
 
-
-
-
 const DepositHistory =sequelize.define('sampledb', {
   DepositHistoryID: {
     type: Sequelize.INTEGER,

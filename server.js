@@ -236,7 +236,20 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(IP)&&!isNullOrEmpty(DeviceName)&&!isNullOrEmpty(DeviceRam)&&!isNullOrEmpty(DeviceCpu)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
-
+    var item1 = Models.Player.build({
+      UserAccountID:UserAccountID,
+      IP:IP,
+      DeviceName:DeviceName,
+      DeviceRam:DeviceRam,
+      DeviceCpu:DeviceCpu,
+      Time:Time,
+      Date:Date
+    });
+    Models.Player.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
@@ -276,7 +289,7 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(BankName)&&!isNullOrEmpty(SecurityCode)&&!isNullOrEmpty(Expiration)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
-
+    
   }
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
@@ -476,7 +489,17 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-
+    var item1 = Models.Player.build({
+      UserAccountID:UserAccountID,
+      Email:Email,
+      PhoneNumber:PhoneNumber,
+      TelephoneNumber:TelephoneNumber
+    });
+    Models.Player.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
@@ -485,7 +508,18 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-
+    //Setting up the config
+    var item1 = Models.UserInfo.build({
+      UserAccountID:UserAccountID,
+      Email:Email,
+      PhoneNumber:PhoneNumber,
+      TelephoneNumber:TelephoneNumber
+    });
+    Models.UserInfo.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/UserInfo', function (req, res) {
@@ -572,7 +606,21 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   let RegisteredDate = req.params.RegisteredDate;
   let RegisteredTime = req.params.RegisteredTime;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(AccessID)&&!isNullOrEmpty(UserName)&&!isNullOrEmpty(Password)&&!isNullOrEmpty(Verify)&&!isNullOrEmpty(ValidKey)&&!isNullOrEmpty(RegisteredDate)&&!isNullOrEmpty(RegisteredTime)){
-
+    var item1 = Models.Player.build({
+      UserAccountID:UserAccountID,
+      AccessID:AccessID,
+      UserName:UserName,
+      Password:Password,
+      Verify:Verify,
+      ValidKey:ValidKey,
+      RegisteredDate:RegisteredDate,
+      RegisteredTime:RegisteredTime
+    });
+    Models.Player.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
@@ -612,7 +660,21 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(ShopID)&&!isNullOrEmpty(ScreenName)&&!isNullOrEmpty(Name)&&!isNullOrEmpty(Surname)&&!isNullOrEmpty(CurrentRoomName)){
-
+    //Setting up the config
+    var item1 = Models.Player.build({
+      UserAccountID:UserAccountID,
+      ShopID:ShopID,
+      ScreenName:ScreenName,
+      Name:Name,
+      Surname:Surname,
+      CurrentRoomName:CurrentRoomName
+    });
+    Models.Player.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
+    
   }
 });
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
@@ -623,7 +685,7 @@ app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(ShopID)&&!isNullOrEmpty(ScreenName)&&!isNullOrEmpty(Name)&&!isNullOrEmpty(Surname)&&!isNullOrEmpty(CurrentRoomName)){
-
+    
   }
 });
 app.get('/Api1/Player', function (req, res) {
@@ -660,7 +722,7 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(DistributorID)&&!isNullOrEmpty(Description)){
-
+    
   }
 });
 
