@@ -961,12 +961,12 @@ app.get('/Api/v1/Shop', function (req, res) {
       let Data = result.map(function(item) {
           return item;
           
-      }).catch(function(result) {//catching any then errors
-
-        res.send("Error");
       });
      
       //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+
+      res.send("Error");
     });
    
   }
