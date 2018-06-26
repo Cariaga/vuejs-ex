@@ -73,7 +73,44 @@ app.get('/Api/v1', function (req, res) {
   res.send('Api v1 version');
 });
 //--API version START
+//---API Login Start
+app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
+  let UserName = req.params.UserName;
+  let Password = req.params.SignOutKey;
 
+  if(!isNullOrEmpty(UserName)&&
+  !isNullOrEmpty(SignOutKey)){
+
+   
+
+    res.send('test login');
+
+
+  }else{
+    res.send('no params sent');
+  }
+
+});
+//---API Login End
+//---API Login Start
+app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
+  let UserName = req.params.UserName;
+  let Password = req.params.Password;
+
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Title)){
+    let isVerified;
+
+    if(isVerified){
+      res.send('Verified');
+    }else{
+      res.send('Unverified');
+    }
+  }else{
+    res.send('no params sent');
+  }
+});
+//---API Login End
 //---SupportTicket ROUTING START
 app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
@@ -1001,6 +1038,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   }
   res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
+
 //---UserAccount ROUTING START
 //---Player ROUTING START
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
