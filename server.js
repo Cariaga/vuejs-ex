@@ -83,8 +83,27 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Reason)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Status)){
-
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Title)&&
+  !isNullOrEmpty(Description)&&
+  !isNullOrEmpty(Reason)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)&&
+  !isNullOrEmpty(Status)){
+    var item1 = Models.SupportTicket.build({
+      UserAccountID:UserAccountID,
+      Title:Title,
+      Description:Description,
+      Reason:Reason,
+      Time:Time,
+      Date:Date,
+      Status:Status
+    });
+    Models.SupportTicket.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
@@ -95,8 +114,13 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Reason)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Status)){
-
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Title)&&
+  !isNullOrEmpty(Description)&&
+  !isNullOrEmpty(Reason)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Status)){
+    
   }
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
@@ -135,18 +159,27 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   let Description = req.params.Description;
   let Time = req.params.Time;
   let Date = req.params.Date;
-  var item1 = Models.Notification.build({
-    UserAccountID:UserAccountID,
-    Title:Title,
-    Description:Description,
-    Time:Time,
-    Date:Date
-  });
-  Models.Notification.sync({alter : true});
-  item1.save().catch(error => {
-    // mhhh, wth!
-    console.log("error inserting");
-  });
+
+  if(!isNullOrEmpty(NotificationType)&&
+  !isNullOrEmpty(Title)&&
+  !isNullOrEmpty(Description)&&
+  !isNullOrEmpty(Reason)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)){
+    var item1 = Models.Notification.build({
+      NotificationType:NotificationType,
+      Title:Title,
+      Description:Description,
+      Time:Time,
+      Date:Date
+    });
+    Models.Notification.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
+  }
+  
 });
 
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
@@ -195,7 +228,11 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Title)&&
+  !isNullOrEmpty(Description)&&
+  !isNullOrEmpty(ReportDate)&&
+  !isNullOrEmpty(ReleaseDate)){
     var item1 = Models.BlackList.build({
       UserAccountID:UserAccountID,
       Title:Title,
@@ -258,7 +295,13 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   let DeviceCpu = req.params.DeviceCpu;
   let Time = req.params.Time;
   let Date = req.params.Date;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(IP)&&!isNullOrEmpty(DeviceName)&&!isNullOrEmpty(DeviceRam)&&!isNullOrEmpty(DeviceCpu)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(IP)&&
+  !isNullOrEmpty(DeviceName)&&
+  !isNullOrEmpty(DeviceRam)&&
+  !isNullOrEmpty(DeviceCpu)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)){
     var item1 = Models.LoginHistory.build({
       UserAccountID:UserAccountID,
       IP:IP,
@@ -311,7 +354,12 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
   let Expiration = req.params.Expiration;
   let Time = req.params.Time;
   let Date = req.params.Date;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(BankName)&&!isNullOrEmpty(SecurityCode)&&!isNullOrEmpty(Expiration)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(BankName)&&
+  !isNullOrEmpty(SecurityCode)&&
+  !isNullOrEmpty(Expiration)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)){
     var item1 = Models.BankInformation.build({
       UserAccountID:UserAccountID,
       BankName:BankName,
@@ -546,7 +594,16 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
   let Date = req.params.Date;
   let BeforePoints = req.params.BeforePoints;
   let AfterPoints = req.params.AfterPoints;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(RoundID)&&!isNullOrEmpty(RoomID)&&!isNullOrEmpty(Rank)&&!isNullOrEmpty(Score)&&!isNullOrEmpty(Card)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)&&!isNullOrEmpty(BeforePoints)&&!isNullOrEmpty(AfterPoints)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(RoundID)&&
+  !isNullOrEmpty(RoomID)&&
+  !isNullOrEmpty(Rank)&&
+  !isNullOrEmpty(Score)&&
+  !isNullOrEmpty(Card)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)&&
+  !isNullOrEmpty(BeforePoints)&&
+  !isNullOrEmpty(AfterPoints)){
     var item1 = Models.GameHistory.build({
       UserAccountID:UserAccountID,
       RoundID:RoundID,
@@ -716,7 +773,14 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   let ValidKey = req.params.ValidKey;
   let RegisteredDate = req.params.RegisteredDate;
   let RegisteredTime = req.params.RegisteredTime;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(AccessID)&&!isNullOrEmpty(UserName)&&!isNullOrEmpty(Password)&&!isNullOrEmpty(Verify)&&!isNullOrEmpty(ValidKey)&&!isNullOrEmpty(RegisteredDate)&&!isNullOrEmpty(RegisteredTime)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(AccessID)&&
+  !isNullOrEmpty(UserName)&&
+  !isNullOrEmpty(Password)&&
+  !isNullOrEmpty(Verify)&&
+  !isNullOrEmpty(ValidKey)&&
+  !isNullOrEmpty(RegisteredDate)&&
+  !isNullOrEmpty(RegisteredTime)){
     var item1 = Models.UserAccount.build({
       UserAccountID:UserAccountID,
       AccessID:AccessID,
@@ -770,7 +834,12 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   let Name = req.params.Name;
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(ShopID)&&!isNullOrEmpty(ScreenName)&&!isNullOrEmpty(Name)&&!isNullOrEmpty(Surname)&&!isNullOrEmpty(CurrentRoomName)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(ShopID)&&
+  !isNullOrEmpty(ScreenName)&&
+  !isNullOrEmpty(Name)&&
+  !isNullOrEmpty(Surname)&&
+  !isNullOrEmpty(CurrentRoomName)){
     //Setting up the config
     var item1 = Models.Player.build({
       UserAccountID:UserAccountID,
@@ -832,7 +901,9 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(DistributorID)&&!isNullOrEmpty(Description)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(DistributorID)&&
+  !isNullOrEmpty(Description)){
     var item1 = Models.Shop.build({
       UserAccountID:UserAccountID,
       DistributorID:DistributorID,
@@ -888,7 +959,9 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   let UserAccountID = req.params.UserAccountID;
   let HeadOfficeID = req.params.HeadOfficeID;
   let Name = req.params.Name;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Name)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(HeadOfficeID)&&
+  !isNullOrEmpty(Name)){
     var item1 = Models.Distributor.build({
       UserAccountID:UserAccountID,
       HeadOfficeID:HeadOfficeID,
@@ -942,7 +1015,9 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   let UserAccountID = req.params.UserAccountID;
   let Name = req.params.Name;
   let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Description)){
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Name)&&
+  !isNullOrEmpty(Description)){
     var item1 = Models.HeadOffice.build({
       UserAccountID:UserAccountID,
       Name:Name,
