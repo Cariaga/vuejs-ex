@@ -873,19 +873,15 @@ app.get('/Api/v1/Player', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
+    let Data =[];
     let result = Models.Player.findAll({ 
     }).then(function(result) {
-      let Data = result.map(function(item) {
+       Data = result.map(function(item) {
           return item;
       });
-      
-      res.send(beautify(Data, null, 2, 100));
     });
-
-    Models.Player.count().then(c => {
-      res.send("There are " + c + " projects!")
-    })
+    res.send(beautify(Data, null, 2, 100));
+   
   
 
     //res.send("Player "+Offset+" "+ Limit+" "+Sort);
