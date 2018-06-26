@@ -888,7 +888,7 @@ app.get('/Api/v1/Player', function (req, res) {
       });
       res.send(beautify(Data, null, 2, 100));
     });
-  
+    res.send(result);
     //res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
