@@ -840,9 +840,9 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Surname)&&
   !isNullOrEmpty(CurrentRoomName)){
-    res.send('test');
+    //res.send('test');
     //Setting up the config
-   /* let item1 = Models.Player.build({
+    let item1 = Models.Player.build({
       UserAccountID:UserAccountID,
       ShopID:ShopID,
       ScreenName:ScreenName,
@@ -855,7 +855,7 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
       // mhhh, wth!
       console.log("error inserting");
     });
-    res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);*/
+    res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
   }
 });
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
@@ -874,15 +874,17 @@ app.get('/Api/v1/Player', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    let Data =[];
+   
     let result = Models.Player.findAll({ 
        limit: 10 
     }).then(function(result) {
-       Data = result.map(function(item) {
+      let Data = result.map(function(item) {
           return item;
+          
       });
+      res.send(beautify(Data, null, 2, 100));
     });
-    res.send(beautify(Data, null, 2, 100));
+  
    
   
 
