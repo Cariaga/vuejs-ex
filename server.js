@@ -97,8 +97,8 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
   let UserName = req.params.UserName;
   let Password = req.params.Password;
 
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Title)){
+  if(!isNullOrEmpty(UserName)&&
+  !isNullOrEmpty(Password)){
     let isVerified;
 
     if(isVerified){
