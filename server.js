@@ -876,7 +876,11 @@ app.get('/Api/v1/Player', function (req, res) {
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
    
     let result = Models.Player.findAll({ 
-       limit: 0 
+      where: {
+        id: {
+          gte: 0
+        }
+     }
     }).then(function(result) {
       let Data = result.map(function(item) {
           return item;
