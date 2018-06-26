@@ -135,6 +135,18 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   let Description = req.params.Description;
   let Time = req.params.Time;
   let Date = req.params.Date;
+  var item1 = Models.Notification.build({
+    UserAccountID:UserAccountID,
+    Title:Title,
+    Description:Description,
+    Time:Time,
+    Date:Date
+  });
+  Models.Notification.sync({alter : true});
+  item1.save().catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+  });
 });
 
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
@@ -144,7 +156,7 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(NotificationType)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
-
+    
   }
 });
 
@@ -184,7 +196,18 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
-
+    var item1 = Models.BlackList.build({
+      UserAccountID:UserAccountID,
+      Title:Title,
+      Description:Description,
+      ReportDate:ReportDate,
+      ReleaseDate:ReleaseDate
+    });
+    Models.BlackList.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 
@@ -236,7 +259,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(IP)&&!isNullOrEmpty(DeviceName)&&!isNullOrEmpty(DeviceRam)&&!isNullOrEmpty(DeviceCpu)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
-    var item1 = Models.Player.build({
+    var item1 = Models.LoginHistory.build({
       UserAccountID:UserAccountID,
       IP:IP,
       DeviceName:DeviceName,
@@ -245,7 +268,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
       Time:Time,
       Date:Date
     });
-    Models.Player.sync({alter : true});
+    Models.LoginHistory.sync({alter : true});
     item1.save().catch(error => {
       // mhhh, wth!
       console.log("error inserting");
@@ -333,7 +356,36 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   let RequestedTIME = req.params.RequestedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
-  
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Amount)&&
+  !isNullOrEmpty(BankNameUsed)&&
+  !isNullOrEmpty(Status)&&
+  !isNullOrEmpty(RequestedDATE)&&
+  !isNullOrEmpty(ApprovedDATE)&&
+  !isNullOrEmpty(RejectedDATE)&&
+  !isNullOrEmpty(ProcessingDATE)&&
+  !isNullOrEmpty(RequestedTIME)&&
+  !isNullOrEmpty(RejectedTIME)&&
+  !isNullOrEmpty(ProcessingTIME)){
+    var item1 = Models.WithdrawHistory.build({
+    UserAccountID:UserAccountID,
+    Amount:Amount, 
+    BankNameUsed:BankNameUsed, 
+    Status:Status,
+    RequestedDATE:RequestedDATE,
+    ApprovedDATE:ApprovedDATE,
+    RejectedDATE:RejectedDATE,
+    ProcessingDATE:ProcessingDATE, 
+    RequestedTIME:RequestedTIME,
+    RejectedTIME:RejectedTIME,
+    ProcessingTIME:ProcessingTIME, 
+    });
+    Models.WithdrawHistory.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
+  }
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
@@ -380,7 +432,6 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
 app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
   let BankNameUsed = req.params.BankNameUsed;
@@ -393,9 +444,40 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
   let RequestedTIME = req.params.RequestedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Amount)&&
+  !isNullOrEmpty(BankNameUsed)&&
+  !isNullOrEmpty(SecurityCodeUsed)&&
+  !isNullOrEmpty(Status)&&
+  !isNullOrEmpty(RequestedDATE)&&
+  !isNullOrEmpty(ApprovedDATE)&&
+  !isNullOrEmpty(RejectedDATE)&&
+  !isNullOrEmpty(ProcessingDATE)&&
+  !isNullOrEmpty(RequestedTIME)&&
+  !isNullOrEmpty(RejectedTIME)&&
+  !isNullOrEmpty(ProcessingTIME)){
+    var item1 = Models.DepositHistory.build({
+      UserAccountID:UserAccountID,
+      Amount:Amount, 
+      BankNameUsed:BankNameUsed, 
+      Status:Status,
+      RequestedDATE:RequestedDATE,
+      ApprovedDATE:ApprovedDATE,
+      RejectedDATE:RejectedDATE,
+      ProcessingDATE:ProcessingDATE, 
+      RequestedTIME:RequestedTIME,
+      RejectedTIME:RejectedTIME,
+      ProcessingTIME:ProcessingTIME, 
+    });
+    Models.DepositHistory.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
+  }
 });
 app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
+  let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
   let BankNameUsed = req.params.BankNameUsed;
@@ -407,7 +489,8 @@ app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:Ba
   let ProcessingDATE = req.params.ProcessingDATE;
   let RequestedTIME = req.params.RequestedTIME;
   let RejectedTIME = req.params.RejectedTIME;
-  let ProcessingTIME = req.params.ProcessingTIME; 
+  let ProcessingTIME = req.params.ProcessingTIME;
+  
 });
 
 app.get('/Api/v1/DepositHistory', function (req, res) {
@@ -451,7 +534,23 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
   let BeforePoints = req.params.BeforePoints;
   let AfterPoints = req.params.AfterPoints;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(RoundID)&&!isNullOrEmpty(RoomID)&&!isNullOrEmpty(Rank)&&!isNullOrEmpty(Score)&&!isNullOrEmpty(Card)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)&&!isNullOrEmpty(BeforePoints)&&!isNullOrEmpty(AfterPoints)){
-
+    var item1 = Models.GameHistory.build({
+      UserAccountID:UserAccountID,
+      RoundID:RoundID,
+      RoomID:RoomID,
+      Rank:Rank,
+      Score:Score,
+      Card:Card,
+      Time:Time,
+      Date:Date,
+      BeforePoints:BeforePoints,
+      AfterPoints:AfterPoints
+    });
+    Models.GameHistory.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
@@ -489,13 +588,13 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-    var item1 = Models.Player.build({
+    var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
     });
-    Models.Player.sync({alter : true});
+    Models.UserInfo.sync({alter : true});
     item1.save().catch(error => {
       // mhhh, wth!
       console.log("error inserting");
@@ -508,18 +607,7 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-    //Setting up the config
-    var item1 = Models.UserInfo.build({
-      UserAccountID:UserAccountID,
-      Email:Email,
-      PhoneNumber:PhoneNumber,
-      TelephoneNumber:TelephoneNumber
-    });
-    Models.UserInfo.sync({alter : true});
-    item1.save().catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-    });
+    
   }
 });
 app.get('/Api/v1/UserInfo', function (req, res) {
@@ -556,7 +644,17 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
   if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
-
+    //Setting up the config
+    var item1 = Models.AccessControl.build({
+      AccessID:AccessID,
+      AccessName:AccessName,
+      AccessTags:AccessTags
+    });
+    Models.AccessControl.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
@@ -606,7 +704,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   let RegisteredDate = req.params.RegisteredDate;
   let RegisteredTime = req.params.RegisteredTime;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(AccessID)&&!isNullOrEmpty(UserName)&&!isNullOrEmpty(Password)&&!isNullOrEmpty(Verify)&&!isNullOrEmpty(ValidKey)&&!isNullOrEmpty(RegisteredDate)&&!isNullOrEmpty(RegisteredTime)){
-    var item1 = Models.Player.build({
+    var item1 = Models.UserAccount.build({
       UserAccountID:UserAccountID,
       AccessID:AccessID,
       UserName:UserName,
@@ -616,7 +714,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
       RegisteredDate:RegisteredDate,
       RegisteredTime:RegisteredTime
     });
-    Models.Player.sync({alter : true});
+    Models.UserAccount.sync({alter : true});
     item1.save().catch(error => {
       // mhhh, wth!
       console.log("error inserting");
@@ -722,7 +820,16 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(DistributorID)&&!isNullOrEmpty(Description)){
-    
+    var item1 = Models.Shop.build({
+      UserAccountID:UserAccountID,
+      DistributorID:DistributorID,
+      Description:Description
+    });
+    Models.Shop.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 
@@ -769,7 +876,16 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   let HeadOfficeID = req.params.HeadOfficeID;
   let Name = req.params.Name;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Name)){
-
+    var item1 = Models.Distributor.build({
+      UserAccountID:UserAccountID,
+      HeadOfficeID:HeadOfficeID,
+      Name:Name
+    });
+    Models.Distributor.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
@@ -814,7 +930,16 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   let Name = req.params.Name;
   let Description = req.params.Description;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Description)){
-
+    var item1 = Models.HeadOffice.build({
+      UserAccountID:UserAccountID,
+      Name:Name,
+      Description:Description
+    });
+    Models.HeadOffice.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
