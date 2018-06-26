@@ -877,7 +877,7 @@ app.get('/Api/v1/Player', function (req, res) {
    
     let result = Models.Player.findAll({ 
       where: {
-        id: {
+        PlayersID: {
           gte: 0
         }
      }
