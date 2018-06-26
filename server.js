@@ -841,7 +841,7 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   !isNullOrEmpty(Surname)&&
   !isNullOrEmpty(CurrentRoomName)){
     //Setting up the config
-    var item1 = Models.Player.build({
+    let item1 = Models.Player.build({
       UserAccountID:UserAccountID,
       ShopID:ShopID,
       ScreenName:ScreenName,
