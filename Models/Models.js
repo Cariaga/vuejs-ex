@@ -32,7 +32,7 @@ const  Distributor =sequelize.define('sampledb', {
 
 
 const  Shop =sequelize.define('sampledb', {
-  ShopsID: {
+  ShopID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true 
