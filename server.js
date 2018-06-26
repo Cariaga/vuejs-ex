@@ -854,6 +854,8 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
       // mhhh, wth!
       
       console.log("error inserting");
+    }).then(function(){
+      res.send("Player "+Offset+" "+ Limit+" "+Sort);
     });
   }
 });
