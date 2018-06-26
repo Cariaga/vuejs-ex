@@ -100,6 +100,26 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
   if(!isNullOrEmpty(UserName)&&
   !isNullOrEmpty(Password)){
     let isVerified;
+    let result = Models.LoginHistory.findAll({ 
+      where: {
+        UserName: {
+          eq: UserName//not null
+        },
+        Password: {
+          eq: Password//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      //res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+
+      res.send("Error "+result);
+    });
 
     if(isVerified){
       res.send('Verified');
