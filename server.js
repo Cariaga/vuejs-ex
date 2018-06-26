@@ -840,8 +840,9 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Surname)&&
   !isNullOrEmpty(CurrentRoomName)){
+    res.send('test');
     //Setting up the config
-    let item1 = Models.Player.build({
+   /* let item1 = Models.Player.build({
       UserAccountID:UserAccountID,
       ShopID:ShopID,
       ScreenName:ScreenName,
@@ -854,7 +855,7 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
       // mhhh, wth!
       console.log("error inserting");
     });
-    res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
+    res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);*/
   }
 });
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
