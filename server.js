@@ -883,8 +883,11 @@ app.get('/Api/v1/Player', function (req, res) {
       res.send(beautify(Data, null, 2, 100));
     });
 
-    res.send(Models.Player.count());
-    
+    Models.Player.count().then(c => {
+      res.send("There are " + c + " projects!")
+    })
+  
+
     //res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
