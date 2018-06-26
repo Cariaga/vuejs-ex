@@ -875,6 +875,7 @@ app.get('/Api/v1/Player', function (req, res) {
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let Data =[];
     let result = Models.Player.findAll({ 
+       limit: 10 
     }).then(function(result) {
        Data = result.map(function(item) {
           return item;
