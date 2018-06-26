@@ -100,7 +100,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
   if(!isNullOrEmpty(UserName)&&
   !isNullOrEmpty(Password)){
     let isVerified;
-    let result = Models.LoginHistory.findAll({ 
+    let result = Models.UserAccount.findAll({ 
       where: {
         UserName: {
           eq: UserName//not null
