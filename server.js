@@ -852,11 +852,9 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
     Models.Player.sync({alter : true});
     item1.save().catch(error => {
       // mhhh, wth!
-      
       console.log("error inserting");
-    }).then(function(result){
-      res.send("Player "+Offset+" "+ Limit+" "+Sort);
     });
+    res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
   }
 });
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
