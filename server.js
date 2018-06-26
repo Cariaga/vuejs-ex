@@ -887,7 +887,7 @@ app.get('/Api/v1/Player', function (req, res) {
           
       });
       res.send(beautify(Data, null, 2, 100));
-    }).error(function(result) {
+    }).catch(function(result) {
 
       res.send("Error");
     });
@@ -961,6 +961,9 @@ app.get('/Api/v1/Shop', function (req, res) {
       let Data = result.map(function(item) {
           return item;
           
+      }).catch(function(result) {
+
+        res.send("Error");
       });
      
       //res.send(beautify(Data, null, 2, 100));
