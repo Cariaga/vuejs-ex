@@ -968,7 +968,7 @@ app.get('/Api/v1/Shop', function (req, res) {
      
       //res.send(beautify(Data, null, 2, 100));
     });
-    res.send(result);
+   
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
