@@ -312,7 +312,19 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(BankName)&&!isNullOrEmpty(SecurityCode)&&!isNullOrEmpty(Expiration)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
-    
+    var item1 = Models.BankInformation.build({
+      UserAccountID:UserAccountID,
+      BankName:BankName,
+      SecurityCode:SecurityCode,
+      Expiration:Expiration,
+      Time:Time,
+      Date:Date
+    });
+    Models.BankInformation.sync({alter : true});
+    item1.save().catch(error => {
+      // mhhh, wth!
+      console.log("error inserting");
+    });
   }
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
@@ -459,7 +471,8 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
     var item1 = Models.DepositHistory.build({
       UserAccountID:UserAccountID,
       Amount:Amount, 
-      BankNameUsed:BankNameUsed, 
+      BankNameUsed:BankNameUsed,
+      SecurityCodeUsed:SecurityCodeUsed,
       Status:Status,
       RequestedDATE:RequestedDATE,
       ApprovedDATE:ApprovedDATE,
