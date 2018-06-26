@@ -958,7 +958,8 @@ app.get('/Api/v1/Shop', function (req, res) {
           return item;
           
       });
-      res.send(beautify(Data, null, 2, 100));
+      res.send(result);
+      //res.send(beautify(Data, null, 2, 100));
     });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
