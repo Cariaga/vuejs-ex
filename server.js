@@ -868,7 +868,7 @@ app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname
     
   }
 });
-app.get('/Api1/Player', function (req, res) {
+app.get('/Api/v1/Player', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
