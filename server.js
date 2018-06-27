@@ -1034,7 +1034,7 @@ app.get('/Api/v1/AccessControl', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("AccessControl "+Offset+" "+ Limit+" "+Sort);
+ // res.send("AccessControl "+Offset+" "+ Limit+" "+Sort);
 });
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
