@@ -565,7 +565,7 @@ app.get('/Api/v1/BankInformation', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("BankInformation "+Offset+" "+ Limit+" "+Sort);
+  //res.send("BankInformation "+Offset+" "+ Limit+" "+Sort);
 });
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START
