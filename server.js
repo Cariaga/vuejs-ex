@@ -163,13 +163,12 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
     .then(Success => {
       res.send("Inserted");
     })
+    
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
       res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
@@ -255,14 +254,17 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
       Date:Date
     });
     Models.Notification.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
-  
 });
 
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
@@ -340,12 +342,16 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
       ReleaseDate:ReleaseDate
     });
     Models.BlackList.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 
@@ -429,12 +435,16 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
       Date:Date
     });
     Models.LoginHistory.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
@@ -594,12 +604,16 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
     ProcessingTIME:ProcessingTIME, 
     });
     Models.WithdrawHistory.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
@@ -702,12 +716,16 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
       ProcessingTIME:ProcessingTIME, 
     });
     Models.DepositHistory.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
@@ -806,12 +824,16 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
       AfterPoints:AfterPoints
     });
     Models.GameHistory.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
@@ -872,12 +894,16 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       TelephoneNumber:TelephoneNumber
     });
     Models.UserInfo.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
@@ -946,12 +972,16 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
       AccessTags:AccessTags
     });
     Models.AccessControl.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-  }else{
-    res.send("Missing params");
   }
 });
 app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
