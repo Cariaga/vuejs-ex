@@ -1007,11 +1007,16 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
       Password:Password,
       Verify:Verify,
       ValidKey:ValidKey,
-      RegisteredDate:RegisteredDate,
-      RegisteredTime:RegisteredTime
+      RegisteredDate:new Date(2014,3,3),
+      RegisteredTime:null
     });
     Models.UserAccount.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
       res.send(error);
