@@ -412,6 +412,7 @@ app.get('/Api/v1/BlackList', function (req, res) {
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
+  //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
   let IP = req.params.IP;
   let DeviceName = req.params.DeviceName;
@@ -435,7 +436,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
       Time:Time,
       Date:Date
     });
-    Models.LoginHistory.sync({alter : true});
+    Models.LoginHistory.sync({alter : true,force:true});
     item1.save()
     .then(Success => {
       res.send("Inserted");
@@ -465,7 +466,7 @@ app.get('/Api/v1/LoginHistory', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
@@ -489,7 +490,7 @@ app.get('/Api/v1/LoginHistory', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
+  //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---LoginHistory ROUTING END
 //---BankInformation ROUTING START
