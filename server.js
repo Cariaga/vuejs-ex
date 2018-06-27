@@ -1027,8 +1027,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
       Password:Password,
       Verify:Verify,
       ValidKey:ValidKey,
-      RegisteredDate:null,
-      RegisteredTime:null
+      RegisteredDate:RegisteredDate,
+      RegisteredTime:RegisteredTime
     });
     Models.UserAccount.sync({alter : true});
     item1.save()
