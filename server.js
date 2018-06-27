@@ -1064,8 +1064,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
           return item;
           
       });
-     
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
