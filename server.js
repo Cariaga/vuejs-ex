@@ -135,7 +135,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
 //---API Login End
 //---SupportTicket ROUTING START
 app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
-  //
+  ///USAGE Api/v1/SupportTicket/Add/UserAccountID/Title/Description/Reason/01:57:17/2018-06-27/Status
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
   let Description = req.params.Description;
