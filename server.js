@@ -1007,7 +1007,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
       Password:Password,
       Verify:Verify,
       ValidKey:ValidKey,
-      RegisteredDate:new Date(2014,3,3),
+      RegisteredDate:null,
       RegisteredTime:null
     });
     Models.UserAccount.sync({alter : true});
