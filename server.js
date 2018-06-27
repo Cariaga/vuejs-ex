@@ -882,6 +882,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
 //---GameHistory ROUTING END
 //---UserInfo ROUTING START
 app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
+  //USAGE /Api/v1/UserInfo/Add/UserAccountID/Email/PhoneNumber/TelephoneNumber
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
