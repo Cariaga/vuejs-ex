@@ -244,7 +244,6 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   if(!isNullOrEmpty(NotificationType)&&
   !isNullOrEmpty(Title)&&
   !isNullOrEmpty(Description)&&
-  !isNullOrEmpty(Reason)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
     var item1 = Models.Notification.build({
