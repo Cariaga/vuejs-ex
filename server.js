@@ -1248,9 +1248,15 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
       Description:Description
     });
     Models.Shop.sync({alter : true,force:true});//use force to recreate for non production only
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
   }else{
     res.send("Missing params");
