@@ -1030,7 +1030,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
       RegisteredDate:RegisteredDate,
       RegisteredTime:RegisteredTime
     });
-    Models.UserAccount.sync({alter : true});
+    //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
+    Models.UserAccount.sync({alter : true,force:true});
     item1.save()
     .then(Success => {
       res.send("Inserted");
