@@ -1394,7 +1394,7 @@ app.get('/Api/v1/Distributor', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
+  //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
 });
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
