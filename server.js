@@ -1236,6 +1236,7 @@ app.get('/Api/v1/Player', function (req, res) {
 //---Player ROUTING START
 //---Shop ROUTING START
 app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
+  //Api/v1/Shop/Add/UserAccountID/DistributorID/Description/
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
@@ -1289,7 +1290,7 @@ app.get('/Api/v1/Shop', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
