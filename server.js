@@ -923,7 +923,7 @@ app.get('/Api/v1/UserInfo', function (req, res) {
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.UserInfo.findAll({ 
       where: {
-        UserID: {
+        UserInfoID: {
           ne: null//not null
         }
      }
