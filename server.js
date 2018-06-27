@@ -1331,10 +1331,15 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
       HeadOfficeID:HeadOfficeID,
       Name:Name
     });
-    Models.Distributor.sync({alter : true});
-    item1.save().catch(error => {
+    Models.Distributor.sync({alter : true,force:true});//force removes rebuilds the table only for non production 
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
   }else{
     res.send("Missing params");
