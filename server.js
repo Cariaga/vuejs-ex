@@ -342,7 +342,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
       ReportDate:ReportDate,
       ReleaseDate:ReleaseDate
     });
-    Models.BlackList.sync({alter : true,/*force:true*/});//Force true to recreate table
+    Models.BlackList.sync({alter : true,force:true});//Force true to recreate table
     item1.save()
     .then(Success => {
       res.send("Inserted");
