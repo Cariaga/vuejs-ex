@@ -158,7 +158,7 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
       Date:Date,
       Status:Status
     });
-    Models.SupportTicket.sync({alter : true});
+    Models.SupportTicket.sync({alter : true,force:true});//force to recreate if non production code
     item1.save()
     .then(Success => {
       res.send("Inserted");
