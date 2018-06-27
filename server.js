@@ -1014,6 +1014,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
     item1.save().catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send(error);
     });
   }
 });
