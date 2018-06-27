@@ -1412,7 +1412,7 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
       Name:Name,
       Description:Description
     });
-    Models.HeadOffice.sync({alter : true,force:true});//force true rebuilds table for non production only
+    Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
     item1.save()
     .then(Success => {
       res.send("Inserted");
