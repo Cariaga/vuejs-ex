@@ -1400,6 +1400,7 @@ app.get('/Api/v1/Distributor', function (req, res) {
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
 app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
+  //Usage /Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
   let UserAccountID = req.params.UserAccountID;
   let Name = req.params.Name;
   let Description = req.params.Description;
@@ -1412,9 +1413,14 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
       Description:Description
     });
     Models.HeadOffice.sync({alter : true,force:true});//force true rebuilds table for non production only
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
   }else{
     res.send("Missing params");
