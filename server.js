@@ -240,7 +240,7 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   let Description = req.params.Description;
   let Time = req.params.Time;
   let Date = req.params.Date;
-
+  //USAGE Api/v1/Notification/Add/NotificationType/Title/Description/01:57:17/2018-06-27
   if(!isNullOrEmpty(NotificationType)&&
   !isNullOrEmpty(Title)&&
   !isNullOrEmpty(Description)&&
@@ -295,7 +295,7 @@ app.get('/Api/v1/Notification', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
