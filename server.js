@@ -127,7 +127,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
     }else{
       res.send('Unverified');
     }*/
-    
+
   }else{
     res.send('no params sent');
   }
@@ -1058,7 +1058,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
+  //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
 
 //---UserAccount ROUTING START
