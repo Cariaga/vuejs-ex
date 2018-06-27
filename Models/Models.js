@@ -1,13 +1,14 @@
 var express = require('express');
 const mysql = require('mysql2');
 const Sequelize = require('sequelize');
+
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
   dialect: 'mysql'
 });
 //we have Dedicated Headoffice,distributer,shop tables because if we used account type we would have a many to many relationship issue and alot of inner joins queries
-const  HeadOffice =sequelize.define('sampledb', {
+const  HeadOffice =sequelize.define('HeadOffice', {
   HeadOfficeID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -18,7 +19,7 @@ const  HeadOffice =sequelize.define('sampledb', {
   Description:Sequelize.STRING,
 });
 
-const  Distributor =sequelize.define('sampledb', {
+const  Distributor =sequelize.define('Distributor', {
   DistributorID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -31,7 +32,7 @@ const  Distributor =sequelize.define('sampledb', {
 
 
 
-const  Shop =sequelize.define('sampledb', {
+const  Shop =sequelize.define('Shop', {
   ShopID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -46,7 +47,7 @@ const  Shop =sequelize.define('sampledb', {
 
 
 
-const Player =sequelize.define('sampledb', {
+const Player =sequelize.define('Player', {
   PlayersID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -62,7 +63,7 @@ const Player =sequelize.define('sampledb', {
 
 
 
-const UserAccount =sequelize.define('sampledb', {//the main schema
+const UserAccount =sequelize.define('UserAccount', {//the main schema
   UserID: {//PK only used in this part
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -86,7 +87,7 @@ const UserAccount =sequelize.define('sampledb', {//the main schema
 });
 
 
-const AccessControl =sequelize.define('sampledb', {//A flexible way of access control Account Privileges 
+const AccessControl =sequelize.define('AccessControl', {//A flexible way of access control Account Privileges 
   AccessControlID: {//PK
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -103,7 +104,7 @@ const AccessControl =sequelize.define('sampledb', {//A flexible way of access co
 
 
 
-const UserInfo =sequelize.define('sampledb', {
+const UserInfo =sequelize.define('UserInfo', {
   UserInfoID: {//PK
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -121,7 +122,7 @@ const UserInfo =sequelize.define('sampledb', {
 
 
 
-const GameHistory =sequelize.define('sampledb', {
+const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -139,7 +140,7 @@ const GameHistory =sequelize.define('sampledb', {
   AfterPoints: Sequelize.INTEGER
 });
 
-const DepositHistory =sequelize.define('sampledb', {
+const DepositHistory =sequelize.define('DepositHistory', {
   DepositHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -160,7 +161,7 @@ const DepositHistory =sequelize.define('sampledb', {
 });
 
 
-const WithdrawHistory =sequelize.define('sampledb', {
+const WithdrawHistory =sequelize.define('WithdrawHistory', {
   WithdrawHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -181,7 +182,7 @@ const WithdrawHistory =sequelize.define('sampledb', {
   ProcessingTIME: Sequelize.TIME,
 });
 
-const BankInformation =sequelize.define('sampledb', {
+const BankInformation =sequelize.define('BankInformation', {
   BankInformationID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -198,7 +199,7 @@ const BankInformation =sequelize.define('sampledb', {
 
 
 
-const  LoginHistory =sequelize.define('sampledb', {
+const  LoginHistory =sequelize.define('LoginHistory', {
   LoginHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -213,7 +214,7 @@ const  LoginHistory =sequelize.define('sampledb', {
   Date:Sequelize.DATE
 });
 
-const BlackList =sequelize.define('sampledb', {
+const BlackList =sequelize.define('BlackList', {
   BlackListID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -226,7 +227,7 @@ const BlackList =sequelize.define('sampledb', {
   ReleaseDate: Sequelize.DATE
 });
 
-const SupportTicket =sequelize.define('sampledb', {
+const SupportTicket =sequelize.define('SupportTicket', {
   SupportTicketID: {//PK Can be used to Connect to A user Chat Room Name 
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -241,7 +242,7 @@ const SupportTicket =sequelize.define('sampledb', {
   Status: Sequelize.STRING
 });
 
-const Notification =sequelize.define('sampledb', {
+const Notification =sequelize.define('Notification', {
   NotificationID: {//PK
     type: Sequelize.INTEGER,
     primaryKey: true,
