@@ -1320,6 +1320,7 @@ app.get('/Api/v1/Shop', function (req, res) {
 //---Shop ROUTING END
 //---Distributor ROUTING START
 app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
+  //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
   let UserAccountID = req.params.UserAccountID;
   let HeadOfficeID = req.params.HeadOfficeID;
   let Name = req.params.Name;
@@ -1410,7 +1411,7 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
       Name:Name,
       Description:Description
     });
-    Models.HeadOffice.sync({alter : true});
+    Models.HeadOffice.sync({alter : true,force:true});//force true rebuilds table for non production only
     item1.save().catch(error => {
       // mhhh, wth!
       console.log("error inserting");
@@ -1444,7 +1445,7 @@ app.get('/Api/v1/HeadOffice', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
@@ -1469,7 +1470,7 @@ app.get('/Api/v1/HeadOffice', function (req, res) {
 
   }
 
-  res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
+ // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
 });
 //---HeadOffice ROUTING END
 
