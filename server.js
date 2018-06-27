@@ -990,8 +990,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   let Password = req.params.Password;
   let Verify = req.params.Verify;
   let ValidKey = req.params.ValidKey;
-  let RegisteredDate = req.params.RegisteredDate;
-  let RegisteredTime = req.params.RegisteredTime;
+  let RegisteredDate = new Date().Date;
+  let RegisteredTime = new Date().Time;
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(AccessID)&&
   !isNullOrEmpty(UserName)&&
