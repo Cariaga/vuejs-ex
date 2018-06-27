@@ -516,9 +516,14 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
       Date:Date
     });
     Models.BankInformation.sync({alter : true,force:true});//force recreates deletes old table
-    item1.save().catch(error => {
+    item1.save().then(Success => {
+      res.send("Inserted");
+    })
+    
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
   }else{
     res.send("Missing params");
