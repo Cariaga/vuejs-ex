@@ -1331,7 +1331,7 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
       HeadOfficeID:HeadOfficeID,
       Name:Name
     });
-    Models.Distributor.sync({alter : true,force:true});//force removes rebuilds the table only for non production 
+  Models.Distributor.sync({alter : true,/*force:true*/});//force removes rebuilds the table only for non production 
     item1.save()
     .then(Success => {
       res.send("Inserted");
