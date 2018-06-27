@@ -1004,6 +1004,8 @@ app.get('/Api/v1/AccessControl', function (req, res) {
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
 app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
+  //USAGE
+  ///Api/v1/UserAccount/Add/UserAccountID/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
   let UserAccountID = req.params.UserAccountID;
   let AccessID = req.params.AccessID;
   let UserName = req.params.UserName;
