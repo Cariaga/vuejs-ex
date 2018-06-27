@@ -515,7 +515,7 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
       Time:Time,
       Date:Date
     });
-    Models.BankInformation.sync({alter : true});
+    Models.BankInformation.sync({alter : true,force:true});//force recreates deletes old table
     item1.save().catch(error => {
       // mhhh, wth!
       console.log("error inserting");
