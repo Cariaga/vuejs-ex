@@ -1010,8 +1010,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   let Password = req.params.Password;
   let Verify = req.params.Verify;
   let ValidKey = req.params.ValidKey;
-  let RegisteredDate = new Date().Date;
-  let RegisteredTime = new Date().Time;
+  let RegisteredDate = req.params.RegisteredDate;
+  let RegisteredTime =  req.params.RegisteredTime;
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(AccessID)&&
   !isNullOrEmpty(UserName)&&
@@ -1042,7 +1042,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
       res.send(error);
     });
   }else{
-    res.send("Missing params");
+    res.send("Missing params"+AccessID+UserName+Password+Verify+ValidKey+RegisteredDate+RegisteredTime);
   }
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
