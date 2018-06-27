@@ -1021,6 +1021,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
       console.log("error inserting");
       res.send(error);
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
