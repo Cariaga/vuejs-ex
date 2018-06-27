@@ -1039,7 +1039,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
-      res.send(error);
+      res.send("error inserting " +error);
     });
   }else{
     res.send("Missing params"+AccessID+UserName+Password+Verify+ValidKey+RegisteredDate+RegisteredTime);
