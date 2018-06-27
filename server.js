@@ -341,7 +341,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
       ReportDate:ReportDate,
       ReleaseDate:ReleaseDate
     });
-    Models.BlackList.sync({alter : true});
+    Models.BlackList.sync({alter : true,force:true});//Force true to recreate table
     item1.save()
     .then(Success => {
       res.send("Inserted");
@@ -382,7 +382,7 @@ app.get('/Api/v1/BlackList', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
@@ -406,7 +406,7 @@ app.get('/Api/v1/BlackList', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
+ // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
 });
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
