@@ -1247,7 +1247,7 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
       DistributorID:DistributorID,
       Description:Description
     });
-    Models.Shop.sync({alter : true});
+    Models.Shop.sync({alter : true,force:true});//use force to recreate for non production only
     item1.save().catch(error => {
       // mhhh, wth!
       console.log("error inserting");
