@@ -117,15 +117,17 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
      
       //res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-
+      
       res.send("Error "+result);
+
     });
 
-    if(isVerified){
+  /*  if(isVerified){
       res.send('Verified');
     }else{
       res.send('Unverified');
-    }
+    }*/
+    
   }else{
     res.send('no params sent');
   }
