@@ -319,7 +319,7 @@ app.get('/Api/v1/Notification', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("Notification "+Offset+" "+ Limit+" "+Sort);
+ // res.send("Notification "+Offset+" "+ Limit+" "+Sort);
 });
 //---Notification ROUTING END
 //---BlackList ROUTING START
