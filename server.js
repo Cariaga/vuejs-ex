@@ -1138,6 +1138,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
 //---UserAccount ROUTING START
 //---Player ROUTING START
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
+  //USAGE /Api/v1/Player/Add/UserAccountID/ShopID/ScreenName/Name/Surname/CurrentRoomName
   let UserAccountID = req.params.UserAccountID;
   let ShopID = req.params.ShopID;
   let ScreenName = req.params.ScreenName;
