@@ -159,7 +159,7 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
       Date:Date,
       Status:Status
     });
-    Models.SupportTicket.sync({/*alter : true,force:true*/});//force to recreate if non production code
+    Models.SupportTicket.sync({force: true, logging: console.log/*alter : true,force:true*/});//force to recreate if non production code
     item1.save()
     .then(Success => {
       res.send("Inserted");
@@ -342,7 +342,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
       ReportDate:ReportDate,
       ReleaseDate:ReleaseDate
     });
-    Models.BlackList.sync({alter : true,force:true});//Force true to recreate table
+    Models.BlackList.sync({/*alter : true,force:true*/});//Force true to recreate table
     item1.save()
     .then(Success => {
       res.send("Inserted");
