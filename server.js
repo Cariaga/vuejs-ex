@@ -972,7 +972,7 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
       AccessName:AccessName,
       AccessTags:AccessTags
     });
-    Models.AccessControl.sync({alter : true});
+    Models.AccessControl.sync({alter : true,force:true});//use force only on non production
     item1.save()
     .then(Success => {
       res.send("Inserted");
