@@ -799,6 +799,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 //---DepositHistory ROUTING END
 //---GameHistory ROUTING START
 app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function (req, res) {
+  //USAGE /Api/v1/GameHistory/Add/UserAccountID/RoundID/RoomID/Rank/0/Card/01:57:17/2018-06-27/0/0/
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
   let RoomID = req.params.RoomID;
