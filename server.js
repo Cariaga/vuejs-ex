@@ -831,7 +831,7 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
       BeforePoints:BeforePoints,
       AfterPoints:AfterPoints
     });
-    Models.GameHistory.sync({alter : true});
+    Models.GameHistory.sync({alter : true,force:true});//use force to delete old table
     item1.save()
     .then(Success => {
       res.send("Inserted");
@@ -885,7 +885,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
+  //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---GameHistory ROUTING END
 //---UserInfo ROUTING START
