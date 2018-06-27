@@ -436,7 +436,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
       Time:Time,
       Date:Date
     });
-    Models.LoginHistory.sync({alter : true,/*force:true*/});//force recreates deletes old one
+    Models.LoginHistory.sync({alter : true,/*force:true*/});//force recreates deletes old table
     item1.save()
     .then(Success => {
       res.send("Inserted");
