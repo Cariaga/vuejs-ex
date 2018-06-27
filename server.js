@@ -143,6 +143,7 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
+  
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Title)&&
   !isNullOrEmpty(Description)&&
@@ -204,7 +205,6 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
           return item;
           
       });
-     
       res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
@@ -1377,6 +1377,8 @@ app.get('/Api/v1/Distributor', function (req, res) {
       res.send("Error "+result);
     });
   }
+  
+ 
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
   }
@@ -1400,7 +1402,7 @@ app.get('/Api/v1/Distributor', function (req, res) {
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
 app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
-  //Usage /Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
+  //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
   let UserAccountID = req.params.UserAccountID;
   let Name = req.params.Name;
   let Description = req.params.Description;
@@ -1412,7 +1414,7 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
       Name:Name,
       Description:Description
     });
-    Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
+    Models.HeadOffice.sync({alter : true/*,force:true*/});//force true rebuilds table for non production only
     item1.save()
     .then(Success => {
       res.send("Inserted");
@@ -1422,6 +1424,7 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
       console.log("error inserting");
       res.send("error inserting " +error);
     });
+    
   }else{
     res.send("Missing params");
   }
