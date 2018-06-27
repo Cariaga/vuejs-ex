@@ -159,9 +159,14 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
       Status:Status
     });
     Models.SupportTicket.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
   }else{
     res.send("Missing params");
@@ -181,7 +186,6 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
   !isNullOrEmpty(Reason)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Status)){
-    
   }
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
@@ -1117,11 +1121,16 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
       CurrentRoomName:CurrentRoomName
     });
     Models.Player.sync({alter : true});
-    item1.save().catch(error => {
+    item1.save()
+    .then(Success => {
+      res.send("Inserted");
+    })
+    .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
+      res.send("error inserting " +error);
     });
-    res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
+    //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
   }else{
     res.send("Missing params");
   }
