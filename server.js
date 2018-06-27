@@ -229,7 +229,7 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
 
   }
 
-  res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
+  //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
 //---SupportTicket ROUTING END
 //---Notification ROUTING START
