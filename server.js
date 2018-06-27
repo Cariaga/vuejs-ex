@@ -932,7 +932,7 @@ app.get('/Api/v1/UserInfo', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
@@ -956,7 +956,7 @@ app.get('/Api/v1/UserInfo', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("UserInfo "+Offset+" "+ Limit+" "+Sort);
+ 
 });
 //---UserInfo ROUTING END
 //---AccessControl ROUTING START
