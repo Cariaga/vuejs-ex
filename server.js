@@ -163,6 +163,8 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
@@ -253,6 +255,8 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
   
 });
@@ -336,6 +340,8 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 
@@ -423,6 +429,8 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
@@ -496,6 +504,8 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
@@ -584,6 +594,8 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
@@ -690,6 +702,8 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
@@ -792,6 +806,8 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
@@ -856,6 +872,8 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
@@ -928,6 +946,8 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
@@ -1100,6 +1120,8 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
       console.log("error inserting");
     });
     res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
@@ -1178,6 +1200,8 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 
@@ -1253,6 +1277,8 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
@@ -1325,6 +1351,8 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
       // mhhh, wth!
       console.log("error inserting");
     });
+  }else{
+    res.send("Missing params");
   }
 });
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
