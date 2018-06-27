@@ -832,7 +832,7 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
       BeforePoints:BeforePoints,
       AfterPoints:AfterPoints
     });
-    Models.GameHistory.sync({alter : true,force:true});//use force to delete old table non production
+    Models.GameHistory.sync({alter : true/*,force:true*/});//use force to delete old table non production
     item1.save()
     .then(Success => {
       res.send("Inserted");
