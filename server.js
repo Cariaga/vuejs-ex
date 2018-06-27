@@ -1160,7 +1160,7 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
       Surname:Surname,
       CurrentRoomName:CurrentRoomName
     });
-    Models.Player.sync({alter : true});
+    Models.Player.sync({alter : true,force:true});//use force to clear/delete old table non production only
     item1.save()
     .then(Success => {
       res.send("Inserted");
