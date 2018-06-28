@@ -61,6 +61,53 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
 
 
 
+//--Login Start
+app.get('/register',function (req, res) {
+  
+  let UserName= req.query.UserName;
+  let Password = req.query.Password;
+  let Name = req.query.Name;
+  let Surname = req.query.Surname;
+  let Email= req.query.Email;
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(Password)){
+      if(!isNullOrEmpty(Name)){
+        if(!isNullOrEmpty(Surname)){
+          if(!isNullOrEmpty(Email)){
+            res.send("Valid");
+          }else{
+            res.send("Invalid");
+          }
+        }else{
+          res.send("Invalid");
+        }
+      }else{
+        res.send("Invalid");
+      }
+    }else{
+      res.send("Invalid");
+    }
+  }else{
+    res.send("Invalid");
+  }
+});
+//--Login End
+//--Login Start
+app.get('/login',function (req, res) {
+  
+  let UserName= req.query.UserName;
+  let Password = req.query.Password;
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(Password)){
+      res.send("Valid");
+    }else{
+      res.send("Invalid");
+    }
+  }else{
+    res.send("Invalid");
+  }
+});
+//--Login End
 
 
 //--API START
@@ -73,7 +120,7 @@ app.get('/Api/v1', function (req, res) {
   res.send('Api v1 version');
 });
 //--API version START
-//---API Login Start
+//---API SignOut Start
 app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
   let UserName = req.params.UserName;
   let Password = req.params.SignOutKey;
@@ -89,9 +136,8 @@ app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
   }else{
     res.send('no params sent');
   }
-
 });
-//---API Login End
+//---API SignOut End
 //---API Login Start
 app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
   let UserName = req.params.UserName;
@@ -1617,50 +1663,7 @@ app.get('/notification/', function (req, res) {
   res.send(JSON.stringify(NotificationData, null, 3));
 })
 
-app.get('/register',function (req, res) {
-  
-  let UserName= req.query.UserName;
-  let Password = req.query.Password;
-  let Name = req.query.Name;
-  let Surname = req.query.Surname;
-  let Email= req.query.Email;
-  if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(Password)){
-      if(!isNullOrEmpty(Name)){
-        if(!isNullOrEmpty(Surname)){
-          if(!isNullOrEmpty(Email)){
-            res.send("Valid");
-          }else{
-            res.send("Invalid");
-          }
-        }else{
-          res.send("Invalid");
-        }
-      }else{
-        res.send("Invalid");
-      }
-    }else{
-      res.send("Invalid");
-    }
-  }else{
-    res.send("Invalid");
-  }
-});
 
-app.get('/login',function (req, res) {
-  
-  let UserName= req.query.UserName;
-  let Password = req.query.Password;
-  if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(Password)){
-      res.send("Valid");
-    }else{
-      res.send("Invalid");
-    }
-  }else{
-    res.send("Invalid");
-  }
-});
 
 app.get('/deposit',function (req, res) {
   
