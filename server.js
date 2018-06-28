@@ -94,7 +94,7 @@ app.get('/Register',function (req, res) {
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
-  
+  // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
   let Password = req.query.Password;
   
@@ -102,7 +102,7 @@ app.get('/Login',function (req, res) {
     if(!isNullOrEmpty(Password)){
 
       Models.UserAccount.sync();//makes sure table exist and syncs it
-      
+
       let result = Models.UserAccount.findAll({ 
         where: {
           UserName:UserName//not null
@@ -113,6 +113,11 @@ app.get('/Login',function (req, res) {
         let Data = result.map(function(item) {
             return item;
         });
+
+        let isVerified = Data.find(function(element) {
+          return element.Verify == true;
+        });
+
         res.send(beautify(Data, null, 2, 100));
 
       }).catch(function(result) {//catching any then errors
@@ -162,7 +167,7 @@ app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
 //---API SignOut End
 //---API Login Start
 app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
-  res.send('Not Used');
+  res.send('Not Used use Query Version Instead');
   /*let UserName = req.params.UserName;
   let Password = req.params.Password;
 
