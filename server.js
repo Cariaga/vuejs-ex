@@ -114,11 +114,16 @@ app.get('/Login',function (req, res) {
       }).then(function(result) {
         let Data = result.map(function(item) {
             return item;
-            
         });
-      })
-      res.send(beautify(Data, null, 2, 100));
-      res.send("Valid");
+        res.send(beautify(Data, null, 2, 100));
+        
+      }).catch(function(result) {//catching any then errors
+      
+        res.send("Error "+result);
+  
+      });
+     
+  
     }else{
       res.send("Invalid Password");
     }
