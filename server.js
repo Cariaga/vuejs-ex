@@ -103,8 +103,8 @@ app.get('/Login',function (req, res) {
 
       Models.UserAccount.sync();//makes sure table exist and syncs it
       Models.UserInfo.sync();
-
-      let Associated= Models.UserAccount.findAll(
+      Models.UserInfo.belongsTo(UserAccount);
+      /*let Associated= Models.UserAccount.findAll(
         {
           include: [
               {
@@ -125,7 +125,7 @@ app.get('/Login',function (req, res) {
       
         res.send("Error Associate "+result);
         
-      });
+      });*/
         
 
 
