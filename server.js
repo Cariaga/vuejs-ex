@@ -104,6 +104,8 @@ app.get('/Login',function (req, res) {
       Models.UserAccount.sync();//makes sure table exist and syncs it
       Models.UserInfo.sync();
 
+      //Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
+      Models.UserInfo.belongsTo(Models.UserAccount);
       let Associated= Models.UserAccount.findAll(
         {
           include: [
@@ -114,7 +116,6 @@ app.get('/Login',function (req, res) {
                   },
                   attributes: [] // empty array means that no column from ModelB will be returned
               }
-             {all:true}
           ]
       }
       ).then(function(result) {
@@ -175,7 +176,6 @@ app.get('/Login',function (req, res) {
             "Status":"Unverified",
             "Controller":"/Login",
             "Solution":"Check Mail For Verification"
-            
           });
         }
      
@@ -304,6 +304,7 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   }
 });
 app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
+  // USAGE Api/v1/SupportTicket/Update/putek/eltit/tion/rason/12:34:56/2009-05-31/Nakaon
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
   let Description = req.params.Description;
@@ -443,8 +444,7 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
       // mhhh, wth!
       console.log("Error Updating");
       res.send("Error Updating " +error);
-    });
-    
+    }); 
   }
 });
 
@@ -534,7 +534,24 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
-
+    Models.BlackList.update({
+      UserAccountID: UserAccountID,
+      Title: Title,
+      Description: Description,
+      ReportDate: ReportDate,
+      ReleaseDate: ReleaseDate
+    },{
+      where: {BlackListID: 1 }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
   }
 });
 app.get('/Api/v1/BlackList', function (req, res) {
@@ -1083,10 +1100,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
     });
-    Models.UserInfo.belongsTo(Models.UserAccount.UserAccountID, {foreignKey: 'UserAccountID', targetKey: 'UserAccountID'});
- 
     Models.UserInfo.sync();//only use force true if you want to destroy replace table
-    
     item1.save()
     .then(Success => {
       res.send("Inserted");
