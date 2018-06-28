@@ -321,6 +321,7 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
       where: {
         SupportTicketID: {
@@ -411,6 +412,7 @@ app.get('/Api/v1/Notification', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.Notification.sync();
     let result = Models.Notification.findAll({ 
       where: {
         NotificationID: {
@@ -499,6 +501,7 @@ app.get('/Api/v1/BlackList', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.BlackList.sync();
     let result = Models.BlackList.findAll({ 
       where: {
         BlackListID: {
@@ -582,6 +585,7 @@ app.get('/Api/v1/LoginHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.LoginHistory.sync();
     let result = Models.LoginHistory.findAll({ 
       where: {
         LoginHistoryID: {
@@ -663,6 +667,7 @@ app.get('/Api/v1/BankInformation', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.BankInformation.sync();
     let result = Models.BankInformation.findAll({ 
       where: {
         BankInformationID: {
