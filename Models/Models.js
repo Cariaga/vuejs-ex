@@ -111,10 +111,15 @@ const UserInfo =sequelize.define('UserInfo', {
     autoIncrement: true 
   },
   UserAccountID:{
-   type:Sequelize.STRING,
-   references: 'UserAccount', // <<< Note, its table's name, not object name
-   referencesKey: 'UserAccountID' // <<< Note, its a column name
-  },//FK A user account can have multiple Information Type
+    type: Sequelize.STRING,
+    allowNull: false,
+    foreignKey: true,
+    references: {
+      model: 'UserAccount',
+      key: 'UserAccountID'
+    }
+  }
+  ,
   Email: {
     type :Sequelize.STRING,
     allowNull: false,

@@ -105,17 +105,18 @@ app.get('/Login',function (req, res) {
       Models.UserInfo.sync();
 
       //Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
-      Models.UserInfo.belongsTo(Models.UserAccount);
-      let Associated= Models.UserAccount.findAll(
+     
+      let Associated= Models.UserInfo.findAll(
         {
           include: [
-              {
-                  model: Models.UserInfo,
+              /*{
+                  model: Models.UserAccount,
                   on: {
                       col1: sequelize.where(sequelize.col("UserAccount.UserAccountID"), "=", sequelize.col("UserInfo.UserAccountID"))
                   },
                   attributes: [] // empty array means that no column from ModelB will be returned
-              }
+              }*/
+             {all:true}
           ]
       }
       ).then(function(result) {
@@ -176,6 +177,7 @@ app.get('/Login',function (req, res) {
             "Status":"Unverified",
             "Controller":"/Login",
             "Solution":"Check Mail For Verification"
+            
           });
         }
      
@@ -1083,7 +1085,10 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
     });
+    Models.UserInfo.belongsTo(Models.UserAccount.UserAccountID, {foreignKey: 'UserAccountID', targetKey: 'UserAccountID'});
+ 
     Models.UserInfo.sync();//only use force true if you want to destroy replace table
+    
     item1.save()
     .then(Success => {
       res.send("Inserted");
