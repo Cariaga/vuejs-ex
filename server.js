@@ -113,7 +113,7 @@ app.get('/Login',function (req, res) {
                       col1: sequelize.where(sequelize.col("UserAccount.UserAccountID"), "=", sequelize.col("UserInfo.UserAccountID"))
                   },
                   attributes: [] // empty array means that no column from ModelB will be returned
-              }
+              },
              {all:true}
           ]
       }
