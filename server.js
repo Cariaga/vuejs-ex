@@ -102,7 +102,7 @@ app.get('/Login',function (req, res) {
     if(!isNullOrEmpty(Password)){
 
 
-      let result = Models.SupportTicket.findAll({ 
+      let result = Models.UserAccount.findAll({ 
         where: {
           UserName:UserName//not null
           ,
