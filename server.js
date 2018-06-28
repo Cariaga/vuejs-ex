@@ -781,7 +781,7 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
   let Sort =  req.query.Sort;
 
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
+    Models.WithdrawHistory.sync();
     let result = Models.WithdrawHistory.findAll({ 
       where: {
         WithdrawHistoryID: {
