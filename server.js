@@ -101,10 +101,10 @@ app.get('/Login',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
 
-      Models.UserAccount.sync();//makes sure table exist and syncs it
-      Models.UserInfo.sync();
-      Models.UserInfo.belongsTo(UserAccount);
-      /*let Associated= Models.UserAccount.findAll(
+      Models.UserAccount.sync({alter:true});//makes sure table exist and syncs it
+      Models.UserInfo.sync({alter:true});
+      Models.UserInfo.belongsTo(Models.UserAccount);
+      let Associated= Models.UserAccount.findAll(
         {
           include: [
               {
@@ -125,9 +125,9 @@ app.get('/Login',function (req, res) {
       
         res.send("Error Associate "+result);
         
-      });*/
+      });
         
-
+      
 
       let result = Models.UserAccount.findAll({ 
         where: {
@@ -149,6 +149,7 @@ app.get('/Login',function (req, res) {
           return element.Verify==true;
         });*/
 
+        res.send(beautify(Data, null, 2, 100));
       
         
       
