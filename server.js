@@ -114,10 +114,10 @@ app.get('/Login',function (req, res) {
             return item;
         });
 
-        let Verify = Data.find(function(element) {
-          return element.Verify;
+        let VerifyResult = Data.find(function(element) {
+          return element.Verify==true;
         });
-        res.send(Verify);
+        res.send(VerifyResult.Verify);
 
         //res.send(beautify(Data, null, 2, 100));
 
