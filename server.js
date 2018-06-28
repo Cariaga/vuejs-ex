@@ -104,10 +104,16 @@ app.get('/Login',function (req, res) {
       Models.UserAccount.sync();//makes sure table exist and syncs it
       Models.UserInfo.sync();
 
-      /*let Associated= Models.UserAccount.belongsTo(Models.UserAccount.UserAccountID).then(function(result) {
+      let Associated= Models.UserAccount.belongsTo(Models.UserAccount.UserAccountID).then(function(result) {
         let Data = result.map(function(item) {
             return item;
-        });*/
+        });
+
+      }).catch(function(result) {//catching any then errors
+      
+        res.send("Error Associate "+result);
+        
+      });
         
 
 
@@ -754,8 +760,9 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.WithdrawHistory.sync();
+
     let result = Models.WithdrawHistory.findAll({ 
       where: {
         WithdrawHistoryID: {
@@ -882,7 +889,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
@@ -906,7 +913,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
+  //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---DepositHistory ROUTING END
 //---GameHistory ROUTING START
