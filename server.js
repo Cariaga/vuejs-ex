@@ -108,6 +108,7 @@ app.get('/Login',function (req, res) {
           UserName:UserName//not null
           ,
           Password:Password//not null
+
        }
       }).then(function(result) {
         let Data = result.map(function(item) {
@@ -117,7 +118,18 @@ app.get('/Login',function (req, res) {
         let VerifyResult = Data.find(function(element) {
           return element.Verify==true;
         });
-        res.send(VerifyResult.Verify);
+        if(VerifyResult){
+          res.send({
+            "Status":"Unverified",
+            "Controller":"/Login",
+            "Solution":"Check Mail For Verification",
+            "Line": console.trace()
+          });
+          
+        }else{
+
+        }
+     
 
         //res.send(beautify(Data, null, 2, 100));
 
