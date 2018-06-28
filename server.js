@@ -108,7 +108,7 @@ app.get('/Login',function (req, res) {
       //Models.UserInfo.belongsTo(Models.UserAccount);
       let Associated= Models.UserAccount.findAll(
         {
-          /*include: [
+          include: [
               {
                   model: Models.UserInfo,
                   on: {
@@ -117,7 +117,7 @@ app.get('/Login',function (req, res) {
                   attributes: [] // empty array means that no column from ModelB will be returned
               },
              {all:true}
-          ]*/
+          ]
       }
       ).then(function(result) {
         let Data = result.map(function(item) {

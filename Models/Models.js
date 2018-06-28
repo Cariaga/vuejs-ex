@@ -127,7 +127,7 @@ const UserInfo =sequelize.define('UserInfo', {
   },
   PhoneNumber: Sequelize.STRING,
   TelephoneNumber: Sequelize.STRING,
-  classMethods:{
+  classMethods:{//to create foreign keys
     associate(models){
       UserInfo.hasOne(models.UserAccount,
          {
