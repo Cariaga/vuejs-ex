@@ -176,6 +176,7 @@ app.get('/Login',function (req, res) {
             "Status":"Unverified",
             "Controller":"/Login",
             "Solution":"Check Mail For Verification"
+            
           });
         }
      

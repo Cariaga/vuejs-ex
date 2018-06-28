@@ -111,7 +111,7 @@ const UserInfo =sequelize.define('UserInfo', {
     autoIncrement: true 
   },
   UserAccountID:{
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
     references: {
       model: 'UserAccount',
