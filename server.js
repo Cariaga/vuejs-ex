@@ -119,15 +119,14 @@ app.get('/Login',function (req, res) {
           return element.Verify==true;
         });
         if(VerifyResult){
+          res.send
+
+        }else{
           res.send({
             "Status":"Unverified",
             "Controller":"/Login",
-            "Solution":"Check Mail For Verification",
-            "Line": console.trace()
+            "Solution":"Check Mail For Verification"
           });
-          
-        }else{
-
         }
      
 
