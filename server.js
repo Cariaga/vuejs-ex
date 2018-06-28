@@ -318,13 +318,13 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Status)){
     Models.SupportTicket.update({
-      UserAccountID: "qwe",
-      Title: "asd",
-      Description: "zxc",
-      Reason: "rty",
-      Time:"12:34:56" ,
-      Date:"2008-05-31" ,
-      Status: "vbn"
+      UserAccountID: UserAccountID,
+      Title: Title,
+      Description: Description,
+      Reason: Reason,
+      Time: Time,
+      Date: Date,
+      Status: Status
     },{
       where: {SupportTicketID: 1 }
     })
