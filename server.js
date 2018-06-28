@@ -161,7 +161,8 @@ app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
 //---API SignOut End
 //---API Login Start
 app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
-  let UserName = req.params.UserName;
+  res.send('Not Used');
+  /*let UserName = req.params.UserName;
   let Password = req.params.Password;
 
   if(!isNullOrEmpty(UserName)&&
@@ -187,7 +188,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
       
       res.send("Error "+result);
 
-    });
+    })
 
   /*  if(isVerified){
       res.send('Verified');
@@ -197,7 +198,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
 
   }else{
     res.send('no params sent');
-  }
+  }*/
 });
 //---API Login End
 //---SupportTicket ROUTING START
