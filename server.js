@@ -109,13 +109,14 @@ app.get('/Login',function (req, res) {
       let Associated= Models.UserInfo.findAll(
         {
           include: [
-              {
+              /*{
                   model: Models.UserAccount,
                   on: {
                       col1: sequelize.where(sequelize.col("UserAccount.UserAccountID"), "=", sequelize.col("UserInfo.UserAccountID"))
                   },
                   attributes: [] // empty array means that no column from ModelB will be returned
-              }
+              }*/
+             {all:true}
           ]
       }
       ).then(function(result) {
