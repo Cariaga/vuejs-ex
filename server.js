@@ -190,12 +190,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
 
     })
 
-  /*  if(isVerified){
-      res.send('Verified');
-    }else{
-      res.send('Unverified');
-    }*/
-
+/*
   }else{
     res.send('no params sent');
   }*/
