@@ -110,9 +110,8 @@ const UserInfo =sequelize.define('UserInfo', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:{
-   type:Sequelize.STRING
-  },//FK A user account can have multiple Information Type
+  UserAccountID:Sequelize.STRING
+  ,
   Email: {
     type :Sequelize.STRING,
     allowNull: false,
