@@ -102,6 +102,14 @@ app.get('/Login',function (req, res) {
     if(!isNullOrEmpty(Password)){
 
       Models.UserAccount.sync();//makes sure table exist and syncs it
+      Models.UserInfo.sync();
+
+      let Associated= Models.UserAccount.belongsTo(Models.UserAccount.UserAccountID).then(function(result) {
+        let Data = result.map(function(item) {
+            return item;
+        });
+        
+
 
       let result = Models.UserAccount.findAll({ 
         where: {
@@ -114,13 +122,24 @@ app.get('/Login',function (req, res) {
         let Data = result.map(function(item) {
             return item;
         });
-
+        //--Validation For Login Start
         let VerifyResult = Data.find(function(element) {
           return element.Verify==true;
         });
+
+       /* let VerifyResult = Data.find(function(element) {
+          return element.Verify==true;
+        });*/
+
+      
+        
+      
+
+
         if(VerifyResult){
-          res.send({
-            "UserID":"",
+
+         /* res.send({
+            "UserAccountID":VerifyResult.UserAccountID,
             "Status":"Verified",
             "UserName":"",
             "ScreenName":"",
@@ -128,7 +147,8 @@ app.get('/Login',function (req, res) {
             "PhoneNumber":"",
             "TelephoneNumber":""
             
-          });
+          });*/
+           //--Validation For Login End
 
         }else{
           res.send({
@@ -715,6 +735,7 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   }
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
+  
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
