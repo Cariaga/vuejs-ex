@@ -104,7 +104,7 @@ app.get('/Login',function (req, res) {
       Models.UserAccount.sync({alter:true});//makes sure table exist and syncs it
       Models.UserInfo.sync({alter:true});
 
-      UserInfo.belongsTo(UserAccount, {foreignKey: 'UserAccountID'});
+      Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
       let Associated= Models.UserAccount.findAll(
         {
           include: [
