@@ -106,11 +106,11 @@ app.get('/Login',function (req, res) {
 
       //Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
       Models.UserInfo.belongsTo(Models.UserAccount);
-      let Associated= Models.UserAccount.findAll(
+      let Associated= Models.UserInfo.findAll(
         {
           include: [
               {
-                  model: Models.UserInfo,
+                  model: Models.UserAccount,
                   on: {
                       col1: sequelize.where(sequelize.col("UserAccount.UserAccountID"), "=", sequelize.col("UserInfo.UserAccountID"))
                   },
