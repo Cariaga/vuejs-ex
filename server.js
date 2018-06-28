@@ -103,7 +103,7 @@ app.get('/Login',function (req, res) {
 
       Models.UserAccount.sync();//makes sure table exist and syncs it
       Models.UserInfo.sync();
-      Models.UserInfo.belongsTo(UserAccount);
+      Models.UserInfo.belongsTo(Models.UserAccount);
       /*let Associated= Models.UserAccount.findAll(
         {
           include: [
