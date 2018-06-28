@@ -315,6 +315,20 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
   !isNullOrEmpty(Reason)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Status)){
+    Models.SupportTicket.update({
+      UserAccountID: "qwe",
+      Title: "asd",
+      Description: "zxc",
+      Reason: "rty",
+      Time:"12:34:56" ,
+      Date:"2008-05-31" ,
+      Status: "vbn"
+    },{
+      where: {SupportTicketID: 1 }
+    })
+    .then(function (){
+      
+    });
   }
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
@@ -989,6 +1003,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.GameHistory.sync();
     let result = Models.GameHistory.findAll({ 
       where: {
         GameHistoryID: {
