@@ -119,7 +119,16 @@ app.get('/Login',function (req, res) {
           return element.Verify==true;
         });
         if(VerifyResult){
-          res.send
+          res.send({
+            "UserID":"",
+            "Status":"Verified",
+            "UserName":"",
+            "ScreenName":"",
+            "Email":"",
+            "PhoneNumber":"",
+            "TelephoneNumber":""
+            
+          });
 
         }else{
           res.send({
