@@ -686,6 +686,7 @@ app.get('/Api/v1/BankInformation', function (req, res) {
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START
 app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
+  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
   let BankNameUsed = req.params.BankNameUsed;
@@ -870,6 +871,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.DepositHistory.sync();
     let result = Models.DepositHistory.findAll({ 
       where: {
         DepositHistoryID: {
@@ -882,7 +884,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
       res.send("Error "+result);
@@ -906,7 +908,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-  res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
+  //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---DepositHistory ROUTING END
 //---GameHistory ROUTING START
