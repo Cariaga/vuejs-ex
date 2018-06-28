@@ -97,14 +97,30 @@ app.get('/Login',function (req, res) {
   
   let UserName= req.query.UserName;
   let Password = req.query.Password;
+  
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
+
+
+      let result = Models.SupportTicket.findAll({ 
+        where: {
+          SupportTicketID: {
+            ne: null//not null
+          }
+       }
+      }).then(function(result) {
+        let Data = result.map(function(item) {
+            return item;
+            
+        });
+      })
+      res.send(beautify(Data, null, 2, 100));
       res.send("Valid");
     }else{
-      res.send("Invalid");
+      res.send("Invalid Password");
     }
   }else{
-    res.send("Invalid");
+    res.send("Invalid UserName");
   }
 });
 //--Login End
@@ -161,7 +177,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
           
       });
      
-      //res.send(beautify(Data, null, 2, 100));
+      res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       
       res.send("Error "+result);
