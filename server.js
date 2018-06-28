@@ -104,8 +104,11 @@ app.get('/Login',function (req, res) {
 
       let result = Models.SupportTicket.findAll({ 
         where: {
-          SupportTicketID: {
-            ne: null//not null
+          UserName: {
+            eq: UserName//not null
+          },
+          Password: {
+            eq: Password//not null
           }
        }
       }).then(function(result) {
