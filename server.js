@@ -104,10 +104,10 @@ app.get('/Login',function (req, res) {
       Models.UserAccount.sync();//makes sure table exist and syncs it
       Models.UserInfo.sync();
 
-      let Associated= Models.UserAccount.belongsTo(Models.UserAccount.UserAccountID).then(function(result) {
+      /*let Associated= Models.UserAccount.belongsTo(Models.UserAccount.UserAccountID).then(function(result) {
         let Data = result.map(function(item) {
             return item;
-        });
+        });*/
         
 
 
