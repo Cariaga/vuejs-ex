@@ -330,8 +330,14 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
     },{
       where: {SupportTicketID: 1 }
     })
-    .then(function (){
-      
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
     });
   }
 });
@@ -422,6 +428,24 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(NotificationType)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+    Models.Notification.update({
+      NotificationType: NotificationType,
+      Title: Title,
+      Description: Description,
+      Time: Time,
+      Date: Date
+    },{
+      where: {NotificationID: 1 }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
     
   }
 });
