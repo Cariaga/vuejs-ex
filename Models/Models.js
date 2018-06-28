@@ -110,7 +110,14 @@ const UserInfo =sequelize.define('UserInfo', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING
+  UserAccountID:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    references: {
+      model: 'UserAccount',
+      key: 'UserAccountID'
+    }
+  }
   ,
   Email: {
     type :Sequelize.STRING,
