@@ -127,7 +127,7 @@ app.get('/Login',function (req, res) {
         
       });
         
-
+      
 
       let result = Models.UserAccount.findAll({ 
         where: {
@@ -148,7 +148,8 @@ app.get('/Login',function (req, res) {
        /* let VerifyResult = Data.find(function(element) {
           return element.Verify==true;
         });*/
-
+        
+        res.send(beautify(Data, null, 2, 100));
       
         
       
