@@ -114,11 +114,12 @@ app.get('/Login',function (req, res) {
             return item;
         });
 
-        let isVerified = Data.find(function(element) {
-          return element.Verify == true;
+        let Verify = Data.find(function(element) {
+          return element.Verify;
         });
+        res.send(Verify);
 
-        res.send(beautify(Data, null, 2, 100));
+        //res.send(beautify(Data, null, 2, 100));
 
       }).catch(function(result) {//catching any then errors
       
