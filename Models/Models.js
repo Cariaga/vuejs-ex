@@ -126,7 +126,8 @@ const UserInfo =sequelize.define('UserInfo', {
     unique: true
   },
   PhoneNumber: Sequelize.STRING,
-  TelephoneNumber: Sequelize.STRING
+  TelephoneNumber: Sequelize.STRING,
+  associate:(models)=>{}
 });
 
 
