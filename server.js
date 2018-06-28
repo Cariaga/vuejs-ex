@@ -101,8 +101,10 @@ app.get('/Login',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
 
-      Models.UserAccount.sync({alter:true});//makes sure table exist and syncs it
-      Models.UserInfo.sync({alter:true});
+      Models.UserAccount.sync();//makes sure table exist and syncs it
+      Models.UserInfo.sync();
+
+      //Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
       Models.UserInfo.belongsTo(Models.UserAccount);
       let Associated= Models.UserAccount.findAll(
         {
@@ -1057,7 +1059,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
     });
-    Models.UserInfo.sync({alter : true});//only use force true if you want to destroy replace table
+    Models.UserInfo.sync();//only use force true if you want to destroy replace table
     item1.save()
     .then(Success => {
       res.send("Inserted");
