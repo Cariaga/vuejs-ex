@@ -62,7 +62,7 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
 
 
 //--Login Start
-app.get('/register',function (req, res) {
+app.get('/Register',function (req, res) {
   
   let UserName= req.query.UserName;
   let Password = req.query.Password;
@@ -76,24 +76,24 @@ app.get('/register',function (req, res) {
           if(!isNullOrEmpty(Email)){
             res.send("Valid");
           }else{
-            res.send("Invalid");
+            res.send("Invalid Email");
           }
         }else{
-          res.send("Invalid");
+          res.send("Invalid Surname");
         }
       }else{
-        res.send("Invalid");
+        res.send("Invalid Name");
       }
     }else{
-      res.send("Invalid");
+      res.send("Invalid Password");
     }
   }else{
-    res.send("Invalid");
+    res.send("Invalid UserName");
   }
 });
 //--Login End
 //--Login Start
-app.get('/login',function (req, res) {
+app.get('/Login',function (req, res) {
   
   let UserName= req.query.UserName;
   let Password = req.query.Password;
