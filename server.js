@@ -101,7 +101,8 @@ app.get('/Login',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
 
-
+      Models.UserAccount.sync();//makes sure table exist and syncs it
+      
       let result = Models.UserAccount.findAll({ 
         where: {
           UserName:UserName//not null
@@ -117,7 +118,7 @@ app.get('/Login',function (req, res) {
       }).catch(function(result) {//catching any then errors
       
         res.send("Error "+result);
-  
+        
       });
      
   
