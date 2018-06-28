@@ -1059,6 +1059,8 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
     });
+    Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID', targetKey: 'UserAccountID'});
+    
     Models.UserInfo.sync();//only use force true if you want to destroy replace table
     
     item1.save()
