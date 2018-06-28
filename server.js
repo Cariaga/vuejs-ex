@@ -103,11 +103,29 @@ app.get('/Login',function (req, res) {
 
       Models.UserAccount.sync();//makes sure table exist and syncs it
       Models.UserInfo.sync();
-
-      /*let Associated= Models.UserAccount.belongsTo(Models.UserAccount.UserAccountID).then(function(result) {
+      Models.UserInfo.belongsTo(UserAccount);
+      /*let Associated= Models.UserAccount.findAll(
+        {
+          include: [
+              {
+                  model: Models.UserInfo,
+                  on: {
+                      col1: sequelize.where(sequelize.col("UserAccount.UserAccountID"), "=", sequelize.col("UserInfo.UserAccountID"))
+                  },
+                  attributes: [] // empty array means that no column from ModelB will be returned
+              }
+          ]
+      }
+      ).then(function(result) {
         let Data = result.map(function(item) {
             return item;
-        });*/
+        });
+
+      }).catch(function(result) {//catching any then errors
+      
+        res.send("Error Associate "+result);
+        
+      });*/
         
 
 
@@ -755,8 +773,9 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.WithdrawHistory.sync();
+
     let result = Models.WithdrawHistory.findAll({ 
       where: {
         WithdrawHistoryID: {
