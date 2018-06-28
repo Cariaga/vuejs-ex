@@ -104,19 +104,16 @@ app.get('/Login',function (req, res) {
 
       let result = Models.SupportTicket.findAll({ 
         where: {
-          UserName: {
-            eq: UserName//not null
-          },
-          Password: {
-            eq: Password//not null
-          }
+          UserName:UserName//not null
+          ,
+          Password:Password//not null
        }
       }).then(function(result) {
         let Data = result.map(function(item) {
             return item;
         });
         res.send(beautify(Data, null, 2, 100));
-        
+
       }).catch(function(result) {//catching any then errors
       
         res.send("Error "+result);
