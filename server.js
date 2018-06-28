@@ -101,8 +101,8 @@ app.get('/Login',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
 
-      Models.UserAccount.sync({alter:true});//makes sure table exist and syncs it
-      Models.UserInfo.sync({alter:true});
+      Models.UserAccount.sync();//makes sure table exist and syncs it
+      Models.UserInfo.sync();
 
       //Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
       Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID', targetKey: 'UserAccountID'});
