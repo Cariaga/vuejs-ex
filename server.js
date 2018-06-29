@@ -1250,6 +1250,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
    
+    /*
     if(forced=="true"){
       Models.UserInfo.sync({force:forced});
     }
@@ -1257,8 +1258,8 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       Models.UserInfo.sync({force:forced});
     }else{
       Models.UserInfo.sync();
-    }
-    
+    }*/
+    Models.UserInfo.sync();
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
