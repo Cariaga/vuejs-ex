@@ -140,9 +140,9 @@ const UserInfo =sequelize.define('UserInfo', {
 });
 //foreignKey for UserInfo
 UserInfo.belongsTo(UserAccount, {
-  through: {
-    unique: true,
-  },foreignKey: 'UserAccountID', targetKey: 'UserAccountID'}); 
+    unique: true,foreignKey: 'UserAccountID',
+    targetKey: 'UserAccountID', 
+    constraints: false}); 
 
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
