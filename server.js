@@ -626,6 +626,45 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
     });
   }
 });
+app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
+  let LoginHistoryID = req.params.LoginHistoryID;
+  let UserAccountID = req.params.UserAccountID;
+  let IP = req.params.IP;
+  let DeviceName = req.params.DeviceName;
+  let DeviceRam = req.params.DeviceRam;
+  let DeviceCpu = req.params.DeviceCpu;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+  if(!isNullOrEmpty(LoginHistoryID)&&
+  !isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(IP)&&
+  !isNullOrEmpty(DeviceName)&&
+  !isNullOrEmpty(DeviceRam)&&
+  !isNullOrEmpty(DeviceCpu)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)){
+    Models.LoginHistory.update({
+      UserAccountID: UserAccountID,
+      IP: IP,
+      DeviceName: DeviceName,
+      DeviceRam: DeviceRam,
+      DeviceCpu: DeviceCpu,
+      Time: Time,
+      Date: Date
+    },{
+      where: {LoginHistoryID: 1 }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    }); 
+  }
+});
 app.get('/Api/v1/LoginHistory', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -706,6 +745,42 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
     });
   }else{
     res.send("Missing params");
+  }
+});
+app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function(req,res){
+  let BankInformationID = req.params.BankInformationID;
+  let UserAccountID = req.params.UserAccountID;
+  let BankName = req.params.BankName;
+  let SecurityCode = req.params.SecurityCode;
+  let Expiration = req.params.Expiration;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+  if(!isNullOrEmpty(BankInformationID)&&
+  !isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(BankName)&&
+  !isNullOrEmpty(SecurityCode)&&
+  !isNullOrEmpty(Expiration)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)){
+    Models.BankInformation.update({
+      UserAccountID: UserAccountID,
+      BankName: BankName,
+      SecurityCode: SecurityCode,
+      Expiration: Expiration,
+      Time: Time,
+      Date: Date
+    },{
+      where: {BankInformationID: 1 }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    }); 
   }
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
