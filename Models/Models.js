@@ -139,7 +139,7 @@ const UserInfo =sequelize.define('UserInfo', {
   TelephoneNumber: Sequelize.STRING
 });
 //foreignKey for UserInfo
-UserInfo.belongsTo(UserAccount, {foreignKey: 'UserAccountID', targetKey: 'UserAccountID'}); 
+UserInfo.belongsTo(UserAccount, {unique: true,foreignKey: 'UserAccountID', targetKey: 'UserAccountID'}); 
 
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
