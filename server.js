@@ -880,7 +880,7 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   }
 });
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-  
+  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
@@ -1140,6 +1140,54 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
       // mhhh, wth!
       console.log("error inserting");
       res.send("error inserting " +error);
+    });
+  }
+});
+app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function(req,res) {
+  let GameHistoryID = req.params.GameHistoryID;
+  let UserAccountID = req.params.UserAccountID;
+  let RoundID = req.params.RoundID;
+  let RoomID = req.params.RoomID;
+  let Rank = req.params.Rank;
+  let Score = req.params.Score;
+  let Card = req.params.Card;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+  let BeforePoints = req.params.BeforePoints;
+  let AfterPoints = req.params.AfterPoints;
+  if(!isNullOrEmpty(GameHistoryID)&&
+  !isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(RoundID)&&
+  !isNullOrEmpty(RoomID)&&
+  !isNullOrEmpty(Rank)&&
+  !isNullOrEmpty(Score)&&
+  !isNullOrEmpty(Card)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)&&
+  !isNullOrEmpty(BeforePoints)&&
+  !isNullOrEmpty(AfterPoints)){
+    Models.GameHistory.update({
+      UserAccountID: UserAccountID,
+      RoundID: RoundID,
+      RoomID: RoomID,
+      Rank: Rank,
+      Score: Score,
+      Card: Card,
+      Time: Time,
+      Date: Date,
+      BeforePoints: BeforePoints,
+      AfterPoints: AfterPoints
+    },{
+      where: {GameHistoryID: 1 }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
     });
   }
 });
