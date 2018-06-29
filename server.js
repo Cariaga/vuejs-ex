@@ -1250,10 +1250,10 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
    
-    if(force==true){
+    if(forced==true){
       Models.UserInfo.sync({force:forced});
     }
-    if(force==false){
+    if(forced==false){
       Models.UserInfo.sync({force:forced});
     }
     
