@@ -119,11 +119,11 @@ const UserInfo =sequelize.define('UserInfo', {
   UserAccountID:{
     type: Sequelize.STRING,
     allowNull: false,
-    /*foreignKey: true,
+    foreignKey: true/*,
     references: {
       model: 'UserAccount',
-      key: 'UserAccountID'*/
-    }
+      key: 'UserAccountID'
+    }*/
   }
   ,
   Email: {
