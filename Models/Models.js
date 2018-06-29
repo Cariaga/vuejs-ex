@@ -69,7 +69,12 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//primary key to connect keys
+  UserAccountID:{
+    type :Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    primaryKey: true,
+  },//primary key to connect keys
   AccessID: Sequelize.STRING,//FK 1 account can have many access control
   UserName:  {
     type :Sequelize.STRING,
