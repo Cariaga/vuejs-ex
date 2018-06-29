@@ -1237,12 +1237,12 @@ app.get('/Api/v1/GameHistory', function (req, res) {
 });
 //---GameHistory ROUTING END
 //---UserInfo ROUTING START
-app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
+app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber/forced', function (req, res) {
   //USAGE /Api/v1/UserInfo/Add/UserAccountID/Email/PhoneNumber/TelephoneNumber
 
   //Tests for foreignKey should result in  foreign key constraint fails Error
   // /Api/v1/UserInfo/Add/5879999/Email14535432/PhoneNumber/TelephoneNumber
-  let forced = req.query.forced;
+  let forced = req.params.forced;
 
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
