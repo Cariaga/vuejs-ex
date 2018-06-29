@@ -1258,7 +1258,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
     }else{
       Models.UserInfo.sync();
     }*/
-    Models.UserInfo.sync({force:true});
+  Models.UserInfo.sync(/*{force:true}*/);
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
