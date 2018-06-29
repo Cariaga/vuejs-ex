@@ -120,16 +120,16 @@ const UserInfo =sequelize.define('UserInfo', {
     primaryKey: true,
     autoIncrement: true 
   },
-  /*UserAccountID:{
+  UserAccountID:{
     type: Sequelize.STRING,
-    allowNull: false,
+    unique: true,
     foreignKey: true,
     references: {
       model: UserAccount,
       key: 'UserAccountID'
     }
   }
-  ,*/
+  ,
   Email: {
     type :Sequelize.STRING,
     allowNull: false,
@@ -140,7 +140,7 @@ const UserInfo =sequelize.define('UserInfo', {
 });
 //foreignKey for UserInfo
 UserInfo.belongsTo(UserAccount, {
-    unique: true,foreignKey: 'UserAccountID',
+    foreignKey: 'UserAccountID',
     targetKey: 'UserAccountID', 
     constraints: true}); 
 
