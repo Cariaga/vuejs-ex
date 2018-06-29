@@ -1972,8 +1972,24 @@ app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Descripti
   let HeadOfficeID = req.params.HeadOfficeID;
   let UserAccountID = req.params.UserAccountID;
   let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Description)){
-
+  if(!isNullOrEmpty(HeadOfficeID)&&
+  !isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(Description)){
+    Models.HeadOffice.update({
+      UserAccountID: UserAccountID,
+      Name: Name
+    },{
+      where: {HeadOfficeID: HeadOfficeID }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
   }
 });
 app.get('/Api/v1/HeadOffice/Delete', function (req, res){
