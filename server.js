@@ -1143,7 +1143,7 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
     });
   }
 });
-app.get('/Api/v1/GameHistory/Update/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function(req,res) {
+app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function(req,res) {
   let GameHistoryID = req.params.GameHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
