@@ -139,7 +139,7 @@ UserInfo.associate= function(models){
    UserInfo.belongsTo(models.UserAccount);
 };*/
 
-UserInfo.hasOne(UserAccount, {
+UserAccount.hasOne(UserAccount, {
   foreignKey: 'UserAccountID',
   constraints: true,
 });
