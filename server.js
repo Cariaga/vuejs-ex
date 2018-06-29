@@ -291,8 +291,9 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
     });
   }
 });
-app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
+app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
   // USAGE Api/v1/SupportTicket/Update/putek/eltit/tion/rason/12:34:56/2009-05-31/Nakaon
+  let SupportTicketID = req.params.SupportTicketID;
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
   let Description = req.params.Description;
@@ -315,7 +316,7 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
       Date: Date,
       Status: Status
     },{
-      where: {SupportTicketID: 1 }
+      where: {SupportTicketID: SupportTicketID }
     })
     .then(Success => {
       res.send("Updated");
@@ -327,6 +328,9 @@ app.get('/Api/v1/SupportTicket/Update/:UserAccountID/:Title/:Description/:Reason
       res.send("Error Updating " +error);
     });
   }
+});
+app.get('/Api/v1/SupportTicket/Delete', function (req, res){
+  Models.SupportTicket.sync({force:true});
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
   let Offset =  req.query.Offset;
@@ -409,6 +413,7 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
 });
 
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
+  let NotificationID = req.params.NotificationID;
   let NotificationType = req.params.NotificationType;
   let Title = req.params.Title;
   let Description = req.params.Description;
@@ -422,7 +427,7 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
       Time: Time,
       Date: Date
     },{
-      where: {NotificationID: 1 }
+      where: {NotificationID: NotificationID }
     })
     .then(Success => {
       res.send("Updated");
@@ -435,7 +440,9 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
     }); 
   }
 });
-
+app.get('/Api/v1/Notification/Delete', function (req, res){
+  Models.Notification.sync({force:true});
+});
 app.get('/Api/v1/Notification', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -514,8 +521,8 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     });
   }
 });
-
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
+  let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
   let Description = req.params.Description;
@@ -529,7 +536,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
       ReportDate: ReportDate,
       ReleaseDate: ReleaseDate
     },{
-      where: {BlackListID: 1 }
+      where: {BlackListID: BlackListID }
     })
     .then(Success => {
       res.send("Updated");
@@ -541,6 +548,9 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
       res.send("Error Updating " +error);
     });
   }
+});
+app.get('/Api/v1/BlackList/Delete', function (req, res){
+  Models.BlackList.sync({force:true});
 });
 app.get('/Api/v1/BlackList', function (req, res) {
   let Offset =  req.query.Offset;
@@ -652,7 +662,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
       Time: Time,
       Date: Date
     },{
-      where: {LoginHistoryID: 1 }
+      where: {LoginHistoryID: LoginHistoryID }
     })
     .then(Success => {
       res.send("Updated");
@@ -664,6 +674,9 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
       res.send("Error Updating " +error);
     }); 
   }
+});
+app.get('/Api/v1/LoginHistory/Delete', function (req, res){
+  Models.LoginHistory.sync({force:true});
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -770,7 +783,7 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
       Time: Time,
       Date: Date
     },{
-      where: {BankInformationID: 1 }
+      where: {BankInformationID: BankInformationID }
     })
     .then(Success => {
       res.send("Updated");
@@ -782,6 +795,9 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
       res.send("Error Updating " +error);
     }); 
   }
+});
+app.get('/Api/v1/BankInformation/Delete', function (req, res){
+  Models.BankInformation.sync({force:true});
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
   let Offset =  req.query.Offset;
@@ -894,6 +910,48 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
   let RequestedTIME = req.params.RequestedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
+  if(isNullOrEmpty(WithdrawHistoryID)&&
+  isNullOrEmpty(UserAccountID)&&
+  isNullOrEmpty(Amount)&&
+  isNullOrEmpty(BankNameUsed)&&
+  isNullOrEmpty(SecurityCodeUsed)&&
+  isNullOrEmpty(Status)&&
+  isNullOrEmpty(RequestedDATE)&&
+  isNullOrEmpty(ApprovedDATE)&&
+  isNullOrEmpty(RejectedDATE)&&
+  isNullOrEmpty(ProcessingDATE)&&
+  isNullOrEmpty(RequestedTIME)&&
+  isNullOrEmpty(RejectedTIME)&&
+  isNullOrEmpty(ProcessingTIME)){
+    Models.WithdrawHistory.update({
+      UserAccountID: UserAccountID,
+      Amount: Amount,
+      BankNameUsed: BankNameUsed,
+      SecurityCodeUsed: SecurityCodeUsed,
+      Status: Status,
+      RequestedDATE: RequestedDATE,
+      ApprovedDATE: ApprovedDATE,
+      RejectedDATE: RejectedDATE,
+      ProcessingDATE: ProcessingDATE,
+      RequestedTIME: RequestedTIME,
+      RejectedTIME: RejectedTIME,
+      ProcessingTIME: ProcessingTIME
+    },{
+      where: {WithdrawHistoryID: WithdrawHistoryID }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
+  }
+});
+app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
+  Models.WithdrawHistory.sync({force:true});
 });
 app.get('/Api/v1/WithdrawHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1036,7 +1094,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
         RejectedTIME: RejectedTIME,
         ProcessingTIME: ProcessingTIME,
       },{
-        where: {DepositHistoryID: 1 }
+        where: {DepositHistoryID: DepositHistoryID }
       })
       .then(Success => {
         res.send("Updated");
@@ -1049,7 +1107,9 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
       });  
      }
 });
-
+app.get('/Api/v1/DepositHistory/Delete', function (req, res){
+  Models.DepositHistory.sync({force:true});
+});
 app.get('/Api/v1/DepositHistory', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -1178,7 +1238,7 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
       BeforePoints: BeforePoints,
       AfterPoints: AfterPoints
     },{
-      where: {GameHistoryID: 1 }
+      where: {GameHistoryID: GameHistoryID }
     })
     .then(Success => {
       res.send("Updated");
@@ -1190,6 +1250,9 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
       res.send("Error Updating " +error);
     });
   }
+});
+app.get('/Api/v1/GameHistory/Delete', function (req, res){
+  Models.GameHistory.sync({force:true});
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1289,6 +1352,9 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
     
   }
 });
+app.get('/Api/v1/UserInfo/Delete', function (req, res){
+  Models.UserInfo.sync({force:true});
+});
 app.get('/Api/v1/UserInfo', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -1359,13 +1425,35 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
     });
   }
 });
-app.get('/Api/v1/AccessControl/Update/:AccessID/:AccessName/:AccessTags', function (req, res) {
+app.get('/Api/v1/AccessControl/Update/:AccessControlID/:AccessID/:AccessName/:AccessTags', function (req, res) {
+  let AccessControlID = req.params.AccessControlID;
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
-  if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
-
+  if(!isNullOrEmpty(AccessControlID)&&
+  !isNullOrEmpty(AccessID)&&
+  !isNullOrEmpty(AccessName)&&
+  !isNullOrEmpty(AccessTags)){
+    Models.AccessControl.update({
+      AccessID: AccessID,
+      AccessName: AccessName,
+      AccessTags: AccessTags
+    },{
+      where: {AccessControlID: AccessControlID }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
   }
+});
+app.get('/Api/v1/AccessControl/Delete', function (req, res){
+  Models.AccessControl.sync({force:true});
 });
 app.get('/Api/v1/AccessControl', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1456,6 +1544,9 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   }else{
     res.send("Missing params"+AccessID+UserName+Password+Verify+ValidKey+RegisteredDate+RegisteredTime);
   }
+});
+app.get('/Api/v1/UserAccount/Delete', function (req, res){
+  Models.UserAccount.sync({force:true});
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1553,6 +1644,9 @@ app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname
     
   }
 });
+app.get('/Api/v1/Player/Delete', function (req, res){
+  Models.Player.sync({force:true});
+});
 app.get('/Api/v1/Player', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -1638,7 +1732,9 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
 
   }
 });
-
+app.get('/Api/v1/Shop/Delete', function (req, res){
+  Models.Shop.sync({force:true});
+});
 app.get('/Api/v1/Shop', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -1720,6 +1816,9 @@ app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/
 
   }
 });
+app.get('/Api/v1/Distributor/Delete', function (req, res){
+  Models.Distributor.sync({force:true});
+});
 app.get('/Api/v1/Distributor', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -1799,6 +1898,9 @@ app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Descripti
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Description)){
 
   }
+});
+app.get('/Api/v1/HeadOffice/Delete', function (req, res){
+  Models.HeadOffice.sync({force:true});
 });
 app.get('/Api/v1/HeadOffice', function (req, res) {
   let Offset =  req.query.Offset;
