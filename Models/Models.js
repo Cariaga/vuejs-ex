@@ -119,11 +119,11 @@ const UserInfo =sequelize.define('UserInfo', {
   UserAccountID:{
     type: Sequelize.STRING,
     allowNull: false,
-    foreignKey: true/*,
+    foreignKey: true,
     references: {
-      model: 'UserAccount',
+      model: UserAccount,
       key: 'UserAccountID'
-    }*/
+    }
   }
   ,
   Email: {
@@ -139,6 +139,7 @@ UserInfo.associate= function(models){
    UserInfo.belongsTo(models.UserAccount);
 };*/
 
+UserInfo.hasOne(UserAccount);
 
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
