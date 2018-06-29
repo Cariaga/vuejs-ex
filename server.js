@@ -1198,7 +1198,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
     Models.UserInfo.sync({force:true});
     var item1 = Models.UserInfo.build({
-      UserAccountID:UserAccountID,
+      UserAccountID:1,
       Email:Email,
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
