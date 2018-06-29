@@ -919,7 +919,7 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
     });
   }
 });
-app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
+app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
@@ -933,7 +933,46 @@ app.get('/Api/v1/DepositHistory/Update/:BankHistoryID/:UserAccountID/:Amount/:Ba
   let RequestedTIME = req.params.RequestedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
-  
+  if(!isNullOrEmpty(DepositHistoryID)&&
+     !isNullOrEmpty(UserAccountID)&&
+     !isNullOrEmpty(Amount)&&
+     !isNullOrEmpty(BankNameUsed)&&
+     !isNullOrEmpty(SecurityCodeUsed)&&
+     !isNullOrEmpty(SecurityCodeUsed)&&
+     !isNullOrEmpty(Status)&&
+     !isNullOrEmpty(RequestedDATE)&&
+     !isNullOrEmpty(ApprovedDATE)&&
+     !isNullOrEmpty(RejectedDATE)&&
+     !isNullOrEmpty(ProcessingDATE)&&
+     !isNullOrEmpty(RequestedTIME)&&
+     !isNullOrEmpty(RejectedTIME)&&
+     !isNullOrEmpty(ProcessingTIME)){
+      Models.DepositHistory.update({
+        UserAccountID: UserAccountID,
+        Amount: Amount,
+        BankNameUsed: BankNameUsed,
+        SecurityCodeUsed: SecurityCodeUsed,
+        Status: Status,
+        RequestedDATE: RequestedDATE,
+        ApprovedDATE: ApprovedDATE,
+        RejectedDATE: RejectedDATE,
+        ProcessingDATE: ProcessingDATE,
+        RequestedTIME: RequestedTIME,
+        RejectedTIME: RejectedTIME,
+        ProcessingTIME: ProcessingTIME,
+      },{
+        where: {DepositHistoryID: 1 }
+      })
+      .then(Success => {
+        res.send("Updated");
+      })
+      
+      .catch(error => {
+        // mhhh, wth!
+        console.log("Error Updating");
+        res.send("Error Updating " +error);
+      });  
+     }
 });
 
 app.get('/Api/v1/DepositHistory', function (req, res) {
