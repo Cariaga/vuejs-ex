@@ -1191,12 +1191,17 @@ app.get('/Api/v1/GameHistory', function (req, res) {
 //---UserInfo ROUTING START
 app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
   //USAGE /Api/v1/UserInfo/Add/UserAccountID/Email/PhoneNumber/TelephoneNumber
+
+  //Tests for foreignKey should result in  foreign key constraint fails Error
+  // /Api/v1/UserInfo/Add/5875297242/Email14535432/PhoneNumber/TelephoneNumber
+
+
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-    Models.UserInfo.sync({force:true});
+    Models.UserInfo.sync(/*{force:true}*/);
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,

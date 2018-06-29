@@ -142,7 +142,7 @@ const UserInfo =sequelize.define('UserInfo', {
 UserInfo.associate= function(models){
    UserInfo.belongsTo(models.UserAccount);
 };*/
-
+//NOTE the referance key works but it points to A diffrent key name in parent
 UserAccount.hasOne(UserInfo, {
   foreignKey: 'UserAccountID',
   constraints: true
