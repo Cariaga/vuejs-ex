@@ -1109,7 +1109,6 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
 });
 app.get('/Api/v1/DepositHistory/Delete', function (req, res){
   Models.DepositHistory.sync({force:true});
-  
 });
 app.get('/Api/v1/DepositHistory', function (req, res) {
   let Offset =  req.query.Offset;
