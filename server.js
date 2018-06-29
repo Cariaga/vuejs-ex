@@ -108,15 +108,7 @@ app.get('/Login',function (req, res) {
       //Models.UserInfo.belongsTo(Models.UserAccount);
       let Associated= Models.UserAccount.findAll(
         {
-          include: [
-              {
-                  model: Models.UserInfo,
-                  on: {
-                      col1: sequelize.where(sequelize.col("UserAccount.UserAccountID"), "=", sequelize.col("UserInfo.UserAccountID"))
-                  },
-                  attributes: [] // empty array means that no column from ModelB will be returned
-              }
-          ]
+          include: [Models.UserInfo]
       }
       ).then(function(result) {
         let Data = result.map(function(item) {
@@ -128,9 +120,7 @@ app.get('/Login',function (req, res) {
         res.send("Error Associate "+result);
         
       });
-        
       
-
       let result = Models.UserAccount.findAll({ 
         where: {
           UserName:UserName//not null
