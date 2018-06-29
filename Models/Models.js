@@ -141,7 +141,7 @@ UserInfo.associate= function(models){
 
 UserInfo.hasOne(UserAccount, {
   foreignKey: 'UserAccountID',
-  constraints: false,
+  constraints: true,
 });
 
 const GameHistory =sequelize.define('GameHistory', {
