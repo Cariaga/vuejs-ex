@@ -120,7 +120,7 @@ const UserInfo =sequelize.define('UserInfo', {
     primaryKey: true,
     autoIncrement: true 
   },
-  /*UserAccountID:{
+  UserAccountID:{
     type: Sequelize.STRING,
     allowNull: false,
     foreignKey: true,
@@ -129,7 +129,7 @@ const UserInfo =sequelize.define('UserInfo', {
       key: 'UserAccountID'
     }
   }
-  ,*/
+  ,
   Email: {
     type :Sequelize.STRING,
     allowNull: false,
