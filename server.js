@@ -1128,7 +1128,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
     });
-    Models.UserInfo.sync({force:true});//only use force true if you want to destroy replace table
+    //Models.UserInfo.sync({force:true});//only use force true if you want to destroy replace table
     item1.save()
     .then(Success => {
       res.send("Inserted");
