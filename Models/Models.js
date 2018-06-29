@@ -69,7 +69,11 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//primary key to connect keys
+  UserAccountID:{
+    type :Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+  },//primary key to connect keys
   AccessID: Sequelize.STRING,//FK 1 account can have many access control
   UserName:  {
     type :Sequelize.STRING,
@@ -116,7 +120,7 @@ const UserInfo =sequelize.define('UserInfo', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:{
+  /*UserAccountID:{
     type: Sequelize.STRING,
     allowNull: false,
     foreignKey: true,
@@ -125,7 +129,7 @@ const UserInfo =sequelize.define('UserInfo', {
       key: 'UserAccountID'
     }
   }
-  ,
+  ,*/
   Email: {
     type :Sequelize.STRING,
     allowNull: false,
@@ -141,7 +145,7 @@ UserInfo.associate= function(models){
 
 UserAccount.hasOne(UserInfo, {
   foreignKey: 'UserAccountID',
-  constraints: false,
+  constraints: false
 });
 
 const GameHistory =sequelize.define('GameHistory', {

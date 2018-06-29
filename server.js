@@ -1196,9 +1196,9 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-   
+    Models.UserInfo.sync({force:true});
     var item1 = Models.UserInfo.build({
-      UserAccountID:UserAccountID,
+      UserAccountID:1,
       Email:Email,
       PhoneNumber:PhoneNumber,
       TelephoneNumber:TelephoneNumber
@@ -1208,7 +1208,6 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
     .then(Success => {
       res.send("Inserted");
     })
-    
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
@@ -1216,6 +1215,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
     });
   }
 });
+
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
