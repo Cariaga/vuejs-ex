@@ -1241,7 +1241,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   //USAGE /Api/v1/UserInfo/Add/UserAccountID/Email/PhoneNumber/TelephoneNumber
 
   //Tests for foreignKey should result in  foreign key constraint fails Error
-  // /Api/v1/UserInfo/Add/5875297242/Email14535432/PhoneNumber/TelephoneNumber
+  // /Api/v1/UserInfo/Add/5879999/Email14535432/PhoneNumber/TelephoneNumber
 
 
   let UserAccountID = req.params.UserAccountID;
@@ -1249,7 +1249,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-    Models.UserInfo.sync(/*{force:true}*/);
+    Models.UserInfo.sync({force:true});
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
