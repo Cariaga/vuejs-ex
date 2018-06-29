@@ -101,8 +101,8 @@ app.get('/Login',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
 
-      Models.UserAccount.sync();//makes sure table exist and syncs it
-      Models.UserInfo.sync();
+      Models.UserAccount.sync({force:true});//makes sure table exist and syncs it
+      Models.UserInfo.sync({force:true});
 
       let Associated= Models.UserAccount.findAll(
         {
