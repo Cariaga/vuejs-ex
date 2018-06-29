@@ -1082,7 +1082,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-  Models.UserInfo.sync(/*{alter:true,force:true}*/);//only use force true if you want to destroy replace table
+    sequelize.sync(/*{alter:true,force:true}*/);//only use force true if you want to destroy replace table
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
@@ -1116,7 +1116,7 @@ app.get('/Api/v1/UserInfo', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.UserInfo.sync();
+    sequelize.sync();
     let result = Models.UserInfo.findAll({ 
       where: {
         UserInfoID: {
