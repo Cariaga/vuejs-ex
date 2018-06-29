@@ -104,8 +104,6 @@ app.get('/Login',function (req, res) {
       Models.UserAccount.sync();//makes sure table exist and syncs it
       Models.UserInfo.sync();
 
-      //Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
-      //Models.UserInfo.belongsTo(Models.UserAccount);
       let Associated= Models.UserAccount.findAll(
         {
           include: [Models.UserInfo]
@@ -120,7 +118,7 @@ app.get('/Login',function (req, res) {
         res.send("Error Associate "+result);
         
       });
-      
+
       let result = Models.UserAccount.findAll({ 
         where: {
           UserName:UserName//not null
@@ -1285,6 +1283,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
       where: {
         UserID: {
