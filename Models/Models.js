@@ -145,6 +145,7 @@ UserInfo.associate= function(models){
 */
 UserAccount.hasOne(UserInfo, {
   foreignKey: 'UserAccountID',
+  type: Sequelize.STRING,
   constraints: false
 });
 
