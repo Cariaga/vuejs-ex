@@ -949,12 +949,19 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
      !isNullOrEmpty(ProcessingTIME)){
       Models.DepositHistory.update({
         UserAccountID: UserAccountID,
-        Title: Title,
-        Description: Description,
-        ReportDate: ReportDate,
-        ReleaseDate: ReleaseDate
+        Amount: Amount,
+        BankNameUsed: BankNameUsed,
+        SecurityCodeUsed: SecurityCodeUsed,
+        Status: Status,
+        RequestedDATE: RequestedDATE,
+        ApprovedDATE: ApprovedDATE,
+        RejectedDATE: RejectedDATE,
+        ProcessingDATE: ProcessingDATE,
+        RequestedTIME: RequestedTIME,
+        RejectedTIME: RejectedTIME,
+        ProcessingTIME: ProcessingTIME,
       },{
-        where: {BlackListID: 1 }
+        where: {DepositHistoryID: 1 }
       })
       .then(Success => {
         res.send("Updated");
