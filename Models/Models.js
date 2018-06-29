@@ -139,7 +139,10 @@ UserInfo.associate= function(models){
    UserInfo.belongsTo(models.UserAccount);
 };*/
 
-UserInfo.hasOne(UserAccount);
+UserInfo.hasOne(UserAccount, {
+  foreignKey: 'UserAccountID',
+  constraints: false,
+});
 
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
