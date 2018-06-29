@@ -85,12 +85,12 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
   RegisteredDate:Sequelize.DATE,
 	RegisteredTime: Sequelize.TIME,
 });
-UserAccount.associate= function(models){
+/*UserAccount.associate= function(models){
   UserAccount.hasOne(models.UserInfo,
     {
       foreignKey: 'UserAccountID'
    })
-};
+};*/
 
 const AccessControl =sequelize.define('AccessControl', {//A flexible way of access control Account Privileges 
   AccessControlID: {//PK
@@ -133,13 +133,10 @@ const UserInfo =sequelize.define('UserInfo', {
   PhoneNumber: Sequelize.STRING,
   TelephoneNumber: Sequelize.STRING
 });
+/*
 UserInfo.associate= function(models){
-  /*UserInfo.hasOne(models.UserAccount,
-    {
-      foreignKey: 'UserAccountID'
-   })*/
    UserInfo.belongsTo(models.UserAccount);
-};
+};*/
 
 
 const GameHistory =sequelize.define('GameHistory', {
