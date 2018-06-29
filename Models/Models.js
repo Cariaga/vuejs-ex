@@ -138,17 +138,11 @@ const UserInfo =sequelize.define('UserInfo', {
   PhoneNumber: Sequelize.STRING,
   TelephoneNumber: Sequelize.STRING
 });
-/*
-UserInfo.associate= function(models){
-   UserInfo.belongsTo(models.UserAccount);
-};*/
-//NOTE the reference key works but it points to A different key name in parent
-UserAccount.hasOne(UserInfo, {
-  foreignKey: 'UserAccountID',
-  //as : 'UserAccountID',
-  sourceKey: 'UserAccountID',
-  constraints: true,
-});
+//foreignKey for UserInfo
+UserInfo.belongsTo(UserAccount, {
+  through: {
+    unique: true,
+  },foreignKey: 'UserAccountID', targetKey: 'UserAccountID'}); 
 
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
