@@ -1242,14 +1242,16 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
 
   //Tests for foreignKey should result in  foreign key constraint fails Error
   // /Api/v1/UserInfo/Add/5879999/Email14535432/PhoneNumber/TelephoneNumber
-
+  let forced = req.query.forced;
 
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-    Models.UserInfo.sync({force:true});
+   
+    Models.UserInfo.sync({force:forced});
+    
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
