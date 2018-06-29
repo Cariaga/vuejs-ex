@@ -138,7 +138,7 @@ UserInfo.associate= function(models){
     {
       foreignKey: 'UserAccountID'
    })*/
-   UserInfo.belongsTo(models.Shop);
+   UserInfo.belongsTo(models.UserAccount);
 };
 
 
