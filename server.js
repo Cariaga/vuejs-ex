@@ -101,22 +101,12 @@ app.get('/Login',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
 
-      Models.UserAccount.sync();//makes sure table exist and syncs it
-      Models.UserInfo.sync();
+      Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+    Models.UserInfo.sync(/*{force:true}*/);
 
-      //Models.UserInfo.belongsTo(Models.UserAccount, {foreignKey: 'UserAccountID'});
-      Models.UserInfo.belongsTo(Models.UserAccount);
       let Associated= Models.UserAccount.findAll(
         {
-          include: [
-              {
-                  model: Models.UserInfo,
-                  on: {
-                      col1: sequelize.where(sequelize.col("UserAccount.UserAccountID"), "=", sequelize.col("UserInfo.UserAccountID"))
-                  },
-                  attributes: [] // empty array means that no column from ModelB will be returned
-              }
-          ]
+          include: [Models.UserInfo]
       }
       ).then(function(result) {
         let Data = result.map(function(item) {
@@ -128,8 +118,6 @@ app.get('/Login',function (req, res) {
         res.send("Error Associate "+result);
         
       });
-        
-      
 
       let result = Models.UserAccount.findAll({ 
         where: {
@@ -1126,6 +1114,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
+   
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
@@ -1159,6 +1148,7 @@ app.get('/Api/v1/UserInfo', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    sequelize.sync();
     let result = Models.UserInfo.findAll({ 
       where: {
         UserInfoID: {
@@ -1326,6 +1316,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
       where: {
         UserID: {
