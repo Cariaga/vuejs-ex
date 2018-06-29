@@ -138,17 +138,16 @@ const UserInfo =sequelize.define('UserInfo', {
   PhoneNumber: Sequelize.STRING,
   TelephoneNumber: Sequelize.STRING
 });
-
+/*
 UserInfo.associate= function(models){
    UserInfo.belongsTo(models.UserAccount);
-};
-/*
+};*/
+
 UserAccount.hasOne(UserInfo, {
   foreignKey: 'UserAccountID',
-  type: Sequelize.STRING,
   constraints: false
 });
-*/
+
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
     type: Sequelize.INTEGER,
