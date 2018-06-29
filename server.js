@@ -1644,15 +1644,40 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
     res.send("Missing params");
   }
 });
-app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
+app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
+  let PlayersID = req.params.PlayersID;
   let UserAccountID = req.params.UserAccountID;
   let ShopID = req.params.ShopID;
   let ScreenName = req.params.ScreenName;
   let Name = req.params.Name;
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(ShopID)&&!isNullOrEmpty(ScreenName)&&!isNullOrEmpty(Name)&&!isNullOrEmpty(Surname)&&!isNullOrEmpty(CurrentRoomName)){
+  if(!isNullOrEmpty(PlayersID)&&
+  !isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(ShopID)&&
+  !isNullOrEmpty(ScreenName)&&
+  !isNullOrEmpty(Name)&&
+  !isNullOrEmpty(Surname)&&
+  !isNullOrEmpty(CurrentRoomName)){
+    Models.Player.update({
+      UserAccountID: UserAccountID,
+      ShopID: ShopID,
+      ScreenName: ScreenName,
+      Name: Name,
+      Surname: Surname,
+      CurrentRoomName: CurrentRoomName
+    },{
+      where: {PlayersID: PlayersID }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
     
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
   }
 });
 app.get('/Api/v1/Player/Delete', function (req, res){
@@ -1737,11 +1762,30 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
 });
 
 app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
+  let ShopID = req.params.ShopID;
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(DistributorID)&&!isNullOrEmpty(Description)){
-
+  if(!isNullOrEmpty(ShopID)&&
+  !isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(DistributorID)&&
+  !isNullOrEmpty(Description)){
+    Models.Shop.update({
+      UserAccountID: UserAccountID,
+      DistributorID: DistributorID,
+      Description: Description
+    },{
+      where: {ShopID: ShopID }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
   }
 });
 app.get('/Api/v1/Shop/Delete', function (req, res){
@@ -1822,11 +1866,30 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   }
 });
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
+  let DistributerID = req.params.DistributerID;
   let UserAccountID = req.params.UserAccountID;
   let HeadOfficeID = req.params.HeadOfficeID;
   let Name = req.params.Name;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(HeadOfficeID)&&!isNullOrEmpty(Name)){
-
+  if(!isNullOrEmpty(DistributerID)&&
+  !isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(HeadOfficeID)&&
+  !isNullOrEmpty(Name)){
+    Models.Distributor.update({
+      UserAccountID: UserAccountID,
+      HeadOfficeID: HeadOfficeID,
+      Name: Name
+    },{
+      where: {DistributerID: DistributerID }
+    })
+    .then(Success => {
+      res.send("Updated");
+    })
+    
+    .catch(error => {
+      // mhhh, wth!
+      console.log("Error Updating");
+      res.send("Error Updating " +error);
+    });
   }
 });
 app.get('/Api/v1/Distributor/Delete', function (req, res){
