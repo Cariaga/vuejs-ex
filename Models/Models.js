@@ -145,7 +145,7 @@ UserInfo.associate= function(models){
 //NOTE the reference key works but it points to A different key name in parent
 UserAccount.hasOne(UserInfo, {
   foreignKey: 'UserAccountID',
-  //as : 'UserAccountID',
+  as : 'UserAccountIDs',
   sourceKey: 'UserAccountID',
   constraints: true,
 });
