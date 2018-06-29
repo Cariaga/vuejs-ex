@@ -331,6 +331,7 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
 });
 app.get('/Api/v1/SupportTicket/Delete', function (req, res){
   Models.SupportTicket.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
   let Offset =  req.query.Offset;
@@ -442,6 +443,7 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
 });
 app.get('/Api/v1/Notification/Delete', function (req, res){
   Models.Notification.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/Notification', function (req, res) {
   let Offset =  req.query.Offset;
@@ -551,6 +553,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
 });
 app.get('/Api/v1/BlackList/Delete', function (req, res){
   Models.BlackList.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/BlackList', function (req, res) {
   let Offset =  req.query.Offset;
@@ -677,6 +680,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
 });
 app.get('/Api/v1/LoginHistory/Delete', function (req, res){
   Models.LoginHistory.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -798,6 +802,7 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
 });
 app.get('/Api/v1/BankInformation/Delete', function (req, res){
   Models.BankInformation.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
   let Offset =  req.query.Offset;
@@ -952,6 +957,7 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
 });
 app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
   Models.WithdrawHistory.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/WithdrawHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1109,6 +1115,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
 });
 app.get('/Api/v1/DepositHistory/Delete', function (req, res){
   Models.DepositHistory.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/DepositHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1253,6 +1260,7 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
 });
 app.get('/Api/v1/GameHistory/Delete', function (req, res){
   Models.GameHistory.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1354,6 +1362,7 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
 });
 app.get('/Api/v1/UserInfo/Delete', function (req, res){
   Models.UserInfo.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/UserInfo', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1454,6 +1463,7 @@ app.get('/Api/v1/AccessControl/Update/:AccessControlID/:AccessID/:AccessName/:Ac
 });
 app.get('/Api/v1/AccessControl/Delete', function (req, res){
   Models.AccessControl.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/AccessControl', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1547,6 +1557,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   Models.UserAccount.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1646,6 +1657,7 @@ app.get('/Api/v1/Player/Update/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname
 });
 app.get('/Api/v1/Player/Delete', function (req, res){
   Models.Player.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/Player', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1734,6 +1746,7 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
 });
 app.get('/Api/v1/Shop/Delete', function (req, res){
   Models.Shop.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/Shop', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1818,6 +1831,7 @@ app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/
 });
 app.get('/Api/v1/Distributor/Delete', function (req, res){
   Models.Distributor.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/Distributor', function (req, res) {
   let Offset =  req.query.Offset;
@@ -1901,6 +1915,7 @@ app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Descripti
 });
 app.get('/Api/v1/HeadOffice/Delete', function (req, res){
   Models.HeadOffice.sync({force:true});
+  res.send("Deleted");
 });
 app.get('/Api/v1/HeadOffice', function (req, res) {
   let Offset =  req.query.Offset;
