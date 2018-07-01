@@ -104,9 +104,9 @@ app.get('/Login',function (req, res) {
       Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
     Models.UserInfo.sync(/*{force:true}*/);
 
-      let Associated= Models.UserAccount.findAll(
+      let Associated= Models.UserInfo.findAll(
         {
-          include: [Models.UserInfo]
+          include: [Models.UserAccount]
       }
       ).then(function(result) {
         let Data = result.map(function(item) {
