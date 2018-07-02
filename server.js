@@ -71,10 +71,10 @@ app.get('/SMS/:recipient/:message', function (req, res){
   let recipient = req.params.recipient.split(",");
   let message = req.params.message;
 
-  console.log(message);
+  //console.log(message);
 
- /* for (i = 0; i < recipient.length; i++) { 
-    nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
+  for (i = 0; i < recipient.length; i++) { 
+    nexmo.message.sendSms(sender, recipient[i], message,{type:'EUC-KR'},
     (err,responseData)=>{
       if(err){
         console.log(err);
@@ -82,7 +82,7 @@ app.get('/SMS/:recipient/:message', function (req, res){
       console.dir(responseData);
     }
   });
-  }*/
+  }
   res.send("Sent all to " +recipient);
 });
 
