@@ -1,3 +1,8 @@
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
 <div id="vue-instance">
     <input type="text" v-model="Sender" placeholder="Sender">
     <br>
@@ -6,10 +11,12 @@
     <textarea v-model="Message" placeholder="Message"></textarea>
     <br>
     <button v-on:click="SendMessage">Send</button>
+    <v-btn color="success">Success</v-btn>
   </div>
-  
+  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
   <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
-  
+  <script src="https://unpkg.com/vuetify@1.1.1/dist/vuetify.min.js"></script>
+
   <script>
     var vm = new Vue({
       el: '#vue-instance',
