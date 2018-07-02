@@ -75,15 +75,15 @@ app.get('/SMS/:sender/:recipient/:message', function (req, res){
     console.log(recipient[i]);
   }
 
-
-  //nexmo.message.sendSms(sender, recipient, message,{type:'unicode'},
+/*
+  nexmo.message.sendSms(sender, recipient, message,{type:'unicode'},
   (err,responseData)=>{
     if(err){
       console.log(err);
   }else{
     console.dir(responseData);
   }
-});
+});*/
   res.send("Sent");
 });
 
