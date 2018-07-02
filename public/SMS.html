@@ -1,6 +1,7 @@
 <div id="vue-instance">
-    Enter your name: <input type="text" v-model="name">
-    <button v-on:click="sayHello">Hey there!</button>
+    Enter your name: <input type="text" v-model="Sender">
+    Enter your name: <input type="text" v-model="Numbers">
+    <button v-on:click="sayHello">Send</button>
   </div>
   
   <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
@@ -9,11 +10,11 @@
     var vm = new Vue({
       el: '#vue-instance',
       data: {
-        name: ''
+        Sender: ''
       },
       methods: {
         sayHello: function(){
-          alert('Hey there, ' + this.name);
+          alert('Message Sent, ' + this.Sender);
         }
       }
     });
