@@ -1,0 +1,20 @@
+<div id="vue-instance">
+    Enter your name: <input type="text" v-model="name">
+    <button v-on:click="sayHello">Hey there!</button>
+  </div>
+  
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  
+  <script>
+    var vm = new Vue({
+      el: '#vue-instance',
+      data: {
+        name: ''
+      },
+      methods: {
+        sayHello: function(){
+          alert('Hey there, ' + this.name);
+        }
+      }
+    });
+  </script>
