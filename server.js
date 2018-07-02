@@ -70,7 +70,10 @@ app.get('/SMS/:recipient/:message', function (req, res){
   let sender= "825080825012";
   let recipient = req.params.recipient.split(",");
   let message = req.params.message;
-  for (i = 0; i < recipient.length; i++) { 
+
+  console.log(message);
+
+ /* for (i = 0; i < recipient.length; i++) { 
     nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
     (err,responseData)=>{
       if(err){
@@ -79,7 +82,7 @@ app.get('/SMS/:recipient/:message', function (req, res){
       console.dir(responseData);
     }
   });
-  }
+  }*/
   res.send("Sent all to " +recipient);
 });
 
