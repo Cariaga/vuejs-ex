@@ -5,15 +5,21 @@
 </head>
 <div id="vue-instance">
     <v-app id="inspire">
-      
 
-    <input type="text" v-model="Sender" placeholder="Sender">
-    <br>
-    <textarea v-model="Numbers" placeholder="Numbers"></textarea>
-    <br>
-    <textarea v-model="Message" placeholder="Message"></textarea>
-    <br>
-    <button v-on:click="SendMessage">Send</button>
+
+    <v-textarea
+        name="input-7-1"
+        label="Default style"
+        value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+        hint="Hint text"  v-model="Numbers"
+      ></v-textarea>
+    <v-textarea
+        name="input-7-1"
+        label="Default style"
+        value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+        hint="Hint text"  v-model="Message"
+      ></v-textarea>
+    <v-btn color="info" v-on:click="SendMessage">Send</v-btn>
     <v-btn color="info">Info</v-btn>
   </v-app>
   </div>
