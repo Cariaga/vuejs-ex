@@ -2,6 +2,7 @@
 
 // set up ========================
 var express = require('express');
+var Nexmo = require('nexmo');
 var app = express(); // create our app w/ express
 var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
@@ -59,6 +60,24 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
+
+ 
+var nexmo = new Nexmo({
+    apiKey: "34958c75",
+    apiSecret: "VnTUCGBvp3yr2onE",
+   /* applicationId: APP_ID,
+    privateKey: PRIVATE_KEY_PATH,*/
+  }, options);
+
+
+app.get('/SMS/:sender/:recipient/:message', function (req, res){
+  let sender= req.params.sender;
+  let recipient = req.params.recipient;
+  let message = req.params.message;
+  nexmo.message.sendSms(sender, recipient, message);
+  
+  res.send("Sent");
+});
 
 
 //--Login Start
