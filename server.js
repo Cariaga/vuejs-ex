@@ -74,7 +74,7 @@ app.get('/SMS/:recipient/:message', function (req, res){
   //console.log(message);
 
   for (i = 0; i < recipient.length; i++) { 
-    nexmo.message.sendSms(sender, recipient[i], message,{type:'ASCII'},
+    nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
     (err,responseData)=>{
       if(err){
         console.log(err);
