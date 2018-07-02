@@ -70,21 +70,17 @@ app.get('/SMS/:sender/:recipient/:message', function (req, res){
   let sender= req.params.sender;
   let recipient = req.params.recipient.split(",");
   let message = req.params.message;
-  
   for (i = 0; i < recipient.length; i++) { 
-    console.log(recipient[i]);
+    nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
+    (err,responseData)=>{
+      if(err){
+        console.log(err);
+    }else{
+      console.dir(responseData);
+    }
+  });
   }
-
-/*
-  nexmo.message.sendSms(sender, recipient, message,{type:'unicode'},
-  (err,responseData)=>{
-    if(err){
-      console.log(err);
-  }else{
-    console.dir(responseData);
-  }
-});*/
-  res.send("Sent");
+  res.send("Sent all to " +recipient);
 });
 
 
