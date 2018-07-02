@@ -21,7 +21,14 @@
       methods: {
         SendMessage: function(){
           alert('Message Sent, ' + this.Sender);
-        }
+          this.$http.get('https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js', function(v1users)
+                {
+                    //this.$set('v1_user',v1users);//setting result to a variable 
+                });
+
+        },
       }
     });
   </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
