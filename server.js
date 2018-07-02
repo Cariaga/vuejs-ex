@@ -59,17 +59,12 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
-
-
- 
 var nexmo = new Nexmo({
     apiKey: "34958c75",
     apiSecret: "VnTUCGBvp3yr2onE",
    /* applicationId: APP_ID,
     privateKey: PRIVATE_KEY_PATH,*/
   }, {debug:true});
-
-
 app.get('/SMS/:sender/:recipient/:message', function (req, res){
   let sender= req.params.sender;
   let recipient = req.params.recipient;

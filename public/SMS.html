@@ -1,9 +1,9 @@
 <div id="vue-instance">
-    Sender: <input type="text" v-model="Sender">
+    <input type="text" v-model="Sender" placeholder="Sender">
     <br>
-    Numbers: <input type="text" v-model="Numbers">
+    <textarea v-model="Numbers" placeholder="Numbers"></textarea>
     <br>
-    Message:<textarea v-model="Message" placeholder=""></textarea>
+    <textarea v-model="Message" placeholder="Message"></textarea>
     <br>
     <button v-on:click="SendMessage">Send</button>
   </div>
