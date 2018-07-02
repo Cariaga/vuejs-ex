@@ -5,22 +5,17 @@
 </head>
 <div id="vue-instance">
     <v-app id="inspire">
+        <v-text-field
+        label="Description"
+        textarea
+        rows="15"
+        auto-grow
+        counter=4000
+        v-model="description"
+    ></v-text-field>
 
-
-    <v-textarea
-        name="input-7-1"
-        label="Default style"
-        value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-        hint="Hint text"  v-model="Numbers"
-      ></v-textarea>
-    <v-textarea
-        name="input-7-1"
-        label="Default style"
-        value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-        hint="Hint text"  v-model="Message"
-      ></v-textarea>
     <v-btn color="info" v-on:click="SendMessage">Send</v-btn>
-    <v-btn color="info">Info</v-btn>
+    <v-btn color="info">Drop Here</v-btn>
   </v-app>
   </div>
   <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
