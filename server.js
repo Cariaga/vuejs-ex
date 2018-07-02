@@ -69,7 +69,7 @@ var nexmo = new Nexmo({
 app.get('/SMS/:recipient/:message', function (req, res){
   let sender= "825080825012";
   let recipient = req.params.recipient.split(",");
-  let message ="밀크 금일 월드컵16강전 10%+5";
+  let message =req.params.message;
 
   console.log(message);
 
