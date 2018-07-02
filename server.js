@@ -69,7 +69,7 @@ var nexmo = new Nexmo({
 app.get('/SMS/:recipient/:message', function (req, res){
   let sender= "825080825012";
   let recipient = req.params.recipient.split(",");
-  let message ="Visual Studio 2017 is required (Community is fine). v15.5+ is recommended.Get latest code either by cloning the repository or downloading a snapshot of the sour";
+  let message ="(광고)밀크 금일 월드컵16강전 치킨한마리드시면서 시청하세요^^ ㅋㅌmilk114";
 
   console.log(message);
 
