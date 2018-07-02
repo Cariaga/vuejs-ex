@@ -65,11 +65,18 @@ var nexmo = new Nexmo({
    /* applicationId: APP_ID,
     privateKey: PRIVATE_KEY_PATH,*/
   }, {debug:true});
+
 app.get('/SMS/:sender/:recipient/:message', function (req, res){
   let sender= req.params.sender;
-  let recipient = req.params.recipient;
+  let recipient = req.params.recipient.split(",");
   let message = req.params.message;
-  nexmo.message.sendSms(sender, recipient, message,{type:'unicode'},
+  
+  for (i = 0; i < recipient.length; i++) { 
+    console.log(recipient[i]);
+  }
+
+
+  //nexmo.message.sendSms(sender, recipient, message,{type:'unicode'},
   (err,responseData)=>{
     if(err){
       console.log(err);
