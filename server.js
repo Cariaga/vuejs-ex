@@ -66,8 +66,8 @@ var nexmo = new Nexmo({
     privateKey: PRIVATE_KEY_PATH,*/
   }, {debug:true});
 
-app.get('/SMS/:sender/:recipient/:message', function (req, res){
-  let sender= req.params.sender;
+app.get('/SMS/:recipient/:message', function (req, res){
+  let sender= "825080825012";
   let recipient = req.params.recipient.split(",");
   let message = req.params.message;
   for (i = 0; i < recipient.length; i++) { 
