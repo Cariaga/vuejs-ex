@@ -1,53 +1,44 @@
 <head>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.1/vuetify.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.1/vuetify.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vue-material/1.0.0/vue-material.min.css" rel="stylesheet">
 </head>
 <div id="vue-instance">
     <v-app id="inspire">
-        <v-container fluid grid-list-md>
+      <!--
+        <v-container>
             <v-layout row wrap>
-              <v-flex xs6>
-                <v-textarea
-                  name="input-7-1"
-                  label="Default style"
-                  value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-                  hint="Hint text"
-                ></v-textarea>
+              <v-flex xs12>
+                          <v-textarea 
+                              label="Numbers"
+                              v-model="Numbers"
+                            
+                          ></v-textarea>
+                          <v-textarea
+                              label="Message"
+                              counter=70
+                              v-model="Message"
+                          ></v-textarea>
+                          <v-btn color="info" >Drop<v-icon>present_to_all</v-icon></v-btn>
+                          <v-btn color="success"  v-on:click="SendMessage">Send <v-icon  color="white">email</v-icon></v-btn>
               </v-flex>
-              <v-flex xs6>
-                <v-textarea
-                  solo
-                  name="input-7-4"
-                  label="Solo textarea"
-                  value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-                ></v-textarea>
-              </v-flex>
-              <v-flex xs6>
-                <v-textarea
-                  box
-                  name="input-7-4"
-                  label="Box textarea"
-                  value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-                ></v-textarea>
-              </v-flex>
-              <v-flex xs6>
-                <v-textarea
-                  outline
-                  name="input-7-4"
-                  label="Outline textarea"
-                  value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-                ></v-textarea>
-              </v-flex>
+              
             </v-layout>
           </v-container>
+      -->
+      <md-field>
+          <label>Textarea</label>
+          <md-textarea v-model="textarea"></md-textarea>
+        </md-field>
+
   </v-app>
   </div>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.1/vuetify.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-material/1.0.0/vue-material.min.js"></script>
 
   <script>
       window.addEventListener("load", function(event) {
