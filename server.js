@@ -67,15 +67,21 @@ var nexmo = new Nexmo({
     apiSecret: "VnTUCGBvp3yr2onE",
    /* applicationId: APP_ID,
     privateKey: PRIVATE_KEY_PATH,*/
-  }, options);
+  }, {debug:true});
 
 
 app.get('/SMS/:sender/:recipient/:message', function (req, res){
   let sender= req.params.sender;
   let recipient = req.params.recipient;
   let message = req.params.message;
-  nexmo.message.sendSms(sender, recipient, message);
-  
+  nexmo.message.sendSms(sender, recipient, message,{type:'unicode'},
+  (err,responseData)=>{
+    if(err){
+      console.log(err);
+  }else{
+    console.dir(responseData);
+  }
+});
   res.send("Sent");
 });
 
