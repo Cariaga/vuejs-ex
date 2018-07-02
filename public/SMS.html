@@ -4,29 +4,24 @@
 </head>
 <div id="vue-instance">
     <v-app id="inspire">
-       
+        <v-container>
             <v-layout row wrap>
               <v-flex xs12>
-                
-                        
                           <v-textarea 
                               label="Numbers"
                               v-model="Numbers"
-                       
                           ></v-textarea>
                           <v-textarea
                               label="Message"
                               counter=70
                               v-model="Message"
                           ></v-textarea>
-                         
-       
                           <v-btn color="info" >Drop<v-icon>present_to_all</v-icon></v-btn>
                           <v-btn color="success"  v-on:click="SendMessage">Send <v-icon  color="white">email</v-icon></v-btn>
               </v-flex>
               
             </v-layout>
-         
+          </v-container>
   </v-app>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
