@@ -74,7 +74,7 @@ app.get('/SMS/:recipient/:message', function (req, res){
   //console.log(message);
 
   for (i = 0; i < recipient.length; i++) { 
-    nexmo.message.sendSms(sender, recipient[i], message,{type:'EUC-KR'},
+    nexmo.message.sendSms(sender, recipient[i], message,{type:'UTF-16'},
     (err,responseData)=>{
       if(err){
         console.log(err);
