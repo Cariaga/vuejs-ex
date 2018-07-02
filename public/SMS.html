@@ -4,22 +4,29 @@
 </head>
 <div id="vue-instance">
     <v-app id="inspire">
-
-                    <div>
-                      <v-textarea 
-                        label="Numbers"
-                        v-model="Numbers"
-                        hover:true
-                    ></v-textarea>
-                    <v-textarea
-                        label="Message"
-                        counter=70
-                        v-model="Message"
-                    ></v-textarea>
-                    </div>
- 
-                    <v-btn color="info" >Drop<v-icon>present_to_all</v-icon></v-btn>
-                    <v-btn color="success"  v-on:click="SendMessage">Send <v-icon  color="white">email</v-icon></v-btn>
+        <v-container grid-list-md text-xs-center>
+            <v-layout row wrap>
+              <v-flex xs12>
+                
+                          <div>
+                            <v-textarea 
+                              label="Numbers"
+                              v-model="Numbers"
+                              hover:true
+                          ></v-textarea>
+                          <v-textarea
+                              label="Message"
+                              counter=70
+                              v-model="Message"
+                          ></v-textarea>
+                          </div>
+       
+                          <v-btn color="info" >Drop<v-icon>present_to_all</v-icon></v-btn>
+                          <v-btn color="success"  v-on:click="SendMessage">Send <v-icon  color="white">email</v-icon></v-btn>
+              </v-flex>
+              
+            </v-layout>
+          </v-container>
   </v-app>
   </div>
   <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
