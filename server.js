@@ -69,7 +69,7 @@ var nexmo = new Nexmo({
 app.get('/SMS/:recipient/:message', function (req, res){
   let sender= "825080825012";
   let recipient = req.params.recipient.split(",");
-  let message ="Visual Studio 2017 is required (Community is fine). v15.5+ is recommended.Get latest code either by cloning the repository or downloading a snapshot of the source.Open Nexmo.Api.slnBuild! NuGet dependencies should be brought down automatically; check your settings if they are not.";
+  let message ="Visual Studio 2017 is required (Community is fine). v15.5+ is recommended.Get latest code either by cloning the repository or downloading a snapshot of the sour";
 
   console.log(message);
 
