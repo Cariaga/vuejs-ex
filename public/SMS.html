@@ -8,9 +8,14 @@
       <v-text-field
         label="Description"
         textarea
-
         counter=4000
         v-model="Numbers"
+    ></v-text-field>
+    <v-text-field
+        label="Description"
+        textarea
+        counter=4000
+        v-model="Message"
     ></v-text-field>
     <v-btn color="info" v-on:click="SendMessage">Send</v-btn>
     <v-btn color="info">Drop Here</v-btn>
