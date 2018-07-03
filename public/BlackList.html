@@ -57,7 +57,7 @@
     el: '#vue-instance',
     data() {
     return {
-      tableData:null
+      tableData:{}
     }
   },computed: {  
     },
@@ -67,6 +67,7 @@
             //document.write(response);
             alert(response);
             var result = JSON.parse(response);
+
             vm.tableData=result;
         }, err => {
           // error callback
