@@ -16,7 +16,7 @@
           <el-button class="el-icon-close" >Clear</el-button>
         </el-form-item>
       </el-form>
-      <el-progress :text-inside="true" :stroke-width="18" v-model="percentage"></el-progress>
+      <el-progress :text-inside="true" :stroke-width="18" v-model="form.percentage"></el-progress>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
@@ -49,9 +49,10 @@
       return {
         form: {
           Numbers: [],
-          Message: ''
+          Message: '',
+          percentage:0
         },
-        percentage:0
+        
       }
     },
       methods: {
@@ -65,10 +66,8 @@
 
             this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
             var progress =inverseLerp(0,groupNumbers.length,i);
-    
             vm.percentage=progress*100;
             }, response => {
-              
             // error callback
             alert(response);
             });
