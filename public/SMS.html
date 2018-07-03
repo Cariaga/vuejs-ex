@@ -24,8 +24,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/index.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
 
-
-
   <script>
       window.addEventListener("load", function(event) {
     var vm = new Vue({
@@ -39,16 +37,16 @@
       }
     },
       methods: {
-        SendMessage: function(){
-          alert('Sending');
-        
-        },
         onSubmit() {
-          this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/testseq', function(v1users)
-                {
-                    //this.$set('v1_user',v1users);//setting result to a variable 
-                    alert('Message Sent, ' + this.Sender);
-                });
+           this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
+
+          // get body data
+          alert(response.body);
+
+        }, response => {
+          // error callback
+          alert(response);
+        });
       }
       }
     });
