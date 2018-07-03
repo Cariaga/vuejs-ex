@@ -57,7 +57,7 @@
     el: '#vue-instance',
     data() {
     return {
-      tableData:[]
+      tableData:[ { "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" }, { "BlackListID": 2, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:22.000Z", "updatedAt": "2018-06-27T14:34:22.000Z" }, { "BlackListID": 3, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:39:24.000Z", "updatedAt": "2018-06-27T14:39:24.000Z" }, { "BlackListID": 4, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:39:27.000Z", "updatedAt": "2018-06-27T14:39:27.000Z" } ]
     }
   },computed: {  
     },
@@ -66,7 +66,7 @@
         this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList').then(response => {
             //document.write(response);
             alert(response);
-            vm.tableData=JSON.stringify(response);
+         //   vm.tableData=JSON.stringify(response);
         }, err => {
           // error callback
           });
