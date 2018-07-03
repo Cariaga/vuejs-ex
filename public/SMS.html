@@ -67,14 +67,14 @@
       methods: {
         SendMessage: function(){
           alert('Sending');
+        
+        },
+        onSubmit() {
           this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/testseq', function(v1users)
                 {
                     //this.$set('v1_user',v1users);//setting result to a variable 
                     alert('Message Sent, ' + this.Sender);
                 });
-        },
-        onSubmit() {
-        console.log('submit!');
       }
       }
     });
