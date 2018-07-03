@@ -71,8 +71,10 @@ app.get('/SMS/:recipient/:message', function (req, res){
   let recipient = req.params.recipient.split(",");
   let message =req.params.message;
 
-  console.log(message);
-
+  
+  if(message.length>=69){
+    console.log("Message Too Long "+message);
+  }
   for (i = 0; i < recipient.length; i++) { 
     console.log(recipient[i]);
 
