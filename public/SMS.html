@@ -16,6 +16,7 @@
           <el-button class="el-icon-close" >Clear</el-button>
         </el-form-item>
       </el-form>
+      <el-progress :text-inside="true" :stroke-width="18" :percentage="0"></el-progress>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
@@ -27,14 +28,21 @@
   <script>
       window.addEventListener("load", function(event) {
 
-      function chunkArrayInGroups(ar, num) {
+    function chunkArrayInGroups(ar, num) {
         return ar.reduce(function(r, v, i) {
           if (i % num == 0) r.push(ar.slice(i, i + num));
           return r;
         }, []);
       }
 
+    function clamp(value, min, max) {
+    return value < min ? min : (value > max ? max : value);
+      }
+    function inverseLerp(a, b, value) {
+    return (clamp(value, Math.min(a, b), Math.max(a, b)) - a) / (b - a);
+      }
 
+      
     var vm = new Vue({
       el: '#vue-instance',
       data() {
@@ -46,25 +54,22 @@
       }
     },
       methods: {
-        
         onSubmit() {
-
-          var NumberArray = vm.form.Numbers.split(',');
-          var groupNumbers = chunkArrayInGroups(NumberArray,1000);
-          
-          this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
-
-          // get body data
+          var NumberArray = vm.form.Numbers.split(',');//spliting array
+          var groupNumbers = chunkArrayInGroups(NumberArray,1000);//grouping to array
+          // iterate each group
           for(var i =0;i<groupNumbers.length;i++){
             alert(groupNumbers[i]);
+            this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
+
+            var progress =inverseLerp(0,groupNumbers.length,0);
+
+            alert(progress);
+            }, response => {
+            // error callback
+            alert(response);
+            });
           }
-
-         //alert(response.body);
-
-        }, response => {
-          // error callback
-          alert(response);
-        });
       }
       }
     });
