@@ -66,9 +66,7 @@
         this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList').then(response => {
             //document.write(response);
             alert(response);
-            let result = JSON.parse(response);
-
-            vm.tableData=result;
+            vm.tableData=response;
         }, err => {
           // error callback
           });
