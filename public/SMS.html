@@ -113,12 +113,12 @@
             this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/SMS/'+numberBatch+'/'+vm.form.Message).then(response => {
             }, response => {
             // error callback
-             var progress =inverseLerp(0,groupNumbers.length,i);
-             vm.progres=100;
-             alert("Sent");
+            // var progress =inverseLerp(0,groupNumbers.length,i);
+            // vm.progres=100;
+             
             });
           }
-  
+          alert("Sent");
             vm.form.Numbers=[];
             vm.form.Message= '';
             vm.progres=0;
