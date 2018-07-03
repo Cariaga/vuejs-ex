@@ -5,11 +5,11 @@
   <div id="vue-instance">
     <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="Numbers">
-            <el-input type="textarea" v-model="form.Numbers"></el-input>
+            <el-input type="textarea" v-model="form.Numbers" v-on:change="validate"></el-input>
           <span class="limiter">{{TotalNumbers}}</span>
         </el-form-item>
         <el-form-item label="Message">
-          <el-input type="textarea" v-model="form.Message"></el-input>
+          <el-input type="textarea" v-model="form.Message"  v-on:change="validate"></el-input>
           <span class="limiter">{{charactersLeft}}</span>
         </el-form-item>
         <el-form-item>
@@ -55,17 +55,10 @@
         },
         
       }
-    },computed: {
+    },computed: {         
       charactersLeft() {
-          var char = this.form.Message,
-              limit = 70;
-              if(limit-char.length<0){
-                this.isDisabled=true;
-                 }else{
-                     this.isDisabled=false;
-                 }
-            
-        
+          var char = this.form.Message;
+          var limit = 70;
           return limit-char.length + " Characters left";
         },
       TotalNumbers() {
@@ -77,6 +70,35 @@
         }
       },
       methods: {
+        //([a-z]*[A-Z]*[^\d])\W+ // check for non digits
+      
+        validate(){
+          var isValidMessage=false;
+          var isValidNumber=false;
+          var char = this.form.Message;
+          var limit = 70;
+          if(limit-char.length>0){
+              isValidMessage=true;
+          }
+          else{
+            isValidMessage=false;
+          }
+          var term = this.form.Number;
+          var re = new RegExp(/([a-z]*[A-Z]*[^\d])\W+/g);
+          if (re.test(term)) {
+            isValidNumber=false;
+            
+          } else {
+            isValidNumber=true;
+          }
+          // alert(isValidNumber);
+          //  alert(isValidMessage);
+         if(isValidNumber==true&&isValidMessage==true){
+            this.isDisabled=false;
+            }else{
+              this.isDisabled=true;
+            }
+        },
         onSubmit() {
         
           var NumberArray = vm.form.Numbers.split(',');//spliting array
