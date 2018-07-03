@@ -16,7 +16,7 @@
           <el-button class="el-icon-close" >Clear</el-button>
         </el-form-item>
       </el-form>
-      <el-progress :text-inside="true" :stroke-width="18" :percentage="{{percentage}}"></el-progress>
+      <el-progress :text-inside="true" :stroke-width="18" v-model="percentage"></el-progress>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
