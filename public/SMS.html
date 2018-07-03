@@ -58,7 +58,8 @@
           var NumberArray = vm.form.Numbers.split(',');//spliting array
           var groupNumbers = chunkArrayInGroups(NumberArray,1000);//grouping to array
           // iterate each group
-          for(var i =0;i<groupNumbers.length;i++){
+          var i =0;
+          for(i =0;i<groupNumbers.length;i++){
             var numberBatch =groupNumbers[i];
             
             this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
