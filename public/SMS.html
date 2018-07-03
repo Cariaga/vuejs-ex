@@ -66,7 +66,12 @@
         }
       },
       TotalNumbers() {
-          return vm.form.Numbers.split(',').length+" Total Contact Numbers";
+        var total = vm.form.Numbers.split(',').length;
+          if(total>0){
+            return +" Total Contact Numbers";
+          }
+          return 0;
+         
         }
       ,
       methods: {
