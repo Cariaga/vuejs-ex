@@ -95,7 +95,7 @@ app.get('/SMS/:recipient/:message', function (req, res){
 
 
 //--Login Start
-app.get('/Register',function (req, res) {
+app.get('/register',function (req, res) {
   
   let UserName= req.query.UserName;
   let Password = req.query.Password;
@@ -108,6 +108,7 @@ app.get('/Register',function (req, res) {
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
             res.send("Valid");
+            
           }else{
             res.send("Invalid Email");
           }
@@ -124,6 +125,7 @@ app.get('/Register',function (req, res) {
     res.send("Invalid UserName");
   }
 });
+
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
@@ -1562,32 +1564,38 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   !isNullOrEmpty(ValidKey)&&
   !isNullOrEmpty(RegisteredDate)&&
   !isNullOrEmpty(RegisteredTime)){
-    var item1 = Models.UserAccount.build({
-      UserAccountID:UserAccountID,
-      AccessID:AccessID,
-      UserName:UserName,
-      Password:Password,
-      Verify:Verify,
-      ValidKey:ValidKey,
-      RegisteredDate:RegisteredDate,
-      RegisteredTime:RegisteredTime
-    });
-    //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
-    Models.UserAccount.sync({alter : true/*,force:true*/});
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+    var response = AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime);
+    res.send(response);
   }else{
     res.send("Missing params"+AccessID+UserName+Password+Verify+ValidKey+RegisteredDate+RegisteredTime);
   }
 });
+
+function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime){
+  var item1 = Models.UserAccount.build({
+    UserAccountID:UserAccountID,
+    AccessID:AccessID,
+    UserName:UserName,
+    Password:Password,
+    Verify:Verify,
+    ValidKey:ValidKey,
+    RegisteredDate:RegisteredDate,
+    RegisteredTime:RegisteredTime
+  });
+  //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
+  Models.UserAccount.sync({alter : true/*,force:true*/});
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return"error inserting " +error;
+  });
+}
+
+
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   Models.UserAccount.sync({force:true});
   res.send("Deleted");
@@ -1652,6 +1660,13 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Surname)&&
   !isNullOrEmpty(CurrentRoomName)){
+    let response = AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName);
+    res.send(response);
+  }else{
+    res.send("Missing params");
+  }
+});
+function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName){
     //res.send('test');
     //Setting up the config
     let item1 = Models.Player.build({
@@ -1665,18 +1680,15 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
     Models.Player.sync({alter : true/*,force:true*/});//use force to clear/delete old table non production only
     item1.save()
     .then(Success => {
-      res.send("Inserted");
+      return "Inserted";
     })
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
-      res.send("error inserting " +error);
+      return "error inserting " +error;
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
-  }else{
-    res.send("Missing params");
-  }
-});
+}
 app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
   let PlayersID = req.params.PlayersID;
   let UserAccountID = req.params.UserAccountID;
