@@ -49,7 +49,7 @@
         
         onSubmit() {
 
-          var NumberArray = Numbers.split(',');
+          var NumberArray = form.Numbers.split(',');
           var groupNumbers = chunkArrayInGroups(NumberArray,10);
           
           this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
