@@ -67,7 +67,7 @@ var nexmo = new Nexmo({
   }, {debug:true});
 
 app.get('/SMS/:recipient/:message', function (req, res){
-  let sender= "825080825012";
+  /*let sender= "825080825012";
   let recipient = req.params.recipient.split(",");
   let message =req.params.message;
 
@@ -83,7 +83,8 @@ app.get('/SMS/:recipient/:message', function (req, res){
     }
   });
   }
-  res.send("Sent all to " +recipient);
+  res.send("Sent all to " +recipient);*/
+  res.end();
 });
 
 
