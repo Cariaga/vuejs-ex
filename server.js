@@ -70,12 +70,16 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
   dialect: 'mysql'
 });
+
+
 var nexmo = new Nexmo({
     apiKey: "34958c75",
     apiSecret: "VnTUCGBvp3yr2onE",
