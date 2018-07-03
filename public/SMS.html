@@ -3,19 +3,17 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
   </head>
   <div id="vue-instance">
- 
     <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="Numbers">
             <el-input type="textarea" v-model="form.Numbers"></el-input>
-            <span class="limiter">{{TotalNumbers}}</span>
+          <span class="limiter">{{TotalNumbers}}</span>
         </el-form-item>
-  
         <el-form-item label="Message">
           <el-input type="textarea" v-model="form.Message"></el-input>
           <span class="limiter">{{charactersLeft}}</span>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" class="el-icon-message" >Create</el-button>
+          <el-button type="primary" @click="onSubmit" class="el-icon-message" v-bind:disabled=isDisabled>Send</el-button>
           <el-button class="el-icon-close" @click="onClear" >Clear</el-button>
         </el-form-item>
       </el-form>
@@ -50,7 +48,7 @@
       data() {
       return {
         progres:0,
-        
+        isDisabled:false,
         form: {
           Numbers: [],
           Message: ''
@@ -61,19 +59,23 @@
       charactersLeft() {
           var char = this.form.Message,
               limit = 70;
-  
+              if(limit-char.length<0){
+                this.isDisabled=true;
+                 }else{
+                     this.isDisabled=false;
+                 }
+            
+        
           return limit-char.length + " Characters left";
+        },
+      TotalNumbers() {
+          if(this.form.Numbers.length>0){
+             return this.form.Numbers.split(",").length +" Total Contacts";
+             }else{
+                return 0 +" Total Contacts";
+             }
         }
       },
-      TotalNumbers() {
-        var total = vm.form.Numbers.split(',').length;
-          if(total>0){
-            return +" Total Contact Numbers";
-          }
-          return 0;
-         
-        }
-      ,
       methods: {
         onSubmit() {
         
@@ -99,6 +101,10 @@
       }
       }
     });
+  
+  
+  
+  
   
   });
   </script>
