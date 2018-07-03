@@ -7,6 +7,7 @@
     <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="Numbers">
             <el-input type="textarea" v-model="form.Numbers"></el-input>
+            <span class="limiter">{{TotalNumbers}}</span>
         </el-form-item>
   
         <el-form-item label="Message">
@@ -64,6 +65,10 @@
           return limit-char.length + " Characters left";
         }
       },
+      TotalNumbers() {
+          return vm.form.Numbers.split(',').length+" Total Contact Numbers";
+        }
+      ,
       methods: {
         onSubmit() {
         
@@ -89,10 +94,6 @@
       }
       }
     });
-  
-  
-  
-  
   
   });
   </script>
