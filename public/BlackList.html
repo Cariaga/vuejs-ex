@@ -64,7 +64,7 @@ var vm = new Vue({
   methods: {
     onSubmit() {
       //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
-       this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList', function(data, status, request){
+       this.$http.get('https://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList', function(data, status, request){
          alert(data);
       if(status == 200)
       {
