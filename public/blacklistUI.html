@@ -1,0 +1,34 @@
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
+</head>
+<body>
+    <div id="vue-instance">
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
+<script>
+    window.addEventListener("load", function(event) {
+  var vm = new Vue({
+    el: '#vue-instance',
+    data() {
+    return {
+    }
+  },computed: {  
+    },
+    methods: {
+      onSubmit() {
+        this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList').then(response => {
+          }, response => {
+          // error callback
+          });
+        }
+    }
+  });
+});
+</script>

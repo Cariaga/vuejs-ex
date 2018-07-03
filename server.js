@@ -173,13 +173,7 @@ app.get('/Login',function (req, res) {
        /* let VerifyResult = Data.find(function(element) {
           return element.Verify==true;
         });*/
-
         res.send(beautify(Data, null, 2, 100));
-      
-        
-      
-
-
         if(VerifyResult){
 
          /* res.send({
@@ -304,28 +298,33 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(Status)){
-    var item1 = Models.SupportTicket.build({
-      UserAccountID:UserAccountID,
-      Title:Title,
-      Description:Description,
-      Reason:Reason,
-      Time:Time,
-      Date:Date,
-      Status:Status
-    });
-    Models.SupportTicket.sync({alter : true/*,force:true*/});//force to recreate if non production code
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+    let response = AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status);
+    res.send(response);
   }
 });
+
+function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status){
+  var item1 = Models.SupportTicket.build({
+    UserAccountID:UserAccountID,
+    Title:Title,
+    Description:Description,
+    Reason:Reason,
+    Time:Time,
+    Date:Date,
+    Status:Status
+  });
+  Models.SupportTicket.sync({alter : true/*,force:true*/});//force to recreate if non production code
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return "error inserting " +error;
+  });
+}
 app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
   // USAGE Api/v1/SupportTicket/Update/putek/eltit/tion/rason/12:34:56/2009-05-31/Nakaon
   let SupportTicketID = req.params.SupportTicketID;
@@ -909,7 +908,12 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   !isNullOrEmpty(RequestedTIME)&&
   !isNullOrEmpty(RejectedTIME)&&
   !isNullOrEmpty(ProcessingTIME)){
-    var item1 = Models.WithdrawHistory.build({
+    let response = WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME);
+    res.send(response);
+  }
+});
+function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME){
+  var item1 = Models.WithdrawHistory.build({
     UserAccountID:UserAccountID,
     Amount:Amount, 
     BankNameUsed:BankNameUsed, 
@@ -925,16 +929,15 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
     Models.WithdrawHistory.sync({alter : true});
     item1.save()
     .then(Success => {
-      res.send("Inserted");
+      return"Inserted";
     })
     
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
-      res.send("error inserting " +error);
+      return"error inserting " +error;
     });
-  }
-});
+}
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
   // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
@@ -1066,33 +1069,37 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
   !isNullOrEmpty(RequestedTIME)&&
   !isNullOrEmpty(RejectedTIME)&&
   !isNullOrEmpty(ProcessingTIME)){
-    var item1 = Models.DepositHistory.build({
-      UserAccountID:UserAccountID,
-      Amount:Amount, 
-      BankNameUsed:BankNameUsed,
-      SecurityCodeUsed:SecurityCodeUsed,
-      Status:Status,
-      RequestedDATE:RequestedDATE,
-      ApprovedDATE:ApprovedDATE,
-      RejectedDATE:RejectedDATE,
-      ProcessingDATE:ProcessingDATE, 
-      RequestedTIME:RequestedTIME,
-      RejectedTIME:RejectedTIME,
-      ProcessingTIME:ProcessingTIME, 
-    });
-    Models.DepositHistory.sync({alter : true});
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+   let response= AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME);
+    res.send(response);
   }
 });
+function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME){
+  var item1 = Models.DepositHistory.build({
+    UserAccountID:UserAccountID,
+    Amount:Amount, 
+    BankNameUsed:BankNameUsed,
+    SecurityCodeUsed:SecurityCodeUsed,
+    Status:Status,
+    RequestedDATE:RequestedDATE,
+    ApprovedDATE:ApprovedDATE,
+    RejectedDATE:RejectedDATE,
+    ProcessingDATE:ProcessingDATE, 
+    RequestedTIME:RequestedTIME,
+    RejectedTIME:RejectedTIME,
+    ProcessingTIME:ProcessingTIME, 
+  });
+  Models.DepositHistory.sync({alter : true});
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return "error inserting " +error;
+  });
+}
 app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
