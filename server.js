@@ -74,19 +74,19 @@ app.get('/SMS/:recipient/:message', function (req, res){
   
   if(message.length>69){
     console.log("Message Too Long "+message);
-  }
-  for (i = 0; i < recipient.length; i++) { 
-    console.log(recipient[i]);
-
-   /* nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
-    (err,responseData)=>{
-      if(err){
-        console.log(err);
-    }else{
-      console.dir(responseData);
+  }else{
+    for (i = 0; i < recipient.length; i++) { 
+      console.log(recipient[i]);
+  
+     /* nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
+      (err,responseData)=>{
+        if(err){
+          console.log(err);
+      }else{
+        console.dir(responseData);
+      }
+    });*/
     }
-  });*/
-
   }
   //res.send("Sent all to " +recipient);
   //console.log(req.params.recipient);
