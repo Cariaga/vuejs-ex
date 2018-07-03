@@ -37,23 +37,7 @@
     el: '#vue-instance',
     data() {
     return {
-      tableData: [{
-            date: '2016-05-03',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }, {
-            date: '2016-05-02',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }, {
-            date: '2016-05-04',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }, {
-            date: '2016-05-01',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }]
+      tableData:null
     }
   },computed: {  
     },
@@ -61,6 +45,7 @@
       onSubmit() {
         this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList').then(response => {
             document.write(response);
+            vm.tableData=response;
         }, err => {
           // error callback
           });
