@@ -64,7 +64,7 @@
         vm.progres=0;
         for(i =0;i<groupNumbers.length;i++){
           var numberBatch =groupNumbers[i];
-          this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/SMS/'+numberBatch+'/'+Message).then(response => {
+          this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/SMS/'+numberBatch+'/'+vm.form.Message).then(response => {
           }, response => {
           // error callback
            var progress =inverseLerp(0,groupNumbers.length,i);
