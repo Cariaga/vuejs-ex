@@ -73,6 +73,7 @@
         //([a-z]*[A-Z]*[^\d])\W+ // check for non digits
       
         validate(){
+          vm.progres=100;
           var isValidMessage=false;
           var isValidNumber=false;
           var char = this.form.Message;
@@ -112,15 +113,20 @@
             this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/SMS/'+numberBatch+'/'+vm.form.Message).then(response => {
             }, response => {
             // error callback
-             var progress =inverseLerp(0,groupNumbers.length,i);
-            vm.progres=progress*100;
-            //alert(JSON.stringify(response));
+            // var progress =inverseLerp(0,groupNumbers.length,i);
+             vm.progres=100;
+             alert("Sent");
             });
           }
+  
+            vm.form.Numbers=[];
+            vm.form.Message= '';
+            vm.progres=0;
       },
       onClear() {
         vm.form.Numbers=[];
-        vm.form.Message= ''
+        vm.form.Message= '';
+        vm.progres=0;
       }
       }
     });
