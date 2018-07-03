@@ -67,24 +67,26 @@ var nexmo = new Nexmo({
   }, {debug:true});
 
 app.get('/SMS/:recipient/:message', function (req, res){
-  /*let sender= "825080825012";
+  let sender= "825080825012";
   let recipient = req.params.recipient.split(",");
   let message =req.params.message;
 
   console.log(message);
 
   for (i = 0; i < recipient.length; i++) { 
-    nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
+    console.log(recipient[i]);
+   /* nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
     (err,responseData)=>{
       if(err){
         console.log(err);
     }else{
       console.dir(responseData);
     }
-  });
+  });*/
+
   }
-  res.send("Sent all to " +recipient);*/
- // console.log(req.params.recipient);
+  res.send("Sent all to " +recipient);
+  console.log(req.params.recipient);
   res.end();
 });
 
