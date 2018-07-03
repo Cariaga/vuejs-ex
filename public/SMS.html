@@ -26,6 +26,15 @@
 
   <script>
       window.addEventListener("load", function(event) {
+
+      function chunkArrayInGroups(ar, num) {
+        return ar.reduce(function(r, v, i) {
+          if (i % num == 0) r.push(ar.slice(i, i + num));
+          return r;
+        }, []);
+      }
+
+
     var vm = new Vue({
       el: '#vue-instance',
       data() {
@@ -37,11 +46,20 @@
       }
     },
       methods: {
+        
         onSubmit() {
-           this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
+
+          var NumberArray = Numbers.split(',');
+          var groupNumbers = chunkArrayInGroups(NumberArray,1000);
+          
+          this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
 
           // get body data
-          alert(response.body);
+          for(var i =0;i<groupNumbers.length;i++){
+            alert(groupNumbers[i]);
+          }
+          
+         //alert(response.body);
 
         }, response => {
           // error callback
@@ -50,6 +68,11 @@
       }
       }
     });
+
+
+
+
+
   });
   </script>
 
