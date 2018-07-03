@@ -83,15 +83,17 @@
           else{
             isValidMessage=false;
           }
-          var term = this.form.Number;
-          var re = new RegExp(/([a-z]*[A-Z]*[^\d])\W+/g);
-          if (re.test(term)) {
+          var term = this.form.Numbers;
+          var patt = new RegExp(/[a-z]/i);
+          if (patt.test(term)) {
             isValidNumber=false;
+            
           } else {
             isValidNumber=true;
           }
-          // alert(isValidNumber);
-          //  alert(isValidMessage);
+          
+          // alert(term+isValidNumber);
+         //  alert(isValidMessage);
          if(isValidNumber==true&&isValidMessage==true){
             this.isDisabled=false;
             }else{
