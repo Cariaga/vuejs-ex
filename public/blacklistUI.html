@@ -4,6 +4,7 @@
 </head>
 <body>
     <div id="vue-instance">
+            <el-button type="primary" v-on:click="onSubmit">Primary</el-button>
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
@@ -24,7 +25,8 @@
     methods: {
       onSubmit() {
         this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList').then(response => {
-          }, response => {
+            document.write(response);
+        }, err => {
           // error callback
           });
         }
