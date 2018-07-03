@@ -70,9 +70,7 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-app.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
-})
+
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
@@ -2310,5 +2308,8 @@ app.get('/withdraw',function (req, res) {
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
-
+  
+app.listen(80, function () {
+    console.log('CORS-enabled web server listening on port 80')
+  })
 module.exports = app;
