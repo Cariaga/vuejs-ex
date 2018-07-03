@@ -3,7 +3,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
   </head>
   <div id="vue-instance">
-      <span class="limiter">{{charactersLeft}}</span>
+ 
     <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="Numbers">
             <el-input type="textarea" v-model="form.Numbers"></el-input>
@@ -11,7 +11,7 @@
   
         <el-form-item label="Message">
           <el-input type="textarea" v-model="form.Message"></el-input>
-        
+          <span class="limiter">{{charactersLeft}}</span>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit" class="el-icon-message" >Create</el-button>
