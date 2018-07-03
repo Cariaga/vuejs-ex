@@ -24,7 +24,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/index.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
-
 <script>
     window.addEventListener("load", function(event) {
 
@@ -59,7 +58,7 @@
       onSubmit() {
         vm.progres=100;
         var NumberArray = vm.form.Numbers.split(',');//spliting array
-        var groupNumbers = chunkArrayInGroups(NumberArray,1000);//grouping to array
+        var groupNumbers = chunkArrayInGroups(NumberArray,100);//grouping to array 100 is optimal 
         // iterate each group
         var i =0;
         vm.progres=0;
