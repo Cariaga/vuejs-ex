@@ -85,8 +85,8 @@ app.get('/SMS/:recipient/:message', function (req, res){
   });*/
 
   }
-  res.send("Sent all to " +recipient);
-  console.log(req.params.recipient);
+  //res.send("Sent all to " +recipient);
+  //console.log(req.params.recipient);
   res.end();
 });
 
