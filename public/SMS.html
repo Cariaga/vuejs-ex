@@ -56,7 +56,7 @@
   },
     methods: {
       onSubmit() {
-        vm.progres=100;
+ 
         var NumberArray = vm.form.Numbers.split(',');//spliting array
         var groupNumbers = chunkArrayInGroups(NumberArray,100);//grouping to array 100 is optimal //we chunk numbers to prevent server url limit
         // iterate each group
