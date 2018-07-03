@@ -61,15 +61,17 @@
           var i =0;
           for(i =0;i<groupNumbers.length;i++){
             var numberBatch =groupNumbers[i];
+
+            var progress =inverseLerp(0,groupNumbers.length,i);
+            document.write(progress);
             
             this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com').then(response => {
 
            
             }, response => {
-              var progress =inverseLerp(0,groupNumbers.length,i);
-            document.write(progress);
+        
             // error callback
-           // alert(response);
+            alert(response);
             });
           }
       }
