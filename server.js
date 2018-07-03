@@ -12,6 +12,7 @@ var Schema = mongoose.Schema;
 var database = require('./config/database'); //load the database config
 var request = require('request');
 var isNullOrEmpty = require('is-null-or-empty');
+var cors = require('cors');
 const mysql = require('mysql2');
 var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
@@ -34,6 +35,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 //to enable CORS required for json request get put post and http cross
+app.use(cors());
 //https must be enabled
 app.use(function (req, res, next) {
 

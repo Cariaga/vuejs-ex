@@ -16,7 +16,8 @@
     "is-null-or-empty":"^0.0.1",
     "sequelize":"^4.38.0",
     "json-beautify":"^1.0.1",
-    "nexmo":"^2.3.2"
+    "nexmo":"^2.3.2",
+    "cors":"^2.8.4"
     
   },
   "scripts": {
