@@ -1,9 +1,43 @@
 <head>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.1/vuetify.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/vue-material/1.0.0/vue-material.min.css" rel="stylesheet">
+ <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.1/vuetify.min.css" rel="stylesheet">-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
 </head>
 <div id="vue-instance">
+    <el-row>
+        <el-col :span="24">
+          <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal">
+            <el-menu-item index="1">Processing Center</el-menu-item>
+            <el-submenu index="2">
+              <template slot="title">Workspace</template>
+              <el-menu-item index="2-1">item one</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="3">Orders</el-menu-item>
+          </el-menu>
+        </el-col>
+      </el-row>
+  <el-row>
+  <el-col :span="12">
+    <div class="grid-content">
+      <div class="block">
+        <span class="wrapper">
+          <el-button type="success">Success</el-button>
+          <el-button type="warning">Warning</el-button>
+          <el-button type="danger">Danger</el-button>
+          <el-button type="info">Info</el-button>
+        </span>
+      </div>
+    </div>
+  </el-col>
+  </el-row>
+
+
+
+
+
+
+
+
     <v-app id="inspire">
       <!--
         <v-container>
@@ -26,10 +60,6 @@
             </v-layout>
           </v-container>
       -->
-      <md-field>
-          <label>Textarea</label>
-          <md-textarea v-model="textarea"></md-textarea>
-        </md-field>
 
   </v-app>
   </div>
@@ -37,8 +67,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.1/vuetify.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-material/1.0.0/vue-material.min.js"></script>
+
 
   <script>
       window.addEventListener("load", function(event) {
