@@ -237,11 +237,20 @@ app.get('/register',function (req, res) {
             let dd = today.getDate();
             let mm = today.getMonth()+1; 
             let yyyy = today.getFullYear();
-            today = yyyy+'/'+mm+'/'+dd;
+
+            let Hours = today.getHours();
+            let Minutes = today.getMinutes();
+            let Seconds = today.getSeconds();
+
+            let FormatedDate = yyyy+'/'+mm+'/'+dd;
+            let FormatedTime =Hours+":"+Minutes+":"+Seconds;
+
             console.log(uuidv4());
-            console.log(today);
-            
-          //  AddUserAccount(UserName,"AccessID",Name,Password,false);
+
+            console.log(FormatedDate);
+            console.log(FormatedTime);
+
+            AddUserAccount(UserName,"AccessID",Name,Password,false);
             res.send("Valid");
             
           }else{
