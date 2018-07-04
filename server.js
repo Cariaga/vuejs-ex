@@ -1082,7 +1082,7 @@ function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,
     });
 }
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20
+  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20/01:57:20
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
@@ -1094,6 +1094,7 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
   let RejectedDATE = req.params.RejectedDATE;
   let ProcessingDATE = req.params.ProcessingDATE;
   let RequestedTIME = req.params.RequestedTIME;
+  let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
   if(isNullOrEmpty(WithdrawHistoryID)&&
@@ -1107,6 +1108,7 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
   isNullOrEmpty(RejectedDATE)&&
   isNullOrEmpty(ProcessingDATE)&&
   isNullOrEmpty(RequestedTIME)&&
+  !isNullOrEmpty(ApprovedTIME)&&
   isNullOrEmpty(RejectedTIME)&&
   isNullOrEmpty(ProcessingTIME)){
     Models.WithdrawHistory.update({
@@ -1120,6 +1122,7 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
       RejectedDATE: RejectedDATE,
       ProcessingDATE: ProcessingDATE,
       RequestedTIME: RequestedTIME,
+      ApprovedTIME:ApprovedTIME,
       RejectedTIME: RejectedTIME,
       ProcessingTIME: ProcessingTIME
     },{
