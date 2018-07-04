@@ -15,6 +15,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 const mysql = require('mysql2');
 var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
+var uuidv4 = require('uuid/v4');
 require("./routes/test")(app);
 var Models = require("./Models/Models");
 // configuration =================
@@ -135,12 +136,18 @@ function isPhoneNumberExist(PhoneNumber,callback){
     });
 }
 function isUserAccountBlocked(UserName,callback){
-  Models.UserAccount.sync();
-    let result = Models.UserAccount.findAll({ 
+  Models.BlackList.sync();
+    let result = Models.BlackList.findAll({ 
       where: {
         UserName: {
           eq: UserName//not null
-        }
+        },
+        Status:{
+          eq:"Blocked"
+        },
+        order: [
+          ['BlackListID', 'DESC'],
+      ],
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -226,7 +233,24 @@ app.get('/register',function (req, res) {
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth()+1; 
+            let yyyy = today.getFullYear();
 
+            let Hours = today.getHours();
+            let Minutes = today.getMinutes();
+            let Seconds = today.getSeconds();
+
+            let FormatedDate = yyyy+'/'+mm+'/'+dd;
+            let FormatedTime =Hours+":"+Minutes+":"+Seconds;
+
+            console.log(uuidv4());
+
+            console.log(FormatedDate);
+            console.log(FormatedTime);
+
+            AddUserAccount(UserName,"AccessID",Name,Password,false);
             res.send("Valid");
             
           }else{
@@ -666,6 +690,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     var item1 = Models.BlackList.build({
       UserAccountID:UserAccountID,
       Title:Title,
+      Status:"BlackList",
       Description:Description,
       ReportDate:ReportDate,
       ReleaseDate:ReleaseDate
