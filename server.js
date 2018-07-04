@@ -1017,7 +1017,7 @@ app.get('/Api/v1/BankInformation', function (req, res) {
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START
 app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20
+  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20/01:57:20
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
   let BankNameUsed = req.params.BankNameUsed;
@@ -1027,6 +1027,7 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   let RejectedDATE = req.params.RejectedDATE;
   let ProcessingDATE = req.params.ProcessingDATE;
   let RequestedTIME = req.params.RequestedTIME;
+  let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
   if(!isNullOrEmpty(UserAccountID)&&
@@ -1038,6 +1039,7 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   !isNullOrEmpty(RejectedDATE)&&
   !isNullOrEmpty(ProcessingDATE)&&
   !isNullOrEmpty(RequestedTIME)&&
+  !isNullOrEmpty(ApprovedTIME)&&
   !isNullOrEmpty(RejectedTIME)&&
   !isNullOrEmpty(ProcessingTIME)){
     WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
@@ -1056,6 +1058,7 @@ function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,
     RejectedDATE:RejectedDATE,
     ProcessingDATE:ProcessingDATE, 
     RequestedTIME:RequestedTIME,
+    ApprovedTIME:ApprovedTIME,
     RejectedTIME:RejectedTIME,
     ProcessingTIME:ProcessingTIME, 
     });
