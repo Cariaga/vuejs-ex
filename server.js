@@ -174,8 +174,25 @@ function isUserAccountVerified(UserName,callback){
     });
 }
 function isUserAccountBlocked(UserName,callback){
+
 }
 function isScreenNameExist(ScreenName,callback){
+  Models.UserAccount.sync();
+    let result = Models.UserAccount.findAll({ 
+      where: {
+        UserName: {
+          eq: UserName
+        },
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback("Error "+result);
+    });
 }
 
 //--Validation End
