@@ -727,6 +727,7 @@ app.get('/Api/v1/LoginHistory/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -849,6 +850,7 @@ app.get('/Api/v1/BankInformation/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1009,6 +1011,7 @@ app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/WithdrawHistory', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1172,6 +1175,7 @@ app.get('/Api/v1/DepositHistory/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/DepositHistory', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1317,6 +1321,7 @@ app.get('/Api/v1/GameHistory/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1421,6 +1426,7 @@ app.get('/Api/v1/UserInfo/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/UserInfo', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1527,6 +1533,7 @@ app.get('/Api/v1/AccessControl/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/AccessControl', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1628,6 +1635,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1758,6 +1766,7 @@ app.get('/Api/v1/Player/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/Player', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1871,6 +1880,7 @@ app.get('/Api/v1/Shop/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/Shop', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -1980,6 +1990,7 @@ app.get('/Api/v1/Distributor/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/Distributor', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
@@ -2085,6 +2096,7 @@ app.get('/Api/v1/HeadOffice/Delete', function (req, res){
   res.send("Deleted");
 });
 app.get('/Api/v1/HeadOffice', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
