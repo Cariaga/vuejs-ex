@@ -1226,6 +1226,7 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
 app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
+ // Usage Api/v1/DepositHistory/Add/UserAccountID/1/BankNameUsed/SecurityCodeUsed/Status/2018-06-26/2018-06-27/2018-06-28/2018-06-29/01:57:16/01:57:17/01:58:17/01:59:17
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
   let BankNameUsed = req.params.BankNameUsed;
@@ -1236,6 +1237,7 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
   let RejectedDATE = req.params.RejectedDATE;
   let ProcessingDATE = req.params.ProcessingDATE;
   let RequestedTIME = req.params.RequestedTIME;
+  let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
   if(!isNullOrEmpty(UserAccountID)&&
@@ -1248,9 +1250,10 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
   !isNullOrEmpty(RejectedDATE)&&
   !isNullOrEmpty(ProcessingDATE)&&
   !isNullOrEmpty(RequestedTIME)&&
+  !isNullOrEmpty(ApprovedTIME)&&
   !isNullOrEmpty(RejectedTIME)&&
   !isNullOrEmpty(ProcessingTIME)){
-   AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
+   AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
     res.send(response);
   });
   }
@@ -1267,6 +1270,7 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
     RejectedDATE:RejectedDATE,
     ProcessingDATE:ProcessingDATE, 
     RequestedTIME:RequestedTIME,
+    ApprovedTIME:ApprovedTIME,
     RejectedTIME:RejectedTIME,
     ProcessingTIME:ProcessingTIME, 
   });
@@ -1294,6 +1298,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
   let RejectedDATE = req.params.RejectedDATE;
   let ProcessingDATE = req.params.ProcessingDATE;
   let RequestedTIME = req.params.RequestedTIME;
+  let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
   if(!isNullOrEmpty(DepositHistoryID)&&
@@ -1308,6 +1313,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
      !isNullOrEmpty(RejectedDATE)&&
      !isNullOrEmpty(ProcessingDATE)&&
      !isNullOrEmpty(RequestedTIME)&&
+     !isNullOrEmpty(ApprovedTIME)&&
      !isNullOrEmpty(RejectedTIME)&&
      !isNullOrEmpty(ProcessingTIME)){
       Models.DepositHistory.update({
@@ -1321,6 +1327,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
         RejectedDATE: RejectedDATE,
         ProcessingDATE: ProcessingDATE,
         RequestedTIME: RequestedTIME,
+        ApprovedTIME: ApprovedTIME,
         RejectedTIME: RejectedTIME,
         ProcessingTIME: ProcessingTIME,
       },{
