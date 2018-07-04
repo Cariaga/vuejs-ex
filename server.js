@@ -2020,16 +2020,14 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Description)){
-    let response = AddHeadOffice(UserAccountID,Name,Description);
-    response.then(result =>{
-      res.send(result);
+    AddHeadOffice(UserAccountID,Name,Description, function(returnValue) {
+      res.send(returnValue);
     });
-   
   }else{
     res.send("Missing params");
   }
 });
-function AddHeadOffice(UserAccountID,Name,Description){
+function AddHeadOffice(UserAccountID,Name,Description,callback){
   var item1 = Models.HeadOffice.build({
     UserAccountID:UserAccountID,
     Name:Name,
@@ -2038,12 +2036,12 @@ function AddHeadOffice(UserAccountID,Name,Description){
   Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
   item1.save()
   .then(Success => {
-    return "Inserted";
+    callback("Inserted");
   })
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return "error inserting " +error;
+    callback( "error inserting " +error);
   });
 }
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
