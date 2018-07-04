@@ -1,4 +1,5 @@
 <head>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
 </head>
@@ -64,13 +65,11 @@ var vm = new Vue({
   methods: {
     onSubmit() {
       //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
-       this.$http.get('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList', function(data, status, request){
-         alert(data);
-      if(status == 200)
-      {
-        this.vm.tableData = data;
-      }
-    });
+      $(document).ready(function () {
+     $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList', function (data) {
+      console.log(data);
+      });
+     });
     }
   }
 });
