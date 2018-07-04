@@ -1800,27 +1800,30 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(DistributorID)&&
   !isNullOrEmpty(Description)){
-    var item1 = Models.Shop.build({
-      UserAccountID:UserAccountID,
-      DistributorID:DistributorID,
-      Description:Description
-    });
-    Models.Shop.sync({alter : true,/*force:true*/});//use force to recreate for non production only
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+    let response = AddShop(UserAccountID,DistributorID,Description);
+    res.send(response);
   }else{
     res.send("Missing params");
   }
 });
-
+function AddShop(UserAccountID,DistributorID,Description){
+  var item1 = Models.Shop.build({
+    UserAccountID:UserAccountID,
+    DistributorID:DistributorID,
+    Description:Description
+  });
+  Models.Shop.sync({alter : true,/*force:true*/});//use force to recreate for non production only
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return "error inserting " +error;
+  });
+}
 app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
   let ShopID = req.params.ShopID;
   let UserAccountID = req.params.UserAccountID;
@@ -1906,25 +1909,28 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(HeadOfficeID)&&
   !isNullOrEmpty(Name)){
-    var item1 = Models.Distributor.build({
-      UserAccountID:UserAccountID,
-      HeadOfficeID:HeadOfficeID,
-      Name:Name
-    });
-    Models.Distributor.sync({alter : true,/*force:true*/});//force removes rebuilds the table only for non production 
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+   let response = AddDistributer(UserAccountID,HeadOfficeID,Name);
   }else{
     res.send("Missing params");
   }
 });
+function AddDistributer(UserAccountID,HeadOfficeID,Name){
+  var item1 = Models.Distributor.build({
+    UserAccountID:UserAccountID,
+    HeadOfficeID:HeadOfficeID,
+    Name:Name
+  });
+  Models.Distributor.sync({alter : true,/*force:true*/});//force removes rebuilds the table only for non production 
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return "error inserting " +error;
+  });
+}
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
   let DistributerID = req.params.DistributerID;
   let UserAccountID = req.params.UserAccountID;
@@ -2009,25 +2015,29 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Description)){
-    var item1 = Models.HeadOffice.build({
-      UserAccountID:UserAccountID,
-      Name:Name,
-      Description:Description
-    });
-    Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+    let response = AddHeadOffice(UserAccountID,Name,Description);
+    res.send(response);
   }else{
     res.send("Missing params");
   }
 });
+function AddHeadOffice(UserAccountID,Name,Description){
+  var item1 = Models.HeadOffice.build({
+    UserAccountID:UserAccountID,
+    Name:Name,
+    Description:Description
+  });
+  Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return "error inserting " +error;
+  });
+}
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
   let HeadOfficeID = req.params.HeadOfficeID;
   let UserAccountID = req.params.UserAccountID;
