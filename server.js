@@ -136,7 +136,7 @@ function isPhoneNumberExist(PhoneNumber,callback){
 }
 function isUserNameExist(UserName,callback){
   Models.UserAccount.sync();
-    let result = Models.UserInfo.findAll({ 
+    let result = Models.UserAccount.findAll({ 
       where: {
         UserName: {
           eq: UserName//not null
@@ -153,6 +153,25 @@ function isUserNameExist(UserName,callback){
     });
 }
 function isUserAccountVerified(UserName,callback){
+  Models.UserAccount.sync();
+    let result = Models.UserAccount.findAll({ 
+      where: {
+        UserName: {
+          eq: UserName
+        },
+        Verify: {
+          eq: true
+        },
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback("Error "+result);
+    });
 }
 function isUserAccountBlocked(UserName,callback){
 }
