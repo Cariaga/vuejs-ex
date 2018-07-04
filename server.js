@@ -301,12 +301,13 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(Status)){
-    let response = AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status);
-    res.send(response);
+    AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
+      res.send(response);
+    });
   }
 });
 
-function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status){
+function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   var item1 = Models.SupportTicket.build({
     UserAccountID:UserAccountID,
     Title:Title,
@@ -319,13 +320,13 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
   Models.SupportTicket.sync({alter : true/*,force:true*/});//force to recreate if non production code
   item1.save()
   .then(Success => {
-    return "Inserted";
+    callback("Inserted");
   })
   
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return "error inserting " +error;
+    callback("error inserting " +error);
   });
 }
 app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
@@ -429,11 +430,12 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   !isNullOrEmpty(Description)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
-    let response = AddNotification(NotificationType,Title,Description,Time,Date);
-    res.send(response);
+     AddNotification(NotificationType,Title,Description,Time,Date,function(response) {
+      res.send(response);
+    });
   }
 });
-function AddNotification(NotificationType,Title,Description,Time,Date){
+function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   var item1 = Models.Notification.build({
     NotificationType:NotificationType,
     Title:Title,
@@ -444,13 +446,13 @@ function AddNotification(NotificationType,Title,Description,Time,Date){
   Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
   item1.save()
   .then(Success => {
-    return "Inserted";
+    callback("Inserted");
   })
   
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return"error inserting " +error;
+    callback("error inserting " +error);
   });
 }
 
@@ -916,8 +918,9 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   !isNullOrEmpty(RequestedTIME)&&
   !isNullOrEmpty(RejectedTIME)&&
   !isNullOrEmpty(ProcessingTIME)){
-    let response = WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME);
-    res.send(response);
+    WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
+      res.send(response);
+    });
   }
 });
 function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME){
@@ -1077,11 +1080,12 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
   !isNullOrEmpty(RequestedTIME)&&
   !isNullOrEmpty(RejectedTIME)&&
   !isNullOrEmpty(ProcessingTIME)){
-   let response= AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME);
+   AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
     res.send(response);
+  });
   }
 });
-function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME){
+function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.DepositHistory.build({
     UserAccountID:UserAccountID,
     Amount:Amount, 
@@ -1099,13 +1103,13 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   Models.DepositHistory.sync({alter : true});
   item1.save()
   .then(Success => {
-    return "Inserted";
+    callback( "Inserted");
   })
   
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return "error inserting " +error;
+    callback("error inserting " +error);
   });
 }
 app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
@@ -1369,11 +1373,12 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-    let response = AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber);
-    res.send(response);
+     AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
+      res.send(response);
+    });
   }
 });
-function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber){
+function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
  
     /*
     if(forced=="true"){
@@ -1394,12 +1399,12 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber){
     Models.UserInfo.sync();//only use force true if you want to destroy replace table
     item1.save()
     .then(Success => {
-      return "Inserted";
+      callback( "Inserted");
     })
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
-      return "error inserting " +error;
+      callback("error inserting " +error);
     });
 }
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
@@ -1467,11 +1472,12 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
   let AccessTags = req.params.AccessTags;
   if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
     //Setting up the config
-    let response =AccessControl(AccessID,AccessName,AccessTags);
-    res.send(response);
+    AccessControl(AccessID,AccessName,AccessTags,function(response) {
+      res.send(response);
+    });
   }
 });
-function AccessControl(AccessID,AccessName,AccessTags){
+function AccessControl(AccessID,AccessName,AccessTags,callback){
   var item1 = Models.AccessControl.build({
     AccessID:AccessID,
     AccessName:AccessName,
@@ -1480,13 +1486,13 @@ function AccessControl(AccessID,AccessName,AccessTags){
   Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non production
   item1.save()
   .then(Success => {
-    return "Inserted";
+    callback("Inserted");
   })
   
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return "error inserting " +error;
+    callback("error inserting " +error);
   });
 }
 app.get('/Api/v1/AccessControl/Update/:AccessControlID/:AccessID/:AccessName/:AccessTags', function (req, res) {
@@ -1584,14 +1590,15 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   !isNullOrEmpty(ValidKey)&&
   !isNullOrEmpty(RegisteredDate)&&
   !isNullOrEmpty(RegisteredTime)){
-    var response = AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime);
-    res.send(response);
+    AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
+      res.send(response);
+    });
   }else{
     res.send("Missing params"+AccessID+UserName+Password+Verify+ValidKey+RegisteredDate+RegisteredTime);
   }
 });
 
-function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime){
+function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
   var item1 = Models.UserAccount.build({
     UserAccountID:UserAccountID,
     AccessID:AccessID,
@@ -1606,12 +1613,12 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
   Models.UserAccount.sync({alter : true/*,force:true*/});
   item1.save()
   .then(Success => {
-    return "Inserted";
+     callback("Inserted");
   })
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return"error inserting " +error;
+    callback("error inserting " +error);
   });
 }
 
@@ -1680,13 +1687,14 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Surname)&&
   !isNullOrEmpty(CurrentRoomName)){
-    let response = AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName);
-    res.send(response);
+    AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName,function(response) {
+      res.send(response);
+    });
   }else{
     res.send("Missing params");
   }
 });
-function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName){
+function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName,callback){
     //res.send('test');
     //Setting up the config
     let item1 = Models.Player.build({
@@ -1700,12 +1708,12 @@ function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName){
     Models.Player.sync({alter : true/*,force:true*/});//use force to clear/delete old table non production only
     item1.save()
     .then(Success => {
-      return "Inserted";
+      callback("Inserted");
     })
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
-      return "error inserting " +error;
+      callback("error inserting " +error);
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
@@ -1805,13 +1813,15 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(DistributorID)&&
   !isNullOrEmpty(Description)){
-    let response = AddShop(UserAccountID,DistributorID,Description);
-    res.send(response);
+    AddShop(UserAccountID,DistributorID,Description,function(response) {
+      res.send(response);
+    });
+  
   }else{
     res.send("Missing params");
   }
 });
-function AddShop(UserAccountID,DistributorID,Description){
+function AddShop(UserAccountID,DistributorID,Description,callback){
   var item1 = Models.Shop.build({
     UserAccountID:UserAccountID,
     DistributorID:DistributorID,
@@ -1820,13 +1830,13 @@ function AddShop(UserAccountID,DistributorID,Description){
   Models.Shop.sync({alter : true,/*force:true*/});//use force to recreate for non production only
   item1.save()
   .then(Success => {
-    return "Inserted";
+    callback("Inserted");
   })
   
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return "error inserting " +error;
+    callback("error inserting " +error);
   });
 }
 app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
@@ -1914,12 +1924,14 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(HeadOfficeID)&&
   !isNullOrEmpty(Name)){
-   let response = AddDistributer(UserAccountID,HeadOfficeID,Name);
+    AddDistributer(UserAccountID,HeadOfficeID,Name,function(response){
+      res.send(response);
+    });
   }else{
     res.send("Missing params");
   }
 });
-function AddDistributer(UserAccountID,HeadOfficeID,Name){
+function AddDistributer(UserAccountID,HeadOfficeID,Name,callback){
   var item1 = Models.Distributor.build({
     UserAccountID:UserAccountID,
     HeadOfficeID:HeadOfficeID,
@@ -1928,12 +1940,12 @@ function AddDistributer(UserAccountID,HeadOfficeID,Name){
   Models.Distributor.sync({alter : true,/*force:true*/});//force removes rebuilds the table only for non production 
   item1.save()
   .then(Success => {
-    return "Inserted";
+    callback("Inserted");
   })
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting");
-    return "error inserting " +error;
+    callback("error inserting " +error);
   });
 }
 app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
@@ -2020,8 +2032,8 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Description)){
-    AddHeadOffice(UserAccountID,Name,Description, function(returnValue) {
-      res.send(returnValue);
+    AddHeadOffice(UserAccountID,Name,Description, function(response) {
+      res.send(response);
     });
   }else{
     res.send("Missing params");
@@ -2096,24 +2108,17 @@ app.get('/Api/v1/HeadOffice', function (req, res) {
     });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
   }
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
   }
-
  // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
 });
 //---HeadOffice ROUTING END
