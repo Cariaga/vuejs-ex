@@ -1103,7 +1103,7 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   Models.DepositHistory.sync({alter : true});
   item1.save()
   .then(Success => {
-    callback( "Inserted");
+    callback("Inserted");
   })
   
   .catch(error => {
