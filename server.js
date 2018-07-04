@@ -260,14 +260,12 @@ app.get('/register',function (req, res) {
             });
             let UUIDKey =uuidv4();
             console.log(UUIDKey);
-
             console.log(CurrentDate);
             console.log(FormatedTime);
-
             AddUserAccount(UserName,"AccessID",Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-
+              res.send(response);
             });
-            res.send("Valid");
+            //res.send("Valid");
             
           }else{
             res.send("Invalid Email");
@@ -1771,6 +1769,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   !isNullOrEmpty(ValidKey)&&
   !isNullOrEmpty(RegisteredDate)&&
   !isNullOrEmpty(RegisteredTime)){
+    //This is Direct Date Assigned from API we dont use getCurrentDate And getCurrentTime for control
     AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
       res.send(response);
     });
