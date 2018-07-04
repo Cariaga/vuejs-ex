@@ -2021,7 +2021,10 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Description)){
     let response = AddHeadOffice(UserAccountID,Name,Description);
-    res.send(response);
+    response.then(result =>{
+      res.send(response);
+    });
+   
   }else{
     res.send("Missing params");
   }
