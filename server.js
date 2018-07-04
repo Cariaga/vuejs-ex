@@ -2022,7 +2022,7 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   !isNullOrEmpty(Description)){
     let response = AddHeadOffice(UserAccountID,Name,Description);
     response.then(result =>{
-      res.send(response);
+      res.send(result);
     });
    
   }else{
