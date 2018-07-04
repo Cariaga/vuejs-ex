@@ -135,12 +135,18 @@ function isPhoneNumberExist(PhoneNumber,callback){
     });
 }
 function isUserAccountBlocked(UserName,callback){
-  Models.UserAccount.sync();
-    let result = Models.UserAccount.findAll({ 
+  Models.BlackList.sync();
+    let result = Models.BlackList.findAll({ 
       where: {
         UserName: {
           eq: UserName//not null
-        }
+        },
+        Status:{
+          eq:"Blocked"
+        },
+        order: [
+          ['BlackListID', 'DESC'],
+      ],
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -666,6 +672,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     var item1 = Models.BlackList.build({
       UserAccountID:UserAccountID,
       Title:Title,
+      Status:"BlackList",
       Description:Description,
       ReportDate:ReportDate,
       ReleaseDate:ReleaseDate

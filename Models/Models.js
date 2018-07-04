@@ -246,6 +246,7 @@ const BlackList =sequelize.define('BlackList', {
     autoIncrement: true 
   },
   UserAccountID:Sequelize.STRING,//FK
+  Status:Sequelize.STRING,
   Title:  Sequelize.STRING,
   Description:  Sequelize.STRING,
   ReportDate:  Sequelize.DATE,
