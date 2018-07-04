@@ -838,17 +838,19 @@ app.get('/Api/v1/LoginHistory', function (req, res) {
 });
 //---LoginHistory ROUTING END
 //---BankInformation ROUTING START
-app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function (req, res) {
-  //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/2018-06-27/01:57:17/2018-06-27
+app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
+  //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
   let BankName = req.params.BankName;
   let SecurityCode = req.params.SecurityCode;
+  let Valid = req.params.Valid;
   let Expiration = req.params.Expiration;
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(BankName)&&
   !isNullOrEmpty(SecurityCode)&&
+  !isNullOrEmpty(Valid)&&
   !isNullOrEmpty(Expiration)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
@@ -856,6 +858,7 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Exp
       UserAccountID:UserAccountID,
       BankName:BankName,
       SecurityCode:SecurityCode,
+      Valid:Valid,
       Expiration:Expiration,
       Time:Time,
       Date:Date
