@@ -15,6 +15,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 const mysql = require('mysql2');
 var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
+var uuidv4 = require('uuid/v4');
 require("./routes/test")(app);
 var Models = require("./Models/Models");
 // configuration =================
@@ -232,7 +233,15 @@ app.get('/register',function (req, res) {
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth()+1; 
+            let yyyy = today.getFullYear();
+            today = yyyy+'/'+mm+'/'+dd;
+            console.log(uuidv4());
+            console.log(today);
+            
+          //  AddUserAccount(UserName,"AccessID",Name,Password,false);
             res.send("Valid");
             
           }else{
