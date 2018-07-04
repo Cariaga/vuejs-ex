@@ -96,6 +96,70 @@ app.get('/SMS/:recipient/:message', function (req, res){
   res.end();
 });
 
+//--Validation Start
+function isEmailExist(Email,callback){
+  Models.UserInfo.sync();
+    let result = Models.UserInfo.findAll({ 
+      where: {
+        Email: {
+          eq: Email//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback("Error "+result);
+    });
+}
+
+function isPhoneNumberExist(PhoneNumber,callback){
+  Models.UserInfo.sync();
+    let result = Models.UserInfo.findAll({ 
+      where: {
+        PhoneNumber: {
+          eq: PhoneNumber//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback("Error "+result);
+    });
+}
+function isUserNameExist(UserName,callback){
+  Models.UserAccount.sync();
+    let result = Models.UserInfo.findAll({ 
+      where: {
+        UserName: {
+          eq: UserName//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback("Error "+result);
+    });
+}
+function isUserAccountVerified(UserName,callback){
+}
+function isUserAccountBlocked(UserName,callback){
+}
+function isScreenNameExist(ScreenName,callback){
+}
+
+//--Validation End
 
 //--Login Start
 app.get('/register',function (req, res) {
@@ -110,6 +174,7 @@ app.get('/register',function (req, res) {
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
+
             res.send("Valid");
             
           }else{
