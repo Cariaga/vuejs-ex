@@ -62,9 +62,8 @@
     }
   },computed: {  
     },
-    methods: {
-      onSubmit() {
-        //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
+      created: function(){
+          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
         $(document).ready(function () {
           
           /* vm.tableData = [{ "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" } ];*/
@@ -74,6 +73,10 @@
        vm.tableData=data;
         });
        });
+      },
+    methods: {
+      onSubmit() {
+        
       }
     }
   });
