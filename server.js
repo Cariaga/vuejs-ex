@@ -1210,7 +1210,7 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
 app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
- // Usage Api/v1/DepositHistory/Add/UserAccountID/Amount/BankNameUsed/SecurityCodeUsed/Status/2018-06-26/2018-06-27/2018-06-28/2018-06-29/01:57:16/01:57:17/01:58:17/01:59:17
+ // Usage Api/v1/DepositHistory/Add/UserAccountID/1/BankNameUsed/SecurityCodeUsed/Status/2018-06-26/2018-06-27/2018-06-28/2018-06-29/01:57:16/01:57:17/01:58:17/01:59:17
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
   let BankNameUsed = req.params.BankNameUsed;
