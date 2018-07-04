@@ -218,6 +218,23 @@ function isScreenNameExist(ScreenName,callback){
     });
 }
 
+function getCurrentDate(callback){
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth(); 
+  let yyyy = today.getFullYear();
+  let FormatedDate = yyyy+'/'+mm+'/'+dd;
+  callback(FormatedDate);
+}
+function getCurrentTime(callback){
+  let today = new Date();
+  let Hours = today.getHours();
+  let Minutes = today.getMinutes();
+  let Seconds = today.getSeconds();
+  let FormatedTime =Hours+":"+Minutes+":"+Seconds;
+  callback(FormatedTime);
+}
+
 //--Validation End
 
 //--Login Start
@@ -233,24 +250,23 @@ app.get('/register',function (req, res) {
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-            let today = new Date();
-            let dd = today.getDate();
-            let mm = today.getMonth()+1; 
-            let yyyy = today.getFullYear();
+            let CurrentTime = undefined;
+            let CurrentDate = undefined;
+            getCurrentTime(function(response){
+              CurrentTime=response;
+            });
+            getCurrentDate(function(response){
+              CurrentDate=response;
+            });
+            let UUIDKey =uuidv4();
+            console.log(UUIDKey);
 
-            let Hours = today.getHours();
-            let Minutes = today.getMinutes();
-            let Seconds = today.getSeconds();
-
-            let FormatedDate = yyyy+'/'+mm+'/'+dd;
-            let FormatedTime =Hours+":"+Minutes+":"+Seconds;
-
-            console.log(uuidv4());
-
-            console.log(FormatedDate);
+            console.log(CurrentDate);
             console.log(FormatedTime);
 
-            AddUserAccount(UserName,"AccessID",Name,Password,false);
+            AddUserAccount(UserName,"AccessID",Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+
+            });
             res.send("Valid");
             
           }else{
