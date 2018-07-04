@@ -1369,7 +1369,12 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-   
+    let response = AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber);
+    res.send(response);
+  }
+});
+function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber){
+ 
     /*
     if(forced=="true"){
       Models.UserInfo.sync({force:forced});
@@ -1379,7 +1384,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
     }else{
       Models.UserInfo.sync();
     }*/
-  Models.UserInfo.sync(/*{force:true}*/);
+    Models.UserInfo.sync(/*{force:true}*/);
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
       Email:Email,
@@ -1389,18 +1394,14 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
     Models.UserInfo.sync();//only use force true if you want to destroy replace table
     item1.save()
     .then(Success => {
-      res.send("Inserted");
+      return "Inserted";
     })
     .catch(error => {
       // mhhh, wth!
       console.log("error inserting");
-      res.send("error inserting " +error);
+      return "error inserting " +error;
     });
-  }
-});
-
-
-
+}
 app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
@@ -1466,24 +1467,28 @@ app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function 
   let AccessTags = req.params.AccessTags;
   if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
     //Setting up the config
-    var item1 = Models.AccessControl.build({
-      AccessID:AccessID,
-      AccessName:AccessName,
-      AccessTags:AccessTags
-    });
-    Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non production
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+    let response =AccessControl(AccessID,AccessName,AccessTags);
+    res.send(response);
   }
 });
+function AccessControl(AccessID,AccessName,AccessTags){
+  var item1 = Models.AccessControl.build({
+    AccessID:AccessID,
+    AccessName:AccessName,
+    AccessTags:AccessTags
+  });
+  Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non production
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return "error inserting " +error;
+  });
+}
 app.get('/Api/v1/AccessControl/Update/:AccessControlID/:AccessID/:AccessName/:AccessTags', function (req, res) {
   let AccessControlID = req.params.AccessControlID;
   let AccessID = req.params.AccessID;
