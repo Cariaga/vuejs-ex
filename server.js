@@ -429,26 +429,30 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   !isNullOrEmpty(Description)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
-    var item1 = Models.Notification.build({
-      NotificationType:NotificationType,
-      Title:Title,
-      Description:Description,
-      Time:Time,
-      Date:Date
-    });
-    Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+    let response = AddNotification(NotificationType,Title,Description,Time,Date);
+    res.send(response);
   }
 });
+function AddNotification(NotificationType,Title,Description,Time,Date){
+  var item1 = Models.Notification.build({
+    NotificationType:NotificationType,
+    Title:Title,
+    Description:Description,
+    Time:Time,
+    Date:Date
+  });
+  Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
+  item1.save()
+  .then(Success => {
+    return "Inserted";
+  })
+  
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting");
+    return"error inserting " +error;
+  });
+}
 
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
   let NotificationID = req.params.NotificationID;
