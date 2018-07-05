@@ -258,11 +258,11 @@ app.get('/register',function (req, res) {
               console.log("Email Exist"+response);
             });
             isUserNameExist(UserName,function(response){
-              console.log("UserName Exit"+ response);
+              console.log("UserName Exist"+ response);
             });
 
 
-
+            res.end();
           /*  let CurrentTime = undefined;
             let CurrentDate = undefined;
             getCurrentTime(function(response){
