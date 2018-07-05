@@ -1932,8 +1932,10 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){
   Models.UserAccount.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate");
   });
-  res.send("Truncate");
+
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   Models.UserAccount.sync({force:true});//will not execute if has FK set Up
