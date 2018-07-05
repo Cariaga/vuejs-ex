@@ -294,11 +294,12 @@ app.get('/register',function (req, res) {
                 CurrentDate=response;
               });
               let UUIDKey =uuidv4();
+              let UUIDUserAccountID =uuidv4();
               /*
               console.log(UUIDKey);
               console.log(CurrentDate);
               console.log(CurrentTime);*/
-              AddUserAccount("AccessID",UserName,Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+              AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
                 if(response=="Inserted"){
                   isRegistered=true;
                 }else{
@@ -1869,10 +1870,10 @@ app.get('/Api/v1/AccessControl', function (req, res) {
 });
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
-app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
+app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
   //USAGE
-  ///Api/v1/UserAccount/Add/UserAccountID/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
-  let UserAccountID = req.params.UserAccountID;
+  ///Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
+  let UserAccountID = uuidv4();
   let AccessID = req.params.AccessID;
   let UserName = req.params.UserName;
   let Password = req.params.Password;
@@ -1889,7 +1890,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   !isNullOrEmpty(RegisteredDate)&&
   !isNullOrEmpty(RegisteredTime)){
     //This is Direct Date Assigned from API we dont use getCurrentDate And getCurrentTime for control
-    AddUserAccount(AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
+   
+    AddUserAccount(UserAccountID,UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
       res.send(response);
     });
   }else{
@@ -1897,8 +1899,9 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   }
 });
 
-function AddUserAccount(AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
+function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
   var item1 = Models.UserAccount.build({
+    UserAccountID:UserAccountID,
     AccessID:AccessID,
     UserName:UserName,
     Password:Password,
