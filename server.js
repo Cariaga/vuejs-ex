@@ -530,9 +530,9 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
   item1.save()
   .then(Success => {
     callback("Inserted");
-    console.log("----AddUserAccount Start-----");
+    console.log("----AddSupportTicket Start-----");
     console.log(Success);
-    console.log("----AddUserAccount End-----");
+    console.log("----AddSupportTicket End-----");
   })
   
   .catch(error => {
@@ -667,9 +667,9 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
-    console.log("----AddUserAccount Start-----");
+    console.log("----AddNotification Start-----");
     console.log(Success);
-    console.log("----AddUserAccount End-----");
+    console.log("----AddNotification End-----");
   })
   
   .catch(error => {
@@ -789,6 +789,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     item1.save()
     .then(Success => {
       res.send("Inserted");
+      
     })
     
     .catch(error => {
@@ -1384,9 +1385,9 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   item1.save()
   .then(Success => {
     callback("Inserted");
-    console.log("----AddUserAccount Start-----");
+    console.log("----AddDepositHistory Start-----");
     console.log(Success);
-    console.log("----AddUserAccount End-----");
+    console.log("----AddDepositHistory End-----");
   })
   
   .catch(error => {
@@ -2049,9 +2050,9 @@ function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName,callback){
     item1.save()
     .then(Success => {
       callback("Inserted");
-      console.log("----AddUserAccount Start-----");
+      console.log("----AddPlayer Start-----");
       console.log(Success);
-      console.log("----AddUserAccount End-----");
+      console.log("----AddPlayer End-----");
     })
     .catch(error => {
       // mhhh, wth!
@@ -2183,9 +2184,9 @@ function AddShop(UserAccountID,DistributorID,Description,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
-    console.log("----AddUserAccount Start-----");
+    console.log("----AddShop Start-----");
     console.log(Success);
-    console.log("----AddUserAccount End-----");
+    console.log("----AddShop End-----");
   })
   
   .catch(error => {
@@ -2305,9 +2306,9 @@ function AddDistributer(UserAccountID,HeadOfficeID,Name,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
-    console.log("----AddUserAccount Start-----");
+    console.log("----AddDistributer Start-----");
     console.log(Success);
-    console.log("----AddUserAccount End-----");
+    console.log("----AddDistributer End-----");
   })
   .catch(error => {
     // mhhh, wth!
@@ -2425,9 +2426,9 @@ function AddHeadOffice(UserAccountID,Name,Description,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
-    console.log("----AddUserAccount Start-----");
+    console.log("----AddHeadOffice Start-----");
     console.log(Success);
-    console.log("----AddUserAccount End-----");
+    console.log("----AddHeadOffice End-----");
   })
   .catch(error => {
     // mhhh, wth!
