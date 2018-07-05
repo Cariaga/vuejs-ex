@@ -580,8 +580,9 @@ app.get('/Api/v1/SupportTicket/Clear', function (req, res){
   Models.SupportTicket.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/SupportTicket/Delete', function (req, res){
   Models.SupportTicket.sync({force:true});
@@ -704,8 +705,9 @@ app.get('/Api/v1/Notification/Clear', function (req, res){
   Models.Notification.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Notification/Delete', function (req, res){
   Models.Notification.sync({force:true});
@@ -822,8 +824,9 @@ app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/BlackList/Delete', function (req, res){
   Models.BlackList.sync({force:true});
@@ -957,8 +960,9 @@ app.get('/Api/v1/LoginHistory/Clear', function (req, res){
   Models.LoginHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/LoginHistory/Delete', function (req, res){
   Models.LoginHistory.sync({force:true});
@@ -1090,8 +1094,9 @@ app.get('/Api/v1/BankInformation/Clear', function (req, res){
   Models.BankInformation.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/BankInformation/Delete', function (req, res){
   Models.BankInformation.sync({force:true});
@@ -1264,8 +1269,9 @@ app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
   Models.WithdrawHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
   Models.WithdrawHistory.sync({force:true});
@@ -1442,8 +1448,9 @@ app.get('/Api/v1/DepositHistory/Clear', function (req, res){
   Models.DepositHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/DepositHistory/Delete', function (req, res){
   Models.DepositHistory.sync({force:true});
@@ -1595,8 +1602,9 @@ app.get('/Api/v1/GameHistory/Clear', function (req, res){
   Models.GameHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/GameHistory/Delete', function (req, res){
   Models.GameHistory.sync({force:true});
@@ -1707,8 +1715,9 @@ app.get('/Api/v1/UserInfo/Clear', function (req, res){
   Models.UserInfo.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/UserInfo/Delete', function (req, res){
   Models.UserInfo.sync({force:true});
@@ -1821,8 +1830,9 @@ app.get('/Api/v1/AccessControl/Clear', function (req, res){
   Models.AccessControl.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/AccessControl/Delete', function (req, res){
   Models.AccessControl.sync({force:true});
@@ -1933,7 +1943,7 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){
     where: {},
     truncate: true
   }).catch(err=>{
-    res.send("Truncate");
+    res.send("Truncate "+err);
   });
 
 });
@@ -2072,8 +2082,9 @@ app.get('/Api/v1/Player/Clear', function (req, res){
   Models.Player.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Player/Delete', function (req, res){
   Models.Player.sync({force:true});
@@ -2193,8 +2204,9 @@ app.get('/Api/v1/Shop/Clear', function (req, res){
   Models.Shop.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Shop/Delete', function (req, res){
   Models.Shop.sync({force:true});
@@ -2310,8 +2322,9 @@ app.get('/Api/v1/Distributor/Clear', function (req, res){
   Models.Distributor.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Distributor/Delete', function (req, res){
   Models.Distributor.sync({force:true});
@@ -2423,8 +2436,9 @@ app.get('/Api/v1/HeadOffice/Clear', function (req, res){
   Models.HeadOffice.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/HeadOffice/Delete', function (req, res){
   Models.HeadOffice.sync({force:true});
