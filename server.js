@@ -530,6 +530,9 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   
   .catch(error => {
@@ -664,6 +667,9 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   
   .catch(error => {
@@ -1378,6 +1384,9 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   
   .catch(error => {
@@ -1791,6 +1800,9 @@ function AccessControl(AccessID,AccessName,AccessTags,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   
   .catch(error => {
@@ -2037,6 +2049,9 @@ function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName,callback){
     item1.save()
     .then(Success => {
       callback("Inserted");
+      console.log("----AddUserAccount Start-----");
+      console.log(Success);
+      console.log("----AddUserAccount End-----");
     })
     .catch(error => {
       // mhhh, wth!
@@ -2168,6 +2183,9 @@ function AddShop(UserAccountID,DistributorID,Description,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   
   .catch(error => {
@@ -2287,6 +2305,9 @@ function AddDistributer(UserAccountID,HeadOfficeID,Name,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   .catch(error => {
     // mhhh, wth!
@@ -2404,6 +2425,9 @@ function AddHeadOffice(UserAccountID,Name,Description,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   .catch(error => {
     // mhhh, wth!
