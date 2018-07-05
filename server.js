@@ -260,8 +260,8 @@ app.get('/register',function (req, res) {
             let isInvalidEmail = !validator.isEmail(Email);
             
 
-            //async series start
-            async.series([
+            //async series Validate start
+            async.series([//don't add anything inside this from top start at the button for new function call backs
               function(callback){
                 isEmailExist(Email,function(response){
                   let obj = response;
@@ -296,9 +296,12 @@ app.get('/register',function (req, res) {
               }
               
             ],function(error,results){//async series result
+
+              let isAlreadyEmailExist= results[0];
+              let isUserNameExist = results[1];
               res.send(results);
               console.log(results);
-              /*if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
+              if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
          
               
                 let CurrentTime = undefined;
@@ -311,40 +314,56 @@ app.get('/register',function (req, res) {
                 });
                 let UUIDKey =uuidv4();
                 let UUIDUserAccountID =uuidv4();
+
                 /*
                 console.log(UUIDKey);
                 console.log(CurrentDate);
                 console.log(CurrentTime);*/
-              /*  AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                  let isRegistered =false;
-                  if(response=="Inserted"){
-                    isRegistered=true;
-                    let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
-                    res.send(beautify(Data, null, 2, 100));
-                  }else{
-                    isRegistered=false;
-                    let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
-                    res.send(beautify(Data, null, 2, 100));
-                    console.log("Error Received did not registered "+response);// Error Received did not registered
+
+
+                async.series([//Async series add Account Start
+                  function(callback){
+                    AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                      let isRegistered =false;
+                      if(response=="Inserted"){
+                        isRegistered=true;
+                        let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
+                        //res.send(beautify(Data, null, 2, 100));
+                        callback(Data);
+                      }else{
+                        isRegistered=false;
+                        let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
+                        //res.send(beautify(Data, null, 2, 100));
+                        console.log("Error Received did not registered "+response);// Error Received did not registered
+                        callback(Data);
+                      }
+                    });
+                  },
+                  function(callback){
+                    AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                      if(response=="Inserted"){
+                       let Data = {"isUserInfoAdded":true};
+                        callback(Data);
+                      }else{
+                        let Data = {"isUserInfoAdded":false};
+                        callback(Data);
+                      }
+                    });
                   }
-                });
-  
-                AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                  if(response=="Inserted"){
-                  
-                  }else{
-            
-                  }
-                });
-  
+                ],function(error,callback){
+                  var ResultUserAccount = callback[0];
+                  var ResultUserInfo =callback[1];
+                  res.send(beautify(ResultUserInfo, null, 2, 100));
+                });//Async series add Account End
+
   
               }else{
                 //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
                 let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false,"ResponseCode":3 };
                 res.send(beautify(Data, null, 2, 100));
-              }*/
+              }
 
-            });//Async.series End
+            });//Async.series Validate End
             
 
 
