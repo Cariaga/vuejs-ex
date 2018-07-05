@@ -257,7 +257,32 @@ app.get('/register',function (req, res) {
             let isAlreadyUserNameExist = false;
             let isInvalidPassword= !schema.validate(Password);
             let isInvalidEmail = !validator.isEmail(Email);
-          
+            
+            async.series([
+              function(callback) {
+                setTimeout(function() {
+                  console.log("Task 1");
+                  callback(null, 1);
+                }, 300);
+              },
+              function(callback) {
+                setTimeout(function() {
+                  console.log("Task 2");
+                  callback(null, 2);
+                }, 200);
+              },
+              function(callback) {
+                setTimeout(function() {
+                  console.log("Task 3");
+                  callback(null, 3);
+                }, 100);
+              }
+            ], function(error, results) {
+              console.log(results);
+            });
+            
+
+
             isEmailExist(Email,function(response){
               let obj = response;
               if(obj[0].Email==Email){
@@ -312,6 +337,14 @@ app.get('/register',function (req, res) {
                   console.log("Error Received did not registered "+response);// Error Received did not registered
                 }
               });
+
+              AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                if(response=="Inserted"){
+                
+                }else{
+          
+                }
+              })
 
 
             }else{
