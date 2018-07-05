@@ -17,6 +17,7 @@ var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
+var validator = require('validator');//email,mobilephone,isIP,isPostalCode,creditcard
 require("./routes/test")(app);
 var Models = require("./Models/Models");
 // configuration =================
@@ -255,6 +256,7 @@ app.get('/register',function (req, res) {
             let isAlreadyEmailExist=false;
             let isAlreadyUserNameExist = false;
             let isPasswordInvalid= !schema.validate(Password);
+            let isInvalidEmail = !validator.isEmail(Email);
 
             isEmailExist(Email,function(response){
               let obj = response;
@@ -281,14 +283,14 @@ app.get('/register',function (req, res) {
             });
 
             if(isAlreadyEmailExist||isAlreadyUserNameExist||isPasswordInvalid){
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid,"isRegistered":false };
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid,"isRegistered":false };
               res.send(beautify(Data, null, 2, 100));
             }
             else if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isPasswordInvalid){
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid ,"isRegistered":true };
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid ,"isRegistered":true };
               res.send(beautify(Data, null, 2, 100));
             }
-
+            
            // res.end();
           /*  let CurrentTime = undefined;
             let CurrentDate = undefined;
