@@ -255,7 +255,7 @@ app.get('/register',function (req, res) {
             
             let isAlreadyEmailExist=false;
             let isAlreadyUserNameExist = false;
-            let isPasswordInvalid= !schema.validate(Password);
+            let isInvalidPassword= !schema.validate(Password);
             let isInvalidEmail = !validator.isEmail(Email);
           
             isEmailExist(Email,function(response){
@@ -282,7 +282,7 @@ app.get('/register',function (req, res) {
               console.log(response);*/
             });
 
-            if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isPasswordInvalid&&!isInvalidEmail){
+            if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
               let isRegistered =false;
               
               let CurrentTime = undefined;
@@ -307,11 +307,11 @@ app.get('/register',function (req, res) {
                 }
               });
 
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid ,"isRegistered":isRegistered };
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isInvalidPassword ,"isRegistered":isRegistered };
               res.send(beautify(Data, null, 2, 100));
             }else{
               //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid,"isRegistered":false };
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false };
               res.send(beautify(Data, null, 2, 100));
             }
 
