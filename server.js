@@ -231,7 +231,7 @@ function getCurrentTime(callback){
 
 //--Login Start
 app.get('/register',function (req, res) {
-  
+  res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
   let Password = req.query.Password;
   let Name = req.query.Name;
@@ -254,9 +254,9 @@ app.get('/register',function (req, res) {
               }else{
                 isAlreadyEmailExist=false;
               }
-              console.log(isAlreadyEmailExist);
-              console.log(response);
-              res.send(response);
+             /* console.log(isAlreadyEmailExist);
+              console.log(response);*/
+    
             });
             isUserNameExist(UserName,function(response){
               let obj = response;
@@ -266,10 +266,18 @@ app.get('/register',function (req, res) {
               }else{
                 isAlreadyUserNameExist=false;
               }
-              console.log(isAlreadyUserNameExist);
-            //  console.log(response);
+              /*console.log(isAlreadyUserNameExist);
+              console.log(response);*/
             });
 
+            if(isAlreadyEmailExist||isAlreadyUserNameExist){
+              let Data = { "isEmailExist":isEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist };
+              res.send(beautify(Data, null, 2, 100));
+            }
+            else if(!isAlreadyEmailExist&&!isAlreadyUserNameExist){
+              let Data = { "isEmailExist":isEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist };
+              res.send(beautify(Data, null, 2, 100));
+            }
 
            // res.end();
           /*  let CurrentTime = undefined;
