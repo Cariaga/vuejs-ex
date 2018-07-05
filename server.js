@@ -283,7 +283,7 @@ app.get('/register',function (req, res) {
             });
 
             if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
-              let isRegistered =false;
+         
               
               let CurrentTime = undefined;
               let CurrentDate = undefined;
@@ -300,16 +300,20 @@ app.get('/register',function (req, res) {
               console.log(CurrentDate);
               console.log(CurrentTime);*/
               AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                let isRegistered =false;
                 if(response=="Inserted"){
                   isRegistered=true;
+                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered };
+                  res.send(beautify(Data, null, 2, 100));
                 }else{
                   isRegistered=false;
+                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered };
+                  res.send(beautify(Data, null, 2, 100));
                   console.log("Error Received did not registered "+response);// Error Received did not registered
                 }
               });
 
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered };
-              res.send(beautify(Data, null, 2, 100));
+
             }else{
               //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
               let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false };
