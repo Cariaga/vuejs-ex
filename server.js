@@ -307,7 +307,7 @@ app.get('/register',function (req, res) {
                 }
               });
 
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isInvalidPassword ,"isRegistered":isRegistered };
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered };
               res.send(beautify(Data, null, 2, 100));
             }else{
               //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
