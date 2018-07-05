@@ -181,9 +181,7 @@ function isUserAccountVerified(UserName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
       where: {
-        UserName: {
-          eq: UserName
-        },
+        UserName:UserName,
         Verify: {
           eq: true
         },
@@ -203,9 +201,7 @@ function isScreenNameExist(ScreenName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
       where: {
-        UserName: {
-          eq: UserName
-        },
+        UserName:UserName,
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
