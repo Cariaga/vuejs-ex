@@ -290,6 +290,7 @@ app.get('/register',function (req, res) {
               res.send(beautify(Data, null, 2, 100));
             }
             
+            
            // res.end();
           /*  let CurrentTime = undefined;
             let CurrentDate = undefined;
