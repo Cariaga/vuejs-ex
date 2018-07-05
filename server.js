@@ -195,7 +195,7 @@ function isUserAccountVerified(UserName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback("Error "+result);
+      callback(result);
     });
 }
 
@@ -214,7 +214,7 @@ function isScreenNameExist(ScreenName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback("Error "+result);
+      callback(result);
     });
 }
 
@@ -255,10 +255,10 @@ app.get('/register',function (req, res) {
             let isUserNameValid = false;
 
             isEmailExist(Email,function(response){
-              console.log("Email Exist"+response);
+              console.log(response);
             });
             isUserNameExist(UserName,function(response){
-              console.log("UserName Exist"+ response);
+              console.log(response);
             });
 
 
