@@ -297,6 +297,7 @@ app.get('/register',function (req, res) {
               
             ],function(error,results){//async series result
               res.send(results);
+              console.log(results);
               /*if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
          
               
