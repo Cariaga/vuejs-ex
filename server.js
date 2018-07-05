@@ -240,6 +240,8 @@ app.get('/register',function (req, res) {
   let Name = req.query.Name;
   let Surname = req.query.Surname;
   let Email= req.query.Email;
+  let PhoneNumber= "";//this was never used
+  let TelephoneNumber = "";//this was never used
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
       if(!isNullOrEmpty(Name)){
@@ -298,7 +300,7 @@ app.get('/register',function (req, res) {
             ],function(error,results){//async series result
 
               let isAlreadyEmailExist= results[0];
-              let isUserNameExist = results[1];
+              let isAlreadyUserNameExist = results[1];
               res.send(results);
               console.log(results);
               if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
