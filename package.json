@@ -18,7 +18,8 @@
     "json-beautify":"^1.0.1",
     "nexmo":"^2.3.2",
     "cors":"^2.8.4",
-    "uuid":"^3.3.2"
+    "uuid":"^3.3.2",
+    "password-validator":"~4.1.1"
     
   },
   "scripts": {

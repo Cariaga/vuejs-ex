@@ -16,6 +16,7 @@ const mysql = require('mysql2');
 var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
+var passwordValidator = require('password-validator');
 require("./routes/test")(app);
 var Models = require("./Models/Models");
 // configuration =================
@@ -243,8 +244,17 @@ app.get('/register',function (req, res) {
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
 
+            var schema = new passwordValidator();
+            schema
+            .is().min(8)
+            .has().uppercase()                              // Must have uppercase letters
+            .has().lowercase()                              // Must have lowercase letters
+            .has().digits()                                 // Must have digits
+            .has().not().spaces()                           // Should not have spaces
+            
             let isAlreadyEmailExist=false;
             let isAlreadyUserNameExist = false;
+            let isPasswordInvalid= !schema.validate(Password);
 
             isEmailExist(Email,function(response){
               let obj = response;
@@ -270,12 +280,12 @@ app.get('/register',function (req, res) {
               console.log(response);*/
             });
 
-            if(isAlreadyEmailExist||isAlreadyUserNameExist){
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isRegistered":false };
+            if(isAlreadyEmailExist||isAlreadyUserNameExist||isPasswordInvalid){
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isRegistered":false,"isPasswordInvalid":isPasswordInvalid };
               res.send(beautify(Data, null, 2, 100));
             }
             else if(!isAlreadyEmailExist&&!isAlreadyUserNameExist){
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isRegistered":true };
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isRegistered":true,"isPasswordInvalid":isPasswordInvalid  };
               res.send(beautify(Data, null, 2, 100));
             }
 
