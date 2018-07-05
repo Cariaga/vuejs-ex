@@ -571,6 +571,13 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
     });
   }
 });
+app.get('/Api/v1/SupportTicket/Clear', function (req, res){
+  Models.SupportTicket.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/SupportTicket/Delete', function (req, res){
   Models.SupportTicket.sync({force:true});
   res.send("Deleted");
@@ -688,6 +695,13 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
     }); 
   }
 });
+app.get('/Api/v1/Notification/Clear', function (req, res){
+  Models.Notification.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/Notification/Delete', function (req, res){
   Models.Notification.sync({force:true});
   res.send("Deleted");
@@ -798,6 +812,13 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
       res.send("Error Updating " +error);
     });
   }
+});
+app.get('/Api/v1/BlackList/Clear', function (req, res){
+  Models.BlackList.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
 });
 app.get('/Api/v1/BlackList/Delete', function (req, res){
   Models.BlackList.sync({force:true});
@@ -927,6 +948,13 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
     }); 
   }
 });
+app.get('/Api/v1/LoginHistory/Clear', function (req, res){
+  Models.LoginHistory.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/LoginHistory/Delete', function (req, res){
   Models.LoginHistory.sync({force:true});
   res.send("Deleted");
@@ -1052,6 +1080,13 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
       res.send("Error Updating " +error);
     }); 
   }
+});
+app.get('/Api/v1/BankInformation/Clear', function (req, res){
+  Models.BankInformation.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
 });
 app.get('/Api/v1/BankInformation/Delete', function (req, res){
   Models.BankInformation.sync({force:true});
@@ -1219,6 +1254,13 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
       res.send("Error Updating " +error);
     });
   }
+});
+app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
+  Models.WithdrawHistory.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
 });
 app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
   Models.WithdrawHistory.sync({force:true});
@@ -1391,6 +1433,13 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
       });  
      }
 });
+app.get('/Api/v1/DepositHistory/Clear', function (req, res){
+  Models.DepositHistory.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/DepositHistory/Delete', function (req, res){
   Models.DepositHistory.sync({force:true});
   res.send("Deleted");
@@ -1537,6 +1586,13 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
     });
   }
 });
+app.get('/Api/v1/GameHistory/Clear', function (req, res){
+  Models.GameHistory.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/GameHistory/Delete', function (req, res){
   Models.GameHistory.sync({force:true});
   res.send("Deleted");
@@ -1641,6 +1697,13 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
     
   }
+});
+app.get('/Api/v1/UserInfo/Clear', function (req, res){
+  Models.UserInfo.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
 });
 app.get('/Api/v1/UserInfo/Delete', function (req, res){
   Models.UserInfo.sync({force:true});
@@ -1749,6 +1812,13 @@ app.get('/Api/v1/AccessControl/Update/:AccessControlID/:AccessID/:AccessName/:Ac
     });
   }
 });
+app.get('/Api/v1/AccessControl/Clear', function (req, res){
+  Models.AccessControl.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/AccessControl/Delete', function (req, res){
   Models.AccessControl.sync({force:true});
   res.send("Deleted");
@@ -1852,8 +1922,15 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
 }
 
 
+app.get('/Api/v1/UserAccount/Clear', function (req, res){
+  Models.UserAccount.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
-  Models.UserAccount.sync({force:true});
+  Models.UserAccount.sync({force:true});//will not execute if has FK set Up
   res.send("Deleted");
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
@@ -1983,6 +2060,13 @@ app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Na
     });
   }
 });
+app.get('/Api/v1/Player/Clear', function (req, res){
+  Models.Player.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/Player/Delete', function (req, res){
   Models.Player.sync({force:true});
   res.send("Deleted");
@@ -2097,6 +2181,13 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
     });
   }
 });
+app.get('/Api/v1/Shop/Clear', function (req, res){
+  Models.Shop.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/Shop/Delete', function (req, res){
   Models.Shop.sync({force:true});
   res.send("Deleted");
@@ -2207,6 +2298,13 @@ app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/
     });
   }
 });
+app.get('/Api/v1/Distributor/Clear', function (req, res){
+  Models.Distributor.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
+});
 app.get('/Api/v1/Distributor/Delete', function (req, res){
   Models.Distributor.sync({force:true});
   res.send("Deleted");
@@ -2312,6 +2410,13 @@ app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Descripti
       res.send("Error Updating " +error);
     });
   }
+});
+app.get('/Api/v1/HeadOffice/Clear', function (req, res){
+  Models.HeadOffice.destroy({
+    where: {},
+    truncate: true
+  });
+  res.send("Truncate");
 });
 app.get('/Api/v1/HeadOffice/Delete', function (req, res){
   Models.HeadOffice.sync({force:true});
