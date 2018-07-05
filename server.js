@@ -4,6 +4,7 @@
 var express = require('express');
 var Nexmo = require('nexmo');
 var app = express(); // create our app w/ express
+var async = require("async");
 var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
