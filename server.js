@@ -298,7 +298,7 @@ app.get('/register',function (req, res) {
               console.log(UUIDKey);
               console.log(CurrentDate);
               console.log(CurrentTime);*/
-              AddUserAccount(UserName,"AccessID",Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+              AddUserAccount("AccessID",UserName,Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
                 if(response=="Inserted"){
                   isRegistered=true;
                 }else{
@@ -1889,7 +1889,7 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   !isNullOrEmpty(RegisteredDate)&&
   !isNullOrEmpty(RegisteredTime)){
     //This is Direct Date Assigned from API we dont use getCurrentDate And getCurrentTime for control
-    AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
+    AddUserAccount(AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
       res.send(response);
     });
   }else{
@@ -1897,9 +1897,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   }
 });
 
-function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
+function AddUserAccount(AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
   var item1 = Models.UserAccount.build({
-    UserAccountID:UserAccountID,
     AccessID:AccessID,
     UserName:UserName,
     Password:Password,
