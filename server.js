@@ -271,11 +271,11 @@ app.get('/register',function (req, res) {
             });
 
             if(isAlreadyEmailExist||isAlreadyUserNameExist){
-              let Data = { "isEmailExist":isEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist };
+              let Data = { "isEmailExist":isEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isRegistered":false };
               res.send(beautify(Data, null, 2, 100));
             }
             else if(!isAlreadyEmailExist&&!isAlreadyUserNameExist){
-              let Data = { "isEmailExist":isEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist };
+              let Data = { "isEmailExist":isEmailExist, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isRegistered":true };
               res.send(beautify(Data, null, 2, 100));
             }
 
