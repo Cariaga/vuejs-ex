@@ -1916,8 +1916,8 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
   })
   .catch(error => {
     // mhhh, wth!
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting UserAccountID:"+UserAccountID+"AccessID:"+AccessID+"UserName:"+UserName+"Password:"+Password+"Verify:"+Verify+"ValidKey:"+ValidKey+"RegisteredDate:"+RegisteredDate+"RegisteredTime:"+RegisteredTime);
+    callback(error);
   });
 }
 
