@@ -247,17 +247,17 @@ app.get('/register',function (req, res) {
             let isAlreadyUserNameExist = false;
 
             isEmailExist(Email,function(response){
-              if(JSON.parse(response).Email==Email){
+              if(response.Email==Email){
                 isAlreadyEmailExist=true;
                 
               }else{
                 isAlreadyEmailExist=false;
               }
               console.log(isAlreadyEmailExist);
-             // console.log(response);
+              console.log(response);
             });
             isUserNameExist(UserName,function(response){
-              if(JSON.parse(response).UserName==UserName){
+              if(response.UserName==UserName){
                 isAlreadyUserNameExist=true;
                 console.log(isAlreadyUserNameExist);
               }else{
