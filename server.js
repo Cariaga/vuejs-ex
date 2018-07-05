@@ -266,8 +266,8 @@ app.get('/register',function (req, res) {
               }else{
                 isAlreadyEmailExist=false;
               }
-             /* console.log(isAlreadyEmailExist);
-              console.log(response);*/
+              console.log("Email Exist check "+isAlreadyEmailExist);
+              //console.log(response);*/
     
             });
             isUserNameExist(UserName,function(response){
@@ -278,8 +278,8 @@ app.get('/register',function (req, res) {
               }else{
                 isAlreadyUserNameExist=false;
               }
-              /*console.log(isAlreadyUserNameExist);
-              console.log(response);*/
+              console.log("UserName Exist check "+isAlreadyUserNameExist);
+             // console.log(response);
             });
 
             if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
