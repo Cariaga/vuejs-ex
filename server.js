@@ -255,6 +255,7 @@ app.get('/register',function (req, res) {
               }
               console.log(isAlreadyEmailExist);
               console.log(response);
+              res.send(response);
             });
             isUserNameExist(UserName,function(response){
               if(JSON.parse(response)[0].UserName==UserName){
@@ -268,7 +269,7 @@ app.get('/register',function (req, res) {
             });
 
 
-            res.end();
+           // res.end();
           /*  let CurrentTime = undefined;
             let CurrentDate = undefined;
             getCurrentTime(function(response){
