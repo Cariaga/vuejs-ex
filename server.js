@@ -1929,6 +1929,9 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
   item1.save()
   .then(Success => {
      callback("Inserted");
+     console.log("----AddUserAccount Start-----");
+     console.log(Success);
+     console.log("----AddUserAccount End-----");
   })
   .catch(error => {
     // mhhh, wth!
