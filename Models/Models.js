@@ -7,7 +7,7 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
-//we have Dedicated Headoffice,distributer,shop tables because if we used account type we would have a many to many relationship issue and alot of inner joins queries
+//we have Dedicated Head office,distributer,shop tables because if we used account type we would have a many to many relationship issue and a lot of inner joins queries
 const  HeadOffice =sequelize.define('HeadOffice', {
   HeadOfficeID: {
     type: Sequelize.INTEGER,

@@ -4,6 +4,7 @@
 var express = require('express');
 var Nexmo = require('nexmo');
 var app = express(); // create our app w/ express
+var async = require("async");
 var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
@@ -253,67 +254,104 @@ app.get('/register',function (req, res) {
             .has().digits()                                 // Must have digits
             .has().not().spaces()                           // Should not have spaces
             
-            let isAlreadyEmailExist=false;
-            let isAlreadyUserNameExist = false;
+          
+         
             let isInvalidPassword= !schema.validate(Password);
             let isInvalidEmail = !validator.isEmail(Email);
-          
-            isEmailExist(Email,function(response){
-              let obj = response;
-              if(obj[0].Email==Email){
-                isAlreadyEmailExist=true;
-                
-              }else{
-                isAlreadyEmailExist=false;
-              }
-             /* console.log(isAlreadyEmailExist);
-              console.log(response);*/
-    
-            });
-            isUserNameExist(UserName,function(response){
-              let obj = response;
-              if(obj[0].UserName==UserName){
-                isAlreadyUserNameExist=true;
-                console.log(isAlreadyUserNameExist);
-              }else{
-                isAlreadyUserNameExist=false;
-              }
-              /*console.log(isAlreadyUserNameExist);
-              console.log(response);*/
-            });
+            
 
-            if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
-              let isRegistered =false;
+            //async series start
+            async.series([
+              function(callback){
+                isEmailExist(Email,function(response){
+                  let obj = response;
+                  let isAlreadyEmailExist=false;
+
+                  if(obj[0].Email==Email){
+                    isAlreadyEmailExist=true;
+                    
+                  }else{
+                    isAlreadyEmailExist=false;
+                  }
+                  callback(null,isAlreadyEmailExist);
+                  console.log("Email Exist check "+isAlreadyEmailExist);
+                  //console.log(response);*/
+        
+                });
+              },
+              function(callback){
+                isUserNameExist(UserName,function(response){
+                  let obj = response;
+                  let isAlreadyUserNameExist = false;
+                  if(obj[0].UserName==UserName){
+                    isAlreadyUserNameExist=true;
+                    console.log(isAlreadyUserNameExist);
+                  }else{
+                    isAlreadyUserNameExist=false;
+                  }
+                  callback(null,isAlreadyUserNameExist);
+                  console.log("UserName Exist check "+isAlreadyUserNameExist);
+                 // console.log(response);
+                });
+              }
               
-              let CurrentTime = undefined;
-              let CurrentDate = undefined;
-              getCurrentTime(function(response){
-                CurrentTime=response;
-              });
-              getCurrentDate(function(response){
-                CurrentDate=response;
-              });
-              let UUIDKey =uuidv4();
-              /*
-              console.log(UUIDKey);
-              console.log(CurrentDate);
-              console.log(CurrentTime);*/
-              AddUserAccount("AccessID",UserName,Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                if(response=="Inserted"){
-                  isRegistered=true;
-                }else{
-                  isRegistered=false;
-                  console.log("Error Received did not registered "+response);// Error Received did not registered
-                }
-              });
+            ],function(error,results){//async series result
+              res.send(results);
+              console.log(results);
+              /*if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
+         
+              
+                let CurrentTime = undefined;
+                let CurrentDate = undefined;
+                getCurrentTime(function(response){
+                  CurrentTime=response;
+                });
+                getCurrentDate(function(response){
+                  CurrentDate=response;
+                });
+                let UUIDKey =uuidv4();
+                let UUIDUserAccountID =uuidv4();
+                /*
+                console.log(UUIDKey);
+                console.log(CurrentDate);
+                console.log(CurrentTime);*/
+              /*  AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                  let isRegistered =false;
+                  if(response=="Inserted"){
+                    isRegistered=true;
+                    let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
+                    res.send(beautify(Data, null, 2, 100));
+                  }else{
+                    isRegistered=false;
+                    let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
+                    res.send(beautify(Data, null, 2, 100));
+                    console.log("Error Received did not registered "+response);// Error Received did not registered
+                  }
+                });
+  
+                AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                  if(response=="Inserted"){
+                  
+                  }else{
+            
+                  }
+                });
+  
+  
+              }else{
+                //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
+                let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false,"ResponseCode":3 };
+                res.send(beautify(Data, null, 2, 100));
+              }*/
 
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered };
-              res.send(beautify(Data, null, 2, 100));
-            }else{
-              //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false };
-              res.send(beautify(Data, null, 2, 100));
-            }
+            });//Async.series End
+            
+
+
+            
+            
+
+            
 
             
           }else{
@@ -525,6 +563,9 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddSupportTicket Start-----");
+    console.log(Success);
+    console.log("----AddSupportTicket End-----");
   })
   
   .catch(error => {
@@ -575,8 +616,9 @@ app.get('/Api/v1/SupportTicket/Clear', function (req, res){
   Models.SupportTicket.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/SupportTicket/Delete', function (req, res){
   Models.SupportTicket.sync({force:true});
@@ -658,6 +700,9 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddNotification Start-----");
+    console.log(Success);
+    console.log("----AddNotification End-----");
   })
   
   .catch(error => {
@@ -699,8 +744,9 @@ app.get('/Api/v1/Notification/Clear', function (req, res){
   Models.Notification.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Notification/Delete', function (req, res){
   Models.Notification.sync({force:true});
@@ -776,6 +822,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     item1.save()
     .then(Success => {
       res.send("Inserted");
+      
     })
     
     .catch(error => {
@@ -817,8 +864,9 @@ app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/BlackList/Delete', function (req, res){
   Models.BlackList.sync({force:true});
@@ -952,8 +1000,9 @@ app.get('/Api/v1/LoginHistory/Clear', function (req, res){
   Models.LoginHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/LoginHistory/Delete', function (req, res){
   Models.LoginHistory.sync({force:true});
@@ -1085,8 +1134,9 @@ app.get('/Api/v1/BankInformation/Clear', function (req, res){
   Models.BankInformation.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/BankInformation/Delete', function (req, res){
   Models.BankInformation.sync({force:true});
@@ -1259,8 +1309,9 @@ app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
   Models.WithdrawHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
   Models.WithdrawHistory.sync({force:true});
@@ -1367,6 +1418,9 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddDepositHistory Start-----");
+    console.log(Success);
+    console.log("----AddDepositHistory End-----");
   })
   
   .catch(error => {
@@ -1437,8 +1491,9 @@ app.get('/Api/v1/DepositHistory/Clear', function (req, res){
   Models.DepositHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/DepositHistory/Delete', function (req, res){
   Models.DepositHistory.sync({force:true});
@@ -1590,8 +1645,9 @@ app.get('/Api/v1/GameHistory/Clear', function (req, res){
   Models.GameHistory.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/GameHistory/Delete', function (req, res){
   Models.GameHistory.sync({force:true});
@@ -1702,8 +1758,9 @@ app.get('/Api/v1/UserInfo/Clear', function (req, res){
   Models.UserInfo.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/UserInfo/Delete', function (req, res){
   Models.UserInfo.sync({force:true});
@@ -1777,6 +1834,9 @@ function AccessControl(AccessID,AccessName,AccessTags,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddUserAccount Start-----");
+    console.log(Success);
+    console.log("----AddUserAccount End-----");
   })
   
   .catch(error => {
@@ -1816,8 +1876,9 @@ app.get('/Api/v1/AccessControl/Clear', function (req, res){
   Models.AccessControl.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/AccessControl/Delete', function (req, res){
   Models.AccessControl.sync({force:true});
@@ -1869,10 +1930,10 @@ app.get('/Api/v1/AccessControl', function (req, res) {
 });
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
-app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
+app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
   //USAGE
-  ///Api/v1/UserAccount/Add/UserAccountID/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
-  let UserAccountID = req.params.UserAccountID;
+  ///Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
+  let UserAccountID = uuidv4();
   let AccessID = req.params.AccessID;
   let UserName = req.params.UserName;
   let Password = req.params.Password;
@@ -1889,7 +1950,8 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   !isNullOrEmpty(RegisteredDate)&&
   !isNullOrEmpty(RegisteredTime)){
     //This is Direct Date Assigned from API we dont use getCurrentDate And getCurrentTime for control
-    AddUserAccount(AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
+   
+    AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
       res.send(response);
     });
   }else{
@@ -1897,8 +1959,9 @@ app.get('/Api/v1/UserAccount/Add/:UserAccountID/:AccessID/:UserName/:Password/:V
   }
 });
 
-function AddUserAccount(AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
+function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
   var item1 = Models.UserAccount.build({
+    UserAccountID:UserAccountID,
     AccessID:AccessID,
     UserName:UserName,
     Password:Password,
@@ -1912,10 +1975,13 @@ function AddUserAccount(AccessID,UserName,Password,Verify,ValidKey,RegisteredDat
   item1.save()
   .then(Success => {
      callback("Inserted");
+     console.log("----AddUserAccount Start-----");
+     console.log(Success);
+     console.log("----AddUserAccount End-----");
   })
   .catch(error => {
     // mhhh, wth!
-    console.log("error inserting UserAccountID:"+UserAccountID+"AccessID:"+AccessID+"UserName:"+UserName+"Password:"+Password+"Verify:"+Verify+"ValidKey:"+ValidKey+"RegisteredDate:"+RegisteredDate+"RegisteredTime:"+RegisteredTime);
+    console.log("error inserting UserAccountID:"+UserAccountID+" \n AccessID:"+AccessID+"\n UserName:"+UserName+"\n Password:"+Password+"\n Verify:"+Verify+"\n ValidKey:"+ValidKey+"\n RegisteredDate:"+RegisteredDate+"\n RegisteredTime:"+RegisteredTime);
     callback(error);
   });
 }
@@ -1925,8 +1991,10 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){
   Models.UserAccount.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
+
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   Models.UserAccount.sync({force:true});//will not execute if has FK set Up
@@ -2015,6 +2083,9 @@ function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName,callback){
     item1.save()
     .then(Success => {
       callback("Inserted");
+      console.log("----AddPlayer Start-----");
+      console.log(Success);
+      console.log("----AddPlayer End-----");
     })
     .catch(error => {
       // mhhh, wth!
@@ -2063,8 +2134,9 @@ app.get('/Api/v1/Player/Clear', function (req, res){
   Models.Player.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Player/Delete', function (req, res){
   Models.Player.sync({force:true});
@@ -2145,6 +2217,9 @@ function AddShop(UserAccountID,DistributorID,Description,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddShop Start-----");
+    console.log(Success);
+    console.log("----AddShop End-----");
   })
   
   .catch(error => {
@@ -2184,8 +2259,9 @@ app.get('/Api/v1/Shop/Clear', function (req, res){
   Models.Shop.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Shop/Delete', function (req, res){
   Models.Shop.sync({force:true});
@@ -2263,6 +2339,9 @@ function AddDistributer(UserAccountID,HeadOfficeID,Name,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddDistributer Start-----");
+    console.log(Success);
+    console.log("----AddDistributer End-----");
   })
   .catch(error => {
     // mhhh, wth!
@@ -2301,8 +2380,9 @@ app.get('/Api/v1/Distributor/Clear', function (req, res){
   Models.Distributor.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/Distributor/Delete', function (req, res){
   Models.Distributor.sync({force:true});
@@ -2379,6 +2459,9 @@ function AddHeadOffice(UserAccountID,Name,Description,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
+    console.log("----AddHeadOffice Start-----");
+    console.log(Success);
+    console.log("----AddHeadOffice End-----");
   })
   .catch(error => {
     // mhhh, wth!
@@ -2414,8 +2497,9 @@ app.get('/Api/v1/HeadOffice/Clear', function (req, res){
   Models.HeadOffice.destroy({
     where: {},
     truncate: true
+  }).catch(err=>{
+    res.send("Truncate "+err);
   });
-  res.send("Truncate");
 });
 app.get('/Api/v1/HeadOffice/Delete', function (req, res){
   Models.HeadOffice.sync({force:true});
