@@ -243,14 +243,26 @@ app.get('/register',function (req, res) {
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
 
-            let isEmailValid=false;
-            let isUserNameValid = false;
+            let isAlreadyEmailExist=false;
+            let isAlreadyUserNameExist = false;
 
             isEmailExist(Email,function(response){
-              console.log(response);
+              if(response.Email==Email){
+                isAlreadyEmailExist=true;
+                console.log(isAlreadyEmailExist);
+              }else{
+                isAlreadyEmailExist=false;
+              }
+             // console.log(response);
             });
             isUserNameExist(UserName,function(response){
-              console.log(response);
+              if(response.UserName==UserName){
+                isAlreadyUserNameExist=true;
+                console.log(isAlreadyUserNameExist);
+              }else{
+                isAlreadyUserNameExist=false;
+              }
+            //  console.log(response);
             });
 
 
