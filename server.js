@@ -303,11 +303,11 @@ app.get('/register',function (req, res) {
                 let isRegistered =false;
                 if(response=="Inserted"){
                   isRegistered=true;
-                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered };
+                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
                   res.send(beautify(Data, null, 2, 100));
                 }else{
                   isRegistered=false;
-                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered };
+                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
                   res.send(beautify(Data, null, 2, 100));
                   console.log("Error Received did not registered "+response);// Error Received did not registered
                 }
@@ -316,7 +316,7 @@ app.get('/register',function (req, res) {
 
             }else{
               //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false };
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false,"ResponseCode":1 };
               res.send(beautify(Data, null, 2, 100));
             }
 
