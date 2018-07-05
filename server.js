@@ -102,9 +102,8 @@ function isEmailExist(Email,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
       where: {
-        Email: {
-          eq: Email//not null
-        }
+        Email: Email//not null
+     
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -121,9 +120,8 @@ function isPhoneNumberExist(PhoneNumber,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
       where: {
-        PhoneNumber: {
-          eq: PhoneNumber//not null
-        }
+        PhoneNumber: PhoneNumber//not null
+
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -139,9 +137,8 @@ function isUserAccountBlocked(UserName,callback){
   Models.BlackList.sync();
     let result = Models.BlackList.findAll({ 
       where: {
-        UserName: {
-          eq: UserName//not null
-        },
+        UserName: UserName,//not null
+     
         Status:{
           eq:"Blocked"
         },
@@ -163,9 +160,8 @@ function isUserNameExist(UserName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
       where: {
-        UserName: {
-          eq: UserName//not null
-        }
+        UserName: UserName//not null
+        
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -174,7 +170,7 @@ function isUserNameExist(UserName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback("Error "+result);
+      callback(result);
     });
 }
 function isUserAccountVerified(UserName,callback){
