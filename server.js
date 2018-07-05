@@ -250,7 +250,20 @@ app.get('/register',function (req, res) {
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-            let CurrentTime = undefined;
+
+            let isEmailValid=false;
+            let isUserNameValid = false;
+
+            isEmailExist(Email,function(response){
+              console.log("Email Exist"+response);
+            });
+            isUserNameExist(UserName,function(response){
+              console.log("UserName Exit"+ response);
+            });
+
+
+
+          /*  let CurrentTime = undefined;
             let CurrentDate = undefined;
             getCurrentTime(function(response){
               CurrentTime=response;
@@ -261,10 +274,10 @@ app.get('/register',function (req, res) {
             let UUIDKey =uuidv4();
             console.log(UUIDKey);
             console.log(CurrentDate);
-            console.log(FormatedTime);
+            console.log(CurrentTime);
             AddUserAccount(UserName,"AccessID",Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
               res.send(response);
-            });
+            });*/
             //res.send("Valid");
             
           }else{
