@@ -253,105 +253,103 @@ app.get('/register',function (req, res) {
             .has().digits()                                 // Must have digits
             .has().not().spaces()                           // Should not have spaces
             
-            let isAlreadyEmailExist=false;
-            let isAlreadyUserNameExist = false;
+          
+         
             let isInvalidPassword= !schema.validate(Password);
             let isInvalidEmail = !validator.isEmail(Email);
             
+
+            //async series start
             async.series([
-              function(callback) {
-                setTimeout(function() {
-                  console.log("Task 1");
-                  callback(null, 1);
-                }, 300);
+              function(callback){
+                isEmailExist(Email,function(response){
+                  let obj = response;
+                  let isAlreadyEmailExist=false;
+
+                  if(obj[0].Email==Email){
+                    isAlreadyEmailExist=true;
+                    
+                  }else{
+                    isAlreadyEmailExist=false;
+                  }
+                  callback(isAlreadyEmailExist);
+                  console.log("Email Exist check "+isAlreadyEmailExist);
+                  //console.log(response);*/
+        
+                });
               },
-              function(callback) {
-                setTimeout(function() {
-                  console.log("Task 2");
-                  callback(null, 2);
-                }, 200);
-              },
-              function(callback) {
-                setTimeout(function() {
-                  console.log("Task 3");
-                  callback(null, 3);
-                }, 100);
+              function(callback){
+                isUserNameExist(UserName,function(response){
+                  let obj = response;
+                  let isAlreadyUserNameExist = false;
+                  if(obj[0].UserName==UserName){
+                    isAlreadyUserNameExist=true;
+                    console.log(isAlreadyUserNameExist);
+                  }else{
+                    isAlreadyUserNameExist=false;
+                  }
+                  callback(isAlreadyUserNameExist);
+                  console.log("UserName Exist check "+isAlreadyUserNameExist);
+                 // console.log(response);
+                });
               }
-            ], function(error, results) {
-              console.log(results);
-            });
+              
+            ],function(error,results){//async series result
+              res.send(results);
+              /*if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
+         
+              
+                let CurrentTime = undefined;
+                let CurrentDate = undefined;
+                getCurrentTime(function(response){
+                  CurrentTime=response;
+                });
+                getCurrentDate(function(response){
+                  CurrentDate=response;
+                });
+                let UUIDKey =uuidv4();
+                let UUIDUserAccountID =uuidv4();
+                /*
+                console.log(UUIDKey);
+                console.log(CurrentDate);
+                console.log(CurrentTime);*/
+              /*  AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                  let isRegistered =false;
+                  if(response=="Inserted"){
+                    isRegistered=true;
+                    let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
+                    res.send(beautify(Data, null, 2, 100));
+                  }else{
+                    isRegistered=false;
+                    let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
+                    res.send(beautify(Data, null, 2, 100));
+                    console.log("Error Received did not registered "+response);// Error Received did not registered
+                  }
+                });
+  
+                AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                  if(response=="Inserted"){
+                  
+                  }else{
+            
+                  }
+                });
+  
+  
+              }else{
+                //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
+                let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false,"ResponseCode":3 };
+                res.send(beautify(Data, null, 2, 100));
+              }*/
+
+            });//Async.series End
             
 
 
-            isEmailExist(Email,function(response){
-              let obj = response;
-              if(obj[0].Email==Email){
-                isAlreadyEmailExist=true;
-                
-              }else{
-                isAlreadyEmailExist=false;
-              }
-              console.log("Email Exist check "+isAlreadyEmailExist);
-              //console.log(response);*/
-    
-            });
-            isUserNameExist(UserName,function(response){
-              let obj = response;
-              if(obj[0].UserName==UserName){
-                isAlreadyUserNameExist=true;
-                console.log(isAlreadyUserNameExist);
-              }else{
-                isAlreadyUserNameExist=false;
-              }
-              console.log("UserName Exist check "+isAlreadyUserNameExist);
-             // console.log(response);
-            });
+            
+            
 
-            if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
-         
-              
-              let CurrentTime = undefined;
-              let CurrentDate = undefined;
-              getCurrentTime(function(response){
-                CurrentTime=response;
-              });
-              getCurrentDate(function(response){
-                CurrentDate=response;
-              });
-              let UUIDKey =uuidv4();
-              let UUIDUserAccountID =uuidv4();
-              /*
-              console.log(UUIDKey);
-              console.log(CurrentDate);
-              console.log(CurrentTime);*/
-              AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                let isRegistered =false;
-                if(response=="Inserted"){
-                  isRegistered=true;
-                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
-                  res.send(beautify(Data, null, 2, 100));
-                }else{
-                  isRegistered=false;
-                  let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
-                  res.send(beautify(Data, null, 2, 100));
-                  console.log("Error Received did not registered "+response);// Error Received did not registered
-                }
-              });
-
-              AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                if(response=="Inserted"){
-                
-                }else{
-          
-                }
-              })
-
-
-            }else{
-              //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false,"ResponseCode":3 };
-              res.send(beautify(Data, null, 2, 100));
-            }
+            
 
             
           }else{
