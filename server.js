@@ -273,7 +273,7 @@ app.get('/register',function (req, res) {
                   }else{
                     isAlreadyEmailExist=false;
                   }
-                  callback(isAlreadyEmailExist);
+                  callback(null,isAlreadyEmailExist);
                   console.log("Email Exist check "+isAlreadyEmailExist);
                   //console.log(response);*/
         
@@ -289,7 +289,7 @@ app.get('/register',function (req, res) {
                   }else{
                     isAlreadyUserNameExist=false;
                   }
-                  callback(isAlreadyUserNameExist);
+                  callback(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
                 });
