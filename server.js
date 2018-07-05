@@ -299,7 +299,7 @@ app.get('/register',function (req, res) {
               console.log(UUIDKey);
               console.log(CurrentDate);
               console.log(CurrentTime);*/
-              AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+              AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
                 if(response=="Inserted"){
                   isRegistered=true;
                 }else{
@@ -1891,7 +1891,7 @@ app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey
   !isNullOrEmpty(RegisteredTime)){
     //This is Direct Date Assigned from API we dont use getCurrentDate And getCurrentTime for control
    
-    AddUserAccount(UserAccountID,UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
+    AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
       res.send(response);
     });
   }else{
