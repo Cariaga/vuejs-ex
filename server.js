@@ -17,7 +17,7 @@ var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
-var validator = require('validator');//email,mobilephone,isIP,isPostalCode,creditcard
+var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
 require("./routes/test")(app);
 var Models = require("./Models/Models");
 // configuration =================
@@ -257,7 +257,7 @@ app.get('/register',function (req, res) {
             let isAlreadyUserNameExist = false;
             let isPasswordInvalid= !schema.validate(Password);
             let isInvalidEmail = !validator.isEmail(Email);
-
+          
             isEmailExist(Email,function(response){
               let obj = response;
               if(obj[0].Email==Email){
@@ -282,32 +282,39 @@ app.get('/register',function (req, res) {
               console.log(response);*/
             });
 
-             if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isPasswordInvalid&&!isInvalidEmail){
-              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid ,"isRegistered":true };
+            if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isPasswordInvalid&&!isInvalidEmail){
+              let isRegistered =false;
+              
+              let CurrentTime = undefined;
+              let CurrentDate = undefined;
+              getCurrentTime(function(response){
+                CurrentTime=response;
+              });
+              getCurrentDate(function(response){
+                CurrentDate=response;
+              });
+              let UUIDKey =uuidv4();
+              /*
+              console.log(UUIDKey);
+              console.log(CurrentDate);
+              console.log(CurrentTime);*/
+              AddUserAccount(UserName,"AccessID",Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                if(response=="Inserted"){
+                  isRegistered=true;
+                }else{
+                  isRegistered=false;
+                  console.log("Error Received did not registered "+response);// Error Received did not registered
+                }
+              });
+
+              let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid ,"isRegistered":isRegistered };
               res.send(beautify(Data, null, 2, 100));
             }else{
+              //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
               let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isPasswordInvalid":isPasswordInvalid,"isRegistered":false };
               res.send(beautify(Data, null, 2, 100));
             }
-            
-            
-           // res.end();
-          /*  let CurrentTime = undefined;
-            let CurrentDate = undefined;
-            getCurrentTime(function(response){
-              CurrentTime=response;
-            });
-            getCurrentDate(function(response){
-              CurrentDate=response;
-            });
-            let UUIDKey =uuidv4();
-            console.log(UUIDKey);
-            console.log(CurrentDate);
-            console.log(CurrentTime);
-            AddUserAccount(UserName,"AccessID",Name,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-              res.send(response);
-            });*/
-            //res.send("Valid");
+
             
           }else{
             res.send("Invalid Email");
