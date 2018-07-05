@@ -269,7 +269,7 @@ app.get('/register',function (req, res) {
              /* console.log(isAlreadyEmailExist);
               console.log(response);*/
     
-            });
+            })
             isUserNameExist(UserName,function(response){
               let obj = response;
               if(obj[0].UserName==UserName){
