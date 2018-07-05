@@ -1918,7 +1918,7 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
   })
   .catch(error => {
     // mhhh, wth!
-    console.log("error inserting UserAccountID:"+UserAccountID+"AccessID:"+AccessID+"UserName:"+UserName+"Password:"+Password+"Verify:"+Verify+"ValidKey:"+ValidKey+"RegisteredDate:"+RegisteredDate+"RegisteredTime:"+RegisteredTime);
+    console.log("error inserting UserAccountID:"+UserAccountID+" \n AccessID:"+AccessID+"\n UserName:"+UserName+"\n Password:"+Password+"\n Verify:"+Verify+"\n ValidKey:"+ValidKey+"\n RegisteredDate:"+RegisteredDate+"\n RegisteredTime:"+RegisteredTime);
     callback(error);
   });
 }
