@@ -2105,6 +2105,7 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
+  /*
   Models.UserInfo.sync({force:true})
   .then(function(result) {
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");//Removes all The connection from UserAccount
@@ -2113,7 +2114,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   }).catch(function(result) {//catching any then errors
     console.log(result);
   });
-/*
+*/
   Models.UserAccount.sync({force:true})
   .then(function(result) {
     sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");//Removes all The connection from UserAccount
@@ -2124,7 +2125,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   }).catch(function(result) {//catching any then errors
     console.log(result);
     res.send("Error "+result);
-  });*/
+  });
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
