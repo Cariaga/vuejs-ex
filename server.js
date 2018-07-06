@@ -2106,14 +2106,14 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
   
-  Models.UserAccount.sync({force:true})
+  Models.UserInfo.sync({force:true})
   .then(function(result) {
-   /* sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
+    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
     .then(function(result) {
     }).catch(function(error){
       console.log("UserInfo > UserInfo RemoveConstraint Error");
     })
-    sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID").then(function(result) {
+   /* sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID").then(function(result) {
     }).catch(function(error){
       console.log("UserInfo > UserAccount RemoveConstraint Error");
     });*/
