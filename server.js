@@ -2091,8 +2091,7 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){
 
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
-  //will not execute if has FK set Up
-  Sequelize.queryInterface.removeConstraint('UserAccount', 'UserAccountID');//Remove Constraint so we can delete
+  //will not execute if has FK set Up must disable on the models
   Models.UserAccount.sync({force:true})
   .then(function(result) {
    

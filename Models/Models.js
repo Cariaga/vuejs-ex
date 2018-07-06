@@ -145,7 +145,7 @@ const UserInfo =sequelize.define('UserInfo', {
 UserInfo.belongsTo(UserAccount, {
     foreignKey: 'UserAccountID',
     targetKey: 'UserAccountID', 
-    constraints: true}); 
+    constraints: false}); 
 
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
