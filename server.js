@@ -2112,7 +2112,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
     sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");//Removes all The connection from UserAccount
   
   }).catch(function(result) {//catching any then errors
-    console.log(result);
+    console.log("UserInfo Error : "+result);
   });
   Models.UserAccount.sync({force:true})
   .then(function(result) {
@@ -2120,7 +2120,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");//Removes all The connection from UserAccount
   }).catch(function(result) {//catching any then errors
     console.log(result);
-    res.send("Error "+result);
+    res.send("UserAccount Error "+result);
   });
 
   res.send("Deleted2");
