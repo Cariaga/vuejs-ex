@@ -285,6 +285,7 @@ app.get('/register',function (req, res) {
               },
               function(callback){
                 console.log('3');
+                console.log("UserName : "+UserName);
                 isUserNameExist(UserName,function(response){
                   let obj = response;
                   let isAlreadyUserNameExist = false;
