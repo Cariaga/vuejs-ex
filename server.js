@@ -265,6 +265,7 @@ app.get('/register',function (req, res) {
             //async series Validate start
             async.series([//don't add anything inside this from top start at the button for new function call backs
               function(callback){
+                console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
                   let isAlreadyEmailExist=false;
@@ -278,10 +279,11 @@ app.get('/register',function (req, res) {
                   callback(null,isAlreadyEmailExist);
                   console.log("Email Exist check "+isAlreadyEmailExist);
                   //console.log(response);*/
-        
+                  console.log('2');
                 });
               },
               function(callback){
+                console.log('3');
                 isUserNameExist(UserName,function(response){
                   let obj = response;
                   let isAlreadyUserNameExist = false;
@@ -294,11 +296,12 @@ app.get('/register',function (req, res) {
                   callback(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
+                 console.log('4');
                 });
               }
               
             ],function(error,results){//async series result
-
+              console.log('5');
               let isAlreadyEmailExist= results[0];
               let isAlreadyUserNameExist = results[1];
               res.send(results);
@@ -325,6 +328,7 @@ app.get('/register',function (req, res) {
 
                 async.series([//Async series add Account Start
                   function(callback){
+                    console.log('6');
                     AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
                       let isRegistered =false;
                       if(response=="Inserted"){
@@ -340,9 +344,12 @@ app.get('/register',function (req, res) {
                         callback(Data);
                       }
                     });
+                    console.log('7');
                   },
                   function(callback){
+                    console.log('8');
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                     
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
                        let Data = {"isUserInfoAdded":true};
@@ -353,6 +360,7 @@ app.get('/register',function (req, res) {
                         callback(Data);
                       }
                     });
+                    console.log('9');
                   }
                 ],function(error,callback){
                   var ResultUserAccount = callback[0];
@@ -2077,7 +2085,7 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
 }
 
 
-app.get('/Api/v1/UserAccount/Clear', function (req, res){
+app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to constraint
   Models.UserAccount.destroy({
     where: {},
     truncate: true
