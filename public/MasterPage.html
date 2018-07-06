@@ -28,7 +28,7 @@
 <template id="welcome-template">
   <transition name="component-fade" appear>
     <div id="vue-instance">
-            <el-button type="primary" v-on:click="onSubmit">Primary</el-button>
+            
             <el-table
             :data="tableData"
             style="width: 100%">
@@ -96,7 +96,35 @@
 <script src="style.css"></script>
 
 <script>
+    
+    window.addEventListener("load", function(event) {
+  var vm = new Vue({
+    el: '#vue-instance',
+    data() {
+    return {
+      tableData:[]
+    }
+  },computed: {  
+    },
+      created: function(){
+          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
+        $(document).ready(function () { 
+       $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BankInformation', function (data) {
+       // console.log(data);
+       vm.tableData=data;
+        });
+       });
+      },
+    methods: {
         
+    }
+      
+  });
+  });
+
+</script>
+
+<script>       
 // 0. If using a module system, call Vue.use(VueRouter)
 
 // 1. Define route components.
@@ -139,31 +167,5 @@ const app = new Vue({
 }).$mount('#app')
 
 // Now the app has started!
-    
-    window.addEventListener("load", function(event) {
-  var vm = new Vue({
-    el: '#vue-instance',
-    data() {
-    return {
-      tableData:[]
-    }
-  },computed: {  
-    },
-      created: function(){
-          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
-        $(document).ready(function () { 
-       $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BankInformation', function (data) {
-       // console.log(data);
-       vm.tableData=data;
-        });
-       });
-      },
-    methods: {
-      onSubmit() {
-        
-      }
-    }
-  });
-  });
-
 </script>
+
