@@ -2108,20 +2108,39 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   
   Models.UserInfo.sync({force:true})
   .then(function(result) {
-    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");//Removes all The connection from UserAccount
-    sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");//Removes all The connection from UserAccount
+    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
+    .then(function(result) {
+     
+    }).catch(function(error){
+
+    })
+
+    sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID").then(function(result) {
+     
+    }).catch(function(error){
+      
+    });
   
   }).catch(function(result) {//catching any then errors
     console.log("UserInfo Error : "+result);
   });
- /* Models.UserAccount.sync({force:true})
+ Models.UserAccount.sync({force:true})
   .then(function(result) {
-    sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");//Removes all The connection from UserAccount
-    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");//Removes all The connection from UserAccount
+    sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID").then(function(result) {
+     
+    }).catch(function(error){
+      
+    })
+    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID").then(function(result) {
+     
+    }).catch(function(error){
+      
+    });
+
   }).catch(function(result) {//catching any then errors
     console.log(result);
     res.send("UserAccount Error "+result);
-  });*/
+  });
 
   res.send("Deleted2");
 });
