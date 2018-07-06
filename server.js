@@ -632,7 +632,7 @@ app.get('/Api/v1/SupportTicket/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -764,7 +764,7 @@ app.get('/Api/v1/Notification/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -888,7 +888,7 @@ app.get('/Api/v1/BlackList/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -1028,7 +1028,7 @@ app.get('/Api/v1/LoginHistory/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -1166,7 +1166,7 @@ app.get('/Api/v1/BankInformation/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -1345,7 +1345,7 @@ app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -1531,7 +1531,7 @@ app.get('/Api/v1/DepositHistory/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -1689,7 +1689,7 @@ app.get('/Api/v1/GameHistory/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -1806,7 +1806,7 @@ app.get('/Api/v1/UserInfo/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -1928,7 +1928,7 @@ app.get('/Api/v1/AccessControl/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -2047,7 +2047,7 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -2322,7 +2322,7 @@ app.get('/Api/v1/Shop/Clear', function (req, res){
     where: {},
     truncate: true
   }).then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -2447,7 +2447,7 @@ app.get('/Api/v1/Distributor/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
@@ -2568,7 +2568,7 @@ app.get('/Api/v1/HeadOffice/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
