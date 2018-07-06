@@ -123,7 +123,7 @@ const UserInfo =sequelize.define('UserInfo', {
   UserAccountID:{
     type: Sequelize.STRING,
     unique: true,
-    foreignKey: true,
+    foreignKey: false,
     references: {
       model: UserAccount,
       key: 'UserAccountID'
