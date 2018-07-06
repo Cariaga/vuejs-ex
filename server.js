@@ -85,14 +85,14 @@ app.get('/SMS/:recipient/:message', function (req, res){
     for (i = 0; i < recipient.length; i++) { 
       console.log(recipient[i]);
   
-     /* nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
+     nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
       (err,responseData)=>{
         if(err){
           console.log(err);
       }else{
         console.dir(responseData);
       }
-    });*/
+    });
     }
   }
   //res.send("Sent all to " +recipient);
