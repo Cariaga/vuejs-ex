@@ -311,11 +311,8 @@ app.get('/register',function (req, res) {
               console.log('5');
               let isAlreadyEmailExist= results[0];
               let isAlreadyUserNameExist = results[1];
-              res.send(results);
               console.log(results);
               if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
-         
-              
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
                 getCurrentTime(function(response){
@@ -373,6 +370,7 @@ app.get('/register',function (req, res) {
                   var ResultUserAccount = callback[0];
                   var ResultUserInfo =callback[1];
                   res.send(beautify(ResultUserInfo, null, 2, 100));
+                  console.log('10');
                 });//Async series add Account End
 
   
