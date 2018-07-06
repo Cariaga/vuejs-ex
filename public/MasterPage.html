@@ -1,27 +1,117 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
 
 <div id="app">
-  <h1>Hello App!</h1>
-  <p>
-    <!-- use router-link component for navigation. -->
-    <!-- specify the link by passing the `to` prop. -->
-    <!-- <router-link> will be rendered as an `<a>` tag by default -->
-    <router-link to="/foo">Go to Foo</router-link>
-    <router-link to="/bar">Go to Bar</router-link>
-  </p>
-  <!-- route outlet -->
-  <!-- component matched by the route will render here -->
-  <router-view></router-view>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <router-link class="navbar-brand" :to="{ path: '/' }">Welcome</router-link>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: '/hello' }">Hello</a>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: '/hello-again' }">Hello Again</a>
+          </li>
+        </ul>
+    </nav>
+    <div class="container col-10">
+      <div class="jumbotron mt-3">
+        <router-view keep-alive></router-view>
+      </div>
+    </div>    
 </div>
 
+<template id="welcome-template">
+  <transition name="component-fade" appear>
+    <div id="vue-instance">
+            <el-button type="primary" v-on:click="onSubmit">Primary</el-button>
+            <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              prop="BankInformationID"
+              label="BankInformationID"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="UserAccountID"
+              label="UserAccountID"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="BankName"
+              label="BankName">
+            </el-table-column>
+            <el-table-column
+              prop="SecurityCode"
+              label="SecurityCode">
+            </el-table-column>
+            <el-table-column
+              prop="Valid"
+              label="Valid">
+            </el-table-column>
+            <el-table-column
+              prop="Expiration"
+              label="Expiration">
+            </el-table-column>
+            <el-table-column
+              prop="Time"
+              label="Time">
+            </el-table-column>
+            <el-table-column
+              prop="Date"
+              label="Date">
+            </el-table-column>
+          </el-table>
+    </div>
+  </transition>
+</template>
+
+<template id="hello-template">
+  <transition name="component-fade" mode="out-in" appear>
+    <div class="container">
+      <h1 class="display-6 abs">Hello World!</h1>
+    </div>
+  </transition>
+</template>
+
+<template id="hello-again-template">
+  <transition name="component-fade" appear>
+    <div class="container">
+      <h1 class="display-6 abs">Hello Again!</h1>
+    </div>
+  </transition>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
+<script src="style.css"></script>
+
 <script>
+        
 // 0. If using a module system, call Vue.use(VueRouter)
 
 // 1. Define route components.
 // These can be imported from other files
-const Foo = { template: '<div><el-button type="primary" v-on:click="onSubmit">Primary</el-button></div>' }
-const Bar = { template: '<div>bar</div>' }
+const Welcome = {
+  template: '#welcome-template'
+}
+
+const HelloWorld = {
+  template: '#hello-template'
+}
+
+const HelloAgain = {
+  template: '#hello-again-template'
+}
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -29,8 +119,9 @@ const Bar = { template: '<div>bar</div>' }
 // Vue.extend(), or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+  { path: '/', component: Welcome },
+  { path: '/hello', component: HelloWorld },
+  { path: '/hello-again', component: HelloAgain }
 ]
 
 // 3. Create the router instance and pass the `routes` option
@@ -48,11 +139,31 @@ const app = new Vue({
 }).$mount('#app')
 
 // Now the app has started!
-</script>
+    
+    window.addEventListener("load", function(event) {
+  var vm = new Vue({
+    el: '#vue-instance',
+    data() {
+    return {
+      tableData:[]
+    }
+  },computed: {  
+    },
+      created: function(){
+          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
+        $(document).ready(function () { 
+       $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BankInformation', function (data) {
+       // console.log(data);
+       vm.tableData=data;
+        });
+       });
+      },
+    methods: {
+      onSubmit() {
+        
+      }
+    }
+  });
+  });
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/index.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
+</script>
