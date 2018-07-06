@@ -636,8 +636,12 @@ app.get('/Api/v1/SupportTicket/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/SupportTicket/Delete', function (req, res){
-  Models.SupportTicket.sync({force:true});
-  res.send("Deleted");
+  Models.SupportTicket.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/SupportTicket', function (req, res) {
   let Offset =  req.query.Offset;
@@ -767,8 +771,12 @@ app.get('/Api/v1/Notification/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/Notification/Delete', function (req, res){
-  Models.Notification.sync({force:true});
-  res.send("Deleted");
+  Models.Notification.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/Notification', function (req, res) {
   let Offset =  req.query.Offset;
@@ -891,8 +899,12 @@ app.get('/Api/v1/BlackList/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/BlackList/Delete', function (req, res){
-  Models.BlackList.sync({force:true});
-  res.send("Deleted");
+  Models.BlackList.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/BlackList', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1031,8 +1043,12 @@ app.get('/Api/v1/LoginHistory/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/LoginHistory/Delete', function (req, res){
-  Models.LoginHistory.sync({force:true});
-  res.send("Deleted");
+  Models.LoginHistory.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/LoginHistory', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1169,8 +1185,12 @@ app.get('/Api/v1/BankInformation/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/BankInformation/Delete', function (req, res){
-  Models.BankInformation.sync({force:true});
-  res.send("Deleted");
+  Models.BankInformation.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/BankInformation', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1348,8 +1368,12 @@ app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
-  Models.WithdrawHistory.sync({force:true});
-  res.send("Deleted");
+  Models.WithdrawHistory.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/WithdrawHistory', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1534,8 +1558,12 @@ app.get('/Api/v1/DepositHistory/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/DepositHistory/Delete', function (req, res){
-  Models.DepositHistory.sync({force:true});
-  res.send("Deleted");
+  Models.DepositHistory.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/DepositHistory', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1692,8 +1720,12 @@ app.get('/Api/v1/GameHistory/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/GameHistory/Delete', function (req, res){
-  Models.GameHistory.sync({force:true});
-  res.send("Deleted");
+  Models.GameHistory.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/GameHistory', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1809,8 +1841,12 @@ app.get('/Api/v1/UserInfo/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/UserInfo/Delete', function (req, res){
-  Models.UserInfo.sync({force:true});
-  res.send("Deleted");
+  Models.UserInfo.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/UserInfo', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1931,8 +1967,12 @@ app.get('/Api/v1/AccessControl/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/AccessControl/Delete', function (req, res){
-  Models.AccessControl.sync({force:true});
-  res.send("Deleted");
+  Models.AccessControl.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/AccessControl', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -2051,8 +2091,14 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){
 
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
-  Models.UserAccount.sync({force:true});//will not execute if has FK set Up
-  res.send("Deleted");
+  //will not execute if has FK set Up
+  Models.UserAccount.sync({force:true})
+  .then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -2197,8 +2243,12 @@ app.get('/Api/v1/Player/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/Player/Delete', function (req, res){
-  Models.Player.sync({force:true});
-  res.send("Deleted");
+  Models.Player.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/Player', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -2325,8 +2375,12 @@ app.get('/Api/v1/Shop/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/Shop/Delete', function (req, res){
-  Models.Shop.sync({force:true});
-  res.send("Deleted");
+  Models.Shop.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/Shop', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -2450,8 +2504,12 @@ app.get('/Api/v1/Distributor/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/Distributor/Delete', function (req, res){
-  Models.Distributor.sync({force:true});
-  res.send("Deleted");
+  Models.Distributor.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/Distributor', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -2571,8 +2629,12 @@ app.get('/Api/v1/HeadOffice/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/HeadOffice/Delete', function (req, res){
-  Models.HeadOffice.sync({force:true});
-  res.send("Deleted");
+  Models.HeadOffice.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
 });
 app.get('/Api/v1/HeadOffice', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
