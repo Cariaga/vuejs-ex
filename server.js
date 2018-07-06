@@ -593,7 +593,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
   })
   
   .catch(error => {
-    // mhhh, wth!
+ 
     console.log("error inserting");
     callback("error inserting " +error);
   });
@@ -630,7 +630,7 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
     })
     
     .catch(error => {
-      // mhhh, wth!
+     
       console.log("Error Updating");
       res.send("Error Updating " +error);
     });
@@ -738,7 +738,7 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   })
   
   .catch(error => {
-    // mhhh, wth!
+ 
     console.log("error inserting");
     callback("error inserting " +error);
   });
@@ -765,7 +765,7 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
     })
     
     .catch(error => {
-      // mhhh, wth!
+     
       console.log("Error Updating");
       res.send("Error Updating " +error);
     }); 
@@ -865,7 +865,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     })
     
     .catch(error => {
-      // mhhh, wth!
+    
       console.log("error inserting");
       res.send("error inserting " +error);
     });
@@ -893,7 +893,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
     })
     
     .catch(error => {
-      // mhhh, wth!
+   
       console.log("Error Updating");
       res.send("Error Updating " +error);
     });
@@ -998,7 +998,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
     })
     
     .catch(error => {
-      // mhhh, wth!
+    
       console.log("error inserting");
       res.send("error inserting " +error);
     });
@@ -1037,7 +1037,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
     })
     
     .catch(error => {
-      // mhhh, wth!
+     
       console.log("Error Updating");
       res.send("Error Updating " +error);
     }); 
@@ -1141,7 +1141,7 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Val
     })
     
     .catch(error => {
-      // mhhh, wth!
+   
       console.log("error inserting");
       res.send("error inserting " +error);
     });
@@ -1179,7 +1179,7 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
     })
     
     .catch(error => {
-      // mhhh, wth!
+     
       console.log("Error Updating");
       res.send("Error Updating " +error);
     }); 
@@ -1305,7 +1305,7 @@ function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,
     })
     
     .catch(error => {
-      // mhhh, wth!
+  
       console.log("error inserting");
       return"error inserting " +error;
     });
@@ -1362,7 +1362,7 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
     })
     
     .catch(error => {
-      // mhhh, wth!
+     
       console.log("Error Updating");
       res.send("Error Updating " +error);
     });
@@ -1495,7 +1495,7 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   })
   
   .catch(error => {
-    // mhhh, wth!
+   
     console.log("error inserting");
     callback("error inserting " +error);
   });
@@ -1552,7 +1552,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
       })
       
       .catch(error => {
-        // mhhh, wth!
+      
         console.log("Error Updating");
         res.send("Error Updating " +error);
       });  
@@ -1666,7 +1666,7 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
     })
     
     .catch(error => {
-      // mhhh, wth!
+     
       console.log("error inserting");
       res.send("error inserting " +error);
     });
@@ -1714,7 +1714,7 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
     })
     
     .catch(error => {
-      // mhhh, wth!
+   
       console.log("Error Updating");
       res.send("Error Updating " +error);
     });
@@ -1827,7 +1827,7 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
       callback( "Inserted");
     })
     .catch(error => {
-      // mhhh, wth!
+    
       console.log("error inserting");
       callback("error inserting " +error);
     });
@@ -1935,7 +1935,7 @@ function AccessControl(AccessID,AccessName,AccessTags,callback){
   })
   
   .catch(error => {
-    // mhhh, wth!
+   
     console.log("error inserting");
     callback("error inserting " +error);
   });
@@ -2106,8 +2106,9 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
 
-  Models.UserAccount.sync({force:true})
+  Models.UserInfo.sync({force:true})
   .then(function(result) {
+    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");//Removes all The connection from UserAccount
     sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");//Removes all The connection from UserAccount
 
     res.send("Deleted2");
