@@ -156,7 +156,9 @@ function isUserAccountBlocked(UserName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback("Error "+result);
+      console.log(result);
+      callback(undefined);
+      //callback("Error "+result);
     });
 }
 function isUserNameExist(UserName,callback){
@@ -172,8 +174,9 @@ function isUserNameExist(UserName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback(undefined);
       console.log(result);
+      callback(undefined);
+     
       //callback(result);
     });
 }
