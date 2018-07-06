@@ -164,7 +164,6 @@ function isUserNameExist(UserName,callback){
     let result = Models.UserAccount.findAll({ 
       where: {
         UserName: UserName//not null
-        
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -173,7 +172,9 @@ function isUserNameExist(UserName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback(result);
+      callback(undefined);
+      console.log(result);
+      //callback(result);
     });
 }
 function isUserAccountVerified(UserName,callback){
@@ -285,7 +286,7 @@ app.get('/register',function (req, res) {
               },
               function(callback){
                 console.log('3');
-                console.log("UserName : "+UserName);
+               // console.log("UserName : "+UserName);
                 isUserNameExist(UserName,function(response){
                   let obj = response;
                   let isAlreadyUserNameExist = false;
