@@ -270,7 +270,7 @@ app.get('/register',function (req, res) {
                   let obj = response;
                   let isAlreadyEmailExist=false;
 
-                  if(obj.length>0&&obj[0].Email==Email){
+                  if(obj!=undefined&&obj[0].Email==Email){
                     isAlreadyEmailExist=true;
                     
                   }else{
