@@ -729,7 +729,6 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
     callback("error inserting " +error);
   });
 }
-
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
   let NotificationID = req.params.NotificationID;
   let NotificationType = req.params.NotificationType;
