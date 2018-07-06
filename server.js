@@ -2110,7 +2110,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   .then(function(result) {
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");//Removes all The connection from UserAccount
     sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");//Removes all The connection from UserAccount
-    
+    res.send("Deleted");
   }).catch(function(result) {//catching any then errors
     console.log(result);
   });
