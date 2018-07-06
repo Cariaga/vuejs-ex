@@ -2106,17 +2106,14 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
   
-  Models.UserInfo.sync({force:true})
+  Models.UserInfo.sync()
   .then(function(result) {
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
     .then(function(result) {
-     
     }).catch(function(error){
       console.log("UserInfo > UserInfo RemoveConstraint Error");
     })
-
     sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID").then(function(result) {
-     
     }).catch(function(error){
       console.log("UserInfo > UserAccount RemoveConstraint Error");
     });
@@ -2125,24 +2122,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
     console.log("UserInfo Error : "+result);
   });
  Models.UserAccount.sync({force:true});
-  /*.then(function(result) {
-    sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID").then(function(result) {
-     
-    }).catch(function(error){
-      console.log("UserAccount > UserAccount RemoveConstraint Error");
-    })
-    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID").then(function(result) {
-     
-    }).catch(function(error){
-      console.log("UserAccount > UserInfo RemoveConstraint Error");
-    });
-
-  }).catch(function(result) {//catching any then errors
-    console.log(result);
-    res.send("UserAccount Error "+result);
-  });*/
-
-  res.send("Deleted2");
+  res.send("Deleted");
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
