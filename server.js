@@ -367,13 +367,6 @@ app.get('/register',function (req, res) {
 
             });//Async.series Validate End
             
-
-
-            
-            
-
-            
-
             
           }else{
             res.send("Invalid Email");
@@ -637,7 +630,11 @@ app.get('/Api/v1/SupportTicket/Clear', function (req, res){
   Models.SupportTicket.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -765,7 +762,11 @@ app.get('/Api/v1/Notification/Clear', function (req, res){
   Models.Notification.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -885,7 +886,11 @@ app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -1021,7 +1026,11 @@ app.get('/Api/v1/LoginHistory/Clear', function (req, res){
   Models.LoginHistory.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -1155,7 +1164,11 @@ app.get('/Api/v1/BankInformation/Clear', function (req, res){
   Models.BankInformation.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -1330,7 +1343,11 @@ app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
   Models.WithdrawHistory.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -1512,7 +1529,11 @@ app.get('/Api/v1/DepositHistory/Clear', function (req, res){
   Models.DepositHistory.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -1666,7 +1687,11 @@ app.get('/Api/v1/GameHistory/Clear', function (req, res){
   Models.GameHistory.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -1779,7 +1804,11 @@ app.get('/Api/v1/UserInfo/Clear', function (req, res){
   Models.UserInfo.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -1897,7 +1926,11 @@ app.get('/Api/v1/AccessControl/Clear', function (req, res){
   Models.AccessControl.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -2012,7 +2045,11 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){
   Models.UserAccount.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 
@@ -2155,7 +2192,11 @@ app.get('/Api/v1/Player/Clear', function (req, res){
   Models.Player.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -2280,7 +2321,10 @@ app.get('/Api/v1/Shop/Clear', function (req, res){
   Models.Shop.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  }).then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -2401,7 +2445,11 @@ app.get('/Api/v1/Distributor/Clear', function (req, res){
   Models.Distributor.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
@@ -2518,7 +2566,11 @@ app.get('/Api/v1/HeadOffice/Clear', function (req, res){
   Models.HeadOffice.destroy({
     where: {},
     truncate: true
-  }).catch(err=>{
+  })
+  .then(Success => {
+    callback("Cleared");
+  })
+  .catch(err=>{
     res.send("Truncate "+err);
   });
 });
