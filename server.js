@@ -2094,6 +2094,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
   Models.UserAccount.sync({force:true})
   .then(function(result) {
+    Sequelize.queryInterface.removeConstraint('UserAccount', 'UserAccountID');//Remove Constraint
     res.send("Deleted");
   }).catch(function(result) {//catching any then errors
 
@@ -2243,6 +2244,7 @@ app.get('/Api/v1/Player/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/Player/Delete', function (req, res){
+  
   Models.Player.sync({force:true}).then(function(result) {
     res.send("Deleted");
   }).catch(function(result) {//catching any then errors
