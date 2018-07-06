@@ -344,9 +344,11 @@ app.get('/register',function (req, res) {
                   function(callback){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                       if(response=="Inserted"){
+                        console.log("UserInfo Inserted");
                        let Data = {"isUserInfoAdded":true};
                         callback(Data);
                       }else{
+                        console.log("UserInfo Failed Insert");
                         let Data = {"isUserInfoAdded":false};
                         callback(Data);
                       }
@@ -493,11 +495,7 @@ app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
   if(!isNullOrEmpty(UserName)&&
   !isNullOrEmpty(SignOutKey)){
 
-   
-
     res.send('test login');
-
-
   }else{
     res.send('no params sent');
   }
@@ -562,7 +560,6 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
     });
   }
 });
-
 function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   var item1 = Models.SupportTicket.build({
     UserAccountID:UserAccountID,
