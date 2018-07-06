@@ -141,11 +141,11 @@ const UserInfo =sequelize.define('UserInfo', {
 //foreignKey for UserInfo.
 //belongsTo creates a 1 to many relationship
 //to enforce 1 to 1  you need to add the key as well with the unique:true and foreignKey:true and reference{model and key}
-/*
+
 UserInfo.belongsTo(UserAccount, {
     foreignKey: 'UserAccountID',
     targetKey: 'UserAccountID', 
-    constraints: true}); */
+    constraints: true}); 
 
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
