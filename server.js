@@ -2108,7 +2108,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   
   Models.UserAccount.sync({force:true})
   .then(function(result) {
-    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
+   /* sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
     .then(function(result) {
     }).catch(function(error){
       console.log("UserInfo > UserInfo RemoveConstraint Error");
@@ -2116,7 +2116,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
     sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID").then(function(result) {
     }).catch(function(error){
       console.log("UserInfo > UserAccount RemoveConstraint Error");
-    });
+    });*/
   }).catch(function(result) {//catching any then errors
     console.log("UserInfo Error : "+result);
   });
