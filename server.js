@@ -271,7 +271,7 @@ app.get('/register',function (req, res) {
                 isEmailExist(Email,function(response){
                   let obj = response;
                   let isAlreadyEmailExist=false;
-                  if(!isNullOrEmpty(obj)&&obj[0].Email==Email){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
                     isAlreadyEmailExist=true;
                     
                   }else{
@@ -299,7 +299,7 @@ app.get('/register',function (req, res) {
                   }else{
                     isAlreadyUserNameExist=false;
                   }
-                
+                  console.log('4');
                   callback(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
@@ -329,7 +329,6 @@ app.get('/register',function (req, res) {
                 console.log(CurrentDate);
                 console.log(CurrentTime);*/
 
-
                 async.series([//Async series add Account Start
                   function(callback){
                     console.log('6');
@@ -350,33 +349,30 @@ app.get('/register',function (req, res) {
                     });
                     console.log('7');
                   },
-                  function(callback){
-                    console.log(9.5);
-                    console.log("not set");
-                  }
 
                 ],function(error,callback){
                   var ResultUserAccount = callback[0];
-                //  var ResultUserInfo =callback[1];
-
                   console.log('8');
-                  AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                    if(response=="Inserted"){
-                      console.log("UserInfo Inserted");
-                     let Data = {"isUserInfoAdded":true};
-                   
-                    }else{
-                      console.log("UserInfo Failed Insert");
-                      let Data = {"isUserInfoAdded":false};
-                      
-                    }
-                  });
-                  console.log('9');
-
-
+                 // console.log(ResultUserAccount);
+                  if(ResultUserAccount.isRegistered==true){
+                    AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                      if(response=="Inserted"){
+                        console.log("UserInfo Inserted");
+                       let Data = {"isUserInfoAdded":true};
+                     
+                      }else{
+                        console.log("UserInfo Failed Insert");
+                        let Data = {"isUserInfoAdded":false};
+                        
+                      }
+                    });
+                    console.log('9');
+                  }
+                  
+                  console.log('10');
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
-                  console.log('10');
+               
                 });//Async series add Account End
 
   
