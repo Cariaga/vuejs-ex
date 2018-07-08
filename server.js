@@ -273,8 +273,7 @@ app.get('/register',function (req, res) {
                 isEmailExist(Email,function(response){
                   let obj = response;
                   let isAlreadyEmailExist=false;
-
-                  if(obj!=undefined&&obj[0].Email==Email){
+                  if(!isNullOrEmpty(obj)&&obj[0].Email==Email){
                     isAlreadyEmailExist=true;
                     
                   }else{
