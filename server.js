@@ -983,28 +983,34 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   !isNullOrEmpty(DeviceCpu)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
-    var item1 = Models.LoginHistory.build({
-      UserAccountID:UserAccountID,
-      IP:IP,
-      DeviceName:DeviceName,
-      DeviceRam:DeviceRam,
-      DeviceCpu:DeviceCpu,
-      Time:Time,
-      Date:Date
-    });
-    Models.LoginHistory.sync({alter : true,/*force:true*/});//force recreates deletes old table
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-    
-      console.log("error inserting");
-      res.send("error inserting " +error);
+    AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+      
     });
   }
 });
+function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
+  var item1 = Models.LoginHistory.build({
+    UserAccountID:UserAccountID,
+    IP:IP,
+    DeviceName:DeviceName,
+    DeviceRam:DeviceRam,
+    DeviceCpu:DeviceCpu,
+    Time:Time,
+    Date:Date
+  });
+  Models.LoginHistory.sync({alter : true,/*force:true*/});//force recreates deletes old table
+  item1.save()
+  .then(Success => {
+    callback("Inserted");
+  })
+  
+  .catch(error => {
+  
+    console.log("error inserting");
+    callback("error inserting " +error);
+  });
+}
+
 app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
   let LoginHistoryID = req.params.LoginHistoryID;
   let UserAccountID = req.params.UserAccountID;
