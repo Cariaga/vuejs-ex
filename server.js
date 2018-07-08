@@ -351,9 +351,6 @@ app.get('/register',function (req, res) {
                     console.log('7');
                   },
                   function(callback){
-                  
-                  },
-                  function(callback){
                     console.log(9.5);
                     console.log("not set");
                   }
