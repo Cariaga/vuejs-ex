@@ -450,7 +450,7 @@ app.get('/Login',function (req, res) {
         });*/
         res.send(beautify(Data, null, 2, 100));
         if(VerifyResult){
-
+          
          /* res.send({
             "UserAccountID":VerifyResult.UserAccountID,
             "Status":"Verified",
