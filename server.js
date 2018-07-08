@@ -984,7 +984,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
     AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
-      
+      res.send(response);
     });
   }
 });
