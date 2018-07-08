@@ -483,7 +483,17 @@ app.get('/Login',function (req, res) {
   }
 });
 //--Login End
-
+//--Login Start
+app.get('/Login',function (req, res) {
+  // Usage /Login?UserName=UserName&VerifyKey=VerifyKey
+  let UserName= req.query.UserName;
+  let VerifyKey= req.query.VerifyKey;
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(Password)){
+    }
+  }
+});
+//--Login End
 
 //--API START
 app.get('/Api/', function (req, res) {
