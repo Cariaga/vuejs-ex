@@ -289,11 +289,11 @@ app.get('/register',function (req, res) {
               },
               function(callback){
                 console.log('3');
-               // console.log("UserName : "+UserName);
+                console.log("UserName : "+UserName);
                 isUserNameExist(UserName,function(response){
                   let obj = response;
                   let isAlreadyUserNameExist = false;
-                  if(obj!=undefined&&obj[0].UserName==UserName){
+                  if(!isNullOrEmpty(obj)&&obj[0].UserName==UserName){
                     isAlreadyUserNameExist=true;
                     console.log(isAlreadyUserNameExist);
                   }else{
