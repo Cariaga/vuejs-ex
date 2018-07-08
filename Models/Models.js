@@ -231,7 +231,7 @@ const BankInformation =sequelize.define('BankInformation', {
   Date:Sequelize.DATE,//Date Added
 });
 
-UserInfo.belongsTo(UserAccount, {
+BankInformation.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
   constraints: true}); 
