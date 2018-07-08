@@ -364,7 +364,6 @@ app.get('/register',function (req, res) {
 
                   console.log('8');
                   AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                   
                     if(response=="Inserted"){
                       console.log("UserInfo Inserted");
                      let Data = {"isUserInfoAdded":true};
