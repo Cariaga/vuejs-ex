@@ -351,20 +351,7 @@ app.get('/register',function (req, res) {
                     console.log('7');
                   },
                   function(callback){
-                    console.log('8');
-                    AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                     
-                      if(response=="Inserted"){
-                        console.log("UserInfo Inserted");
-                       let Data = {"isUserInfoAdded":true};
-                        callback(Data);
-                      }else{
-                        console.log("UserInfo Failed Insert");
-                        let Data = {"isUserInfoAdded":false};
-                        callback(Data);
-                      }
-                    });
-                    console.log('9');
+                  
                   },
                   function(callback){
                     console.log(9.5);
@@ -373,8 +360,26 @@ app.get('/register',function (req, res) {
 
                 ],function(error,callback){
                   var ResultUserAccount = callback[0];
-                  var ResultUserInfo =callback[1];
-                  res.send(beautify(ResultUserInfo, null, 2, 100));
+                //  var ResultUserInfo =callback[1];
+
+                  console.log('8');
+                  AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                   
+                    if(response=="Inserted"){
+                      console.log("UserInfo Inserted");
+                     let Data = {"isUserInfoAdded":true};
+                   
+                    }else{
+                      console.log("UserInfo Failed Insert");
+                      let Data = {"isUserInfoAdded":false};
+                      
+                    }
+                  });
+                  console.log('9');
+
+
+                  res.send('registered');
+                 // res.send(beautify(ResultUserInfo, null, 2, 100));
                   console.log('10');
                 });//Async series add Account End
 
