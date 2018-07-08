@@ -350,7 +350,7 @@ app.get('/register',function (req, res) {
                     console.log('7');
                   },
 
-                ],function(error,callback){
+                ],function(error,callback){//Async series Adding UserInfo
                   var ResultUserAccount = callback[0];
                   console.log('8');
                  // console.log(ResultUserAccount);
@@ -368,7 +368,7 @@ app.get('/register',function (req, res) {
                     });
                     console.log('9');
                   }
-                  
+
                   console.log('10');
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
