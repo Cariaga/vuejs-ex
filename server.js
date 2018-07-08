@@ -489,7 +489,17 @@ app.get('/Login',function (req, res) {
   let UserName= req.query.UserName;
   let VerifyKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(Password)){
+    if(!isNullOrEmpty(VerifyKey)){
+      Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+      let result = Models.UserAccount.findAll({ 
+        where: {
+          UserName:UserName//not null
+          ,
+          Password:Password//not null
+
+       }
+      }).then(function(result) {
+      });
     }
   }
 });
