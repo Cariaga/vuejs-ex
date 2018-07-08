@@ -298,7 +298,7 @@ app.get('/register',function (req, res) {
                   }else{
                     isAlreadyUserNameExist=false;
                   }
-                  console.log('4');
+                  console.log('4'+obj);
                   callback(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
