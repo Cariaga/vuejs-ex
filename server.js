@@ -484,8 +484,8 @@ app.get('/Login',function (req, res) {
 });
 //--Login End
 //--Login Start
-app.get('/Login',function (req, res) {
-  // Usage /Login?UserName=UserName&VerifyKey=VerifyKey
+app.get('/Verify',function (req, res) {
+  // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
   let UserName= req.query.UserName;
   let VerifyKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
@@ -495,10 +495,13 @@ app.get('/Login',function (req, res) {
         where: {
           UserName:UserName//not null
           ,
-          Password:Password//not null
+          VerifyKey:VerifyKey//not null
 
        }
       }).then(function(result) {
+
+      }).catch(function(result){
+        console.log("Verify Error : "+result);
       });
     }
   }
