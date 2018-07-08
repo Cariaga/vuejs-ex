@@ -162,7 +162,7 @@ function isUserAccountBlocked(UserName,callback){
     });
 }
 function isUserNameExist(UserName,callback){
-  Models.UserAccount.sync();
+  Models.UserAccount.sync({alter:true});
     let result = Models.UserAccount.findAll({ 
       where: {
         UserName: UserName//not null
@@ -292,13 +292,16 @@ app.get('/register',function (req, res) {
                 isUserNameExist(UserName,function(response){
                   let obj = response;
                   let isAlreadyUserNameExist = false;
-                  if(!isNullOrEmpty(obj)&&obj[0].UserName==UserName){
-                    isAlreadyUserNameExist=true;
+                  if(!isNullOrEmpty(obj)){
+                    if(obj[0].UserName==UserName){
+                      isAlreadyUserNameExist=true;
                     console.log(isAlreadyUserNameExist);
+                    }
+                    
                   }else{
                     isAlreadyUserNameExist=false;
                   }
-                  console.log('4'+obj);
+                
                   callback(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
