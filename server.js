@@ -365,7 +365,12 @@ app.get('/register',function (req, res) {
                       }
                     });
                     console.log('9');
+                  },
+                  function(callback){
+                    console.log(9.5);
+                    console.log("not set");
                   }
+
                 ],function(error,callback){
                   var ResultUserAccount = callback[0];
                   var ResultUserInfo =callback[1];
