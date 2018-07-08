@@ -442,10 +442,6 @@ app.get('/Login',function (req, res) {
         let VerifyResult = Data.find(function(element) {
           return element.Verify==true;
         });
-
-       /* let VerifyResult = Data.find(function(element) {
-          return element.Verify==true;
-        });*/
         
         if(VerifyResult){
           res.send(beautify(Data, null, 2, 100));
