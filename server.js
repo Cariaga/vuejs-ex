@@ -1804,16 +1804,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   }
 });
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
- 
-    /*
-    if(forced=="true"){
-      Models.UserInfo.sync({force:forced});
-    }
-    if(forced=="false"){
-      Models.UserInfo.sync({force:forced});
-    }else{
-      Models.UserInfo.sync();
-    }*/
+
     Models.UserInfo.sync(/*{force:true}*/);
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
@@ -1824,7 +1815,7 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
     Models.UserInfo.sync();//only use force true if you want to destroy replace table
     item1.save()
     .then(Success => {
-      callback( "Inserted");
+      callback("Inserted");
     })
     .catch(error => {
     
