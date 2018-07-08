@@ -243,7 +243,15 @@ const  LoginHistory =sequelize.define('LoginHistory', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//FK
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: false,//false because 1 can have many logins
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK
   IP:  Sequelize.STRING,
   DeviceName:Sequelize.STRING,
   DeviceRam:Sequelize.STRING,
@@ -251,6 +259,10 @@ const  LoginHistory =sequelize.define('LoginHistory', {
   Time: Sequelize.TIME,
   Date:Sequelize.DATE
 });
+UserInfo.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
 
 const BlackList =sequelize.define('BlackList', {
   BlackListID: {
