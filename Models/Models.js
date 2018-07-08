@@ -259,7 +259,7 @@ const  LoginHistory =sequelize.define('LoginHistory', {
   Time: Sequelize.TIME,
   Date:Sequelize.DATE
 });
-UserInfo.belongsTo(UserAccount, {
+LoginHistory.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
   constraints: true}); 
