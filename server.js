@@ -174,10 +174,8 @@ function isUserNameExist(UserName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      console.log(result);
+     // console.log(result);
       callback(undefined);
-     
-      //callback(result);
     });
 }
 function isUserAccountVerified(UserName,callback){
