@@ -407,10 +407,8 @@ app.get('/Login',function (req, res) {
   // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
   let Password = req.query.Password;
-  
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
-
       Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
     Models.UserInfo.sync(/*{force:true}*/);
 
@@ -448,9 +446,9 @@ app.get('/Login',function (req, res) {
        /* let VerifyResult = Data.find(function(element) {
           return element.Verify==true;
         });*/
-        res.send(beautify(Data, null, 2, 100));
+        
         if(VerifyResult){
-          
+          res.send(beautify(Data, null, 2, 100));
          /* res.send({
             "UserAccountID":VerifyResult.UserAccountID,
             "Status":"Verified",
