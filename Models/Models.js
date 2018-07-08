@@ -186,6 +186,7 @@ const DepositHistory =sequelize.define('DepositHistory', {
 });
 
 
+
 const WithdrawHistory =sequelize.define('WithdrawHistory', {
   WithdrawHistoryID: {
     type: Sequelize.INTEGER,
@@ -213,7 +214,15 @@ const BankInformation =sequelize.define('BankInformation', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//FK One BankInformationID Many UserAccountID
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK One BankInformationID Many UserAccountID
   BankName:  Sequelize.STRING,
   SecurityCode: Sequelize.STRING,
   Valid: Sequelize.STRING,
@@ -222,6 +231,10 @@ const BankInformation =sequelize.define('BankInformation', {
   Date:Sequelize.DATE,//Date Added
 });
 
+UserInfo.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
 
 
 const  LoginHistory =sequelize.define('LoginHistory', {

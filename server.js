@@ -368,7 +368,6 @@ app.get('/register',function (req, res) {
                     });
                     console.log('9');
                   }
-
                   console.log('10');
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
