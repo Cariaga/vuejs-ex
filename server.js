@@ -292,7 +292,7 @@ app.get('/register',function (req, res) {
                 isUserNameExist(UserName,function(response){
                   let obj = response;
                   let isAlreadyUserNameExist = false;
-                  if(!isNullOrEmpty(obj)){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined){
                     if(obj[0].UserName==UserName){
                       isAlreadyUserNameExist=true;
                     console.log(isAlreadyUserNameExist);
