@@ -27,7 +27,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
   <script>
       window.addEventListener("load", function(event) {
-  
     function chunkArrayInGroups(ar, num) {
         return ar.reduce(function(r, v, i) {
           if (i % num == 0) r.push(ar.slice(i, i + num));
@@ -185,9 +184,7 @@
     <script src="https://cdn.rawgit.com/SheetJS/js-xlsx/v0.8.0/dist/ods.js"></script>
 
 <div id="drop">Drop a spreadsheet file here to see sheet data</div>
-<input type="file" name="xlfile" id="xlf" /> ... or click here to select a file
-<b>Advanced Demo Options:</b>
-Use readAsBinaryString: (when available) <input type="checkbox" name="userabs" checked>
+<input type="file" name="xlfile" id="xlf" />
 </pre>
 <div id="htmlout"></div>
 <br />
@@ -221,10 +218,10 @@ var process_wb = (function() {
 })();
 var do_file = (function() {
 	var rABS = typeof FileReader !== "undefined" && (FileReader.prototype||{}).readAsBinaryString;
-	var domrabs = document.getElementsByName("userabs")[0];
+
 	if(!rABS) domrabs.disabled = !(domrabs.checked = false);
 	return function do_file(files) {
-		rABS = domrabs.checked;
+		rABS = true;//binary or array
 		var f = files[0];
 		var reader = new FileReader();
 		reader.onload = function(e) {
