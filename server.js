@@ -511,18 +511,28 @@ app.get('/Verify',function (req, res) {
   let ValidKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(ValidKey)){
-      Verify(UserName,ValidKey,function(response){
-        if(response.Verified==false){
-          VerifyAccount(UserName,ValidKey,function(response2){
 
-            let Data = {isAlreadyRegistered :false,ResponseCode:1};
-            res.send(beautify(Data, null, 2, 100));
+
+      isUserNameExist(UserName,function(response3){
+        if(response3!=undefined){
+          Verify(UserName,ValidKey,function(response){
+            if(response.Verified==false){
+              VerifyAccount(UserName,ValidKey,function(response2){
+    
+                let Data = {isAlreadyRegistered :false,isUserNameExist:true,ResponseCode:1};
+                res.send(beautify(Data, null, 2, 100));
+              });
+            }else{
+              let Data = {isAlreadyRegistered :true,isUserNameExist:true,ResponseCode:2};
+                res.send(beautify(Data, null, 2, 100));
+            }
           });
         }else{
-          let Data = {isAlreadyRegistered :true,ResponseCode:2};
-            res.send(beautify(Data, null, 2, 100));
+          let Data = {isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:3};
+          res.send(beautify(Data, null, 2, 100));
         }
       });
+      
     }
   }
 });
