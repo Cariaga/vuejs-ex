@@ -525,7 +525,7 @@ function Verify(UserName,ValidKey,callback){
        ], function (err, result) {//final function
            // result now equals 'done'
            console.log('5');
-           callback(result);
+           callback(null,result);
        });
         function myFirstFunction(callback2) {
           console.log('1');
@@ -538,7 +538,7 @@ function Verify(UserName,ValidKey,callback){
            }
           }).then(function(result) {
             let Data = result.map(function(item) {return item;});
-            callback2(Data);
+            callback2(null,Data);
           }).catch(function(result){
             console.log("Verify Error : "+result);
             callback2(null,result);
