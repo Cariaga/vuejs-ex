@@ -512,7 +512,7 @@ app.get('/Verify',function (req, res) {
     if(!isNullOrEmpty(ValidKey)){
       Verify(UserName,ValidKey,function(response){
         
-        res.send(beautify(response, null, 2, 100));
+        //res.send(beautify(response, null, 2, 100));
       });
     }
   }
@@ -524,6 +524,7 @@ function Verify(UserName,ValidKey,callback){
           mySecondFunction,
        ], function (err, result) {//final function
            // result now equals 'done'
+            res.send(err);
            callback('done');
            
        });
@@ -540,7 +541,7 @@ function Verify(UserName,ValidKey,callback){
             callback(Data);
           }).catch(function(result){
             console.log("Verify Error : "+result);
-            callback(null,result);
+            callback(result,null);
           });
         }
        function mySecondFunction(arg1,callback) {
