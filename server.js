@@ -542,10 +542,11 @@ function Verify(UserName,ValidKey,callback){
             console.log("Verify Error : "+result);
             callback(null,result);
           });
+          console.log('2');
         }
        function mySecondFunction(arg1,callback) {
       //  console.log(arg1);
-        console.log('2');
+        console.log('3');
         if(arg1.length==1){
           let result = {Verified:true};
           callback(null,result);
@@ -553,7 +554,7 @@ function Verify(UserName,ValidKey,callback){
           let result = {Verified:false};
           callback(null,result);
         }
-      
+        console.log('4');
         }
 
       
