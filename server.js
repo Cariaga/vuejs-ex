@@ -515,7 +515,7 @@ app.get('/Verify',function (req, res) {
 
       isUserNameExist(UserName,function(response3){
         console.log("Verify response : "+response3);
-        let obj = response;
+        let obj = response3;
         if(!isNullOrEmpty(obj)&&obj!=undefined){
           if(obj[0].UserName==UserName){
         
