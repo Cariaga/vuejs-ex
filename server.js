@@ -506,24 +506,23 @@ app.get('/Login',function (req, res) {
 app.get('/Verify',function (req, res) {
   // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
   let UserName= req.query.UserName;
-  let VerifyKey= req.query.VerifyKey;
+  let ValidKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(VerifyKey)){
-      Verification(UserName,VerifyKey,function(response){
+    if(!isNullOrEmpty(ValidKey)){
+      Verification(UserName,ValidKey,function(response){
         res.send(result);
       });
     }
   }
 });
 
-function Verification(UserName,VerifyKey,callback){
+function Verification(UserName,ValidKey,callback){
   Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
       let result = Models.UserAccount.findAll({ 
         where: {
           UserName:UserName//not null
           ,
-          VerifyKey:VerifyKey//not null
-
+          ValidKey:ValidKey//not null
        }
       }).then(function(result) {
         let Data = result.map(function(item) {
