@@ -545,11 +545,11 @@ function Verify(UserName,ValidKey,callback){
        function mySecondFunction(arg1,callback) {
         console.log(arg1);
         if(arg1.length==1){
-          let response = {Verified:true};
-          callback(null,response);
+          let result = {Verified:true};
+          callback(null,result);
         }else{
-          let response = {Verified:false};
-          callback(null,response);
+          let result = {Verified:false};
+          callback(null,result);
         }
       
         }
