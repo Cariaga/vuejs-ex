@@ -514,7 +514,8 @@ app.get('/Verify',function (req, res) {
 
 
       isUserNameExist(UserName,function(response3){
-        if(response3!=undefined){
+        console.log(response3);
+        if(!isNullOrEmpty(response3)&&response3!=undefined){
           Verify(UserName,ValidKey,function(response){
             if(response.Verified==false){
               VerifyAccount(UserName,ValidKey,function(response2){
@@ -527,7 +528,8 @@ app.get('/Verify',function (req, res) {
                 res.send(beautify(Data, null, 2, 100));
             }
           });
-        }else{
+        }
+        else{
           let Data = {isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:3};
           res.send(beautify(Data, null, 2, 100));
         }
