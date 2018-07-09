@@ -2106,7 +2106,7 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
   
-  Models.UserInfo.sync({force:true})
+  Models.UserInfo.sync({auto:true})
   .then(function(result) {
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
     .then(function(result) {
@@ -2114,7 +2114,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
       console.log("UserInfo > UserInfo RemoveConstraint Error");
     })
   }).catch(function(result) {//catching any then errors
-    console.log("UserInfo Error : "+result);
+    console.log("UserInfo Error : "+result);//SequelizeDatabaseError: Cannot add foreign key constraint
   });
 
  Models.UserAccount.sync({force:true});
@@ -2140,7 +2140,6 @@ app.get('/Api/v1/UserAccount', function (req, res) {
       });
       res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-
       res.send("Error "+result);
     });
   }
