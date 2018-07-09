@@ -514,20 +514,24 @@ app.get('/Verify',function (req, res) {
 
 
       isUserNameExist(UserName,function(response3){
-        console.log(response3);
-        if(!isNullOrEmpty(response3)&&response3!=undefined){
-          Verify(UserName,ValidKey,function(response){
-            if(response.Verified==false){
-              VerifyAccount(UserName,ValidKey,function(response2){
-    
-                let Data = {isAlreadyRegistered :false,isUserNameExist:true,ResponseCode:1};
-                res.send(beautify(Data, null, 2, 100));
-              });
-            }else{
-              let Data = {isAlreadyRegistered :true,isUserNameExist:true,ResponseCode:2};
-                res.send(beautify(Data, null, 2, 100));
-            }
-          });
+        console.log("Verify response : "+response3);
+        let obj = response;
+        if(!isNullOrEmpty(obj)&&obj!=undefined){
+          if(obj[0].UserName==UserName){
+        
+            Verify(UserName,ValidKey,function(response){
+              if(response.Verified==false){
+                VerifyAccount(UserName,ValidKey,function(response2){
+      
+                  let Data = {isAlreadyRegistered :false,isUserNameExist:true,ResponseCode:1};
+                  res.send(beautify(Data, null, 2, 100));
+                });
+              }else{
+                let Data = {isAlreadyRegistered :true,isUserNameExist:true,ResponseCode:2};
+                  res.send(beautify(Data, null, 2, 100));
+              }
+            });
+          }
         }
         else{
           let Data = {isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:3};
