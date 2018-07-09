@@ -106,7 +106,7 @@ function SendMail(To,From,Subject,html){
     from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
     to: 'cariaga.info@gmail.com',
     subject: Subject,
-    html: 'Mail of test sendmail ',
+    html: html,
   }, function(err, reply) {
     console.log(err && err.stack);
     console.dir(reply);
@@ -416,7 +416,7 @@ app.get('/register',function (req, res) {
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
-  SendMail('cariaga.info@gmail.com','','somthing to verify','body');
+  SendMail('cariaga.info@gmail.com','','Email Verify','hello');
 
   // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
