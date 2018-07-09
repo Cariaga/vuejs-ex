@@ -7,6 +7,10 @@
         <el-form-item label="Numbers">
             <el-input type="textarea" v-model="form.Numbers" v-on:change="validate"></el-input>
           <span class="limiter">{{TotalNumbers}}</span>
+          <input type="file" name="xlfile" id="xlf" />
+          </pre>
+          <div id="htmlout"></div>
+
         </el-form-item>
         <el-form-item label="Message">
           <el-input type="textarea" v-model="form.Message"  v-on:change="validate"></el-input>
@@ -234,11 +238,7 @@ var do_file = (function() {
 
 
 
-<div id="drop">Drop a spreadsheet file here to see sheet data</div>
-<input type="file" name="xlfile" id="xlf" />
-</pre>
-<div id="htmlout"></div>
-<br />
+
   
 <script>
 
