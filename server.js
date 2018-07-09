@@ -19,18 +19,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
-const sendmail = require('sendmail')({
-  logger: {
-    debug: console.log,
-    info: console.info,
-    warn: console.warn,
-    error: console.error
-  },
-  devPort: 1025, // Default: False
-  devHost: 'localhost', // Default: localhost
-  smtpPort: 2525, // Default: 25
-  smtpHost: 'localhost' // Default: -1 - extra smtp host after resolveMX
-});
+const sendmail = require('sendmail')();
 
 require("./routes/test")(app);
 var Models = require("./Models/Models");
