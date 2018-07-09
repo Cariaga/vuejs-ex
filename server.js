@@ -505,12 +505,14 @@ app.get('/Login',function (req, res) {
 //--Login Start
 app.get('/Verify',function (req, res) {
   // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
+  res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
   let ValidKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(ValidKey)){
       Verification(UserName,ValidKey,function(response){
-        res.send(result);
+        
+        res.send(beautify(response, null, 2, 100));
       });
     }
   }
@@ -525,9 +527,7 @@ function Verification(UserName,ValidKey,callback){
           ValidKey:ValidKey//not null
        }
       }).then(function(result) {
-        let Data = result.map(function(item) {
-          return item;
-        });
+        let Data = result.map(function(item) {return item;});
         callback(Data);
       }).catch(function(result){
         console.log("Verify Error : "+result);
