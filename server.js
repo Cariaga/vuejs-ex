@@ -19,6 +19,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
+const sendmail = require('sendmail')();
 require("./routes/test")(app);
 var Models = require("./Models/Models");
 // configuration =================
@@ -99,7 +100,17 @@ app.get('/SMS/:recipient/:message', function (req, res){
   //console.log(req.params.recipient);
   res.end();
 });
-
+function SendMail(To,From,Subject,html){
+  sendmail({
+    from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
+    to: 'cariaga.info@gmail.com',
+    subject: Subject,
+    html: 'Mail of test sendmail ',
+  }, function(err, reply) {
+    console.log(err && err.stack);
+    console.dir(reply);
+});
+}
 //--Validation Start
 function isEmailExist(Email,callback){
   Models.UserInfo.sync();
@@ -404,6 +415,8 @@ app.get('/register',function (req, res) {
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
+  SendMail('cariaga.info@gmail.com','','somthing to verify','body');
+  
   // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
   let Password = req.query.Password;
