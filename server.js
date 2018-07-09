@@ -245,7 +245,6 @@ function getCurrentTime(callback){
 }
 
 //--Validation End
-
 //--Login Start
 app.get('/register',function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -335,7 +334,7 @@ app.get('/register',function (req, res) {
                 });
                 let UUIDKey =uuidv4();
                 let UUIDUserAccountID =uuidv4();
-
+                
                 /*
                 console.log(UUIDKey);
                 console.log(CurrentDate);
@@ -345,6 +344,7 @@ app.get('/register',function (req, res) {
                   function(callback){
                     console.log('6');
                     AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+
                       let isRegistered =false;
                       if(response=="Inserted"){
                         isRegistered=true;
@@ -360,13 +360,17 @@ app.get('/register',function (req, res) {
                       }
                     });
                     console.log('7');
+                    let To = 'cariaga.info@gmail.com';
+                    let From = '';
+                    let Title = 'Email Verification';
+                    SendMail(To,From,Title,UUIDKey);
                   },
 
                 ],function(error,callback){//Async series Adding UserInfo
                   var ResultUserAccount = callback[0];
                   console.log('8');
                  // console.log(ResultUserAccount);
-                  if(ResultUserAccount.isRegistered==true){
+                  if(ResultUserAccount.isRyegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
@@ -413,10 +417,11 @@ app.get('/register',function (req, res) {
   }
 });
 
+
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
-  SendMail('cariaga.info@gmail.com','','Email Verify','hello');
+
 
   // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
@@ -504,7 +509,15 @@ app.get('/Verify',function (req, res) {
   let VerifyKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(VerifyKey)){
-      Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+      Verification(UserName,VerifyKey,function(response){
+        res.send(result);
+      });
+    }
+  }
+});
+
+function Verification(UserName,VerifyKey,callback){
+  Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
       let result = Models.UserAccount.findAll({ 
         where: {
           UserName:UserName//not null
@@ -513,13 +526,13 @@ app.get('/Verify',function (req, res) {
 
        }
       }).then(function(result) {
-
+        callback(result);
       }).catch(function(result){
         console.log("Verify Error : "+result);
+        callback(result);
       });
-    }
-  }
-});
+}
+
 //--Login End
 
 //--API START
@@ -545,6 +558,7 @@ app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
     res.send('no params sent');
   }
 });
+
 //---API SignOut End
 //---API Login Start
 app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
