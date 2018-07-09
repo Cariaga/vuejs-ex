@@ -140,7 +140,7 @@
   });
   </script>
   
-  <div id="drop_zone">Drop Here</div>
+  <div id="drop_zone">.</div>
   <output id="list"></output>
   
   <script>
@@ -173,46 +173,104 @@
   dropZone.addEventListener('drop', handleFileSelect, false);
   </script>
 
-  <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
-    <input type="file" id="my_file_input" />
-    <div id='my_file_output'></div>
-    <script>
-      var oFileIn;
-$(function() {
-    oFileIn = document.getElementById('my_file_input');
-    if(oFileIn.addEventListener) {
-        oFileIn.addEventListener('change', filePicked, false);
-    }
-});
-function filePicked(oEvent) {
-    // Get The File From The Input
-    var oFile = oEvent.target.files[0];
-    var sFilename = oFile.name;
-    // Create A File Reader HTML5
-    var reader = new FileReader();
-    
-    // Ready The Event For When A File Gets Selected
-    reader.onload = function(e) {
-        var data = e.target.result;
-        var cfb = XLS.CFB.read(data, {type: 'binary'});
-        var wb = XLS.parse_xlscfb(cfb);
-        // Loop Over Each Sheet
-        wb.SheetNames.forEach(function(sheetName) {
-            // Obtain The Current Row As CSV
-            var sCSV = XLS.utils.make_csv(wb.Sheets[sheetName]);   
-            var oJS = XLS.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);   
+  <head>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/canvas-datagrid/dist/canvas-datagrid.js"></script>
+    <script src="https://cdn.rawgit.com/SheetJS/js-xlsx/v0.8.0/dist/ods.js"></script>
 
-            $("#my_file_output").html(sCSV);
-            console.log(oJS)
-        });
-    };
-    
-    // Tell JS To Start Reading The File.. You could delay this if desired
-    reader.readAsBinaryString(oFile);
-}
+<div id="drop">Drop a spreadsheet file here to see sheet data</div>
+<input type="file" name="xlfile" id="xlf" /> ... or click here to select a file
+<b>Advanced Demo Options:</b>
+Use readAsBinaryString: (when available) <input type="checkbox" name="userabs" checked>
+</pre>
+<div id="htmlout"></div>
+<br />
+   <script src="https://cdn.rawgit.com/SheetJS/js-xlsx/v0.8.0/dist/xlsx.full.min.js"></script>
+<script>
+/*jshint browser:true */
+/* eslint-env browser */
+/* eslint no-use-before-define:0 */
+/*global Uint8Array, Uint16Array, ArrayBuffer */
+/*global XLSX */
+var X = XLSX;
+var cDg;
+var process_wb = (function() {
+	var HTMLOUT = document.getElementById('htmlout');
+	return function process_wb(wb) {
+		/* get data */
+		var ws = wb.Sheets[wb.SheetNames[0]];
+		var data = XLSX.utils.sheet_to_json(ws, {header:1});
+		/* update canvas-datagrid */
+		if(!cDg) cDg = canvasDatagrid({ parentNode:HTMLOUT, data:data });
+		cDg.style.height = '100%';
+		cDg.style.width = '100%';
+		cDg.data = data;
+		/* create schema (for A,B,C column headings) */
+		var range = XLSX.utils.decode_range(ws['!ref']);
+		for(var i = range.s.c; i <= range.e.c; ++i) cDg.schema[i - range.s.c].title = XLSX.utils.encode_col(i);
+		HTMLOUT.style.height = (window.innerHeight - 400) + "px";
+		HTMLOUT.style.width = (window.innerWidth - 50) + "px";
+		if(typeof console !== 'undefined') console.log("output", new Date());
+	};
+})();
+var do_file = (function() {
+	var rABS = typeof FileReader !== "undefined" && (FileReader.prototype||{}).readAsBinaryString;
+	var domrabs = document.getElementsByName("userabs")[0];
+	if(!rABS) domrabs.disabled = !(domrabs.checked = false);
+	return function do_file(files) {
+		rABS = domrabs.checked;
+		var f = files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			if(typeof console !== 'undefined') console.log("onload", new Date(), rABS);
+			var data = e.target.result;
+			if(!rABS) data = new Uint8Array(data);
+			process_wb(X.read(data, {type: rABS ? 'binary' : 'array'}));
+		};
+		if(rABS) reader.readAsBinaryString(f);
+		else reader.readAsArrayBuffer(f);
+	};
+})();
+(function() {
+	var drop = document.getElementById('drop');
+	if(!drop.addEventListener) return;
+	function handleDrop(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		do_file(e.dataTransfer.files);
+	}
+	function handleDragover(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		e.dataTransfer.dropEffect = 'copy';
+	}
+	drop.addEventListener('dragenter', handleDragover, false);
+	drop.addEventListener('dragover', handleDragover, false);
+	drop.addEventListener('drop', handleDrop, false);
+})();
+(function() {
+	var xlf = document.getElementById('xlf');
+	if(!xlf.addEventListener) return;
+	function handleFile(e) { do_file(e.target.files); }
+	xlf.addEventListener('change', handleFile, false);
+})();
 
-    </script>
-  </body>
+	
+</script>
+<script type="text/javascript">
+/* eslint no-use-before-define:0 */
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-36810333-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
