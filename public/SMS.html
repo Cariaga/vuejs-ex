@@ -117,10 +117,10 @@
           var array2=[];
 
           array1.forEach(function(element) {
-            array2.push(element.replace("-", ""));
+            array2.push(element.toString().replace("-", ""));
               console.log(array2);
           });
-          
+
          vm.form.Numbers=array2;
 
         },
