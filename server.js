@@ -511,9 +511,9 @@ app.get('/Verify',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(ValidKey)){
       Verify(UserName,ValidKey,function(response){
-        
-        res.send(beautify(response, null, 2, 100));
-
+        VerifyAccount(UserName,ValidKey,function(response2){
+          res.send(beautify(response2, null, 2, 100));
+        });
       });
     }
   }
