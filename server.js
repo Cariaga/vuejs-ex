@@ -526,7 +526,7 @@ function Verify(UserName,ValidKey,callback){
            // result now equals 'done'
            callback(result);
        });
-        function myFirstFunction(callback) {
+        function myFirstFunction(callback2) {
           console.log('1');
           Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
           let result = Models.UserAccount.findAll({ 
@@ -537,22 +537,22 @@ function Verify(UserName,ValidKey,callback){
            }
           }).then(function(result) {
             let Data = result.map(function(item) {return item;});
-            callback(Data);
+            callback2(Data);
           }).catch(function(result){
             console.log("Verify Error : "+result);
-            callback(null,result);
+            callback2(null,result);
           });
           console.log('2');
         }
-       function mySecondFunction(arg1,callback) {
+       function mySecondFunction(arg1,callback3) {
       //  console.log(arg1);
         console.log('3');
         if(arg1.length==1){
           let result = {Verified:true};
-          callback(null,result);
+          callback3(null,result);
         }else{
           let result = {Verified:false};
-          callback(null,result);
+          callback3(null,result);
         }
         console.log('4');
         }
