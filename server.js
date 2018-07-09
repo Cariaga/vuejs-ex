@@ -19,6 +19,8 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
+const sendmail = require('sendmail')();
+
 require("./routes/test")(app);
 var Models = require("./Models/Models");
 // configuration =================
@@ -99,7 +101,17 @@ app.get('/SMS/:recipient/:message', function (req, res){
   //console.log(req.params.recipient);
   res.end();
 });
-
+function SendMail(To,From,Subject,html){
+  sendmail({
+    from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
+    to: 'cariaga.info@gmail.com',
+    subject: Subject,
+    html: html,
+  }, function(err, reply) {
+    console.log(err && err.stack);
+    console.dir(reply);
+});
+}
 //--Validation Start
 function isEmailExist(Email,callback){
   Models.UserInfo.sync();
@@ -162,7 +174,7 @@ function isUserAccountBlocked(UserName,callback){
     });
 }
 function isUserNameExist(UserName,callback){
-  Models.UserAccount.sync();
+  Models.UserAccount.sync({alter:true});
     let result = Models.UserAccount.findAll({ 
       where: {
         UserName: UserName//not null
@@ -174,10 +186,8 @@ function isUserNameExist(UserName,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      console.log(result);
+     // console.log(result);
       callback(undefined);
-     
-      //callback(result);
     });
 }
 function isUserAccountVerified(UserName,callback){
@@ -273,8 +283,7 @@ app.get('/register',function (req, res) {
                 isEmailExist(Email,function(response){
                   let obj = response;
                   let isAlreadyEmailExist=false;
-
-                  if(obj!=undefined&&obj[0].Email==Email){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
                     isAlreadyEmailExist=true;
                     
                   }else{
@@ -289,13 +298,16 @@ app.get('/register',function (req, res) {
               },
               function(callback){
                 console.log('3');
-               // console.log("UserName : "+UserName);
+                console.log("UserName : "+UserName);
                 isUserNameExist(UserName,function(response){
                   let obj = response;
                   let isAlreadyUserNameExist = false;
-                  if(obj!=undefined&&obj[0].UserName==UserName){
-                    isAlreadyUserNameExist=true;
+                  if(!isNullOrEmpty(obj)&&obj!=undefined){
+                    if(obj[0].UserName==UserName){
+                      isAlreadyUserNameExist=true;
                     console.log(isAlreadyUserNameExist);
+                    }
+                    
                   }else{
                     isAlreadyUserNameExist=false;
                   }
@@ -329,7 +341,6 @@ app.get('/register',function (req, res) {
                 console.log(CurrentDate);
                 console.log(CurrentTime);*/
 
-
                 async.series([//Async series add Account Start
                   function(callback){
                     console.log('6');
@@ -350,27 +361,29 @@ app.get('/register',function (req, res) {
                     });
                     console.log('7');
                   },
-                  function(callback){
-                    console.log('8');
+
+                ],function(error,callback){//Async series Adding UserInfo
+                  var ResultUserAccount = callback[0];
+                  console.log('8');
+                 // console.log(ResultUserAccount);
+                  if(ResultUserAccount.isRegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                     
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
                        let Data = {"isUserInfoAdded":true};
-                        callback(Data);
+                     
                       }else{
                         console.log("UserInfo Failed Insert");
                         let Data = {"isUserInfoAdded":false};
-                        callback(Data);
+                        
                       }
                     });
                     console.log('9');
                   }
-                ],function(error,callback){
-                  var ResultUserAccount = callback[0];
-                  var ResultUserInfo =callback[1];
-                  res.send(beautify(ResultUserInfo, null, 2, 100));
                   console.log('10');
+                  res.send('registered');
+                 // res.send(beautify(ResultUserInfo, null, 2, 100));
+               
                 });//Async series add Account End
 
   
@@ -403,13 +416,13 @@ app.get('/register',function (req, res) {
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
+  SendMail('cariaga.info@gmail.com','','Email Verify','hello');
+
   // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
   let Password = req.query.Password;
-  
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
-
       Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
     Models.UserInfo.sync(/*{force:true}*/);
 
@@ -443,13 +456,9 @@ app.get('/Login',function (req, res) {
         let VerifyResult = Data.find(function(element) {
           return element.Verify==true;
         });
-
-       /* let VerifyResult = Data.find(function(element) {
-          return element.Verify==true;
-        });*/
-        res.send(beautify(Data, null, 2, 100));
+        
         if(VerifyResult){
-
+          res.send(beautify(Data, null, 2, 100));
          /* res.send({
             "UserAccountID":VerifyResult.UserAccountID,
             "Status":"Verified",
@@ -488,7 +497,30 @@ app.get('/Login',function (req, res) {
   }
 });
 //--Login End
+//--Login Start
+app.get('/Verify',function (req, res) {
+  // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
+  let UserName= req.query.UserName;
+  let VerifyKey= req.query.VerifyKey;
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(VerifyKey)){
+      Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+      let result = Models.UserAccount.findAll({ 
+        where: {
+          UserName:UserName//not null
+          ,
+          VerifyKey:VerifyKey//not null
 
+       }
+      }).then(function(result) {
+
+      }).catch(function(result){
+        console.log("Verify Error : "+result);
+      });
+    }
+  }
+});
+//--Login End
 
 //--API START
 app.get('/Api/', function (req, res) {
@@ -982,28 +1014,34 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   !isNullOrEmpty(DeviceCpu)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
-    var item1 = Models.LoginHistory.build({
-      UserAccountID:UserAccountID,
-      IP:IP,
-      DeviceName:DeviceName,
-      DeviceRam:DeviceRam,
-      DeviceCpu:DeviceCpu,
-      Time:Time,
-      Date:Date
-    });
-    Models.LoginHistory.sync({alter : true,/*force:true*/});//force recreates deletes old table
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-    
-      console.log("error inserting");
-      res.send("error inserting " +error);
+    AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+      res.send(response);
     });
   }
 });
+function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
+  var item1 = Models.LoginHistory.build({
+    UserAccountID:UserAccountID,
+    IP:IP,
+    DeviceName:DeviceName,
+    DeviceRam:DeviceRam,
+    DeviceCpu:DeviceCpu,
+    Time:Time,
+    Date:Date
+  });
+  Models.LoginHistory.sync({alter : true,/*force:true*/});//force recreates deletes old table
+  item1.save()
+  .then(Success => {
+    callback("Inserted");
+  })
+  
+  .catch(error => {
+  
+    console.log("error inserting");
+    callback("error inserting " +error);
+  });
+}
+
 app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
   let LoginHistoryID = req.params.LoginHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -1804,16 +1842,7 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   }
 });
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
- 
-    /*
-    if(forced=="true"){
-      Models.UserInfo.sync({force:forced});
-    }
-    if(forced=="false"){
-      Models.UserInfo.sync({force:forced});
-    }else{
-      Models.UserInfo.sync();
-    }*/
+
     Models.UserInfo.sync(/*{force:true}*/);
     var item1 = Models.UserInfo.build({
       UserAccountID:UserAccountID,
@@ -1824,7 +1853,7 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
     Models.UserInfo.sync();//only use force true if you want to destroy replace table
     item1.save()
     .then(Success => {
-      callback( "Inserted");
+      callback("Inserted");
     })
     .catch(error => {
     
@@ -2106,7 +2135,7 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
   
-  Models.UserInfo.sync({force:true})
+  Models.UserInfo.sync({auto:true})
   .then(function(result) {
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID")
     .then(function(result) {
@@ -2114,7 +2143,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
       console.log("UserInfo > UserInfo RemoveConstraint Error");
     })
   }).catch(function(result) {//catching any then errors
-    console.log("UserInfo Error : "+result);
+    console.log("UserInfo Error : "+result);//SequelizeDatabaseError: Cannot add foreign key constraint
   });
 
  Models.UserAccount.sync({force:true});
@@ -2140,7 +2169,6 @@ app.get('/Api/v1/UserAccount', function (req, res) {
       });
       res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-
       res.send("Error "+result);
     });
   }
