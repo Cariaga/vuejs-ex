@@ -526,7 +526,10 @@ function Verification(UserName,VerifyKey,callback){
 
        }
       }).then(function(result) {
-        callback(result);
+        let Data = result.map(function(item) {
+          return item;
+        });
+        callback(Data);
       }).catch(function(result){
         console.log("Verify Error : "+result);
         callback(result);
