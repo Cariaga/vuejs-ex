@@ -521,8 +521,6 @@ app.get('/Verify',function (req, res) {
           let Data = {isAlreadyRegistered :true,ResponseCode:2};
             res.send(beautify(Data, null, 2, 100));
         }
-       
-
       });
     }
   }
