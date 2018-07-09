@@ -510,7 +510,7 @@ app.get('/Verify',function (req, res) {
   let ValidKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(ValidKey)){
-      Verification(UserName,ValidKey,function(response){
+      Verify(UserName,ValidKey,function(response){
         
         res.send(beautify(response, null, 2, 100));
       });
@@ -518,21 +518,35 @@ app.get('/Verify',function (req, res) {
   }
 });
 
-function Verification(UserName,ValidKey,callback){
-  Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-      let result = Models.UserAccount.findAll({ 
-        where: {
-          UserName:UserName//not null
-          ,
-          ValidKey:ValidKey//not null
-       }
-      }).then(function(result) {
-        let Data = result.map(function(item) {return item;});
-        callback(Data);
-      }).catch(function(result){
-        console.log("Verify Error : "+result);
-        callback(result);
-      });
+function Verify(UserName,ValidKey,callback){
+  async.waterfall([
+          myFirstFunction,
+          mySecondFunction,
+       ], function (err, result) {
+           // result now equals 'done'
+           
+       });
+        function myFirstFunction(callback) {
+          Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+          let result = Models.UserAccount.findAll({ 
+            where: {
+              UserName:UserName//not null
+              ,
+              ValidKey:ValidKey//not null
+           }
+          }).then(function(result) {
+            let Data = result.map(function(item) {return item;});
+            callback(Data);
+          }).catch(function(result){
+            console.log("Verify Error : "+result);
+            callback(null,result);
+          });
+        }
+       function mySecondFunction(arg1,callback) {
+        console.log(arg1)
+        callback(null,'done');
+        }
+
 }
 
 //--Login End
