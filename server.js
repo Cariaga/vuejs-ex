@@ -527,6 +527,7 @@ function Verify(UserName,ValidKey,callback){
            callback(result);
        });
         function myFirstFunction(callback) {
+          console.log('1');
           Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
           let result = Models.UserAccount.findAll({ 
             where: {
@@ -543,7 +544,8 @@ function Verify(UserName,ValidKey,callback){
           });
         }
        function mySecondFunction(arg1,callback) {
-        console.log(arg1);
+      //  console.log(arg1);
+        console.log('2');
         if(arg1.length==1){
           let result = {Verified:true};
           callback(null,result);
