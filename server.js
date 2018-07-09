@@ -522,8 +522,9 @@ function Verify(UserName,ValidKey,callback){
   async.waterfall([
           myFirstFunction,
           mySecondFunction,
-       ], function (err, result) {
+       ], function (err, result) {//final function
            // result now equals 'done'
+           callback('done');
            
        });
         function myFirstFunction(callback) {
@@ -546,6 +547,8 @@ function Verify(UserName,ValidKey,callback){
         console.log(arg1)
         callback(null,'done');
         }
+
+      
 
 }
 
