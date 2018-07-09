@@ -513,6 +513,7 @@ app.get('/Verify',function (req, res) {
       Verify(UserName,ValidKey,function(response){
         
         res.send(beautify(response, null, 2, 100));
+
       });
     }
   }
@@ -561,11 +562,23 @@ function Verify(UserName,ValidKey,callback){
         }
       
         }
-
-      
-
 }
-
+function VerifyAccount(UserName,ValidKey,callback){
+  Models.Notification.update({
+    Verify: true
+  },
+  {
+    where: {ValidKey: ValidKey,UserName:UserName}
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  
+  .catch(error => {
+    console.log("Error Updating");
+    callback("Error Updating " +error);
+  }); 
+}
 //--Login End
 
 //--API START
