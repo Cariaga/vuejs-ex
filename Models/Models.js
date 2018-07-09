@@ -75,7 +75,7 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
     unique: true,
   },//primary key to connect keys
   AccessID: Sequelize.STRING,//FK 1 account can have many access control
-  UserName:  {
+  UserName:{
     type :Sequelize.STRING,
     allowNull: false,
     unique: true
@@ -186,6 +186,7 @@ const DepositHistory =sequelize.define('DepositHistory', {
 });
 
 
+
 const WithdrawHistory =sequelize.define('WithdrawHistory', {
   WithdrawHistoryID: {
     type: Sequelize.INTEGER,
@@ -213,7 +214,15 @@ const BankInformation =sequelize.define('BankInformation', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//FK One BankInformationID Many UserAccountID
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK One BankInformationID Many UserAccountID
   BankName:  Sequelize.STRING,
   SecurityCode: Sequelize.STRING,
   Valid: Sequelize.STRING,
@@ -222,6 +231,10 @@ const BankInformation =sequelize.define('BankInformation', {
   Date:Sequelize.DATE,//Date Added
 });
 
+BankInformation.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
 
 
 const  LoginHistory =sequelize.define('LoginHistory', {
@@ -230,7 +243,15 @@ const  LoginHistory =sequelize.define('LoginHistory', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//FK
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: false,//false because 1 can have many logins
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK
   IP:  Sequelize.STRING,
   DeviceName:Sequelize.STRING,
   DeviceRam:Sequelize.STRING,
@@ -238,6 +259,10 @@ const  LoginHistory =sequelize.define('LoginHistory', {
   Time: Sequelize.TIME,
   Date:Sequelize.DATE
 });
+LoginHistory.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
 
 const BlackList =sequelize.define('BlackList', {
   BlackListID: {
