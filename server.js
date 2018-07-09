@@ -549,8 +549,8 @@ function Verify(UserName,ValidKey,callback){
         }
        function mySecondFunction(arg1,callback3) {
       //  console.log(arg1);
-        console.log('3');
-        if(arg1.length==1){
+        console.log('3'+arg1[0].Verify);
+        if(arg1[0].Verify==true){
           let result3 = {Verified:true};
           console.log('4');
           callback3(null,result3);
