@@ -547,7 +547,7 @@ function Verify(UserName,ValidKey,callback){
         if(arg1.length==1){
           callback(null,'KeyValid');
         }else{
-          callback(null,'done');
+          callback(null,'KeyInvalid');
         }
       
         }
