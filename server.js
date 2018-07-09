@@ -568,7 +568,7 @@ function VerifyAccount(UserName,ValidKey,callback){
     Verify: true
   },
   {
-    where: {ValidKey: ValidKey,UserName:UserName}
+    where: {ValidKey:ValidKey}
   })
   .then(Success => {
     callback("Updated");
