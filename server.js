@@ -512,7 +512,6 @@ app.get('/Verify',function (req, res) {
     if(!isNullOrEmpty(ValidKey)){
       Verify(UserName,ValidKey,function(response){
         VerifyAccount(UserName,ValidKey,function(response2){
-        
           res.send(beautify(response2, null, 2, 100));
         });
       });
@@ -565,11 +564,11 @@ function Verify(UserName,ValidKey,callback){
         }
 }
 function VerifyAccount(UserName,ValidKey,callback){
-  Models.Notification.update({
+  Models.UserAccount.update({
     Verify: true
   },
   {
-    where: {UserName:UserName}
+    where: {UserName:UserName,ValidKey:ValidKey}
   })
   .then(Success => {
     callback("Updated");
