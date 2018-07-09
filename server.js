@@ -363,7 +363,8 @@ app.get('/register',function (req, res) {
                     let To = 'cariaga.info@gmail.com';
                     let From = '';
                     let Title = 'Email Verification';
-                    SendMail(To,From,Title,UUIDKey);
+                    let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                    SendMail(To,From,Title,VerificationURL);
                   },
 
                 ],function(error,callback){//Async series Adding UserInfo
