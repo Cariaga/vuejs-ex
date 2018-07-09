@@ -113,7 +113,13 @@
       methods: {
         //([a-z]*[A-Z]*[^\d])\W+ // check for non digits
         SetNumbers(data){
-         vm.form.Numbers=data;
+          var array1= data;
+          var array2=[];
+          array1.forEach(function(element) {
+            array2.push(element.replace("-", ""));
+              console.log(array2);
+          });
+         vm.form.Numbers=array2;
         },
         validate(){
           vm.progres=100;
