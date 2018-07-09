@@ -7,6 +7,10 @@
         <el-form-item label="Numbers">
             <el-input type="textarea" v-model="form.Numbers" v-on:change="validate"></el-input>
           <span class="limiter">{{TotalNumbers}}</span>
+          <el-input type="file" name="xlfile" id="xlf" ></el-input>
+          </pre>
+          <div id="htmlout"></div>
+
         </el-form-item>
         <el-form-item label="Message">
           <el-input type="textarea" v-model="form.Message"  v-on:change="validate"></el-input>
@@ -40,6 +44,33 @@
 
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+ <script src="https://cdn.rawgit.com/SheetJS/js-xlsx/v0.8.0/dist/xlsx.full.min.js"></script>
+
+  <script>
+  function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+  
+    var files = evt.dataTransfer.files; // FileList object.
+  
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                  '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  }
+  
+  function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  }
+  </script>
+
   <script>
       window.addEventListener("load", function(event) {
     function chunkArrayInGroups(ar, num) {
@@ -64,7 +95,7 @@
         progres:0,
         isDisabled:false,
         form: {
-          Numbers: [],
+          Numbers:'',
           Message: ''
         },
         
@@ -76,16 +107,27 @@
           return limit-char.length + " Characters left";
         },
       TotalNumbers() {
-          if(this.form.Numbers.length>0){
+          /*if(this.form.Numbers.length>0){
              return this.form.Numbers.split(",").length +" Total Contacts";
              }else{
                 return 0 +" Total Contacts";
-             }
+             }*/
         }
       },
       methods: {
         //([a-z]*[A-Z]*[^\d])\W+ // check for non digits
-      
+        SetNumbers(data){
+          var array1= data;
+          var array2=[];
+
+          array1.forEach(function(element) {
+            array2.push(element.toString().replace(/-/g, ""));
+             // console.log(array2);
+          });
+
+         vm.form.Numbers=array2;
+
+        },
         validate(){
           vm.progres=100;
           var isValidMessage=false;
@@ -126,13 +168,13 @@
             var numberBatch =groupNumbers[i];
     
 
-           /* this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/SMS/'+numberBatch+'/'+vm.form.Message).then(response => {
+            this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/SMS/'+numberBatch+'/'+vm.form.Message).then(response => {
             }, response => {
             // error callback
             // var progress =inverseLerp(0,groupNumbers.length,i);
             // vm.progres=100;
              
-            });*/
+            });
           }
           alert("Sent");
             vm.form.Numbers=[];
@@ -143,59 +185,11 @@
         vm.form.Numbers=[];
         vm.form.Message= '';
         vm.progres=0;
+        location.reload();
       }
       }
     });
-  
-  
-  
-  
-  
-  });
-  </script>
-
-  <output id="list"></output>
-  
-  <script>
-  function handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-  
-    var files = evt.dataTransfer.files; // FileList object.
-  
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes, last modified: ',
-                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                  '</li>');
-    }
-    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-  }
-  
-  function handleDragOver(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-  }
-  
-  // Setup the dnd listeners.
-  //var dropZone = document.getElementById('drop_zone');
-  //dropZone.addEventListener('dragover', handleDragOver, false);
-  //dropZone.addEventListener('drop', handleFileSelect, false);
-  </script>
-
-
-
-<div id="drop">Drop a spreadsheet file here to see sheet data</div>
-<input type="file" name="xlfile" id="xlf" />
-</pre>
-<div id="htmlout"></div>
-<br />
-   <script src="https://cdn.rawgit.com/SheetJS/js-xlsx/v0.8.0/dist/xlsx.full.min.js"></script>
-<script>
-/*jshint browser:true */
+  /*jshint browser:true */
 /* eslint-env browser */
 /* eslint no-use-before-define:0 */
 /*global Uint8Array, Uint16Array, ArrayBuffer */
@@ -208,19 +202,9 @@ var process_wb = (function() {
 		/* get data */
 		var ws = wb.Sheets[wb.SheetNames[0]];
 		var data = XLSX.utils.sheet_to_json(ws, {header:1});
-		/* update canvas-datagrid */
-	//	if(!cDg) cDg = canvasDatagrid({ parentNode:HTMLOUT, data:data });
-	/*	cDg.style.height = '100%';
-		cDg.style.width = '100%';
-		cDg.data = data;*/
-   
     console.log(data);
-		/* create schema (for A,B,C column headings) */
-	/*	var range = XLSX.utils.decode_range(ws['!ref']);
-		for(var i = range.s.c; i <= range.e.c; ++i) cDg.schema[i - range.s.c].title = XLSX.utils.encode_col(i);
-		HTMLOUT.style.height = (window.innerHeight - 400) + "px";
-		HTMLOUT.style.width = (window.innerWidth - 50) + "px";
-		if(typeof console !== 'undefined') console.log("output", new Date());*/
+    vm.SetNumbers(data);
+      //vm.form.Numbers=data;
 	};
 })();
 var do_file = (function() {
@@ -239,29 +223,26 @@ var do_file = (function() {
 		else reader.readAsArrayBuffer(f);
 	};
 })();
-/*(function() {
-	var drop = document.getElementById('drop');
-	if(!drop.addEventListener) return;
-	function handleDrop(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		do_file(e.dataTransfer.files);
-	}
-	function handleDragover(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		e.dataTransfer.dropEffect = 'copy';
-	}
-	drop.addEventListener('dragenter', handleDragover, false);
-	drop.addEventListener('dragover', handleDragover, false);
-	drop.addEventListener('drop', handleDrop, false);
-})();*/
 (function() {
 	var xlf = document.getElementById('xlf');
 	if(!xlf.addEventListener) return;
 	function handleFile(e) { do_file(e.target.files); }
 	xlf.addEventListener('change', handleFile, false);
 })();
+        
+  });
+  </script>
+
+  <output id="list"></output>
+  
+  
+
+
+
+
+  
+<script>
+
 
 </script>
 <script type="text/javascript">

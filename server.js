@@ -245,7 +245,6 @@ function getCurrentTime(callback){
 }
 
 //--Validation End
-
 //--Login Start
 app.get('/register',function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -335,7 +334,7 @@ app.get('/register',function (req, res) {
                 });
                 let UUIDKey =uuidv4();
                 let UUIDUserAccountID =uuidv4();
-
+                
                 /*
                 console.log(UUIDKey);
                 console.log(CurrentDate);
@@ -345,6 +344,7 @@ app.get('/register',function (req, res) {
                   function(callback){
                     console.log('6');
                     AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+
                       let isRegistered =false;
                       if(response=="Inserted"){
                         isRegistered=true;
@@ -360,13 +360,18 @@ app.get('/register',function (req, res) {
                       }
                     });
                     console.log('7');
+                    let To = 'cariaga.info@gmail.com';
+                    let From = '';
+                    let Title = 'Email Verification';
+                    let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                    SendMail(To,From,Title,VerificationURL);
                   },
 
                 ],function(error,callback){//Async series Adding UserInfo
                   var ResultUserAccount = callback[0];
                   console.log('8');
                  // console.log(ResultUserAccount);
-                  if(ResultUserAccount.isRegistered==true){
+                  if(ResultUserAccount.isRyegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
@@ -413,10 +418,11 @@ app.get('/register',function (req, res) {
   }
 });
 
+
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
-  SendMail('cariaga.info@gmail.com','','Email Verify','hello');
+
 
   // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
@@ -500,26 +506,103 @@ app.get('/Login',function (req, res) {
 //--Login Start
 app.get('/Verify',function (req, res) {
   // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
+  res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
-  let VerifyKey= req.query.VerifyKey;
+  let ValidKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(VerifyKey)){
-      Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-      let result = Models.UserAccount.findAll({ 
-        where: {
-          UserName:UserName//not null
-          ,
-          VerifyKey:VerifyKey//not null
+    if(!isNullOrEmpty(ValidKey)){
 
-       }
-      }).then(function(result) {
 
-      }).catch(function(result){
-        console.log("Verify Error : "+result);
+      isUserNameExist(UserName,function(response3){
+        console.log("Verify response : "+response3);
+        let obj = response3;
+        if(!isNullOrEmpty(obj)&&obj!=undefined){
+          if(obj[0].UserName==UserName){
+        
+            Verify(UserName,ValidKey,function(response){
+              if(response.Verified==false){
+                VerifyAccount(UserName,ValidKey,function(response2){
+      
+                  let Data = {isAlreadyRegistered :false,isUserNameExist:true,ResponseCode:1};
+                  res.send(beautify(Data, null, 2, 100));
+                });
+              }else{
+                let Data = {isAlreadyRegistered :true,isUserNameExist:true,ResponseCode:2};
+                  res.send(beautify(Data, null, 2, 100));
+              }
+            });
+          }
+        }
+        else{
+          let Data = {isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:3};
+          res.send(beautify(Data, null, 2, 100));
+        }
       });
+      
     }
   }
 });
+
+function Verify(UserName,ValidKey,callback){
+  async.waterfall([
+          myFirstFunction,
+          mySecondFunction,
+       ], function (err, result) {//final function
+           // result now equals 'done'
+          // console.log('5');
+           callback(result);
+       });
+        function myFirstFunction(callback2) {
+          console.log('1');
+          Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+          let result = Models.UserAccount.findAll({ 
+            where: {
+              UserName:UserName//not null
+              ,
+              ValidKey:ValidKey//not null
+           }
+          }).then(function(result) {
+            let Data = result.map(function(item) {return item;});
+          //  console.log('2');
+            callback2(null,Data);
+          }).catch(function(result2){
+            console.log("Verify Error : "+result2);
+          //  console.log('2');
+            callback2(null,result2);
+          });
+       
+        }
+       function mySecondFunction(arg1,callback3) {
+      //  console.log(arg1);
+      //  console.log('3'+arg1[0].Verify);
+        if(arg1[0].Verify==true){
+          let result3 = {Verified:true};
+        //  console.log('4');
+          callback3(null,result3);
+        }else{
+          let result3 = {Verified:false};
+        //  console.log('4');
+          callback3(null,result3);
+        }
+      
+        }
+}
+function VerifyAccount(UserName,ValidKey,callback){
+  Models.UserAccount.update({
+    Verify: true
+  },
+  {
+    where: {UserName:UserName,ValidKey:ValidKey}
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  
+  .catch(error => {
+    console.log("Error Updating");
+    callback("Error Updating " +error);
+  }); 
+}
 //--Login End
 
 //--API START
@@ -545,6 +628,7 @@ app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
     res.send('no params sent');
   }
 });
+
 //---API SignOut End
 //---API Login Start
 app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
