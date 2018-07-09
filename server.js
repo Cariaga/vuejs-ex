@@ -512,7 +512,7 @@ app.get('/Verify',function (req, res) {
     if(!isNullOrEmpty(ValidKey)){
       Verify(UserName,ValidKey,function(response){
         
-        //res.send(beautify(response, null, 2, 100));
+        res.send(beautify(response, null, 2, 100));
       });
     }
   }
@@ -524,9 +524,7 @@ function Verify(UserName,ValidKey,callback){
           mySecondFunction,
        ], function (err, result) {//final function
            // result now equals 'done'
-            res.send(err);
-           callback('done');
-           
+           callback(result);
        });
         function myFirstFunction(callback) {
           Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
@@ -541,12 +539,17 @@ function Verify(UserName,ValidKey,callback){
             callback(Data);
           }).catch(function(result){
             console.log("Verify Error : "+result);
-            callback(result,null);
+            callback(null,result);
           });
         }
        function mySecondFunction(arg1,callback) {
-        console.log(arg1)
-        callback(null,'done');
+        console.log(arg1);
+        if(arg1.length==1){
+          callback(null,'KeyValid');
+        }else{
+          callback(null,'done');
+        }
+      
         }
 
       
