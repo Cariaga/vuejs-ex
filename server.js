@@ -524,6 +524,7 @@ function Verify(UserName,ValidKey,callback){
           mySecondFunction,
        ], function (err, result) {//final function
            // result now equals 'done'
+           console.log('5');
            callback(result);
        });
         function myFirstFunction(callback2) {
