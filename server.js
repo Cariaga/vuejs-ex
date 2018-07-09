@@ -511,9 +511,18 @@ app.get('/Verify',function (req, res) {
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(ValidKey)){
       Verify(UserName,ValidKey,function(response){
-        VerifyAccount(UserName,ValidKey,function(response2){
-          res.send(beautify(response2, null, 2, 100));
-        });
+        if(response.Verified==false){
+          VerifyAccount(UserName,ValidKey,function(response2){
+
+            let Data = {isAlreadyRegistered :false,ResponseCode:1};
+            res.send(beautify(Data, null, 2, 100));
+          });
+        }else{
+          let Data = {isAlreadyRegistered :true,ResponseCode:2};
+            res.send(beautify(Data, null, 2, 100));
+        }
+       
+
       });
     }
   }
@@ -550,7 +559,7 @@ function Verify(UserName,ValidKey,callback){
         }
        function mySecondFunction(arg1,callback3) {
       //  console.log(arg1);
-        console.log('3'+arg1[0].Verify);
+      //  console.log('3'+arg1[0].Verify);
         if(arg1[0].Verify==true){
           let result3 = {Verified:true};
         //  console.log('4');
