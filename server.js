@@ -451,7 +451,6 @@ app.get('/Login',function (req, res) {
   !isNullOrEmpty(Date)){
     if(!isNullOrEmpty(UserName)){
       if(!isNullOrEmpty(Password)){
-        
         async.waterfall([
           myFirstFunction,
         ], function (err, result) {//final function
@@ -517,7 +516,7 @@ app.get('/Login',function (req, res) {
           callback2(result);
 
           });
-          
+
           function myFirstFunction(callback){
             console.log('1');
            isUserNameExist(UserName,function(response3){
