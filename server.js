@@ -424,20 +424,30 @@ app.get('/register',function (req, res) {
 app.get('/Login',function (req, res) {
 
 
-  // Usage /Login?UserName=UserName&Password=Password
+  // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&GraphicsDevice=GraphicsDevice
   let UserName= req.query.UserName;
   let Password = req.query.Password;
 
   
   let UserAccountID = '';
-  let IP = req.params.IP;
-  let DeviceName = req.params.DeviceName;
-  let DeviceRam = req.params.DeviceRam;
-  let DeviceCpu = req.params.DeviceCpu;
+  let DeviceUUID = req.query.DeviceUUID;
+  let IP = req.query.IP;
+  let DeviceName = req.query.DeviceName;
+  let DeviceRam = req.query.DeviceRam;
+  let DeviceCpu = req.query.DeviceCpu;
+  let OperatingSystem = req.query.OperatingSystem;
+  let GraphicsDevice = req.query.GraphicsDevice;
   let Time = req.params.Time;
   let Date = req.params.Date;
-
-  if(!isNullOrEmpty(IP)&&!isNullOrEmpty(DeviceName)&&!isNullOrEmpty(DeviceRam)&&!isNullOrEmpty(DeviceCpu)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+  if(!isNullOrEmpty(DeviceUUID)&&
+  !isNullOrEmpty(IP)&&
+  !isNullOrEmpty(DeviceName)&&
+  !isNullOrEmpty(DeviceRam)&&
+  !isNullOrEmpty(DeviceCpu)&&
+  !isNullOrEmpty(OperatingSystem)&&
+  !isNullOrEmpty(GraphicsDevice)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)){
 
     if(!isNullOrEmpty(UserName)){
       if(!isNullOrEmpty(Password)){
