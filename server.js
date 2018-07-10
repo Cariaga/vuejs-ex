@@ -427,8 +427,7 @@ app.get('/Login',function (req, res) {
   // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
   let UserName= req.query.UserName;
   let Password = req.query.Password;
-
-  
+    
   let UserAccountID = '';
   let DeviceUUID = req.query.DeviceUUID;
   let IP = req.query.IP;
@@ -439,6 +438,7 @@ app.get('/Login',function (req, res) {
   let GraphicsDevice = req.query.GraphicsDevice;
   let Time = req.query.Time;
   let Date = req.query.Date;
+
   if(!isNullOrEmpty(DeviceUUID)&&
   !isNullOrEmpty(IP)&&
   !isNullOrEmpty(DeviceName)&&
@@ -484,8 +484,12 @@ app.get('/Login',function (req, res) {
           });
           
           if(VerifyResult){
-            res.send(beautify(Data, null, 2, 100));
-           
+
+         
+            AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+              res.send(response);
+            //  res.send(beautify(Data, null, 2, 100));
+            });
              //--Validation For Login End
   
           }else{
