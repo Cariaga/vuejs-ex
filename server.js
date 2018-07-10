@@ -1619,7 +1619,7 @@ app.get('/DepositHistory', function (req, res) {
    let Amount = req.query.Amount;
    let BankNameUsed = req.query.BankNameUsed;
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
-   let Status = req.query.Status;
+   let Status = 'Pending';
    let RequestedDATE = '';//runtime assigned
    let ApprovedDATE = '';
    let RejectedDATE = '';
