@@ -509,7 +509,7 @@ app.get('/Login',function (req, res) {
               }).catch(function(result) {//catching any then errors
                 res.send("Error "+result);
               });
-          callback(null,result);
+          callback(result);
 
           });
       }else{
