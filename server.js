@@ -1655,7 +1655,6 @@ app.get('/DepositHistory', function (req, res) {
               RejectedDATE,
               ProcessingDATE,
               RequestedTIME,
-              ApprovedTIME,
               RejectedTIME,
               ProcessingTIME,function(response) {
                 let Data = { IsInvalidUserName:false,IsInvalidBankInformation:false, ResponseCode:1 };
