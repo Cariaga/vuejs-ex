@@ -1614,8 +1614,8 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
 });
 
 app.get('/DepositHistory', function (req, res) {
-  
-   let UserAccountID = req.query.UserAccountID;
+   let UserName = req.query.UserName;
+   let UserAccountID = '';//runtime assigned by Username
    let Amount = req.query.Amount;
    let BankNameUsed = req.query.BankNameUsed;
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
@@ -1628,22 +1628,14 @@ app.get('/DepositHistory', function (req, res) {
    let ApprovedTIME = '';
    let RejectedTIME = '';
    let ProcessingTIME = '';
-   
-  async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
-  
+  async.waterfall([myFirstFunction,mySecondFunction,myThridFunction],function(err,result){
     if(!isNullOrEmpty(UserAccountID)&&
     !isNullOrEmpty(Amount)&&
     !isNullOrEmpty(BankNameUsed)&&
     !isNullOrEmpty(SecurityCodeUsed)&&
     !isNullOrEmpty(Status)&&
     !isNullOrEmpty(RequestedDATE)&&
-    !isNullOrEmpty(ApprovedDATE)&&
-    !isNullOrEmpty(RejectedDATE)&&
-    !isNullOrEmpty(ProcessingDATE)&&
-    !isNullOrEmpty(RequestedTIME)&&
-    !isNullOrEmpty(ApprovedTIME)&&
-    !isNullOrEmpty(RejectedTIME)&&
-    !isNullOrEmpty(ProcessingTIME)){
+    !isNullOrEmpty(RequestedTIME)){
      AddDepositHistory(UserAccountID,
       Amount,
       BankNameUsed,
@@ -1659,17 +1651,19 @@ app.get('/DepositHistory', function (req, res) {
       ProcessingTIME,function(response) {
       res.send(response);
     });
+    }else{
+      let Data = { IsInvalidInformation:true, ResponseCode:3 };
+      res.send(Data);
     }
-
- 
   });
+
     function myFirstFunction(callback){
     getCurrentTime(function(response){
         callback(null,response);
       });
     }
     function mySecondFunction(arg0,callback2){
-      console.log('3');
+  
       let Time = arg0;
       getCurrentDate(function(response){
           let Date = response;
@@ -1680,7 +1674,18 @@ app.get('/DepositHistory', function (req, res) {
       });
     }
 
+    function myThridFunction(arg0,callback3){
 
+      isUserNameExist(UserName,function(response3){
+          
+        let obj = response3;
+        if(!isNullOrEmpty(obj)&&obj!=undefined){
+   
+          UserAccountID= obj[0].UserAccountID;
+          callback(null,obj[0].UserAccountID);
+        }
+      });
+    }
  });
 
 function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
