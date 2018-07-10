@@ -530,7 +530,7 @@ app.get('/Login',function (req, res) {
               }).catch(function(result) {//catching any then errors
                 res.send("Error "+result);
               });
-          callback2(result);
+          callback2('done');
           }
       }else{
         res.send("Invalid Password");
