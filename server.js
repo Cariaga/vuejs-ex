@@ -1680,7 +1680,7 @@ app.get('/DepositHistory', function (req, res) {
           
         let obj = response3;
         if(!isNullOrEmpty(obj)&&obj!=undefined){
-   
+          
           UserAccountID= obj[0].UserAccountID;
           callback(null,obj[0].UserAccountID);
         }
