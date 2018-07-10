@@ -1625,7 +1625,7 @@ app.get('/DepositHistory', function (req, res) {
    let RejectedDATE = '';
    let ProcessingDATE ='';
    let RequestedTIME = '';//runtime assigned here
-   let ApprovedTIME = '';
+   let ApprovedTIME = '';//Unused
    let RejectedTIME = '';
    let ProcessingTIME = '';
    if(!isNullOrEmpty(UserName)){
