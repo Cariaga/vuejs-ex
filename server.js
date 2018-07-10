@@ -429,6 +429,7 @@ app.get('/Login',function (req, res) {
   let Password = req.query.Password;
     
   let UserAccountID = '';
+  
   let DeviceUUID = req.query.DeviceUUID;
   let IP = req.query.IP;
   let DeviceName = req.query.DeviceName;
@@ -448,6 +449,22 @@ app.get('/Login',function (req, res) {
   !isNullOrEmpty(GraphicsDevice)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
+
+    async.waterfall([
+      myFirstFunction,
+      mySecondFunction,
+   ], function (err, result) {//final function
+       // result now equals 'done'
+      // console.log('5');
+       callback(result);
+   });
+
+   function myFirstFunction(callback1){
+    isUserNameExist(UserName,function(response3){
+      
+    });
+   }
+    
 
     if(!isNullOrEmpty(UserName)){
       if(!isNullOrEmpty(Password)){
