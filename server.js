@@ -475,7 +475,7 @@ app.get('/Login',function (req, res) {
                 
               });
       
-              let result = Models.UserAccount.findAll({ 
+              let result2 = Models.UserAccount.findAll({ 
                 where: {
                   UserName:UserName//not null
                   ,
