@@ -1628,9 +1628,7 @@ app.get('/DepositHistory', function (req, res) {
    let ApprovedTIME = '';
    let RejectedTIME = '';
    let ProcessingTIME = '';
-   if(!isNullOrEmpty(UserAccountID)){
-
- 
+   if(!isNullOrEmpty(UserName)){
     async.waterfall([myFirstFunction,mySecondFunction,myThridFunction],function(err,result){
       if(!isNullOrEmpty(UserAccountID)&&
       !isNullOrEmpty(Amount)&&
