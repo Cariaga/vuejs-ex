@@ -464,14 +464,14 @@ app.get('/Login',function (req, res) {
                 {
                   include: [Models.UserAccount]
               }
-              ).then(function(result) {
-                let Data = result.map(function(item) {
+              ).then(function(result2) {
+                let Data = result2.map(function(item) {
                     return item;
                 });
         
-              }).catch(function(result) {//catching any then errors
+              }).catch(function(result2) {//catching any then errors
               
-                res.send("Error Associate "+result);
+                res.send("Error Associate "+result2);
                 
               });
       
@@ -481,8 +481,8 @@ app.get('/Login',function (req, res) {
                   ,
                   Password:Password//not null
               }
-              }).then(function(result) {
-                let Data = result.map(function(item) {
+              }).then(function(result3) {
+                let Data = result3.map(function(item) {
                     return item;
                 });
                 //--Validation For Login Start
@@ -491,10 +491,8 @@ app.get('/Login',function (req, res) {
                 });
                 
                 if(VerifyResult){
-      
-              
-                  AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
-                    res.send(response);
+                  AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
+                    res.send(response3);
                   //  res.send(beautify(Data, null, 2, 100));
                   });
                   //--Validation For Login End
