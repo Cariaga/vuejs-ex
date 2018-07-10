@@ -449,97 +449,90 @@ app.get('/Login',function (req, res) {
   !isNullOrEmpty(GraphicsDevice)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
-
-    async.waterfall([
-      myFirstFunction,
-   ], function (err, result) {//final function
-       // result now equals 'done'
-      // console.log('5');
-      UserAccountID = result;
-       callback(null,result);
-
-   });
-
-   function myFirstFunction(callback1){
-    isUserNameExist(UserName,function(response3){
-      console.log("UUID : "+response3[0].UserAccountID);
-      console.log("Verify response : "+response3);
-      let obj = response3;
-      if(!isNullOrEmpty(obj)&&obj!=undefined){
-        callback1(response3[0].UserAccountID);
-      }else{
-        callback1(undefined);
-      }
-      
-    });
-   }
-    
-
     if(!isNullOrEmpty(UserName)){
       if(!isNullOrEmpty(Password)){
-        Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-      Models.UserInfo.sync(/*{force:true}*/);
-        let Associated= Models.UserInfo.findAll(
-          {
-            include: [Models.UserAccount]
-        }
-        ).then(function(result) {
-          let Data = result.map(function(item) {
-              return item;
-          });
-  
-        }).catch(function(result) {//catching any then errors
         
-          res.send("Error Associate "+result);
-          
-        });
-
-        let result = Models.UserAccount.findAll({ 
-          where: {
-            UserName:UserName//not null
-            ,
-            Password:Password//not null
-         }
-        }).then(function(result) {
-          let Data = result.map(function(item) {
-              return item;
-          });
-          //--Validation For Login Start
-          let VerifyResult = Data.find(function(element) {
-            return element.Verify==true;
-          });
-          
-          if(VerifyResult){
-
-         
-            AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
-              res.send(response);
-            //  res.send(beautify(Data, null, 2, 100));
-            });
-             //--Validation For Login End
-  
-          }else{
-            res.send({
-              "Status":"Unverified",
-              "Controller":"/Login",
-              "Solution":"Check Mail For Verification"
-            });
-          }
-       
-  
-          //res.send(beautify(Data, null, 2, 100));
-  
-        }).catch(function(result) {//catching any then errors
+        async.waterfall([
+          myFirstFunction,
+        ], function (err, result) {//final function
+          // result now equals 'done'
+          // console.log('5');
+            UserAccountID = result;
+            Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+            Models.UserInfo.sync(/*{force:true}*/);
+              let Associated= Models.UserInfo.findAll(
+                {
+                  include: [Models.UserAccount]
+              }
+              ).then(function(result) {
+                let Data = result.map(function(item) {
+                    return item;
+                });
         
-          res.send("Error "+result);
-          
-        });
+              }).catch(function(result) {//catching any then errors
+              
+                res.send("Error Associate "+result);
+                
+              });
+      
+              let result = Models.UserAccount.findAll({ 
+                where: {
+                  UserName:UserName//not null
+                  ,
+                  Password:Password//not null
+              }
+              }).then(function(result) {
+                let Data = result.map(function(item) {
+                    return item;
+                });
+                //--Validation For Login Start
+                let VerifyResult = Data.find(function(element) {
+                  return element.Verify==true;
+                });
+                
+                if(VerifyResult){
+      
+              
+                  AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+                    res.send(response);
+                  //  res.send(beautify(Data, null, 2, 100));
+                  });
+                  //--Validation For Login End
+        
+                }else{
+                  res.send({
+                    "Status":"Unverified",
+                    "Controller":"/Login",
+                    "Solution":"Check Mail For Verification"
+                  });
+                }
+                //res.send(beautify(Data, null, 2, 100));
+        
+              }).catch(function(result) {//catching any then errors
+                res.send("Error "+result);
+              });
+          callback(null,result);
+
+          });
       }else{
         res.send("Invalid Password");
       }
     }else{
       res.send("Invalid UserName");
     }
+
+   function myFirstFunction(callback1){
+    isUserNameExist(UserName,function(response3){
+      console.log("UUID : "+response3[0].UserAccountID);
+      let obj = response3;
+      if(!isNullOrEmpty(obj)&&obj!=undefined){
+        callback1(response3[0].UserAccountID);
+      }else{
+        callback1(undefined);
+      }
+    });
+   }
+    
   }else{
     res.send("Missing DeviceInformation");
   }
