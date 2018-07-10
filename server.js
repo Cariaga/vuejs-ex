@@ -729,9 +729,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
     console.log(Success);
     console.log("----AddSupportTicket End-----");
   })
-  
   .catch(error => {
- 
     console.log("error inserting");
     callback("error inserting " +error);
   });
