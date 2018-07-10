@@ -424,7 +424,7 @@ app.get('/register',function (req, res) {
 app.get('/Login',function (req, res) {
 
 
-  // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&GraphicsDevice=GraphicsDevice
+  // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
   let UserName= req.query.UserName;
   let Password = req.query.Password;
 
@@ -437,8 +437,8 @@ app.get('/Login',function (req, res) {
   let DeviceCpu = req.query.DeviceCpu;
   let OperatingSystem = req.query.OperatingSystem;
   let GraphicsDevice = req.query.GraphicsDevice;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
+  let Time = req.query.Time;
+  let Date = req.query.Date;
   if(!isNullOrEmpty(DeviceUUID)&&
   !isNullOrEmpty(IP)&&
   !isNullOrEmpty(DeviceName)&&
