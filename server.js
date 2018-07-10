@@ -453,9 +453,26 @@ app.get('/Login',function (req, res) {
       if(!isNullOrEmpty(Password)){
         async.waterfall([
           myFirstFunction,
+          mySecondFunction
         ], function (err, result) {//final function
-          // result now equals 'done'
-           console.log('3 : '+ result);
+            console.log('done');
+          });
+
+          function myFirstFunction(callback){
+            console.log('1');
+           isUserNameExist(UserName,function(response3){
+           
+             let obj = response3;
+             if(!isNullOrEmpty(obj)&&obj!=undefined){
+                 console.log("UUID : "+obj[0].UserAccountID);
+                 console.log('2');
+               callback(obj[0].UserAccountID);
+             }
+           });
+          }
+          function mySecondFunction(arg0,callback2){
+             // result now equals 'done'
+           console.log('3 : '+ arg0);
            let UserAccountID = result;
 
             Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
@@ -514,20 +531,6 @@ app.get('/Login',function (req, res) {
                 res.send("Error "+result);
               });
           callback2(result);
-
-          });
-
-          function myFirstFunction(callback){
-            console.log('1');
-           isUserNameExist(UserName,function(response3){
-           
-             let obj = response3;
-             if(!isNullOrEmpty(obj)&&obj!=undefined){
-                 console.log("UUID : "+obj[0].UserAccountID);
-                 console.log('2');
-               callback(obj[0].UserAccountID);
-             }
-           });
           }
       }else{
         res.send("Invalid Password");
