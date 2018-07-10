@@ -1631,14 +1631,14 @@ app.get('/DepositHistory', function (req, res) {
    
   async.waterfall([myFirstFunction,mySecondFunction],function(err,result){});
     function myFirstFunction(callback){
-    getCurrentTime(UserName,function(response){
+    getCurrentTime(function(response){
         callback(null,response);
       });
     }
     function mySecondFunction(arg0,callback2){
       console.log('3');
       let Time = arg0;
-      getCurrentDate(UserName,function(response){
+      getCurrentDate(function(response){
           let Date = response;
           console.log({Time:args0,Date:Date});
           callback(null,response);
