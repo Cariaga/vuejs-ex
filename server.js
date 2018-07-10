@@ -1643,11 +1643,11 @@ app.get('/DepositHistory', function (req, res) {
       getCurrentDate(function(response){
           let Date = response;
           console.log({Time:Time,Date:Date});
-          callback(null,response);
+          callback2(null,response);
       });
     }
 
-
+/*
    if(!isNullOrEmpty(UserAccountID)&&
    !isNullOrEmpty(Amount)&&
    !isNullOrEmpty(BankNameUsed)&&
@@ -1664,8 +1664,7 @@ app.get('/DepositHistory', function (req, res) {
    // AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
    //  res.send(response);
    //});
-
-   }
+   }*/
  });
 
 function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
