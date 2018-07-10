@@ -455,7 +455,7 @@ app.get('/Login',function (req, res) {
           myFirstFunction,
         ], function (err, result) {//final function
           // result now equals 'done'
-           console.log('3');
+           console.log('3 : '+ result);
            let UserAccountID = result;
 
             Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
@@ -493,7 +493,7 @@ app.get('/Login',function (req, res) {
                 });
                 
                 if(VerifyResult){
-                  console.log('5 :' + UserAccountID);
+                  console.log('5');
                   AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                     console.log('5');
                     res.send(response3);
