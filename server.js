@@ -1633,7 +1633,9 @@ app.get('/DepositHistory', function (req, res) {
     isUserNameExist(UserName,function(response3){
       let obj = response3;
       if(!isNullOrEmpty(obj)&&obj!=undefined){
+
         UserAccountID= obj[0].UserAccountID;
+        console.log("UserAccountID :"+UserAccountID);
         async.waterfall([myFirstFunction,mySecondFunction,myThridFunction],function(err,result){
           if(!isNullOrEmpty(UserAccountID)&&
           !isNullOrEmpty(Amount)&&
