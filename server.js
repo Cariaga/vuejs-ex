@@ -674,7 +674,6 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
           return item;
           
       });
-     
       res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       
