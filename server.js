@@ -1620,17 +1620,36 @@ app.get('/DepositHistory', function (req, res) {
    let BankNameUsed = req.query.BankNameUsed;
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
    let Status = req.query.Status;
-   let RequestedDATE = req.query.RequestedDATE;
-   let ApprovedDATE = req.query.ApprovedDATE;
-   let RejectedDATE = req.query.RejectedDATE;
-   let ProcessingDATE = req.query.ProcessingDATE;
-   let RequestedTIME = req.query.RequestedTIME;
+   let RequestedDATE = '';//runtime assigned
+   let ApprovedDATE = '';
+   let RejectedDATE = '';
+   let ProcessingDATE ='';
+   let RequestedTIME = '';//runtime assigned here
    let ApprovedTIME = '';
    let RejectedTIME = '';
    let ProcessingTIME = '';
    
   async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
-    res.send('Deposit');
+  
+    if(!isNullOrEmpty(UserAccountID)&&
+    !isNullOrEmpty(Amount)&&
+    !isNullOrEmpty(BankNameUsed)&&
+    !isNullOrEmpty(SecurityCodeUsed)&&
+    !isNullOrEmpty(Status)&&
+    !isNullOrEmpty(RequestedDATE)&&
+    !isNullOrEmpty(ApprovedDATE)&&
+    !isNullOrEmpty(RejectedDATE)&&
+    !isNullOrEmpty(ProcessingDATE)&&
+    !isNullOrEmpty(RequestedTIME)&&
+    !isNullOrEmpty(ApprovedTIME)&&
+    !isNullOrEmpty(RejectedTIME)&&
+    !isNullOrEmpty(ProcessingTIME)){
+     AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+      res.send(response);
+    });
+    }
+
+ 
   });
     function myFirstFunction(callback){
     getCurrentTime(function(response){
@@ -1642,29 +1661,14 @@ app.get('/DepositHistory', function (req, res) {
       let Time = arg0;
       getCurrentDate(function(response){
           let Date = response;
-          console.log({Time:Time,Date:Date});
+          RequestedTIME = Time;
+          RequestedDATE = Date;
+        
           callback2(null,response);
       });
     }
 
-/*
-   if(!isNullOrEmpty(UserAccountID)&&
-   !isNullOrEmpty(Amount)&&
-   !isNullOrEmpty(BankNameUsed)&&
-   !isNullOrEmpty(SecurityCodeUsed)&&
-   !isNullOrEmpty(Status)&&
-   !isNullOrEmpty(RequestedDATE)&&
-   !isNullOrEmpty(ApprovedDATE)&&
-   !isNullOrEmpty(RejectedDATE)&&
-   !isNullOrEmpty(ProcessingDATE)&&
-   !isNullOrEmpty(RequestedTIME)&&
-   !isNullOrEmpty(ApprovedTIME)&&
-   !isNullOrEmpty(RejectedTIME)&&
-   !isNullOrEmpty(ProcessingTIME)){
-   // AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
-   //  res.send(response);
-   //});
-   }*/
+
  });
 
 function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
