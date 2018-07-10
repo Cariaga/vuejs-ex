@@ -479,7 +479,7 @@ app.get('/Login',function (req, res) {
            // Models.UserInfo.sync(/*{force:true}*/);
 
           //    let Associated= Models.UserInfo.findAll(
-                {
+           //     {
           //        include: [Models.UserAccount]
           //    }
           //    ).then(function(result2) {
