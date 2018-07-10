@@ -424,11 +424,16 @@ app.get('/register',function (req, res) {
 app.get('/Login',function (req, res) {
 
 
+<<<<<<< HEAD
   // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
+=======
+  // Usage /Login?UserName=UserName&Password=Password
+>>>>>>> parent of 0d1ea84... asf
   let UserName= req.query.UserName;
   let Password = req.query.Password;
     
   let UserAccountID = '';
+<<<<<<< HEAD
   let DeviceUUID = req.query.DeviceUUID;
   let IP = req.query.IP;
   let DeviceName = req.query.DeviceName;
@@ -448,6 +453,16 @@ app.get('/Login',function (req, res) {
   !isNullOrEmpty(GraphicsDevice)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
+=======
+  let IP = req.params.IP;
+  let DeviceName = req.params.DeviceName;
+  let DeviceRam = req.params.DeviceRam;
+  let DeviceCpu = req.params.DeviceCpu;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+
+  if(!isNullOrEmpty(IP)&&!isNullOrEmpty(DeviceName)&&!isNullOrEmpty(DeviceRam)&&!isNullOrEmpty(DeviceCpu)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+>>>>>>> parent of 0d1ea84... asf
 
     if(!isNullOrEmpty(UserName)){
       if(!isNullOrEmpty(Password)){
