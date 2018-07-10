@@ -466,7 +466,7 @@ app.get('/Login',function (req, res) {
              if(!isNullOrEmpty(obj)&&obj!=undefined){
                  console.log("UUID : "+obj[0].UserAccountID);
                  console.log('2');
-               callback(obj[0].UserAccountID);
+               callback(null,obj[0].UserAccountID);
              }
            });
           }
@@ -530,7 +530,7 @@ app.get('/Login',function (req, res) {
               }).catch(function(result) {//catching any then errors
                 res.send("Error "+result);
               });
-          callback2('done');
+          callback2(null,'done');
           }
       }else{
         res.send("Invalid Password");
