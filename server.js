@@ -1682,19 +1682,6 @@ app.get('/DepositHistory', function (req, res) {
                 callback2(null,response);
             });
           }
-    
-          function myThridFunction(arg0,callback3){
-    
-            isUserNameExist(UserName,function(response3){
-                
-              let obj = response3;
-              if(!isNullOrEmpty(obj)&&obj!=undefined){
-                
-                UserAccountID= obj[0].UserAccountID;
-                callback(null,obj[0].UserAccountID);
-              }
-            });
-          }
       }else{
         let Data = {  IsInvalidUserName:true,IsInvalidBankInformation:true, ResponseCode:3 };
         res.send(Data);
