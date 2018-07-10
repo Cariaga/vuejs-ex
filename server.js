@@ -452,7 +452,6 @@ app.get('/Login',function (req, res) {
 
     async.waterfall([
       myFirstFunction,
-      mySecondFunction,
    ], function (err, result) {//final function
        // result now equals 'done'
       // console.log('5');
@@ -461,7 +460,8 @@ app.get('/Login',function (req, res) {
 
    function myFirstFunction(callback1){
     isUserNameExist(UserName,function(response3){
-      
+      console.log("UUID : "+response3.UUIDUserAccountID);
+      callback1(response3.UUIDUserAccountID);
     });
    }
     
