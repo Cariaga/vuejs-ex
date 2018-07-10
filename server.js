@@ -428,7 +428,7 @@ app.get('/Login',function (req, res) {
   let UserName= req.query.UserName;
   let Password = req.query.Password;
     
-  let UserAccountID = '';
+
   
   let DeviceUUID = req.query.DeviceUUID;
   let IP = req.query.IP;
@@ -456,10 +456,11 @@ app.get('/Login',function (req, res) {
           myFirstFunction,
         ], function (err, result) {//final function
           // result now equals 'done'
-          // console.log('5');
-            UserAccountID = result;
+           console.log('3');
+           let UserAccountID = result;
             Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
             Models.UserInfo.sync(/*{force:true}*/);
+
               let Associated= Models.UserInfo.findAll(
                 {
                   include: [Models.UserAccount]
@@ -474,7 +475,7 @@ app.get('/Login',function (req, res) {
                 res.send("Error Associate "+result2);
                 
               });
-      
+              console.log('4');
               let result2 = Models.UserAccount.findAll({ 
                 where: {
                   UserName:UserName//not null
@@ -485,6 +486,7 @@ app.get('/Login',function (req, res) {
                 let Data = result3.map(function(item) {
                     return item;
                 });
+
                 //--Validation For Login Start
                 let VerifyResult = Data.find(function(element) {
                   return element.Verify==true;
@@ -492,6 +494,7 @@ app.get('/Login',function (req, res) {
                 
                 if(VerifyResult){
                   AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
+                    console.log('5');
                     res.send(response3);
                   //  res.send(beautify(Data, null, 2, 100));
                   });
@@ -520,11 +523,13 @@ app.get('/Login',function (req, res) {
     }
 
    function myFirstFunction(callback1){
+     console.log('1');
     isUserNameExist(UserName,function(response3){
     
       let obj = response3;
       if(!isNullOrEmpty(obj)&&obj!=undefined){
           console.log("UUID : "+obj[0].UserAccountID);
+          console.log('2');
         callback1(obj[0].UserAccountID);
       }else{
         callback1(undefined);
