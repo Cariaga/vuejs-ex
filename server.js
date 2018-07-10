@@ -473,7 +473,7 @@ app.get('/Login',function (req, res) {
           function mySecondFunction(arg0,callback2){
              // result now equals 'done'
            console.log('3 : '+ arg0);
-           let UserAccountID = result;
+           let UserAccountID = arg0;
 
             Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
            // Models.UserInfo.sync(/*{force:true}*/);
@@ -511,7 +511,7 @@ app.get('/Login',function (req, res) {
                 if(VerifyResult){
                   console.log('5');
                   AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
-                    console.log('5');
+                    console.log('6');
                     res.send(response3);
                   //  res.send(beautify(Data, null, 2, 100));
                   });
