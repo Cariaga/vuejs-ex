@@ -1615,7 +1615,7 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
 
 app.get('/DepositHistory', function (req, res) {
    let UserName = req.query.UserName;
-   let UserAccountID = '';//runtime assigned by Username
+ 
    let Amount = req.query.Amount;
    let BankNameUsed = req.query.BankNameUsed;
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
@@ -1629,14 +1629,14 @@ app.get('/DepositHistory', function (req, res) {
    let RejectedTIME = '';
    let ProcessingTIME = '';
    if(!isNullOrEmpty(UserName)){
-    console.log("UserAccountID :"+UserName);
-    
+    console.log("UserName :"+UserName);
+
     isUserNameExist(UserName,function(response3){
       let obj = response3;
       if(!isNullOrEmpty(obj)&&obj!=undefined){
-
+        let UserAccountID = '';//runtime assigned by Username
         UserAccountID= obj[0].UserAccountID;
- 
+        console.log("UserAccountID: "+UserAccountID);
         async.waterfall([myFirstFunction,mySecondFunction,myThridFunction],function(err,result){
           if(!isNullOrEmpty(UserAccountID)&&
           !isNullOrEmpty(Amount)&&
