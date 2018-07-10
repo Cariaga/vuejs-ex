@@ -522,7 +522,7 @@ app.get('/Login',function (req, res) {
       res.send("Invalid UserName");
     }
 
-   function myFirstFunction(callback1){
+   function myFirstFunction(callback){
      console.log('1');
     isUserNameExist(UserName,function(response3){
     
@@ -530,9 +530,7 @@ app.get('/Login',function (req, res) {
       if(!isNullOrEmpty(obj)&&obj!=undefined){
           console.log("UUID : "+obj[0].UserAccountID);
           console.log('2');
-        callback1(obj[0].UserAccountID);
-      }else{
-        callback1(undefined);
+        callback(obj[0].UserAccountID);
       }
     });
    }
