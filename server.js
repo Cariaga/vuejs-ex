@@ -1159,7 +1159,7 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
     Time:Time,
     Date:Date
   });
-  Models.LoginHistory.sync({alter : true,/*force:true*/});//force recreates deletes old table
+  Models.LoginHistory.sync({alter : true,force:true});//force recreates deletes old table
   item1.save()
   .then(Success => {
     callback("Inserted");
