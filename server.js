@@ -463,7 +463,14 @@ app.get('/Login',function (req, res) {
    function myFirstFunction(callback1){
     isUserNameExist(UserName,function(response3){
       console.log("UUID : "+response3.UserAccountID);
-      callback1(response3.UserAccountID);
+      console.log("Verify response : "+response3);
+      let obj = response3;
+      if(!isNullOrEmpty(obj)&&obj!=undefined){
+        callback1(response3[0].UserAccountID);
+      }else{
+        callback1(undefined);
+      }
+      
     });
    }
     
