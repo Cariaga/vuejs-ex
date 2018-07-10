@@ -476,22 +476,21 @@ app.get('/Login',function (req, res) {
            let UserAccountID = result;
 
             Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-            Models.UserInfo.sync(/*{force:true}*/);
+           // Models.UserInfo.sync(/*{force:true}*/);
 
-              let Associated= Models.UserInfo.findAll(
+          //    let Associated= Models.UserInfo.findAll(
                 {
-                  include: [Models.UserAccount]
-              }
-              ).then(function(result2) {
-                let Data = result2.map(function(item) {
-                    return item;
-                });
+          //        include: [Models.UserAccount]
+          //    }
+          //    ).then(function(result2) {
+           //     let Data = result2.map(function(item) {
+           //         return item;
+           //     });
         
-              }).catch(function(result2) {//catching any then errors
+            //  }).catch(function(err) {//catching any then errors
               
-                res.send("Error Associate "+result2);
-                
-              });
+           //     res.send("Error Associate "+err);
+            //  });
               console.log('4');
               let result2 = Models.UserAccount.findAll({ 
                 where: {
