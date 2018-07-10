@@ -1612,6 +1612,59 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
   });
   }
 });
+
+app.get('/DepositHistory', function (req, res) {
+  
+   let UserAccountID = req.query.UserAccountID;
+   let Amount = req.query.Amount;
+   let BankNameUsed = req.query.BankNameUsed;
+   let SecurityCodeUsed = req.query.SecurityCodeUsed;
+   let Status = req.query.Status;
+   let RequestedDATE = req.query.RequestedDATE;
+   let ApprovedDATE = req.query.ApprovedDATE;
+   let RejectedDATE = req.query.RejectedDATE;
+   let ProcessingDATE = req.query.ProcessingDATE;
+   let RequestedTIME = req.query.RequestedTIME;
+   let ApprovedTIME = '';
+   let RejectedTIME = '';
+   let ProcessingTIME = '';
+   
+  async.waterfall([myFirstFunction,mySecondFunction],function(err,result){});
+    function myFirstFunction(callback){
+    getCurrentTime(UserName,function(response){
+        callback(null,response);
+      });
+    }
+    function mySecondFunction(arg0,callback2){
+      console.log('3');
+      let Time = arg0;
+      getCurrentDate(UserName,function(response){
+          callback(null,response);
+      });
+      callback2(null,'done');
+    }
+
+
+   if(!isNullOrEmpty(UserAccountID)&&
+   !isNullOrEmpty(Amount)&&
+   !isNullOrEmpty(BankNameUsed)&&
+   !isNullOrEmpty(SecurityCodeUsed)&&
+   !isNullOrEmpty(Status)&&
+   !isNullOrEmpty(RequestedDATE)&&
+   !isNullOrEmpty(ApprovedDATE)&&
+   !isNullOrEmpty(RejectedDATE)&&
+   !isNullOrEmpty(ProcessingDATE)&&
+   !isNullOrEmpty(RequestedTIME)&&
+   !isNullOrEmpty(ApprovedTIME)&&
+   !isNullOrEmpty(RejectedTIME)&&
+   !isNullOrEmpty(ProcessingTIME)){
+   // AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+   //  res.send(response);
+   //});
+   res.send('Deposit');
+   }
+ });
+
 function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.DepositHistory.build({
     UserAccountID:UserAccountID,
