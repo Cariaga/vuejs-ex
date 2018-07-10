@@ -1629,7 +1629,9 @@ app.get('/DepositHistory', function (req, res) {
    let RejectedTIME = '';
    let ProcessingTIME = '';
    
-  async.waterfall([myFirstFunction,mySecondFunction],function(err,result){});
+  async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
+    res.send('Deposit');
+  });
     function myFirstFunction(callback){
     getCurrentTime(function(response){
         callback(null,response);
@@ -1662,7 +1664,7 @@ app.get('/DepositHistory', function (req, res) {
    // AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
    //  res.send(response);
    //});
-   res.send('Deposit');
+
    }
  });
 
