@@ -360,7 +360,7 @@ app.get('/register',function (req, res) {
                       }
                     });
                     console.log('7');
-                    let To = 'cariaga.info@gmail.com';
+                    let To = Email;
                     let From = '';
                     let Title = 'Email Verification';
                     let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
@@ -422,14 +422,9 @@ app.get('/register',function (req, res) {
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
-
-
   // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
   let UserName= req.query.UserName;
   let Password = req.query.Password;
-    
-
-  
   let DeviceUUID = req.query.DeviceUUID;
   let IP = req.query.IP;
   let DeviceName = req.query.DeviceName;
@@ -439,7 +434,6 @@ app.get('/Login',function (req, res) {
   let GraphicsDevice = req.query.GraphicsDevice;
   let Time = req.query.Time;
   let Date = req.query.Date;
-
   if(!isNullOrEmpty(DeviceUUID)&&
   !isNullOrEmpty(IP)&&
   !isNullOrEmpty(DeviceName)&&
@@ -472,25 +466,10 @@ app.get('/Login',function (req, res) {
           }
           function mySecondFunction(arg0,callback2){
              // result now equals 'done'
-           console.log('3 : '+ arg0);
+           console.log('3');
            let UserAccountID = arg0;
 
             Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-           // Models.UserInfo.sync(/*{force:true}*/);
-
-          //    let Associated= Models.UserInfo.findAll(
-           //     {
-          //        include: [Models.UserAccount]
-          //    }
-          //    ).then(function(result2) {
-           //     let Data = result2.map(function(item) {
-           //         return item;
-           //     });
-        
-            //  }).catch(function(err) {//catching any then errors
-              
-           //     res.send("Error Associate "+err);
-            //  });
               console.log('4');
               let result2 = Models.UserAccount.findAll({ 
                 where: {
@@ -537,9 +516,6 @@ app.get('/Login',function (req, res) {
     }else{
       res.send("Invalid UserName");
     }
-
- 
-    
   }else{
     res.send("Missing DeviceInformation");
   }
