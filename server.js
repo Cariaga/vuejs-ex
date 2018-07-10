@@ -517,6 +517,19 @@ app.get('/Login',function (req, res) {
           callback2(result);
 
           });
+          
+          function myFirstFunction(callback){
+            console.log('1');
+           isUserNameExist(UserName,function(response3){
+           
+             let obj = response3;
+             if(!isNullOrEmpty(obj)&&obj!=undefined){
+                 console.log("UUID : "+obj[0].UserAccountID);
+                 console.log('2');
+               callback(obj[0].UserAccountID);
+             }
+           });
+          }
       }else{
         res.send("Invalid Password");
       }
@@ -524,18 +537,7 @@ app.get('/Login',function (req, res) {
       res.send("Invalid UserName");
     }
 
-   function myFirstFunction(callback){
-     console.log('1');
-    isUserNameExist(UserName,function(response3){
-    
-      let obj = response3;
-      if(!isNullOrEmpty(obj)&&obj!=undefined){
-          console.log("UUID : "+obj[0].UserAccountID);
-          console.log('2');
-        callback(obj[0].UserAccountID);
-      }
-    });
-   }
+ 
     
   }else{
     res.send("Missing DeviceInformation");
