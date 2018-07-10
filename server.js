@@ -1644,7 +1644,19 @@ app.get('/DepositHistory', function (req, res) {
     !isNullOrEmpty(ApprovedTIME)&&
     !isNullOrEmpty(RejectedTIME)&&
     !isNullOrEmpty(ProcessingTIME)){
-     AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+     AddDepositHistory(UserAccountID,
+      Amount,
+      BankNameUsed,
+      SecurityCodeUsed,
+      Status,
+      RequestedDATE,
+      ApprovedDATE,
+      RejectedDATE,
+      ProcessingDATE,
+      RequestedTIME,
+      ApprovedTIME,
+      RejectedTIME,
+      ProcessingTIME,function(response) {
       res.send(response);
     });
     }
