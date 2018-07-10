@@ -521,9 +521,10 @@ app.get('/Login',function (req, res) {
 
    function myFirstFunction(callback1){
     isUserNameExist(UserName,function(response3){
-     // console.log("UUID : "+response3.UserAccountID);
+    
       let obj = response3;
       if(!isNullOrEmpty(obj)&&obj!=undefined){
+          console.log("UUID : "+obj[0].UserAccountID);
         callback1(obj[0].UserAccountID);
       }else{
         callback1(undefined);
