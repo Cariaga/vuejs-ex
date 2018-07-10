@@ -455,7 +455,9 @@ app.get('/Login',function (req, res) {
    ], function (err, result) {//final function
        // result now equals 'done'
       // console.log('5');
-       callback(result);
+      UserAccountID = result;
+       callback(null,result);
+
    });
 
    function myFirstFunction(callback1){
