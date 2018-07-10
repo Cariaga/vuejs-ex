@@ -427,79 +427,81 @@ app.get('/Login',function (req, res) {
   // Usage /Login?UserName=UserName&Password=Password
   let UserName= req.query.UserName;
   let Password = req.query.Password;
-  if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(Password)){
-      Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-    Models.UserInfo.sync(/*{force:true}*/);
 
-      let Associated= Models.UserInfo.findAll(
-        {
-          include: [Models.UserAccount]
-      }
-      ).then(function(result) {
-        let Data = result.map(function(item) {
-            return item;
-        });
-
-      }).catch(function(result) {//catching any then errors
-      
-        res.send("Error Associate "+result);
-        
-      });
-
-      let result = Models.UserAccount.findAll({ 
-        where: {
-          UserName:UserName//not null
-          ,
-          Password:Password//not null
-
-       }
-      }).then(function(result) {
-        let Data = result.map(function(item) {
-            return item;
-        });
-        //--Validation For Login Start
-        let VerifyResult = Data.find(function(element) {
-          return element.Verify==true;
-        });
-        
-        if(VerifyResult){
-          res.send(beautify(Data, null, 2, 100));
-         /* res.send({
-            "UserAccountID":VerifyResult.UserAccountID,
-            "Status":"Verified",
-            "UserName":"",
-            "ScreenName":"",
-            "Email":"",
-            "PhoneNumber":"",
-            "TelephoneNumber":""
-            
-          });*/
-           //--Validation For Login End
-
-        }else{
-          res.send({
-            "Status":"Unverified",
-            "Controller":"/Login",
-            "Solution":"Check Mail For Verification"
-          });
-        }
-     
-
-        //res.send(beautify(Data, null, 2, 100));
-
-      }).catch(function(result) {//catching any then errors
-      
-        res.send("Error "+result);
-        
-      });
-     
   
+  let UserAccountID = '';
+  let IP = req.params.IP;
+  let DeviceName = req.params.DeviceName;
+  let DeviceRam = req.params.DeviceRam;
+  let DeviceCpu = req.params.DeviceCpu;
+  let Time = req.params.Time;
+  let Date = req.params.Date;
+
+  if(!isNullOrEmpty(IP)&&!isNullOrEmpty(DeviceName)&&!isNullOrEmpty(DeviceRam)&&!isNullOrEmpty(DeviceCpu)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
+
+    if(!isNullOrEmpty(UserName)){
+      if(!isNullOrEmpty(Password)){
+        Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+      Models.UserInfo.sync(/*{force:true}*/);
+        let Associated= Models.UserInfo.findAll(
+          {
+            include: [Models.UserAccount]
+        }
+        ).then(function(result) {
+          let Data = result.map(function(item) {
+              return item;
+          });
+  
+        }).catch(function(result) {//catching any then errors
+        
+          res.send("Error Associate "+result);
+          
+        });
+
+        let result = Models.UserAccount.findAll({ 
+          where: {
+            UserName:UserName//not null
+            ,
+            Password:Password//not null
+         }
+        }).then(function(result) {
+          let Data = result.map(function(item) {
+              return item;
+          });
+          //--Validation For Login Start
+          let VerifyResult = Data.find(function(element) {
+            return element.Verify==true;
+          });
+          
+          if(VerifyResult){
+            res.send(beautify(Data, null, 2, 100));
+           
+             //--Validation For Login End
+  
+          }else{
+            res.send({
+              "Status":"Unverified",
+              "Controller":"/Login",
+              "Solution":"Check Mail For Verification"
+            });
+          }
+       
+  
+          //res.send(beautify(Data, null, 2, 100));
+  
+        }).catch(function(result) {//catching any then errors
+        
+          res.send("Error "+result);
+          
+        });
+      }else{
+        res.send("Invalid Password");
+      }
     }else{
-      res.send("Invalid Password");
+      res.send("Invalid UserName");
     }
   }else{
-    res.send("Invalid UserName");
+    res.send("Missing DeviceInformation");
   }
 });
 //--Login End
@@ -1109,7 +1111,8 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
     });
   }
 });
-function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
+
+function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){//accessed by /Login
   var item1 = Models.LoginHistory.build({
     UserAccountID:UserAccountID,
     IP:IP,
@@ -1124,7 +1127,6 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
   .then(Success => {
     callback("Inserted");
   })
-  
   .catch(error => {
   
     console.log("error inserting");
