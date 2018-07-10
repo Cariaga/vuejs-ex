@@ -1657,7 +1657,6 @@ app.get('/DepositHistory', function (req, res) {
         res.send(Data);
       }
     });
-
       function myFirstFunction(callback){
       getCurrentTime(function(response){
           callback(null,response);
