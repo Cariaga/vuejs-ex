@@ -483,7 +483,7 @@ app.get('/Login',function (req, res) {
             return element.Verify==true;
           });
           
-          if(VerifyResult){//account is validated else unverified
+          if(VerifyResult){
 
          
             AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
