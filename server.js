@@ -1631,12 +1631,9 @@ app.get('/DepositHistory', function (req, res) {
    if(!isNullOrEmpty(UserName)){
 
     isUserNameExist(UserName,function(response3){
-            
       let obj = response3;
       if(!isNullOrEmpty(obj)&&obj!=undefined){
-        
         UserAccountID= obj[0].UserAccountID;
-
         async.waterfall([myFirstFunction,mySecondFunction,myThridFunction],function(err,result){
           if(!isNullOrEmpty(UserAccountID)&&
           !isNullOrEmpty(Amount)&&
@@ -1658,7 +1655,8 @@ app.get('/DepositHistory', function (req, res) {
               ApprovedTIME,
               RejectedTIME,
               ProcessingTIME,function(response) {
-              res.send(response);
+                let Data = { IsInvalidUserName:false,IsInvalidBankInformation:false, ResponseCode:1 };
+                res.send(Data);
             });
           }
           else{
