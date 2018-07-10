@@ -1640,7 +1640,7 @@ app.get('/DepositHistory', function (req, res) {
       let Time = arg0;
       getCurrentDate(function(response){
           let Date = response;
-          console.log({Time:args0,Date:Date});
+          console.log({Time:Time,Date:Date});
           callback(null,response);
       });
     }
