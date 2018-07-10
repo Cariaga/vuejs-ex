@@ -284,7 +284,15 @@ const SupportTicket =sequelize.define('SupportTicket', {
     primaryKey: true,
     autoIncrement: true
   },
-  UserAccountID:Sequelize.STRING,//FK
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: false,//false because 1 can have many Support Ticket
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK
   Title: Sequelize.STRING,
   Description: Sequelize.STRING,
   Reason:Sequelize.STRING,
@@ -292,6 +300,10 @@ const SupportTicket =sequelize.define('SupportTicket', {
   Date:Sequelize.DATE,
   Status: Sequelize.STRING
 });
+SupportTicket.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
 
 const Notification =sequelize.define('Notification', {
   NotificationID: {//PK
