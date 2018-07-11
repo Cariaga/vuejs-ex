@@ -164,6 +164,16 @@ const GameHistory =sequelize.define('GameHistory', {
 	BeforePoints:  Sequelize.INTEGER,
   AfterPoints: Sequelize.INTEGER
 });
+const PointsHistory =sequelize.define('PointsHistory', {
+  PointsHistoryID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  UserAccountID:Sequelize.STRING,//FK One Deposit UserAccountID can have many DepositHistory
+  Amount:Sequelize.INTEGER,
+  Status:Sequelize.STRING,//Current Status
+});
 
 const DepositHistory =sequelize.define('DepositHistory', {
   DepositHistoryID: {
