@@ -2309,7 +2309,7 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
 
 
 app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to constraint
-  res.send('Doesnt clear use Delete');
+  //res.send('Doesnt clear use Delete');
     Models.UserAccount.destroy({
     where: {},
     truncate: true
@@ -2324,20 +2324,31 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
-  Models.UserInfo.sync().then(function(result){
+
+  sequelize
+  .sync() // create the database table for our model(s)
+  .then(function(){
+    // do some work
+  })
+  .then(function(){
+    return sequelize.drop() // drop all tables in the db
+  });
+/*
+  Models.UserInfo.sync({auto:true}).then(function(result){
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
   });
 
-  Models.BankInformation.sync().then(function(result){
+  Models.BankInformation.sync({auto:true}).then(function(result){
     sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
   });
-  Models.LoginHistory.sync().then(function(result){
+  Models.LoginHistory.sync({auto:true}).then(function(result){
     sequelize.queryInterface.removeConstraint("LoginHistory", "UserAccountID");
   });
-  Models.SupportTicket.sync().then(function(result){
+  Models.SupportTicket.sync({auto:true}).then(function(result){
     sequelize.queryInterface.removeConstraint("SupportTicket", "UserAccountID");
   });
- 
+ */
+
   /*sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
   sequelize.queryInterface.removeConstraint("LoginHistory", "UserAccountID");
   sequelize.queryInterface.removeConstraint("SupportTicket", "UserAccountID");*/
