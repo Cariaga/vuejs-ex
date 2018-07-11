@@ -277,7 +277,7 @@ app.get('/register',function (req, res) {
 
             //async series Validate start
             async.series([//don't add anything inside this from top start at the button for new function call backs
-              function(callback){
+              function(callback1){
                 console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
@@ -289,13 +289,13 @@ app.get('/register',function (req, res) {
                     isAlreadyEmailExist=false;
                   }
                   console.log('2');
-                  callback(null,isAlreadyEmailExist);
+                  callback1(null,isAlreadyEmailExist);
                   console.log("Email Exist check "+isAlreadyEmailExist);
                   //console.log(response);*/
                 
                 });
               },
-              function(callback){
+              function(callback2){
                 console.log('3');
                 console.log("UserName : "+UserName);
                 isUserNameExist(UserName,function(response){
@@ -311,7 +311,7 @@ app.get('/register',function (req, res) {
                     isAlreadyUserNameExist=false;
                   }
                   console.log('4');
-                  callback(null,isAlreadyUserNameExist);
+                  callback2(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
                
@@ -341,7 +341,7 @@ app.get('/register',function (req, res) {
                 console.log(CurrentTime);*/
 
                 async.series([//Async series add Account Start
-                  function(callback){
+                  function(callback3){
                     console.log('6');
                     AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
 
@@ -350,13 +350,13 @@ app.get('/register',function (req, res) {
                         isRegistered=true;
                         let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
                         //res.send(beautify(Data, null, 2, 100));
-                        callback(Data);
+                        callback3(Data);
                       }else{
                         isRegistered=false;
                         let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
                         //res.send(beautify(Data, null, 2, 100));
                         console.log("Error Received did not registered "+response);// Error Received did not registered
-                        callback(Data);
+                        callback3(Data);
                       }
                     });
                     console.log('7');
@@ -367,8 +367,8 @@ app.get('/register',function (req, res) {
                     SendMail(To,From,Title,VerificationURL);
                   },
 
-                ],function(error,callback){//Async series Adding UserInfo
-                  var ResultUserAccount = callback[0];
+                ],function(error,callback4){//Async series Adding UserInfo
+                  var ResultUserAccount = callback4[0];
                   console.log('8');
                  // console.log(ResultUserAccount);
                   if(ResultUserAccount.isRegistered==true){
