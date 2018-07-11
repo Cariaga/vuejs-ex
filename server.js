@@ -1614,6 +1614,7 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
 });
 
 app.get('/DepositHistory', function (req, res) {
+  //DepositHistory?UserName=4dshg5D4d&Password=sdgsdrhGHSD46&Amount=132&BankNameUsed=BankNameUsed&SecurityCodeUsed=SecurityCodeUsed
    let UserName = req.query.UserName;
    let Password = req.query.Password;
    let Amount = req.query.Amount;
