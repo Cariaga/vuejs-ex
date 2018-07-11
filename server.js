@@ -3044,23 +3044,9 @@ app.get('/notification/', function (req, res) {
 
 
 
-app.get('/deposit',function (req, res) {
-  
-  let DepositName= req.query.DepositName;
-  let DepositAmount =req.query.DepositAmount;
 
-  if(!isNullOrEmpty(DepositName)){
-    if(!isNullOrEmpty(DepositAmount)){
-      res.send("Valid");
-    }else{
-      res.send("Invalid");
-    }
-  }else{
-    res.send("Invalid");
-  }
-});
 
-app.get('/withdraw',function (req, res) {
+app.get('/WithdrawHistory',function (req, res) {
   let Amount = req.query.Amount;
   let Bank = req.query.Bank;
   let AccountNumber = req.query.AccountNumber;
@@ -3077,23 +3063,28 @@ app.get('/withdraw',function (req, res) {
               res.send("Valid");
             }else{
               res.send("Invalid")
+              let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:1};
             }
           }else{
+            let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:2};
             res.send("Invalid");
           }
         }else{
+          let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:3};
           res.send("Invalid");
         }
       }else{
+        let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:4};
         res.send("Invalid");
       }
     }else{
+      let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:5};
       res.send("Invalid");
     }
   }else{
+    let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:6};
     res.send("Invalid");
   }
-
 });
 
 // listen (start app with node server.js) ======================================
