@@ -3054,35 +3054,36 @@ app.get('/WithdrawHistory',function (req, res) {
   let ContactNumber= req.query.ContactNumber;
   let WithdrawPassword = req.query.WithdrawPassword;
 
-  if(!isNullOrEmpty(Amount)){
+  if(!isNullOrEmpty(Amount)&&Amount>0){
     if(!isNullOrEmpty(Bank)){
       if(!isNullOrEmpty(AccountNumber)){
         if(!isNullOrEmpty(Name)){
           if(!isNullOrEmpty(ContactNumber)){
             if(!isNullOrEmpty(WithdrawPassword)){
+              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:1};
               res.send("Valid");
             }else{
               res.send("Invalid")
-              let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:1};
+              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:true,ResponseCode:1};
             }
           }else{
-            let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:2};
+            let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:false,ResponseCode:2};
             res.send("Invalid");
           }
         }else{
-          let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:3};
+          let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:true,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:3};
           res.send("Invalid");
         }
       }else{
-        let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:4};
+        let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:true,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:4};
         res.send("Invalid");
       }
     }else{
-      let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:5};
+      let Data = {IsInvalidAmount:false,IsInvalidBankName:true,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:5};
       res.send("Invalid");
     }
   }else{
-    let Data = {IsInvalidAmount:true,IsInvalidBankName:true,IsInvalidAccountNumber:true,IsInvalidName:true,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:true,ResponseCode:6};
+    let Data = {IsInvalidAmount:true,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:6};
     res.send("Invalid");
   }
 });
