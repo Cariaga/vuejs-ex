@@ -3060,6 +3060,7 @@ app.get('/WithdrawHistory',function (req, res) {
 
   async.waterfall([ValidateAccount,ValidateBalance],function(err,response){
     MyFinalFunction();
+    
   });
   function ValidateAccount(callback){
     isUserNameExist(UserName,function(response){
@@ -3071,6 +3072,7 @@ app.get('/WithdrawHistory',function (req, res) {
         }
       }else{
         let Data =  {IsInvalidAccount:true};
+        callback(null,Data)
       }
     });
   }
