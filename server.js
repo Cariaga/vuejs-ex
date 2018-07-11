@@ -2322,61 +2322,8 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
   });
 
 });
-app.get('/Api/v1/UserAccount/Delete', function (req, res){
-  //will not execute if has FK set Up
-
+app.get('/Api/v1/UserAccount/Drop', function (req, res){
   sequelize.queryInterface.dropAllTables();
-
- /* sequelize
-  .sync() // create the database table for our model(s)
-  .then(function(){
-    // do some work
-  })
-  .then(function(){
-    return sequelize.drop() // drop all tables in the db
-  });*/
-
-/*
-  Models.UserInfo.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
-  });
-
-  Models.BankInformation.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
-  });
-  Models.LoginHistory.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("LoginHistory", "UserAccountID");
-  });
-  Models.SupportTicket.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("SupportTicket", "UserAccountID");
-  });
- */
-
-  /*sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
-  sequelize.queryInterface.removeConstraint("LoginHistory", "UserAccountID");
-  sequelize.queryInterface.removeConstraint("SupportTicket", "UserAccountID");*/
-
- /*
-  Models.UserInfo.sync().then(function(result) {
-    console.log('1');
-   // sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
-    console.log('2');
-    Models.BankInformation.sync().then(function(result){
-      console.log('3');
-    //  sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
-      console.log('4');
-
-    }).catch(function(error){
-      console.log("BankInformation > BankInformation RemoveConstraint Error");
-    })
-    .then(function(result) {
-    }).catch(function(error){
-      console.log("UserInfo > UserInfo RemoveConstraint Error");
-    })
-  }).catch(function(result) {//catching any then errors
-    console.log("UserInfo Error : "+result);//SequelizeDatabaseError: Cannot add foreign key constraint
-  });*/
-
  Models.UserAccount.sync({force:true});
   res.send("Deleted");
 });
