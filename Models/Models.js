@@ -147,6 +147,24 @@ UserInfo.belongsTo(UserAccount, {
     targetKey: 'UserAccountID', 
     constraints: true}); 
 
+
+
+const RoomConfiguration =sequelize.define('RoomConfiguration', {
+  RoomConfigurationID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true 
+  },
+  RoomID: {
+    type: Sequelize.STRING,
+    unique:true
+  },
+  unique: true,
+  SmallBlind:Sequelize.INTEGER,
+  BigBlind:Sequelize.INTEGER,
+  Speed:sequelize.INTEGER,
+});
+
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
     type: Sequelize.INTEGER,
@@ -155,14 +173,14 @@ const GameHistory =sequelize.define('GameHistory', {
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
   RoundID: Sequelize.STRING,// assigned by the room
-	RoomID: {
+	RoomID:{
     type: Sequelize.STRING,
     foreignKey: true,
     references: {
-      model: UserAccount,
-      key: 'UserAccountID'
+      model: RoomConfiguration,
+      key: 'RoomID'
     }
-  },//FK, assigned by the room
+  },// assigned by the room
 	Rank: Sequelize.STRING,
 	Score: Sequelize.INTEGER,
 	Card: Sequelize.STRING,//card sequence
@@ -172,16 +190,7 @@ const GameHistory =sequelize.define('GameHistory', {
   AfterPoints: Sequelize.INTEGER//also called current Points
 });
 
-const RoomConfiguration =sequelize.define('RoomConfiguration', {
-  RoomID: {
-    type: Sequelize.STRING,
-    primaryKey: true,
-    autoIncrement: true 
-  },
-  SmallBlind:Sequelize.INTEGER,
-  BigBlind:Sequelize.INTEGER,
-  Speed:sequelize.INTEGER,
-});
+
 
 const DepositHistory =sequelize.define('DepositHistory', {
   DepositHistoryID: {
