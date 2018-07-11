@@ -1656,6 +1656,7 @@ app.get('/DepositHistory', function (req, res) {
               RejectedDATE,
               ProcessingDATE,
               RequestedTIME,
+              ApprovedTIME,
               RejectedTIME,
               ProcessingTIME,function(response) {
                 let Data = { IsInvalidUserName:false,IsInvalidBankInformation:false, ResponseCode:1 };
@@ -1694,7 +1695,7 @@ app.get('/DepositHistory', function (req, res) {
    }
  });
 
-function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
+function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.DepositHistory.build({
     UserAccountID:UserAccountID,
     Amount:Amount, 
