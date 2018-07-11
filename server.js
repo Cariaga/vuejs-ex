@@ -2322,10 +2322,10 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
   });
 
 });
-app.get('/Api/v1/UserAccount/Drop', function (req, res){
+app.get('/Api/v1/Tables/Drop', function (req, res){
   sequelize.queryInterface.dropAllTables();
  Models.UserAccount.sync({force:true});
-  res.send("Deleted");
+  res.send("Droped All");
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
