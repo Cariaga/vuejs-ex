@@ -190,6 +190,10 @@ const GameHistory =sequelize.define('GameHistory', {
   AfterPoints: Sequelize.INTEGER//also called current Points
 });
 
+GameHistory.belongsTo(RoomConfiguration, {
+  foreignKey: 'RoomID',
+  targetKey: 'RoomID', 
+  constraints: true}); 
 
 
 const DepositHistory =sequelize.define('DepositHistory', {
