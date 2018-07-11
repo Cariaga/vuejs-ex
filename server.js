@@ -371,7 +371,7 @@ app.get('/register',function (req, res) {
                   var ResultUserAccount = callback[0];
                   console.log('8');
                  // console.log(ResultUserAccount);
-                  if(ResultUserAccount.isRyegistered==true){
+                  if(ResultUserAccount.isRegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
