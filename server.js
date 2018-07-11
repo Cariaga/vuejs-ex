@@ -1619,78 +1619,81 @@ app.get('/DepositHistory', function (req, res) {
    let Amount = req.query.Amount;
    let BankNameUsed = req.query.BankNameUsed;
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
-   let Status = 'Pending';
+   let Status = 'Pending';//must be have default
    let RequestedDATE = '';//runtime assigned
-   let ApprovedDATE = undefined;
-   let RejectedDATE = undefined;
-   let ProcessingDATE =undefined;
+   let ApprovedDATE = undefined;//must be undefined
+   let RejectedDATE = undefined;//must be undefined
+   let ProcessingDATE =undefined;//must be undefined
    let RequestedTIME = '';//runtime assigned here
-   let ApprovedTIME = undefined;
-   let RejectedTIME = undefined;
-   let ProcessingTIME = undefined;
+   let ApprovedTIME = undefined;//must be undefined
+   let RejectedTIME = undefined;//must be undefined
+   let ProcessingTIME = undefined;//must be undefined
    if(!isNullOrEmpty(UserName)){
     console.log("UserName :"+UserName);
-
-    isUserNameExist(UserName,function(response3){
-      let obj = response3;
-      let UserAccountID = obj[0].UserAccountID;//runtime assigned by Username
-        console.log("UserAccountID: "+UserAccountID);
-      if(!isNullOrEmpty(obj)&&obj!=undefined){
-       
-
-        async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
-          if(!isNullOrEmpty(UserAccountID)&&
-          !isNullOrEmpty(Amount)&&
-          !isNullOrEmpty(BankNameUsed)&&
-          !isNullOrEmpty(SecurityCodeUsed)&&
-          !isNullOrEmpty(Status)&&
-          !isNullOrEmpty(RequestedDATE)&&
-          !isNullOrEmpty(RequestedTIME)){
-            AddDepositHistory(UserAccountID,
-              Amount,
-              BankNameUsed,
-              SecurityCodeUsed,
-              Status,
-              RequestedDATE,
-              ApprovedDATE,
-              RejectedDATE,
-              ProcessingDATE,
-              RequestedTIME,
-              ApprovedTIME,
-              RejectedTIME,
-              ProcessingTIME,function(response) {
-                let Data = { IsInvalidUserName:false,IsInvalidBankInformation:false, ResponseCode:1 };
+    if(!isNullOrEmpty(Amount)&&Amount>0){
+        isUserNameExist(UserName,function(response3){
+          let obj = response3;
+          let UserAccountID = obj[0].UserAccountID;//runtime assigned by Username
+            console.log("UserAccountID: "+UserAccountID);
+          if(!isNullOrEmpty(obj)&&obj!=undefined){
+          
+            async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
+              if(!isNullOrEmpty(UserAccountID)&&
+              !isNullOrEmpty(Amount)&&
+              !isNullOrEmpty(BankNameUsed)&&
+              !isNullOrEmpty(SecurityCodeUsed)&&
+              !isNullOrEmpty(Status)&&
+              !isNullOrEmpty(RequestedDATE)&&
+              !isNullOrEmpty(RequestedTIME)){
+                AddDepositHistory(UserAccountID,
+                  Amount,
+                  BankNameUsed,
+                  SecurityCodeUsed,
+                  Status,
+                  RequestedDATE,
+                  ApprovedDATE,
+                  RejectedDATE,
+                  ProcessingDATE,
+                  RequestedTIME,
+                  ApprovedTIME,
+                  RejectedTIME,
+                  ProcessingTIME,function(response) {
+                    let Data = { IsInvalidUserName:false,IsUserNameNotFound:false,IsInvalidBankInformation:false,IsInvalidAmount:false, ResponseCode:1 };
+                    res.send(Data);
+                });
+              }
+              else{
+                let Data = { IsInvalidUserName:false,IsUserNameNotFound:false,IsInvalidBankInformation:true,IsInvalidAmount:false, ResponseCode:2 };
                 res.send(Data);
+                }
             });
-          }
-          else{
-            let Data = { IsInvalidUserName:false,IsInvalidBankInformation:true, ResponseCode:2 };
+              function myFirstFunction(callback){
+              getCurrentTime(function(response){
+                  callback(null,response);
+                });
+              }
+              function mySecondFunction(arg0,callback2){
+            
+                let Time = arg0;
+                getCurrentDate(function(response){
+                    let Date = response;
+                    RequestedTIME = Time;
+                    RequestedDATE = Date;
+                  
+                    callback2(null,response);
+                });
+              }
+          }else{
+            let Data = {  IsInvalidUserName:true,IsUserNameNotFound:true,IsInvalidBankInformation:true,IsInvalidAmount:false, ResponseCode:3 };
             res.send(Data);
           }
         });
-          function myFirstFunction(callback){
-          getCurrentTime(function(response){
-              callback(null,response);
-            });
-          }
-          function mySecondFunction(arg0,callback2){
-        
-            let Time = arg0;
-            getCurrentDate(function(response){
-                let Date = response;
-                RequestedTIME = Time;
-                RequestedDATE = Date;
-              
-                callback2(null,response);
-            });
-          }
-      }else{
-        let Data = {  IsInvalidUserName:true,IsInvalidBankInformation:true, ResponseCode:3 };
-        res.send(Data);
-      }
-    });
+    }else{
+      let Data = { IsInvalidUserName:false,IsUserNameNotFound:false,IsInvalidBankInformation:true,IsInvalidAmount:true, ResponseCode:4 };
+      res.send(Data);
+    }
   }else{
-    let Data = {  IsInvalidUserName:true,IsInvalidBankInformation:true, ResponseCode:4 };
+    let Data = {  IsInvalidUserName:true,IsUserNameNotFound:true,IsInvalidBankInformation:true,IsInvalidAmount:false, ResponseCode:5 };
     res.send(Data);
    }
  });
