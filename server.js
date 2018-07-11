@@ -2324,8 +2324,8 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
-  
-  queryInterface.dropAllTables();
+
+  sequelize.queryInterface.dropAllTables();
 
  /* sequelize
   .sync() // create the database table for our model(s)
