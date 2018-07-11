@@ -338,7 +338,6 @@ const Notification =sequelize.define('Notification', {
   module.exports.AccessControl =AccessControl;
   module.exports.UserInfo =UserInfo;
   module.exports.GameHistory =GameHistory;
-  module.exports.PointHistory =PointHistory;
   module.exports.DepositHistory =DepositHistory;
   module.exports.WithdrawHistory =WithdrawHistory;
   module.exports.BankInformation =BankInformation;
