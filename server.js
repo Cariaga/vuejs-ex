@@ -350,13 +350,13 @@ app.get('/register',function (req, res) {
                         isRegistered=true;
                         let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
                         //res.send(beautify(Data, null, 2, 100));
-                        callback3(Data);
+                        callback3(null,Data);
                       }else{
                         isRegistered=false;
                         let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
                         //res.send(beautify(Data, null, 2, 100));
                         console.log("Error Received did not registered "+response);// Error Received did not registered
-                        callback3(Data);
+                        callback3(null,Data);
                       }
                     });
                     console.log('7');
