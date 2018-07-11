@@ -2327,10 +2327,10 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
   sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");
   sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
   sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
-  Models.UserAccount.sync({force:true});
-  Models.UserInfo.sync({force:true});
-  Models.BankInformation.sync({force:true});
- 
+  sequelize.queryInterface.removeConstraint("LoginHistory", "UserAccountID");
+  sequelize.queryInterface.removeConstraint("SupportTicket", "UserAccountID");
+  
+ /*
   Models.UserInfo.sync().then(function(result) {
     console.log('1');
    // sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
@@ -2349,7 +2349,7 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
     })
   }).catch(function(result) {//catching any then errors
     console.log("UserInfo Error : "+result);//SequelizeDatabaseError: Cannot add foreign key constraint
-  });
+  });*/
 
  Models.UserAccount.sync({force:true});
   res.send("Deleted");
