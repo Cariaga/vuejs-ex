@@ -1621,13 +1621,13 @@ app.get('/DepositHistory', function (req, res) {
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
    let Status = 'Pending';
    let RequestedDATE = '';//runtime assigned
-   let ApprovedDATE = '';
-   let RejectedDATE = '';
-   let ProcessingDATE ='';
+   let ApprovedDATE = undefined;
+   let RejectedDATE = undefined;
+   let ProcessingDATE =undefined;
    let RequestedTIME = '';//runtime assigned here
-   let ApprovedTIME = '';//Unused
-   let RejectedTIME = '';
-   let ProcessingTIME = '';
+   let ApprovedTIME = undefined;
+   let RejectedTIME = undefined;
+   let ProcessingTIME = undefined;
    if(!isNullOrEmpty(UserName)){
     console.log("UserName :"+UserName);
 
