@@ -1634,7 +1634,7 @@ app.get('/DepositHistory', function (req, res) {
     isUserNameExist(UserName,function(response3){
       let obj = response3;
       let UserAccountID = '';//runtime assigned by Username
-      UserAccountID= obj.UserAccountID;
+      UserAccountID= obj[0].UserAccountID;
         console.log("UserAccountID: "+UserAccountID);
       if(!isNullOrEmpty(obj)&&obj!=undefined){
        
