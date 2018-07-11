@@ -1615,7 +1615,7 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
 
 app.get('/DepositHistory', function (req, res) {
    let UserName = req.query.UserName;
- 
+   let Password = req.query.Password;
    let Amount = req.query.Amount;
    let BankNameUsed = req.query.BankNameUsed;
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
@@ -1634,8 +1634,7 @@ app.get('/DepositHistory', function (req, res) {
     isUserNameExist(UserName,function(response3){
       let obj = response3;
       let UserAccountID = '';//runtime assigned by Username
-      
-        UserAccountID= obj[0].UserAccountID;
+      UserAccountID= obj.UserAccountID;
         console.log("UserAccountID: "+UserAccountID);
       if(!isNullOrEmpty(obj)&&obj!=undefined){
        
