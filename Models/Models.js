@@ -164,7 +164,7 @@ const GameHistory =sequelize.define('GameHistory', {
 	BeforePoints:  Sequelize.INTEGER,
   AfterPoints: Sequelize.INTEGER
 });
-const PointsHistory =sequelize.define('PointsHistory', {
+const PointHistory =sequelize.define('PointsHistory', {
   PointsHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -172,7 +172,6 @@ const PointsHistory =sequelize.define('PointsHistory', {
   },
   UserAccountID:{
     type: Sequelize.STRING,
-    unique: true,
     foreignKey: true,
     references: {
       model: UserAccount,
@@ -356,6 +355,7 @@ const Notification =sequelize.define('Notification', {
   module.exports.AccessControl =AccessControl;
   module.exports.UserInfo =UserInfo;
   module.exports.GameHistory =GameHistory;
+  module.exports.PointHistory =PointHistory;
   module.exports.DepositHistory =DepositHistory;
   module.exports.WithdrawHistory =WithdrawHistory;
   module.exports.BankInformation =BankInformation;
