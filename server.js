@@ -2324,15 +2324,18 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
+  
+  queryInterface.dropAllTables();
 
-  sequelize
+ /* sequelize
   .sync() // create the database table for our model(s)
   .then(function(){
     // do some work
   })
   .then(function(){
     return sequelize.drop() // drop all tables in the db
-  });
+  });*/
+
 /*
   Models.UserInfo.sync({auto:true}).then(function(result){
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
