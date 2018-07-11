@@ -155,7 +155,14 @@ const GameHistory =sequelize.define('GameHistory', {
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
   RoundID: Sequelize.STRING,// assigned by the room
-	RoomID: Sequelize.STRING,// assigned by the room
+	RoomID: {
+    type: Sequelize.STRING,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK, assigned by the room
 	Rank: Sequelize.STRING,
 	Score: Sequelize.INTEGER,
 	Card: Sequelize.STRING,//card sequence
@@ -173,6 +180,7 @@ const RoomConfiguration =sequelize.define('RoomConfiguration', {
   },
   SmallBlind:Sequelize.INTEGER,
   BigBlind:Sequelize.INTEGER,
+  Speed:sequelize.INTEGER,
 });
 
 const DepositHistory =sequelize.define('DepositHistory', {
@@ -348,6 +356,7 @@ const Notification =sequelize.define('Notification', {
   module.exports.AccessControl =AccessControl;
   module.exports.UserInfo =UserInfo;
   module.exports.GameHistory =GameHistory;
+  module.exports.RoomConfiguration =RoomConfiguration;
   module.exports.DepositHistory =DepositHistory;
   module.exports.WithdrawHistory =WithdrawHistory;
   module.exports.BankInformation =BankInformation;
