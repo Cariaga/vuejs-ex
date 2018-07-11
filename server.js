@@ -3061,30 +3061,31 @@ app.get('/WithdrawHistory',function (req, res) {
           if(!isNullOrEmpty(ContactNumber)){
             if(!isNullOrEmpty(WithdrawPassword)){
               let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:1};
-              res.send("Valid");
+              res.send(Data);
             }else{
-              res.send("Invalid")
+          
               let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:true,ResponseCode:1};
+              res.send(Data);
             }
           }else{
             let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:false,ResponseCode:2};
-            res.send("Invalid");
+            res.send(Data);
           }
         }else{
           let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:true,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:3};
-          res.send("Invalid");
+          res.send(Data);
         }
       }else{
         let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:true,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:4};
-        res.send("Invalid");
+        res.send(Data);
       }
     }else{
       let Data = {IsInvalidAmount:false,IsInvalidBankName:true,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:5};
-      res.send("Invalid");
+      res.send(Data);
     }
   }else{
     let Data = {IsInvalidAmount:true,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:6};
-    res.send("Invalid");
+    res.send(Data);
   }
 });
 
