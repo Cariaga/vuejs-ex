@@ -2329,9 +2329,9 @@ app.get('/Api/v1/UserAccount/Delete', function (req, res){
     console.log('1');
     sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
     console.log('2');
-    Models.BankInformation.sync({auto:true}).then(function(result){
+    Models.BankInformation.sync().then(function(result){
       console.log('3');
-      sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID")
+      sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
       console.log('4');
 
     }).catch(function(error){
