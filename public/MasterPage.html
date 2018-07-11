@@ -93,7 +93,34 @@
 
 <script>
     window.addEventListener('load', function(event) {
-        // 0. If using a module system, call Vue.use(VueRouter)
+  var vm = new Vue({
+    el: '#vue-instance',
+    data() {
+    return {
+      tableData:[],      
+    }
+  },
+  computed: {  
+    },
+      created: function(){
+          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
+        $(document).ready(function () {
+          
+           // vm.tableData = [{ "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" } ];
+          
+       $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BankInformation', function (data) {
+       // console.log(data);
+       vm.tableData=data;
+        });
+       });
+      },
+    methods: {
+      onSubmit() {
+        
+      }
+    }
+  });
+  // 0. If using a module system, call Vue.use(VueRouter)
 
 // 1. Define route components.
 // These can be imported from other files
@@ -136,34 +163,6 @@ const app = new Vue({
 
 // Now the app has started!
   });
-  var vm = new Vue({
-    el: '#vue-instance',
-    data() {
-    return {
-      tableData:[],      
-    }
-  },
-  computed: {  
-    },
-      created: function(){
-          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
-        $(document).ready(function () {
-          
-           // vm.tableData = [{ "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" } ];
-          
-       $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BankInformation', function (data) {
-       // console.log(data);
-       vm.tableData=data;
-        });
-       });
-      },
-    methods: {
-      onSubmit() {
-        
-      }
-    }
-  });
-
 
 </script>
 
