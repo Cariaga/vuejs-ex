@@ -161,25 +161,8 @@ const GameHistory =sequelize.define('GameHistory', {
 	Card: Sequelize.STRING,//card sequence
   Time: Sequelize.TIME,
   Date:Sequelize.DATE,
-	BeforePoints:  Sequelize.INTEGER,
-  AfterPoints: Sequelize.INTEGER
-});
-const PointHistory =sequelize.define('PointsHistory', {
-  PointsHistoryID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  UserAccountID:{
-    type: Sequelize.STRING,
-    foreignKey: true,
-    references: {
-      model: UserAccount,
-      key: 'UserAccountID'
-    }
-  },//FK One Deposit UserAccountID can have many DepositHistory
-  Amount:Sequelize.INTEGER,
-  Status:Sequelize.STRING,//Current Status
+  BeforePoints:  Sequelize.INTEGER,
+  AfterPoints: Sequelize.INTEGER//also called current Points
 });
 
 const DepositHistory =sequelize.define('DepositHistory', {
