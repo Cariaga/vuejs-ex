@@ -277,7 +277,7 @@ app.get('/register',function (req, res) {
 
             //async series Validate start
             async.series([//don't add anything inside this from top start at the button for new function call backs
-              function(callback){
+              function(callback1){
                 console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
@@ -289,13 +289,13 @@ app.get('/register',function (req, res) {
                     isAlreadyEmailExist=false;
                   }
                   console.log('2');
-                  callback(null,isAlreadyEmailExist);
+                  callback1(null,isAlreadyEmailExist);
                   console.log("Email Exist check "+isAlreadyEmailExist);
                   //console.log(response);*/
                 
                 });
               },
-              function(callback){
+              function(callback2){
                 console.log('3');
                 console.log("UserName : "+UserName);
                 isUserNameExist(UserName,function(response){
@@ -311,7 +311,7 @@ app.get('/register',function (req, res) {
                     isAlreadyUserNameExist=false;
                   }
                   console.log('4');
-                  callback(null,isAlreadyUserNameExist);
+                  callback2(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
                
@@ -341,7 +341,7 @@ app.get('/register',function (req, res) {
                 console.log(CurrentTime);*/
 
                 async.series([//Async series add Account Start
-                  function(callback){
+                  function(callback3){
                     console.log('6');
                     AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
 
@@ -350,13 +350,13 @@ app.get('/register',function (req, res) {
                         isRegistered=true;
                         let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
                         //res.send(beautify(Data, null, 2, 100));
-                        callback(Data);
+                        callback3(null,Data);
                       }else{
                         isRegistered=false;
                         let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
                         //res.send(beautify(Data, null, 2, 100));
                         console.log("Error Received did not registered "+response);// Error Received did not registered
-                        callback(Data);
+                        callback3(null,Data);
                       }
                     });
                     console.log('7');
@@ -367,11 +367,11 @@ app.get('/register',function (req, res) {
                     SendMail(To,From,Title,VerificationURL);
                   },
 
-                ],function(error,callback){//Async series Adding UserInfo
-                  var ResultUserAccount = callback[0];
+                ],function(error,callback4){//Async series Adding UserInfo
+                  var ResultUserAccount = callback4[0];
                   console.log('8');
                  // console.log(ResultUserAccount);
-                  if(ResultUserAccount.isRyegistered==true){
+                  if(ResultUserAccount.isRegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
@@ -1614,89 +1614,92 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
 });
 
 app.get('/DepositHistory', function (req, res) {
+  //DepositHistory?UserName=4dshg5D4d&Password=sdgsdrhGHSD46&Amount=132&BankNameUsed=BankNameUsed&SecurityCodeUsed=SecurityCodeUsed
    let UserName = req.query.UserName;
- 
+   let Password = req.query.Password;
    let Amount = req.query.Amount;
    let BankNameUsed = req.query.BankNameUsed;
    let SecurityCodeUsed = req.query.SecurityCodeUsed;
-   let Status = 'Pending';
+   let Status = 'Pending';//must be have default
    let RequestedDATE = '';//runtime assigned
-   let ApprovedDATE = '';
-   let RejectedDATE = '';
-   let ProcessingDATE ='';
+   let ApprovedDATE = undefined;//must be undefined
+   let RejectedDATE = undefined;//must be undefined
+   let ProcessingDATE =undefined;//must be undefined
    let RequestedTIME = '';//runtime assigned here
-   let ApprovedTIME = '';//Unused
-   let RejectedTIME = '';
-   let ProcessingTIME = '';
+   let ApprovedTIME = undefined;//must be undefined
+   let RejectedTIME = undefined;//must be undefined
+   let ProcessingTIME = undefined;//must be undefined
    if(!isNullOrEmpty(UserName)){
     console.log("UserName :"+UserName);
-
-    isUserNameExist(UserName,function(response3){
-      let obj = response3;
-      let UserAccountID = '';//runtime assigned by Username
-      
-        UserAccountID= obj[0].UserAccountID;
-        console.log("UserAccountID: "+UserAccountID);
-      if(!isNullOrEmpty(obj)&&obj!=undefined){
-       
-
-        async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
-          if(!isNullOrEmpty(UserAccountID)&&
-          !isNullOrEmpty(Amount)&&
-          !isNullOrEmpty(BankNameUsed)&&
-          !isNullOrEmpty(SecurityCodeUsed)&&
-          !isNullOrEmpty(Status)&&
-          !isNullOrEmpty(RequestedDATE)&&
-          !isNullOrEmpty(RequestedTIME)){
-            AddDepositHistory(UserAccountID,
-              Amount,
-              BankNameUsed,
-              SecurityCodeUsed,
-              Status,
-              RequestedDATE,
-              ApprovedDATE,
-              RejectedDATE,
-              ProcessingDATE,
-              RequestedTIME,
-              RejectedTIME,
-              ProcessingTIME,function(response) {
-                let Data = { IsInvalidUserName:false,IsInvalidBankInformation:false, ResponseCode:1 };
+    if(!isNullOrEmpty(Amount)&&Amount>0){
+        isUserNameExist(UserName,function(response3){
+          let obj = response3;
+          let UserAccountID = obj[0].UserAccountID;//runtime assigned by Username
+            console.log("UserAccountID: "+UserAccountID);
+          if(!isNullOrEmpty(obj)&&obj!=undefined){
+          
+            async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
+              if(!isNullOrEmpty(UserAccountID)&&
+              !isNullOrEmpty(Amount)&&
+              !isNullOrEmpty(BankNameUsed)&&
+              !isNullOrEmpty(SecurityCodeUsed)&&
+              !isNullOrEmpty(Status)&&
+              !isNullOrEmpty(RequestedDATE)&&
+              !isNullOrEmpty(RequestedTIME)){
+                AddDepositHistory(UserAccountID,
+                  Amount,
+                  BankNameUsed,
+                  SecurityCodeUsed,
+                  Status,
+                  RequestedDATE,
+                  ApprovedDATE,
+                  RejectedDATE,
+                  ProcessingDATE,
+                  RequestedTIME,
+                  ApprovedTIME,
+                  RejectedTIME,
+                  ProcessingTIME,function(response) {
+                    let Data = { IsInvalidUserName:false,IsUserNameNotFound:false,IsInvalidBankInformation:false,IsInvalidAmount:false, ResponseCode:1 };
+                    res.send(Data);
+                });
+              }
+              else{
+                let Data = { IsInvalidUserName:false,IsUserNameNotFound:false,IsInvalidBankInformation:true,IsInvalidAmount:false, ResponseCode:2 };
                 res.send(Data);
+                }
             });
-          }
-          else{
-            let Data = { IsInvalidUserName:false,IsInvalidBankInformation:true, ResponseCode:2 };
+              function myFirstFunction(callback){
+              getCurrentTime(function(response){
+                  callback(null,response);
+                });
+              }
+              function mySecondFunction(arg0,callback2){
+            
+                let Time = arg0;
+                getCurrentDate(function(response){
+                    let Date = response;
+                    RequestedTIME = Time;
+                    RequestedDATE = Date;
+                  
+                    callback2(null,response);
+                });
+              }
+          }else{
+            let Data = {  IsInvalidUserName:true,IsUserNameNotFound:true,IsInvalidBankInformation:true,IsInvalidAmount:false, ResponseCode:3 };
             res.send(Data);
           }
         });
-          function myFirstFunction(callback){
-          getCurrentTime(function(response){
-              callback(null,response);
-            });
-          }
-          function mySecondFunction(arg0,callback2){
-        
-            let Time = arg0;
-            getCurrentDate(function(response){
-                let Date = response;
-                RequestedTIME = Time;
-                RequestedDATE = Date;
-              
-                callback2(null,response);
-            });
-          }
-      }else{
-        let Data = {  IsInvalidUserName:true,IsInvalidBankInformation:true, ResponseCode:3 };
-        res.send(Data);
-      }
-    });
+    }else{
+      let Data = { IsInvalidUserName:false,IsUserNameNotFound:false,IsInvalidBankInformation:true,IsInvalidAmount:true, ResponseCode:4 };
+      res.send(Data);
+    }
   }else{
-    let Data = {  IsInvalidUserName:true,IsInvalidBankInformation:true, ResponseCode:4 };
+    let Data = {  IsInvalidUserName:true,IsUserNameNotFound:true,IsInvalidBankInformation:true,IsInvalidAmount:false, ResponseCode:5 };
     res.send(Data);
    }
  });
 
-function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
+function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.DepositHistory.build({
     UserAccountID:UserAccountID,
     Amount:Amount, 
@@ -2322,63 +2325,10 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
   });
 
 });
-app.get('/Api/v1/UserAccount/Delete', function (req, res){
-  //will not execute if has FK set Up
-  
-  queryInterface.dropAllTables();
-
- /* sequelize
-  .sync() // create the database table for our model(s)
-  .then(function(){
-    // do some work
-  })
-  .then(function(){
-    return sequelize.drop() // drop all tables in the db
-  });*/
-
-/*
-  Models.UserInfo.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
-  });
-
-  Models.BankInformation.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
-  });
-  Models.LoginHistory.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("LoginHistory", "UserAccountID");
-  });
-  Models.SupportTicket.sync({auto:true}).then(function(result){
-    sequelize.queryInterface.removeConstraint("SupportTicket", "UserAccountID");
-  });
- */
-
-  /*sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
-  sequelize.queryInterface.removeConstraint("LoginHistory", "UserAccountID");
-  sequelize.queryInterface.removeConstraint("SupportTicket", "UserAccountID");*/
-
- /*
-  Models.UserInfo.sync().then(function(result) {
-    console.log('1');
-   // sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
-    console.log('2');
-    Models.BankInformation.sync().then(function(result){
-      console.log('3');
-    //  sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
-      console.log('4');
-
-    }).catch(function(error){
-      console.log("BankInformation > BankInformation RemoveConstraint Error");
-    })
-    .then(function(result) {
-    }).catch(function(error){
-      console.log("UserInfo > UserInfo RemoveConstraint Error");
-    })
-  }).catch(function(result) {//catching any then errors
-    console.log("UserInfo Error : "+result);//SequelizeDatabaseError: Cannot add foreign key constraint
-  });*/
-
+app.get('/Api/v1/Tables/Drop', function (req, res){
+  sequelize.queryInterface.dropAllTables();
  Models.UserAccount.sync({force:true});
-  res.send("Deleted");
+  res.send("Droped All Table");
 });
 app.get('/Api/v1/UserAccount', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -3095,23 +3045,9 @@ app.get('/notification/', function (req, res) {
 
 
 
-app.get('/deposit',function (req, res) {
-  
-  let DepositName= req.query.DepositName;
-  let DepositAmount =req.query.DepositAmount;
 
-  if(!isNullOrEmpty(DepositName)){
-    if(!isNullOrEmpty(DepositAmount)){
-      res.send("Valid");
-    }else{
-      res.send("Invalid");
-    }
-  }else{
-    res.send("Invalid");
-  }
-});
 
-app.get('/withdraw',function (req, res) {
+app.get('/WithdrawHistory',function (req, res) {
   let Amount = req.query.Amount;
   let Bank = req.query.Bank;
   let AccountNumber = req.query.AccountNumber;
@@ -3119,32 +3055,39 @@ app.get('/withdraw',function (req, res) {
   let ContactNumber= req.query.ContactNumber;
   let WithdrawPassword = req.query.WithdrawPassword;
 
-  if(!isNullOrEmpty(Amount)){
+  if(!isNullOrEmpty(Amount)&&Amount>0){
     if(!isNullOrEmpty(Bank)){
       if(!isNullOrEmpty(AccountNumber)){
         if(!isNullOrEmpty(Name)){
           if(!isNullOrEmpty(ContactNumber)){
             if(!isNullOrEmpty(WithdrawPassword)){
-              res.send("Valid");
+              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:1};
+              res.send(Data);
             }else{
-              res.send("Invalid")
+          
+              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:true,ResponseCode:1};
+              res.send(Data);
             }
           }else{
-            res.send("Invalid");
+            let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:false,ResponseCode:2};
+            res.send(Data);
           }
         }else{
-          res.send("Invalid");
+          let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:true,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:3};
+          res.send(Data);
         }
       }else{
-        res.send("Invalid");
+        let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:true,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:4};
+        res.send(Data);
       }
     }else{
-      res.send("Invalid");
+      let Data = {IsInvalidAmount:false,IsInvalidBankName:true,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:5};
+      res.send(Data);
     }
   }else{
-    res.send("Invalid");
+    let Data = {IsInvalidAmount:true,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:6};
+    res.send(Data);
   }
-
 });
 
 // listen (start app with node server.js) ======================================
