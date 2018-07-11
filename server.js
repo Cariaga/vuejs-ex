@@ -2309,7 +2309,8 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
 
 
 app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to constraint
-  Models.UserAccount.destroy({
+  res.send('Doesnt clear use Delete');
+    Models.UserAccount.destroy({
     where: {},
     truncate: true
   })
