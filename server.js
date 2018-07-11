@@ -3077,9 +3077,18 @@ app.get('/WithdrawHistory',function (req, res) {
     });
   }
   function ValidateBalance(arg0,callback){
+    let IsInvalidAccount = arg0.IsInvalidAccount;
     console.log(arg0);
-    res.send(arg0);
-    callback(null,response);
+    if(!IsInvalidAccount){
+      //Unconfigured
+      
+      res.send(arg0);
+      callback(null,response);
+    }else{
+      res.send(arg0);
+      callback(null,response);
+    }
+   
   }
  
 /*
