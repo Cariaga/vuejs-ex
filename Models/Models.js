@@ -170,7 +170,15 @@ const PointsHistory =sequelize.define('PointsHistory', {
     primaryKey: true,
     autoIncrement: true
   },
-  UserAccountID:Sequelize.STRING,//FK One Deposit UserAccountID can have many DepositHistory
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK One Deposit UserAccountID can have many DepositHistory
   Amount:Sequelize.INTEGER,
   Status:Sequelize.STRING,//Current Status
 });
