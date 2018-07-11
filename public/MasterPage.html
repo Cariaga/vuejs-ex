@@ -36,8 +36,8 @@
             :data="tableData"
             style="width: 100%">
             <el-table-column
-              prop="BankInformationID"
-              label="BankInformationID"
+              prop="BlackListID"
+              label="BlackListID"
               width="180">
             </el-table-column>
             <el-table-column
@@ -46,28 +46,28 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="BankName"
-              label="BankName">
+              prop="Title"
+              label="Title">
             </el-table-column>
             <el-table-column
-              prop="SecurityCode"
-              label="SecurityCode">
+              prop="Description"
+              label="Description">
             </el-table-column>
             <el-table-column
-              prop="Valid"
-              label="Valid">
+              prop="ReportDate"
+              label="ReportDate">
             </el-table-column>
             <el-table-column
-              prop="Expiration"
-              label="Expiration">
+              prop="ReleaseDate"
+              label="ReleaseDate">
             </el-table-column>
             <el-table-column
-              prop="Time"
-              label="Time">
+              prop="createdAt"
+              label="createdAt">
             </el-table-column>
             <el-table-column
-              prop="Date"
-              label="Date">
+              prop="updatedAt"
+              label="updatedAt">
             </el-table-column>
           </el-table>
         </div>
@@ -97,8 +97,7 @@
     el: '#vue-instance',
     data() {
     return {
-      tableData:[],
-      
+      tableData:[{"BlackListID": 1}]      
     }
   },
   computed: {  
@@ -107,7 +106,7 @@
           //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
         $(document).ready(function () {
           
-          /* vm.tableData = [{ "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" } ];*/
+           // vm.tableData = [{ "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" } ];
           
        $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BankInformation', function (data) {
        // console.log(data);
