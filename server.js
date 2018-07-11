@@ -271,8 +271,8 @@ app.get('/register',function (req, res) {
             
           
          
-            let isInvalidPassword= !schema.validate(Password);
-            let isInvalidEmail = !validator.isEmail(Email);
+            let IsInvalidPassword= !schema.validate(Password);
+            let IsInvalidEmail = !validator.isEmail(Email);
             
 
             //async series Validate start
@@ -321,9 +321,9 @@ app.get('/register',function (req, res) {
             ],function(error,results){//async series result
               console.log('5');
               let isAlreadyEmailExist= results[0];
-              let isAlreadyUserNameExist = results[1];
+              let IsAlreadyUserNameExist = results[1];
               console.log(results);
-              if(!isAlreadyEmailExist&&!isAlreadyUserNameExist&&!isInvalidPassword&&!isInvalidEmail){
+              if(!isAlreadyEmailExist&&!IsAlreadyUserNameExist&&!IsInvalidPassword&&!IsInvalidEmail){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
                 getCurrentTime(function(response){
@@ -348,12 +348,12 @@ app.get('/register',function (req, res) {
                       let isRegistered =false;
                       if(response=="Inserted"){
                         isRegistered=true;
-                        let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
+                        let Data = { "IsAlreadyEmailExist":isAlreadyEmailExist,"IsInvalidEmail":IsInvalidEmail, "IsAlreadyUserNameExist":IsAlreadyUserNameExist,"IsInvalidPassword":IsInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":1 };
                         //res.send(beautify(Data, null, 2, 100));
                         callback3(null,Data);
                       }else{
                         isRegistered=false;
-                        let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
+                        let Data = { "IsAlreadyEmailExist":isAlreadyEmailExist,"IsInvalidEmail":IsInvalidEmail, "IsAlreadyUserNameExist":IsAlreadyUserNameExist,"IsInvalidPassword":IsInvalidPassword ,"isRegistered":isRegistered,"ResponseCode":2 };
                         //res.send(beautify(Data, null, 2, 100));
                         console.log("Error Received did not registered "+response);// Error Received did not registered
                         callback3(null,Data);
@@ -394,7 +394,7 @@ app.get('/register',function (req, res) {
   
               }else{
                 //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
-                let Data = { "isAlreadyEmailExist":isAlreadyEmailExist,"isInvalidEmail":isInvalidEmail, "isAlreadyUserNameExist":isAlreadyUserNameExist,"isInvalidPassword":isInvalidPassword,"isRegistered":false,"ResponseCode":3 };
+                let Data = { "IsAlreadyEmailExist":IsAlreadyEmailExist,"IsInvalidEmail":IsInvalidEmail, "IsAlreadyUserNameExist":IsAlreadyUserNameExist,"IsInvalidPassword":IsInvalidPassword,"IsRegistered":false,"ResponseCode":3 };
                 res.send(beautify(Data, null, 2, 100));
               }
 
@@ -3048,6 +3048,9 @@ app.get('/notification/', function (req, res) {
 
 
 app.get('/WithdrawHistory',function (req, res) {
+  let UserName = req.query.UserName;
+  let Password = req.query.Password;
+
   let Amount = req.query.Amount;
   let Bank = req.query.Bank;
   let AccountNumber = req.query.AccountNumber;
@@ -3055,39 +3058,78 @@ app.get('/WithdrawHistory',function (req, res) {
   let ContactNumber= req.query.ContactNumber;
   let WithdrawPassword = req.query.WithdrawPassword;
 
-  if(!isNullOrEmpty(Amount)&&Amount>0){
-    if(!isNullOrEmpty(Bank)){
-      if(!isNullOrEmpty(AccountNumber)){
-        if(!isNullOrEmpty(Name)){
-          if(!isNullOrEmpty(ContactNumber)){
-            if(!isNullOrEmpty(WithdrawPassword)){
-              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:1};
-              res.send(Data);
+  async.waterfall([ValidateAccount,ValidateBalance],function(err,response){
+    MyFinalFunction();
+    
+  });
+  function ValidateAccount(callback){
+    isUserNameExist(UserName,function(response){
+      let obj = response;
+      if(!isNullOrEmpty(obj)&&obj!=undefined){
+        if(obj[0].UserName==UserName&&obj[0].Password==Password){
+          let Data =  {IsInvalidAccount:false};
+          callback(null,Data)
+        }
+      }else{
+        let Data =  {IsInvalidAccount:true};
+        callback(null,Data)
+      }
+    });
+  }
+  function ValidateBalance(arg0,callback){
+    let IsInvalidAccount = arg0.IsInvalidAccount;
+    console.log(arg0);
+    if(!IsInvalidAccount){
+      //Unconfigured
+      
+      res.send(arg0);
+      callback(null,response);
+    }else{
+      res.send(arg0);
+      callback(null,response);
+    }
+   
+  }
+ 
+/*
+  function MyFinalFunction(){
+    if(!isNullOrEmpty(Amount)&&Amount>0){
+      if(!isNullOrEmpty(Bank)){
+        if(!isNullOrEmpty(AccountNumber)){
+          if(!isNullOrEmpty(Name)){
+            if(!isNullOrEmpty(ContactNumber)){
+              if(!isNullOrEmpty(WithdrawPassword)){
+  
+                
+                let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:1};
+                res.send(Data);
+              }else{
+            
+                let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:true,ResponseCode:1};
+                res.send(Data);
+              }
             }else{
-          
-              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:true,ResponseCode:1};
+              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:false,ResponseCode:2};
               res.send(Data);
             }
           }else{
-            let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:false,ResponseCode:2};
+            let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:true,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:3};
             res.send(Data);
           }
         }else{
-          let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:true,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:3};
+          let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:true,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:4};
           res.send(Data);
         }
       }else{
-        let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:true,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:4};
+        let Data = {IsInvalidAmount:false,IsInvalidBankName:true,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:5};
         res.send(Data);
       }
     }else{
-      let Data = {IsInvalidAmount:false,IsInvalidBankName:true,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:5};
+      let Data = {IsInvalidAmount:true,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:6};
       res.send(Data);
     }
-  }else{
-    let Data = {IsInvalidAmount:true,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:6};
-    res.send(Data);
-  }
+  }*/
+  
 });
 
 // listen (start app with node server.js) ======================================
