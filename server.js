@@ -2324,7 +2324,7 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
 });
 app.get('/Api/v1/UserAccount/Delete', function (req, res){
   //will not execute if has FK set Up
-
+  sequelize.queryInterface.removeConstraint("UserAccount", "UserAccountID");
   sequelize.queryInterface.removeConstraint("UserInfo", "UserAccountID");
   sequelize.queryInterface.removeConstraint("BankInformation", "UserAccountID");
   Models.UserAccount.sync({force:true});
