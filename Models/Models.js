@@ -165,6 +165,16 @@ const GameHistory =sequelize.define('GameHistory', {
   AfterPoints: Sequelize.INTEGER//also called current Points
 });
 
+const RoomConfiguration =sequelize.define('RoomConfiguration', {
+  RoomID: {
+    type: Sequelize.STRING,
+    primaryKey: true,
+    autoIncrement: true 
+  },
+  SmallBlind:Sequelize.INTEGER,
+  BigBlind:Sequelize.INTEGER,
+});
+
 const DepositHistory =sequelize.define('DepositHistory', {
   DepositHistoryID: {
     type: Sequelize.INTEGER,
