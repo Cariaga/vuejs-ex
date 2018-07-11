@@ -3074,12 +3074,13 @@ app.get('/WithdrawHistory',function (req, res) {
       }
     });
   }
-  function ValidateBalance(callback){
-
+  function ValidateBalance(arg0,callback){
+    console.log(arg0);
+    res.send(arg0);
     callback(null,response);
   }
  
-
+/*
   function MyFinalFunction(){
     if(!isNullOrEmpty(Amount)&&Amount>0){
       if(!isNullOrEmpty(Bank)){
@@ -3116,7 +3117,7 @@ app.get('/WithdrawHistory',function (req, res) {
       let Data = {IsInvalidAmount:true,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:6};
       res.send(Data);
     }
-  }
+  }*/
   
 });
 
