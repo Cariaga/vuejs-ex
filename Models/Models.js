@@ -177,6 +177,7 @@ const GameHistory =sequelize.define('GameHistory', {
     foreignKey: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
+    
     references: {
       model: RoomConfiguration,
       key: 'RoomID'
