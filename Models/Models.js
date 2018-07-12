@@ -58,7 +58,6 @@ const Player =sequelize.define('Player', {
 	Surname:Sequelize.STRING,
   CurrentRoomName:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
-  
 });
 
 const UserAccount =sequelize.define('UserAccount', {//the main schema
@@ -86,7 +85,6 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
   ValidKey: Sequelize.STRING,
   RegisteredDate:Sequelize.DATE,
   RegisteredTime: Sequelize.TIME,
-  Points:Sequelize.INTEGER
 });
 
 /*UserAccount.associate= function(models){
