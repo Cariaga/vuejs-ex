@@ -1854,6 +1854,92 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---DepositHistory ROUTING END
+
+//---RoomConfiguration ROUTING START
+app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:SmallBlind/:BigBlind/:Speed', function (req, res) {
+  let RoomID = req.params.RoomID;
+  let SmallBlind = req.params.SmallBlind;
+  let BigBlind = req.params.BigBlind;
+  let Speed = req.params.Speed;
+  if(!isNullOrEmpty(RoomID)&&
+  !isNullOrEmpty(SmallBlind)&&
+  !isNullOrEmpty(BigBlind)&&
+  !isNullOrEmpty(Speed)){
+    AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+      res.send(response);
+    });
+  }
+});
+
+function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
+  var item1 = Models.RoomConfiguration.build({
+    RoomID:RoomID,
+    SmallBlind:SmallBlind,
+    BigBlind:BigBlind,
+    Speed:Speed
+  });
+  Models.RoomConfiguration.sync({alter : true/*,force:true*/});//use force to delete old table non production
+  item1.save()
+  .then(Success => {
+    callback("Inserted");
+  })
+  .catch(error => {
+   
+    console.log("error inserting");
+    callback("error inserting " +error);
+  });
+}
+
+app.get('/Api/v1/RoomConfiguration', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.RoomConfiguration.sync();
+    let result = Models.RoomConfiguration.findAll({ 
+      where: {
+        RoomConfigurationID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+
+      res.send("Error "+result);
+    });
+  }
+});
+app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
+
+  Models.RoomConfiguration.destroy({
+    where: {},
+    truncate: true}).then(function(result) {
+      sequelize.queryInterface.removeConstraint('GameHistory', 'RoomID');
+    res.send("Cleared");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+});
+app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
+  res.send("UnImplemented");
+ /* Models.RoomConfiguration.sync();
+  sequelize.query('DROP TABLE RoomConfigurations', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
+    // Each record will now be a instance of Project
+    res.send(RoomConfiguration);
+  }).catch(error=>{
+    res.send(error);
+  });*/
+});
+
+//---RoomConfiguration ROUTING END
+
 //---GameHistory ROUTING START
 app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function (req, res) {
   //USAGE /Api/v1/GameHistory/Add/UserAccountID/RoundID/RoomID/Rank/0/Card/01:57:17/2018-06-27/0/0/
@@ -1877,31 +1963,37 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(BeforePoints)&&
   !isNullOrEmpty(AfterPoints)){
-    var item1 = Models.GameHistory.build({
-      UserAccountID:UserAccountID,
-      RoundID:RoundID,
-      RoomID:RoomID,
-      Rank:Rank,
-      Score:Score,
-      Card:Card,
-      Time:Time,
-      Date:Date,
-      BeforePoints:BeforePoints,
-      AfterPoints:AfterPoints
-    });
-    Models.GameHistory.sync({alter : true/*,force:true*/});//use force to delete old table non production
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-     
-      console.log("error inserting");
-      res.send("error inserting " +error);
+    AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
+      res.send(response);
     });
   }
 });
+function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,callback){
+  var item1 = Models.GameHistory.build({
+    UserAccountID:UserAccountID,
+    RoundID:RoundID,
+    RoomID:RoomID,
+    Rank:Rank,
+    Score:Score,
+    Card:Card,
+    Time:Time,
+    Date:Date,
+    BeforePoints:BeforePoints,
+    AfterPoints:AfterPoints
+  });
+  Models.GameHistory.sync({alter : true/*,force:true*/});//use force to delete old table non production
+  item1.save()
+  .then(Success => {
+    callback("Inserted");
+  })
+  
+  .catch(error => {
+   
+    console.log("error inserting");
+    callback("error inserting " +error);
+  });
+}
+
 app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function(req,res) {
   let GameHistoryID = req.params.GameHistoryID;
   let UserAccountID = req.params.UserAccountID;
