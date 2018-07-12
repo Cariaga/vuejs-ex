@@ -1916,6 +1916,7 @@ app.get('/Api/v1/RoomConfiguration', function (req, res) {
   }
 });
 app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
+
   Models.RoomConfiguration.sync({force:true}).then(function(result) {
     res.send("Deleted");
   }).catch(function(result) {//catching any then errors
@@ -1979,7 +1980,7 @@ function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,B
     callback("error inserting " +error);
   });
 }
-}
+
 app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function(req,res) {
   let GameHistoryID = req.params.GameHistoryID;
   let UserAccountID = req.params.UserAccountID;
