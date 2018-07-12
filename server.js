@@ -1881,13 +1881,13 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
   Models.RoomConfiguration.sync({alter : true/*,force:true*/});//use force to delete old table non production
   item1.save()
   .then(Success => {
-    res.send("Inserted");
+    callback("Inserted");
   })
   
   .catch(error => {
    
     console.log("error inserting");
-    res.send("error inserting " +error);
+    callback("error inserting " +error);
   });
 }
 //---RoomConfiguration ROUTING END
