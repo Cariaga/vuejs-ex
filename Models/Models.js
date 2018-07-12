@@ -176,6 +176,7 @@ const GameHistory =sequelize.define('GameHistory', {
     type: Sequelize.STRING,
     foreignKey: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
     references: {
       model: RoomConfiguration,
       key: 'RoomID'
@@ -194,7 +195,8 @@ GameHistory.belongsTo(RoomConfiguration, {
   
   foreignKey: 'RoomID',
   targetKey: 'RoomID',
-  onDelete: 'CASCADE', 
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE', 
   constraints: true}); 
 
 
