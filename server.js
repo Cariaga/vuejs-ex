@@ -1929,7 +1929,7 @@ app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
 });
 app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
   Models.RoomConfiguration.sync();
-  sequelize.query('DROP TABLE RoomConfiguration', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
+  sequelize.query('DROP TABLE RoomConfigurations', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
     // Each record will now be a instance of Project
     res.send(RoomConfiguration);
   }).catch(error=>{
