@@ -160,20 +160,21 @@
         onSubmit() {
         
           var NumberArray = vm.form.Numbers;//spliting array
-          var groupNumbers = chunkArrayInGroups(NumberArray,100);//grouping to array 100 is optimal //we chunk numbers to prevent server url limit
+          console.log(NumberArray);
+          var groupNumbers = chunkArrayInGroups(NumberArray.map(Number),100);//grouping to array 100 is optimal //we chunk numbers to prevent server url limit
           // iterate each group
           var i =0;
           vm.progres=0;
           for(i =0;i<groupNumbers.length;i++){
             var numberBatch =groupNumbers[i];
     
-            console.log(numberBatch);
+           /* console.log(numberBatch);
             this.$http.get('http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/SMS/'+numberBatch+'/'+vm.form.Message).then(response => {
             }, response => {
             // error callback
             // var progress =inverseLerp(0,groupNumbers.length,i);
             // vm.progres=100;
-            });
+            });*/
           }
           alert("Sent");
             vm.form.Numbers=[];
