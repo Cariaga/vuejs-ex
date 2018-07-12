@@ -1854,6 +1854,49 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---DepositHistory ROUTING END
+
+//---RoomConfiguration ROUTING START
+app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:RoundID/:RoomID/:SmallBlind/:BigBlind/:Speed', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let RoomID = req.params.RoomID;
+  let SmallBlind = req.params.SmallBlind;
+  let BigBlind = req.params.BigBlind;
+  let Speed = req.params.Speed;
+  if(!isNullOrEmpty(UserAccountID)&&
+  !isNullOrEmpty(RoundID)&&
+  !isNullOrEmpty(RoomID)&&
+  !isNullOrEmpty(Rank)&&
+  !isNullOrEmpty(Score)&&
+  !isNullOrEmpty(Card)&&
+  !isNullOrEmpty(Time)&&
+  !isNullOrEmpty(Date)&&
+  !isNullOrEmpty(BeforePoints)&&
+  !isNullOrEmpty(AfterPoints)){
+   
+  }
+});
+
+function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed){
+  var item1 = Models.RoomConfiguration.build({
+    RoomID:RoomID,
+    SmallBlind:SmallBlind,
+    BigBlind:BigBlind,
+    Speed:Speed
+  });
+  Models.RoomConfiguration.sync({alter : true/*,force:true*/});//use force to delete old table non production
+  item1.save()
+  .then(Success => {
+    res.send("Inserted");
+  })
+  
+  .catch(error => {
+   
+    console.log("error inserting");
+    res.send("error inserting " +error);
+  });
+}
+//---RoomConfiguration ROUTING END
+
 //---GameHistory ROUTING START
 app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function (req, res) {
   //USAGE /Api/v1/GameHistory/Add/UserAccountID/RoundID/RoomID/Rank/0/Card/01:57:17/2018-06-27/0/0/

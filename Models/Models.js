@@ -159,10 +159,9 @@ const RoomConfiguration =sequelize.define('RoomConfiguration', {
     type: Sequelize.STRING,
     unique:true
   },
-  unique: true,
-  SmallBlind:Sequelize.INTEGER,
-  BigBlind:Sequelize.INTEGER,
-  Speed:Sequelize.INTEGER
+  SmallBlind:Sequelize.INTEGER,//dosn't change upon creating room only
+  BigBlind:Sequelize.INTEGER,//dosn't change upon creating room only
+  Speed:Sequelize.INTEGER//dosn't change upon creating room only
 });
 
 const GameHistory =sequelize.define('GameHistory', {
