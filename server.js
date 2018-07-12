@@ -1920,8 +1920,8 @@ app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
   Models.RoomConfiguration.destroy({
     where: {},
     truncate: true}).then(function(result) {
-      
-    res.send("Deleted");
+
+    res.send("Cleared");
   }).catch(function(result) {//catching any then errors
 
     res.send("Error "+result);
