@@ -195,7 +195,7 @@ GameHistory.belongsTo(RoomConfiguration, {
   targetKey: 'RoomID',
   constraints: true}); 
 
-
+//invoices
 const DepositHistory =sequelize.define('DepositHistory', {
   DepositHistoryID: {
     type: Sequelize.INTEGER,
@@ -216,8 +216,7 @@ const DepositHistory =sequelize.define('DepositHistory', {
   ProcessingTIME: Sequelize.TIME,
 });
 
-
-
+//invoices
 const WithdrawHistory =sequelize.define('WithdrawHistory', {
   WithdrawHistoryID: {
     type: Sequelize.INTEGER,
