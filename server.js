@@ -1928,8 +1928,8 @@ app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
-  Models.RoomConfiguration.sync();
-  Models.query('DROP TABLE RoomConfiguration', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
+  Models.RoomConfiguration.sync()
+  .query('DROP TABLE RoomConfiguration', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
     // Each record will now be a instance of Project
     res.send(RoomConfiguration);
   }).catch(error=>{
