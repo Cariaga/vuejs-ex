@@ -17,6 +17,7 @@ const  HeadOffice =sequelize.define('HeadOffice', {
   UserAccountID:Sequelize.STRING,//my account
   Name:Sequelize.STRING,
   Description:Sequelize.STRING,
+  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }
 });
 
 const  Distributor =sequelize.define('Distributor', {
@@ -28,9 +29,8 @@ const  Distributor =sequelize.define('Distributor', {
   UserAccountID:Sequelize.STRING,//my account
   HeadOfficeID:Sequelize.STRING,//FK Multiple DistributerID is referenced to A HeadOfficeID
   Name:Sequelize.STRING,
+  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
-
-
 
 const  Shop =sequelize.define('Shop', {
   ShopID: {
@@ -41,11 +41,9 @@ const  Shop =sequelize.define('Shop', {
   UserAccountID:Sequelize.STRING,//my account
   DistributorID:Sequelize.STRING,//FK Multiple ShopsID is referenced to A DistributorID
   Name:Sequelize.STRING,
-	Description:Sequelize.STRING,
+  Description:Sequelize.STRING,
+  CurrentPoints: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
-
-
-
 
 const Player =sequelize.define('Player', {
   PlayersID: {
@@ -58,10 +56,10 @@ const Player =sequelize.define('Player', {
   ScreenName:Sequelize.STRING,
 	Name:Sequelize.STRING,
 	Surname:Sequelize.STRING,
-	CurrentRoomName:Sequelize.STRING,
+  CurrentRoomName:Sequelize.STRING,
+  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
+  
 });
-
-
 
 const UserAccount =sequelize.define('UserAccount', {//the main schema
   UserID: {//PK only used in this part
@@ -87,7 +85,8 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
   Verify:  Sequelize.BOOLEAN,
   ValidKey: Sequelize.STRING,
   RegisteredDate:Sequelize.DATE,
-	RegisteredTime: Sequelize.TIME,
+  RegisteredTime: Sequelize.TIME,
+  Points:Sequelize.INTEGER
 });
 
 /*UserAccount.associate= function(models){
@@ -96,7 +95,7 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
       foreignKey: 'UserAccountID'
    })
 };*/
-
+//access control needed to restrict not just the account previllages for admin types but if its a player aswell
 const AccessControl =sequelize.define('AccessControl', {//A flexible way of access control Account Privileges 
   AccessControlID: {//PK
     type: Sequelize.INTEGER,
@@ -188,7 +187,6 @@ const GameHistory =sequelize.define('GameHistory', {
   Date:Sequelize.DATE,
   BeforePoints:  Sequelize.INTEGER,
   AfterPoints: Sequelize.INTEGER//also called current Points
-
 });
 
 GameHistory.belongsTo(RoomConfiguration, {
