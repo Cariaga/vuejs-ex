@@ -173,7 +173,7 @@ const GameHistory =sequelize.define('GameHistory', {
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
   RoundID: Sequelize.STRING,// assigned by the room
-	RoomID:{
+	RoomID:{//
     type: Sequelize.STRING,
     foreignKey: true,
     references: {
