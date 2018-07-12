@@ -1894,7 +1894,7 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
   });
 }
 
-app.get('/Api/v1/GameHistory', function (req, res) {
+app.get('/Api/v1/RoomConfiguration', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
