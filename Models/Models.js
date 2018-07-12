@@ -191,10 +191,9 @@ const GameHistory =sequelize.define('GameHistory', {
 });
 
 GameHistory.belongsTo(RoomConfiguration, {
-  
+  onDelete: 'cascade', hooks: true,
   foreignKey: 'RoomID',
   targetKey: 'RoomID',
-  onDelete: 'cascade',
   constraints: true}); 
 
 
