@@ -178,7 +178,9 @@ const GameHistory =sequelize.define('GameHistory', {
     references: {
       model: RoomConfiguration,
       key: 'RoomID'
-    }
+    },
+    targetKey: 'RoomID',
+    onDelete: 'cascade', hooks:true,
  
 
   },// assigned by the room
