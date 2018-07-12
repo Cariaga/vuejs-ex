@@ -180,9 +180,6 @@ const GameHistory =sequelize.define('GameHistory', {
       key: 'RoomID'
     },
     targetKey: 'RoomID',
-    onDelete: 'cascade', hooks:true,
- 
-
   },// assigned by the room
 	Rank: Sequelize.STRING,
 	Score: Sequelize.INTEGER,
@@ -198,7 +195,6 @@ GameHistory.belongsTo(RoomConfiguration, {
   options:onDelete='CASCADE',
   foreignKey: 'RoomID',
   targetKey: 'RoomID',
-  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 
