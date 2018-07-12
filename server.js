@@ -1856,6 +1856,10 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 //---DepositHistory ROUTING END
 
 //---RoomConfiguration ROUTING START
+
+
+
+
 app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:RoundID/:RoomID/:SmallBlind/:BigBlind/:Speed', function (req, res) {
   let RoomID = req.params.RoomID;
   let SmallBlind = req.params.SmallBlind;
@@ -1883,13 +1887,39 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
   .then(Success => {
     callback("Inserted");
   })
-  
   .catch(error => {
    
     console.log("error inserting");
     callback("error inserting " +error);
   });
 }
+
+app.get('/Api/v1/GameHistory', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.RoomConfiguration.sync();
+    let result = Models.RoomConfiguration.findAll({ 
+      where: {
+        RoomConfigurationID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+
+      res.send("Error "+result);
+    });
+  }
+});
+
 //---RoomConfiguration ROUTING END
 
 //---GameHistory ROUTING START
