@@ -161,8 +161,7 @@ const RoomConfiguration =sequelize.define('RoomConfiguration', {
   },
   unique: true,
   SmallBlind:Sequelize.INTEGER,
-  BigBlind:Sequelize.INTEGER,
-  Speed:sequelize.INTEGER,
+  BigBlind:Sequelize.INTEGER
 });
 
 const GameHistory =sequelize.define('GameHistory', {
@@ -369,7 +368,7 @@ const Notification =sequelize.define('Notification', {
   module.exports.AccessControl =AccessControl;
   module.exports.UserInfo =UserInfo;
   module.exports.GameHistory =GameHistory;
-  //module.exports.RoomConfiguration =RoomConfiguration;
+  module.exports.RoomConfiguration =RoomConfiguration;
   module.exports.DepositHistory =DepositHistory;
   module.exports.WithdrawHistory =WithdrawHistory;
   module.exports.BankInformation =BankInformation;
