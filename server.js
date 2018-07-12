@@ -1915,6 +1915,18 @@ app.get('/Api/v1/RoomConfiguration', function (req, res) {
     });
   }
 });
+app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
+
+  Models.RoomConfiguration.destroy({
+    where: {},
+    truncate: true}).then(function(result) {
+      
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+});
 app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 
   Models.RoomConfiguration.sync({force:true}).then(function(result) {
