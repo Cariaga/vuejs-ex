@@ -159,7 +159,7 @@
         },
         onSubmit() {
         
-          var NumberArray = vm.form.Numbers;//spliting array
+          var NumberArray = vm.form.Numbers.split(',');//spliting array
           console.log(NumberArray);
           var groupNumbers = chunkArrayInGroups(NumberArray.map(Number),100);//grouping to array 100 is optimal //we chunk numbers to prevent server url limit
           // iterate each group
