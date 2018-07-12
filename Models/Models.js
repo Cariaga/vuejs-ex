@@ -7,14 +7,18 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
-//we have Dedicated Head office,distributer,shop tables because if we used account type we would have a many to many relationship issue and a lot of inner joins queries
+//<summary>
+//we have Dedicated Headoffice,Distributer,Shop,Player tables because if we used account type we would have a many to many relationship issue and a lot of self joins queries 
+//this way now we have a hierarchy Getting its children/subtype will be easier 
+//Important Note : HeadOffice Distributor Shop Player UserAccountID Must Never exist in both instance This is must be validated at application Layer instead 
+//</summary>
 const  HeadOffice =sequelize.define('HeadOffice', {
   HeadOfficeID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true // Automatically gets converted to SERIAL for postgres
   },
-  UserAccountID:Sequelize.STRING,//my account
+  UserAccountID:Sequelize.STRING,//UserAccountID Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   Name:Sequelize.STRING,
   Description:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }
@@ -26,7 +30,7 @@ const  Distributor =sequelize.define('Distributor', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//my account
+  UserAccountID:Sequelize.STRING,//UserAccountID in Distributor  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   HeadOfficeID:Sequelize.STRING,//FK Multiple DistributerID is referenced to A HeadOfficeID
   Name:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
@@ -38,7 +42,7 @@ const  Shop =sequelize.define('Shop', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//my account
+  UserAccountID:Sequelize.STRING,//UserAccountID in Shop  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   DistributorID:Sequelize.STRING,//FK Multiple ShopsID is referenced to A DistributorID
   Name:Sequelize.STRING,
   Description:Sequelize.STRING,
@@ -51,7 +55,7 @@ const Player =sequelize.define('Player', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//my account
+  UserAccountID:Sequelize.STRING,//UserAccountID in Player Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   ShopsID:Sequelize.STRING,//FK Multiple PlayersID is referenced to A ShopsID
   ScreenName:Sequelize.STRING,
 	Name:Sequelize.STRING,
