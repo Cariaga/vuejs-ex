@@ -1929,23 +1929,12 @@ app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
 });
 app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 
-  sequelize.query('DROP TABLE RoomConfiguration', { model: RoomConfiguration }).then(RoomConfiguration => {
+  sequelize.query('DROP TABLE RoomConfiguration', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
     // Each record will now be a instance of Project
     res.send(RoomConfiguration);
   }).catch(error=>{
     res.send(error);
   });
-
-
-
-/*
-  Models.RoomConfiguration.sync().then(function(result) {
-    sequelize.queryInterface.removeConstraint('GameHistory', 'RoomID');
-    res.send("Deleted");
-  }).catch(function(result) {//catching any then errors
-
-    res.send("Error "+result);
-  });*/
 });
 
 //---RoomConfiguration ROUTING END
