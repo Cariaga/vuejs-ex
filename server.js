@@ -1929,7 +1929,7 @@ app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
 });
 app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 
-  Models.RoomConfiguration.sync({force:true}).then(function(result) {
+  Models.RoomConfiguration.sync().then(function(result) {
     queryInterface.removeConstraint('RoomConfiguration', 'RoomID');
     res.send("Deleted");
   }).catch(function(result) {//catching any then errors
