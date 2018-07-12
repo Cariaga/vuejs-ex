@@ -1857,26 +1857,19 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 
 //---RoomConfiguration ROUTING START
 app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:RoundID/:RoomID/:SmallBlind/:BigBlind/:Speed', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
   let RoomID = req.params.RoomID;
   let SmallBlind = req.params.SmallBlind;
   let BigBlind = req.params.BigBlind;
   let Speed = req.params.Speed;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(RoundID)&&
-  !isNullOrEmpty(RoomID)&&
-  !isNullOrEmpty(Rank)&&
-  !isNullOrEmpty(Score)&&
-  !isNullOrEmpty(Card)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)&&
-  !isNullOrEmpty(BeforePoints)&&
-  !isNullOrEmpty(AfterPoints)){
-   
+  if(!isNullOrEmpty(RoomID)&&
+  !isNullOrEmpty(SmallBlind)&&
+  !isNullOrEmpty(BigBlind)&&
+  !isNullOrEmpty(Speed)){
+    
   }
 });
 
-function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed){
+function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
   var item1 = Models.RoomConfiguration.build({
     RoomID:RoomID,
     SmallBlind:SmallBlind,
