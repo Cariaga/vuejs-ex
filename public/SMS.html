@@ -161,7 +161,7 @@ function handleDragOver(evt) {
         
         var NumberArray = vm.form.Numbers;//spliting array
 
-        var nameList = NumberArray.split(",");
+        var nameList = NumberArray.toString().split(",");
         console.log(nameList);
         var groupNumbers = chunkArrayInGroups(nameList,100);//grouping to array 100 is optimal //we chunk numbers to prevent server url limit
         // iterate each group
@@ -234,18 +234,8 @@ xlf.addEventListener('change', handleFile, false);
       
 });
 </script>
-
 <output id="list"></output>
-
-
-
-
-
-
-
 <script>
-
-
 </script>
 <script type="text/javascript">
 /* eslint no-use-before-define:0 */
