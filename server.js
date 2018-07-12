@@ -1856,10 +1856,6 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 //---DepositHistory ROUTING END
 
 //---RoomConfiguration ROUTING START
-
-
-
-
 app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:SmallBlind/:BigBlind/:Speed', function (req, res) {
   let RoomID = req.params.RoomID;
   let SmallBlind = req.params.SmallBlind;
@@ -1953,31 +1949,37 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(BeforePoints)&&
   !isNullOrEmpty(AfterPoints)){
-    var item1 = Models.GameHistory.build({
-      UserAccountID:UserAccountID,
-      RoundID:RoundID,
-      RoomID:RoomID,
-      Rank:Rank,
-      Score:Score,
-      Card:Card,
-      Time:Time,
-      Date:Date,
-      BeforePoints:BeforePoints,
-      AfterPoints:AfterPoints
-    });
-    Models.GameHistory.sync({alter : true/*,force:true*/});//use force to delete old table non production
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-     
-      console.log("error inserting");
-      res.send("error inserting " +error);
+    AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
+      res.send(response);
     });
   }
 });
+function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,callback){
+  var item1 = Models.GameHistory.build({
+    UserAccountID:UserAccountID,
+    RoundID:RoundID,
+    RoomID:RoomID,
+    Rank:Rank,
+    Score:Score,
+    Card:Card,
+    Time:Time,
+    Date:Date,
+    BeforePoints:BeforePoints,
+    AfterPoints:AfterPoints
+  });
+  Models.GameHistory.sync({alter : true/*,force:true*/});//use force to delete old table non production
+  item1.save()
+  .then(Success => {
+    callback("Inserted");
+  })
+  
+  .catch(error => {
+   
+    console.log("error inserting");
+    callback("error inserting " +error);
+  });
+}
+}
 app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function(req,res) {
   let GameHistoryID = req.params.GameHistoryID;
   let UserAccountID = req.params.UserAccountID;
