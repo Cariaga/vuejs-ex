@@ -1865,7 +1865,9 @@ app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:RoundID/:RoomID/:SmallBlind/:Big
   !isNullOrEmpty(SmallBlind)&&
   !isNullOrEmpty(BigBlind)&&
   !isNullOrEmpty(Speed)){
-    
+    AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+      
+    });
   }
 });
 
