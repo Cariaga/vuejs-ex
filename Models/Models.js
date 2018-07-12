@@ -9,8 +9,10 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
 });
 //<summary>
 //we have Dedicated Headoffice,Distributer,Shop,Player tables because if we used account type we would have a many to many relationship issue and a lot of self joins queries 
-//this way now we have a hierarchy Getting its children/subtype will be easier 
-//Important Note : HeadOffice Distributor Shop Player UserAccountID Must Never exist in both instance This is must be validated at application Layer instead 
+//this way now we have a hierarchy Getting its children/subtype will be easier to read from HeadOffice Down to the Player e.g HeadOffice>Distributor>Shop>Player
+// the earnings of e.g is computed still computed seperately from the hierarchy
+
+//Important Note : HeadOffice Distributor Shop Player UserAccountID Must Never exist in both instance This is must be validated at application Layer instead
 //</summary>
 const  HeadOffice =sequelize.define('HeadOffice', {
   HeadOfficeID: {
