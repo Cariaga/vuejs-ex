@@ -1928,13 +1928,14 @@ app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
-  Models.RoomConfiguration.sync();
-  sequelize.query('ALTER TABLE GameHistories DROP FOREIGN KEY RoomID DROP TABLE RoomConfigurations', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
+  res.send("UnImplemented");
+ /* Models.RoomConfiguration.sync();
+  sequelize.query('DROP TABLE RoomConfigurations', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
     // Each record will now be a instance of Project
     res.send(RoomConfiguration);
   }).catch(error=>{
     res.send(error);
-  });
+  });*/
 });
 
 //---RoomConfiguration ROUTING END
