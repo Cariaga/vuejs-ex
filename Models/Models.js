@@ -51,33 +51,7 @@ const  Shop =sequelize.define('Shop', {
   CurrentPoints: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
-const Player =sequelize.define('Player', {
-  PlayersID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true 
-  },
-  UserAccountID:{
-    type: Sequelize.STRING,
-    unique: true,
-    foreignKey: true,
-    references: {
-      model: UserAccount,
-      key: 'UserAccountID'
-    }
-  },//UserAccountID in Player Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
-  ShopsID:Sequelize.STRING,//FK Multiple PlayersID is referenced to A ShopsID
-  ScreenName:Sequelize.STRING,
-	Name:Sequelize.STRING,
-	Surname:Sequelize.STRING,
-  CurrentRoomName:{ type: Sequelize.STRING, allowNull: true},
-  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
-});
 
-Player.belongsTo(UserAccount, {
-  foreignKey: 'UserAccountID',
-  targetKey: 'UserAccountID', 
-  constraints: true}); 
 
 const UserAccount =sequelize.define('UserAccount', {//the main schema
   UserID: {//PK only used in this part
@@ -106,13 +80,42 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
   RegisteredDate:Sequelize.DATE,
   RegisteredTime: Sequelize.TIME,
 });
-
 /*UserAccount.associate= function(models){
   UserAccount.hasOne(models.UserInfo,
     {
       foreignKey: 'UserAccountID'
    })
 };*/
+
+const Player =sequelize.define('Player', {
+  PlayersID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true 
+  },
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//UserAccountID in Player Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
+  ShopsID:Sequelize.STRING,//FK Multiple PlayersID is referenced to A ShopsID
+  ScreenName:Sequelize.STRING,
+	Name:Sequelize.STRING,
+	Surname:Sequelize.STRING,
+  CurrentRoomName:{ type: Sequelize.STRING, allowNull: true},
+  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
+});
+
+Player.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
+
+
 //access control needed to restrict not just the account previllages for admin types but if its a player aswell
 const AccessControl =sequelize.define('AccessControl', {//A flexible way of access control Account Privileges 
   AccessControlID: {//PK
