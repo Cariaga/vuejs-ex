@@ -376,7 +376,7 @@ app.get('/register',function (req, res) {
 
                   async.series([
                     function(callback6){
-                      AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
+                      AddPlayer(UUIDUserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
                         if(response2=="Inserted"){
                           console.log("Player Inserted");
                           console.log('9');
@@ -388,7 +388,7 @@ app.get('/register',function (req, res) {
                     }
                   ],function(error2,response6){
                     console.log("End");
-                  })
+                  });
 
                   if(ResultUserAccount.isRegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
