@@ -323,8 +323,8 @@ app.get('/register',function (req, res) {
               
             ],function(error,results){//async series result
               console.log('5');
-              let isAlreadyEmailExist= results[0];
-              let IsAlreadyUserNameExist = results[1];
+              let isAlreadyEmailExist= results[0];//result from above async
+              let IsAlreadyUserNameExist = results[1];//result from above async
               console.log(results);
               if(!isAlreadyEmailExist&&!IsAlreadyUserNameExist&&!IsInvalidPassword&&!IsInvalidEmail){
                 let CurrentTime = undefined;
@@ -369,7 +369,7 @@ app.get('/register',function (req, res) {
                     let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
                     SendMail(To,From,Title,VerificationURL);
                   },
-                ],function(error,callback4){//Async series Adding UserInfo
+                ],function(error,callback4){//Async series Adding UserInfo And Player
                   var ResultUserAccount = callback4[0];
                   console.log('8');
                  // console.log(ResultUserAccount);
@@ -385,7 +385,6 @@ app.get('/register',function (req, res) {
                       let Data = {"isUserInfoAdded":false};
                     }
                   });
-                 
                 }
                   async.series([
                     function(callback6){
@@ -402,8 +401,6 @@ app.get('/register',function (req, res) {
                   ],function(error2,response6){
                     console.log("12");
                   });
-
-               
                   console.log('13');
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
