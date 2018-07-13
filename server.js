@@ -929,6 +929,7 @@ app.get('/Api/v1/Notification/Delete', function (req, res){
   });
 });
 app.get('/Api/v1/Notification', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;

@@ -23,7 +23,7 @@ const  HeadOffice =sequelize.define('HeadOffice', {
   UserAccountID:Sequelize.STRING,//UserAccountID Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   Name:Sequelize.STRING,
   Description:Sequelize.STRING,
-  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }
+  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
 const  Distributor =sequelize.define('Distributor', {
