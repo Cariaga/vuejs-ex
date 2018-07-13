@@ -856,6 +856,8 @@ app.get('/SupportTicket/Request', function (req, res) {
   getCurrentDate(function(response){
     Date= response;
   });
+  console.log("Time : "+Time);
+  console.log("Date : "+Date);
 
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Title)&&
