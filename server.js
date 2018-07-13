@@ -797,6 +797,8 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+
+  
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
@@ -817,6 +819,7 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
       res.send("Error "+result);
     });
   }
+
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
   }
@@ -835,9 +838,34 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/SupportTicket/Player', function (req, res) {
+  if(!isNullOrEmpty(UserAccountID)){
+    Models.SupportTicket.sync();
+    let result = Models.SupportTicket.findAll({ 
+      where: {
+        UserAccountID: UserAccountID//not null
+        
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+
+      res.send("Error "+result);
+    });
+  }else{
+    res.send('Missing Parameters');
+  }
+});
+
+
+
 //---SupportTicket ROUTING END
 //---Notification ROUTING START
 app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
