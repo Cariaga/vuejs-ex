@@ -877,6 +877,7 @@ app.get('/SupportTicket/Request', function (req, res) {
 
 app.get('/UserAccount/SupportTicket', function (req, res) {
   // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
+  // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb&Status=Pending
   let UserAccountID =  req.query.UserAccountID;
   let Status =  req.query.Status;
   if(!isNullOrEmpty(UserAccountID)&&isNullOrEmpty(Status)){
