@@ -858,8 +858,12 @@ app.get('/SupportTicket/Request', function (req, res) {
     AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
       res.send(response);
     });
+  }else{
+    let Data ={IsInvalidSupportTicket:false}
+    res.send(Data);
   }
 });
+
 app.get('/UserAccount/SupportTicket', function (req, res) {
   //SupportTicket/UserAccount?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
   let UserAccountID =  req.query.UserAccountID;
