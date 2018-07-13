@@ -380,27 +380,31 @@ app.get('/register',function (req, res) {
                         console.log("UserInfo Inserted");
                        let Data = {"isUserInfoAdded":true};
                        console.log('12');
-                        callback4(null,Data);
+
+                
+                        console.log('8');
+                        AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
+                          if(response2=="Inserted"){
+                            console.log("Player Inserted");
+                            console.log('9');
+                           // callback5(null,Data);
+                          
+      
+                          }else{
+                            console.log("Player Failed Insert");
+                           // callback5(null,Data);
+                          }
+                         });
+                      
+
+                      //  callback4(null,Data);
                       }else{
                         console.log("UserInfo Failed Insert");
                         let Data = {"isUserInfoAdded":false};
                         callback4(null,Data);
                       }
                     });
-                   /*                  function(callback5){
-                    console.log('8');
-                    AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
-                      if(response2=="Inserted"){
-                        console.log("Player Inserted");
-                        console.log('9');
-                        callback5(null,Data);
-  
-                      }else{
-                        console.log("Player Failed Insert");
-                        callback5(null,Data);
-                      }
-                     });
-                  }, */
+                   
                   }
                   console.log('13');
                   res.send('registered');
