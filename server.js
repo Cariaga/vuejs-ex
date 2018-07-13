@@ -379,21 +379,12 @@ app.get('/register',function (req, res) {
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
                        let Data = {"isUserInfoAdded":true};
-
-                       AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
-
-                        if(response2=="Inserted"){
-                          console.log("Player Inserted");
-                        }else{
-                          console.log("Player Failed Insert");
-                        }
                       
-                       });
-                     
+                        callback4(null,Data);
                       }else{
                         console.log("UserInfo Failed Insert");
                         let Data = {"isUserInfoAdded":false};
-                        
+                        callback4(null,Data);
                       }
                     });
                     console.log('9');
@@ -402,6 +393,17 @@ app.get('/register',function (req, res) {
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
                
+                },function(error,callback5){
+                  
+                  AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
+                    if(response2=="Inserted"){
+                      console.log("Player Inserted");
+                      callback5(null,Data);
+                    }else{
+                      console.log("Player Failed Insert");
+                      callback5(null,Data);
+                    }
+                   });
                 });//Async series add Account End
 
   
