@@ -371,11 +371,11 @@ app.get('/register',function (req, res) {
                   },
 
                   function(callback5){
-                  
+                    console.log('8');
                     AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
                       if(response2=="Inserted"){
                         console.log("Player Inserted");
-                         
+                        console.log('9');
                         callback5(Data);
   
                       }else{
@@ -383,18 +383,19 @@ app.get('/register',function (req, res) {
                         callback5(Data);
                       }
                      });
-                  }
+                  },
 
                 ],function(error,callback4){//Async series Adding UserInfo
                   var ResultUserAccount = callback4[0];
-                  console.log('8');
+                  console.log('10');
                  // console.log(ResultUserAccount);
                   if(ResultUserAccount.isRegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                      console.log('11');
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
                        let Data = {"isUserInfoAdded":true};
-                      
+                       console.log('12');
                         callback4(null,Data);
                       }else{
                         console.log("UserInfo Failed Insert");
@@ -402,9 +403,9 @@ app.get('/register',function (req, res) {
                         callback4(null,Data);
                       }
                     });
-                    console.log('9');
+                   
                   }
-                  console.log('10');
+                  console.log('13');
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
                
