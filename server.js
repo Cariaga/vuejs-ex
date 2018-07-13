@@ -256,6 +256,8 @@ app.get('/register',function (req, res) {
   let Email= req.query.Email;
   let PhoneNumber= "";//this was never used
   let TelephoneNumber = "";//this was never used
+  let ShopID = req.query.ShopID;
+  let ScreenName = req.query.ScreenName;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
       if(!isNullOrEmpty(Name)){
@@ -377,6 +379,16 @@ app.get('/register',function (req, res) {
                       if(response=="Inserted"){
                         console.log("UserInfo Inserted");
                        let Data = {"isUserInfoAdded":true};
+
+                       AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
+
+                        if(response2=="Inserted"){
+                          console.log("Player Inserted");
+                        }else{
+                          console.log("Player Failed Insert");
+                        }
+                      
+                       });
                      
                       }else{
                         console.log("UserInfo Failed Insert");
@@ -2558,7 +2570,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
 //---UserAccount ROUTING START
 //---Player ROUTING START
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
-  //USAGE /Api/v1/Player/Add/UserAccountID/ShopID/ScreenName/Name/Surname/CurrentRoomName
+  //USAGE /Api/v1/Player/Add/bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb/ShopID/ScreenName/Name/Surname/CurrentRoomName
   let UserAccountID = req.params.UserAccountID;
   let ShopID = req.params.ShopID;
   let ScreenName = req.params.ScreenName;
