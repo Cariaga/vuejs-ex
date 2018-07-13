@@ -371,15 +371,28 @@ app.get('/register',function (req, res) {
                   },
                 ],function(error,callback4){//Async series Adding UserInfo
                   var ResultUserAccount = callback4[0];
-                  console.log('10');
+                  console.log('8');
                  // console.log(ResultUserAccount);
-
+                 if(ResultUserAccount.isRegistered==true){
+                  AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                    console.log('9');
+                    if(response=="Inserted"){
+                      console.log("UserInfo Inserted");
+                     let Data = {"isUserInfoAdded":true};
+                     console.log('10');
+                    }else{
+                      console.log("UserInfo Failed Insert");
+                      let Data = {"isUserInfoAdded":false};
+                    }
+                  });
+                 
+                }
                   async.series([
                     function(callback6){
                       AddPlayer(UUIDUserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
                         if(response2=="Inserted"){
                           console.log("Player Inserted");
-                          console.log('9');
+                          console.log('11');
                           callback6(null,"Done");
                         }else{
                           console.log("Player Failed Insert");
@@ -387,38 +400,14 @@ app.get('/register',function (req, res) {
                        });
                     }
                   ],function(error2,response6){
-                    console.log("End");
+                    console.log("12");
                   });
 
-                  if(ResultUserAccount.isRegistered==true){
-                    AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                      console.log('11');
-                      if(response=="Inserted"){
-                        console.log("UserInfo Inserted");
-                       let Data = {"isUserInfoAdded":true};
-                       console.log('12');
-
-                
-                        console.log('8');
-
-
-                      //  callback4(null,Data);
-                      }else{
-                        console.log("UserInfo Failed Insert");
-                        let Data = {"isUserInfoAdded":false};
-                       // callback4(null,Data);
-                      }
-                    });
-                   
-                  }
-
+               
                   console.log('13');
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
-               
                 });//Async series add Account End
-
-  
               }else{
                 //the isRegisterd in this doesn't have access to The insert process so by default its false unless the if statement above this is true
                 let Data = { "IsAlreadyEmailExist":IsAlreadyEmailExist,"IsInvalidEmail":IsInvalidEmail, "IsAlreadyUserNameExist":IsAlreadyUserNameExist,"IsInvalidPassword":IsInvalidPassword,"IsRegistered":false,"ResponseCode":3 };
