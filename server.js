@@ -373,6 +373,23 @@ app.get('/register',function (req, res) {
                   var ResultUserAccount = callback4[0];
                   console.log('10');
                  // console.log(ResultUserAccount);
+
+                  async.series([
+                    function(callback6){
+                      AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
+                        if(response2=="Inserted"){
+                          console.log("Player Inserted");
+                          console.log('9');
+                          callback6(null,"Done");
+                        }else{
+                          console.log("Player Failed Insert");
+                        }
+                       });
+                    }
+                  ],function(error2,response6){
+                    console.log("End");
+                  })
+
                   if(ResultUserAccount.isRegistered==true){
                     AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                       console.log('11');
@@ -383,29 +400,18 @@ app.get('/register',function (req, res) {
 
                 
                         console.log('8');
-                        AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
-                          if(response2=="Inserted"){
-                            console.log("Player Inserted");
-                            console.log('9');
-                           // callback5(null,Data);
-                          
-      
-                          }else{
-                            console.log("Player Failed Insert");
-                           // callback5(null,Data);
-                          }
-                         });
-                      
+
 
                       //  callback4(null,Data);
                       }else{
                         console.log("UserInfo Failed Insert");
                         let Data = {"isUserInfoAdded":false};
-                        callback4(null,Data);
+                       // callback4(null,Data);
                       }
                     });
                    
                   }
+
                   console.log('13');
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
