@@ -2380,7 +2380,7 @@ app.get('/Api/v1/AccessControl', function (req, res) {
 //---UserAccount ROUTING START
 app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
   //USAGE
-  ///Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
+  //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
   let UserAccountID = uuidv4();
   let AccessID = req.params.AccessID;
   let UserName = req.params.UserName;
