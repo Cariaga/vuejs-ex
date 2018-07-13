@@ -369,22 +369,6 @@ app.get('/register',function (req, res) {
                     let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
                     SendMail(To,From,Title,VerificationURL);
                   },
-
-                  function(callback5){
-                    console.log('8');
-                    AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
-                      if(response2=="Inserted"){
-                        console.log("Player Inserted");
-                        console.log('9');
-                        callback5(null,Data);
-  
-                      }else{
-                        console.log("Player Failed Insert");
-                        callback5(null,Data);
-                      }
-                     });
-                  },
-
                 ],function(error,callback4){//Async series Adding UserInfo
                   var ResultUserAccount = callback4[0];
                   console.log('10');
@@ -403,7 +387,20 @@ app.get('/register',function (req, res) {
                         callback4(null,Data);
                       }
                     });
-                   
+                   /*                  function(callback5){
+                    console.log('8');
+                    AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
+                      if(response2=="Inserted"){
+                        console.log("Player Inserted");
+                        console.log('9');
+                        callback5(null,Data);
+  
+                      }else{
+                        console.log("Player Failed Insert");
+                        callback5(null,Data);
+                      }
+                     });
+                  }, */
                   }
                   console.log('13');
                   res.send('registered');
