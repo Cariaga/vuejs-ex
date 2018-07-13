@@ -376,11 +376,11 @@ app.get('/register',function (req, res) {
                       if(response2=="Inserted"){
                         console.log("Player Inserted");
                         console.log('9');
-                        callback5(Data);
+                        callback5(null,Data);
   
                       }else{
                         console.log("Player Failed Insert");
-                        callback5(Data);
+                        callback5(null,Data);
                       }
                      });
                   },
