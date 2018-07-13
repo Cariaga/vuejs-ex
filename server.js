@@ -370,17 +370,17 @@ app.get('/register',function (req, res) {
                     SendMail(To,From,Title,VerificationURL);
                   },
 
-                  function(error,callback5){
+                  function(callback5){
                   
                     AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
                       if(response2=="Inserted"){
                         console.log("Player Inserted");
                          
-                        callback5(null,Data);
+                        callback5(Data);
   
                       }else{
                         console.log("Player Failed Insert");
-                        callback5(null,Data);
+                        callback5(Data);
                       }
                      });
                   }
