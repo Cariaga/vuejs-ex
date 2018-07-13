@@ -226,7 +226,7 @@ function isScreenNameExist(ScreenName,callback){
       callback(result);
     });
 }
-
+//** Returns Current Date String*/
 function getCurrentDate(callback){
   let today = new Date();
   let dd = today.getDate();
@@ -235,6 +235,7 @@ function getCurrentDate(callback){
   let FormatedDate = yyyy+'/'+mm+'/'+dd;
   callback(FormatedDate);
 }
+//** Returns Current Time String*/
 function getCurrentTime(callback){
   let today = new Date();
   let Hours = today.getHours();
@@ -841,6 +842,7 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
 app.get('/SupportTicket/Request', function (req, res) {
+
   let UserAccountID = req.query.UserAccountID;
   let Title = req.query.Title;
   let Description = req.query.Description;
@@ -848,6 +850,13 @@ app.get('/SupportTicket/Request', function (req, res) {
   let Time = req.query.Time;
   let Date = req.query.Date;
   let Status = req.query.Status;
+  getCurrentTime(function(response){
+    Time=response;
+  });
+  getCurrentDate(function(response){
+    Date= response;
+  });
+
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Title)&&
   !isNullOrEmpty(Description)&&
