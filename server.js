@@ -840,8 +840,8 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   }
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
-app.get('/SupportTicket/User', function (req, res) {
-  
+app.get('/SupportTicket/UserAccount', function (req, res) {
+
   let UserAccountID =  req.query.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     Models.SupportTicket.sync();
