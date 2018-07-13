@@ -2571,14 +2571,14 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   !isNullOrEmpty(Name)&&
   !isNullOrEmpty(Surname)&&
   !isNullOrEmpty(CurrentRoomName)){
-    AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName,function(response) {
+    AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,function(response) {
       res.send(response);
     });
   }else{
     res.send("Missing params");
   }
 });
-function AddPlayer(UserAccountID,ShopID,Name,Surname,CurrentRoomName,callback){
+function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
     //res.send('test');
     //Setting up the config
     let item1 = Models.Player.build({
