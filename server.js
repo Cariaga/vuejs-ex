@@ -370,6 +370,21 @@ app.get('/register',function (req, res) {
                     SendMail(To,From,Title,VerificationURL);
                   },
 
+                  function(error,callback5){
+                  
+                    AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
+                      if(response2=="Inserted"){
+                        console.log("Player Inserted");
+                         
+                        callback5(null,Data);
+  
+                      }else{
+                        console.log("Player Failed Insert");
+                        callback5(null,Data);
+                      }
+                     });
+                  }
+
                 ],function(error,callback4){//Async series Adding UserInfo
                   var ResultUserAccount = callback4[0];
                   console.log('8');
@@ -393,17 +408,6 @@ app.get('/register',function (req, res) {
                   res.send('registered');
                  // res.send(beautify(ResultUserInfo, null, 2, 100));
                
-                },function(error,callback5){
-                  
-                  AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,'',function(response2){
-                    if(response2=="Inserted"){
-                      console.log("Player Inserted");
-                      callback5(null,Data);
-                    }else{
-                      console.log("Player Failed Insert");
-                      callback5(null,Data);
-                    }
-                   });
                 });//Async series add Account End
 
   
