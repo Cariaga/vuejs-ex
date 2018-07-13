@@ -57,7 +57,15 @@ const Player =sequelize.define('Player', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:Sequelize.STRING,//UserAccountID in Player Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//UserAccountID in Player Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   ShopsID:Sequelize.STRING,//FK Multiple PlayersID is referenced to A ShopsID
   ScreenName:Sequelize.STRING,
 	Name:Sequelize.STRING,
