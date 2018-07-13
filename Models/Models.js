@@ -70,7 +70,7 @@ const Player =sequelize.define('Player', {
   ScreenName:Sequelize.STRING,
 	Name:Sequelize.STRING,
 	Surname:Sequelize.STRING,
-  CurrentRoomName:Sequelize.STRING,
+  CurrentRoomName:{ type: Sequelize.STRING, allowNull: true},
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
