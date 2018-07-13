@@ -862,7 +862,8 @@ app.get('/SupportTicket/UserAccount', function (req, res) {
       res.send("Error "+result);
     });
   }else{
-    res.send('Missing Parameters');
+    let Data = {IsInvalidUserAccountID:true}
+    res.send(Data);
   }
 });
 
