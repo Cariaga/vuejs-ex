@@ -841,13 +841,13 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
 app.get('/SupportTicket/Request', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let Reason = req.params.Reason;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  let Status = req.params.Status;
+  let UserAccountID = req.query.UserAccountID;
+  let Title = req.query.Title;
+  let Description = req.query.Description;
+  let Reason = req.query.Reason;
+  let Time = req.query.Time;
+  let Date = req.query.Date;
+  let Status = req.query.Status;
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Title)&&
   !isNullOrEmpty(Description)&&
