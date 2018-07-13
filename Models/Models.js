@@ -74,6 +74,11 @@ const Player =sequelize.define('Player', {
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
+Player.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
+
 const UserAccount =sequelize.define('UserAccount', {//the main schema
   UserID: {//PK only used in this part
     type: Sequelize.INTEGER,
