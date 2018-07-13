@@ -840,6 +840,17 @@ app.get('/Api/v1/SupportTicket', function (req, res) {
   }
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/SupportTicket/Request', function (req, res) {
+  //SupportTicket/UserAccount?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
+  let UserAccountID =  req.query.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    Models.SupportTicket.sync();
+    res.send('UnImplemented');
+  }else{
+    let Data = {IsInvalidUserAccountID:true}
+    res.send(Data);
+  }
+});
 app.get('/UserAccount/SupportTicket', function (req, res) {
   //SupportTicket/UserAccount?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
   let UserAccountID =  req.query.UserAccountID;
