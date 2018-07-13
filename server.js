@@ -211,10 +211,10 @@ function isUserAccountVerified(UserName,callback){
 }
 
 function isScreenNameExist(ScreenName,callback){
-  Models.UserAccount.sync();
-    let result = Models.UserAccount.findAll({ 
+  Models.Player.sync();
+    let result = Models.Player.findAll({ 
       where: {
-        UserName:UserName,
+        ScreenName:ScreenName,
      }
     }).then(function(result) {
       let Data = result.map(function(item) {

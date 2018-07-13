@@ -87,6 +87,7 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
     type :Sequelize.STRING,
     allowNull: false,
   },
+  
   Verify:  Sequelize.BOOLEAN,
   ValidKey: Sequelize.STRING,
   RegisteredDate:Sequelize.DATE,
@@ -338,7 +339,6 @@ SupportTicket.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
   constraints: true}); 
-
 const Notification =sequelize.define('Notification', {
   NotificationID: {//PK
     type: Sequelize.INTEGER,
