@@ -847,9 +847,9 @@ app.get('/SupportTicket/Request', function (req, res) {
   let Title = req.query.Title;
   let Description = req.query.Description;
   let Reason = req.query.Reason;
-  let Time = req.query.Time;
-  let Date = req.query.Date;
-  let Status = req.query.Status;
+  let Time = '';
+  let Date = '';
+  let Status = 'Pending';
   getCurrentTime(function(response){
     Time=response;
   });
