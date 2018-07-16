@@ -519,7 +519,7 @@ app.get('/Login',function (req, res) {
                   AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                     console.log('6');
                     console.obj(response3);
-                    let Data = {Status:"Verified",
+                    let Data =[ {Status:"Verified",
                     Controller:"/Login",
                     UserAccountID:UserAccountID,
                     Solution:"No Issue",
@@ -529,14 +529,14 @@ app.get('/Login',function (req, res) {
                     Email:"",
                     ContactNumber:"",
                     AccessType:""
-                  }
+                  }]
                     res.send(Data);
                   //  res.send(beautify(Data, null, 2, 100));
                   });
                   //--Validation For Login End
         
                 }else{
-                  res.send({
+                  res.send([{
                     Status:"Unverified",
                     Controller:"/Login",
                     Solution:"Check Mail For Verification",
@@ -547,7 +547,7 @@ app.get('/Login',function (req, res) {
                     ContactNumber:"",
                     AccessType:""
                     
-                  });
+                  }]);
                 }
                 //res.send(beautify(Data, null, 2, 100));
         
