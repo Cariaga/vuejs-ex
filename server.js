@@ -2601,7 +2601,7 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
       Surname:Surname,
       CurrentRoomName:CurrentRoomName
     });
-    Models.Player.sync({force:true});//use force to clear/delete old table non production only
+    Models.Player.sync();//use force to clear/delete old table non production only
     item1.save()
     .then(Success => {
       callback("Inserted");
