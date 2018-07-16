@@ -247,6 +247,20 @@ function getCurrentTime(callback){
 
 //--Validation End
 //--Login Start
+app.get('/registershop',function(req,res){
+  res.setHeader('Content-Type', 'application/json');
+  let UserName= req.query.UserName;
+  let Password = req.query.Password;
+  let Name = req.query.Name;
+  let Surname = req.query.Surname;
+  let Email= req.query.Email;
+  let PhoneNumber= "";//this was never used
+  let TelephoneNumber = "";//this was never used
+  let ShopID = req.query.ShopID;
+  let ScreenName = req.query.ScreenName;
+  
+});
+
 app.get('/register',function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -504,16 +518,18 @@ app.get('/Login',function (req, res) {
                   console.log('5');
                   AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                     console.log('6');
-                    res.send(response3);
+                    console.obj(response3);
+                    let Data = {Status:"Verified",Controller:"/Login",UserAccountID:UserAccountID,Solution:"No Issue"}
+                    res.send();
                   //  res.send(beautify(Data, null, 2, 100));
                   });
                   //--Validation For Login End
         
                 }else{
                   res.send({
-                    "Status":"Unverified",
-                    "Controller":"/Login",
-                    "Solution":"Check Mail For Verification"
+                    Status:"Unverified",
+                    Controller:"/Login",
+                    Solution:"Check Mail For Verification"
                   });
                 }
                 //res.send(beautify(Data, null, 2, 100));
