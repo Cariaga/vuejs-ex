@@ -118,7 +118,15 @@ const Player =sequelize.define('Player', {//any number of player point to a shop
       key: 'UserAccountID'
     }
   },//UserAccountID in Player Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
-  ShopsID:Sequelize.STRING,//FK Multiple PlayersID is referenced to A ShopsID
+  ShopID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: Shop,
+      key: 'ShopID'
+    }
+  },//FK Multiple PlayersID is referenced to A ShopsID
   ScreenName:Sequelize.STRING,
 	Name:Sequelize.STRING,
 	Surname:Sequelize.STRING,
