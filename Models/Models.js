@@ -14,42 +14,6 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
 
 //Important Note : HeadOffice Distributor Shop Player UserAccountID Must Never exist in both instance This is must be validated at application Layer instead
 //</summary>
-const  HeadOffice =sequelize.define('HeadOffice', {
-  HeadOfficeID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true // Automatically gets converted to SERIAL for postgres
-  },
-  UserAccountID:Sequelize.STRING,//UserAccountID Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
-  Name:Sequelize.STRING,
-  Description:Sequelize.STRING,
-  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
-});
-
-const  Distributor =sequelize.define('Distributor', {
-  DistributorID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true 
-  },
-  UserAccountID:Sequelize.STRING,//UserAccountID in Distributor  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
-  HeadOfficeID:Sequelize.STRING,//FK Multiple DistributerID is referenced to A HeadOfficeID
-  Name:Sequelize.STRING,
-  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
-});
-
-const  Shop =sequelize.define('Shop', {
-  ShopID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true 
-  },
-  UserAccountID:Sequelize.STRING,//UserAccountID in Shop  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
-  DistributorID:Sequelize.STRING,//FK Multiple ShopsID is referenced to A DistributorID
-  Name:Sequelize.STRING,
-  Description:Sequelize.STRING,
-  CurrentPoints: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
-});
 
 
 
@@ -80,6 +44,55 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
   RegisteredDate:Sequelize.DATE,
   RegisteredTime: Sequelize.TIME,
 });
+
+
+const  HeadOffice =sequelize.define('HeadOffice', {
+  HeadOfficeID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true // Automatically gets converted to SERIAL for postgres
+  },
+  UserAccountID:Sequelize.STRING,//UserAccountID Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
+  Name:Sequelize.STRING,
+  Description:Sequelize.STRING,
+  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
+});
+
+const  Distributor =sequelize.define('Distributor', {
+  DistributorID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true 
+  },
+  UserAccountID:Sequelize.STRING,//UserAccountID in Distributor  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
+  HeadOfficeID:Sequelize.STRING,//FK Multiple DistributerID is referenced to A HeadOfficeID
+  Name:Sequelize.STRING,
+  CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
+});
+
+const  Shop =sequelize.define('Shop', {
+  ShopID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true 
+  },
+  UserAccountID:  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//UserAccountID in Shop  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
+  DistributorID:Sequelize.STRING,//FK Multiple ShopsID is referenced to A DistributorID
+  Name:Sequelize.STRING,
+  Description:Sequelize.STRING,
+  CurrentPoints: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
+});
+
+
+
 /*UserAccount.associate= function(models){
   UserAccount.hasOne(models.UserInfo,
     {
@@ -115,7 +128,6 @@ Player.belongsTo(UserAccount, {
   targetKey: 'UserAccountID', 
   constraints: true}); 
 
-
 //access control needed to restrict not just the account previllages for admin types but if its a player aswell
 const AccessControl =sequelize.define('AccessControl', {//A flexible way of access control Account Privileges 
   AccessControlID: {//PK
@@ -131,8 +143,6 @@ const AccessControl =sequelize.define('AccessControl', {//A flexible way of acce
   AccessName: Sequelize.STRING,
   AccessTags: Sequelize.STRING,// comma delimited tags for access
 });
-
-
 
 const UserInfo =sequelize.define('UserInfo', {
   UserInfoID: {//PK
