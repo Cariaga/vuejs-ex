@@ -119,7 +119,7 @@ const Player =sequelize.define('Player', {//any number of player point to a shop
     }
   },//UserAccountID in Player Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   ShopID:{
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     unique: true,
     foreignKey: true,
     references: {
