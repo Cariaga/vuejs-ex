@@ -519,8 +519,18 @@ app.get('/Login',function (req, res) {
                   AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                     console.log('6');
                     console.obj(response3);
-                    let Data = {Status:"Verified",Controller:"/Login",UserAccountID:UserAccountID,Solution:"No Issue"}
-                    res.send();
+                    let Data = {Status:"Verified",
+                    Controller:"/Login",
+                    UserAccountID:UserAccountID,
+                    Solution:"No Issue",
+                    UserName:UserName,
+                    Name:"",
+                    SurName:"",
+                    Email:"",
+                    ContactNumber:"",
+                    AccessType:""
+                  }
+                    res.send(Data);
                   //  res.send(beautify(Data, null, 2, 100));
                   });
                   //--Validation For Login End
@@ -529,7 +539,14 @@ app.get('/Login',function (req, res) {
                   res.send({
                     Status:"Unverified",
                     Controller:"/Login",
-                    Solution:"Check Mail For Verification"
+                    Solution:"Check Mail For Verification",
+                    UserName:UserName,
+                    Name:"",
+                    SurName:"",
+                    Email:"",
+                    ContactNumber:"",
+                    AccessType:""
+                    
                   });
                 }
                 //res.send(beautify(Data, null, 2, 100));
