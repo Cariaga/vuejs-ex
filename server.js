@@ -2799,7 +2799,7 @@ app.get('/Api/v1/Shop/Clear', function (req, res){
   });
 });
 app.get('/Api/v1/Shop/Delete', function (req, res){
-  Models.Shop.sync({alter:true}).then(function(result) {
+  Models.Shop.sync().then(function(result) {
     res.send("Deleted");
   }).catch(function(result) {//catching any then errors
 
