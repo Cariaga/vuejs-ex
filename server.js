@@ -2570,7 +2570,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
 //---UserAccount ROUTING START
 //---Player ROUTING START
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
-  //USAGE /Api/v1/Player/Add/bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb/ShopID/ScreenName/Name/Surname/CurrentRoomName
+  //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
   let UserAccountID = req.params.UserAccountID;
   let ShopID = req.params.ShopID;
   let ScreenName = req.params.ScreenName;
