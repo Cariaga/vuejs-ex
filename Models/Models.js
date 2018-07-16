@@ -58,7 +58,7 @@ const  HeadOffice =sequelize.define('HeadOffice', {
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
-const  Distributor =sequelize.define('Distributor', {
+const  Distributor =sequelize.define('Distributor', {// any number of distributer point to a headoffice but accountID/Shop Both must be unique
   DistributorID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -70,7 +70,7 @@ const  Distributor =sequelize.define('Distributor', {
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
-const  Shop =sequelize.define('Shop', {
+const  Shop =sequelize.define('Shop', {// any number of shop point to a distributer but accountID/shopID both must be u unique
   ShopID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -103,7 +103,7 @@ Shop.belongsTo(UserAccount, {
    })
 };*/
 
-const Player =sequelize.define('Player', {
+const Player =sequelize.define('Player', {//any number of player point to a shopID but accountID/PlayersID both unique
   PlayersID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
