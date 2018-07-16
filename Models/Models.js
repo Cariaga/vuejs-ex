@@ -94,11 +94,13 @@ const  Shop =sequelize.define('Shop', {// any number of shop point to a distribu
 Shop.belongsTo(Distributor, {
   foreignKey: 'DistributorID',
   targetKey: 'DistributorID', 
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 Shop.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 /*UserAccount.associate= function(models){
@@ -141,12 +143,14 @@ const Player =sequelize.define('Player', {//any number of player point to a shop
 
 Player.belongsTo(Shop, {
   foreignKey: 'ShopID',
-  targetKey: 'ShopID', 
+  targetKey: 'ShopID',
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 Player.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 //access control needed to restrict not just the account previllages for admin types but if its a player aswell
@@ -195,7 +199,8 @@ const UserInfo =sequelize.define('UserInfo', {
 
 UserInfo.belongsTo(UserAccount, {
     foreignKey: 'UserAccountID',
-    targetKey: 'UserAccountID', 
+    targetKey: 'UserAccountID',
+    onDelete: 'cascade', hooks:true,
     constraints: true}); 
 
 
@@ -242,9 +247,9 @@ const GameHistory =sequelize.define('GameHistory', {
 });
 
 GameHistory.belongsTo(RoomConfiguration, {
-  options:onDelete='CASCADE',
   foreignKey: 'RoomID',
   targetKey: 'RoomID',
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 //invoices
@@ -316,6 +321,7 @@ const BankInformation =sequelize.define('BankInformation', {
 BankInformation.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 
@@ -344,6 +350,7 @@ const  LoginHistory =sequelize.define('LoginHistory', {
 LoginHistory.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 
 const BlackList =sequelize.define('BlackList', {
@@ -385,6 +392,7 @@ const SupportTicket =sequelize.define('SupportTicket', {
 SupportTicket.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
+  onDelete: 'cascade', hooks:true,
   constraints: true}); 
 const Notification =sequelize.define('Notification', {
   NotificationID: {//PK
