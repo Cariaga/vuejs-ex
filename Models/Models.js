@@ -76,7 +76,7 @@ const  Shop =sequelize.define('Shop', {
     primaryKey: true,
     autoIncrement: true 
   },
-  UserAccountID:  UserAccountID:{
+  UserAccountID:{
     type: Sequelize.STRING,
     unique: true,
     foreignKey: true,
@@ -91,7 +91,10 @@ const  Shop =sequelize.define('Shop', {
   CurrentPoints: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
-
+Shop.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  constraints: true}); 
 
 /*UserAccount.associate= function(models){
   UserAccount.hasOne(models.UserInfo,
