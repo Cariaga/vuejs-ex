@@ -2723,7 +2723,7 @@ app.get('/Api/v1/Player', function (req, res) {
 //---Player ROUTING START
 //---Shop ROUTING START
 app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
-  //Api/v1/Shop/Add/UserAccountID/DistributorID/Description/
+  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/DistributorID/Description/
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
