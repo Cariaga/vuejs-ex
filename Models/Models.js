@@ -22,7 +22,7 @@ const UserAccount =sequelize.define('UserAccount', {//the main schema
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true ,
-    onDelete: 'cascade', hooks:true,
+    onDelete: 'CASCADE', hooks:true,
   },
   UserAccountID:{
     type :Sequelize.STRING,
@@ -52,7 +52,7 @@ const  HeadOffice =sequelize.define('HeadOffice', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true, // Automatically gets converted to SERIAL for postgres
-    onDelete: 'cascade', hooks:true,
+    onDelete: 'CASCADE', hooks:true,
   },
   UserAccountID:Sequelize.STRING,//UserAccountID Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   Name:Sequelize.STRING,
@@ -65,7 +65,7 @@ const  Distributor =sequelize.define('Distributor', {// any number of distribute
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   UserAccountID:Sequelize.STRING,//UserAccountID in Distributor  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   HeadOfficeID:Sequelize.STRING,//FK Multiple DistributerID is referenced to A HeadOfficeID
@@ -78,7 +78,7 @@ const  Shop =sequelize.define('Shop', {// any number of shop point to a distribu
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   UserAccountID:{
     type: Sequelize.STRING,
@@ -98,13 +98,13 @@ const  Shop =sequelize.define('Shop', {// any number of shop point to a distribu
 Shop.belongsTo(Distributor, {
   foreignKey: 'DistributorID',
   targetKey: 'DistributorID', 
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 Shop.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 /*UserAccount.associate= function(models){
@@ -119,7 +119,7 @@ const Player =sequelize.define('Player', {//any number of player point to a shop
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   UserAccountID:{
     type: Sequelize.STRING,
@@ -149,13 +149,13 @@ const Player =sequelize.define('Player', {//any number of player point to a shop
 Player.belongsTo(Shop, {
   foreignKey: 'ShopID',
   targetKey: 'ShopID',
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 Player.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 //access control needed to restrict not just the account previllages for admin types but if its a player aswell
@@ -164,7 +164,7 @@ const AccessControl =sequelize.define('AccessControl', {//A flexible way of acce
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   AccessID: {
     type :Sequelize.STRING,
@@ -180,7 +180,7 @@ const UserInfo =sequelize.define('UserInfo', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   UserAccountID:{
     type: Sequelize.STRING,
@@ -207,7 +207,7 @@ const UserInfo =sequelize.define('UserInfo', {
 UserInfo.belongsTo(UserAccount, {
     foreignKey: 'UserAccountID',
     targetKey: 'UserAccountID',
-    onDelete: 'cascade', hooks:true,
+    onDelete: 'CASCADE', hooks:true,
     constraints: true}); 
 
 
@@ -217,7 +217,7 @@ const RoomConfiguration =sequelize.define('RoomConfiguration', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   RoomID: {
     type: Sequelize.STRING,
@@ -233,7 +233,7 @@ const GameHistory =sequelize.define('GameHistory', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
   RoundID: Sequelize.STRING,// assigned by the room
@@ -258,7 +258,7 @@ const GameHistory =sequelize.define('GameHistory', {
 GameHistory.belongsTo(RoomConfiguration, {
   foreignKey: 'RoomID',
   targetKey: 'RoomID',
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 //invoices
@@ -267,7 +267,7 @@ const DepositHistory =sequelize.define('DepositHistory', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true,
+    onDelete: 'CASCADE', hooks:true,
   },
   UserAccountID:Sequelize.STRING,//FK One Deposit UserAccountID can have many DepositHistory
   Amount:Sequelize.INTEGER,
@@ -310,7 +310,7 @@ const BankInformation =sequelize.define('BankInformation', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   UserAccountID:{
     type: Sequelize.STRING,
@@ -332,7 +332,7 @@ const BankInformation =sequelize.define('BankInformation', {
 BankInformation.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 
@@ -341,13 +341,13 @@ const  LoginHistory =sequelize.define('LoginHistory', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true, 
+    onDelete: 'CASCADE', hooks:true, 
   },
   UserAccountID:{
     type: Sequelize.STRING,
     unique: false,//false because 1 can have many logins
     foreignKey: true,
-    onDelete: 'cascade', hooks:true,
+    onDelete: 'CASCADE', hooks:true,
     references: {
       model: UserAccount,
       key: 'UserAccountID'
@@ -363,7 +363,7 @@ const  LoginHistory =sequelize.define('LoginHistory', {
 LoginHistory.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 const BlackList =sequelize.define('BlackList', {
@@ -371,7 +371,7 @@ const BlackList =sequelize.define('BlackList', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true,
+    onDelete: 'CASCADE', hooks:true,
   },
   UserAccountID:Sequelize.STRING,//FK
   Status:Sequelize.STRING,
@@ -386,7 +386,7 @@ const SupportTicket =sequelize.define('SupportTicket', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    onDelete: 'cascade', hooks:true,
+    onDelete: 'CASCADE', hooks:true,
   },
   UserAccountID:{
     type: Sequelize.STRING,
@@ -408,7 +408,7 @@ const SupportTicket =sequelize.define('SupportTicket', {
 SupportTicket.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
-  onDelete: 'cascade', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 const Notification =sequelize.define('Notification', {
   NotificationID: {//PK
