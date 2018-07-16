@@ -126,6 +126,11 @@ const Player =sequelize.define('Player', {//any number of player point to a shop
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
 
+Player.belongsTo(Shop, {
+  foreignKey: 'ShopID',
+  targetKey: 'ShopID', 
+  constraints: true}); 
+
 Player.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
