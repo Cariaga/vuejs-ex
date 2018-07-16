@@ -2789,7 +2789,6 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
 });
 app.get('/Api/v1/Shop/Clear', function (req, res){
   Models.Shop.destroy({
-    where: {UserID:1},
     truncate: {cascade:true}
   }).then(Success => {
     res.send("Cleared");
