@@ -67,7 +67,15 @@ const  Distributor =sequelize.define('Distributor', {// any number of distribute
     autoIncrement: true,
  
   },
-  UserAccountID:Sequelize.STRING,//UserAccountID in Distributor  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//UserAccountID in Distributor  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   HeadOfficeID:Sequelize.STRING,//FK Multiple DistributerID is referenced to A HeadOfficeID
   Name:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
