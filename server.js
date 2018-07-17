@@ -276,22 +276,27 @@ app.get('/registershop',function(req,res){
                  if(!isNullOrEmpty(obj)&&obj!=undefined){
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
+                     callback(null,1);
+                 }else{
+                  callback(null,1);
                  }
                });
-               callback(null,1);
+      
               }
               function mySecondFunction(arg0,callback2){
                 isEmailExist(Email,function(response){
                   let obj = response;
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
+                    callback2(null,2);
                     
                   }else{
                     isEmailAlreadyExist=false;
+                    callback2(null,2);
                   }
                 });
                 //console.log(arg0);
-                callback2(null,2);
+            
               }
             }else{
               res.send("Missing DistributerID");
