@@ -280,8 +280,9 @@ app.get('/registershop',function(req,res){
                      console.log('2');
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
-                    callback(null,1);
+                   
                  }
+                 callback(null,1);
                });
               }
               function mySecondFunction(callback){
