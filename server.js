@@ -257,6 +257,7 @@ app.get('/registershop',function(req,res){
   let PhoneNumber= "";//this was never used
   let TelephoneNumber = "";//this was never used
   let DistributerID = req.query.DistributerID;
+  let Description = req.query.Description;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
       if(!isNullOrEmpty(Name)){
@@ -320,6 +321,13 @@ app.get('/registershop',function(req,res){
                       callback2(null,'2');
                     }
                     function InsertShop(callback3){
+                      AddShop(UUIDUserAccountID,DistributerID,Description,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert Shop");
+                        }else{
+                          console.log("Failed Shop");
+                        }
+                      });
                       callback3(null,'3');
                     }
 
