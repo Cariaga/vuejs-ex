@@ -280,11 +280,11 @@ app.get('/registershop',function(req,res){
                      console.log('2');
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
-                    callback();
+                    callback(null,1);
                  }
                });
               }
-              function mySecondFunction(callback2){
+              function mySecondFunction(callback){
                 console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
@@ -297,7 +297,7 @@ app.get('/registershop',function(req,res){
                   console.log('2');
                   console.log("Email Exist check "+isEmailAlreadyExist);
                   //console.log(response);*/
-                  callback2();
+                  callback(null,2);
                 });
               }
             }else{
