@@ -295,8 +295,6 @@ app.get('/registershop',function(req,res){
                     callback2(null,2);
                   }
                 });
-                //console.log(arg0);
-            
               }
             }else{
               res.send("Missing DistributerID");
