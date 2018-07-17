@@ -55,11 +55,24 @@ const  HeadOffice =sequelize.define('HeadOffice', {
     autoIncrement: true, // Automatically gets converted to SERIAL for postgres
   
   },
-  UserAccountID:Sequelize.STRING,//UserAccountID Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//UserAccountID Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
   Name:Sequelize.STRING,
   Description:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
+HeadOffice.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  onDelete: 'SET NULL', hooks:true,
+  constraints: true}); 
 
 const  Distributor =sequelize.define('Distributor', {// any number of distributer point to a headoffice but accountID/Shop Both must be unique
   DistributorID: {
@@ -81,6 +94,11 @@ const  Distributor =sequelize.define('Distributor', {// any number of distribute
   Name:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
+Distributor.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID', 
+  onDelete: 'SET NULL', hooks:true,
+  constraints: true}); 
 
 const  Shop =sequelize.define('Shop', {// any number of shop point to a distributer but accountID/shopID both must be u unique
   ShopID: {
