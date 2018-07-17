@@ -267,7 +267,7 @@ app.get('/registershop',function(req,res){
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
-              async.series([myFirstFunction,mySecondFunction],function(error,result){
+              async.waterfall([myFirstFunction,mySecondFunction],function(error,result){
                 res.send(isAccountAlreadyExist+isEmailAlreadyExist);
               });
               function myFirstFunction(){
@@ -280,7 +280,7 @@ app.get('/registershop',function(req,res){
                      console.log('2');
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
-                  //  callback(null,1);
+                    callback(null,1);
                  }
                });
               }
