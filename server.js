@@ -212,7 +212,7 @@ function isUserAccountVerified(UserName,callback){
     });
 }
 
-function isHeadOfficeExist(HeadOfficeID,callback){
+function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({ 
       where: {
@@ -229,7 +229,7 @@ function isHeadOfficeExist(HeadOfficeID,callback){
     });
 }
 
-function isDistributorExist(DistributorID,callback){
+function isDistributorAlreadyExist(DistributorID,callback){
   Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
       where: {
@@ -246,7 +246,7 @@ function isDistributorExist(DistributorID,callback){
     });
 }
 
-function isShopExist(ShopID,callback){
+function isShopAlreadyExist(ShopID,callback){
   Models.Shop.sync();
     let result = Models.Shop.findAll({ 
       where: {
@@ -947,7 +947,7 @@ app.get('/register',function (req, res) {
             }
 
             function myThirdFunction(callback3){
-              isShopExist(ShopID,function(response){
+              isShopAlreadyExist(ShopID,function(response){
                 let obj = response;
                 console.log(obj);
                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
