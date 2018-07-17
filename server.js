@@ -257,7 +257,6 @@ app.get('/registerheadoffice',function(req,res){
   let Email= req.query.Email;
   let PhoneNumber= "";//this was never used
   let TelephoneNumber = "";//this was never used
-  let HeadOfficeID = req.query.HeadOfficeID;
   let Description = req.query.Description;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
