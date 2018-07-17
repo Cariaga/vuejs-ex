@@ -299,7 +299,7 @@ app.get('/registerdistributer',function(req,res){
                     async.series([InsertUserAccount,InsertUserInfo,InsertDistributer],function(error,result2){
                       if(AddAccountErrorMessage==""){
                         if(AddUserInfoErrorMessage==""){
-                          if(AddShopErrorMessage==""){
+                          if(AddDistributerErrorMessage==""){
                             res.send({Done:"Done"});
                           }else{
                             res.send({Failed:"Shop Insert"});
