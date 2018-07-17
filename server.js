@@ -694,11 +694,6 @@ app.get('/registershop',function(req,res){
                 }else{
                   res.send("InvalidEmail");
                 }
-                
-
-
-                
-               
               });
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
