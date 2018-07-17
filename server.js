@@ -813,7 +813,8 @@ app.get('/register',function (req, res) {
             let isAccountAlreadyExist=false;
             let isEmailAlreadyExist=false;
             let UserAccountID=false;
-            async.series([myFirstFunction,mySecondFunction],function(error,result){
+            let isShopExist = false;
+            async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
               let CurrentTime = undefined;
               let CurrentDate = undefined;
               getCurrentTime(function(response){
@@ -937,6 +938,21 @@ app.get('/register',function (req, res) {
                   callback2(null,2);
                 }
               });
+            }
+
+            function myThirdFunction(callback3){
+              isShopExist(ShopID,function(response){
+                let obj = response;
+                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
+                  isShopExist=true;
+                  callback3(null,3);
+                  
+                }else{
+                  isShopExist=false;
+                  callback3(null,3);
+                }
+              });
+
             }
           }else{
             res.send("Invalid ScreenName");
@@ -2421,7 +2437,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
         RejectedTIME: RejectedTIME,
         ProcessingTIME: ProcessingTIME,
       },{
-        where: {DepositHistoryID: DepositHistoryID }
+        where: {DepositHistoryID:DepositHistoryID }
       })
       .then(Success => {
         res.send("Updated");
