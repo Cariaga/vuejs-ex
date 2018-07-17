@@ -282,10 +282,10 @@ app.get('/registershop',function(req,res){
                      UserAccountID=obj[0].UserAccountID;
                    
                  }
-                 callback(1);
+                 callback(null,1);
                });
               }
-              function mySecondFunction(callback){
+              function mySecondFunction(arg0,callback){
                 console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
