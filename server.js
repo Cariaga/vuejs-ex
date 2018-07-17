@@ -345,7 +345,7 @@ app.get('/registerdistributer',function(req,res){
                           console.log("Insert Shop");
                           callback3(null,'3');
                         }else{
-                          console.log("Failed Shop" +response);
+                          console.log("Failed Distributer" +response);
                           AddShopErrorMessage=response;
                           callback3(null,'3');
                         }
