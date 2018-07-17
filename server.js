@@ -291,14 +291,15 @@ app.get('/register',function (req, res) {
             let IsInvalidPassword= !schema.validate(Password);
             let IsInvalidEmail = !validator.isEmail(Email);
             
-
+            let isAlreadyEmailExist=false;
+            let isAlreadyUserNameExist = false;
             //async series Validate start
             async.series([//don't add anything inside this from top start at the button for new function call backs
-              function(callback1){
+              function(){
                 console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
-                  let isAlreadyEmailExist=false;
+             
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
                     isAlreadyEmailExist=true;
                     
@@ -306,18 +307,18 @@ app.get('/register',function (req, res) {
                     isAlreadyEmailExist=false;
                   }
                   console.log('2');
-                  callback1(null,isAlreadyEmailExist);
+                //  callback1(null,isAlreadyEmailExist);
                   console.log("Email Exist check "+isAlreadyEmailExist);
                   //console.log(response);*/
                 
                 });
               },
-              function(callback2){
+              function(){
                 console.log('3');
                 console.log("UserName : "+UserName);
                 isUserNameExist(UserName,function(response){
                   let obj = response;
-                  let isAlreadyUserNameExist = false;
+            
                   if(!isNullOrEmpty(obj)&&obj!=undefined){
                     if(obj[0].UserName==UserName){
                       isAlreadyUserNameExist=true;
@@ -328,17 +329,16 @@ app.get('/register',function (req, res) {
                     isAlreadyUserNameExist=false;
                   }
                   console.log('4');
-                 callback2(null,isAlreadyUserNameExist);
+               //  callback2(null,isAlreadyUserNameExist);
                   console.log("UserName Exist check "+isAlreadyUserNameExist);
                  // console.log(response);
-               
+                  callback(null,'done');
                 });
               }
               
             ],function(error,results){//async series result
               console.log('5');
-              let isAlreadyEmailExist= results[0];//result from above async
-              let IsAlreadyUserNameExist = results[1];//result from above async
+           
               console.log(results);
               if(!isAlreadyEmailExist&&!IsAlreadyUserNameExist&&!IsInvalidPassword&&!IsInvalidEmail){
                 let CurrentTime = undefined;
@@ -576,8 +576,6 @@ app.get('/Verify',function (req, res) {
   let ValidKey= req.query.VerifyKey;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(ValidKey)){
-
-
       isUserNameExist(UserName,function(response3){
         console.log("Verify response : "+response3);
         let obj = response3;
