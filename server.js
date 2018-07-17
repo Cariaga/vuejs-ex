@@ -289,12 +289,28 @@ app.get('/registershop',function(req,res){
          
                 let IsInvalidPassword= !schema.validate(Password);
                 let IsInvalidEmail = !validator.isEmail(Email);
+                let AddAccountErrorMessage="";
+                let AddUserInfoErrorMessage="";
+               let AddShopErrorMessage="";
                 if(IsInvalidEmail==false){
                   if(IsInvalidPassword==false){
                     let UUIDUserAccountID =uuidv4();
                     let UUIDKey =uuidv4();
 
                     async.series([InsertUserAccount,InsertUserInfo,InsertShop],function(error,result2){
+                      if(AddAccountErrorMessage==""){
+                        if(AddUserInfoErrorMessage==""){
+                          if(AddShopErrorMessage==""){
+                            
+                          }else{
+                            res.send({Failed:"Shop Insert"});
+                          }
+                        }else{
+                          res.send({Failed:"UserInfo Insert"});
+                        }
+                      }else{
+                        res.send({Failed:"UserAccount Insert"});
+                      }
                       res.send({Done:"Done"});
                       
                     });
@@ -304,7 +320,8 @@ app.get('/registershop',function(req,res){
                         if(response=="Inserted"){
                           console.log("Insert UserAccount");
                         }else{
-                          console.log("Failed UserAccount");
+                          console.log("Failed UserAccount" + response);
+                          AddAccountErrorMessage=response;
                         }
                       });
                       callback1(null,'1');
@@ -314,7 +331,8 @@ app.get('/registershop',function(req,res){
                         if(response=="Inserted"){
                           console.log("Insert UserInfo");
                         }else{
-                          console.log("Failed UserInfo");
+                          console.log("Failed UserInfo" + response);
+                          AddUserInfoErrorMessage=response;
                         }
                       });
 
@@ -325,7 +343,8 @@ app.get('/registershop',function(req,res){
                         if(response=="Inserted"){
                           console.log("Insert Shop");
                         }else{
-                          console.log("Failed Shop");
+                          console.log("Failed Shop" +response);
+                          AddShopErrorMessage=response;
                         }
                       });
                       callback3(null,'3');
