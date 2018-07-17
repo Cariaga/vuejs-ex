@@ -300,11 +300,23 @@ app.get('/registershop',function(req,res){
                   callback(null,'done');
                 });
               }
+            }else{
+              res.send("Missing DistributerID");
             }
+          }else{
+            res.send("Missing Email");
           }
+        }else{
+          res.send("Missing Surname");
         }
+      }else{
+        res.send("Missing Name");
       }
+    }else{
+      res.send("Missing Password");
     }
+  }else{
+    res.send("Missing UserName");
   }
 
 });
