@@ -68,6 +68,7 @@ const  HeadOffice =sequelize.define('HeadOffice', {
   Description:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
+
 HeadOffice.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
