@@ -278,9 +278,9 @@ app.get('/registershop',function(req,res){
                      UserAccountID=obj[0].UserAccountID;
                  }
                });*/
-               callback(null,1);
+               callback(1);
               }
-              function mySecondFunction(arg0,callback2){
+              function mySecondFunction(callback2){
                /* isEmailExist(Email,function(response){
                   let obj = response;
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
@@ -290,7 +290,7 @@ app.get('/registershop',function(req,res){
                     isEmailAlreadyExist=false;
                   }
                 });*/
-                callback2(null,2);
+                callback2(2);
               }
             }else{
               res.send("Missing DistributerID");
