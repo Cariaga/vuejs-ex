@@ -247,6 +247,166 @@ function getCurrentTime(callback){
 
 //--Validation End
 //--Login Start
+
+app.get('/registerheadoffice',function(req,res){
+  res.setHeader('Content-Type', 'application/json');
+  let UserName= req.query.UserName;
+  let Password = req.query.Password;
+  let Name = req.query.Name;
+  let Surname = req.query.Surname;
+  let Email= req.query.Email;
+  let PhoneNumber= "";//this was never used
+  let TelephoneNumber = "";//this was never used
+  let HeadOfficeID = req.query.HeadOfficeID;
+  let Description = req.query.Description;
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(Password)){
+      if(!isNullOrEmpty(Name)){
+        if(!isNullOrEmpty(Surname)){
+          if(!isNullOrEmpty(Email)){
+            if(!isNullOrEmpty(HeadOfficeID)){
+
+              let isAccountAlreadyExist=false;
+              let isEmailAlreadyExist=false;
+              let UserAccountID=false;
+              async.series([myFirstFunction,mySecondFunction],function(error,result){
+                let CurrentTime = undefined;
+                let CurrentDate = undefined;
+                getCurrentTime(function(response){
+                  CurrentTime=response;
+                });
+                getCurrentDate(function(response){
+                  CurrentDate=response;
+                });
+                var schema = new passwordValidator();
+                schema
+                .is().min(8)
+                .has().uppercase()                              // Must have uppercase letters
+                .has().lowercase()                              // Must have lowercase letters
+                .has().digits()                                 // Must have digits
+                .has().not().spaces()                           // Should not have spaces
+                let IsInvalidPassword= !schema.validate(Password);
+                let IsInvalidEmail = !validator.isEmail(Email);
+                let AddAccountErrorMessage="";
+                let AddUserInfoErrorMessage="";
+               let AddDistributerErrorMessage="";
+                if(IsInvalidEmail==false){
+                  if(IsInvalidPassword==false){
+                    let UUIDUserAccountID =uuidv4();
+                    let UUIDKey =uuidv4();
+                    async.series([InsertUserAccount,InsertUserInfo,InsertDistributer],function(error,result2){
+                      if(AddAccountErrorMessage==""){
+                        if(AddUserInfoErrorMessage==""){
+                          if(AddDistributerErrorMessage==""){
+                            res.send({Done:"Done"});
+                          }else{
+                            res.send({Failed:"Shop Insert"});
+                          }
+                        }else{
+                          res.send({Failed:"UserInfo Insert"});
+                        }
+                      }else{
+                        res.send({Failed:"UserAccount Insert"});
+                      }
+                    });
+                    function InsertUserAccount(callback1){
+
+                      AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert UserAccount");
+                          callback1(null,'1');
+                        }else{
+                          console.log("Failed UserAccount" + response);
+                          AddAccountErrorMessage=response;
+                          callback1(null,'1');
+                        }
+                      });
+                     
+                    }
+                    function InsertUserInfo(callback2){
+                      AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert UserInfo");
+                          callback2(null,'2');
+                        }else{
+                          console.log("Failed UserInfo" + response);
+                          AddUserInfoErrorMessage=response;
+                          callback2(null,'2');
+                        }
+                      });
+
+                   
+                    }
+                    function InsertDistributer(callback3){//headoffice dosn't have a parent ID like Distributer Shop and Player
+                      AddHeadOffice(UUIDUserAccountID,Name,Description,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert Shop");
+                          callback3(null,'3');
+                        }else{
+                          console.log("Failed Distributer" +response);
+                          AddDistributerErrorMessage=response;
+                          callback3(null,'3');
+                        }
+                      });
+                   
+                    }
+
+                  }else{
+                    res.send("WeakPassword");
+                  }
+                }else{
+                  res.send("InvalidEmail");
+                }
+
+              });
+              function myFirstFunction(callback){
+               isUserNameExist(UserName,function(response3){
+                 let obj = response3;
+                 if(!isNullOrEmpty(obj)&&obj!=undefined){
+                     isAccountAlreadyExist=true;
+                     UserAccountID=obj[0].UserAccountID;
+                     callback(null,1);
+                 }else{
+                    callback(null,1);
+                 }
+               });
+      
+              }
+              function mySecondFunction(callback2){
+                isEmailExist(Email,function(response){
+                  let obj = response;
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
+                    isEmailAlreadyExist=true;
+                    callback2(null,2);
+                    
+                  }else{
+                    isEmailAlreadyExist=false;
+                    callback2(null,2);
+                  }
+                });
+              }
+            }else{
+              res.send("Missing DistributerID");
+            }
+          }else{
+            res.send("Missing Email");
+          }
+        }else{
+          res.send("Missing Surname");
+        }
+      }else{
+        res.send("Missing Name");
+      }
+    }else{
+      res.send("Missing Password");
+    }
+  }else{
+    res.send("Missing UserName");
+  }
+});
+
+
+
 app.get('/registerdistributer',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -284,9 +444,6 @@ app.get('/registerdistributer',function(req,res){
                 .has().lowercase()                              // Must have lowercase letters
                 .has().digits()                                 // Must have digits
                 .has().not().spaces()                           // Should not have spaces
-            
-          
-         
                 let IsInvalidPassword= !schema.validate(Password);
                 let IsInvalidEmail = !validator.isEmail(Email);
                 let AddAccountErrorMessage="";
