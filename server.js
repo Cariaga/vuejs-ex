@@ -302,7 +302,7 @@ app.get('/registerheadoffice',function(req,res){
                             let Title = 'Email Verification';
                             let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
                             SendMail(To,From,Title,VerificationURL);
-                            
+
                             res.send({Done:"Done"});
                           }else{
                             res.send({Failed:"Shop Insert"});
@@ -698,7 +698,7 @@ app.get('/registershop',function(req,res){
 
 
                 
-                res.send({isAccountAlreadyExist:isAccountAlreadyExist,isEmailAlreadyExist:isEmailAlreadyExist});
+               
               });
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
