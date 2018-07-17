@@ -271,24 +271,17 @@ app.get('/registershop',function(req,res){
                 res.send(isAccountAlreadyExist+isEmailAlreadyExist);
               });
               function myFirstFunction(callback){
-                console.log('1');
-               isUserNameExist(UserName,function(response3){
-               
+               /*isUserNameExist(UserName,function(response3){
                  let obj = response3;
                  if(!isNullOrEmpty(obj)&&obj!=undefined){
-                     console.log("UUID : "+obj[0].UserAccountID);
-                     console.log('2');
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
-                   
                  }
-                
-               });
+               });*/
                callback(null,1);
               }
               function mySecondFunction(arg0,callback2){
-                console.log('1');
-                isEmailExist(Email,function(response){
+               /* isEmailExist(Email,function(response){
                   let obj = response;
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
@@ -296,11 +289,7 @@ app.get('/registershop',function(req,res){
                   }else{
                     isEmailAlreadyExist=false;
                   }
-                  console.log('2');
-                  console.log("Email Exist check "+isEmailAlreadyExist);
-                  //console.log(response);*/
-              
-                });
+                });*/
                 callback2(null,2);
               }
             }else{
