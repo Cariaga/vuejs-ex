@@ -268,6 +268,52 @@ app.get('/registershop',function(req,res){
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
               async.series([myFirstFunction,mySecondFunction],function(error,result){
+                let CurrentTime = undefined;
+                let CurrentDate = undefined;
+                getCurrentTime(function(response){
+                  CurrentTime=response;
+                });
+                getCurrentDate(function(response){
+                  CurrentDate=response;
+                });
+                var schema = new passwordValidator();
+                schema
+                .is().min(8)
+                .has().uppercase()                              // Must have uppercase letters
+                .has().lowercase()                              // Must have lowercase letters
+                .has().digits()                                 // Must have digits
+                .has().not().spaces()                           // Should not have spaces
+            
+          
+         
+                let IsInvalidPassword= !schema.validate(Password);
+                let IsInvalidEmail = !validator.isEmail(Email);
+                if(IsInvalidEmail==false){
+                  if(IsInvalidPassword==false){
+
+                    async.series([InsertUserAccount,InsertUserInfo,InsertShop],function(error,result2){
+                      res.send({Done:"Done"});
+                    });
+                    function InsertUserAccount(callback){
+                      callback(null,'1');
+                    }
+                    function InsertUserInfo(){
+                      callback(null,'2');
+                    }
+                    function InsertShop(){
+                      callback(null,'3');
+                    }
+
+                  }else{
+                    res.send("WeakPassword");
+                  }
+                }else{
+                  res.send("InvalidEmail");
+                }
+                
+
+
+                
                 res.send({isAccountAlreadyExist:isAccountAlreadyExist,isEmailAlreadyExist:isEmailAlreadyExist});
               });
               function myFirstFunction(callback){
