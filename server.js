@@ -216,7 +216,7 @@ function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({ 
       where: {
-        ShopID: {
+        HeadOfficeID: {
           eq: true
         },
         HeadOfficeID:HeadOfficeID,
@@ -236,7 +236,7 @@ function isDistributorAlreadyExist(DistributorID,callback){
   Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
       where: {
-        ShopID: {
+        DistributorID: {
           eq: true
         },
         DistributorID:DistributorID,
