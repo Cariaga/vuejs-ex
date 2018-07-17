@@ -214,7 +214,7 @@ function isUserAccountVerified(UserName,callback){
 
 function isHeadOfficeExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
-    let result = Models.Shop.findAll({ 
+    let result = Models.HeadOffice.findAll({ 
       where: {
         HeadOfficeID:HeadOfficeID,
      }
@@ -231,7 +231,7 @@ function isHeadOfficeExist(HeadOfficeID,callback){
 
 function isDistributorExist(DistributorID,callback){
   Models.Distributor.sync();
-    let result = Models.Shop.findAll({ 
+    let result = Models.Distributor.findAll({ 
       where: {
         DistributorID:DistributorID,
      }
@@ -247,7 +247,7 @@ function isDistributorExist(DistributorID,callback){
 }
 
 function isShopExist(ShopID,callback){
-  Models.UserAccount.sync();
+  Models.Shop.sync();
     let result = Models.Shop.findAll({ 
       where: {
         ShopID:ShopID,
