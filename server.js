@@ -757,6 +757,7 @@ app.get('/register',function (req, res) {
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
+            if(!isNullOrEmpty(ScreenName)){
             
             let isAccountAlreadyExist=false;
             let isEmailAlreadyExist=false;
@@ -886,7 +887,9 @@ app.get('/register',function (req, res) {
                 }
               });
             }
-
+          }else{
+            res.send("Invalid ScreenName");
+          }
           }else{
             res.send("Invalid Email");
           }
