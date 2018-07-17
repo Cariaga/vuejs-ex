@@ -5,7 +5,8 @@ const Sequelize = require('sequelize');
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
-  dialect: 'mysql'
+  dialect: 'mysql',
+  define: { engine: 'InnoDB' }
 });
 //<summary>
 //we have Dedicated Headoffice,Distributer,Shop,Player tables because if we used account type we would have a many to many relationship issue and a lot of self joins queries 
