@@ -301,7 +301,7 @@ app.get('/registershop',function(req,res){
                       if(AddAccountErrorMessage==""){
                         if(AddUserInfoErrorMessage==""){
                           if(AddShopErrorMessage==""){
-                            
+                            res.send({Done:"Done"});
                           }else{
                             res.send({Failed:"Shop Insert"});
                           }
@@ -311,7 +311,7 @@ app.get('/registershop',function(req,res){
                       }else{
                         res.send({Failed:"UserAccount Insert"});
                       }
-                      res.send({Done:"Done"});
+                    
                       
                     });
                     function InsertUserAccount(callback1){
