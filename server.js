@@ -112,6 +112,8 @@ function SendMail(To,From,Subject,html){
     console.dir(reply);
 });
 }
+
+
 //--Validation Start
 function isEmailExist(Email,callback){
   Models.UserInfo.sync();
@@ -263,8 +265,6 @@ app.get('/registerheadoffice',function(req,res){
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-          
-
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
@@ -740,14 +740,11 @@ app.get('/register',function (req, res) {
   let TelephoneNumber = "";//this was never used
   let ShopID = req.query.ShopID;
   let ScreenName = req.query.ScreenName;
-
-
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-
             var schema = new passwordValidator();
             schema
             .is().min(8)
@@ -755,12 +752,8 @@ app.get('/register',function (req, res) {
             .has().lowercase()                              // Must have lowercase letters
             .has().digits()                                 // Must have digits
             .has().not().spaces()                           // Should not have spaces
-            
-          
-         
             let IsInvalidPassword= !schema.validate(Password);
             let IsInvalidEmail = !validator.isEmail(Email);
-            
             let isAlreadyEmailExist=false;
             let isAlreadyUserNameExist = false;
             //async series Validate start
