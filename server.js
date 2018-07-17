@@ -256,9 +256,57 @@ app.get('/registershop',function(req,res){
   let Email= req.query.Email;
   let PhoneNumber= "";//this was never used
   let TelephoneNumber = "";//this was never used
-  let ShopID = req.query.ShopID;
-  let ScreenName = req.query.ScreenName;
-  
+  let DistributerID = req.query.DistributerID;
+  if(!isNullOrEmpty(UserName)){
+    if(!isNullOrEmpty(Password)){
+      if(!isNullOrEmpty(Name)){
+        if(!isNullOrEmpty(Surname)){
+          if(!isNullOrEmpty(Email)){
+            if(!isNullOrEmpty(DistributerID)){
+
+              let isAccountAlreadyExist=false;
+              let isEmailAlreadyExist=false;
+             
+              async.series([myFirstFunction,mySecondFunction],function(error,result){
+                res.send(isAccountAlreadyExist+isEmailAlreadyExist);
+              });
+              function myFirstFunction(callback){
+                console.log('1');
+               isUserNameExist(UserName,function(response3){
+               
+                 let obj = response3;
+                 if(!isNullOrEmpty(obj)&&obj!=undefined){
+                     console.log("UUID : "+obj[0].UserAccountID);
+                     console.log('2');
+                     isAccountAlreadyExist=obj[0].UserAccountID;
+                  callback(null,obj[0].UserAccountID);
+                 }
+               });
+              }
+              function mySecondFunction(callback){
+                console.log('1');
+                isEmailExist(Email,function(response){
+                  let obj = response;
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
+                    isEmailAlreadyExist=true;
+                    
+                  }else{
+                    isEmailAlreadyExist=false;
+                  }
+                  console.log('2');
+                //  callback1(null,isAlreadyEmailExist);
+                  console.log("Email Exist check "+isEmailAlreadyExist);
+                  //console.log(response);*/
+                  callback(null,'done');
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
 });
 
 app.get('/register',function (req, res) {
@@ -272,6 +320,8 @@ app.get('/register',function (req, res) {
   let TelephoneNumber = "";//this was never used
   let ShopID = req.query.ShopID;
   let ScreenName = req.query.ScreenName;
+
+
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
       if(!isNullOrEmpty(Name)){
