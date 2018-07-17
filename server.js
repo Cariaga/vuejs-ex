@@ -319,35 +319,41 @@ app.get('/registershop',function(req,res){
                       AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
                         if(response=="Inserted"){
                           console.log("Insert UserAccount");
+                          callback1(null,'1');
                         }else{
                           console.log("Failed UserAccount" + response);
                           AddAccountErrorMessage=response;
+                          callback1(null,'1');
                         }
                       });
-                      callback1(null,'1');
+                     
                     }
                     function InsertUserInfo(callback2){
                       AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                         if(response=="Inserted"){
                           console.log("Insert UserInfo");
+                          callback2(null,'2');
                         }else{
                           console.log("Failed UserInfo" + response);
                           AddUserInfoErrorMessage=response;
+                          callback2(null,'2');
                         }
                       });
 
-                      callback2(null,'2');
+                   
                     }
                     function InsertShop(callback3){
                       AddShop(UUIDUserAccountID,DistributerID,Description,function(response){
                         if(response=="Inserted"){
                           console.log("Insert Shop");
+                          callback3(null,'3');
                         }else{
                           console.log("Failed Shop" +response);
                           AddShopErrorMessage=response;
+                          callback3(null,'3');
                         }
                       });
-                      callback3(null,'3');
+                   
                     }
 
                   }else{
