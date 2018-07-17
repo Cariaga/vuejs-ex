@@ -263,7 +263,7 @@ app.get('/registerdistributer',function(req,res){
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-            if(!isNullOrEmpty(DistributerID)){
+            if(!isNullOrEmpty(HeadOfficeID)){
 
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
