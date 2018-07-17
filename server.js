@@ -949,6 +949,7 @@ app.get('/register',function (req, res) {
             function myThirdFunction(callback3){
               isShopExist(ShopID,function(response){
                 let obj = response;
+                console.log(obj);
                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
                   isShopExist=true;
                   callback3(null,3);
