@@ -284,7 +284,7 @@ app.get('/registershop',function(req,res){
                  }
                });
               }
-              function mySecondFunction(callback){
+              function mySecondFunction(callback2){
                 console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
