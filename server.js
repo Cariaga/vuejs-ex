@@ -216,6 +216,9 @@ function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({ 
       where: {
+        ShopID: {
+          eq: true
+        },
         HeadOfficeID:HeadOfficeID,
      }
     }).then(function(result) {
@@ -233,6 +236,9 @@ function isDistributorAlreadyExist(DistributorID,callback){
   Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
       where: {
+        ShopID: {
+          eq: true
+        },
         DistributorID:DistributorID,
      }
     }).then(function(result) {
@@ -250,7 +256,11 @@ function isShopAlreadyExist(ShopID,callback){
   Models.Shop.sync();
     let result = Models.Shop.findAll({ 
       where: {
+        ShopID: {
+          eq: true
+        },
         ShopID:ShopID,
+        
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
