@@ -212,7 +212,7 @@ function isUserAccountVerified(UserName,callback){
     });
 }
 
-function isHeadOfficeExist(UserName,callback){
+function isHeadOfficeExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
     let result = Models.Shop.findAll({ 
       where: {
@@ -229,7 +229,7 @@ function isHeadOfficeExist(UserName,callback){
     });
 }
 
-function isDistributorExist(UserName,callback){
+function isDistributorExist(DistributorID,callback){
   Models.Distributor.sync();
     let result = Models.Shop.findAll({ 
       where: {
@@ -246,7 +246,7 @@ function isDistributorExist(UserName,callback){
     });
 }
 
-function isShopExist(UserName,callback){
+function isShopExist(ShopID,callback){
   Models.UserAccount.sync();
     let result = Models.Shop.findAll({ 
       where: {
