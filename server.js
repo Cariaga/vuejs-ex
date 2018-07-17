@@ -290,14 +290,33 @@ app.get('/registershop',function(req,res){
                 let IsInvalidEmail = !validator.isEmail(Email);
                 if(IsInvalidEmail==false){
                   if(IsInvalidPassword==false){
+                    let UUIDUserAccountID =uuidv4();
+                    let UUIDKey =uuidv4();
 
                     async.series([InsertUserAccount,InsertUserInfo,InsertShop],function(error,result2){
                       res.send({Done:"Done"});
+                      
                     });
                     function InsertUserAccount(callback1){
+
+                      AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert UserAccount");
+                        }else{
+                          console.log("Failed UserAccount");
+                        }
+                      });
                       callback1(null,'1');
                     }
                     function InsertUserInfo(callback2){
+                      AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert UserInfo");
+                        }else{
+                          console.log("Failed UserInfo");
+                        }
+                      });
+
                       callback2(null,'2');
                     }
                     function InsertShop(callback3){
