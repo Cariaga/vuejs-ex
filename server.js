@@ -294,14 +294,14 @@ app.get('/registershop',function(req,res){
                     async.series([InsertUserAccount,InsertUserInfo,InsertShop],function(error,result2){
                       res.send({Done:"Done"});
                     });
-                    function InsertUserAccount(callback){
-                      callback(null,'1');
+                    function InsertUserAccount(callback1){
+                      callback1(null,'1');
                     }
-                    function InsertUserInfo(){
-                      callback(null,'2');
+                    function InsertUserInfo(callback2){
+                      callback2(null,'2');
                     }
-                    function InsertShop(){
-                      callback(null,'3');
+                    function InsertShop(callback3){
+                      callback3(null,'3');
                     }
 
                   }else{
