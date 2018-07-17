@@ -297,6 +297,12 @@ app.get('/registerheadoffice',function(req,res){
                       if(AddAccountErrorMessage==""){
                         if(AddUserInfoErrorMessage==""){
                           if(AddDistributerErrorMessage==""){
+                            let To = Email;
+                            let From = '';
+                            let Title = 'Email Verification';
+                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                            SendMail(To,From,Title,VerificationURL);
+                            
                             res.send({Done:"Done"});
                           }else{
                             res.send({Failed:"Shop Insert"});
@@ -454,6 +460,11 @@ app.get('/registerdistributer',function(req,res){
                       if(AddAccountErrorMessage==""){
                         if(AddUserInfoErrorMessage==""){
                           if(AddDistributerErrorMessage==""){
+                            let To = Email;
+                            let From = '';
+                            let Title = 'Email Verification';
+                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                            SendMail(To,From,Title,VerificationURL);
                             res.send({Done:"Done"});
                           }else{
                             res.send({Failed:"Shop Insert"});
@@ -617,6 +628,12 @@ app.get('/registershop',function(req,res){
                         if(AddUserInfoErrorMessage==""){
                           if(AddShopErrorMessage==""){
                             res.send({Done:"Done"});
+                            let To = Email;
+                            let From = '';
+                            let Title = 'Email Verification';
+                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                            SendMail(To,From,Title,VerificationURL);
+
                           }else{
                             res.send({Failed:"Shop Insert"});
                           }
