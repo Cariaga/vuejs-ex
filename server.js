@@ -838,7 +838,7 @@ app.get('/register',function (req, res) {
               let AddAccountErrorMessage="";
               let AddUserInfoErrorMessage="";
              let AddPlayerErrorMessage="";
-              if(isShopExist){
+              if(isShopExist==true){
                 if(IsInvalidEmail==false){
                   if(IsInvalidPassword==false){
                     let UUIDUserAccountID =uuidv4();
