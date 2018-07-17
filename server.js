@@ -282,10 +282,11 @@ app.get('/registershop',function(req,res){
                      UserAccountID=obj[0].UserAccountID;
                    
                  }
-                 callback(null,1);
+                
                });
+               callback(null,1);
               }
-              function mySecondFunction(arg0,callback){
+              function mySecondFunction(arg0,callback2){
                 console.log('1');
                 isEmailExist(Email,function(response){
                   let obj = response;
@@ -298,8 +299,9 @@ app.get('/registershop',function(req,res){
                   console.log('2');
                   console.log("Email Exist check "+isEmailAlreadyExist);
                   //console.log(response);*/
-                  callback(null,2);
+              
                 });
+                callback2(null,2);
               }
             }else{
               res.send("Missing DistributerID");
