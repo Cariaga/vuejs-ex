@@ -291,7 +291,7 @@ app.get('/registerdistributer',function(req,res){
                 let IsInvalidEmail = !validator.isEmail(Email);
                 let AddAccountErrorMessage="";
                 let AddUserInfoErrorMessage="";
-               let AddShopErrorMessage="";
+               let AddDistributerErrorMessage="";
                 if(IsInvalidEmail==false){
                   if(IsInvalidPassword==false){
                     let UUIDUserAccountID =uuidv4();
@@ -346,7 +346,7 @@ app.get('/registerdistributer',function(req,res){
                           callback3(null,'3');
                         }else{
                           console.log("Failed Distributer" +response);
-                          AddShopErrorMessage=response;
+                          AddDistributerErrorMessage=response;
                           callback3(null,'3');
                         }
                       });
@@ -359,11 +359,7 @@ app.get('/registerdistributer',function(req,res){
                 }else{
                   res.send("InvalidEmail");
                 }
-                
 
-
-                
-                res.send({isAccountAlreadyExist:isAccountAlreadyExist,isEmailAlreadyExist:isEmailAlreadyExist});
               });
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
