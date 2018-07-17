@@ -838,80 +838,86 @@ app.get('/register',function (req, res) {
               let AddAccountErrorMessage="";
               let AddUserInfoErrorMessage="";
              let AddPlayerErrorMessage="";
-              if(IsInvalidEmail==false){
-                if(IsInvalidPassword==false){
-                  let UUIDUserAccountID =uuidv4();
-                  let UUIDKey =uuidv4();
+              if(isShopExist){
+                if(IsInvalidEmail==false){
+                  if(IsInvalidPassword==false){
+                    let UUIDUserAccountID =uuidv4();
+                    let UUIDKey =uuidv4();
 
-                  async.series([InsertUserAccount,InsertUserInfo,InsertPlayer],function(error,result2){
-                    if(AddAccountErrorMessage==""){
-                      if(AddUserInfoErrorMessage==""){
-                        if(AddShopErrorMessage==""){
-                          res.send({Done:"Done"});
-                          let To = Email;
-                          let From = '';
-                          let Title = 'Email Verification';
-                          let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
-                          SendMail(To,From,Title,VerificationURL);
+                    async.series([InsertUserAccount,InsertUserInfo,InsertPlayer],function(error,result2){
+                      if(AddAccountErrorMessage==""){
+                        if(AddUserInfoErrorMessage==""){
+                          if(AddShopErrorMessage==""){
+                            res.send({Done:"Done"});
+                            let To = Email;
+                            let From = '';
+                            let Title = 'Email Verification';
+                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                            SendMail(To,From,Title,VerificationURL);
 
+                          }else{
+                            res.send({Failed:"Player Insert"});
+                          }
                         }else{
-                          res.send({Failed:"Player Insert"});
+                          res.send({Failed:"UserInfo Insert"});
                         }
                       }else{
-                        res.send({Failed:"UserInfo Insert"});
+                        res.send({Failed:"UserAccount Insert"});
                       }
-                    }else{
-                      res.send({Failed:"UserAccount Insert"});
+                    });
+
+
+                    function InsertUserAccount(callback1){
+
+                      AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert UserAccount");
+                          callback1(null,'1');
+                        }else{
+                          console.log("Failed UserAccount" + response);
+                          AddAccountErrorMessage=response;
+                          callback1(null,'1');
+                        }
+                      });
+                    
                     }
-                  });
-                  function InsertUserAccount(callback1){
+                    function InsertUserInfo(callback2){
+                      AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert UserInfo");
+                          callback2(null,'2');
+                        }else{
+                          console.log("Failed UserInfo" + response);
+                          AddUserInfoErrorMessage=response;
+                          callback2(null,'2');
+                        }
+                      });
 
-                    AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                      if(response=="Inserted"){
-                        console.log("Insert UserAccount");
-                        callback1(null,'1');
-                      }else{
-                        console.log("Failed UserAccount" + response);
-                        AddAccountErrorMessage=response;
-                        callback1(null,'1');
-                      }
-                    });
-                   
-                  }
-                  function InsertUserInfo(callback2){
-                    AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                      if(response=="Inserted"){
-                        console.log("Insert UserInfo");
-                        callback2(null,'2');
-                      }else{
-                        console.log("Failed UserInfo" + response);
-                        AddUserInfoErrorMessage=response;
-                        callback2(null,'2');
-                      }
-                    });
+                  
+                    }
+                    function InsertPlayer(callback3){
+                      AddPlayer(UUIDUserAccountID,ShopID,ScreenName,Name,Surname,'',function(response){
+                        if(response=="Inserted"){
+                          console.log("Insert Player");
+                          callback3(null,'3');
+                        }else{
+                          console.log("Failed Player" +response);
+                          AddPlayerErrorMessage=response;
+                          callback3(null,'3');
+                        }
+                      });
+                  
+                    }
 
-                 
+                  }else{
+                    res.send("WeakPassword");
                   }
-                  function InsertPlayer(callback3){
-                    AddPlayer(UUIDUserAccountID,ShopID,ScreenName,Name,Surname,'',function(response){
-                      if(response=="Inserted"){
-                        console.log("Insert Player");
-                        callback3(null,'3');
-                      }else{
-                        console.log("Failed Player" +response);
-                        AddPlayerErrorMessage=response;
-                        callback3(null,'3');
-                      }
-                    });
-                 
-                  }
-
                 }else{
-                  res.send("WeakPassword");
+                  res.send("InvalidEmail");
                 }
-              }else{
-                res.send("InvalidEmail");
-              }
+            }else{
+              res.send("ShopID Not Found");
+            }
             });
             function myFirstFunction(callback){
              isUserNameExist(UserName,function(response3){
@@ -960,6 +966,7 @@ app.get('/register',function (req, res) {
           }else{
             res.send("Invalid Email");
           }
+          
         }else{
           res.send("Invalid Surname");
         }
