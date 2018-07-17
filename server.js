@@ -298,7 +298,7 @@ app.get('/registershop',function(req,res){
                   console.log('2');
                   console.log("Email Exist check "+isEmailAlreadyExist);
                   //console.log(response);*/
-                  callback(2);
+                  callback(null,2);
                 });
               }
             }else{
