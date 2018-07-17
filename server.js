@@ -270,7 +270,7 @@ app.get('/registershop',function(req,res){
               async.waterfall([myFirstFunction,mySecondFunction],function(error,result){
                 res.send(isAccountAlreadyExist+isEmailAlreadyExist);
               });
-              function myFirstFunction(){
+              function myFirstFunction(callback){
                 console.log('1');
                isUserNameExist(UserName,function(response3){
                
