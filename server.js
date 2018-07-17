@@ -280,7 +280,7 @@ app.get('/registershop',function(req,res){
                      console.log('2');
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
-                    callback(null,'done');
+                    callback();
                  }
                });
               }
@@ -297,7 +297,7 @@ app.get('/registershop',function(req,res){
                   console.log('2');
                   console.log("Email Exist check "+isEmailAlreadyExist);
                   //console.log(response);*/
-                  callback2(null,'done');
+                  callback2();
                 });
               }
             }else{
