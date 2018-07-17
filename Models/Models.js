@@ -371,7 +371,7 @@ const  LoginHistory =sequelize.define('LoginHistory', {
 LoginHistory.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
-  onDelete: 'SET NULL', hooks:true,
+  onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
 const BlackList =sequelize.define('BlackList', {
