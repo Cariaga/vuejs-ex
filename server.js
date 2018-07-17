@@ -212,6 +212,57 @@ function isUserAccountVerified(UserName,callback){
     });
 }
 
+function isHeadOfficeExist(UserName,callback){
+  Models.HeadOffice.sync();
+    let result = Models.Shop.findAll({ 
+      where: {
+        HeadOfficeID:HeadOfficeID,
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback(result);
+    });
+}
+
+function isDistributorExist(UserName,callback){
+  Models.Distributor.sync();
+    let result = Models.Shop.findAll({ 
+      where: {
+        DistributorID:DistributorID,
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback(result);
+    });
+}
+
+function isShopExist(UserName,callback){
+  Models.UserAccount.sync();
+    let result = Models.Shop.findAll({ 
+      where: {
+        ShopID:ShopID,
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback(result);
+    });
+}
+
 function isScreenNameExist(ScreenName,callback){
   Models.Player.sync();
     let result = Models.Player.findAll({ 
