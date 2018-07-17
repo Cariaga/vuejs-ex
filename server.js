@@ -264,7 +264,7 @@ app.get('/registerheadoffice',function(req,res){
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-            if(!isNullOrEmpty(HeadOfficeID)){
+          
 
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
@@ -385,9 +385,7 @@ app.get('/registerheadoffice',function(req,res){
                   }
                 });
               }
-            }else{
-              res.send("Missing DistributerID");
-            }
+            
           }else{
             res.send("Missing Email");
           }
