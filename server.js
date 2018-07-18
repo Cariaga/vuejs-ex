@@ -1162,7 +1162,6 @@ app.get('/Login',function (req, res) {
            });
           }
           function mySecondFunction(arg0,callback2){
-
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
