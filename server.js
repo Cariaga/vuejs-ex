@@ -459,6 +459,7 @@ app.get('/registerheadoffice',function(req,res){
                   }
                 });
               }
+              
             
           }else{
             res.send("Missing Email");
@@ -618,6 +619,22 @@ app.get('/registerdistributer',function(req,res){
                   }else{
                     isEmailAlreadyExist=false;
                     callback2(null,2);
+                  }
+                });
+              }
+              function myThirdFunction(callback3){
+                isShopAlreadyExist(ShopID,function(response){
+                  let obj = response;
+                  console.log("Checking ShopExist");
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
+                    isShopExist=true;
+                    console.log("Checking ShopExist "+isShopExist);
+                    callback3(null,3);
+                    
+                  }else{
+                    isShopExist=false;
+                    console.log("Checking ShopExist "+isShopExist);
+                    callback3(null,3);
                   }
                 });
               }
@@ -790,6 +807,22 @@ app.get('/registershop',function(req,res){
                   }
                 });
               }
+              function myThirdFunction(callback3){
+                isShopAlreadyExist(ShopID,function(response){
+                  let obj = response;
+                  console.log("Checking ShopExist");
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
+                    isShopExist=true;
+                    console.log("Checking ShopExist "+isShopExist);
+                    callback3(null,3);
+                    
+                  }else{
+                    isShopExist=false;
+                    console.log("Checking ShopExist "+isShopExist);
+                    callback3(null,3);
+                  }
+                });
+              }
             }else{
               res.send("Missing DistributerID");
             }
@@ -809,7 +842,6 @@ app.get('/registershop',function(req,res){
     res.send("Missing UserName");
   }
 });
-
 app.get('/register',function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
