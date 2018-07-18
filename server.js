@@ -1083,41 +1083,9 @@ app.get('/Login',function (req, res) {
         let AccountStatus="";
         async.waterfall([
           myFirstFunction,
-          mySecondFunction,
-          myThirdFunction
+          mySecondFunction
         ], function (err, result) {//final function
             console.log('done');
-          });
-
-          function myFirstFunction(callback){
-            console.log('1');
-           isUserNameExist(UserName,function(response3){
-             let obj = response3;
-             if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
-                 console.log("UUID : "+obj[0].UserAccountID);
-                 console.log('2');
-                 UserAccountID= obj[0].UserAccountID;
-               callback(null,obj[0].UserAccountID);
-             }
-           });
-          }
-          function mySecondFunction(arg0,callback2){
-            isUserAccountBlocked(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                let result3 = {Status:obj[0].Status};
-                AccountStatus=obj[0].Status;
-              //  console.log('4');
-                callback2(null,result3);
-              }else{
-                let result3 = {Status:obj[0].Status};
-                AccountStatus=obj[0].Status;
-              //  console.log('4');
-                callback2(null,result3);
-              }
-            });
-          }
-          function myThirdFunction(arg0,callback3){
              // result now equals 'done'
            console.log('3');
            let UserAccountID = arg0;
@@ -1179,9 +1147,37 @@ app.get('/Login',function (req, res) {
                 res.send("Error "+result);
               });
           callback3(null,'done');
-          }
+          });
 
-          
+          function myFirstFunction(callback){
+            console.log('1');
+           isUserNameExist(UserName,function(response3){
+             let obj = response3;
+             if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
+                 console.log("UUID : "+obj[0].UserAccountID);
+                 console.log('2');
+                 UserAccountID= obj[0].UserAccountID;
+               callback(null,obj[0].UserAccountID);
+             }
+           });
+          }
+          function mySecondFunction(arg0,callback2){
+
+            isUserAccountBlocked(UserAccountID,function(response){
+              let obj = response;
+              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                let result2 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;
+              //  console.log('4');
+                callback2(null,result2);
+              }else{
+                let result2 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;
+              //  console.log('4');
+                callback2(null,result2);
+              }
+            });
+          }
       }else{
         res.send("Invalid Password");
       }
