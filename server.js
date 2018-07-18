@@ -959,13 +959,15 @@ app.get('/register',function (req, res) {
             function myThirdFunction(callback3){
               isShopAlreadyExist(ShopID,function(response){
                 let obj = response;
-                console.log(obj);
+                console.log("Checking ShopExist");
                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
                   isShopExist=true;
+                  console.log("Checking ShopExist "+isShopExist);
                   callback3(null,3);
                   
                 }else{
                   isShopExist=false;
+                  console.log("Checking ShopExist "+isShopExist);
                   callback3(null,3);
                 }
               });
