@@ -675,7 +675,7 @@ app.get('/registershop',function(req,res){
   let Email= req.query.Email;
   let PhoneNumber= "";//this was never used
   let TelephoneNumber = "";//this was never used
-  let DistributerID = req.query.DistributerID;
+  let DistributorID = req.query.DistributorID;
   let Description = req.query.Description;
   if(!isNullOrEmpty(UserName)){
     if(!isNullOrEmpty(Password)){
@@ -687,7 +687,7 @@ app.get('/registershop',function(req,res){
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
-              let isDistributerExist = false;
+              let isDistributorExist = false;
               async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
@@ -712,7 +712,7 @@ app.get('/registershop',function(req,res){
                 let AddAccountErrorMessage="";
                 let AddUserInfoErrorMessage="";
                 let AddShopErrorMessage="";
-                if(isDistributerExist==true){
+                if(isDistributorExist==true){
                     if(IsInvalidEmail==false){
                       if(IsInvalidPassword==false){
                         let UUIDUserAccountID =uuidv4();
@@ -770,7 +770,7 @@ app.get('/registershop',function(req,res){
                       
                         }
                         function InsertShop(callback3){
-                          AddShop(UUIDUserAccountID,DistributerID,Description,function(response){
+                          AddShop(UUIDUserAccountID,DistributorID,Description,function(response){
                             if(response=="Inserted"){
                               console.log("Insert Shop");
                               callback3(null,'3');
@@ -824,14 +824,14 @@ app.get('/registershop',function(req,res){
                 isDistributorAlreadyExist(DistributerID,function(response){
                   let obj = response;
                   console.log("Checking DistributorExist");
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].DistributerID==DistributerID){
-                    isDistributerExist=true;
-                    console.log("Checking DistributerExist "+isDistributerExist);
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].DistributerID==DistributorID){
+                    isDistributorExist=true;
+                    console.log("Checking DistributerExist "+isDistributorExist);
                     callback3(null,3);
                     
                   }else{
-                    isDistributerExist=false;
-                    console.log("Checking DistributerExist "+isDistributerExist);
+                    isDistributorExist=false;
+                    console.log("Checking DistributerExist "+isDistributorExist);
                     callback3(null,3);
                   }
                 });
