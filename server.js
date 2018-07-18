@@ -1183,10 +1183,10 @@ app.get('/Login',function (req, res) {
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
                   console.log('mySecondFunction');
-                  UserAccountID= obj[0].UserAccountID;
+                  VerifyResult= obj[0].Verify;
                 callback2(null,'2');
               }else{
-               UserAccountID= "";
+                VerifyResult= "";
                callback2(null,'2');
               }
             });
