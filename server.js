@@ -502,7 +502,7 @@ app.get('/registerdistributer',function(req,res){
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
               let isHeadOfficeExist=false;
-              async.series([myFirstFunction,mySecondFunction],function(error,result){
+              async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
                 getCurrentTime(function(response){
@@ -687,7 +687,7 @@ app.get('/registershop',function(req,res){
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
               let isDistributerExist = false;
-              async.series([myFirstFunction,mySecondFunction],function(error,result){
+              async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
                 getCurrentTime(function(response){
