@@ -1148,6 +1148,9 @@ app.get('/Login',function (req, res) {
                   res.send("Error "+result);
                 });
             callback3(null,'done');
+            }else{
+              let Data = {AccountStatus:AccountStatus};
+              res.send(Data);
             }
           });
           
