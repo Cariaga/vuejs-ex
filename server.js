@@ -821,7 +821,7 @@ app.get('/registershop',function(req,res){
                 });
               }
               function myThirdFunction(callback3){
-                isDistributorAlreadyExist(DistributerID,function(response){
+                isDistributorAlreadyExist(DistributorID,function(response){
                   let obj = response;
                   console.log("Checking DistributorExist");
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].DistributorID==DistributorID){
