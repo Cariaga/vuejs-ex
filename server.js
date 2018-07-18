@@ -357,7 +357,7 @@ app.get('/registerheadoffice',function(req,res){
                 let IsInvalidEmail = !validator.isEmail(Email);
                 let AddAccountErrorMessage="";
                 let AddUserInfoErrorMessage="";
-               let AddDistributerErrorMessage="";
+               let AddDistributorErrorMessage="";
                 if(IsInvalidEmail==false){
                   if(IsInvalidPassword==false){
                     let UUIDUserAccountID =uuidv4();
@@ -365,7 +365,7 @@ app.get('/registerheadoffice',function(req,res){
                     async.series([InsertUserAccount,InsertUserInfo,InsertHeadOffice],function(error,result2){
                       if(AddAccountErrorMessage==""){
                         if(AddUserInfoErrorMessage==""){
-                          if(AddDistributerErrorMessage==""){
+                          if(AddDistributorErrorMessage==""){
                             let To = Email;
                             let From = '';
                             let Title = 'Email Verification';
@@ -411,14 +411,14 @@ app.get('/registerheadoffice',function(req,res){
 
                    
                     }
-                    function InsertHeadOffice(callback3){//headoffice dosn't have a parent ID like Distributer Shop and Player
+                    function InsertHeadOffice(callback3){//headoffice dosn't have a parent ID like Distributor Shop and Player
                       AddHeadOffice(UUIDUserAccountID,Name,Description,function(response){
                         if(response=="Inserted"){
                           console.log("Insert headoffice");
                           callback3(null,'3');
                         }else{
                           console.log("Failed headoffice" +response);
-                          AddDistributerErrorMessage=response;
+                          AddDistributorErrorMessage=response;
                           callback3(null,'3');
                         }
                       });
@@ -480,7 +480,7 @@ app.get('/registerheadoffice',function(req,res){
 
 
 
-app.get('/registerdistributer',function(req,res){
+app.get('/registerdistributor',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
   let Password = req.query.Password;
@@ -522,16 +522,16 @@ app.get('/registerdistributer',function(req,res){
                 let IsInvalidEmail = !validator.isEmail(Email);
                 let AddAccountErrorMessage="";
                 let AddUserInfoErrorMessage="";
-               let AddDistributerErrorMessage="";
+               let AddDistributorErrorMessage="";
                if(isHeadOfficeExist==true){
                   if(IsInvalidEmail==false){
                     if(IsInvalidPassword==false){
                       let UUIDUserAccountID =uuidv4();
                       let UUIDKey =uuidv4();
-                      async.series([InsertUserAccount,InsertUserInfo,InsertDistributer],function(error,result2){
+                      async.series([InsertUserAccount,InsertUserInfo,InsertDistributor],function(error,result2){
                         if(AddAccountErrorMessage==""){
                           if(AddUserInfoErrorMessage==""){
-                            if(AddDistributerErrorMessage==""){
+                            if(AddDistributorErrorMessage==""){
                               let To = Email;
                               let From = '';
                               let Title = 'Email Verification';
@@ -539,7 +539,7 @@ app.get('/registerdistributer',function(req,res){
                               SendMail(To,From,Title,VerificationURL);
                               res.send({Done:"Done"});
                             }else{
-                              res.send({Failed:"Distributer Insert"});
+                              res.send({Failed:"Distributor Insert"});
                             }
                           }else{
                             res.send({Failed:"UserInfo Insert"});
@@ -576,14 +576,14 @@ app.get('/registerdistributer',function(req,res){
 
                     
                       }
-                      function InsertDistributer(callback3){
-                        AddDistributer(UUIDUserAccountID,HeadOfficeID,Description,function(response){
+                      function InsertDistributor(callback3){
+                        AddDistributor(UUIDUserAccountID,HeadOfficeID,Description,function(response){
                           if(response=="Inserted"){
-                            console.log("Insert Distributer");
+                            console.log("Insert Distributor");
                             callback3(null,'3');
                           }else{
-                            console.log("Failed Distributer" +response);
-                            AddDistributerErrorMessage=response;
+                            console.log("Failed Distributor" +response);
+                            AddDistributorErrorMessage=response;
                             callback3(null,'3');
                           }
                         });
@@ -646,7 +646,7 @@ app.get('/registerdistributer',function(req,res){
                 });
               }
             }else{
-              res.send("Missing DistributerID");
+              res.send("Missing DistributorID");
             }
           }else{
             res.send("Missing Email");
@@ -682,7 +682,7 @@ app.get('/registershop',function(req,res){
       if(!isNullOrEmpty(Name)){
         if(!isNullOrEmpty(Surname)){
           if(!isNullOrEmpty(Email)){
-            if(!isNullOrEmpty(DistributerID)){
+            if(!isNullOrEmpty(DistributorID)){
 
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
@@ -790,7 +790,7 @@ app.get('/registershop',function(req,res){
                     res.send("InvalidEmail");
                   }
                 }else{
-                  res.send("DistributerID Not Found");
+                  res.send("DistributorID Not Found");
                 }
               });
               
@@ -826,18 +826,18 @@ app.get('/registershop',function(req,res){
                   console.log("Checking DistributorExist");
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].DistributorID==DistributorID){
                     isDistributorExist=true;
-                    console.log("Checking DistributerExist "+isDistributorExist);
+                    console.log("Checking DistributorExist "+isDistributorExist);
                     callback3(null,3);
                     
                   }else{
                     isDistributorExist=false;
-                    console.log("Checking DistributerExist "+isDistributorExist);
+                    console.log("Checking DistributorExist "+isDistributorExist);
                     callback3(null,3);
                   }
                 });
               }
             }else{
-              res.send("Missing DistributerID");
+              res.send("Missing DistributorID");
             }
           }else{
             res.send("Missing Email");
@@ -3495,14 +3495,14 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(HeadOfficeID)&&
   !isNullOrEmpty(Name)){
-    AddDistributer(UserAccountID,HeadOfficeID,Name,function(response){
+    AddDistributor(UserAccountID,HeadOfficeID,Name,function(response){
       res.send(response);
     });
   }else{
     res.send("Missing params");
   }
 });
-function AddDistributer(UserAccountID,HeadOfficeID,Name,callback){
+function AddDistributor(UserAccountID,HeadOfficeID,Name,callback){
   var item1 = Models.Distributor.build({
     UserAccountID:UserAccountID,
     HeadOfficeID:HeadOfficeID,
@@ -3512,9 +3512,9 @@ function AddDistributer(UserAccountID,HeadOfficeID,Name,callback){
   item1.save()
   .then(Success => {
     callback("Inserted");
-    console.log("----AddDistributer Start-----");
+    console.log("----AddDistributor Start-----");
     console.log(Success);
-    console.log("----AddDistributer End-----");
+    console.log("----AddDistributor End-----");
   })
   .catch(error => {
     // mhhh, wth!
@@ -3522,12 +3522,12 @@ function AddDistributer(UserAccountID,HeadOfficeID,Name,callback){
     callback("error inserting " +error);
   });
 }
-app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
-  let DistributerID = req.params.DistributerID;
+app.get('/Api/v1/Distributor/Update/:DistributorID/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
+  let DistributorID = req.params.DistributorID;
   let UserAccountID = req.params.UserAccountID;
   let HeadOfficeID = req.params.HeadOfficeID;
   let Name = req.params.Name;
-  if(!isNullOrEmpty(DistributerID)&&
+  if(!isNullOrEmpty(DistributorID)&&
   !isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(HeadOfficeID)&&
   !isNullOrEmpty(Name)){
@@ -3536,7 +3536,7 @@ app.get('/Api/v1/Distributor/Update/:DistributerID/:UserAccountID/:HeadOfficeID/
       HeadOfficeID: HeadOfficeID,
       Name: Name
     },{
-      where: {DistributerID: DistributerID }
+      where: {DistributorID: DistributorID }
     })
     .then(Success => {
       res.send("Updated");
