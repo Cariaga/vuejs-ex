@@ -156,9 +156,6 @@ function isUserAccountBlocked(UserAccountID,callback){
       where: {
         UserAccountID: UserAccountID,//not null
         Status:"Blocked",
-        order: [
-          ['BlackListID', 'DESC'],
-      ],
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
