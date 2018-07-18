@@ -1079,6 +1079,7 @@ app.get('/Login',function (req, res) {
   !isNullOrEmpty(Date)){
     if(!isNullOrEmpty(UserName)){
       if(!isNullOrEmpty(Password)){
+        let UserAccountID ="";
         let AccountStatus="";
         async.waterfall([
           myFirstFunction,
@@ -1091,17 +1092,16 @@ app.get('/Login',function (req, res) {
           function myFirstFunction(callback){
             console.log('1');
            isUserNameExist(UserName,function(response3){
-           
              let obj = response3;
-             if(!isNullOrEmpty(obj)&&obj!=undefined){
+             if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
                  console.log("UUID : "+obj[0].UserAccountID);
                  console.log('2');
+                 UserAccountID= obj[0].UserAccountID;
                callback(null,obj[0].UserAccountID);
              }
            });
           }
           function mySecondFunction(arg0,callback2){
-            
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
@@ -1115,15 +1115,12 @@ app.get('/Login',function (req, res) {
               //  console.log('4');
                 callback2(null,result3);
               }
-
             });
           }
-
           function myThirdFunction(arg0,callback3){
              // result now equals 'done'
            console.log('3');
            let UserAccountID = arg0;
-
             Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
               console.log('4');
               let result2 = Models.UserAccount.findAll({ 
@@ -1136,12 +1133,10 @@ app.get('/Login',function (req, res) {
                 let Data = result3.map(function(item) {
                     return item;
                 });
-
                 //--Validation For Login Start
                 let VerifyResult = Data.find(function(element) {
                   return element.Verify==true;
                 });
-                
                 if(VerifyResult){
                   console.log('5');
                   AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
