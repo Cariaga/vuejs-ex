@@ -1178,7 +1178,7 @@ app.get('/Login',function (req, res) {
                  console.log("UUID : "+obj[0].UserAccountID);
                  console.log('2');
                  UserAccountID= obj[0].UserAccountID;
-                 callback(null,obj[0].UserAccountID);
+                 callback(obj[0].UserAccountID);
              }else{
                 UserAccountID= "";
                 callback(undefined);
