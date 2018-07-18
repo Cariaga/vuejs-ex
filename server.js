@@ -1205,13 +1205,12 @@ app.get('/Login',function (req, res) {
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                /*let result2 = {Status:obj[0].Status};
-                AccountStatus=obj[0].Status;*/
                 console.log('myThirdFunction');
+                let result2 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;
                 callback3(null,'3');
               }else{
                 AccountStatus="";
-              //  console.log('4');
                 callback3(null,'3');
               }
             });
