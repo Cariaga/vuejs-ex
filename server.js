@@ -631,6 +631,7 @@ app.get('/registerdistributer',function(req,res){
                 isHeadOfficeAlreadyExist(HeadOfficeID,function(response){
                   let obj = response;
                   console.log("Checking HeadOfficeExist 2");
+                  console.log(obj);
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].HeadOfficeID==HeadOfficeID){
                     isHeadOfficeExist=true;
                     console.log("Checking HeadOfficeExist 3"+isHeadOfficeExist);
