@@ -1081,9 +1081,10 @@ app.get('/Login',function (req, res) {
       if(!isNullOrEmpty(Password)){
         let UserAccountID ="";
         let AccountStatus="";
+        let VerifyResult=undefined;
         async.waterfall([
           myFirstFunction,
-          mySomeFunction,
+          mySecondFunction,
           myThirdFunction
         ], function (err, result) {//final function
           if(UserAccountID!=""){
@@ -1094,7 +1095,9 @@ app.get('/Login',function (req, res) {
               let UserAccountID = arg0;
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-                  let result2 = Models.UserAccount.findAll({ 
+                  res.send(VerifyResult);
+                  
+                  /*let result2 = Models.UserAccount.findAll({ 
                     where: {
                       UserName:UserName//not null
                       ,
@@ -1107,9 +1110,10 @@ app.get('/Login',function (req, res) {
                     //--Validation For Login Start
                     let VerifyResult = Data.find(function(element) {
                       return element.Verify==true;
-                    });
+                    });*/
 
-                    if(VerifyResult){
+
+                  /*  if(VerifyResult==true){
                       console.log('5');
                       /*AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('6');
@@ -1128,7 +1132,7 @@ app.get('/Login',function (req, res) {
                         res.send(Data);
                       //  res.send(beautify(Data, null, 2, 100));
                       });*/
-                      let Data = {test:"test"};
+                 /*     let Data = {test:"test"};
                       res.send(Data);
                       //--Validation For Login End
             
@@ -1151,8 +1155,9 @@ app.get('/Login',function (req, res) {
             
                   }).catch(function(result) {//catching any then errors
                     res.send("Error "+result);
-                  });
-                  callback3(null,'done');
+                  });*/
+
+                //  callback3(null,'done');
               }else{
                 let Data = {AccountStatus:AccountStatus};
                 res.send(Data);
@@ -1161,6 +1166,7 @@ app.get('/Login',function (req, res) {
               let Data = {isUserNameExist:false};
               res.send(Data)
             }
+            
           });
           
           function myFirstFunction(callback){
@@ -1179,7 +1185,7 @@ app.get('/Login',function (req, res) {
            });
           }
           
-          function mySomeFunction(callback2){
+          function mySecondFunction(callback2){
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
@@ -1193,6 +1199,7 @@ app.get('/Login',function (req, res) {
               }
             });
           }
+
           function myThirdFunction(arg0,callback3){
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
