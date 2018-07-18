@@ -120,7 +120,6 @@ function isEmailExist(Email,callback){
     let result = Models.UserInfo.findAll({ 
       where: {
         Email: Email//not null
-     
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -1084,7 +1083,8 @@ app.get('/Login',function (req, res) {
         let AccountStatus="";
         async.waterfall([
           myFirstFunction,
-          mySecondFunction
+          mySomeFunction,
+          myThirdFunction
         ], function (err, result) {//final function
           if(UserAccountID!=""){
             if(AccountStatus!="Blocked"){
@@ -1108,6 +1108,7 @@ app.get('/Login',function (req, res) {
                     let VerifyResult = Data.find(function(element) {
                       return element.Verify==true;
                     });
+
                     if(VerifyResult){
                       console.log('5');
                       /*AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
@@ -1177,18 +1178,33 @@ app.get('/Login',function (req, res) {
              }
            });
           }
-          function mySecondFunction(arg0,callback2){
+          
+          function mySomeFunction(callback2){
+            isUserAccountVerified(UserName,function(response3){
+              let obj = response3;
+              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
+                  console.log("UUID : "+obj[0].UserAccountID);
+                  console.log('2');
+                  UserAccountID= obj[0].UserAccountID;
+                callback2(null,obj[0].UserAccountID);
+              }else{
+               UserAccountID= "";
+               callback2(null,undefined);
+              }
+            });
+          }
+          function myThirdFunction(arg0,callback3){
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
                 let result2 = {Status:obj[0].Status};
                 AccountStatus=obj[0].Status;
               //  console.log('4');
-                callback2(null,result2);
+                callback3(null,result2);
               }else{
                 AccountStatus="";
               //  console.log('4');
-                callback2(null,undefined);
+                callback3(null,undefined);
               }
             });
           }
