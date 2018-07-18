@@ -1086,8 +1086,6 @@ app.get('/Login',function (req, res) {
           mySecondFunction
         ], function (err, result) {//final function
           if(UserAccountID!=""){
-
-          
             if(AccountStatus!="Blocked"){
               console.log('done');
                 // result now equals 'done'
@@ -1165,7 +1163,7 @@ app.get('/Login',function (req, res) {
             console.log('1');
            isUserNameExist(UserName,function(response3){
              let obj = response3;
-             if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
+             if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
                  console.log("UUID : "+obj[0].UserAccountID);
                  console.log('2');
                  UserAccountID= obj[0].UserAccountID;
