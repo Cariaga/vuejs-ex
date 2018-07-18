@@ -216,7 +216,8 @@ function isUserAccountVerified(UserName,callback){
       }
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback(result);
+      console.log(result);
+      callback(undefined);
     });
 }
 
@@ -1096,7 +1097,7 @@ app.get('/Login',function (req, res) {
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
                   res.send(VerifyResult);
-                  
+
                   /*let result2 = Models.UserAccount.findAll({ 
                     where: {
                       UserName:UserName//not null
