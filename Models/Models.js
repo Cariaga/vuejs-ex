@@ -121,8 +121,8 @@ const  Shop =sequelize.define('Shop', {// any number of shop point to a distribu
       type: Sequelize.STRING,
       foreignKey: true,
       references: {
-        model: UserAccount,
-        key: 'UserAccountID'
+        model: Distributor,
+        key: 'DistributorID'
     }
   },//FK Multiple ShopsID is referenced to A DistributorID
   Name:Sequelize.STRING,
