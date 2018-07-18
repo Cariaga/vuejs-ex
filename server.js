@@ -824,7 +824,7 @@ app.get('/registershop',function(req,res){
                 isDistributorAlreadyExist(DistributerID,function(response){
                   let obj = response;
                   console.log("Checking DistributorExist");
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].DistributerID==DistributorID){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].DistributorID==DistributorID){
                     isDistributorExist=true;
                     console.log("Checking DistributerExist "+isDistributorExist);
                     callback3(null,3);
