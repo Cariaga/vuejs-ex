@@ -1083,7 +1083,7 @@ app.get('/Login',function (req, res) {
         let UserAccountID ="";
         let AccountStatus="";
         let VerifyResult=undefined;
-        async.waterfall([
+        async.series([
           myFirstFunction,
           mySecondFunction,
           myThirdFunction
@@ -1178,15 +1178,15 @@ app.get('/Login',function (req, res) {
                  console.log("UUID : "+obj[0].UserAccountID);
                  console.log('2');
                  UserAccountID= obj[0].UserAccountID;
-                 callback(obj[0].UserAccountID);
+                 callback(null,'1');
              }else{
                 UserAccountID= "";
-                callback(undefined);
+                callback(null,'1');
              }
            });
           }
           
-          function mySecondFunction(arg0,callback2){
+          function mySecondFunction(callback2){
             console.log('mySecondFunction');
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
@@ -1194,15 +1194,15 @@ app.get('/Login',function (req, res) {
                   console.log("UUID : "+obj[0].UserAccountID);
                   console.log('2');
                   UserAccountID= obj[0].UserAccountID;
-                callback2(obj[0].UserAccountID);
+                callback2(null,'2');
               }else{
                UserAccountID= "";
-               callback2(undefined);
+               callback2(null,'2');
               }
             });
           }
 
-          function myThirdFunction(arg0,callback3){
+          function myThirdFunction(callback3){
             console.log('myThirdFunction');
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
@@ -1210,11 +1210,11 @@ app.get('/Login',function (req, res) {
                 let result2 = {Status:obj[0].Status};
                 AccountStatus=obj[0].Status;
               //  console.log('4');
-                callback3(result2);
+                callback3(null,'3');
               }else{
                 AccountStatus="";
               //  console.log('4');
-                callback3(undefined);
+                callback3(null,'3');
               }
             });
           }
