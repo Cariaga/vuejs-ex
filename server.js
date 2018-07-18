@@ -523,79 +523,82 @@ app.get('/registerdistributer',function(req,res){
                 let AddAccountErrorMessage="";
                 let AddUserInfoErrorMessage="";
                let AddDistributerErrorMessage="";
-                if(IsInvalidEmail==false){
-                  if(IsInvalidPassword==false){
-                    let UUIDUserAccountID =uuidv4();
-                    let UUIDKey =uuidv4();
-                    async.series([InsertUserAccount,InsertUserInfo,InsertDistributer],function(error,result2){
-                      if(AddAccountErrorMessage==""){
-                        if(AddUserInfoErrorMessage==""){
-                          if(AddDistributerErrorMessage==""){
-                            let To = Email;
-                            let From = '';
-                            let Title = 'Email Verification';
-                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
-                            SendMail(To,From,Title,VerificationURL);
-                            res.send({Done:"Done"});
+               if(isHeadOfficeExist==true){
+                  if(IsInvalidEmail==false){
+                    if(IsInvalidPassword==false){
+                      let UUIDUserAccountID =uuidv4();
+                      let UUIDKey =uuidv4();
+                      async.series([InsertUserAccount,InsertUserInfo,InsertDistributer],function(error,result2){
+                        if(AddAccountErrorMessage==""){
+                          if(AddUserInfoErrorMessage==""){
+                            if(AddDistributerErrorMessage==""){
+                              let To = Email;
+                              let From = '';
+                              let Title = 'Email Verification';
+                              let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                              SendMail(To,From,Title,VerificationURL);
+                              res.send({Done:"Done"});
+                            }else{
+                              res.send({Failed:"Distributer Insert"});
+                            }
                           }else{
-                            res.send({Failed:"Distributer Insert"});
+                            res.send({Failed:"UserInfo Insert"});
                           }
                         }else{
-                          res.send({Failed:"UserInfo Insert"});
+                          res.send({Failed:"UserAccount Insert"});
                         }
-                      }else{
-                        res.send({Failed:"UserAccount Insert"});
+                      });
+                      function InsertUserAccount(callback1){
+
+                        AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                          if(response=="Inserted"){
+                            console.log("Insert UserAccount");
+                            callback1(null,'1');
+                          }else{
+                            console.log("Failed UserAccount" + response);
+                            AddAccountErrorMessage=response;
+                            callback1(null,'1');
+                          }
+                        });
+                      
                       }
-                    });
-                    function InsertUserAccount(callback1){
+                      function InsertUserInfo(callback2){
+                        AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                          if(response=="Inserted"){
+                            console.log("Insert UserInfo");
+                            callback2(null,'2');
+                          }else{
+                            console.log("Failed UserInfo" + response);
+                            AddUserInfoErrorMessage=response;
+                            callback2(null,'2');
+                          }
+                        });
 
-                      AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserAccount");
-                          callback1(null,'1');
-                        }else{
-                          console.log("Failed UserAccount" + response);
-                          AddAccountErrorMessage=response;
-                          callback1(null,'1');
-                        }
-                      });
-                     
-                    }
-                    function InsertUserInfo(callback2){
-                      AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserInfo");
-                          callback2(null,'2');
-                        }else{
-                          console.log("Failed UserInfo" + response);
-                          AddUserInfoErrorMessage=response;
-                          callback2(null,'2');
-                        }
-                      });
+                    
+                      }
+                      function InsertDistributer(callback3){
+                        AddDistributer(UUIDUserAccountID,HeadOfficeID,Description,function(response){
+                          if(response=="Inserted"){
+                            console.log("Insert Distributer");
+                            callback3(null,'3');
+                          }else{
+                            console.log("Failed Distributer" +response);
+                            AddDistributerErrorMessage=response;
+                            callback3(null,'3');
+                          }
+                        });
+                    
+                      }
 
-                   
+                    }else{
+                      res.send("WeakPassword");
                     }
-                    function InsertDistributer(callback3){
-                      AddDistributer(UUIDUserAccountID,HeadOfficeID,Description,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert Distributer");
-                          callback3(null,'3');
-                        }else{
-                          console.log("Failed Distributer" +response);
-                          AddDistributerErrorMessage=response;
-                          callback3(null,'3');
-                        }
-                      });
-                   
-                    }
-
                   }else{
-                    res.send("WeakPassword");
+                    res.send("InvalidEmail");
                   }
                 }else{
-                  res.send("InvalidEmail");
+                  res.send("DistributerID Not Found");
                 }
-
               });
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
@@ -637,6 +640,7 @@ app.get('/registerdistributer',function(req,res){
                     console.log("Checking DistributorExist "+isHeadOfficeExist);
                     callback3(null,3);
                   }
+               
                 });
               }
             }else{
@@ -705,84 +709,89 @@ app.get('/registershop',function(req,res){
                 let IsInvalidEmail = !validator.isEmail(Email);
                 let AddAccountErrorMessage="";
                 let AddUserInfoErrorMessage="";
-               let AddShopErrorMessage="";
-                if(IsInvalidEmail==false){
-                  if(IsInvalidPassword==false){
-                    let UUIDUserAccountID =uuidv4();
-                    let UUIDKey =uuidv4();
+                let AddShopErrorMessage="";
+                if(isDistributerExist==true){
+                    if(IsInvalidEmail==false){
+                      if(IsInvalidPassword==false){
+                        let UUIDUserAccountID =uuidv4();
+                        let UUIDKey =uuidv4();
 
-                    async.series([InsertUserAccount,InsertUserInfo,InsertShop],function(error,result2){
-                      if(AddAccountErrorMessage==""){
-                        if(AddUserInfoErrorMessage==""){
-                          if(AddShopErrorMessage==""){
-                            res.send({Done:"Done"});
-                            let To = Email;
-                            let From = '';
-                            let Title = 'Email Verification';
-                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
-                            SendMail(To,From,Title,VerificationURL);
+                        async.series([InsertUserAccount,InsertUserInfo,InsertShop],function(error,result2){
+                          if(AddAccountErrorMessage==""){
+                            if(AddUserInfoErrorMessage==""){
+                              if(AddShopErrorMessage==""){
+                                res.send({Done:"Done"});
+                                let To = Email;
+                                let From = '';
+                                let Title = 'Email Verification';
+                                let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                                SendMail(To,From,Title,VerificationURL);
 
+                              }else{
+                                res.send({Failed:"Shop Insert"});
+                              }
+                            }else{
+                              res.send({Failed:"UserInfo Insert"});
+                            }
                           }else{
-                            res.send({Failed:"Shop Insert"});
+                            res.send({Failed:"UserAccount Insert"});
                           }
-                        }else{
-                          res.send({Failed:"UserInfo Insert"});
+                        
+                          
+                        });
+                        function InsertUserAccount(callback1){
+
+                          AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                            if(response=="Inserted"){
+                              console.log("Insert UserAccount");
+                              callback1(null,'1');
+                            }else{
+                              console.log("Failed UserAccount" + response);
+                              AddAccountErrorMessage=response;
+                              callback1(null,'1');
+                            }
+                          });
+                        
                         }
-                      }else{
-                        res.send({Failed:"UserAccount Insert"});
-                      }
-                    
+                        function InsertUserInfo(callback2){
+                          AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                            if(response=="Inserted"){
+                              console.log("Insert UserInfo");
+                              callback2(null,'2');
+                            }else{
+                              console.log("Failed UserInfo" + response);
+                              AddUserInfoErrorMessage=response;
+                              callback2(null,'2');
+                            }
+                          });
+
                       
-                    });
-                    function InsertUserAccount(callback1){
-
-                      AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserAccount");
-                          callback1(null,'1');
-                        }else{
-                          console.log("Failed UserAccount" + response);
-                          AddAccountErrorMessage=response;
-                          callback1(null,'1');
                         }
-                      });
-                     
-                    }
-                    function InsertUserInfo(callback2){
-                      AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserInfo");
-                          callback2(null,'2');
-                        }else{
-                          console.log("Failed UserInfo" + response);
-                          AddUserInfoErrorMessage=response;
-                          callback2(null,'2');
+                        function InsertShop(callback3){
+                          AddShop(UUIDUserAccountID,DistributerID,Description,function(response){
+                            if(response=="Inserted"){
+                              console.log("Insert Shop");
+                              callback3(null,'3');
+                            }else{
+                              console.log("Failed Shop" +response);
+                              AddShopErrorMessage=response;
+                              callback3(null,'3');
+                            }
+                          });
+                      
                         }
-                      });
 
-                   
-                    }
-                    function InsertShop(callback3){
-                      AddShop(UUIDUserAccountID,DistributerID,Description,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert Shop");
-                          callback3(null,'3');
-                        }else{
-                          console.log("Failed Shop" +response);
-                          AddShopErrorMessage=response;
-                          callback3(null,'3');
-                        }
-                      });
-                   
-                    }
-
+                      }else{
+                        res.send("WeakPassword");
+                      }
                   }else{
-                    res.send("WeakPassword");
+                    res.send("InvalidEmail");
                   }
                 }else{
-                  res.send("InvalidEmail");
+                  res.send("DistributerID Not Found");
                 }
               });
+              
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
                  let obj = response3;
@@ -889,7 +898,7 @@ app.get('/register',function (req, res) {
               let IsInvalidEmail = !validator.isEmail(Email);
               let AddAccountErrorMessage="";
               let AddUserInfoErrorMessage="";
-             let AddPlayerErrorMessage="";
+              let AddPlayerErrorMessage="";
               if(isShopExist==true){
                 if(IsInvalidEmail==false){
                   if(IsInvalidPassword==false){
