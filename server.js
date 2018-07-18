@@ -168,7 +168,11 @@ function isUserAccountBlocked(UserName,callback){
       let Data = result.map(function(item) {
           return item;
       });
-      callback(Data);
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       console.log(result);
@@ -216,6 +220,7 @@ function isUserAccountVerified(UserName,callback){
       callback(result);
     });
 }
+
 
 function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
