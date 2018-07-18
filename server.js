@@ -1056,6 +1056,7 @@ app.get('/register',function (req, res) {
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
   let UserName= req.query.UserName;
   let Password = req.query.Password;
@@ -1168,6 +1169,9 @@ app.get('/Login',function (req, res) {
                  console.log('2');
                  UserAccountID= obj[0].UserAccountID;
                callback(null,obj[0].UserAccountID);
+             }else{
+              UserAccountID= "";
+              callback(null,undefined);
              }
            });
           }
@@ -1180,10 +1184,9 @@ app.get('/Login',function (req, res) {
               //  console.log('4');
                 callback2(null,result2);
               }else{
-                let result2 = {Status:obj[0].Status};
-                AccountStatus=obj[0].Status;
+                AccountStatus="";
               //  console.log('4');
-                callback2(null,result2);
+                callback2(null,undefined);
               }
             });
           }
