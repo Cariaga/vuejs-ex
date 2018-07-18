@@ -155,10 +155,7 @@ function isUserAccountBlocked(UserAccountID,callback){
     let result = Models.BlackList.findAll({ 
       where: {
         UserAccountID: UserAccountID,//not null
-     
-        Status:{
-          eq:"Blocked"
-        },
+        Status:"Blocked",
         order: [
           ['BlackListID', 'DESC'],
       ],
@@ -180,7 +177,7 @@ function isUserAccountBlocked(UserAccountID,callback){
     });
 }
 function isUserNameExist(UserName,callback){
-  Models.UserAccount.sync({alter:true});
+  Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
       where: {
         UserName: UserName//not null
@@ -201,9 +198,7 @@ function isUserAccountVerified(UserName,callback){
     let result = Models.UserAccount.findAll({ 
       where: {
         UserName:UserName,
-        Verify: {
-          eq: true
-        },
+        Verify: true
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -1206,7 +1201,7 @@ app.get('/Login',function (req, res) {
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
                 console.log('myThirdFunction');
-                let result2 = {Status:obj[0].Status};
+             
                 AccountStatus=obj[0].Status;
                 callback3(null,'3');
               }else{
