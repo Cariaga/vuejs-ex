@@ -1085,70 +1085,72 @@ app.get('/Login',function (req, res) {
           myFirstFunction,
           mySecondFunction
         ], function (err, result) {//final function
+          if(AccountStatus!="Blocked"){
             console.log('done');
-             // result now equals 'done'
-           console.log('3');
-           let UserAccountID = arg0;
-            Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-              console.log('4');
-              let result2 = Models.UserAccount.findAll({ 
-                where: {
-                  UserName:UserName//not null
-                  ,
-                  Password:Password//not null
-              }
-              }).then(function(result3) {
-                let Data = result3.map(function(item) {
-                    return item;
-                });
-                //--Validation For Login Start
-                let VerifyResult = Data.find(function(element) {
-                  return element.Verify==true;
-                });
-                if(VerifyResult){
-                  console.log('5');
-                  AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
-                    console.log('6');
-                    console.obj(response3);
-                    let Data =[{Status:"Verified",
-                    Controller:"/Login",
-                    UserAccountID:UserAccountID,
-                    Solution:"No Issue",
-                    UserName:UserName,
-                    Name:"",
-                    SurName:"",
-                    Email:"",
-                    ContactNumber:"",
-                    AccessType:""
-                  }]
-                    res.send(Data);
-                  //  res.send(beautify(Data, null, 2, 100));
-                  });
-                  //--Validation For Login End
-        
-                }else{
-                  let Data = [{
-                    Status:"Unverified",
-                    Controller:"/Login",
-                    Solution:"Check Mail For Verification",
-                    UserName:UserName,
-                    Name:"",
-                    SurName:"",
-                    Email:"",
-                    ContactNumber:"",
-                    AccessType:""
-                    
-                  }];
-                  res.send(Data);
+              // result now equals 'done'
+            console.log('3');
+            let UserAccountID = arg0;
+              Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+                console.log('4');
+                let result2 = Models.UserAccount.findAll({ 
+                  where: {
+                    UserName:UserName//not null
+                    ,
+                    Password:Password//not null
                 }
-                //res.send(beautify(Data, null, 2, 100));
-        
-              }).catch(function(result) {//catching any then errors
-                res.send("Error "+result);
-              });
-          callback3(null,'done');
+                }).then(function(result3) {
+                  let Data = result3.map(function(item) {
+                      return item;
+                  });
+                  //--Validation For Login Start
+                  let VerifyResult = Data.find(function(element) {
+                    return element.Verify==true;
+                  });
+                  if(VerifyResult){
+                    console.log('5');
+                    AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
+                      console.log('6');
+                      console.obj(response3);
+                      let Data =[{Status:"Verified",
+                      Controller:"/Login",
+                      UserAccountID:UserAccountID,
+                      Solution:"No Issue",
+                      UserName:UserName,
+                      Name:"",
+                      SurName:"",
+                      Email:"",
+                      ContactNumber:"",
+                      AccessType:""
+                    }]
+                      res.send(Data);
+                    //  res.send(beautify(Data, null, 2, 100));
+                    });
+                    //--Validation For Login End
+          
+                  }else{
+                    let Data = [{
+                      Status:"Unverified",
+                      Controller:"/Login",
+                      Solution:"Check Mail For Verification",
+                      UserName:UserName,
+                      Name:"",
+                      SurName:"",
+                      Email:"",
+                      ContactNumber:"",
+                      AccessType:""
+                      
+                    }];
+                    res.send(Data);
+                  }
+                  //res.send(beautify(Data, null, 2, 100));
+          
+                }).catch(function(result) {//catching any then errors
+                  res.send("Error "+result);
+                });
+            callback3(null,'done');
+            }
           });
-
+          
           function myFirstFunction(callback){
             console.log('1');
            isUserNameExist(UserName,function(response3){
