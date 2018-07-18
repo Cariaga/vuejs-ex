@@ -1082,8 +1082,8 @@ app.get('/Login',function (req, res) {
         let AccountStatus="";
         async.waterfall([
           myFirstFunction,
-          myThirdFunction,
-          mySecondFunction
+          mySecondFunction,
+          myThirdFunction
         ], function (err, result) {//final function
             console.log('done');
           });
@@ -1100,7 +1100,7 @@ app.get('/Login',function (req, res) {
              }
            });
           }
-          function myThirdFunction(arg0,callback3){
+          function mySecondFunction(arg0,callback2){
             
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
@@ -1108,18 +1108,18 @@ app.get('/Login',function (req, res) {
                 let result3 = {Status:obj[0].Status};
                 AccountStatus=obj[0].Status;
               //  console.log('4');
-                callback3(null,result3);
+                callback2(null,result3);
               }else{
                 let result3 = {Status:obj[0].Status};
                 AccountStatus=obj[0].Status;
               //  console.log('4');
-                callback3(null,result3);
+                callback2(null,result3);
               }
 
             });
           }
-          
-          function mySecondFunction(arg0,callback2){
+
+          function myThirdFunction(arg0,callback3){
              // result now equals 'done'
            console.log('3');
            let UserAccountID = arg0;
@@ -1183,7 +1183,7 @@ app.get('/Login',function (req, res) {
               }).catch(function(result) {//catching any then errors
                 res.send("Error "+result);
               });
-          callback2(null,'done');
+          callback3(null,'done');
           }
 
           
