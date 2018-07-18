@@ -1110,7 +1110,7 @@ app.get('/Login',function (req, res) {
                     });
                     if(VerifyResult){
                       console.log('5');
-                      AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
+                      /*AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('6');
                         console.obj(response3);
                         let Data =[{Status:"Verified",
@@ -1126,7 +1126,9 @@ app.get('/Login',function (req, res) {
                       }]
                         res.send(Data);
                       //  res.send(beautify(Data, null, 2, 100));
-                      });
+                      });*/
+                      let Data = {test:"test"};
+                      res.send(Data);
                       //--Validation For Login End
             
                     }else{
