@@ -632,7 +632,7 @@ app.get('/registerdistributer',function(req,res){
                   let obj = response;
                   console.log("Checking HeadOfficeExist 2");
                   console.log(obj);
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].HeadOfficeID==HeadOfficeID){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].HeadOfficeID==HeadOfficeID){
                     isHeadOfficeExist=true;
                     console.log("Checking HeadOfficeExist 3"+isHeadOfficeExist);
                     callback3(null,3);
