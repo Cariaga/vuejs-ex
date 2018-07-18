@@ -1186,7 +1186,7 @@ app.get('/Login',function (req, res) {
            });
           }
           
-          function mySecondFunction(callback2){
+          function mySecondFunction(args0,callback2){
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
