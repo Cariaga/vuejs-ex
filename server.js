@@ -1097,7 +1097,7 @@ app.get('/Login',function (req, res) {
                     UserName:UserName//not null
                     ,
                     Password:Password//not null
-                }
+                    }
                 }).then(function(result3) {
                   let Data = result3.map(function(item) {
                       return item;
@@ -1147,7 +1147,7 @@ app.get('/Login',function (req, res) {
                 }).catch(function(result) {//catching any then errors
                   res.send("Error "+result);
                 });
-            callback3(null,'done');
+                callback3(null,'done');
             }else{
               let Data = {AccountStatus:AccountStatus};
               res.send(Data);
