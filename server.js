@@ -1171,12 +1171,11 @@ app.get('/Login',function (req, res) {
           });
           
           function myFirstFunction(callback){
-            console.log('myFirstFunction');
+     
            isUserNameExist(UserName,function(response3){
              let obj = response3;
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
-                 console.log("UUID : "+obj[0].UserAccountID);
-                 console.log('2');
+                console.log('myFirstFunction');
                  UserAccountID= obj[0].UserAccountID;
                  callback(null,'1');
              }else{
@@ -1187,12 +1186,11 @@ app.get('/Login',function (req, res) {
           }
           
           function mySecondFunction(callback2){
-            console.log('mySecondFunction');
+        
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
-                  console.log("UUID : "+obj[0].UserAccountID);
-                  console.log('2');
+                  console.log('mySecondFunction');
                   UserAccountID= obj[0].UserAccountID;
                 callback2(null,'2');
               }else{
@@ -1203,13 +1201,13 @@ app.get('/Login',function (req, res) {
           }
 
           function myThirdFunction(callback3){
-            console.log('myThirdFunction');
+          
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                let result2 = {Status:obj[0].Status};
-                AccountStatus=obj[0].Status;
-              //  console.log('4');
+                /*let result2 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;*/
+                console.log('myThirdFunction');
                 callback3(null,'3');
               }else{
                 AccountStatus="";
