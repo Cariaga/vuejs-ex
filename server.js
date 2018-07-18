@@ -436,7 +436,7 @@ app.get('/registerheadoffice',function(req,res){
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
                  let obj = response3;
-                 if(!isNullOrEmpty(obj)&&obj!=undefined){
+                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
                      callback(null,1);
@@ -449,7 +449,7 @@ app.get('/registerheadoffice',function(req,res){
               function mySecondFunction(callback2){
                 isEmailExist(Email,function(response){
                   let obj = response;
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
                     callback2(null,2);
                     
@@ -603,7 +603,7 @@ app.get('/registerdistributer',function(req,res){
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
                  let obj = response3;
-                 if(!isNullOrEmpty(obj)&&obj!=undefined){
+                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
                      callback(null,1);
@@ -616,7 +616,7 @@ app.get('/registerdistributer',function(req,res){
               function mySecondFunction(callback2){
                 isEmailExist(Email,function(response){
                   let obj = response;
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
                     callback2(null,2);
                     
@@ -797,7 +797,7 @@ app.get('/registershop',function(req,res){
               function myFirstFunction(callback){
                isUserNameExist(UserName,function(response3){
                  let obj = response3;
-                 if(!isNullOrEmpty(obj)&&obj!=undefined){
+                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
                      isAccountAlreadyExist=true;
                      UserAccountID=obj[0].UserAccountID;
                      callback(null,1);
@@ -810,7 +810,7 @@ app.get('/registershop',function(req,res){
               function mySecondFunction(callback2){
                 isEmailExist(Email,function(response){
                   let obj = response;
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
                     callback2(null,2);
                     
@@ -824,7 +824,7 @@ app.get('/registershop',function(req,res){
                 isDistributorAlreadyExist(DistributerID,function(response){
                   let obj = response;
                   console.log("Checking DistributorExist");
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].DistributerID==DistributerID){
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].DistributerID==DistributerID){
                     isDistributerExist=true;
                     console.log("Checking DistributerExist "+isDistributerExist);
                     callback3(null,3);
@@ -985,7 +985,7 @@ app.get('/register',function (req, res) {
             function myFirstFunction(callback){
              isUserNameExist(UserName,function(response3){
                let obj = response3;
-               if(!isNullOrEmpty(obj)&&obj!=undefined){
+               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
                    isAccountAlreadyExist=true;
                    UserAccountID=obj[0].UserAccountID;
                    callback(null,1);
@@ -998,7 +998,7 @@ app.get('/register',function (req, res) {
             function mySecondFunction(callback2){
               isEmailExist(Email,function(response){
                 let obj = response;
-                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].Email==Email){
+                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                   isEmailAlreadyExist=true;
                   callback2(null,2);
                   
@@ -1013,7 +1013,7 @@ app.get('/register',function (req, res) {
               isShopAlreadyExist(ShopID,function(response){
                 let obj = response;
                 console.log("Checking ShopExist");
-                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
+                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].ShopID==ShopID){
                   isShopExist=true;
                   console.log("Checking ShopExist "+isShopExist);
                   callback3(null,3);
