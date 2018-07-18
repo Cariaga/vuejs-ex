@@ -1178,25 +1178,25 @@ app.get('/Login',function (req, res) {
                  console.log("UUID : "+obj[0].UserAccountID);
                  console.log('2');
                  UserAccountID= obj[0].UserAccountID;
-               callback(null,obj[0].UserAccountID);
+                 callback(null,obj[0].UserAccountID);
              }else{
-              UserAccountID= "";
-              callback(null,undefined);
+                UserAccountID= "";
+                callback(null,undefined);
              }
            });
           }
           
-          function mySecondFunction(args0,callback2){
+          function mySecondFunction(arg0,callback2){
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
                   console.log("UUID : "+obj[0].UserAccountID);
                   console.log('2');
                   UserAccountID= obj[0].UserAccountID;
-                callback2(null,obj[0].UserAccountID);
+                callback2(obj[0].UserAccountID);
               }else{
                UserAccountID= "";
-               callback2(null,undefined);
+               callback2(undefined);
               }
             });
           }
@@ -1208,11 +1208,11 @@ app.get('/Login',function (req, res) {
                 let result2 = {Status:obj[0].Status};
                 AccountStatus=obj[0].Status;
               //  console.log('4');
-                callback3(null,result2);
+                callback3(result2);
               }else{
                 AccountStatus="";
               //  console.log('4');
-                callback3(null,undefined);
+                callback3(undefined);
               }
             });
           }
