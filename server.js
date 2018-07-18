@@ -126,6 +126,7 @@ function isEmailExist(Email,callback){
       let Data = result.map(function(item) {
           return item;
       });
+
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
@@ -216,7 +217,6 @@ function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({ 
       where: {
-    
         HeadOfficeID:HeadOfficeID,
      }
     }).then(function(result) {
@@ -234,7 +234,6 @@ function isDistributorAlreadyExist(DistributorID,callback){
   Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
       where: {
-  
         DistributorID:DistributorID,
      }
     }).then(function(result) {
@@ -252,7 +251,6 @@ function isShopAlreadyExist(ShopID,callback){
   Models.Shop.sync();
     let result = Models.Shop.findAll({ 
       where: {
-      
         ShopID:ShopID,
         
      }
@@ -260,10 +258,16 @@ function isShopAlreadyExist(ShopID,callback){
       let Data = result.map(function(item) {
           return item;
       });
-      callback(Data);
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback(result);
+      console.log(result);
+      callback(undefined);
     });
 }
 
