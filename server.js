@@ -910,7 +910,7 @@ app.get('/register',function (req, res) {
                     async.series([InsertUserAccount,InsertUserInfo,InsertPlayer],function(error,result2){
                       if(AddAccountErrorMessage==""){
                         if(AddUserInfoErrorMessage==""){
-                          if(AddShopErrorMessage==""){
+                          if(AddPlayerErrorMessage==""){
                             res.send({Done:"Done"});
                             let To = Email;
                             let From = '';
