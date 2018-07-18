@@ -151,11 +151,11 @@ function isPhoneNumberExist(PhoneNumber,callback){
       callback("Error "+result);
     });
 }
-function isUserAccountBlocked(UserName,callback){
+function isUserAccountBlocked(UserAccountID,callback){
   Models.BlackList.sync();
     let result = Models.BlackList.findAll({ 
       where: {
-        UserName: UserName,//not null
+        UserAccountID: UserAccountID,//not null
      
         Status:{
           eq:"Blocked"
@@ -1079,9 +1079,11 @@ app.get('/Login',function (req, res) {
   !isNullOrEmpty(Date)){
     if(!isNullOrEmpty(UserName)){
       if(!isNullOrEmpty(Password)){
+        let AccountStatus="";
         async.waterfall([
           myFirstFunction,
-          mySecondFunction
+          mySecondFunction,
+          myThirdFunction
         ], function (err, result) {//final function
             console.log('done');
           });
@@ -1163,6 +1165,25 @@ app.get('/Login',function (req, res) {
                 res.send("Error "+result);
               });
           callback2(null,'done');
+          }
+
+          function myThirdFunction(arg0,callback3){
+            
+            isUserAccountBlocked(UserAccountID,function(response){
+              let obj = response;
+              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                let result3 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;
+              //  console.log('4');
+                callback3(null,result3);
+              }else{
+                let result3 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;
+              //  console.log('4');
+                callback3(null,result3);
+              }
+
+            });
           }
       }else{
         res.send("Invalid Password");
