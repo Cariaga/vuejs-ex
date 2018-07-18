@@ -1093,7 +1093,7 @@ app.get('/Login',function (req, res) {
               console.log('done');
                 // result now equals 'done'
               console.log('3');
-              let UserAccountID = arg0;
+              
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
                   res.send({VerifyResult:VerifyResult});
