@@ -627,17 +627,18 @@ app.get('/registerdistributer',function(req,res){
                 });
               }
               function myThirdFunction(callback3){
+                console.log("Checking HeadOfficeExist 1");
                 isHeadOfficeAlreadyExist(HeadOfficeID,function(response){
                   let obj = response;
-                  console.log("Checking ShopExist");
+                  console.log("Checking HeadOfficeExist 2");
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].HeadOfficeID==HeadOfficeID){
                     isHeadOfficeExist=true;
-                    console.log("Checking DistributorExist "+isHeadOfficeExist);
+                    console.log("Checking HeadOfficeExist 3"+isHeadOfficeExist);
                     callback3(null,3);
                     
                   }else{
                     isHeadOfficeExist=false;
-                    console.log("Checking DistributorExist "+isHeadOfficeExist);
+                    console.log("Checking HeadOfficeExist 3"+isHeadOfficeExist);
                     callback3(null,3);
                   }
                
@@ -824,12 +825,12 @@ app.get('/registershop',function(req,res){
                   console.log("Checking DistributorExist");
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].DistributerID==DistributerID){
                     isDistributerExist=true;
-                    console.log("Checking DistributorExist "+isDistributerExist);
+                    console.log("Checking DistributerExist "+isDistributerExist);
                     callback3(null,3);
                     
                   }else{
                     isDistributerExist=false;
-                    console.log("Checking DistributorExist "+isDistributerExist);
+                    console.log("Checking DistributerExist "+isDistributerExist);
                     callback3(null,3);
                   }
                 });
