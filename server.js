@@ -1096,7 +1096,7 @@ app.get('/Login',function (req, res) {
               let UserAccountID = arg0;
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-                  res.send(VerifyResult);
+                  res.send({VerifyResult:VerifyResult});
 
                   /*let result2 = Models.UserAccount.findAll({ 
                     where: {
