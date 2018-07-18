@@ -597,7 +597,7 @@ app.get('/registerdistributer',function(req,res){
                     res.send("InvalidEmail");
                   }
                 }else{
-                  res.send("DistributerID Not Found");
+                  res.send("HeadOfficeID Not Found");
                 }
               });
               function myFirstFunction(callback){
