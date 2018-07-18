@@ -1082,8 +1082,8 @@ app.get('/Login',function (req, res) {
         let AccountStatus="";
         async.waterfall([
           myFirstFunction,
-          mySecondFunction,
-          myThirdFunction
+          myThirdFunction,
+          mySecondFunction
         ], function (err, result) {//final function
             console.log('done');
           });
@@ -1100,6 +1100,25 @@ app.get('/Login',function (req, res) {
              }
            });
           }
+          function myThirdFunction(arg0,callback3){
+            
+            isUserAccountBlocked(UserAccountID,function(response){
+              let obj = response;
+              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                let result3 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;
+              //  console.log('4');
+                callback3(null,result3);
+              }else{
+                let result3 = {Status:obj[0].Status};
+                AccountStatus=obj[0].Status;
+              //  console.log('4');
+                callback3(null,result3);
+              }
+
+            });
+          }
+          
           function mySecondFunction(arg0,callback2){
              // result now equals 'done'
            console.log('3');
@@ -1167,24 +1186,7 @@ app.get('/Login',function (req, res) {
           callback2(null,'done');
           }
 
-          function myThirdFunction(arg0,callback3){
-            
-            isUserAccountBlocked(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                let result3 = {Status:obj[0].Status};
-                AccountStatus=obj[0].Status;
-              //  console.log('4');
-                callback3(null,result3);
-              }else{
-                let result3 = {Status:obj[0].Status};
-                AccountStatus=obj[0].Status;
-              //  console.log('4');
-                callback3(null,result3);
-              }
-
-            });
-          }
+          
       }else{
         res.send("Invalid Password");
       }
