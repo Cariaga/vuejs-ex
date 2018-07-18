@@ -1171,7 +1171,7 @@ app.get('/Login',function (req, res) {
           });
           
           function myFirstFunction(callback){
-            console.log('1');
+            console.log('myFirstFunction');
            isUserNameExist(UserName,function(response3){
              let obj = response3;
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
@@ -1181,12 +1181,13 @@ app.get('/Login',function (req, res) {
                  callback(null,obj[0].UserAccountID);
              }else{
                 UserAccountID= "";
-                callback(null,undefined);
+                callback(undefined);
              }
            });
           }
           
           function mySecondFunction(arg0,callback2){
+            console.log('mySecondFunction');
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
@@ -1202,6 +1203,7 @@ app.get('/Login',function (req, res) {
           }
 
           function myThirdFunction(arg0,callback3){
+            console.log('myThirdFunction');
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
