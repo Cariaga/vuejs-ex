@@ -122,13 +122,13 @@ const  Shop =sequelize.define('Shop', {// any number of shop point to a distribu
   Description:Sequelize.STRING,
   CurrentPoints: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
-/*
+
 Shop.belongsTo(Distributor, {
   foreignKey: 'DistributorID',
   targetKey: 'DistributorID', 
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
-*/
+
 Shop.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
