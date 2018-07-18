@@ -501,6 +501,7 @@ app.get('/registerdistributer',function(req,res){
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
+              let isHeadOfficeExist=false;
               async.series([myFirstFunction,mySecondFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
@@ -623,17 +624,17 @@ app.get('/registerdistributer',function(req,res){
                 });
               }
               function myThirdFunction(callback3){
-                isShopAlreadyExist(ShopID,function(response){
+                isHeadOfficeAlreadyExist(HeadOfficeID,function(response){
                   let obj = response;
                   console.log("Checking ShopExist");
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
-                    isShopExist=true;
-                    console.log("Checking ShopExist "+isShopExist);
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].HeadOfficeID==HeadOfficeID){
+                    isHeadOfficeExist=true;
+                    console.log("Checking DistributorExist "+isHeadOfficeExist);
                     callback3(null,3);
                     
                   }else{
-                    isShopExist=false;
-                    console.log("Checking ShopExist "+isShopExist);
+                    isHeadOfficeExist=false;
+                    console.log("Checking DistributorExist "+isHeadOfficeExist);
                     callback3(null,3);
                   }
                 });
@@ -680,6 +681,7 @@ app.get('/registershop',function(req,res){
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
+              let isDistributerExist = false;
               async.series([myFirstFunction,mySecondFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
@@ -808,17 +810,17 @@ app.get('/registershop',function(req,res){
                 });
               }
               function myThirdFunction(callback3){
-                isShopAlreadyExist(ShopID,function(response){
+                isDistributorAlreadyExist(DistributerID,function(response){
                   let obj = response;
-                  console.log("Checking ShopExist");
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].ShopID==ShopID){
-                    isShopExist=true;
-                    console.log("Checking ShopExist "+isShopExist);
+                  console.log("Checking DistributorExist");
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].DistributerID==DistributerID){
+                    isDistributerExist=true;
+                    console.log("Checking DistributorExist "+isDistributerExist);
                     callback3(null,3);
                     
                   }else{
-                    isShopExist=false;
-                    console.log("Checking ShopExist "+isShopExist);
+                    isDistributerExist=false;
+                    console.log("Checking DistributorExist "+isDistributerExist);
                     callback3(null,3);
                   }
                 });
