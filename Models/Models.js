@@ -91,15 +91,29 @@ const  Distributor =sequelize.define('Distributor', {// any number of distribute
       key: 'UserAccountID'
     }
   },//UserAccountID in Distributor  Must Be validated at application  Level  against Distributer HeadOffice Shop Player the UserAccountID must never exist in two places
-  HeadOfficeID:Sequelize.STRING,//FK Multiple DistributerID is referenced to A HeadOfficeID
+    HeadOfficeID:{
+      type: Sequelize.INTEGER,
+      foreignKey: true,
+      references: {
+        model: HeadOffice,
+        key: 'HeadOfficeID'
+    }
+  },//FK Multiple DistributerID is referenced to A HeadOfficeID
   Name:Sequelize.STRING,
   CurrentPoints:{ type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }//1 CurrentPoints = Korean Won
 });
+Distributor.belongsTo(HeadOffice, {
+  foreignKey: 'HeadOfficeID',
+  targetKey: 'HeadOfficeID', 
+  onDelete: 'SET NULL', hooks:true,
+  constraints: true}); 
+
 Distributor.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID', 
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
+
 
 const  Shop =sequelize.define('Shop', {// any number of shop point to a distributer but accountID/shopID both must be u unique
   ShopID: {
