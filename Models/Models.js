@@ -418,7 +418,6 @@ const BlackList =sequelize.define('BlackList', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-   
   },
   UserAccountID:Sequelize.STRING,//FK
   Status:Sequelize.STRING,
