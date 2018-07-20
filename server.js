@@ -1792,22 +1792,24 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     });
   }
 });
-app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
+app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
+  let Status = req.params.Status;
   let Title = req.params.Title;
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
-    UpdateBlackList(BlackListID,UserAccountID,Title,Description,ReportDate,ReleaseDate,function(response){
+    UpdateBlackList(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
       res.send(response);
     });
   }
 });
-function UpdateBlackList(BlackListID,UserAccountID,Title,Description,ReportDate,ReleaseDate,callback){
+function UpdateBlackList(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,callback){
   Models.BlackList.update({
     UserAccountID: UserAccountID,
+    Status:Status,
     Title: Title,
     Description: Description,
     ReportDate: ReportDate,
