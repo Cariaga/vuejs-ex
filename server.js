@@ -1799,12 +1799,12 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
-    UpdateBlackList(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
+    BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
       res.send(response);
     });
   }
 });
-function UpdateBlackList(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,callback){
+function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,callback){
   Models.BlackList.update({
     UserAccountID: UserAccountID,
     Status:Status,
@@ -1849,23 +1849,8 @@ app.get('/Api/v1/BlackList', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.BlackList.sync();
-    let result = Models.BlackList.findAll({ 
-      where: {
-        BlackListID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-     
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-
-      res.send("Error "+result);
+    BlackListAll(function(response){
+      res.send(beautify(response, null, 2, 100));
     });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
@@ -1888,6 +1873,28 @@ app.get('/Api/v1/BlackList', function (req, res) {
   }
  // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
 });
+
+function BlackListAll(callback){
+  Models.BlackList.sync();
+    let result = Models.BlackList.findAll({ 
+      where: {
+        BlackListID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      callback(Data);
+    }).catch(function(result) {//catching any then errors
+
+      callback("Error "+result);
+    });
+}
+
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
