@@ -1773,7 +1773,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     var item1 = Models.BlackList.build({
       UserAccountID:UserAccountID,
       Title:Title,
-      Status:"BlackList",
+      Status:"Blocked",
       Description:Description,
       ReportDate:ReportDate,
       ReleaseDate:ReleaseDate
