@@ -1759,7 +1759,7 @@ app.get('/Api/v1/Notification', function (req, res) {
 //---Notification ROUTING END
 //---BlackList ROUTING START
 app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
-  //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/Description/2018-06-27/2018-06-27
+  //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
   let Status = req.params.Status;
@@ -1783,11 +1783,8 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
     item1.save()
     .then(Success => {
       res.send("Inserted");
-      
     })
-    
     .catch(error => {
-    
       console.log("error inserting");
       res.send("error inserting " +error);
     });
