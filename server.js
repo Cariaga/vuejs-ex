@@ -474,9 +474,6 @@ app.get('/registerheadoffice',function(req,res){
     res.send("Missing UserName");
   }
 });
-
-
-
 app.get('/registerdistributor',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -685,6 +682,7 @@ app.get('/registershop',function(req,res){
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
               let isDistributorExist = false;
+
               async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
@@ -701,9 +699,7 @@ app.get('/registershop',function(req,res){
                 .has().lowercase()                              // Must have lowercase letters
                 .has().digits()                                 // Must have digits
                 .has().not().spaces()                           // Should not have spaces
-            
-          
-         
+
                 let IsInvalidPassword= !schema.validate(Password);
                 let IsInvalidEmail = !validator.isEmail(Email);
                 let AddAccountErrorMessage="";
@@ -735,8 +731,6 @@ app.get('/registershop',function(req,res){
                           }else{
                             res.send({Failed:"UserAccount Insert"});
                           }
-                        
-                          
                         });
                         function InsertUserAccount(callback1){
 
@@ -1088,7 +1082,7 @@ app.get('/Login',function (req, res) {
               
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-                  res.send({Sucesse:Sucesse});
+                  res.send({Success:true});
 
                   /*let result2 = Models.UserAccount.findAll({ 
                     where: {
