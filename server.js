@@ -1758,10 +1758,11 @@ app.get('/Api/v1/Notification', function (req, res) {
 });
 //---Notification ROUTING END
 //---BlackList ROUTING START
-app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
+app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
   //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/Description/2018-06-27/2018-06-27
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
+  let Status = req.params.Status;
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
@@ -1773,7 +1774,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Description/:ReportDate/:R
     var item1 = Models.BlackList.build({
       UserAccountID:UserAccountID,
       Title:Title,
-      Status:"Blocked",
+      Status:Status,
       Description:Description,
       ReportDate:ReportDate,
       ReleaseDate:ReleaseDate
