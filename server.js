@@ -294,6 +294,11 @@ function isScreenNameExist(ScreenName,callback){
       callback(result);
     });
 }
+
+function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){
+  
+}
+
 //** Returns Current Date String*/
 function getCurrentDate(callback){
   let today = new Date();
@@ -312,6 +317,7 @@ function getCurrentTime(callback){
   let FormatedTime =Hours+":"+Minutes+":"+Seconds;
   callback(FormatedTime);
 }
+
 
 //--Validation End
 //--Login Start
@@ -1037,6 +1043,7 @@ app.get('/register',function (req, res) {
     res.send("Invalid UserName");
   }
 });
+
 
 
 //--Login End
@@ -1793,26 +1800,29 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Title/:Descriptio
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
-    Models.BlackList.update({
-      UserAccountID: UserAccountID,
-      Title: Title,
-      Description: Description,
-      ReportDate: ReportDate,
-      ReleaseDate: ReleaseDate
-    },{
-      where: {BlackListID: BlackListID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    
-    .catch(error => {
-   
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
+    UpdateBlackList(BlackListID,UserAccountID,Title,Description,ReportDate,ReleaseDate,function(response){
+      res.send(response);
     });
   }
 });
+function UpdateBlackList(BlackListID,UserAccountID,Title,Description,ReportDate,ReleaseDate,callback){
+  Models.BlackList.update({
+    UserAccountID: UserAccountID,
+    Title: Title,
+    Description: Description,
+    ReportDate: ReportDate,
+    ReleaseDate: ReleaseDate
+  },{
+    where: {BlackListID: BlackListID }
+  })
+  .then(Success => {
+    callback("Updated");
+  }).catch(error => {
+    console.log("Error Updating");
+    callback("Error Updating " +error);
+  });
+}
+
 app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
     where: {},
