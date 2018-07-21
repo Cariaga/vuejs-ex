@@ -1587,10 +1587,8 @@ app.get('/UserAccount/SupportTicket', function (req, res) {
           return item;
           
       });
-     
       res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-
       res.send("Error "+result);
     });
   }
@@ -1849,6 +1847,7 @@ app.get('/Api/v1/BlackList', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
     BlackListAll(function(response){
       res.send(beautify(response, null, 2, 100));
     });
