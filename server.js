@@ -19,7 +19,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
-var Enumerable = require('linq');
+const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 
 require("./routes/test")(app);
@@ -3405,7 +3405,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     AccountType(UserAccountID,function(response){
       let Data = response;
       let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
-      let TotalTrue = Enumerable.From(FlatenDataToArray).Count(x => x == true); 
+      let TotalTrue = Collection.from(FlatenDataToArray).Count(x => x == true); 
  
      /* if(TotalTrue==1){
         res.send(Data);
