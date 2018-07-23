@@ -3508,7 +3508,7 @@ app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isPlayerAlreadyExist(UserAccountID,function(response) {
+    isPlayerUserAccountIDExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isShop:true});
       }else{
@@ -3529,7 +3529,7 @@ app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isShopAlreadyExist(UserAccountID,function(response) {
+    isShopUserAccountIDExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isShop:true});
       }else{
@@ -3675,7 +3675,7 @@ app.get('/Api/v1/Shop', function (req, res) {
 app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isDistributorAlreadyExist(UserAccountID,function(response) {
+    isDistributorUserAccountIDExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isDistributer:true});
       }else{
@@ -3817,7 +3817,7 @@ app.get('/Api/v1/Distributor', function (req, res) {
 app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isHeadOfficeExist(UserAccountID,function(response) {
+    isHeadOfficeUserAccountIDExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isHeadOffice:true});
       }else{
