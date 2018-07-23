@@ -3404,7 +3404,14 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     AccountType(UserAccountID,function(response){
       let Data = response;
       let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];
-      res.send(FlatenDataToArray);
+      let TotalTrue = FlatenDataToArray.Count(x => x == true);  
+      let isDoubleAccount = TotalTrue>=2; 
+      if(!isDoubleAccount){
+        res.send()
+      }else{
+        res.send('ERROR TWO Accounts Should not have ');
+      }
+     // res.send(FlatenDataToArray);
     });
   }else{
     res.send("Missing params");
