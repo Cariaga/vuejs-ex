@@ -299,7 +299,7 @@ function isScreenNameExist(ScreenName,callback){
 
 //-- Account TypeCheck Start
 //isShop this part of the system is an application layer checking rather than 1 database call for all 3 checks
-function isShop(UserAccountID){
+function isShop(UserAccountID,callback){
   Models.Shop.sync();
   let result = Models.Shop.findAll({ 
     where: {
@@ -315,7 +315,7 @@ function isShop(UserAccountID){
     callback(result);
   });
 }
-function isDistributer(UserAccountID){
+function isDistributer(UserAccountID,callback){
   Models.Distributor.sync();
   let result = Models.Distributor.findAll({ 
     where: {
@@ -331,7 +331,7 @@ function isDistributer(UserAccountID){
     callback(result);
   });
 }
-function isHeadOffice(UserAccountID){
+function isHeadOffice(UserAccountID,callback){
   Models.HeadOffice.sync();
   let result = Models.HeadOffice.findAll({ 
     where: {
