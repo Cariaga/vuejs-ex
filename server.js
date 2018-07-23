@@ -3407,7 +3407,6 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   }else{
     res.send("Missing params");
   }
-
 });
 
 
