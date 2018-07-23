@@ -303,7 +303,7 @@ function isShop(UserAccountID){
   Models.Shop.sync();
   let result = Models.Shop.findAll({ 
     where: {
-      UserAccountID:UserAccountID,
+      UserAccountID:UserAccountID
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
