@@ -3450,7 +3450,12 @@ app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isShop(UserAccountID,function(response) {
-      res.send({isShop:true});
+      if(!isNullOrEmpty(response)){
+        res.send({isShop:true});
+      }else{
+        res.send({isShop:false});
+      }
+      
     });
   }else{
     res.send("Missing params");
@@ -3591,7 +3596,11 @@ app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isDistributer(UserAccountID,function(response) {
-      res.send({isDistributor:true});
+      if(!isNullOrEmpty(response)){
+        res.send({isDistributer:true});
+      }else{
+        res.send({isDistributer:false});
+      }
     });
   }else{
     res.send("Missing params");
@@ -3729,7 +3738,11 @@ app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isHeadOffice(UserAccountID,function(response) {
-      res.send({isHeadOffice:true});
+      if(!isNullOrEmpty(response)){
+        res.send({isHeadOffice:true});
+      }else{
+        res.send({isHeadOffice:false});
+      }
     });
   }else{
     res.send("Missing params");
