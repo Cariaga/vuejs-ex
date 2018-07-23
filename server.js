@@ -3405,7 +3405,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     AccountType(UserAccountID,function(response){
       let Data = response;
       let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
-      let TotalTrue = Collection.from(FlatenDataToArray).Count(x => x == true); 
+      let TotalTrue = Collection.from([true,true,false,false]).Count(x => x == true); 
  
      /* if(TotalTrue==1){
         res.send(Data);
