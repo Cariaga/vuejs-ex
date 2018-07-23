@@ -3403,8 +3403,6 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     AccountType(UserAccountID,function(response){
       let Data = response;
-      
-     
     });
   }else{
     res.send("Missing params");
