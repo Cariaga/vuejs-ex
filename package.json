@@ -5,11 +5,11 @@
   "main"         : "server.js",
   "author"       : "John McCawley",
   "dependencies" : {
-    "body-parser"    : "^1.4.3",
-    "express"        : "^4.13.4",
-    "morgan"         : "^1.1.1",
-    "mongoose"       : "^4.4.12",
-    "mysql":"^2.15.0",
+    "body-parser"    : "^1.18.3",
+    "express"        : "^4.16.3",
+    "morgan"         : "^1.9.0",
+    "mongoose"       : "^5.2.4",
+    "mysql":"^2.16.0",
     "mysql2":"^1.5.3",
     "serve-static":"1.13.2",
     "request":"^2.87.0",
@@ -22,7 +22,8 @@
     "password-validator":"~4.1.1",
     "validator":"^10.4.0",
     "async":"^2.6.1",
-    "sendmail":"^1.4.1"
+    "sendmail":"^1.4.1",
+    "linq":"^3.1.0"
     
   },
   "scripts": {
