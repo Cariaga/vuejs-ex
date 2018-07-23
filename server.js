@@ -3450,7 +3450,7 @@ app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isShop(UserAccountID,function(response) {
-      if(!isNullOrEmpty(response)){
+      if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isShop:true});
       }else{
         res.send({isShop:false});
@@ -3596,7 +3596,7 @@ app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isDistributer(UserAccountID,function(response) {
-      if(!isNullOrEmpty(response)){
+      if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isDistributer:true});
       }else{
         res.send({isDistributer:false});
@@ -3738,7 +3738,7 @@ app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isHeadOffice(UserAccountID,function(response) {
-      if(!isNullOrEmpty(response)){
+      if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isHeadOffice:true});
       }else{
         res.send({isHeadOffice:false});
