@@ -3520,8 +3520,6 @@ app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
     res.send("Missing params");
   }
 });
-
-
 //---Player ROUTING START
 //---Shop ROUTING START
 app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
