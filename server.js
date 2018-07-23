@@ -312,7 +312,8 @@ function isShop(UserAccountID,callback){
     callback(Data);
    // res.send(beautify(Data, null, 2, 100));
   }).catch(function(result) {//catching any then errors
-    callback(result);
+    console.log(result);
+    callback(undefined);
   });
 }
 function isDistributer(UserAccountID,callback){
@@ -328,7 +329,8 @@ function isDistributer(UserAccountID,callback){
     callback(Data);
    // res.send(beautify(Data, null, 2, 100));
   }).catch(function(result) {//catching any then errors
-    callback(result);
+    console.log(result);
+    callback(undefined);
   });
 }
 function isHeadOffice(UserAccountID,callback){
@@ -344,7 +346,8 @@ function isHeadOffice(UserAccountID,callback){
     callback(Data);
    // res.send(beautify(Data, null, 2, 100));
   }).catch(function(result) {//catching any then errors
-    callback(result);
+    console.log(result);
+    callback(undefined);
   });
 }
 
