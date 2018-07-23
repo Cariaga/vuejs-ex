@@ -19,7 +19,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
-var Enumerable = require('linq');
+var Enumerable = require('../linq');
 const sendmail = require('sendmail')();
 
 require("./routes/test")(app);
