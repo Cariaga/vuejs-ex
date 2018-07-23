@@ -3510,9 +3510,9 @@ app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     isPlayerUserAccountIDExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
-        res.send({isShop:true});
+        res.send({isPlayer:true});
       }else{
-        res.send({isShop:false});
+        res.send({isPlayer:false});
       }
       
     });
@@ -3520,6 +3520,7 @@ app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
     res.send("Missing params");
   }
 });
+
 //---Player ROUTING START
 //---Shop ROUTING START
 app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
