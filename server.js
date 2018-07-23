@@ -279,6 +279,30 @@ function isShopAlreadyExist(ShopID,callback){
     });
 }
 
+function isPlayerAlreadyExist(PlayersID,callback){
+  Models.Player.sync();
+    let result = Models.Player.findAll({ 
+      where: {
+        PlayersID:PlayersID,
+        
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      console.log(result);
+      callback(undefined);
+    });
+}
+
 
 function isScreenNameExist(ScreenName,callback){
   Models.Player.sync();
@@ -299,59 +323,95 @@ function isScreenNameExist(ScreenName,callback){
 
 //-- Account TypeCheck Start
 //isShop this part of the system is an application layer checking rather than 1 database call for all 3 checks
-/*
-function isShop(UserAccountID,callback){
-  Models.Shop.sync();
-  let result = Models.Shop.findAll({ 
-    where: {
-      UserAccountID:UserAccountID
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-    });
-    callback(Data);
-   // res.send(beautify(Data, null, 2, 100));
-  }).catch(function(result) {//catching any then errors
-    console.log(result);
-    callback(undefined);
-  });
-}
-function isDistributer(UserAccountID,callback){
-  Models.Distributor.sync();
-  let result = Models.Distributor.findAll({ 
-    where: {
-      UserAccountID:UserAccountID,
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-    });
-    callback(Data);
-   // res.send(beautify(Data, null, 2, 100));
-  }).catch(function(result) {//catching any then errors
-    console.log(result);
-    callback(undefined);
-  });
-}
-function isHeadOffice(UserAccountID,callback){
-  Models.HeadOffice.sync();
-  let result = Models.HeadOffice.findAll({ 
-    where: {
-      UserAccountID:UserAccountID,
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-    });
-    callback(Data);
-   // res.send(beautify(Data, null, 2, 100));
-  }).catch(function(result) {//catching any then errors
-    console.log(result);
-    callback(undefined);
-  });
-}*/
 
+function isHeadOfficeUserAccountIDExist(UserAccountID,callback){
+  Models.HeadOffice.sync();
+    let result = Models.HeadOffice.findAll({ 
+      where: {
+        UserAccountID:UserAccountID,
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      callback(result);
+    });
+}
+
+function isDistributorUserAccountIDExist(UserAccountID,callback){
+  Models.Distributor.sync();
+    let result = Models.Distributor.findAll({ 
+      where: {
+        UserAccountID:UserAccountID,
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      console.log(result);
+      callback(undefined);
+    });
+}
+
+
+function isShopUserAccountIDExist(UserAccountID,callback){
+  Models.Shop.sync();
+    let result = Models.Shop.findAll({ 
+      where: {
+        UserAccountID:UserAccountID,
+        
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      console.log(result);
+      callback(undefined);
+    });
+}
+
+function isPlayerUserAccountIDExist(UserAccountID,callback){
+  Models.Player.sync();
+    let result = Models.Player.findAll({ 
+      where: {
+        UserAccountID:UserAccountID,
+        
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      console.log(result);
+      callback(undefined);
+    });
+}
 
 
 
@@ -3448,7 +3508,7 @@ app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isShopAlreadyExist(UserAccountID,function(response) {
+    isPlayerAlreadyExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isShop:true});
       }else{
