@@ -3404,6 +3404,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     AccountType(UserAccountID,function(response){
       let Data = response;
       let FlatenDataToArray = [Data.isHeadOffice,Data.IsDistributor,Data.isShop,Data.IsPlayer];
+      res.send(FlatenDataToArray);
     });
   }else{
     res.send("Missing params");
