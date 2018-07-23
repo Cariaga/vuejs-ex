@@ -3403,13 +3403,15 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     AccountType(UserAccountID,function(response){
       let Data = response;
-      let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];
+      let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
       let TotalTrue = FlatenDataToArray.Count(x => x == true);  
       let isDoubleAccount = TotalTrue>=2; 
       if(!isDoubleAccount){
-        res.send()
+        res.send(Data);
       }else{
-        res.send('ERROR TWO Accounts Should not have ');
+        let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER',RESULT:Data};
+        console.log(ERROR);
+        res.send(ERROR);
       }
      // res.send(FlatenDataToArray);
     });
