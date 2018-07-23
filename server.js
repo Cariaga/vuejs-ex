@@ -254,6 +254,7 @@ function isDistributorAlreadyExist(DistributorID,callback){
     });
 }
 
+
 function isShopAlreadyExist(ShopID,callback){
   Models.Shop.sync();
     let result = Models.Shop.findAll({ 
@@ -278,6 +279,7 @@ function isShopAlreadyExist(ShopID,callback){
     });
 }
 
+
 function isScreenNameExist(ScreenName,callback){
   Models.Player.sync();
     let result = Models.Player.findAll({ 
@@ -295,10 +297,64 @@ function isScreenNameExist(ScreenName,callback){
     });
 }
 
+//-- Account TypeCheck Start
+//isShop this part of the system is an application layer checking rather than 1 database call for all 3 checks
+function isShop(UserAccountID){
+  Models.Shop.sync();
+  let result = Models.Shop.findAll({ 
+    where: {
+      UserAccountID:UserAccountID,
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    callback(Data);
+   // res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+    callback(result);
+  });
+}
+function isDistributer(UserAccountID){
+  Models.Distributor.sync();
+  let result = Models.Distributor.findAll({ 
+    where: {
+      UserAccountID:UserAccountID,
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    callback(Data);
+   // res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+    callback(result);
+  });
+}
+function isHeadOffice(UserAccountID){
+  Models.HeadOffice.sync();
+  let result = Models.HeadOffice.findAll({ 
+    where: {
+      UserAccountID:UserAccountID,
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    callback(Data);
+   // res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+    callback(result);
+  });
+}
+
+
+
+
+//--Account Type Check End
 function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){
   
 }
-
 //** Returns Current Date String*/
 function getCurrentDate(callback){
   let today = new Date();
@@ -321,7 +377,6 @@ function getCurrentTime(callback){
 
 //--Validation End
 //--Login Start
-
 app.get('/registerheadoffice',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -374,7 +429,6 @@ app.get('/registerheadoffice',function(req,res){
                             let Title = 'Email Verification';
                             let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
                             SendMail(To,From,Title,VerificationURL);
-
                             res.send({Done:"Done"});
                           }else{
                             res.send({Failed:"headoffice Insert"});
@@ -398,7 +452,6 @@ app.get('/registerheadoffice',function(req,res){
                           callback1(null,'1');
                         }
                       });
-                     
                     }
                     function InsertUserInfo(callback2){
                       AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
@@ -411,8 +464,6 @@ app.get('/registerheadoffice',function(req,res){
                           callback2(null,'2');
                         }
                       });
-
-                   
                     }
                     function InsertHeadOffice(callback3){//headoffice dosn't have a parent ID like Distributor Shop and Player
                       AddHeadOffice(UUIDUserAccountID,Name,Description,function(response){
@@ -425,9 +476,7 @@ app.get('/registerheadoffice',function(req,res){
                           callback3(null,'3');
                         }
                       });
-                   
                     }
-
                   }else{
                     res.send("WeakPassword");
                   }
@@ -447,7 +496,6 @@ app.get('/registerheadoffice',function(req,res){
                     callback(null,1);
                  }
                });
-      
               }
               function mySecondFunction(callback2){
                 isEmailExist(Email,function(response){
@@ -462,8 +510,6 @@ app.get('/registerheadoffice',function(req,res){
                   }
                 });
               }
-              
-            
           }else{
             res.send("Missing Email");
           }
@@ -664,8 +710,6 @@ app.get('/registerdistributor',function(req,res){
     res.send("Missing UserName");
   }
 });
-
-
 app.get('/registershop',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -1160,11 +1204,8 @@ app.get('/Login',function (req, res) {
               let Data = {isUserNameExist:false};
               res.send(Data)
             }
-            
           });
-          
           function myFirstFunction(callback){
-     
            isUserNameExist(UserName,function(response3){
              let obj = response3;
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
@@ -1177,9 +1218,7 @@ app.get('/Login',function (req, res) {
              }
            });
           }
-          
           function mySecondFunction(callback2){
-        
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
@@ -1192,7 +1231,6 @@ app.get('/Login',function (req, res) {
               }
             });
           }
-
           function myThirdFunction(callback3){
           
             isUserAccountBlocked(UserAccountID,function(response){
@@ -1208,6 +1246,7 @@ app.get('/Login',function (req, res) {
               }
             });
           }
+       
       }else{
         res.send("Invalid Password");
       }
@@ -1251,8 +1290,7 @@ app.get('/Verify',function (req, res) {
           let Data = {validUserName:true,validUserKey:true,isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:3};
           res.send(beautify(Data, null, 2, 100));
         }
-      });
-      
+      });   
     }else{
       let Data = {validUserName:true,validUserKey:false,isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:4};
       res.send(beautify(Data, null, 2, 100));
@@ -1262,7 +1300,6 @@ app.get('/Verify',function (req, res) {
     res.send(beautify(Data, null, 2, 100));
   }
 });
-
 function Verify(UserName,ValidKey,callback){
   async.waterfall([
           myFirstFunction,
@@ -1303,8 +1340,7 @@ function Verify(UserName,ValidKey,callback){
           let result3 = {Verified:false};
         //  console.log('4');
           callback3(null,result3);
-        }
-      
+        }   
         }
 }
 function VerifyAccount(UserName,ValidKey,callback){
@@ -1569,7 +1605,6 @@ app.get('/SupportTicket/Request', function (req, res) {
     res.send(Data);
   }
 });
-
 app.get('/UserAccount/SupportTicket', function (req, res) {
   // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
   // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb&Status=Pending
@@ -1616,9 +1651,6 @@ app.get('/UserAccount/SupportTicket', function (req, res) {
     res.send(Data);
   }
 });
-
-
-
 //---SupportTicket ROUTING END
 //---Notification ROUTING START
 app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
@@ -1820,7 +1852,6 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
     callback("Error Updating " +error);
   });
 }
-
 app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
     where: {},
@@ -1872,7 +1903,6 @@ app.get('/Api/v1/BlackList', function (req, res) {
   }
  // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
 });
-
 function BlackListAll(callback){
   Models.BlackList.sync();
     let result = Models.BlackList.findAll({ 
@@ -1893,7 +1923,6 @@ function BlackListAll(callback){
       callback("Error "+result);
     });
 }
-
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
@@ -3388,8 +3417,6 @@ app.get('/Api/v1/Player', function (req, res) {
 
       res.send("Error "+result);
     });
-    
-    
     //res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
@@ -3414,9 +3441,20 @@ app.get('/Api/v1/Player', function (req, res) {
 });
 //---Player ROUTING START
 //---Shop ROUTING START
+app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
+  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    isShop(UserAccountID,function(response) {
+      res.send({isShop:true});
+    });
+  }else{
+    res.send("Missing params");
+  }
+});
+
 app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
   //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
-  
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
@@ -3545,6 +3583,16 @@ app.get('/Api/v1/Shop', function (req, res) {
 });
 //---Shop ROUTING END
 //---Distributor ROUTING START
+app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    isDistributer(UserAccountID,function(response) {
+      res.send({isDistributor:true});
+    });
+  }else{
+    res.send("Missing params");
+  }
+});
 app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
   //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
   let UserAccountID = req.params.UserAccountID;
@@ -3673,6 +3721,16 @@ app.get('/Api/v1/Distributor', function (req, res) {
 });
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
+app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    isHeadOffice(UserAccountID,function(response) {
+      res.send({isHeadOffice:true});
+    });
+  }else{
+    res.send("Missing params");
+  }
+});
 app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
   //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
   let UserAccountID = req.params.UserAccountID;
