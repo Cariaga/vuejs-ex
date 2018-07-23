@@ -327,7 +327,7 @@ function isScreenNameExist(ScreenName,callback){
 function AccountType(UserAccountID,callback){
   let Data = {IsHeadOffice:false,IsDistributor:false,IsShop:false,IsPlayer:false};
   async.series([CheckIsHeadOffice,CheckIsDistributor,CheckIsShop,CheckIsPlayer],function(error,response){
-
+    callback(Data);
   });
 
   function CheckIsHeadOffice(callback1){
@@ -1200,9 +1200,6 @@ app.get('/register',function (req, res) {
     res.send("Invalid UserName");
   }
 });
-
-
-
 //--Login End
 //--Login Start
 app.get('/Login',function (req, res) {
@@ -3400,6 +3397,19 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    AccountType(UserAccountID,function(response){
+      res.send(response);
+    });
+  }else{
+    res.send("Missing params");
+  }
+
+});
+
 
 //---UserAccount ROUTING START
 //---Player ROUTING START
