@@ -3403,7 +3403,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     AccountType(UserAccountID,function(response){
       let Data = response;
-      let FlatenDataToArray = [Data.isHeadOffice,Data.IsDistributor,Data.isShop,Data.IsPlayer];
+      let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];
       res.send(FlatenDataToArray);
     });
   }else{
