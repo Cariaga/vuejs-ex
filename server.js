@@ -3443,6 +3443,7 @@ app.get('/Api/v1/Player', function (req, res) {
 //---Shop ROUTING START
 app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
   //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+  res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isShop(UserAccountID,function(response) {
