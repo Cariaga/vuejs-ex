@@ -299,6 +299,7 @@ function isScreenNameExist(ScreenName,callback){
 
 //-- Account TypeCheck Start
 //isShop this part of the system is an application layer checking rather than 1 database call for all 3 checks
+/*
 function isShop(UserAccountID,callback){
   Models.Shop.sync();
   let result = Models.Shop.findAll({ 
@@ -349,7 +350,7 @@ function isHeadOffice(UserAccountID,callback){
     console.log(result);
     callback(undefined);
   });
-}
+}*/
 
 
 
@@ -3442,6 +3443,25 @@ app.get('/Api/v1/Player', function (req, res) {
   }
  
 });
+app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
+  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    isShopAlreadyExist(UserAccountID,function(response) {
+      if(!isNullOrEmpty(response)&&response.length>0){
+        res.send({isShop:true});
+      }else{
+        res.send({isShop:false});
+      }
+      
+    });
+  }else{
+    res.send("Missing params");
+  }
+});
+
+
 //---Player ROUTING START
 //---Shop ROUTING START
 app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
@@ -3449,7 +3469,7 @@ app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isShop(UserAccountID,function(response) {
+    isShopAlreadyExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isShop:true});
       }else{
@@ -3595,7 +3615,7 @@ app.get('/Api/v1/Shop', function (req, res) {
 app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isDistributer(UserAccountID,function(response) {
+    isDistributorAlreadyExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isDistributer:true});
       }else{
@@ -3737,7 +3757,7 @@ app.get('/Api/v1/Distributor', function (req, res) {
 app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    isHeadOffice(UserAccountID,function(response) {
+    isHeadOfficeExist(UserAccountID,function(response) {
       if(!isNullOrEmpty(response)&&response.length>0){
         res.send({isHeadOffice:true});
       }else{
