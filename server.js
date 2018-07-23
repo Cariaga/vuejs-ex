@@ -3405,8 +3405,8 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       let Data = response;
       let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
       let TotalTrue = FlatenDataToArray.Count(x => x == true);  
-      let isDoubleAccount = TotalTrue>=2; 
-      if(!isDoubleAccount){
+      let NoDuplicateAccount = TotalTrue==1; 
+      if(!NoDuplicateAccount){
         res.send(Data);
       }else{
         let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER',RESULT:Data};
