@@ -324,6 +324,58 @@ function isScreenNameExist(ScreenName,callback){
 //-- Account TypeCheck Start
 //isShop this part of the system is an application layer checking rather than 1 database call for all 3 checks
 
+function AccountType(UserAccountID,callback){
+  let Data = {IsHeadOffice:false,IsDistributor:false,IsShop:false,IsPlayer:false};
+  async.series([CheckIsHeadOffice,CheckIsDistributor,CheckIsShop,CheckIsPlayer],function(error,response){
+
+  });
+
+  function CheckIsHeadOffice(callback1){
+    isHeadOfficeUserAccountIDExist(UserAccountID,function(response){
+      if(!isNullOrEmpty(response)&&response.length>0){
+        Data.IsHeadOffice=true;
+        callback1(null,1);
+      }else{
+        Data.IsHeadOffice=false;
+        callback1(null,1);
+      }
+    });
+  }
+  function CheckIsDistributor(callback2){
+    isDistributorUserAccountIDExist(UserAccountID,function(response){
+      if(!isNullOrEmpty(response)&&response.length>0){
+        Data.IsDistributor=true;
+        callback2(null,2);
+      }else{
+        Data.IsDistributor=false;
+        callback2(null,2);
+      }
+
+    });
+  }
+  function CheckIsShop(callback3){
+    isShopUserAccountIDExist(UserAccountID,function(response){
+      if(!isNullOrEmpty(response)&&response.length>0){
+        Data.IsShop=true;
+        callback3(null,3);
+      }else{
+        Data.IsShop=false;
+        callback3(null,3);
+      }
+    });
+  }
+  function CheckIsPlayer(callback4){
+    isPlayerUserAccountIDExist(UserAccountID,function(response){
+      if(!isNullOrEmpty(response)&&response.length>0){
+        Data.IsPlayer=true;
+        callback4(null,4);
+      }else{
+        Data.IsPlayer=false;
+        callback4(null,4);
+      }
+    });
+  }
+}
 function isHeadOfficeUserAccountIDExist(UserAccountID,callback){
   Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({ 
@@ -340,7 +392,6 @@ function isHeadOfficeUserAccountIDExist(UserAccountID,callback){
       callback(result);
     });
 }
-
 function isDistributorUserAccountIDExist(UserAccountID,callback){
   Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
@@ -363,8 +414,6 @@ function isDistributorUserAccountIDExist(UserAccountID,callback){
       callback(undefined);
     });
 }
-
-
 function isShopUserAccountIDExist(UserAccountID,callback){
   Models.Shop.sync();
     let result = Models.Shop.findAll({ 
