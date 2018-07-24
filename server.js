@@ -513,7 +513,7 @@ app.get('/registerheadoffice',function(req,res){
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
-              async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
+              async.series([myFirstFunction,mySecondFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
                 getCurrentTime(function(response){
@@ -629,19 +629,7 @@ app.get('/registerheadoffice',function(req,res){
                   }
                 });
               }
-              function myThirdFunction(callback3){
-                AccountTypeFullCheck(UserAccountID,function(response){
-                  if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
-                    res.send({AccountType:response.AccountType});
-                  }
-                  else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-                    res.send("Duplicate UserAccountID AccountType");
-                  }
-                  else{
-                    res.send({});
-                  }
-                });
-              }
+             
           }else{
             res.send("Missing Email");
           }
@@ -1361,7 +1349,6 @@ app.get('/Login',function (req, res) {
             });
           }
           function myThirdFunction(callback3){
-          
             isUserAccountBlocked(UserAccountID,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
@@ -1375,6 +1362,20 @@ app.get('/Login',function (req, res) {
               }
             });
           }
+          function myThirdFunction(callback4){
+          AccountTypeFullCheck(UserAccountID,function(response){
+            if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
+              res.send({AccountType:response.AccountType});
+              callback4(null,'4');
+            }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+              res.send("Duplicate UserAccountID AccountType");
+              callback4(null,'4');
+            }else{
+              res.send({});
+              callback4(null,'4');
+            }
+          });
+        }
        
       }else{
         res.send("Invalid Password");
