@@ -3421,7 +3421,6 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     AccountTypeFullCheck(UserAccountID,function(response){
-   
       if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
         res.send({AccountType:response.AccountType});
       }
