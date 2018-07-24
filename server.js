@@ -509,7 +509,7 @@ app.get('/registerheadoffice',function(req,res){
               let isAccountAlreadyExist=false;
               let isEmailAlreadyExist=false;
               let UserAccountID=false;
-              async.series([myFirstFunction,mySecondFunction],function(error,result){
+              async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
                 let CurrentTime = undefined;
                 let CurrentDate = undefined;
                 getCurrentTime(function(response){
@@ -591,6 +591,7 @@ app.get('/registerheadoffice',function(req,res){
                         }
                       });
                     }
+                    
                   }else{
                     res.send("WeakPassword");
                   }
@@ -622,6 +623,11 @@ app.get('/registerheadoffice',function(req,res){
                     isEmailAlreadyExist=false;
                     callback2(null,2);
                   }
+                });
+              }
+              function myThirdFunction(callback3){
+                AccountTypeFullCheck(UserAccountID,function(response){
+                  
                 });
               }
           }else{
@@ -3197,7 +3203,6 @@ app.get('/Api/v1/AccessControl/Update/:AccessControlID/:AccessID/:AccessName/:Ac
     .then(Success => {
       res.send("Updated");
     })
-    
     .catch(error => {
       // mhhh, wth!
       console.log("Error Updating");
@@ -3221,7 +3226,6 @@ app.get('/Api/v1/AccessControl/Delete', function (req, res){
   Models.AccessControl.sync({force:true}).then(function(result) {
     res.send("Deleted");
   }).catch(function(result) {//catching any then errors
-
     res.send("Error "+result);
   });
 });
@@ -3239,10 +3243,8 @@ app.get('/Api/v1/AccessControl', function (req, res) {
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
-          return item;
-          
+          return item; 
       });
-     
       res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
@@ -3413,16 +3415,16 @@ function AccountTypeFullCheck(UserAccountID,callback){
     } 
     if(TotalTrue==1){//anything more is invalid
       let result = Data
+      result.UnSafeDuplicate = false;
       callback(result);
     }else{
       let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER'};
       console.log(ERROR + " RESULT "+Data);
+      ERROR.UnSafeDuplicate =true;
       callback(ERROR);
     }
   });
 }
-
-
 //---UserAccount ROUTING START
 //---Player ROUTING START
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
