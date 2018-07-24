@@ -3416,7 +3416,17 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     AccountTypeFullCheck(UserAccountID,function(response){
-      res.send(response);
+      if(!isNullOrEmpty(response)&&response.length>0&&response!=undefined&&response.UnSafeDuplicate!=undefined&&response.UnSafeDuplicate==false){
+        res.send(response);
+      }
+      else if(isNullOrEmpty(response)&&response.length>0&&response!=undefined&&response.UnSafeDuplicate!=undefined&&response.UnSafeDuplicate==true){
+        
+      }
+      
+      else if(isNullOrEmpty(response)&&response==undefined&&response.UnSafeDuplicate==undefined){
+        res.send([]);
+      }
+    
     });
   }else{
     res.send("Missing params");
@@ -3437,11 +3447,17 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
       let result = Data
       result.UnSafeDuplicate = false;
       callback(result);
-    }else{
+
+    }else if(TotalTrue>1){
       let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER'};
       console.log(ERROR + " RESULT "+Data);
       ERROR.UnSafeDuplicate =true;
       callback(ERROR);
+    }
+    else if(TotalTrue<1){
+      let ERROR = {ERROR :"No User Account Found in SHOP HEADOFFICE DISTRIBUTOR PLAYER Table likely unregistered"};
+      console.log(ERROR);
+      callback(undefined);
     }
   });
 }
