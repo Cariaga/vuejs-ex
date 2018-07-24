@@ -3426,7 +3426,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
         res.send("Valid");
       }
       else if(isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-        res.send("Duplicate");
+        res.send("Duplicate UserAccountID AccountType");
       }
       else if(isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
         res.send({});
@@ -3457,14 +3457,14 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 
     }
     else if(TotalTrue==0){
-      let ERROR = {ERROR :"No User Account Found in SHOP HEADOFFICE DISTRIBUTOR PLAYER Table likely unregistered",UnSafeDuplicate:false,FoundAccount:false};
-      console.log(ERROR);
-      callback(ERROR);
+      let Data = {UnSafeDuplicate:false,FoundAccount:false};
+      console.log("ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER RESULT");
+      callback(Data);
     }
     else if(TotalTrue>=2){
-      let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER',UnSafeDuplicate:true,FoundAccount:false};
-      console.log(ERROR + " RESULT "+Data);
-      callback(ERROR);
+      let Data = {UnSafeDuplicate:true,FoundAccount:false};
+      console.log("No User Account Found in SHOP HEADOFFICE DISTRIBUTOR PLAYER Table likely unregistered"+Data);
+      callback(Data);
     }
   });
 }
