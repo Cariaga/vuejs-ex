@@ -1253,7 +1253,7 @@ app.get('/Login',function (req, res) {
               console.log('3');
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-                
+
                  // res.send({Success:true});
               
                   /*let result2 = Models.UserAccount.findAll({ 
@@ -1322,7 +1322,8 @@ app.get('/Login',function (req, res) {
                 res.send(Data);
               }
             }else{
-              
+              let Data = {AccountVerified:false};
+              res.send(Data);
             }
             }else{
               let Data = {isUserNameExist:false};
