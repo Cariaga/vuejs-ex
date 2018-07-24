@@ -3427,9 +3427,10 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
         res.send("Duplicate UserAccountID AccountType");
       }
-      else if(isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
+      else{
         res.send({});
       }
+      
     });
   }else{
     res.send("Missing params");
