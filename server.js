@@ -3422,10 +3422,10 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     AccountTypeFullCheck(UserAccountID,function(response){
    
-      if(isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
+      if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
         res.send("Valid");
       }
-      else if(isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+      else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
         res.send("Duplicate UserAccountID AccountType");
       }
       else if(isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
