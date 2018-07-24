@@ -3420,7 +3420,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
         res.send(response);
       }
       else if(!isNullOrEmpty(response)&&response.length>0&&response!=undefined&&response.UnSafeDuplicate!=undefined&&response.UnSafeDuplicate==true){
-
+        res.send(response);
       }
       else if(isNullOrEmpty(response)&&response==undefined&&response.UnSafeDuplicate==undefined){
         res.send([]);
