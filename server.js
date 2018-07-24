@@ -1240,10 +1240,10 @@ app.get('/Login',function (req, res) {
         let VerifyResult=undefined;
        
         async.series([
-          myFirstFunction,
-          mySecondFunction,
-          myThirdFunction,
-          myForthFunction
+          UserNameInternalValidate,
+          UserAccountInternalValidate,
+          UserAccountBlockedInternalValidate,
+          AccountTypeInternalValidate
         ], function (err, result) {//final function
           if(UserAccountID!=""){
             if(AccountStatus!="Blocked"){
@@ -1325,7 +1325,7 @@ app.get('/Login',function (req, res) {
               res.send(Data)
             }
           });
-          function myFirstFunction(callback){
+          function UserNameInternalValidate(callback){
            isUserNameExist(UserName,function(response3){
              let obj = response3;
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
@@ -1338,7 +1338,7 @@ app.get('/Login',function (req, res) {
              }
            });
           }
-          function mySecondFunction(callback2){
+          function UserAccountInternalValidate(callback2){
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
@@ -1351,7 +1351,7 @@ app.get('/Login',function (req, res) {
               }
             });
           }
-          function myThirdFunction(callback3){
+          function UserAccountBlockedInternalValidate(callback3){
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               isUserAccountBlocked(UserAccountID,function(response){
                 let obj = response;
@@ -1365,10 +1365,11 @@ app.get('/Login',function (req, res) {
                 }
               });
             }else{
-              console.log("Login myThirdFunction Failed UserAccountID Empty")
+              console.log("Login myThirdFunction Failed UserAccountID Empty");
+              callback3(null,'3');
             }
           }
-          function myForthFunction(callback4){
+          function AccountTypeInternalValidate(callback4){
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               AccountTypeFullCheck(UserAccountID,function(response){
                 if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
@@ -1384,7 +1385,8 @@ app.get('/Login',function (req, res) {
                 }
               });
             }else{
-              console.log("Login myForthFunction Failed UserAccountID Empty")
+              console.log("Login myForthFunction Failed UserAccountID Empty");
+              callback4(null,'4');
             }
           }
        
