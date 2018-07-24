@@ -1237,7 +1237,7 @@ app.get('/Login',function (req, res) {
         let UserAccountID ="";
         let AccountStatus="";
         let AccountType =undefined;
-        let AccountVerified=undefined;//values true or false
+        let AccountVerified=false;
        
         async.series([
           UserNameInternalValidate,
@@ -1246,7 +1246,7 @@ app.get('/Login',function (req, res) {
           AccountTypeInternalValidate
         ], function (err, result) {//final function
           if(UserAccountID!=""){
-            if(AccountVerified){
+            if(AccountVerified==true){
             if(AccountStatus!="Blocked"){
               console.log('done');
                 // result now equals 'done'
@@ -1350,7 +1350,7 @@ app.get('/Login',function (req, res) {
                   AccountVerified= obj[0].Verify;
                 callback2(null,'2');
               }else{
-                AccountVerified= "";
+                AccountVerified= false;
                callback2(null,'2');
               }
             });
