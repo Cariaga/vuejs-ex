@@ -1252,6 +1252,7 @@ app.get('/Login',function (req, res) {
               console.log('3');
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
+
                  // res.send({Success:true});
               
                   /*let result2 = Models.UserAccount.findAll({ 
@@ -1376,10 +1377,11 @@ app.get('/Login',function (req, res) {
                   AccountType =response.AccountType;
                   callback4(null,'4');
                 }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-                  res.send("Duplicate UserAccountID AccountType");
+                  console.log("Duplicate UserAccountID AccountType");
+                  AccountType =response.AccountType;
                   callback4(null,'4');
                 }else{
-                  res.send({});
+                  AccountType =response.AccountType;
                   callback4(null,'4');
                 }
               });
