@@ -3423,7 +3423,11 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     AccountTypeFullCheck(UserAccountID,function(response){
    
       if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
+
         res.send("Valid");
+
+       
+
       }
       else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
         res.send("Duplicate UserAccountID AccountType");
@@ -3452,6 +3456,21 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
       let result = Data
       result.UnSafeDuplicate = false;
       result.FoundAccount = true;
+
+      if(Data.IsHeadOffice){
+        result.AccountType ="HeadOffice";
+      }
+      else if(Data.IsDistributor){
+        result.AccountType ="Distributor";
+      }
+      else if(Data.IsShop){
+        result.AccountType ="Shop";
+      }
+      else if(Data.IsPlayer){
+        result.AccountType ="Player";
+      }
+
+
       console.log(result);
       callback(result);
 
