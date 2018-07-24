@@ -3420,11 +3420,11 @@ function AccountTypeFullCheck(UserAccountID,callback){
       }
     } 
     if(TotalTrue==1){//anything more is invalid
-      let result = {RESULT:Data,ERROR:undefined};
+      let result = Data
       callback(result);
     }else{
-      let ERROR = {RESULT:Data ,ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER'};
-      console.log(ERROR);
+      let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER'};
+      console.log(ERROR + " RESULT "+Data);
       callback(ERROR);
     }
   });
