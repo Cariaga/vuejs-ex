@@ -3452,7 +3452,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
       console.log(ERROR + " RESULT "+Data);
       callback(ERROR);
     }
-    else if(TotalTrue<1){
+    else if(TotalTrue==0){
       let ERROR = {ERROR :"No User Account Found in SHOP HEADOFFICE DISTRIBUTOR PLAYER Table likely unregistered"};
       console.log(ERROR);
       callback(undefined);
