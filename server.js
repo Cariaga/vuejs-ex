@@ -3419,7 +3419,7 @@ function AccountTypeFullCheck(callback){
         TotalTrue++;
       }
     } 
-    if(TotalTrue==1){
+    if(TotalTrue==1){//anything more is invalid
       let result = {RESULT:Data,ERROR:undefined};
       callback(result);
     }else{
