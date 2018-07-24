@@ -1356,7 +1356,6 @@ app.get('/Login',function (req, res) {
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
                 console.log('myThirdFunction');
-             
                 AccountStatus=obj[0].Status;
                 callback3(null,'3');
               }else{
