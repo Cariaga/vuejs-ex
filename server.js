@@ -1253,7 +1253,7 @@ app.get('/Login',function (req, res) {
               
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-                  res.send({Success:true});
+                 // res.send({Success:true});
               
                   /*let result2 = Models.UserAccount.findAll({ 
                     where: {
@@ -1352,32 +1352,40 @@ app.get('/Login',function (req, res) {
             });
           }
           function myThirdFunction(callback3){
-            isUserAccountBlocked(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                console.log('myThirdFunction');
-                AccountStatus=obj[0].Status;
-                callback3(null,'3');
-              }else{
-                AccountStatus="";
-                callback3(null,'3');
-              }
-            });
+            if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
+              isUserAccountBlocked(UserAccountID,function(response){
+                let obj = response;
+                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                  console.log('myThirdFunction');
+                  AccountStatus=obj[0].Status;
+                  callback3(null,'3');
+                }else{
+                  AccountStatus="";
+                  callback3(null,'3');
+                }
+              });
+            }else{
+              console.log("Login myThirdFunction Failed UserAccountID Empty")
+            }
           }
           function myForthFunction(callback4){
-            AccountTypeFullCheck(UserAccountID,function(response){
-              if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
-               // res.send({AccountType:response.AccountType});
-                AccountType =response.AccountType;
-                callback4(null,'4');
-              }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-                res.send("Duplicate UserAccountID AccountType");
-                callback4(null,'4');
-              }else{
-                res.send({});
-                callback4(null,'4');
-              }
-            });
+            if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
+              AccountTypeFullCheck(UserAccountID,function(response){
+                if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
+                 // res.send({AccountType:response.AccountType});
+                  AccountType =response.AccountType;
+                  callback4(null,'4');
+                }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+                  res.send("Duplicate UserAccountID AccountType");
+                  callback4(null,'4');
+                }else{
+                  res.send({});
+                  callback4(null,'4');
+                }
+              });
+            }else{
+              console.log("Login myForthFunction Failed UserAccountID Empty")
+            }
           }
        
       }else{
