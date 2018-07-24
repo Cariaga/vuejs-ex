@@ -3421,7 +3421,8 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       }
       else if(!isNullOrEmpty(response)&&response.length>0&&response.UnSafeDuplicate==true){
         res.send({UnSafeDuplicate:response.UnSafeDuplicate});
-      }else if(isNullOrEmpty(response)){
+      }
+      else if(isNullOrEmpty(response)){
         res.send("Empty Result");
       }
     
@@ -3451,12 +3452,12 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
     }else if(TotalTrue>=2){
       let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER',UnSafeDuplicate:true};
       console.log(ERROR + " RESULT "+Data);
-      callback(undefined);
+      callback("Duplicate");
     }
     else if(TotalTrue==0){
       let ERROR = {ERROR :"No User Account Found in SHOP HEADOFFICE DISTRIBUTOR PLAYER Table likely unregistered"};
       console.log(ERROR);
-      callback(undefined);
+      callback("Empty");
     }
   });
 }
