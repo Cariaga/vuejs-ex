@@ -3423,11 +3423,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     AccountTypeFullCheck(UserAccountID,function(response){
    
       if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
-
-        res.send("Valid");
-
-       
-
+        res.send({AccountType:response.AccountType});
       }
       else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
         res.send("Duplicate UserAccountID AccountType");
