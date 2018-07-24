@@ -3123,7 +3123,6 @@ app.get('/Api/v1/UserInfo', function (req, res) {
     }).then(function(result) {
       let Data = result.map(function(item) {
           return item;
-          
       });
      
       res.send(beautify(Data, null, 2, 100));
@@ -3133,24 +3132,17 @@ app.get('/Api/v1/UserInfo', function (req, res) {
     });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
   }
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
   }
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
   }
- 
 });
 //---UserInfo ROUTING END
 //---AccessControl ROUTING START
