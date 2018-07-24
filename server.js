@@ -3464,8 +3464,6 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
       else if(Data.IsPlayer){
         result.AccountType ="Player";
       }
-
-
       console.log(result);
       callback(result);
 
