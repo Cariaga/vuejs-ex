@@ -3422,7 +3422,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     AccountTypeFullCheck(UserAccountID,function(response){
       res.send(response);
-      if(isNullOrEmpty(response)&&response.UnSafeDuplicate==false){
+      if(isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
         res.send("Valid");
       }
       else if(isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
