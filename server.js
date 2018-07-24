@@ -3442,9 +3442,10 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
     if(TotalTrue==1){//anything more is invalid
       let result = Data
       result.UnSafeDuplicate = false;
+      console.log(result);
       callback(result);
 
-    }else if(TotalTrue>1){
+    }else if(TotalTrue>=2){
       let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER',UnSafeDuplicate:true};
       console.log(ERROR + " RESULT "+Data);
       callback(undefined);
