@@ -3436,7 +3436,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
     let Data = response;
     let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
     let TotalTrue = 0;//must only be 1 true to be valid else you have duplicates accross Shop,Player,Distributor,Headoffice you must never asign two ids in those tables
-    for(var i=0;i<FlatenDataToArray.length;++i){//application layer checking account type
+    for(let i=0;i<FlatenDataToArray.length;++i){//application layer checking account type
       if(FlatenDataToArray[i] == true){
         TotalTrue++;
       }
