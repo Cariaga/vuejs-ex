@@ -626,7 +626,7 @@ app.get('/registerheadoffice',function(req,res){
               }
               function myThirdFunction(callback3){
                 AccountTypeFullCheck(UserAccountID,function(response){
-                  //always check for unsafe duplicate
+                  //Always check for unsafe duplicate
                   if(response.UnSafeDuplicate==false){
 
                     if(response.IsHeadOffice==true){
@@ -3422,7 +3422,8 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     res.send("Missing params");
   }
 });
-function AccountTypeFullCheck(UserAccountID,callback){
+
+function AccountTypeFullCheck(UserAccountID,callback){//this is an application layer constraint
   AccountType(UserAccountID,function(response){
     let Data = response;
     let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
