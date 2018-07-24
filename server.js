@@ -3421,6 +3421,8 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       }
       else if(!isNullOrEmpty(response)&&response.length>0&&response.UnSafeDuplicate==true){
         res.send({UnSafeDuplicate:response.UnSafeDuplicate});
+      }else{
+        res.send("Somthing wrong");
       }
     
     });
