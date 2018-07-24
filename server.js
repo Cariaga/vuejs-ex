@@ -631,26 +631,14 @@ app.get('/registerheadoffice',function(req,res){
               }
               function myThirdFunction(callback3){
                 AccountTypeFullCheck(UserAccountID,function(response){
-                  //Always check for unsafe duplicate
-                  if(response.UnSafeDuplicate==false){
-
-                    if(response.IsHeadOffice==true){
-
-                    }
-                    if(response.IsDistributor==true){
-
-                    }
-                    if(response.IsShop==true){
-
-                    }
-                    if(response.IsPlayer==true){
-
-                    }
-                    callback3(null,3);
-                  }else{
-                    let Data = {UnSafeDuplicate:UnSafeDuplicate.response};
-                    callback3(null,3);
-                    res.send(Data);
+                  if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
+                    res.send({AccountType:response.AccountType});
+                  }
+                  else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+                    res.send("Duplicate UserAccountID AccountType");
+                  }
+                  else{
+                    res.send({});
                   }
                 });
               }
