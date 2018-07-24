@@ -1240,7 +1240,8 @@ app.get('/Login',function (req, res) {
         async.series([
           myFirstFunction,
           mySecondFunction,
-          myThirdFunction
+          myThirdFunction,
+          myForthFunction
         ], function (err, result) {//final function
           if(UserAccountID!=""){
             if(AccountStatus!="Blocked"){
@@ -1362,7 +1363,7 @@ app.get('/Login',function (req, res) {
               }
             });
           }
-          function myThirdFunction(callback4){
+          function myForthFunction(callback4){
           AccountTypeFullCheck(UserAccountID,function(response){
             if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
               res.send({AccountType:response.AccountType});
