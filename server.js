@@ -3402,7 +3402,9 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    
+    AccountTypeFullCheck(function(response){
+      res.send(response);
+    });
   }else{
     res.send("Missing params");
   }
