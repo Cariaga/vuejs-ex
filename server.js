@@ -1245,7 +1245,7 @@ app.get('/Login',function (req, res) {
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
                   res.send({Success:true});
-
+              
                   /*let result2 = Models.UserAccount.findAll({ 
                     where: {
                       UserName:UserName//not null
@@ -3402,28 +3402,31 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    AccountType(UserAccountID,function(response){
-      let Data = response;
-      let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
-      let TotalTrue = 0;//must only be 1 true to be valid else you have duplicates accross Shop,Player,Distributor,Headoffice you must never asign two ids in those tables
-      for(var i=0;i<FlatenDataToArray.length;++i){
-        if(FlatenDataToArray[i] == true){
-          TotalTrue++;
-        }
-      } 
-      if(TotalTrue==1){
-        res.send(Data);
-      }else{
-        let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER',RESULT:Data};
-        console.log(ERROR);
-        res.send(ERROR);
-      }
-      res.send({total:TotalTrue});
-    });
+    
   }else{
     res.send("Missing params");
   }
 });
+function AccountTypeFullCheck(callback){
+  AccountType(UserAccountID,function(response){
+    let Data = response;
+    let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
+    let TotalTrue = 0;//must only be 1 true to be valid else you have duplicates accross Shop,Player,Distributor,Headoffice you must never asign two ids in those tables
+    for(var i=0;i<FlatenDataToArray.length;++i){//application layer checking account type
+      if(FlatenDataToArray[i] == true){
+        TotalTrue++;
+      }
+    } 
+    if(TotalTrue==1){
+      let result = {RESULT:Data,ERROR:undefined};
+      callback(result);
+    }else{
+      let ERROR = {RESULT:Data ,ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER'};
+      console.log(ERROR);
+      callback(ERROR);
+    }
+  });
+}
 
 
 //---UserAccount ROUTING START
