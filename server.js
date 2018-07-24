@@ -351,7 +351,6 @@ function AccountType(UserAccountID,callback){
         Data.IsDistributor=false;
         callback2(null,2);
       }
-
     });
   }
   function CheckIsShop(callback3){
@@ -627,7 +626,27 @@ app.get('/registerheadoffice',function(req,res){
               }
               function myThirdFunction(callback3){
                 AccountTypeFullCheck(UserAccountID,function(response){
-                  
+           
+                  //always check for unsafe duplicate
+                  if(response.UnSafeDuplicate==false){
+                    
+                    if(response.IsHeadOffice==true){
+
+                    }
+                    if(response.IsDistributor==true){
+
+                    }
+                    if(response.IsShop==true){
+
+                    }
+                    if(response.IsPlayer==true){
+
+                    }
+
+                  }else{
+                    let Data = {UnSafeDuplicate:UnSafeDuplicate.response};
+                    res.send(Data)
+                  }
                 });
               }
           }else{
