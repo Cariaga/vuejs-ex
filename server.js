@@ -3441,6 +3441,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
         TotalTrue++;
       }
     } 
+    console.log("Total True "+ TotalTrue);
     if(TotalTrue==1){//anything more is invalid
       let result = Data
       result.UnSafeDuplicate = false;
