@@ -1252,7 +1252,7 @@ app.get('/Login',function (req, res) {
               console.log('3');
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-
+                  res.send({AccountType:AccountType});
                  // res.send({Success:true});
               
                   /*let result2 = Models.UserAccount.findAll({ 
