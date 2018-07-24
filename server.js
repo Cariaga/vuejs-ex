@@ -1236,7 +1236,9 @@ app.get('/Login',function (req, res) {
       if(!isNullOrEmpty(Password)){
         let UserAccountID ="";
         let AccountStatus="";
+        let AccountType =undefined;
         let VerifyResult=undefined;
+       
         async.series([
           myFirstFunction,
           mySecondFunction,
@@ -1366,7 +1368,8 @@ app.get('/Login',function (req, res) {
           function myForthFunction(callback4){
             AccountTypeFullCheck(UserAccountID,function(response){
               if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
-                res.send({AccountType:response.AccountType});
+               // res.send({AccountType:response.AccountType});
+                AccountType =response.AccountType;
                 callback4(null,'4');
               }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
                 res.send("Duplicate UserAccountID AccountType");
