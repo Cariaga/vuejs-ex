@@ -1237,7 +1237,7 @@ app.get('/Login',function (req, res) {
         let UserAccountID ="";
         let AccountStatus="";
         let AccountType =undefined;
-        let VerifyResult=undefined;
+        let AccountVerified=undefined;//values true or false
        
         async.series([
           UserNameInternalValidate,
@@ -1246,13 +1246,14 @@ app.get('/Login',function (req, res) {
           AccountTypeInternalValidate
         ], function (err, result) {//final function
           if(UserAccountID!=""){
+            if(AccountVerified){
             if(AccountStatus!="Blocked"){
               console.log('done');
                 // result now equals 'done'
               console.log('3');
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-                  res.send({AccountType:AccountType});
+                
                  // res.send({Success:true});
               
                   /*let result2 = Models.UserAccount.findAll({ 
@@ -1321,6 +1322,9 @@ app.get('/Login',function (req, res) {
                 res.send(Data);
               }
             }else{
+              
+            }
+            }else{
               let Data = {isUserNameExist:false};
               res.send(Data)
             }
@@ -1343,10 +1347,10 @@ app.get('/Login',function (req, res) {
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
                   console.log('mySecondFunction');
-                  VerifyResult= obj[0].Verify;
+                  AccountVerified= obj[0].Verify;
                 callback2(null,'2');
               }else{
-                VerifyResult= "";
+                AccountVerified= "";
                callback2(null,'2');
               }
             });
@@ -1390,7 +1394,7 @@ app.get('/Login',function (req, res) {
               callback4(null,'4');
             }
           }
-       
+    
       }else{
         res.send("Invalid Password");
       }
