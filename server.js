@@ -3409,7 +3409,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     res.send("Missing params");
   }
 });
-function AccountTypeFullCheck(callback){
+function AccountTypeFullCheck(UserAccountID,callback){
   AccountType(UserAccountID,function(response){
     let Data = response;
     let FlatenDataToArray = [Data.IsHeadOffice,Data.IsDistributor,Data.IsShop,Data.IsPlayer];//flatten to check for duplicates
