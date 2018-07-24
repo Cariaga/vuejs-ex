@@ -3421,7 +3421,9 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     AccountTypeFullCheck(UserAccountID,function(response){
-      if(!isNullOrEmpty(response)&&response.length>0&&response.UnSafeDuplicate==false){
+      res.send(response);
+
+      /*if(!isNullOrEmpty(response)&&response.length>0&&response.UnSafeDuplicate==false){
         res.send(response);
       }
       else if(!isNullOrEmpty(response)&&response.length>0&&response.UnSafeDuplicate==true){
@@ -3429,7 +3431,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       }
       else if(isNullOrEmpty(response)&&response.length==0){
         res.send("Empty Result");
-      }
+      }*/
     });
   }else{
     res.send("Missing params");
