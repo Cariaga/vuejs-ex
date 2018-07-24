@@ -3419,10 +3419,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       if(!isNullOrEmpty(response)&&response.length>0&&response!=undefined&&response.UnSafeDuplicate!=undefined&&response.UnSafeDuplicate==false){
         res.send(response);
       }
-      else if(!isNullOrEmpty(response)&&response.length>0&&response!=undefined&&response.UnSafeDuplicate!=undefined&&response.UnSafeDuplicate==true){
-        res.send(response);
-      }
-      else if(isNullOrEmpty(response)&&response==undefined&&response.UnSafeDuplicate==undefined){
+      else{
         res.send([]);
       }
     
@@ -3450,7 +3447,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
     }else if(TotalTrue>1){
       let ERROR = {ERROR:'ERROR TWO Accounts UserAccountID Should not Exist in Two OR More tables in SHOP HEADOFFICE DISTRIBUTOR PLAYER',UnSafeDuplicate:true};
       console.log(ERROR + " RESULT "+Data);
-      callback(ERROR);
+      callback(undefined);
     }
     else if(TotalTrue==0){
       let ERROR = {ERROR :"No User Account Found in SHOP HEADOFFICE DISTRIBUTOR PLAYER Table likely unregistered"};
