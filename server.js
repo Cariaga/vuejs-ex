@@ -626,10 +626,9 @@ app.get('/registerheadoffice',function(req,res){
               }
               function myThirdFunction(callback3){
                 AccountTypeFullCheck(UserAccountID,function(response){
-           
                   //always check for unsafe duplicate
                   if(response.UnSafeDuplicate==false){
-                    
+
                     if(response.IsHeadOffice==true){
 
                     }
@@ -642,10 +641,11 @@ app.get('/registerheadoffice',function(req,res){
                     if(response.IsPlayer==true){
 
                     }
-
+                    callback3(null,3);
                   }else{
                     let Data = {UnSafeDuplicate:UnSafeDuplicate.response};
-                    res.send(Data)
+                    callback3(null,3);
+                    res.send(Data);
                   }
                 });
               }
