@@ -1325,7 +1325,7 @@ app.get('/Login',function (req, res) {
               res.send(Data)
             }
           });
-          function UserNameInternalValidate(callback){
+          function UserNameInternalValidate(callback){//we retrive the UserAccountID
            isUserNameExist(UserName,function(response3){
              let obj = response3;
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
