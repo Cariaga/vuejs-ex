@@ -1973,7 +1973,12 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   let Status = req.params.Status;
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
     BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-      res.send(response);
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send("Not Found");
+      }
+     
     });
   }else{
     res.send("Missing Parameters");
@@ -1990,7 +1995,7 @@ function BlackListUpdateStatus(BlackListID,UserAccountID,Status,callback){
   })
   .catch(error => {
     console.log("Error Updating BlackList param 4");
-    callback("Not Found");
+    callback(undefined);
   });
 }
 
