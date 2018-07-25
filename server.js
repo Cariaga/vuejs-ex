@@ -1967,8 +1967,9 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
     });
   }
 });
-app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', function (req, res) {
-  res.send("Worked");
+
+app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
+  res.send("Worked2");
  /* let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
@@ -1982,8 +1983,8 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
     });
   }*/
 });
-app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
-  res.send("Worked2");
+app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', function (req, res) {
+  res.send("Worked");
  /* let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
