@@ -2003,7 +2003,6 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
       }else{
         res.send("Unable To Update BlackList ID dosen't Exist");
       }
-     
     });
   }
 });
