@@ -1972,14 +1972,12 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let ReportDate = req.params.ReportDate;
-  let ReleaseDate = req.params.ReleaseDate;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
+  if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status){
     BlackListUpdate(BlackListID,UserAccountID,Status,function(response){
-      res.send(response)
+      res.send(response);
     });
+  }else{
+    res.send("Missing Parameters");
   }
 });
 function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Update Only For BlackList
@@ -1993,7 +1991,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Upd
   })
   .catch(error => {
     console.log("Error Updating BlackList param 4");
-    callback([]);
+    callback("Not Found");
   });
 }
 
@@ -2005,9 +2003,9 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
+  if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
     BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-      res.send([]);
+      res.send(response);
     });
   }
 });
@@ -2028,7 +2026,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
     callback("Updated");
   }).catch(error => {
     console.log("Error Updating BlackList with 8 params");
-    callback(undefined);
+    callback("Not Found");
   });
 }
 
