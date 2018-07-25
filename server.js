@@ -468,24 +468,9 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
       callback(undefined);
     });
 }
-
-
-
 //--Account Type Check End
-function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){//Updating BlockList User Account 
-  Models.BlackList.update({
-    Status: Status
-  },{
-    where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
-  })
-  .then(Success => {
-    callback("Updated");
-  })
-  .catch(error => {
-    console.log("Error Updating");
-    callback("Error Updating " +error);
-  });
-}
+
+
 //** Returns Current Date String*/
 function getCurrentDate(callback){
   let today = new Date();
@@ -2010,6 +1995,21 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
   .then(Success => {
     callback("Updated");
   }).catch(error => {
+    console.log("Error Updating");
+    callback("Error Updating " +error);
+  });
+}
+
+function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){//Updating BlockList User Account 
+  Models.BlackList.update({
+    Status: Status
+  },{
+    where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
     console.log("Error Updating");
     callback("Error Updating " +error);
   });
