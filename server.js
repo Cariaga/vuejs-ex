@@ -2009,7 +2009,11 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
     BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-      res.send(response);
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send("Not Found");
+      }
     });
   }
 });
@@ -2030,7 +2034,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
     callback("Updated");
   }).catch(error => {
     console.log("Error Updating BlackList with 8 params");
-    callback("Not Found");
+    callback(undefined);
   });
 }
 
