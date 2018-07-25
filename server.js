@@ -1513,9 +1513,9 @@ function Verify(UserName,ValidKey,callback){
         }   
         }
 }
-function VerifyAccountUserAccountID(UserAccountID,callback){
+function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){
   Models.UserAccount.update({
-    Verify: true
+    Verify: VerifiedStatus
   },
   {
     where: {UserAccountID:UserAccountID}
@@ -3563,7 +3563,7 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:Verifie
       async.series([UserAccountIDCheck],function(err,response){
         if(UserAccountIDExist==true){
           //res.send({UserAccountIDExist:UserAccountIDExist});
-          VerifyAccountUserAccountID(UserAccountID,function(response){
+          VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,function(response){
             if(!isNullOrEmpty(response)&&response!=undefined){
               res.send(response);
             }else{
