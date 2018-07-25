@@ -215,7 +215,7 @@ function isUserAccountIDExist(UserAccountID,callback){
       callback(undefined);
     });
 }
-function isUserAccountVerified(UserName,callback){
+function isUserAccountVerifiedUserName(UserName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
       where: {
@@ -240,9 +240,8 @@ function isUserAccountVerified(UserName,callback){
     });
 }
 
-function isUserAccountVerified(UserAccountID,callback){
+function isUserAccountVerifiedUserAccountID(UserAccountID,callback){
   Models.UserAccount.sync();
-  
 }
 
 
@@ -1374,7 +1373,7 @@ app.get('/Login',function (req, res) {
           }
           function UserAccountInternalValidate(callback2){
             console.log('UserAccountInternalValidate');
-            isUserAccountVerified(UserName,function(response3){
+            isUserAccountVerifiedUserName(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
                   AccountVerified= obj[0].Verify;
