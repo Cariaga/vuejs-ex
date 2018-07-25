@@ -2029,9 +2029,9 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
         if(!isNullOrEmpty(Status)){
             let AccountStatus = undefined;//status retrived
             let UserAccountIDExist = false;
-            let BlockListID = undefined;
+            let BlackListID = undefined;
             async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
-              if(BlockListID!=undefined){
+              if(BlackListID!=undefined){
                 if(UserAccountIDExist==true){
                     if(Status=="Blocked"||Status=="Released"){
                       if(Status!=AccountStatus){
@@ -2084,7 +2084,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
           });
         }
       }else{
-        res.send("Missing Status "+ );
+        res.send("Missing Status ");
       }
     }else{
       res.send("Missing UserAccountID");
