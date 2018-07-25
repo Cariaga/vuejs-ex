@@ -193,6 +193,24 @@ function isUserNameExist(UserName,callback){
       callback(undefined);
     });
 }
+
+function isUserAccountIDExist(UserAccountID,callback){
+  Models.UserAccount.sync();
+    let result = Models.UserAccount.findAll({ 
+      where: {
+        UserAccountID: UserAccountID//not null
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      callback(Data);
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+     // console.log(result);
+      callback(undefined);
+    });
+}
 function isUserAccountVerified(UserName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
@@ -2000,6 +2018,21 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
         }
       });
     }
+
+    function IsAccountBlockedCheck(callback){
+      IsInvalidUserAccountID(UserAccountID,function(response){
+        let obj = response;
+        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+          console.log('IsAccountBlockedCheck');
+          AccountStatus=obj[0].Status;
+          callback(null,'1');
+        }else{
+          AccountStatus="";
+          callback(null,'1');
+        }
+      });
+    }
+
   }else{
     res.send("Missing Parameters");
   }
