@@ -1356,12 +1356,13 @@ app.get('/Login',function (req, res) {
             }
           });
           function UserNameInternalValidate(callback){//we retrive the UserAccountID
+            console.log('UserNameInternalValidate');
            isUserNameExist(UserName,function(response3){
              let obj = response3;
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
-                console.log('myFirstFunction');
+          
                  UserAccountID= obj[0].UserAccountID;
-                 console.log('myFirstFunction'+UserAccountID)
+                 console.log('UserNameInternalValidate '+UserAccountID)
                  callback(null,'1');
              }else{
                 UserAccountID= "";
@@ -1370,11 +1371,12 @@ app.get('/Login',function (req, res) {
            });
           }
           function UserAccountInternalValidate(callback2){
+            console.log('UserAccountInternalValidate');
             isUserAccountVerified(UserName,function(response3){
               let obj = response3;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
-                  console.log('mySecondFunction');
                   AccountVerified= obj[0].Verify;
+                  console.log('UserAccountInternalValidate '+AccountVerified);
                 callback2(null,'2');
               }else{
                 AccountVerified= false;
@@ -1383,12 +1385,14 @@ app.get('/Login',function (req, res) {
             });
           }
           function UserAccountBlockedInternalValidate(callback3){
+            console.log('UserAccountBlockedInternalValidate');
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               isUserAccountBlocked(UserAccountID,function(response){
                 let obj = response;
                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                  console.log('myThirdFunction');
                   AccountStatus=obj[0].Status;
+                  console.log('UserAccountBlockedInternalValidate '+AccountStatus);
+                  
                   callback3(null,'3');
                 }else{
                   AccountStatus="";
@@ -1401,6 +1405,7 @@ app.get('/Login',function (req, res) {
             }
           }
           function AccountTypeInternalValidate(callback4){
+            console.log("AccountTypeInternalValidate");
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               AccountTypeFullCheck(UserAccountID,function(response){
                 if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
@@ -1408,8 +1413,9 @@ app.get('/Login',function (req, res) {
                   AccountType =response.AccountType;
                   callback4(null,'4');
                 }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-                  console.log("Duplicate UserAccountID AccountType");
+                 
                   AccountType =response.AccountType;
+                  console.log("AccountTypeInternalValidate Duplicate UserAccountID AccountType" +AccountType);
                   callback4(null,'4');
                 }else{
                   AccountType =response.AccountType;
