@@ -1973,14 +1973,17 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status){
-    BlackListUpdate(BlackListID,UserAccountID,Status,function(response){
+    BlackListUpdate2(BlackListID,UserAccountID,Status,function(response){
       res.send(response);
     });
+
   }else{
     res.send("Missing Parameters");
   }
 });
-function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Update Only For BlackList
+
+
+function BlackListUpdate2(BlackListID,UserAccountID,Status,callback){//Status Update Only For BlackList
   Models.BlackList.update({
     Status: Status
   },{
