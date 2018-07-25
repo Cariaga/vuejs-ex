@@ -227,7 +227,9 @@ function isUserAccountVerified(UserName,callback){
           return item;
       });
       if(Data.length>0){
+        console.log("isUserAccountVerified test");
         callback(Data);
+
       }else{
         callback(undefined);
       }
