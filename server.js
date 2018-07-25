@@ -2084,13 +2084,13 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
           });
         }
       }else{
-        res.send("Missing Status ");
+        res.send("Missing Status "+Status);
       }
     }else{
-      res.send("Missing UserAccountID");
+      res.send("Missing UserAccountID "+UserAccountID);
     }
   }else{
-    res.send("Missing BlackListID");
+    res.send("Missing BlackListID "+BlackListID);
   }
 });
 function BlackListUpdateStatus(BlackListID,UserAccountID,Status,callback){
