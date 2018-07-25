@@ -1972,7 +1972,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
-
+    let AccountStatus = undefined;
     async.series([IsAccountBlockedCheck],function(err,response){
       BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
         if(response!=undefined){
@@ -1981,17 +1981,17 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
           res.send("Not Found");
         }
     });
-    
+
     function IsAccountBlockedCheck(callback){
         isUserAccountBlocked(UserAccountID,function(response){
           let obj = response;
           if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
             console.log('IsAccountBlockedCheck');
             AccountStatus=obj[0].Status;
-            callback(null,'3');
+            callback(null,'1');
           }else{
             AccountStatus="";
-            callback(null,'3');
+            callback(null,'1');
           }
         });
       }
