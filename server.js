@@ -1991,28 +1991,33 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   let Status = req.params.Status;
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
     let AccountStatus = undefined;
+    let UserAccountIDExist = false;
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
       
-      if(AccountStatus=="Blocked"){
-          BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send("Not Found");
-            }
-        });
+      if(UserAccountIDExist==true){
+          if(AccountStatus=="Blocked"){
+            BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+              if(response!=undefined){
+                res.send(response);
+              }else{
+                res.send("Not Found");
+              }
+          });
+        }else{
+          res.send("Already Released");
+        }
       }else{
-        res.send("Already Released");
+        res.send({UserAccountIDExist:UserAccountIDExist});
       }
     });
     function UserAccountIDCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         let obj = response;
         if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-          AccountStatus=obj[0].UserAccountID;
+          UserAccountIDExist = true;
           callback(null,'1');
         }else{
-          AccountStatus="";
+          UserAccountIDExist = false;
           callback(null,'1');
         }
       });
