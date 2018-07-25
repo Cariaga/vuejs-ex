@@ -1995,30 +1995,35 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
       
       if(UserAccountIDExist==true){
-        if(AccountStatus=="Blocked"){
-            BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-              if(response!=undefined){
-                res.send(response);
-              }else{
-                res.send("Not Found");
-              }
-          });
-        }
-        else if(Status=="Blocked"){
-          res.send({AlreadyBlocked:true});
-        }
-        if(AccountStatus=="Released"){
-          BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send("Not Found");
+        if(AccountStatus=="Blocked"&&AccountStatus=="Released"){
+            if(AccountStatus=="Blocked"){
+                BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send("Not Found");
+                  }
+              });
             }
-        });
-      }
-      else if(Status=="Released"){
-        res.send({AlreadyReleased:true});
-      }
+            else if(Status=="Blocked"){
+              res.send({AlreadyBlocked:true});
+            }
+            if(AccountStatus=="Released"){
+              BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send("Not Found");
+                }
+            });
+          }
+          else if(Status=="Released"){
+            res.send({AlreadyReleased:true});
+          }
+        }else{
+          res.send({InvalidStatusType:true});
+        }
+        
 
       }else{
         res.send({UserAccountIDExist:UserAccountIDExist});
