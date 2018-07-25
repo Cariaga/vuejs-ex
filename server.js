@@ -3533,28 +3533,28 @@ app.get('/Api/v1/UserAccount', function (req, res) {
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/:Verify', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID =  req.query.UserAccountID;
-  let Verify =  req.query.Verify;
+  let Verify =  req.query.Verify;// only true or false state no other value type
   if(isNullOrEmpty(UserAccountID)&&isNullOrEmpty(Verify)){
-    
-    Models.UserAccount.sync();
-    let UserAccountIDExist = false;
-    async.series([UserAccountIDCheck],function(err,response){
-      if(UserAccountIDExist==true){
-        
-      }
-    });
-
-    function UserAccountIDCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        let obj = response;
-        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-          UserAccountIDExist = true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist = false;
-          callback(null,'1');
+    if(Verify==true || Verify==false){
+      Models.UserAccount.sync();
+      let UserAccountIDExist = false;
+      async.series([UserAccountIDCheck],function(err,response){
+        if(UserAccountIDExist==true){
+          
         }
       });
+      function UserAccountIDCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          let obj = response;
+          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+            UserAccountIDExist = true;
+            callback(null,'1');
+          }else{
+            UserAccountIDExist = false;
+            callback(null,'1');
+          }
+        });
+      }
     }
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
