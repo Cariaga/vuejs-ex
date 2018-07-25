@@ -1972,13 +1972,29 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
-    BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-      if(response!=undefined){
-        res.send(response);
-      }else{
-        res.send("Not Found");
+
+    async.series([IsAccountBlockedCheck],function(err,response){
+      BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+        if(response!=undefined){
+          res.send(response);
+        }else{
+          res.send("Not Found");
+        }
+    });
+    
+    function IsAccountBlockedCheck(callback){
+        isUserAccountBlocked(UserAccountID,function(response){
+          let obj = response;
+          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+            console.log('IsAccountBlockedCheck');
+            AccountStatus=obj[0].Status;
+            callback(null,'3');
+          }else{
+            AccountStatus="";
+            callback(null,'3');
+          }
+        });
       }
-     
     });
   }else{
     res.send("Missing Parameters");
@@ -2008,6 +2024,8 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
+    
+    
     BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
       if(response!=undefined){
         res.send(response);
@@ -2016,6 +2034,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
       }
     });
   }
+
 });
 
 
