@@ -3530,7 +3530,7 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
 
-app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/:VerifiedStatus', function (req, res) {
+app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID =  req.query.UserAccountID;
   let VerifiedStatus =  req.query.VerifiedStatus;// only true or false state no other value type
