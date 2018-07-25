@@ -1988,9 +1988,9 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
-  let Status = req.params.Status;
+  let Status = req.params.Status;//status to set
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
-    let AccountStatus = undefined;
+    let AccountStatus = undefined;//status retrived
     let UserAccountIDExist = false;
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
       if(UserAccountIDExist==true){
