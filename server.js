@@ -2004,13 +2004,13 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
               }
           });
           }else{
-            res.send({InvalidStatusType:true});
+            res.send({InvalidStatusType:true});//Status is Invalid
           }
         }else{
-          res.send({UserAccountIDBlockedHistory:false});
+          res.send({UserAccountIDBlockedHistory:false});//No History Of being Blocked
         }
       }else{
-        res.send({UserAccountIDExist:UserAccountIDExist});
+        res.send({UserAccountIDExist:UserAccountIDExist});//Exist in the UserAccount Table
       }
     });
     function UserAccountIDCheck(callback){
@@ -2033,7 +2033,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
           AccountStatus=obj[0].Status;
           callback(null,'1');
         }else{
-          AccountStatus="";
+          AccountStatus=undefined;
           callback(null,'1');
         }
       });
