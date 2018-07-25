@@ -3560,6 +3560,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/
     }else{
       res.send({VerfiedStatusInvalidValue:true});
     }
+  }else{
+    res.send({MissingParameters:true});
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
