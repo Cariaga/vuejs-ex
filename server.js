@@ -1982,10 +1982,8 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             }else{
               res.send("Not Found");
             }
-        }
+        });
       }
-    });
-
     function IsAccountBlockedCheck(callback){
         isUserAccountBlocked(UserAccountID,function(response){
           let obj = response;
