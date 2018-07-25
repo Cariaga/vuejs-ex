@@ -174,6 +174,8 @@ function isUserAccountBlocked(UserAccountID,callback){
       //callback("Error "+result);
     });
 }
+
+
 function isUserNameExist(UserName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
@@ -470,8 +472,20 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 
 
 //--Account Type Check End
-function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){
-  
+function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){//Updating BlockList User Account 
+  Models.BlackList.update({
+    Status: Status
+  },{
+    where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
+  })
+  .then(Success => {
+    res.send("Updated");
+  })
+  .catch(error => {
+   
+    console.log("Error Updating");
+    res.send("Error Updating " +error);
+  });
 }
 //** Returns Current Date String*/
 function getCurrentDate(callback){
