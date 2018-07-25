@@ -3529,6 +3529,32 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/UserAccount', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.UserAccount.sync();
+    let result = Models.UserAccount.findAll({ 
+      where: {
+        UserID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      res.send("Error "+result);
+    });
+  }
+  //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
+});
+
 app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
