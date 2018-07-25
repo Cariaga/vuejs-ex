@@ -2024,64 +2024,73 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;//status to set
-  if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
-    let AccountStatus = undefined;//status retrived
-    let UserAccountIDExist = false;
-    let BlockListID = undefined;
-    async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
-      if(!isNullOrEmpty(BlockListID) &&BlockListID!=undefined){
-        if(UserAccountIDExist==true){
-            if(Status=="Blocked"||Status=="Released"){
-              if(Status!=AccountStatus){
-                BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-                  console.log("Status Set");
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send("Not Found");
-                  }
-                });
+  if(!isNullOrEmpty(BlackListID)){
+    if(!isNullOrEmpty(UserAccountID)){
+        if(!isNullOrEmpty(Status)){
+            let AccountStatus = undefined;//status retrived
+            let UserAccountIDExist = false;
+            let BlockListID = undefined;
+            async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
+              if(!isNullOrEmpty(BlockListID) &&BlockListID!=undefined){
+                if(UserAccountIDExist==true){
+                    if(Status=="Blocked"||Status=="Released"){
+                      if(Status!=AccountStatus){
+                        BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                          console.log("Status Set");
+                          if(response!=undefined){
+                            res.send(response);
+                          }else{
+                            res.send("Not Found");
+                          }
+                        });
+                      }else{
+                        res.send({StatusAlready:AccountStatus});//Account Aleady Set To This status
+                      }
+                    }else{
+                      res.send({InvalidStatusType:true});//Status is Invalid
+                    }
+                }else{
+                  res.send({UserAccountIDExist:UserAccountIDExist});//Exist in the UserAccount Table
+                }
               }else{
-                res.send({StatusAlready:AccountStatus});//Account Aleady Set To This status
+                res.send({InvalidBlockListID:true});
               }
+        });
+
+        function UserAccountIDCheck(callback){
+          isUserAccountIDExist(UserAccountID,function(response){
+            let obj = response;
+            if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+              UserAccountIDExist = true;
+              callback(null,'1');
             }else{
-              res.send({InvalidStatusType:true});//Status is Invalid
+              UserAccountIDExist = false;
+              callback(null,'1');
             }
-        }else{
-          res.send({UserAccountIDExist:UserAccountIDExist});//Exist in the UserAccount Table
+          });
+        }
+        function IsAccountBlockedCheck(callback){
+          isUserAccountBlocked(UserAccountID,function(response){
+            let obj = response;
+            if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+              console.log('IsAccountBlockedCheck');
+              AccountStatus=obj[0].BlockListID;
+              AccountStatus=obj[0].Status;
+              callback(null,'1');
+            }else{
+              AccountStatus=undefined;
+              callback(null,'1');
+            }
+          });
         }
       }else{
-        res.send({InvalidBlockListID:true});
+        res.send("Missing Status");
       }
-    });
-    function UserAccountIDCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        let obj = response;
-        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-          UserAccountIDExist = true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist = false;
-          callback(null,'1');
-        }
-      });
-    }
-    function IsAccountBlockedCheck(callback){
-      isUserAccountBlocked(UserAccountID,function(response){
-        let obj = response;
-        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-          console.log('IsAccountBlockedCheck');
-          AccountStatus=obj[0].BlockListID;
-          AccountStatus=obj[0].Status;
-          callback(null,'1');
-        }else{
-          AccountStatus=undefined;
-          callback(null,'1');
-        }
-      });
+    }else{
+      res.send("Missing UserAccountID");
     }
   }else{
-    res.send("Missing Parameters");
+    res.send("Missing BlackListID");
   }
 });
 function BlackListUpdateStatus(BlackListID,UserAccountID,Status,callback){
