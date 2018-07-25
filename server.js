@@ -2003,9 +2003,12 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
                 res.send("Not Found");
               }
           });
+          
           }else{
             res.send({InvalidStatusType:true});
           }
+        }else{
+          res.send({UserAccountIDBlocked:false});
         }
 
 
