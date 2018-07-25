@@ -2004,7 +2004,10 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
               }
           });
         }
-        else if(AccountStatus=="Released"{
+        else{
+          res.send({AlreadyBlocked:true});
+        }
+         if(AccountStatus=="Released"){
             BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
                 if(response!=undefined){
                   res.send(response);
