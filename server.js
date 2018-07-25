@@ -3534,8 +3534,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID =  req.query.UserAccountID;
   let VerifiedStatus =  req.query.VerifiedStatus;// only true or false state no other value type
-  if(isNullOrEmpty(UserAccountID)&&isNullOrEmpty(VerifiedStatus)){
-    if(VerifiedStatus=="true" || VerifiedStatus=="false"){//must be validated like a string because 
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(VerifiedStatus)){
+    if(VerifiedStatus==true || VerifiedStatus==false){//must be validated like a string because 
       Models.UserAccount.sync();
       let UserAccountIDExist = false;
       async.series([UserAccountIDCheck],function(err,response){
