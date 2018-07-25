@@ -3565,7 +3565,7 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:Verifie
           //res.send({UserAccountIDExist:UserAccountIDExist});
           VerifyAccountUserAccountID(UserAccountID,function(response){
             if(!isNullOrEmpty(response)&&response!=undefined){
-
+              res.send(response);
             }else{
               res.send({UserAccountIDInvalid:true});
             }
