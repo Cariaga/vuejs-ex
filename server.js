@@ -1968,7 +1968,7 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
   }
 });
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', function (req, res) {
-  res.send("Worked");
+ 
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
@@ -1978,14 +1978,19 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
     BlackListUpdate(BlackListID,UserAccountID,Status,function(response){
-      res.send(response);
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send("Unable To Update BlackList ID dosen't Exist");
+      }
+     
     });
   }
 });
 
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
   res.send("Worked2");
- /* let BlackListID = req.params.BlackListID;
+  let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
   let Title = req.params.Title;
@@ -1994,9 +1999,14 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
     BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-      res.send(response);
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send("Unable To Update BlackList ID dosen't Exist");
+      }
+     
     });
-  }*/
+  }
 });
 
 
@@ -2009,18 +2019,17 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
     ReportDate: ReportDate,
     ReleaseDate: ReleaseDate
   },{
-    where: {BlackListID: BlackListID }
+    where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
   })
   .then(Success => {
     callback("Updated");
   }).catch(error => {
-    console.log("Error Updating");
-    callback("Error Updating " +error);
+    console.log("Error Updating BlackList");
+    callback(undefined);
   });
 }
 function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Update Only For BlackList
-  
-  /*Models.BlackList.update({
+  Models.BlackList.update({
     Status: Status
   },{
     where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
@@ -2029,9 +2038,9 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Upd
     callback("Updated");
   })
   .catch(error => {
-    console.log("Error Updating");
-    callback("Error Updating " +error);
-  });*/
+    console.log("Error Updating BlackList 2");
+    callback(undefined);
+  });
 }
 app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
