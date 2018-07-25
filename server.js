@@ -2008,8 +2008,6 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             }else{
               res.send({StatusAlready:AccountStatus});//Account Aleady Set To This status
             }
-            
-
           }else{
             res.send({InvalidStatusType:true});//Status is Invalid
           }
