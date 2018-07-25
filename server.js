@@ -3530,12 +3530,12 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
 
-app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/:Verify', function (req, res) {
+app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/:VerifiedStatus', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID =  req.query.UserAccountID;
   let VerifiedStatus =  req.query.VerifiedStatus;// only true or false state no other value type
   if(isNullOrEmpty(UserAccountID)&&isNullOrEmpty(VerifiedStatus)){
-    if((/true/i).test(VerifiedStatus)==true || (/true/i).test(VerifiedStatus)==false){
+    if(VerifiedStatus==true || VerifiedStatus==false){//must be validated like a string because 
       Models.UserAccount.sync();
       let UserAccountIDExist = false;
       async.series([UserAccountIDCheck],function(err,response){
