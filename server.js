@@ -1974,12 +1974,16 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
     let AccountStatus = undefined;
     async.series([IsAccountBlockedCheck],function(err,response){
-      BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-        if(response!=undefined){
-          res.send(response);
-        }else{
-          res.send("Not Found");
+      
+      if(AccountStatus){
+          BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send("Not Found");
+            }
         }
+      }
     });
 
     function IsAccountBlockedCheck(callback){
