@@ -1994,15 +1994,22 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     let UserAccountIDExist = false;
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
       if(UserAccountIDExist==true){
-    
+        
           if(Status=="Blocked"||Status=="Released"){
-            BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-              if(response!=undefined){
-                res.send(response);
-              }else{
-                res.send("Not Found");
-              }
-          });
+
+            if(Status!=AccountStatus){
+              BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send("Not Found");
+                }
+              });
+            }else{
+              res.send({StatusAlready:AccountStatus});//Account Aleady Set To This status
+            }
+            
+
           }else{
             res.send({InvalidStatusType:true});//Status is Invalid
           }
@@ -2021,6 +2028,9 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
           callback(null,'1');
         }
       });
+    }
+    function IsAccountBlockedHistoryc(callback){
+
     }
     function IsAccountBlockedCheck(callback){
       isUserAccountBlocked(UserAccountID,function(response){
