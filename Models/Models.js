@@ -419,13 +419,29 @@ const BlackList =sequelize.define('BlackList', {
     primaryKey: true,
     autoIncrement: true,
   },
-  UserAccountID:Sequelize.STRING,//FK
+  UserAccountID:{
+    type: Sequelize.STRING,
+    unique: true,
+    foreignKey: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    }
+  },//FK
   Status:Sequelize.STRING,
   Title:  Sequelize.STRING,
   Description:  Sequelize.STRING,
   ReportDate:  Sequelize.DATE,
   ReleaseDate: Sequelize.DATE
 });
+
+BlackList.belongsTo(UserAccount, {
+  foreignKey: 'UserAccountID',
+  targetKey: 'UserAccountID',
+  onDelete: 'SET NULL', hooks:true,
+  constraints: true}); 
+
+
 
 const SupportTicket =sequelize.define('SupportTicket', {
   SupportTicketID: {//PK Can be used to Connect to A user Chat Room Name 
