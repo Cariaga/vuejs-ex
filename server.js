@@ -1993,7 +1993,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Upd
   })
   .catch(error => {
     console.log("Error Updating BlackList param 4");
-    callback(undefined);
+    callback([]);
   });
 }
 
@@ -2007,7 +2007,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
     BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-      res.send(response);
+      res.send([]);
     });
   }
 });
