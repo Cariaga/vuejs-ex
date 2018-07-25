@@ -1989,7 +1989,6 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
 });
 
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
-  res.send("Worked2");
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
@@ -2024,7 +2023,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
   .then(Success => {
     callback("Updated");
   }).catch(error => {
-    console.log("Error Updating BlackList");
+    console.log("Error Updating BlackList with 8 params");
     callback(undefined);
   });
 }
@@ -2038,7 +2037,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Upd
     callback("Updated");
   })
   .catch(error => {
-    console.log("Error Updating BlackList 2");
+    console.log("Error Updating BlackList param 4");
     callback(undefined);
   });
 }
