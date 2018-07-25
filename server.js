@@ -1984,7 +1984,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             }
         });
       }else{
-        res.send("UnBlocked Already");
+        res.send("Already Released");
       }
     });
     function IsAccountBlockedCheck(callback){
