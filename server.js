@@ -3563,8 +3563,13 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:Verifie
       async.series([UserAccountIDCheck],function(err,response){
         if(UserAccountIDExist==true){
           //res.send({UserAccountIDExist:UserAccountIDExist});
-          
+          VerifyAccountUserAccountID(UserAccountID,function(response){
+            if(!isNullOrEmpty(response)&&response!=undefined){
 
+            }else{
+              res.send({UserAccountIDInvalid:true});
+            }
+          });
         }else{
           res.send({UserAccountIDExist:UserAccountIDExist});
         }
