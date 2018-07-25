@@ -1967,6 +1967,21 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
     });
   }
 });
+app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', function (req, res) {
+  res.send("Worked");
+  let BlackListID = req.params.BlackListID;
+  let UserAccountID = req.params.UserAccountID;
+  let Status = req.params.Status;
+  let Title = req.params.Title;
+  let Description = req.params.Description;
+  let ReportDate = req.params.ReportDate;
+  let ReleaseDate = req.params.ReleaseDate;
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
+    BlackListUpdate(BlackListID,UserAccountID,Status,function(response){
+      res.send(response);
+    });
+  }
+});
 
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
   res.send("Worked2");
@@ -1983,21 +1998,8 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
     });
   }*/
 });
-app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', function (req, res) {
-  res.send("Worked");
- /* let BlackListID = req.params.BlackListID;
-  let UserAccountID = req.params.UserAccountID;
-  let Status = req.params.Status;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let ReportDate = req.params.ReportDate;
-  let ReleaseDate = req.params.ReleaseDate;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
-    BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-      res.send(response);
-    });
-  }*/
-});
+
+
 function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,callback){//FULL Update For Blacklist
   Models.BlackList.update({
     UserAccountID: UserAccountID,
