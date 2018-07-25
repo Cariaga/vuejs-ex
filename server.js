@@ -482,7 +482,6 @@ function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){/
     callback("Updated");
   })
   .catch(error => {
-   
     console.log("Error Updating");
     callback("Error Updating " +error);
   });
