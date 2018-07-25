@@ -1274,8 +1274,8 @@ app.get('/Login',function (req, res) {
               console.log('3');
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-
-                 // res.send({Success:true});
+                
+                  res.send({Success:true});
               
                   /*let result2 = Models.UserAccount.findAll({ 
                     where: {
@@ -1514,7 +1514,7 @@ function Verify(UserName,ValidKey,callback){
         }
 }
 function UserAccountUpdateLoginInformation(){
-  
+
 }
 function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   Models.UserAccount.update({
