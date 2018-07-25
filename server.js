@@ -3541,6 +3541,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/
       async.series([UserAccountIDCheck],function(err,response){
         if(UserAccountIDExist==true){
           
+        }else{
+
         }
       });
       function UserAccountIDCheck(callback){
@@ -3555,6 +3557,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/
           }
         });
       }
+    }else{
+      res.send({VerfiedStatusInvalidValue:true});
     }
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
