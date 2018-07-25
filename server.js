@@ -1993,9 +1993,9 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     let AccountStatus = undefined;
     let UserAccountIDExist = false;
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
-      
       if(UserAccountIDExist==true){
-        if(AccountStatus=="Blocked"&&AccountStatus=="Released"){
+        if(!isNullOrEmpty(AccountStatus)&&AccountStatus!=""){
+          if(AccountStatus=="Blocked"&&AccountStatus=="Released"){
             BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
               if(response!=undefined){
                 res.send(response);
@@ -2003,10 +2003,11 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
                 res.send("Not Found");
               }
           });
-        }else{
-          res.send({InvalidStatusType:true});
+          }else{
+            res.send({InvalidStatusType:true});
+          }
         }
-        
+
 
       }else{
         res.send({UserAccountIDExist:UserAccountIDExist});
