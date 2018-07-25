@@ -2031,14 +2031,12 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
         }
       });
     }
-    function IsAccountBlockedHistory(callback){
-
-    }
     function IsAccountBlockedCheck(callback){
       isUserAccountBlocked(UserAccountID,function(response){
         let obj = response;
         if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
           console.log('IsAccountBlockedCheck');
+          AccountStatus=obj[0].BlockListID;
           AccountStatus=obj[0].Status;
           callback(null,'1');
         }else{
