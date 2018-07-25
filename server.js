@@ -1999,7 +1999,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
     callback("Error Updating " +error);
   });
 }
-function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//
+function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Update Only For BlackList
   Models.BlackList.update({
     Status: Status
   },{
@@ -2013,7 +2013,6 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//
     callback("Error Updating " +error);
   });
 }
-
 app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
     where: {},
