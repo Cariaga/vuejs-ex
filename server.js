@@ -3540,9 +3540,9 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/VerifiedStatus/
       let UserAccountIDExist = false;
       async.series([UserAccountIDCheck],function(err,response){
         if(UserAccountIDExist==true){
-          
+          res.send({UserAccountIDExist:UserAccountIDExist});
         }else{
-
+          res.send({UserAccountIDExist:UserAccountIDExist});
         }
       });
       function UserAccountIDCheck(callback){
