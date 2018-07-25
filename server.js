@@ -2004,7 +2004,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
               }
           });
         }else{
-          res.send("Already Released");
+          res.send({AlreadyReleased:true});
         }
       }else{
         res.send({UserAccountIDExist:UserAccountIDExist});
