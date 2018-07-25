@@ -2004,7 +2004,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
               }
           });
         }
-        else{
+        else if(Status=="Blocked"){
           res.send({AlreadyBlocked:true});
         }
         if(AccountStatus=="Released"){
@@ -2016,7 +2016,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             }
         });
       }
-      else{
+      else if(Status=="Released"){
         res.send({AlreadyReleased:true});
       }
 
