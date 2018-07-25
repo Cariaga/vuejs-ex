@@ -1389,7 +1389,7 @@ app.get('/Login',function (req, res) {
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               isUserAccountBlocked(UserAccountID,function(response){
                 let obj = response;
-                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
                   AccountStatus=obj[0].Status;
                   console.log('UserAccountBlockedInternalValidate '+AccountStatus);
                   
