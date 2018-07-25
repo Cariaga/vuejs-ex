@@ -1992,27 +1992,31 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
     let AccountStatus = undefined;//status retrived
     let UserAccountIDExist = false;
+    let BlockListID = undefined;
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
-      if(UserAccountIDExist==true){
-        
-          if(Status=="Blocked"||Status=="Released"){
-            if(Status!=AccountStatus){
-              BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-                console.log("Status Set");
-                if(response!=undefined){
-                  res.send(response);
-                }else{
-                  res.send("Not Found");
-                }
-              });
+      if(!isNullOrEmpty(BlockListID) &&BlockListID!=undefined){
+        if(UserAccountIDExist==true){
+            if(Status=="Blocked"||Status=="Released"){
+              if(Status!=AccountStatus){
+                BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                  console.log("Status Set");
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send("Not Found");
+                  }
+                });
+              }else{
+                res.send({StatusAlready:AccountStatus});//Account Aleady Set To This status
+              }
             }else{
-              res.send({StatusAlready:AccountStatus});//Account Aleady Set To This status
+              res.send({InvalidStatusType:true});//Status is Invalid
             }
-          }else{
-            res.send({InvalidStatusType:true});//Status is Invalid
-          }
+        }else{
+          res.send({UserAccountIDExist:UserAccountIDExist});//Exist in the UserAccount Table
+        }
       }else{
-        res.send({UserAccountIDExist:UserAccountIDExist});//Exist in the UserAccount Table
+        res.send({InvalidBlockListID:true});
       }
     });
     function UserAccountIDCheck(callback){
@@ -2027,7 +2031,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
         }
       });
     }
-    function IsAccountBlockedHistoryc(callback){
+    function IsAccountBlockedHistory(callback){
 
     }
     function IsAccountBlockedCheck(callback){
