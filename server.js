@@ -1361,6 +1361,7 @@ app.get('/Login',function (req, res) {
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
                 console.log('myFirstFunction');
                  UserAccountID= obj[0].UserAccountID;
+                 console.log('myFirstFunction'+UserAccountID)
                  callback(null,'1');
              }else{
                 UserAccountID= "";
