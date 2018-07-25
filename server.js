@@ -1975,7 +1975,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     let AccountStatus = undefined;
     async.series([IsAccountBlockedCheck],function(err,response){
       
-      if(AccountStatus){
+      if(AccountStatus!="Blocked"){
           BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
             if(response!=undefined){
               res.send(response);
