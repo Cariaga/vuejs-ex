@@ -479,12 +479,12 @@ function UpdateBlackListUserAccount(UserAccountID,Status,BlackListID,callback){/
     where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
   })
   .then(Success => {
-    res.send("Updated");
+    callback("Updated");
   })
   .catch(error => {
    
     console.log("Error Updating");
-    res.send("Error Updating " +error);
+    callback("Error Updating " +error);
   });
 }
 //** Returns Current Date String*/
