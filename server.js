@@ -1996,30 +1996,13 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
       
       if(UserAccountIDExist==true){
         if(AccountStatus=="Blocked"&&AccountStatus=="Released"){
-            if(AccountStatus=="Blocked"){
-                BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send("Not Found");
-                  }
-              });
-            }
-            else if(Status=="Blocked"){
-              res.send({AlreadyBlocked:true});
-            }
-            if(AccountStatus=="Released"){
-              BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
-                if(response!=undefined){
-                  res.send(response);
-                }else{
-                  res.send("Not Found");
-                }
-            });
-          }
-          else if(Status=="Released"){
-            res.send({AlreadyReleased:true});
-          }
+            BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+              if(response!=undefined){
+                res.send(response);
+              }else{
+                res.send("Not Found");
+              }
+          });
         }else{
           res.send({InvalidStatusType:true});
         }
