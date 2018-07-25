@@ -234,6 +234,11 @@ function isUserAccountVerified(UserName,callback){
     });
 }
 
+function isUserAccountVerified(UserAccountID,callback){
+  Models.UserAccount.sync();
+  
+}
+
 
 function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
@@ -1507,6 +1512,22 @@ function Verify(UserName,ValidKey,callback){
           callback3(null,result3);
         }   
         }
+}
+function VerifyAccountUserAccountID(UserAccountID,callback){
+  Models.UserAccount.update({
+    Verify: true
+  },
+  {
+    where: {UserAccountID:UserAccountID}
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  
+  .catch(error => {
+    console.log("Error Updating");
+    callback("Error Updating " +error);
+  }); 
 }
 function VerifyAccount(UserName,ValidKey,callback){
   Models.UserAccount.update({
@@ -3541,7 +3562,9 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:Verifie
       let UserAccountIDExist = false;
       async.series([UserAccountIDCheck],function(err,response){
         if(UserAccountIDExist==true){
-          res.send({UserAccountIDExist:UserAccountIDExist});
+          //res.send({UserAccountIDExist:UserAccountIDExist});
+          
+
         }else{
           res.send({UserAccountIDExist:UserAccountIDExist});
         }
