@@ -1525,8 +1525,8 @@ function VerifyAccountUserAccountID(UserAccountID,callback){
   })
   
   .catch(error => {
-    console.log("Error Updating");
-    callback("Error Updating " +error);
+    console.log("Error Updating " +error);
+    callback(undefined);
   }); 
 }
 function VerifyAccount(UserName,ValidKey,callback){
@@ -1541,8 +1541,8 @@ function VerifyAccount(UserName,ValidKey,callback){
   })
   
   .catch(error => {
-    console.log("Error Updating");
-    callback("Error Updating " +error);
+    console.log("Error Updating " +error);
+    callback();
   }); 
 }
 //--Login End
