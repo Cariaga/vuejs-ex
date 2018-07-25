@@ -1513,7 +1513,10 @@ function Verify(UserName,ValidKey,callback){
         }   
         }
 }
-function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){
+function UserAccountUpdateLoginInformation(){
+  
+}
+function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   Models.UserAccount.update({
     Verify: VerifiedStatus
   },
@@ -1529,7 +1532,7 @@ function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){
     callback(undefined);
   }); 
 }
-function VerifyAccount(UserName,ValidKey,callback){
+function VerifyAccount(UserName,ValidKey,callback){ // Verification with ValidKey // Public only use // Via ValidKey
   Models.UserAccount.update({
     Verify: true
   },
