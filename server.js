@@ -1998,6 +1998,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
           if(Status=="Blocked"||Status=="Released"){
             if(Status!=AccountStatus){
               BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                console.log("Status Set");
                 if(response!=undefined){
                   res.send(response);
                 }else{
