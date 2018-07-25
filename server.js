@@ -2003,7 +2003,17 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
                 res.send("Not Found");
               }
           });
-        }else{
+        }
+        else if(AccountStatus=="Released"{
+            BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send("Not Found");
+                }
+            }
+          }
+        else{
           res.send({AlreadyReleased:true});
         }
       }else{
