@@ -1995,7 +1995,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
       if(UserAccountIDExist==true){
         if(!isNullOrEmpty(AccountStatus)&&AccountStatus!=undefined){
-          if(Status=="Blocked"&&Status=="Released"){
+          if(Status=="Blocked"||Status=="Released"){
             BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
               if(response!=undefined){
                 res.send(response);
@@ -2007,7 +2007,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             res.send({InvalidStatusType:true});//Status is Invalid
           }
         }else{
-          res.send({UserAccountIDBlockedHistory:false});//No History Of being Blocked
+          res.send({UserAccountIDBlocked:false});//Not Blocked
         }
       }else{
         res.send({UserAccountIDExist:UserAccountIDExist});//Exist in the UserAccount Table
