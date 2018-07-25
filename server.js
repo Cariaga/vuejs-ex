@@ -1978,7 +1978,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
     BlackListUpdate(BlackListID,UserAccountID,Status,function(response){
-      if(response!=undefined){
+      if(!isNullOrEmpty(response)&&response!=undefined){
         res.send(response);
       }else{
         res.send("Unable To Update BlackList ID dosen't Exist");
@@ -1987,6 +1987,20 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
     });
   }
 });
+function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Update Only For BlackList
+  Models.BlackList.update({
+    Status: Status
+  },{
+    where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating BlackList param 4");
+    callback(undefined);
+  });
+}
 
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
   let BlackListID = req.params.BlackListID;
@@ -1998,7 +2012,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let ReleaseDate = req.params.ReleaseDate;
   if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
     BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-      if(response!=undefined){
+      if(!isNullOrEmpty(response)&&response!=undefined){
         res.send(response);
       }else{
         res.send("Unable To Update BlackList ID dosen't Exist");
@@ -2026,20 +2040,7 @@ function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,Repo
     callback(undefined);
   });
 }
-function BlackListUpdate(BlackListID,UserAccountID,Status,callback){//Status Update Only For BlackList
-  Models.BlackList.update({
-    Status: Status
-  },{
-    where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
-  })
-  .then(Success => {
-    callback("Updated");
-  })
-  .catch(error => {
-    console.log("Error Updating BlackList param 4");
-    callback(undefined);
-  });
-}
+
 app.get('/Api/v1/BlackList/Clear', function (req, res){
   Models.BlackList.destroy({
     where: {},
