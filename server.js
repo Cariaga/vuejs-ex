@@ -1968,7 +1968,6 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
   }
 });
 app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', function (req, res) {
- 
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
@@ -1976,7 +1975,6 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/', functio
     BlackListUpdate(BlackListID,UserAccountID,Status,function(response){
       res.send(response);
     });
-
   }else{
     res.send("Missing Parameters");
   }
