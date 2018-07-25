@@ -2007,7 +2007,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             res.send({InvalidStatusType:true});
           }
         }else{
-          res.send({UserAccountIDBlocked:false});
+          res.send({UserAccountIDBlockedHistory:false});
         }
       }else{
         res.send({UserAccountIDExist:UserAccountIDExist});
