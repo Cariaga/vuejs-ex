@@ -1995,7 +1995,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
       if(UserAccountIDExist==true){
         if(!isNullOrEmpty(AccountStatus)&&AccountStatus!=undefined){
-          if(AccountStatus=="Blocked"&&AccountStatus=="Released"){
+          if(Status=="Blocked"&&Status=="Released"){
             BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
               if(response!=undefined){
                 res.send(response);
