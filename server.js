@@ -1862,7 +1862,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
 
 function isSupportTicketIDExist(UserAccountID,callback){
   Models.SupportTicket.sync();
-    let result = Models.Player.findAll({ 
+    let result = Models.PSupportTicketayer.findAll({ 
       where: {
         SupportTicketID:UserAccountID,
         
