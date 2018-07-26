@@ -1482,6 +1482,34 @@ app.get('/Verify',function (req, res) {
     res.send(beautify(Data, null, 2, 100));
   }
 });
+app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {
+
+  async.waterfall([
+    myFirstFunction
+ ], function (err, result) {//final function
+    
+     callback(result);
+ });
+  function myFirstFunction(callback2) {
+    console.log('1');
+    Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
+    let result = Models.UserAccount.findAll({ 
+      where: {
+        UserName:UserName//not null
+        ,
+        ValidKey:ValidKey//not null
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {return item;});
+    //  console.log('2');
+      callback2(null,Data);
+    }).catch(function(result2){
+      console.log("Verify Error : "+result2);
+    //  console.log('2');
+      callback2(null,result2);
+    });
+  }
+});
 function Verify(UserName,ValidKey,callback){
   async.waterfall([
           myFirstFunction,
@@ -1528,6 +1556,7 @@ function Verify(UserName,ValidKey,callback){
 function UserAccountUpdateLoginInformation(){
 
 }
+
 function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   Models.UserAccount.update({
     Verify: VerifiedStatus
@@ -3834,7 +3863,7 @@ app.get('/Api/v1/Player', function (req, res) {
   }
  
 });
-app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
+app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {//check for validation only
   //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -3854,7 +3883,7 @@ app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {
 
 //---Player ROUTING START
 //---Shop ROUTING START
-app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {
+app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {//check for validation only
   //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -4002,7 +4031,7 @@ app.get('/Api/v1/Shop', function (req, res) {
 });
 //---Shop ROUTING END
 //---Distributor ROUTING START
-app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {
+app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {//check for validation only
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isDistributorUserAccountIDExist(UserAccountID,function(response) {
@@ -4144,7 +4173,7 @@ app.get('/Api/v1/Distributor', function (req, res) {
 });
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
-app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {
+app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {//check for validation only
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     isHeadOfficeUserAccountIDExist(UserAccountID,function(response) {
