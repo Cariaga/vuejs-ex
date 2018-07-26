@@ -1845,7 +1845,7 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
             res.send({SupportTicketUpdateFailed:true});
           }
         });*/
-        
+
         res.send({Success:true});
       }else{
         res.send({UserAccountIDExist:false});
@@ -1906,12 +1906,11 @@ app.get('/Api/v1/SupportTicket/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/SupportTicket', function (req, res) {
+app.get('/Api/v1/SupportTicket/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-
-  
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
