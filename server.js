@@ -1289,6 +1289,7 @@ app.get('/Login',function (req, res) {
                         console.log('5');
                         console.log(response3);
                         if(AccountType=="HeadOffice"){
+                          console.log('6 HeadOffice');
                            // we need diffrent Data for diffrent AccountType
                            let Data ={Status:"Verified",
                            Controller:"/Login",
@@ -1309,6 +1310,7 @@ app.get('/Login',function (req, res) {
                         }
 
                        else if(AccountType=="Distributor"){
+                          console.log('6 Distributor');
                           // we need diffrent Data for diffrent AccountType
                           let Data ={Status:"Verified",
                           Controller:"/Login",
@@ -1328,6 +1330,7 @@ app.get('/Login',function (req, res) {
                           res.send(Data);
                         }
                        else if(AccountType=="Shop"){
+                          console.log('6 Shop');
                           // we need diffrent Data for diffrent AccountType
                           let Data ={Status:"Verified",
                           Controller:"/Login",
@@ -1347,6 +1350,7 @@ app.get('/Login',function (req, res) {
                           res.send(Data);
                         }
                        else if(AccountType=="Player"){
+                          console.log('6 Player');
                          // we need diffrent Data for diffrent AccountType
                          let Data ={Status:"Verified",
                          Controller:"/Login",
