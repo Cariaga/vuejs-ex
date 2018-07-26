@@ -1381,8 +1381,10 @@ app.get('/Login',function (req, res) {
                              Data.ScreenName = response[0].ScreenName;
                              Data.SurName = response[0].Surname;
                              PlayerExist=true;
+                             callback6(null,'1');
                             }else{
                               PlayerExist=false;
+                              callback6(null,'1');
                             }
                           });
                          }
