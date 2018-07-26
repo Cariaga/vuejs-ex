@@ -478,29 +478,7 @@ function isShopUserAccountIDExist(UserAccountID,callback){
     });
 }
 
-function isPlayerUserAccountIDExist(UserAccountID,callback){
-  Models.Player.sync();
-    let result = Models.Player.findAll({ 
-      where: {
-        UserAccountID:UserAccountID,
-        
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log(result);
-      callback(undefined);
-    });
-}
+
 //--Account Type Check End
 
 
@@ -1851,20 +1829,49 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
         res.send({UserAccountIDExist:false});
       }
     });
+    
+    function SupportTicketIDCheck(callback){
+      callback(null,'1');
+    }
     function UserAccountIDCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         let obj = response;
         if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
           UserAccountIDExist = true;
-          callback(null,'1');
+          callback(null,'2');
         }else{
           UserAccountIDExist = false;
-          callback(null,'1');
+          callback(null,'2');
         }
       });
     }
   }
 });
+
+function isPlayerUserAccountIDExist(UserAccountID,callback){
+  Models.Player.sync();
+    let result = Models.Player.findAll({ 
+      where: {
+        UserAccountID:UserAccountID,
+        
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      console.log(result);
+      callback(undefined);
+    });
+}
+
 
 function SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   Models.SupportTicket.update({
