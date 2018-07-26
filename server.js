@@ -1363,6 +1363,15 @@ app.get('/Login',function (req, res) {
                          PhoneNumber:PhoneNumber,
                          AccessID:AccessID
                          }
+
+                         async.series([PlayerUserAccountIDInternal],function(err,response){
+
+                         });
+                         
+                         function PlayerUserAccountIDInternal(){
+
+                         }
+
                          res.send(Data);
                         }else{
                           res.send({UnknownAccoutType:true});
