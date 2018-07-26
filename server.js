@@ -1819,7 +1819,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
 }
 
 app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
-  // USAGE Api/v1/SupportTicket/Update/putek/eltit/tion/rason/12:34:56/2009-05-31/Nakaon
+  // USAGE /Api/v1/SupportTicket/Update/SupportTicketID/1/UserAccountID/89a5b95d-8d5d-455b-8139-8e8317fdd392/Title/Title/Description/Description/Reason/Reason2/Time/12:34:56/Date/2009-05-31/Status/Status
   let SupportTicketID = req.params.SupportTicketID;
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
@@ -1838,13 +1838,13 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
 
     async.series([UserAccountIDCheck],function(error,response){
       if(UserAccountIDExist==true){
-       /* SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
+        SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
           if(!isNullOrEmpty(response)&&response!=undefined){
             res.send(response);
           }else{
             res.send({SupportTicketUpdateFailed:true});
           }
-        });*/
+        });
 
         res.send({Success:true});
       }else{
