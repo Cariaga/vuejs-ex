@@ -1280,10 +1280,10 @@ app.get('/Login',function (req, res) {
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
                 
-                  res.send({Success:true});
+                
 
                       AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
-                        console.log('6');
+                        console.log('5');
                         console.obj(response3);
                         let Data =[{Status:"Verified",
                         Controller:"/Login",
@@ -1296,8 +1296,9 @@ app.get('/Login',function (req, res) {
                         ContactNumber:"",
                         AccessType:""
                       }]
-          
+                      res.send(Data);
                       });
+                    
             
               }else{
                 let Data = {AccountStatus:AccountStatus};
@@ -2263,8 +2264,8 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
   })
   .catch(error => {
   
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback();
   });
 }
 
