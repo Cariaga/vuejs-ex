@@ -3354,6 +3354,24 @@ app.get('/Api/v1/UserInfo', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
   }
 });
+function UserInfoUserAccountID(UserAccountID,callback){
+  Models.UserInfo.sync();
+    let result = Models.UserInfo.findAll({ 
+      where: {
+        UserAccountID:UserAccountID
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+     
+      callback(Data);
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback();
+    });
+}
+
 //---UserInfo ROUTING END
 //---AccessControl ROUTING START
 app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function (req, res) {
