@@ -1483,11 +1483,11 @@ app.get('/Verify',function (req, res) {
   }
 });
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {
-
+  let UserAccountIDFound = undefined;
   async.waterfall([
     myFirstFunction
  ], function (err, result) {//final function
-    
+
      callback(result);
  });
   function myFirstFunction(callback2) {
