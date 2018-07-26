@@ -1302,8 +1302,8 @@ app.get('/Login',function (req, res) {
                            Name:"",
                            SurName:"",
                            Email:Email,
-                           ContactNumber:"",
                            PhoneNumber:PhoneNumber,
+                           TelephoneNumber:TelephoneNumber,
                            AccessID:AccessID
                            }
                            res.send(Data);
@@ -1323,8 +1323,8 @@ app.get('/Login',function (req, res) {
                           Name:"",
                           SurName:"",
                           Email:Email,
-                          ContactNumber:"",
                           PhoneNumber:PhoneNumber,
+                          TelephoneNumber:TelephoneNumber,
                           AccessID:AccessID
                           }
                           res.send(Data);
@@ -1343,8 +1343,8 @@ app.get('/Login',function (req, res) {
                           Name:"",
                           SurName:"",
                           Email:Email,
-                          ContactNumber:"",
                           PhoneNumber:PhoneNumber,
+                          TelephoneNumber:TelephoneNumber,
                           AccessID:AccessID
                           }
                           res.send(Data);
