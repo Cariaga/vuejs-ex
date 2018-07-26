@@ -1364,10 +1364,15 @@ app.get('/Login',function (req, res) {
                          PhoneNumber:PhoneNumber,
                          AccessID:AccessID
                          }
-
+                         let PlayerExist=false;
                          async.series([PlayerUserAccountIDInternal],function(err,response){
 
-                          res.send(Data);
+                           if(PlayerExist==true){
+                            res.send(Data);
+                           }else{
+                            res.send({PlayerUserAccountExist:false});
+                           }
+                          
                          });
 
                          function PlayerUserAccountIDInternal(callback6){
@@ -1375,8 +1380,9 @@ app.get('/Login',function (req, res) {
                             if(response!=undefined){
                              Data.ScreenName = response[0].ScreenName;
                              Data.SurName = response[0].Surname;
+                             PlayerExist=true;
                             }else{
-                              res.send({InvalidUserAccountID:true});
+                              PlayerExist=false;
                             }
                           });
                          }
