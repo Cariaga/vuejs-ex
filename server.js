@@ -1483,11 +1483,15 @@ app.get('/Verify',function (req, res) {
   }
 });
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {
-  let UserAccountIDFound = undefined;
+  let UserAccountIDFound = false;
+  let UserAccountID = req.params.UserAccountID;
+  let Verify = req.params.Verify;
   async.waterfall([
     myFirstFunction
  ], function (err, result) {//final function
-
+  VerifyAccountUserAccountID(UserAccountID,Verify,function(){
+    
+  });
      callback(result);
  });
   function myFirstFunction(callback2) {
@@ -1502,6 +1506,11 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
     }).then(function(result) {
       let Data = result.map(function(item) {return item;});
     //  console.log('2');
+      if(Data.length>0){
+        UserAccountIDFound=true;
+      }else{
+        UserAccountIDFound=false;
+      }
       callback2(null,Data);
     }).catch(function(result2){
       console.log("Verify Error : "+result2);
