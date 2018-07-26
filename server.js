@@ -3409,6 +3409,8 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
                   res.send({UserInfoUpdateFailed:true});
                   }
               });
+            }else{
+              res.send({UserAccountIDExist:false});
             }
           });
           function UserAccountIDCheck(callback){
