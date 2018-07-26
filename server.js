@@ -1399,10 +1399,12 @@ app.get('/Login',function (req, res) {
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               UserInfoUserAccountID(UserAccountID,function(response){
                
-                if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+                if(!isNullOrEmpty(response)){
                    Email= response[0].Email;
                    PhoneNumber = response[0].PhoneNumber;
                   console.log("GetUserInfo" +AccountType);
+                  callback5(null,'5');
+                }else{
                   callback5(null,'5');
                 }
               });
