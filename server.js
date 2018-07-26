@@ -1284,7 +1284,7 @@ app.get('/Login',function (req, res) {
 
                       AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('5');
-                        console.obj(response3);
+                        console.log(response3);
                         let Data =[{Status:"Verified",
                         Controller:"/Login",
                         UserAccountID:UserAccountID,
