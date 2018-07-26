@@ -1842,7 +1842,7 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
           if(!isNullOrEmpty(response)&&response!=undefined){
             
           }else{
-            
+            res.send({SupportTicketUpdateFailed:true});
           }
         });
         res.send({Success:true});
