@@ -3390,7 +3390,7 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
       callback("error inserting " +error);
     });
 }
-app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber', function (req, res) {
+app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
@@ -3399,6 +3399,8 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
     if(!isNullOrEmpty(Email)){
       if(!isNullOrEmpty(PhoneNumber)){
         if(!isNullOrEmpty(TelephoneNumber)){
+          let UserAccountIDFound=false;
+
           UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
             if(response!=undefined){
               res.send(response);
@@ -3406,6 +3408,7 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
               res.send({UserInfoUpdateFailed:true});
             }
           });
+
         }else{
           res.send({TelephoneNumberExist:false});
         }
