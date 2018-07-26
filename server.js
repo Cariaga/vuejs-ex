@@ -1770,11 +1770,29 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(Status)){
+    async.series([UserAccountIDCheck],function(){
+
+    });
+    
     AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
       res.send(response);
     });
+    function UserAccountIDCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        let obj = response;
+        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+          UserAccountIDExist = true;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist = false;
+          callback(null,'1');
+        }
+      });
+    }
   }
 });
+
+
 function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   var item1 = Models.SupportTicket.build({
     UserAccountID:UserAccountID,
@@ -3418,7 +3436,6 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
               res.send({UserAccountIDExist:false});
             }
           });
-
           function UserAccountIDCheck(callback){
             isUserAccountIDExist(UserAccountID,function(response){
               let obj = response;
@@ -3445,6 +3462,8 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
     res.send({UserAccountIDExist:false});
   }
 });
+
+
 function UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
   Models.UserInfo.sync(/*{force:true}*/);
   Models.UserInfo.update({
