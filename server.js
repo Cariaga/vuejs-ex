@@ -1813,7 +1813,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Status)){
     let UserAccountIDExist = false;
-
+    let SupportTicketIDExist =false;
     async.series([UserAccountIDCheck],function(error,response){
       if(UserAccountIDExist==true){
         SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
@@ -1831,8 +1831,18 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
     });
     
     function SupportTicketIDCheck(callback){
-      callback(null,'1');
+     isUserAccountIDExist(UserAccountID,function(response){
+        let obj = response;
+        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].SupportTicketID==SupportTicketID){
+          SupportTicketIDExist = true;
+          callback(null,'1');
+        }else{
+          SupportTicketIDExist = false;
+          callback(null,'1');
+        }
+      });
     }
+
     function UserAccountIDCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         let obj = response;
@@ -1848,11 +1858,11 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   }
 });
 
-function isPlayerUserAccountIDExist(UserAccountID,callback){
-  Models.Player.sync();
+function isSupportTicketIDExist(UserAccountID,callback){
+  Models.SupportTicket.sync();
     let result = Models.Player.findAll({ 
       where: {
-        UserAccountID:UserAccountID,
+        SupportTicketID:UserAccountID,
         
      }
     }).then(function(result) {
