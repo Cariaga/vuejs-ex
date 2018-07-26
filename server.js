@@ -1267,13 +1267,15 @@ app.get('/Login',function (req, res) {
         let Name = undefined;
         let SurName = undefined;
         let Email= undefined;
-        let ContactNumber = undefined;
+        let PhoneNumber = undefined;
         let AccessType = undefined;
+        let AccessID = undefined;
         async.series([
           UserNameInternalValidate,
           UserAccountInternalValidate,
           UserAccountBlockedInternalValidate,
-          AccountTypeInternalValidate
+          AccountTypeInternalValidate,
+          GetUserInfo
         ], function (err, result) {//final function
           if(UserAccountID!=""){
             if(AccountVerified==true){
@@ -1298,7 +1300,7 @@ app.get('/Login',function (req, res) {
                         SurName:"",
                         Email:"",
                         ContactNumber:"",
-                        AccessType:""
+                        AccessID:AccessID
                       }
                       res.send(Data);
                       });
@@ -1320,7 +1322,7 @@ app.get('/Login',function (req, res) {
            isUserNameExist(UserName,function(response3){
              let obj = response3;
              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
-          
+                 AccessID = obj[0].AccessID;
                  UserAccountID= obj[0].UserAccountID;
                  console.log('UserNameInternalValidate '+UserAccountID)
                  callback(null,'1');
@@ -1393,16 +1395,10 @@ app.get('/Login',function (req, res) {
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               UserInfoUserAccountID(UserAccountID,function(response){
                 if(!isNullOrEmpty(response)){
-                
                   callback5(null,'5');
                 }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-                 
-                   Name = undefined;
-                   SurName = undefined;
-                   Email= undefined;
-                   ContactNumber = undefined;
-                   AccessType = undefined;
-
+                   Email= response[0].Email;
+                   PhoneNumber = response[0].PhoneNumber;
                   console.log("GetUserInfo" +AccountType);
                   callback5(null,'5');
                 }else{
@@ -1415,6 +1411,7 @@ app.get('/Login',function (req, res) {
               callback5(null,'5');
             }
           }
+          //PlayerUserAccountID
     
       }else{
         res.send("Invalid Password");
@@ -3885,6 +3882,29 @@ app.get('/Api/v1/Player', function (req, res) {
   }
  
 });
+
+function PlayerUserAccountID(UserAccountID,callback){
+  Models.Player.sync();
+    let result = Models.UserInfo.findAll({ 
+      where: {
+        UserAccountID:UserAccountID
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
+}
+
+
 app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {//check for validation only
   //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
   res.setHeader('Content-Type', 'application/json');
