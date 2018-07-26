@@ -2032,9 +2032,10 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             let UserAccountIDExist = false;
             let FoundBlackListID= undefined;//used to check if it matches the BlackListID params
             async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
-              if(FoundBlackListID == BlackListID){//it must match the id of the given params // for aditional validation besides UserAccountID
+             
                 if(BlackListID!=undefined){
-                  if(UserAccountIDExist==true){
+                  if(FoundBlackListID == BlackListID){//it must match the id of the given params // for aditional validation besides UserAccountID
+                    if(UserAccountIDExist==true){
                       if(Status=="Blocked"||Status=="Released"){
                         if(Status!=AccountStatus){
                           BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
@@ -2057,6 +2058,8 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
                 }else{
                   res.send({InvalidBlackListID:true});
                 }
+              }else{
+                res.send({InvalidBlackListID:true});
             }
         });
 
@@ -2077,7 +2080,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
             let obj = response;
             if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
               console.log('IsAccountBlockedCheck');
-              FoundBlackListID =obj[0].BlackListID;
+              FoundBlackListID =obj[0].BlackListID;//matching Blacklist ID
               AccountStatus=obj[0].Status;
               callback(null,'1');
             }else{
