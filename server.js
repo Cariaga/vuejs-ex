@@ -3399,7 +3399,9 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
     if(!isNullOrEmpty(Email)){
       if(!isNullOrEmpty(PhoneNumber)){
         if(!isNullOrEmpty(TelephoneNumber)){
+          UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
 
+          });
         }else{
           res.send({TelephoneNumberExist:false});
         }
@@ -3413,6 +3415,25 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
     res.send({UserAccountIDExist:false});
   }
 });
+function UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
+  Models.UserInfo.sync(/*{force:true}*/);
+  Models.UserInfo.update({
+    Email: Email,
+    PhoneNumber: PhoneNumber,
+    TelephoneNumber: TelephoneNumber
+  },{
+    where: {UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    res.send("Updated");
+  })
+  
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating");
+    res.send("Error Updating " +error);
+  });
+}
 app.get('/Api/v1/UserInfo/Clear', function (req, res){
   Models.UserInfo.destroy({
     where: {},
