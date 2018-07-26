@@ -1838,12 +1838,15 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
 
     async.series([UserAccountIDCheck],function(error,response){
       if(UserAccountIDExist==true){
+        SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
+
+        });
         res.send({Success:true});
       }else{
         res.send({UserAccountIDExist:false});
       }
     });
-
+    
     function UserAccountIDCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         let obj = response;
@@ -1856,29 +1859,29 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
         }
       });
     }
-
-    Models.SupportTicket.update({
-      UserAccountID: UserAccountID,
-      Title: Title,
-      Description: Description,
-      Reason: Reason,
-      Time: Time,
-      Date: Date,
-      Status: Status
-    },{
-      where: {SupportTicketID: SupportTicketID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    
-    .catch(error => {
-     
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    });
   }
 });
+
+function SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
+  Models.SupportTicket.update({
+    Title: Title,
+    Description: Description,
+    Reason: Reason,
+    Time: Time,
+    Date: Date,
+    Status: Status
+  },{
+    where: {SupportTicketID: SupportTicketID,UserAccountID:UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
+
 app.get('/Api/v1/SupportTicket/Clear', function (req, res){
   Models.SupportTicket.destroy({
     where: {},
