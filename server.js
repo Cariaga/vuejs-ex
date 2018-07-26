@@ -1279,13 +1279,10 @@ app.get('/Login',function (req, res) {
               console.log('3');
                 Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
                   console.log('4');
-                
-                
-
                       AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('5');
                         console.log(response3);
-                        let Data =[{Status:"Verified",
+                        let Data ={Status:"Verified",
                         Controller:"/Login",
                         UserAccountID:UserAccountID,
                         Solution:"No Issue",
@@ -1298,11 +1295,9 @@ app.get('/Login',function (req, res) {
                         Email:"",
                         ContactNumber:"",
                         AccessType:""
-                      }]
+                      }
                       res.send(Data);
                       });
-                    
-            
               }else{
                 let Data = {AccountStatus:AccountStatus};
                 res.send(Data);
