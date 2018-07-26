@@ -1770,13 +1770,20 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(Status)){
-    async.series([UserAccountIDCheck],function(){
-
+    let UserAccountIDExist =false;
+    async.series([UserAccountIDCheck],function(error,response){
+      if(UserAccountIDExist==true){
+        /*AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
+          res.send(response);
+        });*/
+        res.send({})
+      }else{
+        res.send({UserAccountIDExist:false});
+      }
     });
     
-    AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
-      res.send(response);
-    });
+    
+
     function UserAccountIDCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         let obj = response;
