@@ -1289,7 +1289,23 @@ app.get('/Login',function (req, res) {
                         console.log('5');
                         console.log(response3);
                         if(AccountType=="HeadOffice"){
-                          
+                           // we need diffrent Data for diffrent AccountType
+                           let Data ={Status:"Verified",
+                           Controller:"/Login",
+                           UserAccountID:UserAccountID,
+                           Solution:"No Issue",
+                           UserName:UserName,
+                           AccountStatus:AccountStatus,
+                           AccountType:AccountType,
+                           AccountVerified:AccountVerified,
+                           Name:"",
+                           SurName:"",
+                           Email:Email,
+                           ContactNumber:"",
+                           PhoneNumber:PhoneNumber,
+                           AccessID:AccessID
+                           }
+                           res.send(Data);
                         }
 
                        else if(AccountType=="Distributor"){
@@ -1312,10 +1328,44 @@ app.get('/Login',function (req, res) {
                              res.send(Data);
                         }
                        else if(AccountType=="Shop"){
-
+                         // we need diffrent Data for diffrent AccountType
+                         let Data ={Status:"Verified",
+                         Controller:"/Login",
+                         UserAccountID:UserAccountID,
+                         Solution:"No Issue",
+                         UserName:UserName,
+                         AccountStatus:AccountStatus,
+                         AccountType:AccountType,
+                         AccountVerified:AccountVerified,
+                         Name:"",
+                         SurName:"",
+                         Email:Email,
+                         ContactNumber:"",
+                         PhoneNumber:PhoneNumber,
+                         AccessID:AccessID
+                         }
+                         res.send(Data);
                         }
                        else if(AccountType=="Player"){
-
+                         // we need diffrent Data for diffrent AccountType
+                         let Data ={Status:"Verified",
+                         Controller:"/Login",
+                         UserAccountID:UserAccountID,
+                         Solution:"No Issue",
+                         UserName:UserName,
+                         AccountStatus:AccountStatus,
+                         AccountType:AccountType,
+                         AccountVerified:AccountVerified,
+                         Name:"",
+                         SurName:"",
+                         Email:Email,
+                         ContactNumber:"",
+                         PhoneNumber:PhoneNumber,
+                         AccessID:AccessID
+                         }
+                         res.send(Data);
+                        }else{
+                          res.send({UnknownAccoutType:true});
                         }
                       });
 
