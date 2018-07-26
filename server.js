@@ -1247,8 +1247,8 @@ app.get('/Login',function (req, res) {
   let DeviceCpu = req.query.DeviceCpu;
   let OperatingSystem = req.query.OperatingSystem;
   let GraphicsDevice = req.query.GraphicsDevice;
-  let Time = req.query.Time;
-  let Date = req.query.Date;
+  let Time = req.query.Time;//01:57:17
+  let Date = req.query.Date;//2018-06-27
   if(!isNullOrEmpty(DeviceUUID)&&
   !isNullOrEmpty(IP)&&
   !isNullOrEmpty(DeviceName)&&
@@ -2266,7 +2266,6 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
     callback("Inserted");
   })
   .catch(error => {
-  
     console.log("error inserting " +error);
     callback();
   });
