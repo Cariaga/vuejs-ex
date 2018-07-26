@@ -1833,7 +1833,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
     });
     
     function SupportTicketIDCheck(callback){
-     isUserAccountIDExist(UserAccountID,function(response){
+      isSupportTicketIDExist(UserAccountID,function(response){
         let obj = response;
         if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].SupportTicketID==SupportTicketID){
           SupportTicketIDExist = true;
