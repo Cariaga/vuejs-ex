@@ -1838,13 +1838,14 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
 
     async.series([UserAccountIDCheck],function(error,response){
       if(UserAccountIDExist==true){
-        SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
+       /* SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
           if(!isNullOrEmpty(response)&&response!=undefined){
-            
+            res.send(response);
           }else{
             res.send({SupportTicketUpdateFailed:true});
           }
-        });
+        });*/
+        
         res.send({Success:true});
       }else{
         res.send({UserAccountIDExist:false});
