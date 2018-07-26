@@ -1398,15 +1398,11 @@ app.get('/Login',function (req, res) {
             console.log("GetUserInfo");
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               UserInfoUserAccountID(UserAccountID,function(response){
-                if(!isNullOrEmpty(response)){
-                  callback5(null,'5');
-                }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+               
+                if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
                    Email= response[0].Email;
                    PhoneNumber = response[0].PhoneNumber;
                   console.log("GetUserInfo" +AccountType);
-                  callback5(null,'5');
-                }else{
-                  AccountType =response.AccountType;
                   callback5(null,'5');
                 }
               });
