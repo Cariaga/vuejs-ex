@@ -1387,10 +1387,9 @@ app.get('/Login',function (req, res) {
           function GetUserInfo(callback5){
             console.log("GetUserInfo");
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
-              UserInfo(UserAccountID,function(response){
+              UserInfoUserAccountID(UserAccountID,function(response){
                 if(!isNullOrEmpty(response)){
-                 // res.send({AccountType:response.AccountType});
-                  AccountType =response.AccountType;
+                
                   callback5(null,'5');
                 }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
                  
@@ -3369,8 +3368,6 @@ function UserInfoUserAccountID(UserAccountID,callback){
       }else{
         callback(undefined);
       }
-    
-
     }).catch(function(result) {//catching any then errors
       console.log("Error "+result);
       callback(undefined);
