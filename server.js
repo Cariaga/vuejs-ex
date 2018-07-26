@@ -1827,9 +1827,6 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
         }else{
           res.send({SupportTicketIDExist:false});
         }
-        
-
-        res.send({Success:true});
       }else{
         res.send({UserAccountIDExist:false});
       }
