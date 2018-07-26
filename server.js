@@ -2161,12 +2161,12 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
                     if(UserAccountIDExist==true){
                       if(Status=="Blocked"||Status=="Released"){
                         if(Status!=AccountStatus){
-                          BlackListUpdateStatus(BlackListID,UserAccountID,Status,function(response){
+                          BlackListStatusUpdate(BlackListID,UserAccountID,Status,function(response){
                             console.log("Status Set");
                             if(response!=undefined){
                               res.send(response);
                             }else{
-                              res.send("Not Found");
+                              res.send({BlackListStatusUpdateFailed:true});
                             }
                           });
                         }else{
@@ -2219,7 +2219,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     res.send("Missing BlackListID "+BlackListID);
   }
 });
-function BlackListUpdateStatus(BlackListID,UserAccountID,Status,callback){
+function BlackListStatusUpdate(BlackListID,UserAccountID,Status,callback){
   Models.BlackList.update({
     Status: Status
   },{
@@ -2249,7 +2249,7 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
       if(response!=undefined){
         res.send(response);
       }else{
-        res.send("Not Found");
+        res.send({BlackListUpdateFailed:true});
       }
     });
   }
@@ -3400,7 +3400,11 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
       if(!isNullOrEmpty(PhoneNumber)){
         if(!isNullOrEmpty(TelephoneNumber)){
           UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({UserInfoUpdateFailed:true});
+            }
           });
         }else{
           res.send({TelephoneNumberExist:false});
@@ -3771,7 +3775,7 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:Verifie
             if(!isNullOrEmpty(response)&&response!=undefined){
               res.send(response);
             }else{
-              res.send({UserAccountIDInvalid:true});
+              res.send({VerifyAccountUserAccountIDFailed:true});
             }
           });
         }else{
