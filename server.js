@@ -1776,7 +1776,7 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
         /*AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
           res.send(response);
         });*/
-        res.send({})
+        res.send({Success:true});
       }else{
         res.send({UserAccountIDExist:false});
       }
