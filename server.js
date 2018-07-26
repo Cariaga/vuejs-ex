@@ -3395,8 +3395,22 @@ app.get('/Api/v1/UserInfo/Update/:UserAccountID/:Email/:PhoneNumber/:TelephoneNu
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-    
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Email)){
+      if(!isNullOrEmpty(PhoneNumber)){
+        if(!isNullOrEmpty(TelephoneNumber)){
+
+        }else{
+          res.send({TelephoneNumberExist:false});
+        }
+      }else{
+        res.send({PhoneNumberExist:false});
+      }
+    }else{
+      res.send({EmailExist:false});
+    }
+  }else{
+    res.send({UserAccountIDExist:false});
   }
 });
 app.get('/Api/v1/UserInfo/Clear', function (req, res){
