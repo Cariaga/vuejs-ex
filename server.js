@@ -1281,26 +1281,8 @@ app.get('/Login',function (req, res) {
                   console.log('4');
                 
                   res.send({Success:true});
-              
-                  /*let result2 = Models.UserAccount.findAll({ 
-                    where: {
-                      UserName:UserName//not null
-                      ,
-                      Password:Password//not null
-                      }
-                  }).then(function(result3) {
-                    let Data = result3.map(function(item) {
-                        return item;
-                    });
-                    //--Validation For Login Start
-                    let VerifyResult = Data.find(function(element) {
-                      return element.Verify==true;
-                    });*/
 
-
-                  /*  if(VerifyResult==true){
-                      console.log('5');
-                      /*AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
+                      AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('6');
                         console.obj(response3);
                         let Data =[{Status:"Verified",
@@ -1314,35 +1296,9 @@ app.get('/Login',function (req, res) {
                         ContactNumber:"",
                         AccessType:""
                       }]
-                        res.send(Data);
-                      //  res.send(beautify(Data, null, 2, 100));
-                      });*/
-                 /*     let Data = {test:"test"};
-                      res.send(Data);
-                      //--Validation For Login End
+          
+                      });
             
-                    }else{
-                      let Data = [{
-                        Status:"Unverified",
-                        Controller:"/Login",
-                        Solution:"Check Mail For Verification",
-                        UserName:UserName,
-                        Name:"",
-                        SurName:"",
-                        Email:"",
-                        ContactNumber:"",
-                        AccessType:""
-                        
-                      }];
-                      res.send(Data);
-                    }
-                    //res.send(beautify(Data, null, 2, 100));
-            
-                  }).catch(function(result) {//catching any then errors
-                    res.send("Error "+result);
-                  });*/
-
-                //  callback3(null,'done');
               }else{
                 let Data = {AccountStatus:AccountStatus};
                 res.send(Data);
@@ -1489,9 +1445,15 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
   async.waterfall([
     myFirstFunction
  ], function (err, result) {//final function
-  VerifyAccountUserAccountID(UserAccountID,Verify,function(){
-    
-  });
+  if(UserAccountIDFound==true){
+    VerifyAccountUserAccountID(UserAccountID,Verify,function(response){
+      if(response!=undefined){
+        res.send({});
+      }
+    });
+  }else{
+    res.send({UserAccountIDInvalid:true});
+  }
      callback(result);
  });
   function myFirstFunction(callback2) {
