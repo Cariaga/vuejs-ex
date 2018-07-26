@@ -3364,11 +3364,16 @@ function UserInfoUserAccountID(UserAccountID,callback){
       let Data = result.map(function(item) {
           return item;
       });
-     
-      callback(Data);
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    
+
     }).catch(function(result) {//catching any then errors
       console.log("Error "+result);
-      callback();
+      callback(undefined);
     });
 }
 
