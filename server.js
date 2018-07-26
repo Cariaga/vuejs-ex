@@ -1264,7 +1264,11 @@ app.get('/Login',function (req, res) {
         let AccountStatus="";
         let AccountType =undefined;
         let AccountVerified=false;
-       
+        let Name = undefined;
+        let SurName = undefined;
+        let Email= undefined;
+        let ContactNumber = undefined;
+        let AccessType = undefined;
         async.series([
           UserNameInternalValidate,
           UserAccountInternalValidate,
@@ -1393,7 +1397,12 @@ app.get('/Login',function (req, res) {
                   callback5(null,'5');
                 }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
                  
-                  AccountType =response.AccountType;
+                   Name = undefined;
+                   SurName = undefined;
+                   Email= undefined;
+                   ContactNumber = undefined;
+                   AccessType = undefined;
+
                   console.log("GetUserInfo" +AccountType);
                   callback5(null,'5');
                 }else{
