@@ -1818,7 +1818,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
   });
 }
 
-app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
+app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
   // USAGE Api/v1/SupportTicket/Update/putek/eltit/tion/rason/12:34:56/2009-05-31/Nakaon
   let SupportTicketID = req.params.SupportTicketID;
   let UserAccountID = req.params.UserAccountID;
@@ -1931,7 +1931,6 @@ app.get('/Api/v1/SupportTicket/', function (req, res) {
       res.send("Error "+result);
     });
   }
-
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
   }
