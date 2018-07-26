@@ -1399,7 +1399,7 @@ app.get('/Login',function (req, res) {
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               UserInfoUserAccountID(UserAccountID,function(response){
                
-                if(!isNullOrEmpty(response)){
+                if(response!=undefined){
                    Email= response[0].Email;
                    PhoneNumber = response[0].PhoneNumber;
                   console.log("GetUserInfo" +AccountType);
@@ -1409,7 +1409,7 @@ app.get('/Login',function (req, res) {
                 }
               });
             }else{
-              console.log("Login myForthFunction Failed UserAccountID Empty");
+              console.log("Login GetUserInfo Failed UserAccountID");
               callback5(null,'5');
             }
           }
