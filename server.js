@@ -1357,6 +1357,7 @@ app.get('/Login',function (req, res) {
                          AccountType:AccountType,
                          AccountVerified:AccountVerified,
                          Name:"",
+                         
                          SurName:"",
                          Email:Email,
                          ContactNumber:"",
@@ -1366,13 +1367,21 @@ app.get('/Login',function (req, res) {
 
                          async.series([PlayerUserAccountIDInternal],function(err,response){
 
+                          res.send(Data);
                          });
-                         
-                         function PlayerUserAccountIDInternal(){
 
+                         function PlayerUserAccountIDInternal(callback6){
+                          PlayerUserAccountID(UserAccountID,function(response){
+                            if(response!=undefined){
+                             Data.ScreenName = response[0].ScreenName;
+                             Data.SurName = response[0].Surname;
+                            }else{
+                              res.send({InvalidUserAccountID:true});
+                            }
+                          });
                          }
 
-                         res.send(Data);
+                       
                         }else{
                           res.send({UnknownAccoutType:true});
                         }
