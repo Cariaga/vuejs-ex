@@ -3425,13 +3425,13 @@ function UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback
     where: {UserAccountID: UserAccountID }
   })
   .then(Success => {
-    res.send("Updated");
+    console.log("Updated");
+    callback("Updated");
   })
-  
   .catch(error => {
     // mhhh, wth!
-    console.log("Error Updating");
-    res.send("Error Updating " +error);
+    console.log("Error Updating " +error);
+    callback(undefined);
   });
 }
 app.get('/Api/v1/UserInfo/Clear', function (req, res){
