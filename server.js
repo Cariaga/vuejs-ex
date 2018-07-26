@@ -1264,10 +1264,9 @@ app.get('/Login',function (req, res) {
         let AccountStatus="";
         let AccountType =undefined;
         let AccountVerified=false;
-        let Name = undefined;
-        let SurName = undefined;
         let Email= undefined;
         let PhoneNumber = undefined;
+        let TelephoneNumber = undefined;
         let AccessType = undefined;
         let AccessID = undefined;
         async.series([
@@ -1494,6 +1493,7 @@ app.get('/Login',function (req, res) {
                 if(response!=undefined){
                    Email= response[0].Email;
                    PhoneNumber = response[0].PhoneNumber;
+                   TelephoneNumber = response[0].TelephoneNumber;
                   console.log("GetUserInfo" +AccountType);
                   callback5(null,'5');
                 }else{
