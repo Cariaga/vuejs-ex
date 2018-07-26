@@ -1839,14 +1839,17 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
     async.series([UserAccountIDCheck],function(error,response){
       if(UserAccountIDExist==true){
         SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
-
+          if(!isNullOrEmpty(response)&&response!=undefined){
+            
+          }else{
+            
+          }
         });
         res.send({Success:true});
       }else{
         res.send({UserAccountIDExist:false});
       }
     });
-    
     function UserAccountIDCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         let obj = response;
