@@ -1366,6 +1366,7 @@ app.get('/Login',function (req, res) {
                          Email:Email,
                          ContactNumber:"",
                          PhoneNumber:PhoneNumber,
+                         TelephoneNumber:TelephoneNumber,
                          AccessID:AccessID
                          }
                          let PlayerExist=false;
