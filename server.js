@@ -1781,9 +1781,6 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
         res.send({UserAccountIDExist:false});
       }
     });
-    
-    
-
     function UserAccountIDCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         let obj = response;
