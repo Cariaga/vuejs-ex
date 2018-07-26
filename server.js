@@ -1773,10 +1773,9 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
     let UserAccountIDExist =false;
     async.series([UserAccountIDCheck],function(error,response){
       if(UserAccountIDExist==true){
-        /*AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
+        AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
           res.send(response);
-        });*/
-        res.send({Success:true});
+        });
       }else{
         res.send({UserAccountIDExist:false});
       }
@@ -1795,8 +1794,6 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
     }
   }
 });
-
-
 function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   var item1 = Models.SupportTicket.build({
     UserAccountID:UserAccountID,
@@ -1820,6 +1817,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
     callback("error inserting " +error);
   });
 }
+
 app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
   // USAGE Api/v1/SupportTicket/Update/putek/eltit/tion/rason/12:34:56/2009-05-31/Nakaon
   let SupportTicketID = req.params.SupportTicketID;
@@ -1836,6 +1834,29 @@ app.get('/Api/v1/SupportTicket/Update/:SupportTicketID/:UserAccountID/:Title/:De
   !isNullOrEmpty(Reason)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Status)){
+    let UserAccountIDExist = false;
+
+    async.series([UserAccountIDCheck],function(error,response){
+      if(UserAccountIDExist==true){
+        res.send({Success:true});
+      }else{
+        res.send({UserAccountIDExist:false});
+      }
+    });
+
+    function UserAccountIDCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        let obj = response;
+        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+          UserAccountIDExist = true;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist = false;
+          callback(null,'1');
+        }
+      });
+    }
+
     Models.SupportTicket.update({
       UserAccountID: UserAccountID,
       Title: Title,
