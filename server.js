@@ -1288,8 +1288,8 @@ app.get('/Login',function (req, res) {
                       AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('5');
                         console.log(response3);
-                        if(AccountType==""){
-                       
+                        if(AccountType=="HeadOffice"){
+                          
                         }
 
                        else if(AccountType=="Distributor"){
@@ -1311,10 +1311,10 @@ app.get('/Login',function (req, res) {
                              }
                              res.send(Data);
                         }
-                       else if(AccountType==""){
+                       else if(AccountType=="Shop"){
 
                         }
-                       else if(AccountType==""){
+                       else if(AccountType=="Player"){
 
                         }
                       });
