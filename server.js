@@ -3399,15 +3399,30 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
     if(!isNullOrEmpty(Email)){
       if(!isNullOrEmpty(PhoneNumber)){
         if(!isNullOrEmpty(TelephoneNumber)){
-          let UserAccountIDFound=false;
-
-          UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({UserInfoUpdateFailed:true});
+          let UserAccountIDExist=false;
+          async.series([UserAccountIDCheck],function(error,response){
+            if(UserAccountIDCheck==true){
+              UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send({UserInfoUpdateFailed:true});
+                  }
+              });
             }
           });
+          function UserAccountIDCheck(callback){
+            isUserAccountIDExist(UserAccountID,function(response){
+              let obj = response;
+              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                UserAccountIDExist = true;
+                callback(null,'1');
+              }else{
+                UserAccountIDExist = false;
+                callback(null,'1');
+              }
+            });
+          }
 
         }else{
           res.send({TelephoneNumberExist:false});
