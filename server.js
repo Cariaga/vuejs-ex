@@ -1275,7 +1275,7 @@ app.get('/Login',function (req, res) {
           UserAccountInternalValidate,
           UserAccountBlockedInternalValidate,
           AccountTypeInternalValidate,
-          GetUserInfo
+          GetUserInfoInternalValidate
         ], function (err, result) {//final function
           if(UserAccountID!=""){
             if(AccountVerified==true){
@@ -1288,26 +1288,37 @@ app.get('/Login',function (req, res) {
                       AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('5');
                         console.log(response3);
+                        if(AccountType==""){
+                       
+                        }
 
-                        // we need diffrent Data for diffrent AccountType
-                        let Data ={Status:"Verified",
-                        Controller:"/Login",
-                        UserAccountID:UserAccountID,
-                        Solution:"No Issue",
-                        UserName:UserName,
-                        AccountStatus:AccountStatus,
-                        AccountType:AccountType,
-                        AccountVerified:AccountVerified,
-                        Name:"",
-                        SurName:"",
-                        Email:Email,
-                        ContactNumber:"",
-                        PhoneNumber:PhoneNumber,
-                        AccessID:AccessID
-                      }
-                      res.send(Data);
+                       else if(AccountType=="Distributor"){
+                             // we need diffrent Data for diffrent AccountType
+                             let Data ={Status:"Verified",
+                             Controller:"/Login",
+                             UserAccountID:UserAccountID,
+                             Solution:"No Issue",
+                             UserName:UserName,
+                             AccountStatus:AccountStatus,
+                             AccountType:AccountType,
+                             AccountVerified:AccountVerified,
+                             Name:"",
+                             SurName:"",
+                             Email:Email,
+                             ContactNumber:"",
+                             PhoneNumber:PhoneNumber,
+                             AccessID:AccessID
+                             }
+                             res.send(Data);
+                        }
+                       else if(AccountType==""){
 
+                        }
+                       else if(AccountType==""){
+
+                        }
                       });
+
               }else{
                 let Data = {AccountStatus:AccountStatus};
                 res.send(Data);
@@ -1394,7 +1405,7 @@ app.get('/Login',function (req, res) {
             }
           }
 
-          function GetUserInfo(callback5){
+          function GetUserInfoInternalValidate(callback5){
             console.log("GetUserInfo");
             if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
               UserInfoUserAccountID(UserAccountID,function(response){
@@ -1413,6 +1424,9 @@ app.get('/Login',function (req, res) {
               callback5(null,'5');
             }
           }
+
+          
+
           //PlayerUserAccountID
     
       }else{
