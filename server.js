@@ -1288,6 +1288,8 @@ app.get('/Login',function (req, res) {
                       AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
                         console.log('5');
                         console.log(response3);
+
+                        // we need diffrent Data for diffrent AccountType
                         let Data ={Status:"Verified",
                         Controller:"/Login",
                         UserAccountID:UserAccountID,
@@ -1304,6 +1306,7 @@ app.get('/Login',function (req, res) {
                         AccessID:AccessID
                       }
                       res.send(Data);
+
                       });
               }else{
                 let Data = {AccountStatus:AccountStatus};
