@@ -3406,7 +3406,7 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
         if(!isNullOrEmpty(TelephoneNumber)){
           let UserAccountIDExist=false;
           async.series([UserAccountIDCheck],function(error,response){
-            if(UserAccountIDCheck==true){
+            if(UserAccountIDExist==true){
               UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
                 if(!isNullOrEmpty(response)&&response!=undefined){
                   res.send(response);
@@ -3418,6 +3418,7 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
               res.send({UserAccountIDExist:false});
             }
           });
+
           function UserAccountIDCheck(callback){
             isUserAccountIDExist(UserAccountID,function(response){
               let obj = response;
