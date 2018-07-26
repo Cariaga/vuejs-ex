@@ -1383,6 +1383,30 @@ app.get('/Login',function (req, res) {
               callback4(null,'4');
             }
           }
+
+          function GetUserInfo(callback5){
+            console.log("GetUserInfo");
+            if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
+              UserInfo(UserAccountID,function(response){
+                if(!isNullOrEmpty(response)){
+                 // res.send({AccountType:response.AccountType});
+                  AccountType =response.AccountType;
+                  callback5(null,'5');
+                }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+                 
+                  AccountType =response.AccountType;
+                  console.log("GetUserInfo" +AccountType);
+                  callback5(null,'5');
+                }else{
+                  AccountType =response.AccountType;
+                  callback5(null,'5');
+                }
+              });
+            }else{
+              console.log("Login myForthFunction Failed UserAccountID Empty");
+              callback5(null,'5');
+            }
+          }
     
       }else{
         res.send("Invalid Password");
