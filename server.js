@@ -1298,8 +1298,9 @@ app.get('/Login',function (req, res) {
                         AccountVerified:AccountVerified,
                         Name:"",
                         SurName:"",
-                        Email:"",
+                        Email:Email,
                         ContactNumber:"",
+                        PhoneNumber:PhoneNumber,
                         AccessID:AccessID
                       }
                       res.send(Data);
