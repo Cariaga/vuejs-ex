@@ -1834,6 +1834,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
     
     function SupportTicketIDCheck(callback){
       isSupportTicketIDExist(UserAccountID,function(response){
+        console.log('1');
         let obj = response;
         if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].SupportTicketID==SupportTicketID){
           SupportTicketIDExist = true;
@@ -1845,15 +1846,16 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
       });
     }
 
-    function UserAccountIDCheck(callback){
+    function UserAccountIDCheck(callback2){
       isUserAccountIDExist(UserAccountID,function(response){
+        console.log('2');
         let obj = response;
         if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
           UserAccountIDExist = true;
-          callback(null,'2');
+          callback2(null,'2');
         }else{
           UserAccountIDExist = false;
-          callback(null,'2');
+          callback2(null,'2');
         }
       });
     }
