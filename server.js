@@ -4036,16 +4036,21 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
         }
       });
       function UserAccountIDCheck(callback){
-        isUserAccountIDExist(UserAccountID,function(response){
-          let obj = response;
-          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-            UserAccountIDExist = true;
-            callback(null,'1');
-          }else{
-            UserAccountIDExist = false;
-            callback(null,'1');
-          }
-        });
+        if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
+          isUserAccountIDExist(UserAccountID,function(response){
+            let obj = response;
+            if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+              UserAccountIDExist = true;
+              callback(null,'1');
+            }else{
+              UserAccountIDExist = false;
+              callback(null,'1');
+            }
+          });
+        }else{
+        
+          callback(null,'1');
+        }
       }
       function PlayerCurrentPointsCheck(callback){
         if(UserAccountIDExist!=undefined){
@@ -4055,15 +4060,14 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
               CurrentPoints = obj[0].CurrentPoints;
               callback(null,'1');
             }else{
-              res.send({UserAccountIDExistFailed:false});
+              CurrentPoints = undefined;
               callback(null,'1');
             }
           });
         }else{
-          res.send({UserAccountIDExist:false});
+          callback(null,'1');
         }
       }
-
     }else{
       res.send({PointEmpty:true});
     }
