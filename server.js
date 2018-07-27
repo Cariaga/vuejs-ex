@@ -4071,7 +4071,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
           }
         }
       }else{
-        res.send({});
+        res.send({PointInvalidValue:true});
       }
     }else{
       res.send({PointEmpty:true});
