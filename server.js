@@ -4058,7 +4058,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
         if(UserAccountIDExist!=undefined){
           PlayerUserAccountID(UserAccountID,function(response){
             let obj = response;
-            if(response!=undefined&&obj[0].CurrentPoints!=undefined){
+            if(obj!=undefined&&obj[0].CurrentPoints!=undefined){
               CurrentPoints = obj[0].CurrentPoints;
               callback(null,'1');
             }else{
@@ -4257,7 +4257,7 @@ app.get('/Api/v1/Player', function (req, res) {
 
 function PlayerUserAccountID(UserAccountID,callback){
   Models.Player.sync();
-    let result = Models.UserInfo.findAll({ 
+    let result = Models.Player.findAll({ 
       where: {
         UserAccountID:UserAccountID
      }
