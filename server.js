@@ -1833,7 +1833,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
     });
     
     function SupportTicketIDCheck(callback){
-      isSupportTicketIDExist(UserAccountID,function(response){
+      isSupportTicketIDExist(SupportTicketID,function(response){
         console.log('1');
         let obj = response;
         if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].SupportTicketID==SupportTicketID){
@@ -1862,7 +1862,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   }
 });
 
-function isSupportTicketIDExist(callback){
+function isSupportTicketIDExist(SupportTicketID,callback){
   Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
       where: {
