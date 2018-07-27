@@ -4012,6 +4012,41 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
 
+app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let CurrentRoomName = req.params.CurrentRoomName;
+  let Point = req.params.Point;
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(CurrentRoomName)){
+      let UserAccountIDExist =false;
+      async.series([UserAccountIDCheck],function(error,response){
+        if(UserAccountIDExist==true){
+          
+        }else{
+          res.send({UserAccountIDExist:false});
+        }
+      });
+      function UserAccountIDCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          let obj = response;
+          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+            UserAccountIDExist = true;
+            callback(null,'1');
+          }else{
+            UserAccountIDExist = false;
+            callback(null,'1');
+          }
+        });
+      }
+
+    }else{
+      res.send({CurrentRoomNameEmpty:true});
+    }
+  }else{
+    res.send({UserAccountIDEmpty:true});
+  }
+});
+
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let CurrentRoomName = req.params.CurrentRoomName;
@@ -4051,6 +4086,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
     res.send({UserAccountIDEmpty:true});
   }
 });
+
 function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
   Models.Player.update({
     CurrentRoomName: CurrentRoomName
