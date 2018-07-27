@@ -4026,13 +4026,13 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
           
           if(UserAccountIDExist==true){
             res.send({NewPoints:NewPoints});
-            /*PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
+            PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
               if(response!=undefined){
                 res.send(response);
               }else{
                 res.send({PlayerUpdatePointFailed:true});
               }
-            });*/
+            });
           }else{
             res.send({UserAccountIDExist:false});
           }
