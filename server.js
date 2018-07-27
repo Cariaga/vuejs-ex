@@ -1979,7 +1979,7 @@ app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', fun
     if(isNullOrEmpty(Status)){
       SupportTicketUserAccountIDByStatus(UserAccountID,Status,function(response){
         if(response!=undefined){
-
+          res.send(response);
         }else{
           res.send({SupportTicketUserAccountIDByStatusFailed:true});
         }
