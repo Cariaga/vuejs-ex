@@ -4011,6 +4011,32 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
+app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let CurrentRoomName = req.params.CurrentRoomName;
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(CurrentRoomName)){
+      Models.Player.update({
+        CurrentRoomName: CurrentRoomName
+      },{
+        where: {UserAccountID: UserAccountID }
+      })
+      .then(Success => {
+        res.send("Updated");
+      })
+      .catch(error => {
+        // mhhh, wth!
+        console.log("Error Updating");
+        res.send("Error Updating " +error);
+      });
+    }else{
+      res.send({CurrentRoomName:CurrentRoomName});
+    }
+  }else{
+    res.send({UserAccountID:UserAccountID});
+  }
+});
+
 app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
   let PlayersID = req.params.PlayersID;
   let UserAccountID = req.params.UserAccountID;
@@ -4047,6 +4073,8 @@ app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Na
     });
   }
 });
+
+
 app.get('/Api/v1/Player/Clear', function (req, res){
   Models.Player.destroy({
     where: {},
