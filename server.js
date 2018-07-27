@@ -4011,18 +4011,42 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
+
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let CurrentRoomName = req.params.CurrentRoomName;
   if(!isNullOrEmpty(UserAccountID)){
     if(!isNullOrEmpty(CurrentRoomName)){
-      PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
-        if(response!=null){
-          res.send(response);
-        }else{
-          res.send({PayerUpdateRoomNameUpdateFailed:true});
+      let UserAccountIDExist =false;
+      async.series([UserAccountIDCheck],function(error,response){
+        if(UserAccountIDExist){
+        PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
+            if(response!=null){
+              res.send(response);
+            }else{
+              res.send({PayerUpdateRoomNameUpdateFailed:true});
+            }
+        });
         }
+        
       });
+      
+      
+
+
+      function UserAccountIDCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          let obj = response;
+          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+            UserAccountIDExist = true;
+            callback(null,'1');
+          }else{
+            UserAccountIDExist = false;
+            callback(null,'1');
+          }
+        });
+      }
+
     }else{
       res.send({CurrentRoomNameEmpty:true});
     }
