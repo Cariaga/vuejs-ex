@@ -1971,6 +1971,29 @@ app.get('/Api/v1/SupportTicket/', function (req, res) {
   }
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/SupportTicket/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.SupportTicket.sync();
+    let result = Models.SupportTicket.findAll({ 
+      where: {
+        SupportTicketID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+
+      res.send("Error "+result);
+    });
+  }
+});
 app.get('/SupportTicket/Request', function (req, res) {
   
   let UserAccountID = req.query.UserAccountID;
