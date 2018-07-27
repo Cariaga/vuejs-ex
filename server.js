@@ -4019,14 +4019,16 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
     if(!isNullOrEmpty(CurrentRoomName)){
       let UserAccountIDExist =false;
       async.series([UserAccountIDCheck],function(error,response){
-        if(UserAccountIDExist){
-        PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
-            if(response!=null){
-              res.send(response);
-            }else{
-              res.send({PayerUpdateRoomNameUpdateFailed:true});
-            }
-        });
+        if(UserAccountIDExist==true){
+          PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
+              if(response!=null){
+                res.send(response);
+              }else{
+                res.send({PayerUpdateRoomNameUpdateFailed:true});
+              }
+          });
+        }else{
+          res.send({});
         }
       });
       
