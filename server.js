@@ -1814,7 +1814,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   !isNullOrEmpty(Status)){
     let UserAccountIDExist = false;
     let SupportTicketIDExist =false;
-    async.series([UserAccountIDCheck,SupportTicketIDCheck],function(error,response){
+    async.series([SupportTicketIDCheck,UserAccountIDCheck],function(error,response){
       if(UserAccountIDExist==true){
         if(SupportTicketIDExist==true){
           SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
@@ -1862,7 +1862,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   }
 });
 
-function isSupportTicketIDExist(UserAccountID,callback){
+function isSupportTicketIDExist(callback){
   Models.SupportTicket.sync();
     let result = Models.PSupportTicketayer.findAll({ 
       where: {
