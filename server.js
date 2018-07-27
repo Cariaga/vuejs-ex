@@ -4022,20 +4022,30 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
         let CurrentPoints = undefined;
         async.series([UserAccountIDCheck,PlayerCurrentPointsCheck],function(error,response){
           let NewPoints = parseInt(CurrentPoints)+parseInt(Point);
-          if(NewPoints>=0){
-            if(UserAccountIDExist==true){
-              res.send({NewPoints:NewPoints});
-              PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
-                if(response!=undefined){
-                  res.send(response);
+          if(!(parseInt(Point)<0)){
+            if(parseInt(Point)!=0){
+              if(NewPoints>=0){
+                if(UserAccountIDExist==true){
+                  res.send({NewPoints:NewPoints});
+                  PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
+                    if(response!=undefined){
+                      res.send(response);
+                    }else{
+                      res.send({PlayerUpdatePointFailed:true});
+                    }
+                  });
                 }else{
-                  res.send({PlayerUpdatePointFailed:true});
+                  res.send({UserAccountIDExist:false});
                 }
-              });
+              }
             }else{
-              res.send({UserAccountIDExist:false});
+              res.send({NothingToAdd:true});
             }
+          }else{
+            res.send({IsPointNegativeValue:true});
           }
+          
+          
          
 
         });
