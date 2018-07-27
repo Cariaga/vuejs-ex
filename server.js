@@ -4030,10 +4030,10 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
         res.send("Error Updating " +error);
       });
     }else{
-      res.send({CurrentRoomName:CurrentRoomName});
+      res.send({CurrentRoomNameEmpty:true});
     }
   }else{
-    res.send({UserAccountID:UserAccountID});
+    res.send({UserAccountIDEmpty:UserAccountID});
   }
 });
 
