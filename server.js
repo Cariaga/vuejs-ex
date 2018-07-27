@@ -3909,8 +3909,8 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
         res.send("Duplicate UserAccountID AccountType");
       }
-      else{
-        res.send({});
+      else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
+        res.send("No Account No Duplicate");
       }
     });
   }else{
@@ -4033,7 +4033,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
       res.send({CurrentRoomNameEmpty:true});
     }
   }else{
-    res.send({UserAccountIDEmpty:UserAccountID});
+    res.send({UserAccountIDEmpty:true});
   }
 });
 
