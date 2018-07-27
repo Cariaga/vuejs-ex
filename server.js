@@ -1975,8 +1975,8 @@ app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', fun
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
-  if(isNullOrEmpty(UserAccountID)){
-    if(isNullOrEmpty(Status)){
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Status)){
       SupportTicketUserAccountIDByStatus(UserAccountID,Status,function(response){
         if(response!=undefined){
           res.send(response);
@@ -1988,7 +1988,7 @@ app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', fun
       res.send({InvalidStatusType:true});
     }
   }else{
-    res.send({IsInvalidUserAccountID:true});
+    res.send({InvalidUserAccountID:true});
   }
 });
 function SupportTicketUserAccountIDByStatus(UserAccountID,Status,callback){
