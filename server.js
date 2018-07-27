@@ -1363,7 +1363,7 @@ app.get('/Login',function (req, res) {
                          });
 
                          function PlayerUserAccountIDInternal(callback6){
-                          PlayerUserAccountID(UserAccountID,function(response){
+                          UserInfoUserAccountID(UserAccountID,function(response){
                             if(response!=undefined){
                              Data.ScreenName = response[0].ScreenName;
                              Data.SurName = response[0].Surname;
@@ -4078,6 +4078,28 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
   }
 });
 
+function PlayerUserAccountID(UserAccountID,callback){
+  Models.Player.sync();
+  let result = Models.Player.findAll({ 
+    where: {
+      UserAccountID:UserAccountID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  
+  }).catch(function(result) {
+
+    callback("Error "+result);
+  });
+}
+
 function PlayerUpdatePoint(UserAccountID,CurrentPoints,callback){
   Models.Player.update({
     CurrentPoints: CurrentPoints
@@ -4255,9 +4277,9 @@ app.get('/Api/v1/Player', function (req, res) {
  
 });
 
-function PlayerUserAccountID(UserAccountID,callback){
-  Models.Player.sync();
-    let result = Models.Player.findAll({ 
+function UserInfoUserAccountID(UserAccountID,callback){
+  Models.UserInfo.sync();
+    let result = Models.UserInfo.findAll({ 
       where: {
         UserAccountID:UserAccountID
      }
