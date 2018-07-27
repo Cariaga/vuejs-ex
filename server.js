@@ -1866,8 +1866,7 @@ function isSupportTicketIDExist(callback){
   Models.SupportTicket.sync();
     let result = Models.PSupportTicketayer.findAll({ 
       where: {
-        SupportTicketID:UserAccountID,
-        
+        SupportTicketID:SupportTicketID
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
