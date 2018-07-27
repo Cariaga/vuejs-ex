@@ -4035,18 +4035,6 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
           res.send({UserAccountIDExist:false});
         }
       });
-
-      function PlayerCurrentPointsCheck(callback){
-        PlayerUserAccountID(UserAccountID,function(response){
-          let obj = response;
-          if(response!=undefined){
-            CurrentPoints = obj[0].CurrentPoints;
-          }else{
-            res.send({UserAccountIDExistFailed:false});
-          }
-        });
-      }
-
       function UserAccountIDCheck(callback){
         isUserAccountIDExist(UserAccountID,function(response){
           let obj = response;
@@ -4059,6 +4047,23 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
           }
         });
       }
+      function PlayerCurrentPointsCheck(callback){
+        if(UserAccountIDExist!=undefined){
+          PlayerUserAccountID(UserAccountID,function(response){
+            let obj = response;
+            if(response!=undefined&&obj[0].CurrentPoints!=undefined){
+              CurrentPoints = obj[0].CurrentPoints;
+              callback(null,'1');
+            }else{
+              res.send({UserAccountIDExistFailed:false});
+              callback(null,'1');
+            }
+          });
+        }else{
+          res.send({UserAccountIDExist:false});
+        }
+      }
+
     }else{
       res.send({PointEmpty:true});
     }
