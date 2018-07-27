@@ -4014,18 +4014,38 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
 
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
-  let CurrentRoomName = req.params.CurrentRoomName;
   let Point = req.params.Point;
+
   if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(CurrentRoomName)){
+    if(!isNullOrEmpty(Point)){
+
       let UserAccountIDExist =false;
-      async.series([UserAccountIDCheck],function(error,response){
+      let CurrentPoints = undefined;
+      let NewPoints = CurrentPoints+Point;
+      async.series([UserAccountIDCheck,PlayerCurrentPointsCheck],function(error,response){
         if(UserAccountIDExist==true){
-          
+          PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
+            if(response!=undefined){
+              
+            }else{
+              res.send({PlayerUpdatePointFailed:true});
+            }
+          });
         }else{
           res.send({UserAccountIDExist:false});
         }
       });
+
+      function PlayerCurrentPointsCheck(callback){
+        PlayerUserAccountID(UserAccountID,function(response){
+          if(response!=undefined){
+            
+          }else{
+            res.send({UserAccountIDExistFailed:false});
+          }
+        });
+      }
+
       function UserAccountIDCheck(callback){
         isUserAccountIDExist(UserAccountID,function(response){
           let obj = response;
@@ -4038,14 +4058,29 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
           }
         });
       }
-
     }else{
-      res.send({CurrentRoomNameEmpty:true});
+      res.send({PointEmpty:true});
     }
   }else{
     res.send({UserAccountIDEmpty:true});
   }
 });
+
+function PlayerUpdatePoint(UserAccountID,CurrentPoints,callback){
+  Models.Player.update({
+    CurrentPoints: CurrentPoints
+  },{
+    where: {UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
 
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
@@ -4086,6 +4121,8 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
     res.send({UserAccountIDEmpty:true});
   }
 });
+
+
 
 function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
   Models.Player.update({
