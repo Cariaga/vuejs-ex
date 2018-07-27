@@ -4031,10 +4031,6 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
           res.send({UserAccountIDExist:false});
         }
       });
-      
-      
-
-
       function UserAccountIDCheck(callback){
         isUserAccountIDExist(UserAccountID,function(response){
           let obj = response;
