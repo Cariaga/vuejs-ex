@@ -1864,7 +1864,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
 
 function isSupportTicketIDExist(callback){
   Models.SupportTicket.sync();
-    let result = Models.PSupportTicketayer.findAll({ 
+    let result = Models.SupportTicket.findAll({ 
       where: {
         SupportTicketID:SupportTicketID
      }
