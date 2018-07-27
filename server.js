@@ -1971,11 +1971,28 @@ app.get('/Api/v1/SupportTicket/', function (req, res) {
   }
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
-app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID', function (req, res) {
+app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
+  let Status = req.params.Status;
   if(isNullOrEmpty(UserAccountID)){
-    Models.SupportTicket.sync();
+    if(isNullOrEmpty(Status)){
+      SupportTicketUserAccountIDByStatus(UserAccountID,Status,function(response){
+        if(response!=undefined){
+
+        }else{
+          res.send({SupportTicketUserAccountIDByStatusFailed:true});
+        }
+      });
+    }else{
+      res.send({InvalidStatusType:true});
+    }
+  }else{
+    res.send({IsInvalidUserAccountID:true});
+  }
+});
+function SupportTicketUserAccountIDByStatus(UserAccountID,Status,callback){
+  Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
       where: {
         UserAccountID:UserAccountID,Status:Status
@@ -1990,10 +2007,10 @@ app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID', function (req, res
         callback(undefined);
       }
     }).catch(function(result) {//catching any then errors
-      res.send("Error "+result);
+      console.log("Error "+result);
+      callback(undefined);
     });
-  }
-});
+}
 app.get('/SupportTicket/Request', function (req, res) {
   
   let UserAccountID = req.query.UserAccountID;
