@@ -4079,7 +4079,6 @@ app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Na
       res.send("Error Updating " +error);
     });
   }
-
 });
 
 
