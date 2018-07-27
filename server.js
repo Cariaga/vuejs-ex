@@ -4073,13 +4073,13 @@ app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Na
     .then(Success => {
       res.send("Updated");
     })
-    
     .catch(error => {
       // mhhh, wth!
       console.log("Error Updating");
       res.send("Error Updating " +error);
     });
   }
+
 });
 
 
