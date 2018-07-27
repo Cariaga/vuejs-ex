@@ -4028,7 +4028,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
               }
           });
         }else{
-          res.send({});
+          res.send({UserAccountIDExist:false});
         }
       });
       
