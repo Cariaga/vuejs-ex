@@ -4023,10 +4023,11 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
       let CurrentPoints = undefined;
       async.series([UserAccountIDCheck,PlayerCurrentPointsCheck],function(error,response){
         let NewPoints = CurrentPoints+Point;
+        
         if(UserAccountIDExist==true){
           PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
             if(response!=undefined){
-              
+              res.send(response);
             }else{
               res.send({PlayerUpdatePointFailed:true});
             }
