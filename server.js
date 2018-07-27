@@ -4102,26 +4102,31 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Subtract/Point/:Poin
         let CurrentPoints = undefined;
         async.series([UserAccountIDCheck,PlayerCurrentPointsCheck],function(error,response){
           let NewPoints = parseInt(CurrentPoints)-parseInt(Point);
-          if(parseInt(Point)!=0){
-            if(NewPoints>=0){
-              if(UserAccountIDExist==true){
-                res.send({NewPoints:NewPoints});
-                PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send({PlayerUpdatePointFailed:true});
-                  }
-                });
+           if(!(parseInt(Point)<0)){
+            if(parseInt(Point)!=0){
+              if(NewPoints>=0){
+                if(UserAccountIDExist==true){
+                  res.send({NewPoints:NewPoints});
+                  PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
+                    if(response!=undefined){
+                      res.send(response);
+                    }else{
+                      res.send({PlayerUpdatePointFailed:true});
+                    }
+                  });
+                }else{
+                  res.send({UserAccountIDExist:false});
+                }
               }else{
-                res.send({UserAccountIDExist:false});
+                res.send({NotEnoughPoints:true});
               }
             }else{
-              res.send({NotEnoughPoints:true});
+              res.send({NothingToSubtract:true});
             }
-          }else{
-            res.send({NothingToSubtract:true});
-          }
+           }else{
+            res.send({IsPointNegativeValue:true});
+           }
+          
         });
         function UserAccountIDCheck(callback){
           if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
