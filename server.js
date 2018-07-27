@@ -4018,7 +4018,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
 
   if(!isNullOrEmpty(UserAccountID)){
     if(!isNullOrEmpty(Point)){
-      if(validator.isInt(Point)==true){
+      if(isInt(Point)==true){
         let UserAccountIDExist =false;
         let CurrentPoints = undefined;
         async.series([UserAccountIDCheck,PlayerCurrentPointsCheck],function(error,response){
