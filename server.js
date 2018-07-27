@@ -4016,18 +4016,12 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
   let CurrentRoomName = req.params.CurrentRoomName;
   if(!isNullOrEmpty(UserAccountID)){
     if(!isNullOrEmpty(CurrentRoomName)){
-      Models.Player.update({
-        CurrentRoomName: CurrentRoomName
-      },{
-        where: {UserAccountID: UserAccountID }
-      })
-      .then(Success => {
-        res.send("Updated");
-      })
-      .catch(error => {
-        // mhhh, wth!
-        console.log("Error Updating");
-        res.send("Error Updating " +error);
+      PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
+        if(response!=null){
+          res.send(response);
+        }else{
+          res.send({PayerUpdateRoomNameUpdateFailed:true});
+        }
       });
     }else{
       res.send({CurrentRoomNameEmpty:true});
@@ -4036,7 +4030,21 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
     res.send({UserAccountIDEmpty:true});
   }
 });
-
+function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
+  Models.Player.update({
+    CurrentRoomName: CurrentRoomName
+  },{
+    where: {UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
   let PlayersID = req.params.PlayersID;
   let UserAccountID = req.params.UserAccountID;
