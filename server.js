@@ -3495,6 +3495,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoundID/:R
   }*/
 });
 function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,callback){
+  Models.GameHistory.sync();
   var item1 = Models.GameHistory.build({
     UserAccountID:UserAccountID,
     RoundID:RoundID,
