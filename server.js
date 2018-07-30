@@ -3469,7 +3469,7 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
   let Date = req.params.Date;
   let BeforePoints = req.params.BeforePoints;
   let AfterPoints = req.params.AfterPoints;
-  
+
   if(!isNullOrEmpty(GameHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(RoomID)){
@@ -3481,6 +3481,19 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
                   if(!isNullOrEmpty(Date)){
                     if(!isNullOrEmpty(BeforePoints)){
                       if(!isNullOrEmpty(AfterPoints)){
+
+                        async.series([IsUserAccountIDExistCheck,IsGameHistoryIDExistCheck],function(error,response){
+
+                        });
+                        function IsUserAccountIDExistCheck(){
+
+                        }
+                        function IsGameHistoryIDExistCheck(){
+
+                        }
+                     
+
+
                         res.send({success:true});
                       }else{
                         res.send({AfterPointsMissing:true});
