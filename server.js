@@ -3576,12 +3576,19 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                                   let isUserAccountIDExistFound = false;
                                   let isRoomIDFound =false;
                                   async.series([IsUserAccountIDExistCheck],function(error,response){
+                                 
                                     if(isUserAccountIDExistFound==true){
-                                      AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
-                                        res.send(response);
-                                      });
+                                      if(isRoomIDFound==true){
+                                        AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
+                                          res.send(response);
+                                        });
+                                      }else{
+                                        res.send({UserIDExist:false});
+                                      }
+                                      
+
                                     }else{
-                                      res.send({});
+                                      res.send({UserAccountIDExist:false});
                                     }
                                 });
                                 function IsUserAccountIDExistCheck(callback){
