@@ -3468,6 +3468,50 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
   let Date = req.params.Date;
   let BeforePoints = req.params.BeforePoints;
   let AfterPoints = req.params.AfterPoints;
+
+  if(!isNullOrEmpty(GameHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(RoundID)){
+        if(!isNullOrEmpty(Rank)){
+          if(!isNullOrEmpty(Score)){
+            if(!isNullOrEmpty(Card)){
+              if(!isNullOrEmpty(Time)){
+                if(!isNullOrEmpty(Date)){
+                  if(!isNullOrEmpty(BeforePoints)){
+                    if(!isNullOrEmpty(AfterPoints)){
+
+                    }else{
+                      res.send({AfterPointsMissing:true});
+                    }
+                  }else{
+                    res.send({BeforePointsMissing:true});
+                  }
+                }else{
+                  res.send({DateMissing:true});
+                }
+              }else{
+                res.send({TimeMissing:true});
+              }
+            }else{
+              res.send({CardMissing:true});
+            }
+          }else{
+            res.send({ScoreMissing:true});
+          }
+        }else{
+          res.send({RankMissing:true});
+        }
+      }else{
+        res.send({RoundIDMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({GameHistoryIDMissing:true});
+  }
+
+/*
   if(!isNullOrEmpty(GameHistoryID)&&
   !isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(RoundID)&&
@@ -3502,7 +3546,7 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
       console.log("Error Updating");
       res.send("Error Updating " +error);
     });
-  }
+  }*/
 });
 app.get('/Api/v1/GameHistory/Clear', function (req, res){
   Models.GameHistory.destroy({
