@@ -3456,7 +3456,8 @@ function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,B
   });
 }
 
-app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:Card/:Time/:Date/:BeforePoints/:AfterPoints/', function(req,res) {
+app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/RoomID/:RoomID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function(req,res) {
+ 
   let GameHistoryID = req.params.GameHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
@@ -3468,7 +3469,7 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
   let Date = req.params.Date;
   let BeforePoints = req.params.BeforePoints;
   let AfterPoints = req.params.AfterPoints;
-
+  
   if(!isNullOrEmpty(GameHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(RoomID)){
