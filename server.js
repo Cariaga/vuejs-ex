@@ -3417,7 +3417,7 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
         async.series([IsRoomIDExistCheck],function(error,response){
           RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,function(response){
             if(IsRoomIDFound==true){
-              res.send({Success:true});
+              res.send(response);
             }else{
               res.send({});
             }
@@ -3532,7 +3532,7 @@ app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 //---RoomConfiguration ROUTING END
 
 //---GameHistory ROUTING START
-app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoundID/:RoomID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
+app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
   //USAGE /Api/v1/GameHistory/Add/UserAccountID/RoundID/RoomID/Rank/0/Card/01:57:17/2018-06-27/0/0/
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
