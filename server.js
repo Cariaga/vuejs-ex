@@ -2140,6 +2140,32 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
   let Description = req.params.Description;
   let Time = req.params.Time;
   let Date = req.params.Date;
+  if(!isNullOrEmpty(NotificationID)){
+    if(!isNullOrEmpty(NotificationType)){
+      if(!isNullOrEmpty(Title)){
+        if(!isNullOrEmpty(Description)){
+          if(!isNullOrEmpty(Time)){
+            if(!isNullOrEmpty(Date)){
+      
+            }else{
+              res.send({DateMissing:true});
+            }
+          }else{
+            res.send({TimeMissing:true});
+          }
+        }else{
+          res.send({DescriptionMissing:true});
+        }
+      }else{
+        res.send({TitleMissing:true});
+      }
+    }else{
+      res.send({NotificationTypeMissing:true});
+    }
+  }else{
+    res.send({NotifiactionIDMissing:true});
+  }
+
   if(!isNullOrEmpty(NotificationType)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
     NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
       res.send(response);
