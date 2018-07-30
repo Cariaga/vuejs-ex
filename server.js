@@ -3699,7 +3699,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   }
   //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
 });
-function GameHistory(){
+function GameHistory(callback){
   Models.GameHistory.sync();
   let result = Models.GameHistory.findAll({ 
     where: {
@@ -3712,11 +3712,15 @@ function GameHistory(){
         return item;
         
     });
-   
-    res.send(beautify(Data, null, 2, 100));
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+    
   }).catch(function(result) {//catching any then errors
-
-    res.send("Error "+result);
+    console.log("Error "+result);
+    callback(undefined);
   });
 }
 //---GameHistory ROUTING END
