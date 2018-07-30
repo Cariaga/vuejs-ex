@@ -2146,11 +2146,18 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
         if(!isNullOrEmpty(Description)){
           if(!isNullOrEmpty(Time)){
             if(!isNullOrEmpty(Date)){
-
-
-              NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
-                res.send(response);
+              let NotificationIDExist= undefined;
+              async.series([],function(error,response){
+                if(response!=undefined){
+                  NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
+                    res.send(response);
+                  });
+                }else{
+                  res.send({NotificationUpdateFailed:true});
+                }
               });
+
+              
             }else{
               res.send({DateMissing:true});
             }
