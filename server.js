@@ -3428,13 +3428,13 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
           IsRoomIDExist(RoomID,function(response){
             if(response!=undefined){
               IsRoomIDFound=true;
+              callback(null,'1');
             }else{
               IsRoomIDFound =false;
+              callback(null,'1');
             }
           }); 
         }
-      
-       
       }else{
         res.send({BigBlindMissing:true});
       }
