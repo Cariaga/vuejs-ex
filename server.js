@@ -3457,7 +3457,7 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
   }else{
     res.send({UserAccountIDMissing:true});
   }
-
+/*
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(RoundID)&&
   !isNullOrEmpty(RoomID)&&
@@ -3471,7 +3471,7 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
     AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
       res.send(response);
     });
-  }
+  }*/
 });
 function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,callback){
   var item1 = Models.GameHistory.build({
