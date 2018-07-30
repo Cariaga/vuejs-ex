@@ -3559,7 +3559,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
 
                       async.series([IsUserAccountIDExistCheck],function(error,response){
                           if(isUserAccountIDExistFound==true){
-                            let counted =  Card.length;
+                            let counted =  Card.split(",");
                             res.send({Card:counted});
                             /*AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
                               res.send(response);
