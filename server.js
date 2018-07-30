@@ -3570,7 +3570,10 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                         Card=="STRAIGHT_FLUSH"||
                         Card=="ROYAL_FLUSH"){
 
+                        }else{
+                          res.send({CardInvalid:true});
                         }
+                        
                       }else{
                         res.send({HoldemRequiresCards:5});
                       }
