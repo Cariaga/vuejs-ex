@@ -2132,6 +2132,7 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
     callback("error inserting " +error);
   });
 }
+
 app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
   let NotificationID = req.params.NotificationID;
   let NotificationType = req.params.NotificationType;
@@ -2140,26 +2141,30 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
   let Time = req.params.Time;
   let Date = req.params.Date;
   if(!isNullOrEmpty(NotificationType)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
-    Models.Notification.update({
-      NotificationType: NotificationType,
-      Title: Title,
-      Description: Description,
-      Time: Time,
-      Date: Date
-    },{
-      where: {NotificationID: NotificationID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    
-    .catch(error => {
-     
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    }); 
+    NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
+      
+    });
   }
 });
+function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
+  Models.Notification.update({
+    NotificationType: NotificationType,
+    Title: Title,
+    Description: Description,
+    Time: Time,
+    Date: Date
+  },{
+    where: {NotificationID: NotificationID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  }); 
+}
 app.get('/Api/v1/Notification/Clear', function (req, res){
   Models.Notification.destroy({
     where: {},
