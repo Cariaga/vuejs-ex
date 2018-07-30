@@ -3557,23 +3557,21 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                   if(!isNullOrEmpty(BeforePoints)){
                     if(!isNullOrEmpty(AfterPoints)){
                    
-                      let counted =  Card.split(",");//un used
+                      let counted =  Card.split(",");//card counting validate that we have 5 cards
                       if(counted.length==5){
-                        if(Card=="HIGH_CARD"||
-                        Card=="ONE_PAIR"||
-                        Card=="TWO_PAIRS"||
-                        Card=="THREE_OF_A_KIND"||
-                        Card=="STRAIGHT"||
-                        Card=="FLUSH"||
-                        Card=="FULL_HOUSE"||
-                        Card=="FOUR_OF_A_KIND"||
-                        Card=="STRAIGHT_FLUSH"||
-                        Card=="ROYAL_FLUSH"){
+                        if(Rank=="HIGH_CARD"||
+                        Rank=="ONE_PAIR"||
+                        Rank=="TWO_PAIRS"||
+                        Rank=="THREE_OF_A_KIND"||
+                        Rank=="STRAIGHT"||
+                        Rank=="FLUSH"||
+                        Rank=="FULL_HOUSE"||
+                        Rank=="FOUR_OF_A_KIND"||
+                        Rank=="STRAIGHT_FLUSH"||
+                        Rank=="ROYAL_FLUSH"){
                             let isUserAccountIDExistFound = false;
                             async.series([IsUserAccountIDExistCheck],function(error,response){
                               if(isUserAccountIDExistFound==true){
-                            
-                              //  res.send({Card:counted});
                                 AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
                                   res.send(response);
                                 });
