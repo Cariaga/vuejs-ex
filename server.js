@@ -3533,7 +3533,7 @@ app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 
 //---GameHistory ROUTING START
 app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
-  //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/RoomID/RoomID/RoundID/RoomID/Rank/Rank/Score/Score/Card/Card/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
+  //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/RoomID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
   let RoomID = req.params.RoomID;
@@ -3559,10 +3559,11 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
 
                       async.series([IsUserAccountIDExistCheck],function(error,response){
                           if(isUserAccountIDExistFound==true){
-
-                            AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
+                            let counted =  Card.length;
+                            res.send({Card:counted});
+                            /*AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
                               res.send(response);
-                            });
+                            });*/
                           
                           }else{
                             res.send({});
