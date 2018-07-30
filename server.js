@@ -3426,7 +3426,7 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
                 if( !isNullOrEmpty(Date)){
                   if( !isNullOrEmpty(BeforePoints)){
                     if( !isNullOrEmpty(AfterPoints)){
-
+                      res.send({success:true});
                     }else{
                       res.send({AfterPoints:true});
                     }
