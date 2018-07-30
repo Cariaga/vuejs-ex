@@ -3430,16 +3430,19 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoundID/:R
 
                       async.series([IsUserAccountIDExistCheck],function(error,response){
                           if(isUserAccountIDExistFound==true){
-                            
-                            res.send({success:true});
+
+                            AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
+                              res.send(response);
+                            });
+                          
                           }else{
                             res.send({});
                           }
                       });
-                      function IsUserAccountIDExistCheck(){
+                      function IsUserAccountIDExistCheck(callback){
                         isUserAccountIDExist(UserAccountID,function(response){
                           if(response!=undefined){
-
+                            isUserAccountIDExistFound=true;
                             callback(null,'1');
                           }else{
                             isUserAccountIDExistFound=false;
@@ -3448,9 +3451,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoundID/:R
                         });
                       }
 
-                     /* AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
-                        res.send(response);
-                      });*/
+                   
 
                       res.send({success:true});
                     }else{
