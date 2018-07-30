@@ -3413,11 +3413,10 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
 function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,callback){
   Models.RoomConfiguration.sync(/*{force:true}*/);
   Models.RoomConfiguration.update({
-    Email: Email,
-    PhoneNumber: PhoneNumber,
-    TelephoneNumber: TelephoneNumber
+    SmallBlind:SmallBlind,
+    BigBlind:BigBlind
   },{
-    where: {UserAccountID: UserAccountID }
+    where: {RoomID: RoomID }
   })
   .then(Success => {
     console.log("Updated");
