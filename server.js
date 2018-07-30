@@ -3598,9 +3598,11 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                                 function IsRoomIDExistCheck(callback){
                                   IsRoomIDExist(RoomID,function(response){
                                     if(response!=undefined){
-                                      if(){
-                                        
-                                      }
+                                      isRoomIDFound=true;
+                                      callback(null,'2');
+                                    }else{
+                                      isRoomIDFound=false;
+                                      callback(null,'2');
                                     }
                                   });
                                 }
