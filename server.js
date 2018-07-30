@@ -3533,7 +3533,7 @@ app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 
 //---GameHistory ROUTING START
 app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
-  //USAGE /Api/v1/GameHistory/Add/UserAccountID/RoundID/RoomID/Rank/0/Card/01:57:17/2018-06-27/0/0/
+  //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/RoomID/RoomID/RoundID/RoomID/Rank/Rank/Score/Score/Card/Card/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
   let RoomID = req.params.RoomID;
