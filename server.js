@@ -3678,7 +3678,12 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     GameHistory(function(response){
-      res.send(response);
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send([]);
+      }
+     
     });
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
