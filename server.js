@@ -3471,38 +3471,42 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
 
   if(!isNullOrEmpty(GameHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(RoundID)){
-        if(!isNullOrEmpty(Rank)){
-          if(!isNullOrEmpty(Score)){
-            if(!isNullOrEmpty(Card)){
-              if(!isNullOrEmpty(Time)){
-                if(!isNullOrEmpty(Date)){
-                  if(!isNullOrEmpty(BeforePoints)){
-                    if(!isNullOrEmpty(AfterPoints)){
-                      res.send({success:true});
+      if(!isNullOrEmpty(RoomID)){
+        if(!isNullOrEmpty(RoundID)){
+          if(!isNullOrEmpty(Rank)){
+            if(!isNullOrEmpty(Score)){
+              if(!isNullOrEmpty(Card)){
+                if(!isNullOrEmpty(Time)){
+                  if(!isNullOrEmpty(Date)){
+                    if(!isNullOrEmpty(BeforePoints)){
+                      if(!isNullOrEmpty(AfterPoints)){
+                        res.send({success:true});
+                      }else{
+                        res.send({AfterPointsMissing:true});
+                      }
                     }else{
-                      res.send({AfterPointsMissing:true});
+                      res.send({BeforePointsMissing:true});
                     }
                   }else{
-                    res.send({BeforePointsMissing:true});
+                    res.send({DateMissing:true});
                   }
                 }else{
-                  res.send({DateMissing:true});
+                  res.send({TimeMissing:true});
                 }
               }else{
-                res.send({TimeMissing:true});
+                res.send({CardMissing:true});
               }
             }else{
-              res.send({CardMissing:true});
+              res.send({ScoreMissing:true});
             }
           }else{
-            res.send({ScoreMissing:true});
+            res.send({RankMissing:true});
           }
         }else{
-          res.send({RankMissing:true});
+          res.send({RoundIDMissing:true});
         }
       }else{
-        res.send({RoundIDMissing:true});
+        
       }
     }else{
       res.send({UserAccountIDMissing:true});
