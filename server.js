@@ -3473,7 +3473,7 @@ app.get('/Api/v1/RoomConfiguration/', function (req, res) {
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     RoomConfiguration(function(response){
       if(response!=undefined){
-        res.send(beautify(Data, null, 2, 100));
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send({});
       }
