@@ -3574,6 +3574,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                               Rank=="STRAIGHT_FLUSH"||
                               Rank=="ROYAL_FLUSH"){
                                   let isUserAccountIDExistFound = false;
+                                  let isRoomIDFound =false;
                                   async.series([IsUserAccountIDExistCheck],function(error,response){
                                     if(isUserAccountIDExistFound==true){
                                       AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
@@ -3591,6 +3592,15 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                                     }else{
                                       isUserAccountIDExistFound=false;
                                       callback(null,'1');
+                                    }
+                                  });
+                                }
+                                function IsRoomIDExistCheck(callback){
+                                  IsRoomIDExist(RoomID,function(response){
+                                    if(response!=undefined){
+                                      if(){
+                                        
+                                      }
                                     }
                                   });
                                 }
