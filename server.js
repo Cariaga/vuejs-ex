@@ -3483,7 +3483,11 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
                       if(!isNullOrEmpty(AfterPoints)){
                         let isUserAccountIDFound = undefined;
                         async.series([IsUserAccountIDExistCheck,IsGameHistoryIDExistCheck],function(error,response){
-
+                          if(isUserAccountIDFound==true){
+                            res.send({Success:true});
+                          }else{
+                            res.send({Success:false});
+                          }
                         });
                         function IsUserAccountIDExistCheck(callback){
                           isUserAccountIDExist(UserAccountID,function(response){
