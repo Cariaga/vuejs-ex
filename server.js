@@ -3339,14 +3339,14 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
             }
             
           });
-          function IsRoomIDExistCheck(callback){
-            IsRoomIDExist(RoomID,function(response){
-              if(response!=undefined){
+          function IsRoomIDExistCheck(callback2){
+            IsRoomIDExist(RoomID,function(response2){
+              if(response2!=undefined){
                 IsRoomIDFound=true;
-                callback(null,'1');
+                callback2(null,'1');
               }else{
                 IsRoomIDFound= false;
-                callback(null,'1');
+                callback2(null,'1');
               }
             });
           }
