@@ -3465,7 +3465,7 @@ function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,c
   });
 }
 
-app.get('/Api/v1/RoomConfiguration', function (req, res) {
+app.get('/Api/v1/RoomConfiguration/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
@@ -3473,7 +3473,7 @@ app.get('/Api/v1/RoomConfiguration', function (req, res) {
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     RoomConfiguration(function(response){
       if(response!=undefined){
-        res.send(response);
+        res.send(beautify(Data, null, 2, 100));
       }else{
         res.send({});
       }
