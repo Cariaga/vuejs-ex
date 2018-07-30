@@ -3808,7 +3808,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     GameHistory(function(response){
       if(response!=undefined){
-        res.send(res.send(beautify(response, null, 2, 100)););
+        res.send(res.send(beautify(response, null, 2, 100)));
       }else{
         res.send([]);
       }
