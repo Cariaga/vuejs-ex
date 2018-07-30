@@ -2142,7 +2142,7 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
   let Date = req.params.Date;
   if(!isNullOrEmpty(NotificationType)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
     NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
-      
+      res.send(response);
     });
   }
 });
