@@ -2196,12 +2196,11 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
   }
 });
 
-function IsNotificationIDExist(callback){
-  Models.SupportTicket.sync();
-  let result = Models.SupportTicket.findAll({ 
+function IsNotificationIDExist(NotificationID,callback){
+  Models.Notification.sync();
+  let result = Models.Notification.findAll({ 
     where: {
-      UserAccountID: UserAccountID,
-      Status:Status//not null
+      NotificationID:NotificationID
       
    }
   }).then(function(result) {
