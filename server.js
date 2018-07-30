@@ -3508,7 +3508,7 @@ function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,B
     BeforePoints:BeforePoints,
     AfterPoints:AfterPoints
   });
-  Models.GameHistory.sync({alter : true/*,force:true*/});//use force to delete old table non production
+  Models.GameHistory.sync();//use force to delete old table non production
   item1.save()
   .then(Success => {
     callback("Inserted");
