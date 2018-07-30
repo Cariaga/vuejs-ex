@@ -3556,7 +3556,6 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                 if(!isNullOrEmpty(Date)){
                   if(!isNullOrEmpty(BeforePoints)){
                     if(!isNullOrEmpty(AfterPoints)){
-
                       if(validator.isNumeric(BeforePoints)){
                         if(validator.isNumeric(AfterPoints)){
                           if(validator.isNumeric(Score)){
@@ -3575,7 +3574,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                               Rank=="ROYAL_FLUSH"){
                                   let isUserAccountIDExistFound = false;
                                   let isRoomIDFound =false;
-                                  async.series([IsUserAccountIDExistCheck],function(error,response){
+                                  async.series([IsUserAccountIDExistCheck,IsRoomIDExistCheck],function(error,response){
                                  
                                     if(isUserAccountIDExistFound==true){
                                       if(isRoomIDFound==true){
