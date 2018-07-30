@@ -3430,6 +3430,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoundID/:R
 
                       async.series([IsUserAccountIDExistCheck],function(error,response){
                           if(isUserAccountIDExistFound==true){
+                            
                             res.send({success:true});
                           }else{
                             res.send({});
@@ -3438,7 +3439,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoundID/:R
                       function IsUserAccountIDExistCheck(){
                         isUserAccountIDExist(UserAccountID,function(response){
                           if(response!=undefined){
-                            
+
                             callback(null,'1');
                           }else{
                             isUserAccountIDExistFound=false;
@@ -3676,24 +3677,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.GameHistory.sync();
-    let result = Models.GameHistory.findAll({ 
-      where: {
-        GameHistoryID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-     
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-
-      res.send("Error "+result);
-    });
+  
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -3715,6 +3699,26 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   }
   //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
 });
+function GameHistory(){
+  Models.GameHistory.sync();
+  let result = Models.GameHistory.findAll({ 
+    where: {
+      GameHistoryID: {
+        ne: null//not null
+      }
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+   
+    res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+}
 //---GameHistory ROUTING END
 //---UserInfo ROUTING START
 app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumber/', function (req, res) {
