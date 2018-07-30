@@ -3327,20 +3327,25 @@ app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:SmallBlind/:BigBlind/:Speed', fu
     if( !isNullOrEmpty(SmallBlind)){
       if( !isNullOrEmpty(BigBlind)){
         if(!isNullOrEmpty(Speed)){
+          AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              
+            }
+           
+          });
+        }else{
 
         }
-      }
-    }
-  }
+      }else{
 
-  if(!isNullOrEmpty(RoomID)&&
-  !isNullOrEmpty(SmallBlind)&&
-  !isNullOrEmpty(BigBlind)&&
-  !isNullOrEmpty(Speed)){
-    AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
-      
-      res.send(response);
-    });
+      }
+    }else{
+
+    }
+  }else{
+
   }
 });
 
