@@ -3323,11 +3323,22 @@ app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:SmallBlind/:BigBlind/:Speed', fu
   let SmallBlind = req.params.SmallBlind;
   let BigBlind = req.params.BigBlind;
   let Speed = req.params.Speed;
+  if(!isNullOrEmpty(RoomID)){
+    if( !isNullOrEmpty(SmallBlind)){
+      if( !isNullOrEmpty(BigBlind)){
+        if(!isNullOrEmpty(Speed)){
+
+        }
+      }
+    }
+  }
+
   if(!isNullOrEmpty(RoomID)&&
   !isNullOrEmpty(SmallBlind)&&
   !isNullOrEmpty(BigBlind)&&
   !isNullOrEmpty(Speed)){
     AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+      
       res.send(response);
     });
   }
