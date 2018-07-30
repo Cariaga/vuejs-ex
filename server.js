@@ -2105,7 +2105,13 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
       if(!isNullOrEmpty(Description)){
         if(!isNullOrEmpty(Time)){
           if(!isNullOrEmpty(Date)){
-
+            AddNotification(NotificationType,Title,Description,Time,Date,function(response) {
+              if(response!=undefined){
+               res.send(response);
+              }else{
+                res.send({AddNotificationFailed:true});
+              }
+           });
           }else{
             res.send({DateMissing:true});
           }
@@ -2120,20 +2126,6 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
     }
   }else{
     res.send({NotificationTypeMissing:true});
-  }
-
-  if(!isNullOrEmpty(NotificationType)&&
-  !isNullOrEmpty(Title)&&
-  !isNullOrEmpty(Description)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)){
-     AddNotification(NotificationType,Title,Description,Time,Date,function(response) {
-       if(response!=undefined){
-        res.send(response);
-       }else{
-         res.send({AddNotificationFailed:true});
-       }
-    });
   }
 });
 
