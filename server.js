@@ -3351,12 +3351,6 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
               }
             });
           }
-          
-  
-           
-            
-              
-                  
         }else{
           res.send({SpeedMissing:true});
         }
@@ -3389,6 +3383,7 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
     callback("error inserting " +error);
   });
 }
+
 function IsRoomIDExist(RoomID,callback){
   Models.RoomConfiguration.sync();
   let result = Models.RoomConfiguration.findAll({ 
@@ -3411,6 +3406,14 @@ function IsRoomIDExist(RoomID,callback){
     callback(undefined);
   });
 }
+app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
+
+});
+
+function RoomConfigurationRoomIDUpdateBigSmallBlind(){
+  
+}
+
 app.get('/Api/v1/RoomConfiguration', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
@@ -3451,6 +3454,7 @@ function RoomConfiguration(callback){
      
     });
 }
+
 app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
 
   Models.RoomConfiguration.destroy({
