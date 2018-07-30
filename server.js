@@ -3557,10 +3557,26 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                   if(!isNullOrEmpty(BeforePoints)){
                     if(!isNullOrEmpty(AfterPoints)){
                       let isUserAccountIDExistFound = false;
+                      let counted =  Card.split(",");//un used
+                      if(counted.length==5){
+                        if(Card=="HIGH_CARD"||
+                        Card=="ONE_PAIR"||
+                        Card=="TWO_PAIRS"||
+                        Card=="THREE_OF_A_KIND"||
+                        Card=="STRAIGHT"||
+                        Card=="FLUSH"||
+                        Card=="FULL_HOUSE"||
+                        Card=="FOUR_OF_A_KIND"||
+                        Card=="STRAIGHT_FLUSH"||
+                        Card=="ROYAL_FLUSH"){
 
+                        }
+                      }else{
+                        res.send({HoldemRequiresCards:5});
+                      }
                       async.series([IsUserAccountIDExistCheck],function(error,response){
                           if(isUserAccountIDExistFound==true){
-                            //let counted =  Card.split(",");//un used
+                        
                           //  res.send({Card:counted});
                             AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
                               res.send(response);
@@ -3581,6 +3597,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                           }
                         });
                       }
+
                     }else{
                       res.send({AfterPoints:true});
                     }
