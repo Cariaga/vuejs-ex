@@ -3376,7 +3376,11 @@ app.get('/Api/v1/RoomConfiguration', function (req, res) {
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     RoomConfiguration(function(response){
-
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send({});
+      }
     });
   }
 });
