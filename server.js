@@ -3429,11 +3429,16 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoundID/:R
                       let isUserAccountIDExistFound = false;
 
                       async.series([IsUserAccountIDExistCheck],function(error,response){
-
+                          if(isUserAccountIDExistFound==true){
+                            res.send({success:true});
+                          }else{
+                            res.send({});
+                          }
                       });
                       function IsUserAccountIDExistCheck(){
                         isUserAccountIDExist(UserAccountID,function(response){
                           if(response!=undefined){
+                            
                             callback(null,'1');
                           }else{
                             isUserAccountIDExistFound=false;
