@@ -3418,6 +3418,8 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
           RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,function(response){
             if(IsRoomIDFound==true){
               res.send({Success:true});
+            }else{
+              res.send({});
             }
           });
         });
