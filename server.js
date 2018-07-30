@@ -3407,7 +3407,16 @@ function IsRoomIDExist(RoomID,callback){
   });
 }
 app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
+  let RoomID = req.params.RoomID;
+  let SmallBlind = req.params.SmallBlind;
+  let BigBlind = req.params.BigBlind;
+  if(!isNullOrEmpty(RoomID)){
+    if(!isNullOrEmpty(SmallBlind)){
+      if(!isNullOrEmpty(BigBlind)){
 
+      }
+    }
+  }
 });
 
 function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,callback){
