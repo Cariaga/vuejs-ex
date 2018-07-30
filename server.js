@@ -3331,9 +3331,10 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
           let IsRoomIDFound =false;//false is the result we want
           async.series([IsRoomIDExistCheck],function(error,response){
             if(IsRoomIDFound==false){//must be false to be valid
-              AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+             /* AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
                res.send(response);
-              });
+              });*/
+              res.send({Success:true});
             }else{
               res.send({RoomIDAlreadyExist:true});
             }
