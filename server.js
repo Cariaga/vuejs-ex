@@ -2105,10 +2105,15 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
      AddNotification(NotificationType,Title,Description,Time,Date,function(response) {
-      res.send(response);
+       if(response!=undefined){
+        res.send(response);
+       }else{
+         res.send({AddNotificationFailed:true});
+       }
     });
   }
 });
+
 function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   var item1 = Models.Notification.build({
     NotificationType:NotificationType,
@@ -2128,8 +2133,8 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   
   .catch(error => {
  
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 
@@ -2201,7 +2206,6 @@ function IsNotificationIDExist(NotificationID,callback){
   let result = Models.Notification.findAll({ 
     where: {
       NotificationID:NotificationID
-      
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
