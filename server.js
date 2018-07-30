@@ -3328,14 +3328,32 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
     if( !isNullOrEmpty(SmallBlind)){
       if( !isNullOrEmpty(BigBlind)){
         if(!isNullOrEmpty(Speed)){
-          AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({});
+          let IsRoomIDExist =false;//false is the result we want
+          async.series([IsRoomIDExistCheck],function(error,response){
+            if(IsRoomIDExist==false){
+              AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+               
+              });
             }
-           
+            
           });
+          function IsRoomIDExistCheck(callback){
+            IsRoomIDExist(RoomID,function(response){
+              if(response!=undefined){
+                IsRoomIDExist=true;
+                callback(null,'1');
+              }else{
+                IsRoomIDExist= false;
+                callback(null,'1');
+              }
+            });
+          }
+          
+  
+           
+            
+              
+                  
         }else{
           res.send({SpeedMissing:true});
         }
@@ -3368,7 +3386,28 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
     callback("error inserting " +error);
   });
 }
-
+function IsRoomIDExist(RoomID,callback){
+  Models.RoomConfiguration.sync();
+  let result = Models.RoomConfiguration.findAll({ 
+    where: {
+      RoomID:RoomID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/RoomConfiguration', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
