@@ -3328,9 +3328,9 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
     if( !isNullOrEmpty(SmallBlind)){
       if( !isNullOrEmpty(BigBlind)){
         if(!isNullOrEmpty(Speed)){
-          let IsRoomIDExist =false;//false is the result we want
+          let IsRoomIDFound =false;//false is the result we want
           async.series([IsRoomIDExistCheck],function(error,response){
-            if(IsRoomIDExist==false){//must be false to be valid
+            if(IsRoomIDFound==false){//must be false to be valid
               AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
                res.send(response);
               });
@@ -3342,10 +3342,10 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
           function IsRoomIDExistCheck(callback){
             IsRoomIDExist(RoomID,function(response){
               if(response!=undefined){
-                IsRoomIDExist=true;
+                IsRoomIDFound=true;
                 callback(null,'1');
               }else{
-                IsRoomIDExist= false;
+                IsRoomIDFound= false;
                 callback(null,'1');
               }
             });
