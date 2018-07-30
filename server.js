@@ -3319,6 +3319,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 
 //---RoomConfiguration ROUTING START
 app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
+  //USAGE /Api/v1/RoomConfiguration/Add/RoomID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
   let RoomID = req.params.RoomID;
   let SmallBlind = req.params.SmallBlind;
   let BigBlind = req.params.BigBlind;
@@ -3374,7 +3375,13 @@ app.get('/Api/v1/RoomConfiguration', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.RoomConfiguration.sync();
+    RoomConfiguration(function(response){
+
+    });
+  }
+});
+function RoomConfiguration(callback){
+  Models.RoomConfiguration.sync();
     let result = Models.RoomConfiguration.findAll({ 
       where: {
         RoomConfigurationID: {
@@ -3386,13 +3393,18 @@ app.get('/Api/v1/RoomConfiguration', function (req, res) {
           return item;
           
       });
-      res.send(beautify(Data, null, 2, 100));
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    
     }).catch(function(result) {//catching any then errors
-
-      res.send("Error "+result);
+      console.log("Error "+result);
+      callback(undefined);
+     
     });
-  }
-});
+}
 app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
 
   Models.RoomConfiguration.destroy({
