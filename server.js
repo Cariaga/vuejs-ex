@@ -3556,48 +3556,53 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                 if(!isNullOrEmpty(Date)){
                   if(!isNullOrEmpty(BeforePoints)){
                     if(!isNullOrEmpty(AfterPoints)){
-                   
-                      let countedCards =  Card.split(",");//card counting validate that we have 5 cards
-                      let countedStringLength = Card.length;//Must be 14 including commas in count
-                      if(countedCards.length==5&&countedStringLength==14){
-                        if(Rank=="HIGH_CARD"||
-                        Rank=="ONE_PAIR"||
-                        Rank=="TWO_PAIRS"||
-                        Rank=="THREE_OF_A_KIND"||
-                        Rank=="STRAIGHT"||
-                        Rank=="FLUSH"||
-                        Rank=="FULL_HOUSE"||
-                        Rank=="FOUR_OF_A_KIND"||
-                        Rank=="STRAIGHT_FLUSH"||
-                        Rank=="ROYAL_FLUSH"){
-                            let isUserAccountIDExistFound = false;
-                            async.series([IsUserAccountIDExistCheck],function(error,response){
-                              if(isUserAccountIDExistFound==true){
-                                AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
-                                  res.send(response);
-                                });
-                              }else{
-                                res.send({});
-                              }
-                          });
-                          function IsUserAccountIDExistCheck(callback){
-                            isUserAccountIDExist(UserAccountID,function(response){
-                              if(response!=undefined){
-                                isUserAccountIDExistFound=true;
-                                callback(null,'1');
-                              }else{
-                                isUserAccountIDExistFound=false;
-                                callback(null,'1');
-                              }
-                            });
-                          }
-                        }else{
-                          res.send({CardInvalid:true});
-                        }
 
+                      if(validator.isNumeric(Score)){
+                        let countedCards =  Card.split(",");//card counting validate that we have 5 cards
+                        let countedStringLength = Card.length;//Must be 14 including commas in count
+                        if(countedCards.length==5&&countedStringLength==14){
+                          if(Rank=="HIGH_CARD"||
+                          Rank=="ONE_PAIR"||
+                          Rank=="TWO_PAIRS"||
+                          Rank=="THREE_OF_A_KIND"||
+                          Rank=="STRAIGHT"||
+                          Rank=="FLUSH"||
+                          Rank=="FULL_HOUSE"||
+                          Rank=="FOUR_OF_A_KIND"||
+                          Rank=="STRAIGHT_FLUSH"||
+                          Rank=="ROYAL_FLUSH"){
+                              let isUserAccountIDExistFound = false;
+                              async.series([IsUserAccountIDExistCheck],function(error,response){
+                                if(isUserAccountIDExistFound==true){
+                                  AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
+                                    res.send(response);
+                                  });
+                                }else{
+                                  res.send({});
+                                }
+                            });
+                            function IsUserAccountIDExistCheck(callback){
+                              isUserAccountIDExist(UserAccountID,function(response){
+                                if(response!=undefined){
+                                  isUserAccountIDExistFound=true;
+                                  callback(null,'1');
+                                }else{
+                                  isUserAccountIDExistFound=false;
+                                  callback(null,'1');
+                                }
+                              });
+                            }
+                          }else{
+                            res.send({CardInvalid:true});
+                          }
+
+                        }else{
+                          res.send({RequiresCards:5});
+                        }
                       }else{
-                        res.send({RequiresCards:5});
+                        res.send({ScoreInvalidValue:true});
                       }
+                      
                       
 
                     }else{
