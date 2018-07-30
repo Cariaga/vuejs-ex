@@ -2146,7 +2146,11 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
         if(!isNullOrEmpty(Description)){
           if(!isNullOrEmpty(Time)){
             if(!isNullOrEmpty(Date)){
-              
+
+
+              NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
+                res.send(response);
+              });
             }else{
               res.send({DateMissing:true});
             }
@@ -2165,13 +2169,33 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
   }else{
     res.send({NotifiactionIDMissing:true});
   }
-
-  if(!isNullOrEmpty(NotificationType)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(Time)&&!isNullOrEmpty(Date)){
-    NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
-      res.send(response);
-    });
-  }
 });
+
+function IsNotificationIDExist(callback){
+  Models.SupportTicket.sync();
+  let result = Models.SupportTicket.findAll({ 
+    where: {
+      UserAccountID: UserAccountID,
+      Status:Status//not null
+      
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
+
+
 function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
   Models.Notification.update({
     NotificationType: NotificationType,
