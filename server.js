@@ -3557,8 +3557,9 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                   if(!isNullOrEmpty(BeforePoints)){
                     if(!isNullOrEmpty(AfterPoints)){
                    
-                      let counted =  Card.split(",");//card counting validate that we have 5 cards
-                      if(counted.length==5){
+                      let countedCards =  Card.split(",");//card counting validate that we have 5 cards
+                      let countedStringLength = Card.length;//Must be 14 including commas in count
+                      if(countedCards.length==5&&countedStringLength==14){
                         if(Rank=="HIGH_CARD"||
                         Rank=="ONE_PAIR"||
                         Rank=="TWO_PAIRS"||
@@ -3575,7 +3576,6 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                                 AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
                                   res.send(response);
                                 });
-                              
                               }else{
                                 res.send({});
                               }
