@@ -2170,9 +2170,10 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
               async.series([IsNotificationIDExistCheck],function(error,response){
                 if(NotificationIDExist==true){
                   if(response!=undefined){
-                    NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
-                      res.send(response);
-                    });
+                    res.send({Success:true});
+                   // NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
+                    //  res.send(response);
+                  //  });
                   }else{
                     res.send({NotificationUpdateFailed:true});
                   }
@@ -2181,9 +2182,11 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
                 }
               });
               function IsNotificationIDExistCheck(callback){
+                console.log("IsNotificationIDExistCheck 1");
                 IsNotificationIDExist(function(response){
-
+                  console.log("IsNotificationIDExistCheck 2");
                   if(response!=undefined){
+                    console.log("IsNotificationIDExistCheck 3");
                     if(response[0].NotificationID==NotificationID){
                       NotificationIDExist=true;
                       callback(null,'1');
