@@ -3415,6 +3415,29 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
   let Date = req.params.Date;
   let BeforePoints = req.params.BeforePoints;
   let AfterPoints = req.params.AfterPoints;
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(RoundID)){
+      if(!isNullOrEmpty(RoomID)){
+        if( !isNullOrEmpty(Rank)){
+          if(!isNullOrEmpty(Score)){
+            if( !isNullOrEmpty(Card)){
+              if( !isNullOrEmpty(Time)){
+                if( !isNullOrEmpty(Date)){
+                  if( !isNullOrEmpty(BeforePoints)){
+                    if( !isNullOrEmpty(AfterPoints)){
+
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(RoundID)&&
   !isNullOrEmpty(RoomID)&&
@@ -3484,11 +3507,13 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
                         let isUserAccountIDFound = undefined;
                         async.series([IsUserAccountIDExistCheck,IsGameHistoryIDExistCheck],function(error,response){
 
+
                           if(isUserAccountIDFound==true){
                             res.send({Success:true});
                           }else{
                             res.send({Success:false});
                           }
+
 
 
                         });
