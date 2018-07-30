@@ -2183,7 +2183,7 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
               });
               function IsNotificationIDExistCheck(callback){
                 console.log("IsNotificationIDExistCheck 1");
-                IsNotificationIDExist(function(response){
+                IsNotificationIDExist(NotificationID,function(response){
                   console.log("IsNotificationIDExistCheck 2");
                   if(response!=undefined){
                     console.log("IsNotificationIDExistCheck 3");
