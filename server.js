@@ -3413,7 +3413,26 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
   if(!isNullOrEmpty(RoomID)){
     if(!isNullOrEmpty(SmallBlind)){
       if(!isNullOrEmpty(BigBlind)){
+        let IsRoomIDFound = false;// for the update RoomID Must Exist
+        async.series([IsRoomIDExistCheck],function(error,response){
+          RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,function(response){
+            if(IsRoomIDFound==true){
+              res.send({Success:true});
+            }
+          });
+        });
 
+        function IsRoomIDExistCheck(callback){
+          IsRoomIDExist(RoomID,function(response){
+            if(response!=undefined){
+              IsRoomIDFound=true;
+            }else{
+              IsRoomIDFound =false;
+            }
+          }); 
+        }
+      
+       
       }else{
         res.send({BigBlindMissing:true});
       }
