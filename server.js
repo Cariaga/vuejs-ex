@@ -3332,8 +3332,10 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
           async.series([IsRoomIDExistCheck],function(error,response){
             if(IsRoomIDExist==false){
               AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
-               
+               res.send(response);
               });
+            }else{
+              res.send({RoomIDAlreadyExist:true});
             }
             
           });
