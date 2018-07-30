@@ -3328,28 +3328,42 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
     if( !isNullOrEmpty(SmallBlind)){
       if( !isNullOrEmpty(BigBlind)){
         if(!isNullOrEmpty(Speed)){
-          let IsRoomIDFound =false;//false is the result we want
-          async.series([IsRoomIDExistCheck],function(error,response){
-            if(IsRoomIDFound==false){//must be false to be valid
-             /* AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
-               res.send(response);
-              });*/
-              res.send({Success:true});
-            }else{
-              res.send({RoomIDAlreadyExist:true});
-            }
-            
-          });
-          function IsRoomIDExistCheck(callback2){
-            IsRoomIDExist(RoomID,function(response2){
-              if(response2!=undefined){
-                IsRoomIDFound=true;
-                callback2(null,'1');
+          if(validator.isNumeric(SmallBlind)){
+            if(validator.isNumeric(BigBlind)){
+              if(validator.isNumeric(Speed)){
+                
+                let IsRoomIDFound =false;//false is the result we want
+                async.series([IsRoomIDExistCheck],function(error,response){
+                  if(IsRoomIDFound==false){//must be false to be valid
+                   /* AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+                     res.send(response);
+                    });*/
+                    res.send({Success:true});
+                  }else{
+                    res.send({RoomIDAlreadyExist:true});
+                  }
+                  
+                });
+                function IsRoomIDExistCheck(callback2){
+                  IsRoomIDExist(RoomID,function(response2){
+                    if(response2!=undefined){
+                      IsRoomIDFound=true;
+                      callback2(null,'1');
+                    }else{
+                      IsRoomIDFound= false;
+                      callback2(null,'1');
+                    }
+                  });
+                }
+
               }else{
-                IsRoomIDFound= false;
-                callback2(null,'1');
+                res.send({SppedInvalidValue:true});
               }
-            });
+            }else{
+              res.send({BigBlindInvalidValue:true});
+            }
+          }else{
+            res.send({SmallBlindInvalidValue:true});
           }
         }else{
           res.send({SpeedMissing:true});
