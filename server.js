@@ -3318,7 +3318,7 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 //---DepositHistory ROUTING END
 
 //---RoomConfiguration ROUTING START
-app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:SmallBlind/:BigBlind/:Speed', function (req, res) {
+app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
   let RoomID = req.params.RoomID;
   let SmallBlind = req.params.SmallBlind;
   let BigBlind = req.params.BigBlind;
