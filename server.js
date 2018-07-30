@@ -3331,21 +3331,21 @@ app.get('/Api/v1/RoomConfiguration/Add/:RoomID/:SmallBlind/:BigBlind/:Speed', fu
             if(response!=undefined){
               res.send(response);
             }else{
-              
+              res.send({});
             }
            
           });
         }else{
-
+          res.send({SpeedMissing:true});
         }
       }else{
-
+        res.send({BigBlindMissing:true});
       }
     }else{
-
+      res.send({SmallBlindMissing:true});
     }
   }else{
-
+    res.send({RoomIDMissing:true});
   }
 });
 
