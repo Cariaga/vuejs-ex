@@ -3598,7 +3598,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                         }
 
                       }else{
-                        res.send({HoldemRequiresCards:5});
+                        res.send({RequiresCards:5});
                       }
                       
 
