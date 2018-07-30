@@ -3479,7 +3479,7 @@ app.get('/Api/v1/GameHistory/Update/:GameHistoryID/:UserAccountID/:RoundID/:Room
                 if(!isNullOrEmpty(Date)){
                   if(!isNullOrEmpty(BeforePoints)){
                     if(!isNullOrEmpty(AfterPoints)){
-
+                      res.send({success:true});
                     }else{
                       res.send({AfterPointsMissing:true});
                     }
