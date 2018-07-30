@@ -2176,6 +2176,8 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
                   }else{
                     res.send({NotificationUpdateFailed:true});
                   }
+                }else{
+                  res.send({NotificationIDExist:false});
                 }
               });
               function IsNotificationIDExistCheck(callback){
