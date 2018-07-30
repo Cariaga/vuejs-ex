@@ -3427,15 +3427,35 @@ app.get('/Api/v1/GameHistory/Add/:UserAccountID/:RoundID/:RoomID/:Rank/:Score/:C
                   if( !isNullOrEmpty(BeforePoints)){
                     if( !isNullOrEmpty(AfterPoints)){
 
+                    }else{
+                      res.send({AfterPoints:true});
                     }
+                  }else{
+                    res.send({BeforePoints:true});
                   }
+                }else{
+                  res.send({DateMissing:true});
                 }
+              }else{
+                res.send({TimeMissing:true});
               }
+            }else{
+              res.send({CardMissing:true});
             }
+          }else{
+            res.send({ScoreMissing:true});
           }
+        }else{
+          res.send({RankMissing:true});
         }
+      }else{
+        res.send({RoomIDMissing:true});
       }
+    }else{
+      res.send({RoundIDMissing:true});
     }
+  }else{
+    res.send({UserAccountIDMissing:true});
   }
 
   if(!isNullOrEmpty(UserAccountID)&&
