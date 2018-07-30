@@ -3414,8 +3414,14 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
     if(!isNullOrEmpty(SmallBlind)){
       if(!isNullOrEmpty(BigBlind)){
 
+      }else{
+        res.send({BigBlindMissing:true});
       }
+    }else{
+      res.send({SmallBlindMissing:true});
     }
+  }else{
+    res.send({RoomIDMissing:true});
   }
 });
 
