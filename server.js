@@ -3583,12 +3583,10 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                                           res.send(response);
                                         });
                                       }else{
-                                        res.send({UserIDExist:false});
-                                      }
-                                      
-
+                                        res.send({RoomIDFound:false});
+                                      }                           
                                     }else{
-                                      res.send({UserAccountIDExist:false});
+                                      res.send({UserAccountIDFound:false});
                                     }
                                 });
                                 function IsUserAccountIDExistCheck(callback){
