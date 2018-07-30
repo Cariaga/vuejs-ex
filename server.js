@@ -3410,8 +3410,24 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
 
 });
 
-function RoomConfigurationRoomIDUpdateBigSmallBlind(){
-  
+function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,callback){
+  Models.RoomConfiguration.sync(/*{force:true}*/);
+  Models.RoomConfiguration.update({
+    Email: Email,
+    PhoneNumber: PhoneNumber,
+    TelephoneNumber: TelephoneNumber
+  },{
+    where: {UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    console.log("Updated");
+    callback("Updated");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
 }
 
 app.get('/Api/v1/RoomConfiguration', function (req, res) {
