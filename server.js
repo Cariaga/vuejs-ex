@@ -3557,6 +3557,15 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                   if(!isNullOrEmpty(BeforePoints)){
                     if(!isNullOrEmpty(AfterPoints)){
 
+                      if(validator.isNumeric(BeforePoints)){
+                        if(validator.isNumeric(AfterPoints)){
+
+                        }else{
+                          
+                        }
+                      }else{
+
+                      }
                       if(validator.isNumeric(Score)){
                         let countedCards =  Card.split(",");//card counting validate that we have 5 cards
                         let countedStringLength = Card.length;//Must be 14 including commas in count
