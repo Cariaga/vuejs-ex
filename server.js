@@ -2133,7 +2133,7 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   });
 }
 
-app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
+app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Time/:Time/Date/:Date', function (req, res) {
   let NotificationID = req.params.NotificationID;
   let NotificationType = req.params.NotificationType;
   let Title = req.params.Title;
@@ -2146,7 +2146,7 @@ app.get('/Api/v1/Notification/Update/:NotificationID/:NotificationType/:Title/:D
         if(!isNullOrEmpty(Description)){
           if(!isNullOrEmpty(Time)){
             if(!isNullOrEmpty(Date)){
-      
+              
             }else{
               res.send({DateMissing:true});
             }
