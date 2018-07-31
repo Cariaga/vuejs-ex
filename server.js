@@ -3162,7 +3162,11 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
 
                                 async.series([IsUserAccountIDExistCheck],function(error,response){
                                   if(isUserAccountIDFound==true){
-                                    res.send({Success:true});
+
+                                    AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                                      res.send(response);
+                                    });
+                               
                                   }else{
                                     res.send({IsUserAccountIDExist:false});
                                   }
@@ -3191,9 +3195,6 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                            
 
 
-                           /* AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
-                              res.send(response);
-                            });*/
 
                           }else{
                             res.send({ProcessingTIMEMissing:true});
