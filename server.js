@@ -19,6 +19,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
+let isValidDate = require('pretty-easy-date-check');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 
@@ -2892,7 +2893,8 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                               let Day = d.getUTCDate();
                               let Month = d.getUTCMonth();
                               let Year = d.getUTCFullYear();
-                              let IsDate = validator.isDataURI(RequestedDATE);
+                              
+                              let IsDate = isValidDate(RequestedDATE);
                              res.send({Day:Day,Month:Month,Year:Year,IsDate:IsDate});
                               //res.send({Success:true});
 

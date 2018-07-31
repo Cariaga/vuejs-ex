@@ -23,7 +23,8 @@
     "validator":"^10.4.0",
     "async":"^2.6.1",
     "sendmail":"^1.4.1",
-    "linqjs":"^0.0.6"
+    "linqjs":"^0.0.6",
+    "pretty-easy-date-check":"^1.2.4"
     
   },
   "scripts": {
