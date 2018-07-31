@@ -3452,16 +3452,22 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                           if(!isNullOrEmpty(RejectedTIME)){
                             if(!isNullOrEmpty(ProcessingTIME)){
                               let UserAccountIDFound =false;
-                              async.series([IsUserAccountIDExistCheck],function(error,response){
+                              let DepositHistoryIDFound=false;
+                              async.series([IsUserAccountIDExistCheck,IsDepositHistoryIDExistCheck],function(error,response){
                                 if(Status=="Approved"||Status=="Pending"||Status=="Rejected"){
-                                  if(UserAccountIDFound==true){
-                                    res.send({Success:true});
+                                  if(DepositHistoryIDFound==true){
+                                    if(UserAccountIDFound==true){
+                                      res.send({Success:true});
+                                    }else{
+                                      res.send({});
+                                    }
                                   }else{
-                                    res.send({});
+                                    res.send({StatusInvalidValue:true});
                                   }
-                                }else{
-                                  res.send({StatusInvalidValue:true});
-                                }
+                                  }else{
+                                    res.send({DepositHistoryIDInvalidValue:true});
+                                  }
+                                  
                                 
 
                               });
@@ -3473,6 +3479,15 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                   }else{
                                     UserAccountIDFound=false;
                                     callback(null,'1');
+                                  }
+                                });
+                              }
+                              function IsDepositHistoryIDExistCheck(callback){
+                                DepositHistoryUserAccountID(DepositHistoryID,UserAccountID,function(response){
+                                  if(response!=undefined){
+                                    DepositHistoryIDFound=true;
+                                  }else{
+                                    DepositHistoryIDFound=false;
                                   }
                                 });
                               }
@@ -3547,7 +3562,27 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     res.send({DepositHistoryIDMissing:true});
   }
 });
-
+function DepositHistoryUserAccountID(UserAccountID,DepositHistoryID,callback){
+  Models.DepositHistory.sync();
+  let result = Models.DepositHistory.findAll({ 
+    where: {
+      DepositHistoryID:DepositHistoryID,
+      UserAccountID:UserAccountID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      res.send(beautify(Data, null, 2, 100));
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
 
 app.get('/Api/v1/DepositHistory/Clear', function (req, res){
   Models.DepositHistory.destroy({
