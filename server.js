@@ -3428,11 +3428,42 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
   let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
+
+  if(!isNullOrEmpty(DepositHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(Amount)){
+        if(!isNullOrEmpty(BankNameUsed)){
+          if(!isNullOrEmpty(SecurityCodeUsed)){
+            if(!isNullOrEmpty(Status)){
+              if(!isNullOrEmpty(RequestedDATE)){
+                if(!isNullOrEmpty(ApprovedDATE)){
+                  if(!isNullOrEmpty(RejectedDATE)){
+                    if(!isNullOrEmpty(ProcessingDATE)){
+                      if(!isNullOrEmpty(RequestedTIME)){
+                        if( !isNullOrEmpty(ApprovedTIME)){
+                          if(!isNullOrEmpty(RejectedTIME)){
+                            if(!isNullOrEmpty(ProcessingTIME)){
+
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   if(!isNullOrEmpty(DepositHistoryID)&&
      !isNullOrEmpty(UserAccountID)&&
      !isNullOrEmpty(Amount)&&
      !isNullOrEmpty(BankNameUsed)&&
-     !isNullOrEmpty(SecurityCodeUsed)&&
      !isNullOrEmpty(SecurityCodeUsed)&&
      !isNullOrEmpty(Status)&&
      !isNullOrEmpty(RequestedDATE)&&
@@ -3471,6 +3502,8 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
       });  
      }
 });
+
+
 app.get('/Api/v1/DepositHistory/Clear', function (req, res){
   Models.DepositHistory.destroy({
     where: {},
@@ -5623,17 +5656,6 @@ app.get('/testsql/:ip/', function (req, res) {
     console.log(results);
   }
 );*/
-
-
-
-
-
-
-
-
-
-
-
 //connect to Mysql database
 /*
 var mysqlClient = mysql.createConnection(mysqlString);
