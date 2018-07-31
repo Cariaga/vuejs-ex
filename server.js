@@ -2880,13 +2880,8 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
       if(!isNullOrEmpty(BankNameUsed)){
         if(!isNullOrEmpty(Status)){
             let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
-            let RequestedDATEDay = RequestedDATEParsed.getDate();
-            let RequestedDateMonth = RequestedDATEParsed.getMonth();
-            let RequestedDateYear = RequestedDATEParsed.getFullYear();
-
-            let  isValid = moment(RequestedDATE, "YYYY-MM-DD");
-
-          if(!isNullOrEmpty(RequestedDATE)&&!isNullOrEmpty(RequestedDATEDay)&&!isNullOrEmpty(RequestedDateMonth)&&!isNullOrEmpty(RequestedDateYear)){
+            let  isValid = RequestedDATEParsed.isValid();
+          if(!isNullOrEmpty(RequestedDATE)&&isValid==true){
               res.send({RequestedDateYear:RequestedDateYear});
               let ApprovedDATEParsed= new Date(ApprovedDATE);
               let ApprovedDATEDay =ApprovedDATEParsed.getDate();
