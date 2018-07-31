@@ -2891,7 +2891,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                               let d= new Date(RequestedDATE);
                               let Day = d.getDay();
                               let Month = d.getMonth();
-                              let Year = d.Year();
+                              let Year = d.getYear();
                               let IsDate = validator.isDataURI(RequestedDATE);
                              res.send({Day:Day,Month:Month,Year:Year,IsDate:IsDate});
                               //res.send({Success:true});
