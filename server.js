@@ -2881,21 +2881,21 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
         if(!isNullOrEmpty(Status)){
             let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
             let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
-
-          if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true){
+        
+          if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true&&RequestedDATEParsed.year()>1959){
               let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
               let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
 
-            if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true){
+            if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
 
                 let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
                 let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
 
-              if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true){
+              if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
 
                   let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
                   let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
-                if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true){
+                if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
                   
 
                   if(!isNullOrEmpty(RequestedTIME)){
@@ -3011,7 +3011,7 @@ function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,
     });
 }
 app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
-  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20/01:57:20
+
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
