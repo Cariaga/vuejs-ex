@@ -5565,6 +5565,20 @@ app.get('/WithdrawHistory',function (req, res) {
   let ContactNumber= req.query.ContactNumber;
   let WithdrawPassword = req.query.WithdrawPassword;
 
+  
+  async.series([IsUserAccountIDExistCheck,ValidateAccountCheck,ValidateBalanceCheck
+
+  ]);
+  function IsUserAccountIDExistCheck(){
+
+  }
+  function ValidateAccountCheck(){
+
+  }
+  function ValidateBalanceCheck(){
+
+  }
+  /*
   async.waterfall([ValidateAccount,ValidateBalance],function(err,response){
     MyFinalFunction();
     
@@ -5595,8 +5609,7 @@ app.get('/WithdrawHistory',function (req, res) {
       res.send(arg0);
       callback(null,response);
     }
-   
-  }
+  }*/
  
 /*
   function MyFinalFunction(){
@@ -5636,7 +5649,6 @@ app.get('/WithdrawHistory',function (req, res) {
       res.send(Data);
     }
   }*/
-  
 });
 
 // listen (start app with node server.js) ======================================
