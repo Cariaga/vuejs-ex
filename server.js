@@ -3453,7 +3453,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                             if(!isNullOrEmpty(ProcessingTIME)){
                               let UserAccountIDFound =false;
                               async.series([IsUserAccountIDExistCheck],function(error,response){
-                                if(Status==""||Status==""||Status==""){
+                                if(Status=="Approved"||Status=="Pending"||Status=="Rejected"){
                                   if(UserAccountIDFound==true){
                                     res.send({Success:true});
                                   }else{
