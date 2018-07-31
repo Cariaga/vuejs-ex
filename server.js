@@ -3246,6 +3246,8 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
             res.send({});
           }
         });
+      }else{
+        res.send({UserAccountIDFound:false});
       }
     });
     function IsUserAccountIDExistCheck(callback){
