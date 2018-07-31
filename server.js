@@ -2958,16 +2958,16 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                     res.send({RequestedTIMEMissing:true});
                   }
                 }else{
-                  res.send({ProcessingDATEMissing:true});
+                  res.send({ProcessingDATEInvalid:true});
                 }
               }else{
-                res.send({RejectedDATEMissing:true});
+                res.send({RejectedDATEInvalid:true});
               }
             }else{
-              res.send({ApprovedDATEMissing:true});
+              res.send({ApprovedDATEInvalid:true});
             }
           }else{
-            res.send({RequestedDATEMissing:true});
+            res.send({RequestedDATEInvalid:true});
           }
         }else{
           res.send({StatusMissing:true});
