@@ -2881,43 +2881,33 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
         if(!isNullOrEmpty(Status)){
             let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
             let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
-        
           if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true&&RequestedDATEParsed.year()>1959){
               let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
               let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
-
             if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
-
                 let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
                 let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-
               if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
-
                   let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
                   let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
                 if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
-                  
-
                   if(!isNullOrEmpty(RequestedTIME)){
                     if( !isNullOrEmpty(ApprovedTIME)){
                       if( !isNullOrEmpty(RejectedTIME)){
                         if(!isNullOrEmpty(ProcessingTIME)){
-
                           let isUserAccountIDFound= false;
-                          
                           if(validator.isNumeric(Amount)){
                             if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
                                 async.series([UserAccountIDCheck],function(error,response){
                                   if(isUserAccountIDFound==true){
                                     res.send({Success:true});
-                                  /* WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                                   WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
                                       res.send(response);
-                                    });*/
+                                    });
                                   }else{
                                     res.send({UserAccountIDFound:false});
                                   }
                                 });
-
                                 function UserAccountIDCheck(callback){
                                   isUserAccountIDExist(UserAccountID,function(response){
                                     let obj = response;
