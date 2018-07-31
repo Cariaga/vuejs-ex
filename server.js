@@ -2895,7 +2895,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                               let RequestedDateYear = RequestedDATEParsed.getFullYear();
                               
                               
-                             res.send({Day:RequestedDATEDay,Month:RequestedDateMonth,Year:RequestedDateYear,IsDate:IsDate});
+                             res.send({Day:RequestedDATEDay,Month:RequestedDateMonth,Year:RequestedDateYear});
                               //res.send({Success:true});
 
                             }else{
