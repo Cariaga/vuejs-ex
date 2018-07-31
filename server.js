@@ -2885,12 +2885,13 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
                       if( !isNullOrEmpty(RejectedTIME)){
                         if(!isNullOrEmpty(ProcessingTIME)){
                           let isUserAccountIDFound= false;
-
+                          
                           async.series([UserAccountIDCheck],function(error,response){
                             if(isUserAccountIDFound==true){
-                              WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                              res.send({Success:true});
+                             /* WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
                                 res.send(response);
-                              });
+                              });*/
                             }else{
                               res.send({UserAccountIDFound:false});
                             }
