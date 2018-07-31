@@ -3233,7 +3233,11 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
 app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
-    res.send()
+    if(response!=undefined){
+      res.send(response)
+    }else{
+      res.send({});
+    }
   });
 });
 
