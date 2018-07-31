@@ -3230,8 +3230,11 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
     res.send({UserAccountIDMissing:true});
   }  
 });
+
 app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  let Status = req.params.Status;
   DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
     if(response!=undefined){
       res.send(response)
