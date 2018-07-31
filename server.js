@@ -3239,7 +3239,13 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
     let isUserAccountIDFound=false;
     async.series([IsUserAccountIDExistCheck],function(){
       if(isUserAccountIDFound==true){
-
+        DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
+          if(response!=undefined){
+            res.send(beautify(response, null, 2, 100));
+          }else{
+            res.send({});
+          }
+        });
       }
     });
     function IsUserAccountIDExistCheck(callback){
@@ -3255,13 +3261,9 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
       });
       
     }
-    DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send({});
-      }
-    });
+    
+  }else{
+    res.send({StatusInvalidValue:true});
   }
 
   
