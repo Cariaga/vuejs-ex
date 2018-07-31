@@ -2877,27 +2877,27 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     if(!isNullOrEmpty(Amount)){
       if(!isNullOrEmpty(BankNameUsed)){
         if(!isNullOrEmpty(Status)){
-          let RequestedDATEParsed= new Date(RequestedDATE);
+            let RequestedDATEParsed= new Date(RequestedDATE);
             let RequestedDATEDay = RequestedDATEParsed.getDate();
             let RequestedDateMonth = RequestedDATEParsed.getMonth();
             let RequestedDateYear = RequestedDATEParsed.getFullYear();
           if(!isNullOrEmpty(RequestedDATE)&&!isNullOrEmpty(RequestedDATEDay)&&!isNullOrEmpty(RequestedDateMonth)&&!isNullOrEmpty(RequestedDateYear)){
 
-            let ApprovedDATEParsed= new Date(ApprovedDATE);
+              let ApprovedDATEParsed= new Date(ApprovedDATE);
               let ApprovedDATEDay =ApprovedDATEParsed.getDate();
               let ApprovedDATEMonth = ApprovedDATEParsed.getMonth();
               let ApprovedDATEYear = ApprovedDATEParsed.getFullYear();
 
             if(!isNullOrEmpty(ApprovedDATE)&&!isNullOrEmpty(ApprovedDATEDay)&&!isNullOrEmpty(ApprovedDATEMonth)&&!isNullOrEmpty(ApprovedDATEYear)){
 
-              let RejectedDATEParsed= new Date(RejectedDATE);
+                let RejectedDATEParsed= new Date(RejectedDATE);
                 let RejectedDATEDay =RejectedDATEParsed.getDate();
                 let RejectedDATEMonth = RejectedDATEParsed.getMonth();
                 let RejectedDATEYear = RejectedDATEParsed.getFullYear();
 
               if(!isNullOrEmpty(RejectedDATE)&&!isNullOrEmpty(RejectedDATEDay)&&!isNullOrEmpty(RejectedDATEMonth)&&!isNullOrEmpty(RejectedDATEYear)){
 
-                let ProcessingDATEParsed= new Date(ProcessingDATE);
+                  let ProcessingDATEParsed= new Date(ProcessingDATE);
                   let ProcessingDATEDay =ProcessingDATEParsed.getDate();
                   let ProcessingDATEMonth = ProcessingDATEParsed.getMonth();
                   let ProcessingDATEYear = ProcessingDATEParsed.getFullYear();
@@ -2909,6 +2909,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                     if( !isNullOrEmpty(ApprovedTIME)){
                       if( !isNullOrEmpty(RejectedTIME)){
                         if(!isNullOrEmpty(ProcessingTIME)){
+
                           let isUserAccountIDFound= false;
                           
                           if(validator.isNumeric(Amount)){
