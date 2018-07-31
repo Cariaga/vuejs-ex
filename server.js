@@ -2889,13 +2889,13 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                           
                           if(validator.isNumeric(Amount)){
                             if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-                              let d= new Date(RequestedDATE);
-                              let Day = d.getUTCDate();
-                              let Month = d.getUTCMonth();
-                              let Year = d.getUTCFullYear();
+                              let RequestedDATEParsed= new Date(RequestedDATE);
+                              let RequestedDATEDay = RequestedDATEParsed.getDate();
+                              let RequestedDateMonth = RequestedDATEParsed.getMonth();
+                              let RequestedDateYear = RequestedDATEParsed.getFullYear();
                               
-                              let IsDate = isValidDate(RequestedDATE);
-                             res.send({Day:Day,Month:Month,Year:Year,IsDate:IsDate});
+                              
+                             res.send({Day:RequestedDATEDay,Month:RequestedDateMonth,Year:RequestedDateYear,IsDate:IsDate});
                               //res.send({Success:true});
 
                             }else{
@@ -2967,6 +2967,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     res.send({UserAccountIDMissing:true});
   }
 });
+
 function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.WithdrawHistory.build({
     UserAccountID:UserAccountID,
