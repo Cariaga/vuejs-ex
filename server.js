@@ -2907,42 +2907,36 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                           
                           if(validator.isNumeric(Amount)){
                             if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-                            
-                              
-                              
-                       
-                              res.send({Success:true});
+                                async.series([UserAccountIDCheck],function(error,response){
+                                  if(isUserAccountIDFound==true){
+                                    res.send({Success:true});
+                                  /* WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                                      res.send(response);
+                                    });*/
+                                  }else{
+                                    res.send({UserAccountIDFound:false});
+                                  }
+                                });
 
+                                function UserAccountIDCheck(callback){
+                                  isUserAccountIDExist(UserAccountID,function(response){
+                                    let obj = response;
+                                    if(obj!=undefined){
+                                      isUserAccountIDFound = true;
+                                      callback(null,'1');
+                                    }else{
+                                      isUserAccountIDFound = false;
+                                      callback(null,'1');
+                                    }
+                                  });
+                                }
                             }else{
                               res.send({StatusInvalidValue:true});
                             }
                           }
 
 
-                          /*
-                          async.series([UserAccountIDCheck],function(error,response){
-                            if(isUserAccountIDFound==true){
-                              res.send({Success:true});
-                             /* WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
-                                res.send(response);
-                              });*/
-                         /*   }else{
-                              res.send({UserAccountIDFound:false});
-                            }
-                          });
-
-                          function UserAccountIDCheck(callback){
-                            isUserAccountIDExist(UserAccountID,function(response){
-                              let obj = response;
-                              if(obj!=undefined){
-                                isUserAccountIDFound = true;
-                                callback(null,'1');
-                              }else{
-                                isUserAccountIDFound = false;
-                                callback(null,'1');
-                              }
-                            });
-                          }*/
+                         
 
                           
                         }else{
