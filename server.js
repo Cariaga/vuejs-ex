@@ -3453,11 +3453,15 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
                             if(!isNullOrEmpty(ProcessingTIME)){
                               let UserAccountIDFound =false;
                               async.series([IsUserAccountIDExistCheck],function(error,response){
-                                if(UserAccountIDFound==true){
-                                  res.send({Success:true});
-                                }else{
-                                  res.send({});
+                                if(Status==""||Status==""||Status==""){
+                                  if(UserAccountIDFound==true){
+                                    res.send({Success:true});
+                                  }else{
+                                    res.send({});
+                                  }
                                 }
+                                
+
                               });
                               function IsUserAccountIDExistCheck(callback){
                                 isUserAccountIDExist(UserAccountID,function(response){
