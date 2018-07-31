@@ -3174,7 +3174,7 @@ app.get('/DepositHistory', function (req, res) {
             console.log("UserAccountID: "+UserAccountID);
           if(!isNullOrEmpty(obj)&&obj!=undefined){
           
-            async.waterfall([myFirstFunction,mySecondFunction],function(err,result){
+            async.waterfall([TimeCheck,DateCheck],function(err,result){
               if(!isNullOrEmpty(UserAccountID)&&
               !isNullOrEmpty(Amount)&&
               !isNullOrEmpty(BankNameUsed)&&
@@ -3204,12 +3204,12 @@ app.get('/DepositHistory', function (req, res) {
                 res.send(Data);
                 }
             });
-              function myFirstFunction(callback){
+              function TimeCheck(callback){
               getCurrentTime(function(response){
                   callback(null,response);
                 });
               }
-              function mySecondFunction(arg0,callback2){
+              function DateCheck(arg0,callback2){
             
                 let Time = arg0;
                 getCurrentDate(function(response){
