@@ -3459,6 +3459,8 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
                                   }else{
                                     res.send({});
                                   }
+                                }else{
+                                  res.send({StatusInvalidValue:true});
                                 }
                                 
 
