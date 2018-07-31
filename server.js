@@ -3235,13 +3235,36 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
-  DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
-    if(response!=undefined){
-      res.send(beautify(response, null, 2, 100));
-    }else{
-      res.send({});
+  if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
+    let isUserAccountIDFound=false;
+    async.series([],function(){
+      if(isUserAccountIDFound==true){
+
+      }
+    });
+    function IsUserAccountIDExistCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        if(response!=undefined){
+          isUserAccountIDFound=true;
+          callback(null,'1');
+        }else{
+          isUserAccountIDFound=false;
+          callback(null,'1');
+        }
+      
+      });
+      
     }
-  });
+    DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
+      if(response!=undefined){
+        res.send(beautify(response, null, 2, 100));
+      }else{
+        res.send({});
+      }
+    });
+  }
+
+  
 });
 
 function DepositHistoryUserAccountIDStatus(UserAccountID,Status,callback){
