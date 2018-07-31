@@ -2886,6 +2886,14 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                         if(!isNullOrEmpty(ProcessingTIME)){
                           let isUserAccountIDFound= false;
                           
+                          if(validator.isNumeric(Amount)){
+                            if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
+                              res.send({Success:true});
+                            }else{
+                              res.send({StatusInvalidValue:true});
+                            }
+                          }
+                          
                           async.series([UserAccountIDCheck],function(error,response){
                             if(isUserAccountIDFound==true){
                               res.send({Success:true});
@@ -2909,6 +2917,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                               }
                             });
                           }
+
                           
                         }else{
                           res.send({ProcessingTIMEMissing:true});
