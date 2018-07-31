@@ -2889,9 +2889,9 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                           if(validator.isNumeric(Amount)){
                             if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
                               let d= new Date(RequestedDATE);
-                              let Day = d.getDay();
-                              let Month = d.getMonth();
-                              let Year = d.getYear();
+                              let Day = d.getUTCDate();
+                              let Month = d.getUTCMonth();
+                              let Year = d.getUTCFullYear();
                               let IsDate = validator.isDataURI(RequestedDATE);
                              res.send({Day:Day,Month:Month,Year:Year,IsDate:IsDate});
                               //res.send({Success:true});
