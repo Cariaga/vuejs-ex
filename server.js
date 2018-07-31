@@ -2871,21 +2871,57 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Amount)&&
-  !isNullOrEmpty(BankNameUsed)&&
-  !isNullOrEmpty(Status)&&
-  !isNullOrEmpty(RequestedDATE)&&
-  !isNullOrEmpty(ApprovedDATE)&&
-  !isNullOrEmpty(RejectedDATE)&&
-  !isNullOrEmpty(ProcessingDATE)&&
-  !isNullOrEmpty(RequestedTIME)&&
-  !isNullOrEmpty(ApprovedTIME)&&
-  !isNullOrEmpty(RejectedTIME)&&
-  !isNullOrEmpty(ProcessingTIME)){
-    WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
-      res.send(response);
-    });
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Amount)){
+      if(!isNullOrEmpty(BankNameUsed)){
+        if( !isNullOrEmpty(Status)){
+          if(!isNullOrEmpty(RequestedDATE)){
+            if(!isNullOrEmpty(ApprovedDATE)){
+              if(!isNullOrEmpty(RejectedDATE)){
+                if(!isNullOrEmpty(ProcessingDATE)){
+                  if(!isNullOrEmpty(RequestedTIME)){
+                    if( !isNullOrEmpty(ApprovedTIME)){
+                      if( !isNullOrEmpty(RejectedTIME)){
+                        if(!isNullOrEmpty(ProcessingTIME)){
+                          WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                            res.send(response);
+                          });
+                        }else{
+                          res.send({ProcessingTIMEMissing:true});
+                        }
+                      }else{
+                        res.send({RejectedTIMEMissing:true});
+                      }
+                    }else{
+                      res.send({ApprovedTIMEMissing:true});
+                    }
+                  }else{
+                    res.send({RequestedTIMEMissing:true});
+                  }
+                }else{
+                  res.send({ProcessingDATEMissing:true});
+                }
+              }else{
+                res.send({RejectedDATEMissing:true});
+              }
+            }else{
+              res.send({ApprovedDATEMissing:true});
+            }
+          }else{
+            res.send({RequestedDATEMissing:true});
+          }
+        }else{
+          res.send({StatusMissing:true});
+        }
+      }else{
+        res.send({BankNameUsedMissing:true});
+      }
+    }else{
+      res.send({AmountMissing:true});
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
   }
 });
 function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME){
@@ -3110,26 +3146,7 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
     }
   }else{
     res.send({UserAccountIDMissing:true});
-  }
-/*
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Amount)&&
-  !isNullOrEmpty(BankNameUsed)&&
-  !isNullOrEmpty(SecurityCodeUsed)&&
-  !isNullOrEmpty(Status)&&
-  !isNullOrEmpty(RequestedDATE)&&
-  !isNullOrEmpty(ApprovedDATE)&&
-  !isNullOrEmpty(RejectedDATE)&&
-  !isNullOrEmpty(ProcessingDATE)&&
-  !isNullOrEmpty(RequestedTIME)&&
-  !isNullOrEmpty(ApprovedTIME)&&
-  !isNullOrEmpty(RejectedTIME)&&
-  !isNullOrEmpty(ProcessingTIME)){
-   AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
-    res.send(response);
-  });
-  }*/
-  
+  }  
 });
 
 app.get('/DepositHistory', function (req, res) {
