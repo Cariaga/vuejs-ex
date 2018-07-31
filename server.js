@@ -3115,7 +3115,7 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
 app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
- // Usage Api/v1/DepositHistory/Add/UserAccountID/1/BankNameUsed/SecurityCodeUsed/Status/2018-06-26/2018-06-27/2018-06-28/2018-06-29/01:57:16/01:57:17/01:58:17/01:59:17
+ // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
   let BankNameUsed = req.params.BankNameUsed;
@@ -3156,11 +3156,17 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                         if(!isNullOrEmpty(RejectedTIME)){
                           if(!isNullOrEmpty(ProcessingTIME)){
                             
-                            if(Status=="Approved"||Status=="Rejected"||Status=="Processing"){
-                              res.send({Success:true});
+                            if(Amount>0){
+                              if(Status=="Approved"||Status=="Rejected"||Status=="Processing"){
+                                res.send({Success:true});
+  
+                              }else{
+                                res.send({StatusInvalidValue:true});
+                              }
                             }else{
-                              res.send({StatusInvalidValue:true});
+                              res.send({AmountInvalidValue:true});
                             }
+                           
 
                            
 
