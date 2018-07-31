@@ -3137,15 +3137,15 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
             let RequestedDATEParsed = moment(RequestedDATE,"YYYY-MM-DD");
             let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
 
-            if(!isNullOrEmpty(RequestedDATE)){
+            if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true){
               let ApprovedDATEParsed = moment(ApprovedDATE,"YYYY-MM-DD");
               let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
 
-              if(!isNullOrEmpty(ApprovedDATE)){
+              if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true){
                 let RejectedDATEParsed = moment(RejectedDATE,"YYYY-MM-DD");
                 let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
 
-                if(!isNullOrEmpty(RejectedDATE)){
+                if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true){
                   let ProcessingDATEParsed = moment(ProcessingDATE,"YYYY-MM-DD");
                   let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
 
