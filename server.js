@@ -3254,16 +3254,17 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   Models.DepositHistory.sync({alter : true});
   item1.save()
   .then(Success => {
-    callback("Inserted");
+   
     console.log("----AddDepositHistory Start-----");
     console.log(Success);
+    callback("Inserted");
     console.log("----AddDepositHistory End-----");
   })
   
   .catch(error => {
    
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
