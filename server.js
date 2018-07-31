@@ -2893,14 +2893,16 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                               res.send({StatusInvalidValue:true});
                             }
                           }
+
                           
+                          /*
                           async.series([UserAccountIDCheck],function(error,response){
                             if(isUserAccountIDFound==true){
                               res.send({Success:true});
                              /* WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
                                 res.send(response);
                               });*/
-                            }else{
+                         /*   }else{
                               res.send({UserAccountIDFound:false});
                             }
                           });
@@ -2916,7 +2918,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                                 callback(null,'1');
                               }
                             });
-                          }
+                          }*/
 
                           
                         }else{
