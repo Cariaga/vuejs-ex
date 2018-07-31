@@ -3451,7 +3451,26 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
                         if(!isNullOrEmpty(ApprovedTIME)){
                           if(!isNullOrEmpty(RejectedTIME)){
                             if(!isNullOrEmpty(ProcessingTIME)){
-
+                              let UserAccountIDFound =false;
+                              async.series([IsUserAccountIDExistCheck],function(error,response){
+                                if(UserAccountIDFound==true){
+                                  res.send({Success:true});
+                                }else{
+                                  res.send({});
+                                }
+                              });
+                              function IsUserAccountIDExistCheck(callback){
+                                isUserAccountIDExist(UserAccountID,function(response){
+                                  if(response!=undefined){
+                                    UserAccountIDFound=true;
+                                    callback(null,'1');
+                                  }else{
+                                    UserAccountIDFound=false;
+                                    callback(null,'1');
+                                  }
+                                });
+                              }
+                              /*
                               Models.DepositHistory.update({
                                 UserAccountID: UserAccountID,
                                 Amount: Amount,
@@ -3477,7 +3496,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
                               
                                 console.log("Error Updating");
                                 res.send("Error Updating " +error);
-                              });
+                              });*/
 
                             }else{
                               res.send({ProcessingTIMEMissing:true});
