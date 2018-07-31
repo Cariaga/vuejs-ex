@@ -3161,7 +3161,7 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                                 let isUserAccountIDFound =false;
 
                                 async.series([IsUserAccountIDExistCheck],function(error,response){
-                                  if(isUserAccountIDFound){
+                                  if(isUserAccountIDFound==true){
                                     res.send({Success:true});
                                   }else{
                                     res.send({IsUserAccountIDExist:false});
@@ -3179,7 +3179,7 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                                     }
                                   });
                                 }
-                                res.send({Success:true});
+                 
                               }else{
                                 res.send({StatusInvalidValue:true});
                               }
