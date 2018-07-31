@@ -3444,63 +3444,75 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
                           if(!isNullOrEmpty(RejectedTIME)){
                             if(!isNullOrEmpty(ProcessingTIME)){
 
+                              Models.DepositHistory.update({
+                                UserAccountID: UserAccountID,
+                                Amount: Amount,
+                                BankNameUsed: BankNameUsed,
+                                SecurityCodeUsed: SecurityCodeUsed,
+                                Status: Status,
+                                RequestedDATE: RequestedDATE,
+                                ApprovedDATE: ApprovedDATE,
+                                RejectedDATE: RejectedDATE,
+                                ProcessingDATE: ProcessingDATE,
+                                RequestedTIME: RequestedTIME,
+                                ApprovedTIME: ApprovedTIME,
+                                RejectedTIME: RejectedTIME,
+                                ProcessingTIME: ProcessingTIME,
+                              },{
+                                where: {DepositHistoryID:DepositHistoryID }
+                              })
+                              .then(Success => {
+                                res.send("Updated");
+                              })
+                              
+                              .catch(error => {
+                              
+                                console.log("Error Updating");
+                                res.send("Error Updating " +error);
+                              });
+
+                            }else{
+                              res.send({});
                             }
+                          }else{
+                            res.send({});
                           }
+                        }else{
+                          res.send({});
                         }
+                      }else{
+                        res.send({});
                       }
+                    }else{
+                      res.send({});
                     }
+                  }else{
+                    res.send({});
                   }
+                }else{
+                  res.send({});
                 }
+              }else{
+                res.send({});
               }
+            }else{
+              res.send({});
             }
+          }else{
+            res.send({});
           }
+        }else{
+          res.send({});
         }
+      }else{
+        res.send({});
       }
+    }else{
+      res.send({});
     }
+  }else{
+    res.send({});
   }
-
-
-  if(!isNullOrEmpty(DepositHistoryID)&&
-     !isNullOrEmpty(UserAccountID)&&
-     !isNullOrEmpty(Amount)&&
-     !isNullOrEmpty(BankNameUsed)&&
-     !isNullOrEmpty(SecurityCodeUsed)&&
-     !isNullOrEmpty(Status)&&
-     !isNullOrEmpty(RequestedDATE)&&
-     !isNullOrEmpty(ApprovedDATE)&&
-     !isNullOrEmpty(RejectedDATE)&&
-     !isNullOrEmpty(ProcessingDATE)&&
-     !isNullOrEmpty(RequestedTIME)&&
-     !isNullOrEmpty(ApprovedTIME)&&
-     !isNullOrEmpty(RejectedTIME)&&
-     !isNullOrEmpty(ProcessingTIME)){
-      Models.DepositHistory.update({
-        UserAccountID: UserAccountID,
-        Amount: Amount,
-        BankNameUsed: BankNameUsed,
-        SecurityCodeUsed: SecurityCodeUsed,
-        Status: Status,
-        RequestedDATE: RequestedDATE,
-        ApprovedDATE: ApprovedDATE,
-        RejectedDATE: RejectedDATE,
-        ProcessingDATE: ProcessingDATE,
-        RequestedTIME: RequestedTIME,
-        ApprovedTIME: ApprovedTIME,
-        RejectedTIME: RejectedTIME,
-        ProcessingTIME: ProcessingTIME,
-      },{
-        where: {DepositHistoryID:DepositHistoryID }
-      })
-      .then(Success => {
-        res.send("Updated");
-      })
-      
-      .catch(error => {
-      
-        console.log("Error Updating");
-        res.send("Error Updating " +error);
-      });  
-     }
 });
 
 
