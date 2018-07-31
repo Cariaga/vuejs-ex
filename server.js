@@ -3190,12 +3190,6 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                             }else{
                               res.send({AmountInvalidValue:true});
                             }
-                           
-
-                           
-
-
-
                           }else{
                             res.send({ProcessingTIMEMissing:true});
                           }
@@ -3236,6 +3230,36 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
     res.send({UserAccountIDMissing:true});
   }  
 });
+app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
+    res.send()
+  });
+});
+
+function DepositHistoryUserAccountIDStatus(UserAccountID,Status,callback){
+  Models.DepositHistory.sync();
+  let result = Models.DepositHistory.findAll({ 
+    where: {
+      UserAccountID:UserAccountID,
+      Status:Status
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
+
 
 app.get('/DepositHistory', function (req, res) {
   //DepositHistory?UserName=4dshg5D4d&Password=sdgsdrhGHSD46&Amount=132&BankNameUsed=BankNameUsed&SecurityCodeUsed=SecurityCodeUsed
