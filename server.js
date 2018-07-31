@@ -2961,7 +2961,6 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     res.send({UserAccountIDMissing:true});
   }
 });
-
 function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.WithdrawHistory.build({
     UserAccountID:UserAccountID,
@@ -5610,13 +5609,13 @@ app.get('/WithdrawHistory',function (req, res) {
 
   ]);
   function IsUserAccountIDExistCheck(callback){
-    callback()
+   callback(null,'1');
   }
   function ValidateAccountCheck(callback){
-
+    callback(null,'2');
   }
   function ValidateBalanceCheck(callback){
-
+    callback(null,'3');
   }
   /*
   async.waterfall([ValidateAccount,ValidateBalance],function(err,response){
