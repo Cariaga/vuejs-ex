@@ -2910,8 +2910,8 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                             
                               
                               
-                          //   res.send({Day:RequestedDATEDay,Month:RequestedDateMonth,Year:RequestedDateYear});
-                              //res.send({Success:true});
+                       
+                              res.send({Success:true});
 
                             }else{
                               res.send({StatusInvalidValue:true});
