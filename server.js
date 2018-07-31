@@ -3237,7 +3237,7 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
   let Status = req.params.Status;
   DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
     if(response!=undefined){
-      res.send(response)
+      res.send(beautify(response, null, 2, 100));
     }else{
       res.send({});
     }
