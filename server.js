@@ -3171,10 +3171,10 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                                 function IsUserAccountIDExistCheck(callback){
                                   isUserAccountIDExist(UserAccountID,function(response){
                                     if(response!=undefined){
-                                      isUserAccountIDExist=true;
+                                      isUserAccountIDFound=true;
                                       callback(null,'1');
                                     }else{
-                                      isUserAccountIDExist=false;
+                                      isUserAccountIDFound=false;
                                       callback(null,'1');
                                     }
                                   });
