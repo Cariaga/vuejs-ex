@@ -2875,7 +2875,7 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
   if(!isNullOrEmpty(UserAccountID)){
     if(!isNullOrEmpty(Amount)){
       if(!isNullOrEmpty(BankNameUsed)){
-        if( !isNullOrEmpty(Status)){
+        if(!isNullOrEmpty(Status)){
           if(!isNullOrEmpty(RequestedDATE)){
             if(!isNullOrEmpty(ApprovedDATE)){
               if(!isNullOrEmpty(RejectedDATE)){
