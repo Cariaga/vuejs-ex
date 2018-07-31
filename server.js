@@ -2934,11 +2934,6 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                               res.send({StatusInvalidValue:true});
                             }
                           }
-
-
-                         
-
-                          
                         }else{
                           res.send({ProcessingTIMEMissing:true});
                         }
