@@ -3158,8 +3158,14 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                             
                             if(Amount>0){
                               if(Status=="Approved"||Status=="Rejected"||Status=="Processing"){
+                                async.series([IsUserAccountIDExistCheck],function(){
+                                  
+                                });
+
+                                function IsUserAccountIDExistCheck(callback){
+
+                                }
                                 res.send({Success:true});
-  
                               }else{
                                 res.send({StatusInvalidValue:true});
                               }
