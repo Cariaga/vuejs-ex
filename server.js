@@ -3448,7 +3448,7 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
                     let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
                     if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true){
                       if(!isNullOrEmpty(RequestedTIME)){
-                        if( !isNullOrEmpty(ApprovedTIME)){
+                        if(!isNullOrEmpty(ApprovedTIME)){
                           if(!isNullOrEmpty(RejectedTIME)){
                             if(!isNullOrEmpty(ProcessingTIME)){
 
