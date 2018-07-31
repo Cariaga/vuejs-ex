@@ -2881,28 +2881,28 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
             let RequestedDATEDay = RequestedDATEParsed.getDate();
             let RequestedDateMonth = RequestedDATEParsed.getMonth();
             let RequestedDateYear = RequestedDATEParsed.getFullYear();
-          if(!isNullOrEmpty(RequestedDATE)){
+          if(!isNullOrEmpty(RequestedDATE)&&!isNullOrEmpty(RequestedDATEDay)&&!isNullOrEmpty(RequestedDateMonth)&&!isNullOrEmpty(RequestedDateYear)){
 
             let ApprovedDATEParsed= new Date(ApprovedDATE);
               let ApprovedDATEDay =ApprovedDATEParsed.getDate();
               let ApprovedDATEMonth = ApprovedDATEParsed.getMonth();
               let ApprovedDATEYear = ApprovedDATEParsed.getFullYear();
 
-            if(!isNullOrEmpty(ApprovedDATE)){
+            if(!isNullOrEmpty(ApprovedDATE)&&!isNullOrEmpty(ApprovedDATEDay)&&!isNullOrEmpty(ApprovedDATEMonth)&&!isNullOrEmpty(ApprovedDATEYear)){
 
               let RejectedDATEParsed= new Date(RejectedDATE);
                 let RejectedDATEDay =RejectedDATEParsed.getDate();
                 let RejectedDATEMonth = RejectedDATEParsed.getMonth();
                 let RejectedDATEYear = RejectedDATEParsed.getFullYear();
 
-              if(!isNullOrEmpty(RejectedDATE)){
-                
+              if(!isNullOrEmpty(RejectedDATE)&&!isNullOrEmpty(RejectedDATEDay)&&!isNullOrEmpty(RejectedDATEMonth)&&!isNullOrEmpty(RejectedDATEYear)){
+
                 let ProcessingDATEParsed= new Date(ProcessingDATE);
                   let ProcessingDATEDay =ProcessingDATEParsed.getDate();
                   let ProcessingDATEMonth = ProcessingDATEParsed.getMonth();
                   let ProcessingDATEYear = ProcessingDATEParsed.getFullYear();
 
-                if(!isNullOrEmpty(ProcessingDATE)){
+                if(!isNullOrEmpty(ProcessingDATE)&&!isNullOrEmpty(ProcessingDATEDay)&&!isNullOrEmpty(ProcessingDATEMonth)&&!isNullOrEmpty(ProcessingDATEYear)){
                   
 
                   if(!isNullOrEmpty(RequestedTIME)){
