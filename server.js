@@ -2877,10 +2877,34 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     if(!isNullOrEmpty(Amount)){
       if(!isNullOrEmpty(BankNameUsed)){
         if(!isNullOrEmpty(Status)){
+          let RequestedDATEParsed= new Date(RequestedDATE);
+            let RequestedDATEDay = RequestedDATEParsed.getDate();
+            let RequestedDateMonth = RequestedDATEParsed.getMonth();
+            let RequestedDateYear = RequestedDATEParsed.getFullYear();
           if(!isNullOrEmpty(RequestedDATE)){
+
+            let ApprovedDATEParsed= new Date(ApprovedDATE);
+              let ApprovedDATEDay =ApprovedDATEParsed.getDate();
+              let ApprovedDATEMonth = ApprovedDATEParsed.getMonth();
+              let ApprovedDATEYear = ApprovedDATEParsed.getFullYear();
+
             if(!isNullOrEmpty(ApprovedDATE)){
+
+              let RejectedDATEParsed= new Date(RejectedDATE);
+                let RejectedDATEDay =RejectedDATEParsed.getDate();
+                let RejectedDATEMonth = RejectedDATEParsed.getMonth();
+                let RejectedDATEYear = RejectedDATEParsed.getFullYear();
+
               if(!isNullOrEmpty(RejectedDATE)){
+                
+                let ProcessingDATEParsed= new Date(ProcessingDATE);
+                  let ProcessingDATEDay =ProcessingDATEParsed.getDate();
+                  let ProcessingDATEMonth = ProcessingDATEParsed.getMonth();
+                  let ProcessingDATEYear = ProcessingDATEParsed.getFullYear();
+
                 if(!isNullOrEmpty(ProcessingDATE)){
+                  
+
                   if(!isNullOrEmpty(RequestedTIME)){
                     if( !isNullOrEmpty(ApprovedTIME)){
                       if( !isNullOrEmpty(RejectedTIME)){
@@ -2889,10 +2913,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                           
                           if(validator.isNumeric(Amount)){
                             if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-                              let RequestedDATEParsed= new Date(RequestedDATE);
-                              let RequestedDATEDay = RequestedDATEParsed.getDate();
-                              let RequestedDateMonth = RequestedDATEParsed.getMonth();
-                              let RequestedDateYear = RequestedDATEParsed.getFullYear();
+                            
                               
                               
                              res.send({Day:RequestedDATEDay,Month:RequestedDateMonth,Year:RequestedDateYear});
