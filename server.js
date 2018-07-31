@@ -2882,7 +2882,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
             let RequestedDateMonth = RequestedDATEParsed.getMonth();
             let RequestedDateYear = RequestedDATEParsed.getFullYear();
           if(!isNullOrEmpty(RequestedDATE)&&!isNullOrEmpty(RequestedDATEDay)&&!isNullOrEmpty(RequestedDateMonth)&&!isNullOrEmpty(RequestedDateYear)&&RequestedDateYear!=null){
-
+              res.send({RequestedDateYear:RequestedDateYear});
               let ApprovedDATEParsed= new Date(ApprovedDATE);
               let ApprovedDATEDay =ApprovedDATEParsed.getDate();
               let ApprovedDATEMonth = ApprovedDATEParsed.getMonth();
@@ -2917,7 +2917,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                             
                               
                               
-                             res.send({Day:RequestedDATEDay,Month:RequestedDateMonth,Year:RequestedDateYear});
+                          //   res.send({Day:RequestedDATEDay,Month:RequestedDateMonth,Year:RequestedDateYear});
                               //res.send({Success:true});
 
                             }else{
