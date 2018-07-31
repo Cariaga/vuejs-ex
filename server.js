@@ -3056,6 +3056,62 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
   let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Amount)){
+      if(!isNullOrEmpty(BankNameUsed)){
+        if(!isNullOrEmpty(SecurityCodeUsed)){
+          if(!isNullOrEmpty(Status)){
+            if(!isNullOrEmpty(RequestedDATE)){
+              if(!isNullOrEmpty(ApprovedDATE)){
+                if(!isNullOrEmpty(RejectedDATE)){
+                  if(!isNullOrEmpty(ProcessingDATE)){
+                    if(!isNullOrEmpty(RequestedTIME)){
+                      if(!isNullOrEmpty(ApprovedTIME)){
+                        if(!isNullOrEmpty(RejectedTIME)){
+                          if(!isNullOrEmpty(ProcessingTIME)){
+                            AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                              res.send(response);
+                            });
+                          }else{
+                            res.send({ProcessingTIMEMissing:true});
+                          }
+                        }else{
+                          res.send({RejectedTIMEMissing:true});
+                        }
+                      }else{
+                        res.send({ApprovedTIMEMissing:true});
+                      }
+                    }else{
+                      res.send({RequestedTIMEMissing:true});
+                    }
+                  }else{
+                    res.send({ProcessingDATEMissing:true});
+                  }
+                }else{
+                  res.send({RejectedDATEMissing:true});
+                }
+              }else{
+                res.send({ApprovedDATEMissing:true});
+              }
+            }else{
+              res.send({RequestedDATEMissing:true});
+            }
+          }else{
+            res.send({StatusMissing:true});
+          }
+        }else{
+          res.send({SecurityCodeUsedMissing:true});
+        }
+      }else{
+        res.send({BankNameUsed:true});
+      }
+    }else{
+      res.send({AmountMissing:true})
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+/*
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Amount)&&
   !isNullOrEmpty(BankNameUsed)&&
@@ -3072,7 +3128,8 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
    AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
     res.send(response);
   });
-  }
+  }*/
+  
 });
 
 app.get('/DepositHistory', function (req, res) {
@@ -3331,7 +3388,7 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
           if(validator.isNumeric(SmallBlind)){
             if(validator.isNumeric(BigBlind)){
               if(validator.isNumeric(Speed)){
-                
+
                 let IsRoomIDFound =false;//false is the result we want
                 async.series([IsRoomIDExistCheck],function(error,response){
                   if(IsRoomIDFound==false){//must be false to be valid
