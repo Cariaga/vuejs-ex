@@ -2900,7 +2900,7 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
                           function UserAccountIDCheck(callback){
                             isUserAccountIDExist(UserAccountID,function(response){
                               let obj = response;
-                              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
+                              if(obj!=undefined){
                                 isUserAccountIDFound = true;
                                 callback(null,'1');
                               }else{
