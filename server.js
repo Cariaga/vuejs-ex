@@ -2884,9 +2884,31 @@ app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Secur
                     if( !isNullOrEmpty(ApprovedTIME)){
                       if( !isNullOrEmpty(RejectedTIME)){
                         if(!isNullOrEmpty(ProcessingTIME)){
-                          WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
-                            res.send(response);
+                          let isUserAccountIDFound= false;
+
+                          async.series([UserAccountIDCheck],function(error,response){
+                            if(isUserAccountIDFound==true){
+                              WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                                res.send(response);
+                              });
+                            }else{
+                              res.send({UserAccountIDFound:false});
+                            }
                           });
+
+                          function UserAccountIDCheck(callback){
+                            isUserAccountIDExist(UserAccountID,function(response){
+                              let obj = response;
+                              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
+                                isUserAccountIDFound = true;
+                                callback(null,'1');
+                              }else{
+                                isUserAccountIDFound = false;
+                                callback(null,'1');
+                              }
+                            });
+                          }
+                          
                         }else{
                           res.send({ProcessingTIMEMissing:true});
                         }
@@ -5565,17 +5587,19 @@ app.get('/WithdrawHistory',function (req, res) {
   let ContactNumber= req.query.ContactNumber;
   let WithdrawPassword = req.query.WithdrawPassword;
 
-  
+  let isWithdrawAmountValid=false;
+  let isUserAccountIDFound =false;
+
   async.series([IsUserAccountIDExistCheck,ValidateAccountCheck,ValidateBalanceCheck
 
   ]);
-  function IsUserAccountIDExistCheck(){
+  function IsUserAccountIDExistCheck(callback){
+    callback()
+  }
+  function ValidateAccountCheck(callback){
 
   }
-  function ValidateAccountCheck(){
-
-  }
-  function ValidateBalanceCheck(){
+  function ValidateBalanceCheck(callback){
 
   }
   /*
@@ -5650,6 +5674,8 @@ app.get('/WithdrawHistory',function (req, res) {
     }
   }*/
 });
+
+
 
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
