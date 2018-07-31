@@ -2880,29 +2880,22 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
       if(!isNullOrEmpty(BankNameUsed)){
         if(!isNullOrEmpty(Status)){
             let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
-            let  isValid = RequestedDATEParsed.isValid();
-          if(!isNullOrEmpty(RequestedDATE)&&isValid==true){
-              res.send({RequestedDateYear:RequestedDateYear});
-              let ApprovedDATEParsed= new Date(ApprovedDATE);
-              let ApprovedDATEDay =ApprovedDATEParsed.getDate();
-              let ApprovedDATEMonth = ApprovedDATEParsed.getMonth();
-              let ApprovedDATEYear = ApprovedDATEParsed.getFullYear();
+            let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
 
-            if(!isNullOrEmpty(ApprovedDATE)&&!isNullOrEmpty(ApprovedDATEDay)&&!isNullOrEmpty(ApprovedDATEMonth)&&!isNullOrEmpty(ApprovedDATEYear)){
+          if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true){
+              let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
+              let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
 
-                let RejectedDATEParsed= new Date(RejectedDATE);
-                let RejectedDATEDay =RejectedDATEParsed.getDate();
-                let RejectedDATEMonth = RejectedDATEParsed.getMonth();
-                let RejectedDATEYear = RejectedDATEParsed.getFullYear();
+            if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true){
 
-              if(!isNullOrEmpty(RejectedDATE)&&!isNullOrEmpty(RejectedDATEDay)&&!isNullOrEmpty(RejectedDATEMonth)&&!isNullOrEmpty(RejectedDATEYear)){
+                let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
+                let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
 
-                  let ProcessingDATEParsed= new Date(ProcessingDATE);
-                  let ProcessingDATEDay =ProcessingDATEParsed.getDate();
-                  let ProcessingDATEMonth = ProcessingDATEParsed.getMonth();
-                  let ProcessingDATEYear = ProcessingDATEParsed.getFullYear();
+              if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true){
 
-                if(!isNullOrEmpty(ProcessingDATE)&&!isNullOrEmpty(ProcessingDATEDay)&&!isNullOrEmpty(ProcessingDATEMonth)&&!isNullOrEmpty(ProcessingDATEYear)){
+                  let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
+                  let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
+                if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true){
                   
 
                   if(!isNullOrEmpty(RequestedTIME)){
