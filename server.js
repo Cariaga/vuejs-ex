@@ -19,7 +19,9 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
-let isValidDate = require('pretty-easy-date-check');
+var date_validator = require("DateValidator").DateValidator;
+var moment = require('moment');
+
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 
@@ -2881,7 +2883,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
             let RequestedDATEDay = RequestedDATEParsed.getDate();
             let RequestedDateMonth = RequestedDATEParsed.getMonth();
             let RequestedDateYear = RequestedDATEParsed.getFullYear();
-          if(!isNullOrEmpty(RequestedDATE)&&!isNullOrEmpty(RequestedDATEDay)&&!isNullOrEmpty(RequestedDateMonth)&&!isNullOrEmpty(RequestedDateYear)&&RequestedDateYear!=null&&RequestedDateYear!=0){
+          if(!isNullOrEmpty(RequestedDATE)&&!isNullOrEmpty(RequestedDATEDay)&&!isNullOrEmpty(RequestedDateMonth)&&!isNullOrEmpty(RequestedDateYear)){
               res.send({RequestedDateYear:RequestedDateYear});
               let ApprovedDATEParsed= new Date(ApprovedDATE);
               let ApprovedDATEDay =ApprovedDATEParsed.getDate();
