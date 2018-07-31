@@ -3134,17 +3134,31 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
       if(!isNullOrEmpty(BankNameUsed)){
         if(!isNullOrEmpty(SecurityCodeUsed)){
           if(!isNullOrEmpty(Status)){
+            let RequestedDATEParsed = moment(RequestedDATE,"YYYY-MM-DD");
+            let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
+
             if(!isNullOrEmpty(RequestedDATE)){
+              let ApprovedDATEParsed = moment(ApprovedDATE,"YYYY-MM-DD");
+              let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
+
               if(!isNullOrEmpty(ApprovedDATE)){
+                let RejectedDATEParsed = moment(RejectedDATE,"YYYY-MM-DD");
+                let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
+
                 if(!isNullOrEmpty(RejectedDATE)){
+                  let ProcessingDATEParsed = moment(ProcessingDATE,"YYYY-MM-DD");
+                  let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
+
                   if(!isNullOrEmpty(ProcessingDATE)){
+
                     if(!isNullOrEmpty(RequestedTIME)){
                       if(!isNullOrEmpty(ApprovedTIME)){
                         if(!isNullOrEmpty(RejectedTIME)){
                           if(!isNullOrEmpty(ProcessingTIME)){
-                            AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                            res.send({Success:true});
+                           /* AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
                               res.send(response);
-                            });
+                            });*/
                           }else{
                             res.send({ProcessingTIMEMissing:true});
                           }
