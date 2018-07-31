@@ -3155,7 +3155,14 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
                       if(!isNullOrEmpty(ApprovedTIME)){
                         if(!isNullOrEmpty(RejectedTIME)){
                           if(!isNullOrEmpty(ProcessingTIME)){
-                            res.send({Success:true});
+                            
+                            if(Status=="Approved"||Status=="Rejected"||Status=="Processing"){
+                              res.send({Success:true});
+                            }else{
+                              res.send({StatusInvalidValue:true});
+                            }
+
+                           
 
 
                            /* AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
