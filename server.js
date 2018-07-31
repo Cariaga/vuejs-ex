@@ -3435,10 +3435,22 @@ app.get('/Api/v1/DepositHistory/Update/:DepositHistoryID/:BankHistoryID/:UserAcc
         if(!isNullOrEmpty(BankNameUsed)){
           if(!isNullOrEmpty(SecurityCodeUsed)){
             if(!isNullOrEmpty(Status)){
-              if(!isNullOrEmpty(RequestedDATE)){
-                if(!isNullOrEmpty(ApprovedDATE)){
-                  if(!isNullOrEmpty(RejectedDATE)){
-                    if(!isNullOrEmpty(ProcessingDATE)){
+              let RequestedDATEParsed = moment(RequestedDATE,"YYYY-MM-DD");
+              let isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
+
+              if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true){
+                let RequestedDATEParsed = moment(ApprovedDATE,"YYYY-MM-DD");
+                let isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
+
+                if(!isNullOrEmpty(ApprovedDATE)&&isValidRequestedDATEParsed==true){
+                  let RequestedDATEParsed = moment(RejectedDATE,"YYYY-MM-DD");
+                  let isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
+
+                  if(!isNullOrEmpty(RejectedDATE)&&isValidRequestedDATEParsed==true){
+                    let RequestedDATEParsed = moment(ProcessingDATE,"YYYY-MM-DD");
+                    let isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
+
+                    if(!isNullOrEmpty(ProcessingDATE)&&isValidRequestedDATEParsed==true){
                       if(!isNullOrEmpty(RequestedTIME)){
                         if( !isNullOrEmpty(ApprovedTIME)){
                           if(!isNullOrEmpty(RejectedTIME)){
