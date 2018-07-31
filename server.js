@@ -3149,7 +3149,7 @@ app.get('/Api/v1/DepositHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:Securi
                   let ProcessingDATEParsed = moment(ProcessingDATE,"YYYY-MM-DD");
                   let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
 
-                  if(!isNullOrEmpty(ProcessingDATE)){
+                  if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true){
 
                     if(!isNullOrEmpty(RequestedTIME)){
                       if(!isNullOrEmpty(ApprovedTIME)){
