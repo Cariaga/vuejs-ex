@@ -2857,7 +2857,7 @@ app.get('/Api/v1/BankInformation', function (req, res) {
 });
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START
-app.get('/Api/v1/WithdrawHistory/Add/:UserAccountID/:Amount/:BankNameUsed/:SecurityCodeUsed/:Status/:RequestedDATE/:ApprovedDATE/:RejectedDATE/:ProcessingDATE/:RequestedTIME/:ApprovedTIME/:RejectedTIME/:ProcessingTIME', function (req, res) {
+app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
   // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/30/BankNameUsed/SecurityCodeUsed/Status/2018-06-27/2018-06-28/2018-06-29/2018-06-30/01:57:17/01:58:17/01:57:19/01:57:20/01:57:20
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
