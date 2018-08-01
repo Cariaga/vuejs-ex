@@ -4391,10 +4391,17 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
   let Email = req.params.Email;
   let PhoneNumber = req.params.PhoneNumber;
   let TelephoneNumber = req.params.TelephoneNumber;
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Email)&&!isNullOrEmpty(PhoneNumber)&&!isNullOrEmpty(TelephoneNumber)){
-     AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
-      res.send(response);
-    });
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Email)){
+      if(!isNullOrEmpty(PhoneNumber)){
+        if(!isNullOrEmpty(TelephoneNumber)){
+          AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
+            res.send(response);
+          });
+        }
+      }
+    }
   }
 });
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
