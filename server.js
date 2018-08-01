@@ -2958,7 +2958,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
             res.send({StatusMissing:true});
           }
         }else{
-
+          res.send({SecurityCodeUsedMissing:true});
         }
       }else{
         res.send({BankNameUsedMissing:true});
