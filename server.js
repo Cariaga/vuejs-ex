@@ -3143,7 +3143,6 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
 
 function WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   Models.WithdrawHistory.update({
-    UserAccountID: UserAccountID,
     Amount: Amount,
     BankNameUsed: BankNameUsed,
     SecurityCodeUsed: SecurityCodeUsed,
@@ -3157,7 +3156,7 @@ function WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,Amount,BankNameUs
     RejectedTIME: RejectedTIME,
     ProcessingTIME: ProcessingTIME
   },{
-    where: {WithdrawHistoryID: WithdrawHistoryID }
+    where: {WithdrawHistoryID: WithdrawHistoryID,UserAccountID:UserAccountID }
   })
   .then(Success => {
     callback("Updated");
