@@ -3457,7 +3457,9 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                               async.series([IsUserAccountIDExistCheck,IsDepositHistoryIDExistCheck],function(error,response){
                                 if(Status=="Approved"||Status=="Pending"||Status=="Rejected"){
                                   if(DepositHistoryIDFound==true){
+
                                     if(UserAccountIDFound==true){
+                                      
                                       res.send({Success:true});
                                     }else{
                                       res.send({});
@@ -3484,7 +3486,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                 });
                               }
                               function IsDepositHistoryIDExistCheck(callback){
-                                DepositHistoryUserAccountID(DepositHistoryID,UserAccountID,function(response){
+                                DepositHistoryUserAccountID(UserAccountID,DepositHistoryID,function(response){
                                   if(response!=undefined){
                                     DepositHistoryIDFound=true;
                                     callback(null,'2');
