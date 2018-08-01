@@ -4399,9 +4399,17 @@ app.get('/Api/v1/UserInfo/Add/:UserAccountID/:Email/:PhoneNumber/:TelephoneNumbe
           AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
             res.send(response);
           });
+        }else{
+          res.send({TelephoneNumberMissing:true});
         }
+      }else{
+        res.send({PhoneNumberMissing:true});
       }
+    }else{
+      res.send({EmailMissing:true});
     }
+  }else{
+    res.send({UserAccountIDMissing:true});
   }
 });
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
