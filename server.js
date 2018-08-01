@@ -2879,82 +2879,86 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
   if(!isNullOrEmpty(UserAccountID)){
     if(!isNullOrEmpty(Amount)){
       if(!isNullOrEmpty(BankNameUsed)){
-        if(!isNullOrEmpty(Status)){
-            let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
-            let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
-          if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true&&RequestedDATEParsed.year()>1959){
-              let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
-              let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
-            if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
-                let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
-                let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-              if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
-                  let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
-                  let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
-                if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
-                  if(!isNullOrEmpty(RequestedTIME)){
-                    if( !isNullOrEmpty(ApprovedTIME)){
-                      if( !isNullOrEmpty(RejectedTIME)){
-                        if(!isNullOrEmpty(ProcessingTIME)){
-                      
-                          if(validator.isNumeric(Amount)){
-                            if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-                                let isUserAccountIDFound= false;
-                                async.series([UserAccountIDCheck],function(error,response){
-                                  if(isUserAccountIDFound==true){
-                                   AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
-                                      if(response!=undefined){
-                                        res.send({Success:true});
-                                      }else{
-                                        res.send({Success:false});
-                                      }
-                                    });
-                                  }else{
-                                    res.send({UserAccountIDFound:false});
-                                  }
-                                });
-                                function UserAccountIDCheck(callback){
-                                  isUserAccountIDExist(UserAccountID,function(response){
-                                    let obj = response;
-                                    if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-                                      isUserAccountIDFound = true;
-                                      callback(null,'1');
+        if(!isNullOrEmpty(SecurityCodeUsed)){
+          if(!isNullOrEmpty(Status)){
+              let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
+              let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
+            if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true&&RequestedDATEParsed.year()>1959){
+                let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
+                let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
+              if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
+                  let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
+                  let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
+                if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
+                    let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
+                    let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
+                  if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
+                    if(!isNullOrEmpty(RequestedTIME)){
+                      if( !isNullOrEmpty(ApprovedTIME)){
+                        if( !isNullOrEmpty(RejectedTIME)){
+                          if(!isNullOrEmpty(ProcessingTIME)){
+                        
+                            if(validator.isNumeric(Amount)){
+                              if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
+                                  let isUserAccountIDFound= false;
+                                  async.series([UserAccountIDCheck],function(error,response){
+                                    if(isUserAccountIDFound==true){
+                                    AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                                        if(response!=undefined){
+                                          res.send({Success:true});
+                                        }else{
+                                          res.send({Success:false});
+                                        }
+                                      });
                                     }else{
-                                      isUserAccountIDFound = false;
-                                      callback(null,'1');
+                                      res.send({UserAccountIDFound:false});
                                     }
                                   });
-                                }
-                            }else{
-                              res.send({StatusInvalidValue:true});
+                                  function UserAccountIDCheck(callback){
+                                    isUserAccountIDExist(UserAccountID,function(response){
+                                      let obj = response;
+                                      if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
+                                        isUserAccountIDFound = true;
+                                        callback(null,'1');
+                                      }else{
+                                        isUserAccountIDFound = false;
+                                        callback(null,'1');
+                                      }
+                                    });
+                                  }
+                              }else{
+                                res.send({StatusInvalidValue:true});
+                              }
                             }
+                          }else{
+                            res.send({ProcessingTIMEMissing:true});
                           }
                         }else{
-                          res.send({ProcessingTIMEMissing:true});
+                          res.send({RejectedTIMEMissing:true});
                         }
                       }else{
-                        res.send({RejectedTIMEMissing:true});
+                        res.send({ApprovedTIMEMissing:true});
                       }
                     }else{
-                      res.send({ApprovedTIMEMissing:true});
+                      res.send({RequestedTIMEMissing:true});
                     }
                   }else{
-                    res.send({RequestedTIMEMissing:true});
+                    res.send({ProcessingDATEInvalid:true});
                   }
                 }else{
-                  res.send({ProcessingDATEInvalid:true});
+                  res.send({RejectedDATEInvalid:true});
                 }
               }else{
-                res.send({RejectedDATEInvalid:true});
+                res.send({ApprovedDATEInvalid:true});
               }
             }else{
-              res.send({ApprovedDATEInvalid:true});
+              res.send({RequestedDATEInvalid:true});
             }
           }else{
-            res.send({RequestedDATEInvalid:true});
+            res.send({StatusMissing:true});
           }
         }else{
-          res.send({StatusMissing:true});
+
         }
       }else{
         res.send({BankNameUsedMissing:true});
