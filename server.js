@@ -2901,7 +2901,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                                 let isUserAccountIDFound= false;
                                 async.series([UserAccountIDCheck],function(error,response){
                                   if(isUserAccountIDFound==true){
-                                   WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
+                                   AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
                                       if(response!=undefined){
                                         res.send({Success:true});
                                       }else{
@@ -2965,7 +2965,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     res.send({UserAccountIDMissing:true});
   }
 });
-function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
+function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.WithdrawHistory.build({
     UserAccountID:UserAccountID,
     Amount:Amount, 
@@ -3008,6 +3008,117 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
   let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Amount)){
+      if(!isNullOrEmpty(BankNameUsed)){
+        if(!isNullOrEmpty(Status)){
+            let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
+            let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
+          if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true&&RequestedDATEParsed.year()>1959){
+              let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
+              let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
+            if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
+                let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
+                let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
+              if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
+                  let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
+                  let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
+                if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
+                  if(!isNullOrEmpty(RequestedTIME)){
+                    if( !isNullOrEmpty(ApprovedTIME)){
+                      if( !isNullOrEmpty(RejectedTIME)){
+                        if(!isNullOrEmpty(ProcessingTIME)){
+                      
+                          if(validator.isNumeric(Amount)){
+                            if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
+                                let isUserAccountIDFound= false;
+                                async.series([UserAccountIDCheck],function(error,response){
+                                  if(isUserAccountIDFound==true){
+                                      Models.WithdrawHistory.update({
+                                        UserAccountID: UserAccountID,
+                                        Amount: Amount,
+                                        BankNameUsed: BankNameUsed,
+                                        SecurityCodeUsed: SecurityCodeUsed,
+                                        Status: Status,
+                                        RequestedDATE: RequestedDATE,
+                                        ApprovedDATE: ApprovedDATE,
+                                        RejectedDATE: RejectedDATE,
+                                        ProcessingDATE: ProcessingDATE,
+                                        RequestedTIME: RequestedTIME,
+                                        ApprovedTIME:ApprovedTIME,
+                                        RejectedTIME: RejectedTIME,
+                                        ProcessingTIME: ProcessingTIME
+                                      },{
+                                        where: {WithdrawHistoryID: WithdrawHistoryID }
+                                      })
+                                      .then(Success => {
+                                        res.send("Updated");
+                                      })
+                                      
+                                      .catch(error => {
+                                      
+                                        console.log("Error Updating");
+                                        res.send("Error Updating " +error);
+                                      });
+                                  }else{
+                                    res.send({UserAccountIDFound:false});
+                                  }
+                                });
+                                function UserAccountIDCheck(callback){
+                                  isUserAccountIDExist(UserAccountID,function(response){
+                                    let obj = response;
+                                    if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
+                                      isUserAccountIDFound = true;
+                                      callback(null,'1');
+                                    }else{
+                                      isUserAccountIDFound = false;
+                                      callback(null,'1');
+                                    }
+                                  });
+                                }
+                            }else{
+                              res.send({StatusInvalidValue:true});
+                            }
+                          }
+                        }else{
+                          res.send({ProcessingTIMEMissing:true});
+                        }
+                      }else{
+                        res.send({RejectedTIMEMissing:true});
+                      }
+                    }else{
+                      res.send({ApprovedTIMEMissing:true});
+                    }
+                  }else{
+                    res.send({RequestedTIMEMissing:true});
+                  }
+                }else{
+                  res.send({ProcessingDATEInvalid:true});
+                }
+              }else{
+                res.send({RejectedDATEInvalid:true});
+              }
+            }else{
+              res.send({ApprovedDATEInvalid:true});
+            }
+          }else{
+            res.send({RequestedDATEInvalid:true});
+          }
+        }else{
+          res.send({StatusMissing:true});
+        }
+      }else{
+        res.send({BankNameUsedMissing:true});
+      }
+    }else{
+      res.send({AmountMissing:true});
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+
+
   if(isNullOrEmpty(WithdrawHistoryID)&&
   isNullOrEmpty(UserAccountID)&&
   isNullOrEmpty(Amount)&&
@@ -3022,32 +3133,7 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
   !isNullOrEmpty(ApprovedTIME)&&
   isNullOrEmpty(RejectedTIME)&&
   isNullOrEmpty(ProcessingTIME)){
-    Models.WithdrawHistory.update({
-      UserAccountID: UserAccountID,
-      Amount: Amount,
-      BankNameUsed: BankNameUsed,
-      SecurityCodeUsed: SecurityCodeUsed,
-      Status: Status,
-      RequestedDATE: RequestedDATE,
-      ApprovedDATE: ApprovedDATE,
-      RejectedDATE: RejectedDATE,
-      ProcessingDATE: ProcessingDATE,
-      RequestedTIME: RequestedTIME,
-      ApprovedTIME:ApprovedTIME,
-      RejectedTIME: RejectedTIME,
-      ProcessingTIME: ProcessingTIME
-    },{
-      where: {WithdrawHistoryID: WithdrawHistoryID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
     
-    .catch(error => {
-     
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    });
   }
 });
 app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
