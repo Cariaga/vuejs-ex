@@ -2901,13 +2901,15 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                                 let isUserAccountIDFound= false;
                                 async.series([UserAccountIDCheck],function(error,response){
                                   if(isUserAccountIDFound==true){
+                                    res.send({Success:true});
+                                    /*
                                    WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
                                       if(response!=undefined){
                                         res.send({Success:true});
                                       }else{
                                         res.send({Success:false});
                                       }
-                                    });
+                                    });*/
                                   }else{
                                     res.send({UserAccountIDFound:false});
                                   }
@@ -2924,7 +2926,6 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                                     }
                                   });
                                 }
-                                
                             }else{
                               res.send({StatusInvalidValue:true});
                             }
