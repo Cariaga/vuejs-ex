@@ -3451,6 +3451,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                         if(!isNullOrEmpty(ApprovedTIME)){
                           if(!isNullOrEmpty(RejectedTIME)){
                             if(!isNullOrEmpty(ProcessingTIME)){
+                              
                               let UserAccountIDFound =false;
                               let DepositHistoryIDFound=false;
                               async.series([IsUserAccountIDExistCheck,IsDepositHistoryIDExistCheck],function(error,response){
@@ -3486,8 +3487,10 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                 DepositHistoryUserAccountID(DepositHistoryID,UserAccountID,function(response){
                                   if(response!=undefined){
                                     DepositHistoryIDFound=true;
+                                    callback(null,'2');
                                   }else{
                                     DepositHistoryIDFound=false;
+                                    callback(null,'2');
                                   }
                                 });
                               }
