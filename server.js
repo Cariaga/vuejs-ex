@@ -3113,7 +3113,7 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
   }
 });
 
-function WithdrawHistoryUpdate(callback){
+function WithdrawHistoryUpdate(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   Models.WithdrawHistory.update({
     UserAccountID: UserAccountID,
     Amount: Amount,
