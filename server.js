@@ -3035,32 +3035,8 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
                                 let isUserAccountIDFound= false;
                                 async.series([UserAccountIDCheck],function(error,response){
                                   if(isUserAccountIDFound==true){
-                                      Models.WithdrawHistory.update({
-                                        UserAccountID: UserAccountID,
-                                        Amount: Amount,
-                                        BankNameUsed: BankNameUsed,
-                                        SecurityCodeUsed: SecurityCodeUsed,
-                                        Status: Status,
-                                        RequestedDATE: RequestedDATE,
-                                        ApprovedDATE: ApprovedDATE,
-                                        RejectedDATE: RejectedDATE,
-                                        ProcessingDATE: ProcessingDATE,
-                                        RequestedTIME: RequestedTIME,
-                                        ApprovedTIME:ApprovedTIME,
-                                        RejectedTIME: RejectedTIME,
-                                        ProcessingTIME: ProcessingTIME
-                                      },{
-                                        where: {WithdrawHistoryID: WithdrawHistoryID }
-                                      })
-                                      .then(Success => {
-                                        res.send("Updated");
-                                      })
+
                                       
-                                      .catch(error => {
-                                      
-                                        console.log("Error Updating");
-                                        res.send("Error Updating " +error);
-                                      });
                                   }else{
                                     res.send({UserAccountIDFound:false});
                                   }
@@ -3136,6 +3112,33 @@ app.get('/Api/v1/WithdrawHistory/Update/:WithdrawHistoryID/:UserAccountID/:Amoun
     
   }
 });
+
+function WithdrawHistoryUpdate(callback){
+  Models.WithdrawHistory.update({
+    UserAccountID: UserAccountID,
+    Amount: Amount,
+    BankNameUsed: BankNameUsed,
+    SecurityCodeUsed: SecurityCodeUsed,
+    Status: Status,
+    RequestedDATE: RequestedDATE,
+    ApprovedDATE: ApprovedDATE,
+    RejectedDATE: RejectedDATE,
+    ProcessingDATE: ProcessingDATE,
+    RequestedTIME: RequestedTIME,
+    ApprovedTIME:ApprovedTIME,
+    RejectedTIME: RejectedTIME,
+    ProcessingTIME: ProcessingTIME
+  },{
+    where: {WithdrawHistoryID: WithdrawHistoryID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/WithdrawHistory/Clear', function (req, res){
   Models.WithdrawHistory.destroy({
     where: {},
