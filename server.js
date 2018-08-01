@@ -3579,7 +3579,7 @@ function DepositHistoryUserAccountID(UserAccountID,DepositHistoryID,callback){
         return item;
     });
     if(Data.length>0){
-      res.send(beautify(Data, null, 2, 100));
+      callback(Data);
     }else{
       callback(undefined);
     }
