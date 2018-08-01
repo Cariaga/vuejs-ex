@@ -3459,17 +3459,15 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                   if(DepositHistoryIDFound==true){
 
                                     if(UserAccountIDFound==true){
-                                      
                                       res.send({Success:true});
                                     }else{
                                       res.send({});
                                     }
                                   }else{
-                                    res.send({StatusInvalidValue:true});
+                                    res.send({DepositHistoryIDInvalidValue:true});
                                   }
                                   }else{
-                                    console.log(DepositHistoryIDFound);
-                                    res.send({DepositHistoryIDInvalidValue:true});
+                                    res.send({StatusInvalidValue:true});
                                   }
                                   
                                 
