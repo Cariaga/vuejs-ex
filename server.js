@@ -2901,15 +2901,13 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                                 let isUserAccountIDFound= false;
                                 async.series([UserAccountIDCheck],function(error,response){
                                   if(isUserAccountIDFound==true){
-                                    res.send({Success:true});
-                                    /*
                                    WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
                                       if(response!=undefined){
                                         res.send({Success:true});
                                       }else{
                                         res.send({Success:false});
                                       }
-                                    });*/
+                                    });
                                   }else{
                                     res.send({UserAccountIDFound:false});
                                   }
@@ -2982,7 +2980,7 @@ function WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,
     RejectedTIME:RejectedTIME,
     ProcessingTIME:ProcessingTIME, 
     });
-    Models.WithdrawHistory.sync({alter : true});
+    Models.WithdrawHistory.sync();
     item1.save()
     .then(Success => {
       callback("Inserted");
