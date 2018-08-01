@@ -2900,9 +2900,14 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                             if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
                                 async.series([UserAccountIDCheck],function(error,response){
                                   if(isUserAccountIDFound==true){
-                                    res.send({Success:true});
+                                   
                                    WithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,RejectedTIME,ProcessingTIME,function(response) {
-                                      res.send(response);
+                             
+                                      if(response!=undefined){
+                                        res.send({Success:true});
+                                      }else{
+                                        res.send({});
+                                      }
                                     });
                                   }else{
                                     res.send({UserAccountIDFound:false});
@@ -3428,7 +3433,6 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   let ApprovedTIME = req.params.ApprovedTIME;
   let RejectedTIME = req.params.RejectedTIME;
   let ProcessingTIME = req.params.ProcessingTIME;
-
   if(!isNullOrEmpty(DepositHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(Amount)){
@@ -3498,9 +3502,6 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                   }else{
                                     res.send({StatusInvalidValue:true});
                                   }
-                                  
-                                
-
                               });
                               function IsUserAccountIDExistCheck(callback){
                                 isUserAccountIDExist(UserAccountID,function(response){
@@ -3524,7 +3525,6 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                   }
                                 });
                               }
-
                             }else{
                               res.send({ProcessingTIMEMissing:true});
                             }
@@ -3671,7 +3671,7 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
           if(validator.isNumeric(SmallBlind)){
             if(validator.isNumeric(BigBlind)){
               if(validator.isNumeric(Speed)){
-
+                
                 let IsRoomIDFound =false;//false is the result we want
                 async.series([IsRoomIDExistCheck],function(error,response){
                   if(IsRoomIDFound==false){//must be false to be valid
@@ -3684,6 +3684,7 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
                   }
                   
                 });
+
                 function IsRoomIDExistCheck(callback2){
                   IsRoomIDExist(RoomID,function(response2){
                     if(response2!=undefined){
@@ -3695,6 +3696,7 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
                     }
                   });
                 }
+                
 
               }else{
                 res.send({SppedInvalidValue:true});
