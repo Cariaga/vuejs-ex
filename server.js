@@ -3041,7 +3041,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
                                   let isUserAccountIDFound= false;
                                   async.series([UserAccountIDCheck],function(error,response){
                                     if(isUserAccountIDFound==true){
-                                      WithdrawHistoryUpdate(UserAccountID,
+                                      WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,
                                         Amount,
                                         BankNameUsed,
                                         SecurityCodeUsed,
@@ -3141,7 +3141,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }
 });
 
-function WithdrawHistoryUpdate(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
+function WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   Models.WithdrawHistory.update({
     UserAccountID: UserAccountID,
     Amount: Amount,
