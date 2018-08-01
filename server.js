@@ -3459,6 +3459,35 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                   if(DepositHistoryIDFound==true){
 
                                     if(UserAccountIDFound==true){
+
+                                      Models.DepositHistory.update({
+                                        UserAccountID: UserAccountID,
+                                        Amount: Amount,
+                                        BankNameUsed: BankNameUsed,
+                                        SecurityCodeUsed: SecurityCodeUsed,
+                                        Status: Status,
+                                        RequestedDATE: RequestedDATE,
+                                        ApprovedDATE: ApprovedDATE,
+                                        RejectedDATE: RejectedDATE,
+                                        ProcessingDATE: ProcessingDATE,
+                                        RequestedTIME: RequestedTIME,
+                                        ApprovedTIME: ApprovedTIME,
+                                        RejectedTIME: RejectedTIME,
+                                        ProcessingTIME: ProcessingTIME,
+                                      },{
+                                        where: {DepositHistoryID:DepositHistoryID }
+                                      })
+                                      .then(Success => {
+                                        res.send("Updated");
+                                      })
+                                      
+                                      .catch(error => {
+                                      
+                                        console.log("Error Updating");
+                                        res.send("Error Updating " +error);
+                                      });
+
+
                                       res.send({Success:true});
                                     }else{
                                       res.send({});
@@ -3495,33 +3524,6 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                   }
                                 });
                               }
-                              /*
-                              Models.DepositHistory.update({
-                                UserAccountID: UserAccountID,
-                                Amount: Amount,
-                                BankNameUsed: BankNameUsed,
-                                SecurityCodeUsed: SecurityCodeUsed,
-                                Status: Status,
-                                RequestedDATE: RequestedDATE,
-                                ApprovedDATE: ApprovedDATE,
-                                RejectedDATE: RejectedDATE,
-                                ProcessingDATE: ProcessingDATE,
-                                RequestedTIME: RequestedTIME,
-                                ApprovedTIME: ApprovedTIME,
-                                RejectedTIME: RejectedTIME,
-                                ProcessingTIME: ProcessingTIME,
-                              },{
-                                where: {DepositHistoryID:DepositHistoryID }
-                              })
-                              .then(Success => {
-                                res.send("Updated");
-                              })
-                              
-                              .catch(error => {
-                              
-                                console.log("Error Updating");
-                                res.send("Error Updating " +error);
-                              });*/
 
                             }else{
                               res.send({ProcessingTIMEMissing:true});
