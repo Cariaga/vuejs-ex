@@ -4582,7 +4582,7 @@ function UserInfoUserAccountID(UserAccountID,callback){
 
 //---UserInfo ROUTING END
 //---AccessControl ROUTING START
-app.get('/Api/v1/AccessControl/Add/:AccessID/:AccessName/:AccessTags', function (req, res) {
+app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
@@ -4614,7 +4614,7 @@ function AccessControl(AccessID,AccessName,AccessTags,callback){
     callback("error inserting " +error);
   });
 }
-app.get('/Api/v1/AccessControl/Update/:AccessControlID/:AccessID/:AccessName/:AccessTags', function (req, res) {
+app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessControlID = req.params.AccessControlID;
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
