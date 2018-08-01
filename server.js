@@ -2912,15 +2912,15 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
                                     res.send({UserAccountIDFound:false});
                                   }
                                 });
-                                function UserAccountIDCheck(callback){
+                                function UserAccountIDCheck(callback2){
                                   isUserAccountIDExist(UserAccountID,function(response){
                                     let obj = response;
                                     if(obj!=undefined){
                                       isUserAccountIDFound = true;
-                                      callback(null,'1');
+                                      callback2(null,'1');
                                     }else{
                                       isUserAccountIDFound = false;
-                                      callback(null,'1');
+                                      callback2(null,'1');
                                     }
                                   });
                                 }
