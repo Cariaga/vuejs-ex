@@ -5806,14 +5806,20 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
   let UserAccountID = req.params.UserAccountID;
   let Name = req.params.Name;
   let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Name)&&
-  !isNullOrEmpty(Description)){
-    AddHeadOffice(UserAccountID,Name,Description, function(response) {
-      res.send(response);
-    });
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Name)){
+      if(!isNullOrEmpty(Description)){
+        AddHeadOffice(UserAccountID,Name,Description, function(response) {
+          res.send(response);
+        });
+      }else{
+        res.send({DescriptionMissing:true})
+      }
+    }else{
+      res.send({NameMissing:true});
+    }
   }else{
-    res.send("Missing params");
+    res.send({UserAccountIDMissing:true});
   }
 });
 function AddHeadOffice(UserAccountID,Name,Description,callback){
