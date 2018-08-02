@@ -5810,7 +5810,11 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
     if(!isNullOrEmpty(Name)){
       if(!isNullOrEmpty(Description)){
         AddHeadOffice(UserAccountID,Name,Description, function(response) {
-          res.send(response);
+          if(response!=null){
+            res.send(response);
+          }else{
+            res.send({AddHeadOfficeFailed:true});
+          } 
         });
       }else{
         res.send({DescriptionMissing:true})
@@ -5831,15 +5835,16 @@ function AddHeadOffice(UserAccountID,Name,Description,callback){
   Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
   item1.save()
   .then(Success => {
-    callback("Inserted");
+  
     console.log("----AddHeadOffice Start-----");
     console.log(Success);
     console.log("----AddHeadOffice End-----");
+    callback("Inserted");
   })
   .catch(error => {
     // mhhh, wth!
-    console.log("error inserting");
-    callback( "error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
