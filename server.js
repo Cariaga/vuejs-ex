@@ -4588,18 +4588,18 @@ app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/Acc
   let AccessTags = req.params.AccessTags;
   if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
     //Setting up the config
-    AccessControl(AccessID,AccessName,AccessTags,function(response) {
+    AddAccessControl(AccessID,AccessName,AccessTags,function(response) {
       res.send(response);
     });
   }
 });
-function AccessControl(AccessID,AccessName,AccessTags,callback){
+function AddAccessControl(AccessID,AccessName,AccessTags,callback){
   var item1 = Models.AccessControl.build({
     AccessID:AccessID,
     AccessName:AccessName,
     AccessTags:AccessTags
   });
-  Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non production
+  Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non producti1on
   item1.save()
   .then(Success => {
     callback("Inserted");
