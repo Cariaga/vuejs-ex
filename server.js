@@ -2767,33 +2767,55 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
   let Expiration = req.params.Expiration;
   let Time = req.params.Time;
   let Date = req.params.Date;
-  if(!isNullOrEmpty(BankInformationID)&&
-  !isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(BankName)&&
-  !isNullOrEmpty(SecurityCode)&&
-  !isNullOrEmpty(Expiration)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)){
-    Models.BankInformation.update({
-      UserAccountID: UserAccountID,
-      BankName: BankName,
-      SecurityCode: SecurityCode,
-      Expiration: Expiration,
-      Time: Time,
-      Date: Date
-    },{
-      where: {BankInformationID: BankInformationID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    
-    .catch(error => {
-     
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    }); 
+
+  if(!isNullOrEmpty(BankInformationID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if( !isNullOrEmpty(BankName)){
+        if(!isNullOrEmpty(SecurityCode)){
+          if(!isNullOrEmpty(Expiration)){
+            if(!isNullOrEmpty(Time)){
+              if(!isNullOrEmpty(Date)){
+                Models.BankInformation.update({
+                  UserAccountID: UserAccountID,
+                  BankName: BankName,
+                  SecurityCode: SecurityCode,
+                  Expiration: Expiration,
+                  Time: Time,
+                  Date: Date
+                },{
+                  where: {BankInformationID: BankInformationID }
+                })
+                .then(Success => {
+                  res.send("Updated");
+                })
+                
+                .catch(error => {
+                 
+                  console.log("Error Updating");
+                  res.send("Error Updating " +error);
+                }); 
+              }else{
+                res.send({DateMissing:true});
+              }
+            }else{
+              res.send({TimeMissing:true});
+            }
+          }else{
+            res.send({ExpirationMissing:true});
+          }
+        }else{
+          res.send({SecurityCodeMissing:true});
+        }
+      }else{
+        res.send({BankNameMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({BankInformationIDMissing:true});
   }
+
 });
 app.get('/Api/v1/BankInformation/Clear', function (req, res){
   Models.BankInformation.destroy({
