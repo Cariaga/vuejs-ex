@@ -5251,7 +5251,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
       async.series([UserAccountIDCheck],function(error,response){
         if(UserAccountIDExist==true){
           PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
-              if(response!=null){
+              if(response!=undefined){
                 res.send(response);
               }else{
                 res.send({PayerUpdateRoomNameUpdateFailed:true});
