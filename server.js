@@ -5299,7 +5299,7 @@ function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
     callback(undefined);
   });
 }
-app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
+app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let PlayersID = req.params.PlayersID;
   let UserAccountID = req.params.UserAccountID;
   let ShopID = req.params.ShopID;
