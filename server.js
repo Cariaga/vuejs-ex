@@ -2729,36 +2729,62 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Val
   let Expiration = req.params.Expiration;
   let Time = req.params.Time;
   let Date = req.params.Date;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(BankName)&&
-  !isNullOrEmpty(SecurityCode)&&
-  !isNullOrEmpty(Valid)&&
-  !isNullOrEmpty(Expiration)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)){
-    var item1 = Models.BankInformation.build({
-      UserAccountID:UserAccountID,
-      BankName:BankName,
-      SecurityCode:SecurityCode,
-      Valid:Valid,
-      Expiration:Expiration,
-      Time:Time,
-      Date:Date
-    });
-    Models.BankInformation.sync({alter : true/*,force:true*/});//force recreates deletes old table
-    item1.save().then(Success => {
-      res.send("Inserted");
-    })
-    
-    .catch(error => {
-   
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(BankName)){
+      if(!isNullOrEmpty(SecurityCode)){
+        if(!isNullOrEmpty(Valid)){
+          if(!isNullOrEmpty(Expiration)){
+            if(!isNullOrEmpty(Time)){
+              if(!isNullOrEmpty(Date)){
+                BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration,Time,Date,function(response){
+                  if(response){
+                    res.send(response);
+                  }else{
+                    res.send({BankInformationAddFailed:true});
+                  }
+                });
+              }else{
+                res.send({DateMissing:true});
+              }
+            }else{
+              res.send({TimeMissing:true});
+            }
+          }else{
+            res.send({ExpirationMissing:true});
+          }
+        }else{
+          res.send({ValidMissing:true});
+        }
+      }else{
+        res.send({SecurityCodeMissing:true});
+      }
+    }else{
+      res.send({BankNameMissing:true});
+    }
   }else{
-    res.send("Missing params");
+    res.send({UserAccountIDMissing:true});
   }
 });
+function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration,Time,Date,callback){
+  var item1 = Models.BankInformation.build({
+    UserAccountID:UserAccountID,
+    BankName:BankName,
+    SecurityCode:SecurityCode,
+    Valid:Valid,
+    Expiration:Expiration,
+    Time:Time,
+    Date:Date
+  });
+  Models.BankInformation.sync({alter : true/*,force:true*/});//force recreates deletes old table
+  item1.save().then(Success => {
+   callback("Inserted");
+  })
+  .catch(error => {
+    console.log("error inserting " +error);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function(req,res){
   let BankInformationID = req.params.BankInformationID;
   let UserAccountID = req.params.UserAccountID;
@@ -2768,8 +2794,8 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
   let Time = req.params.Time;
   let Date = req.params.Date;
 
-  if(!isNullOrEmpty(BankInformationID)){
-    if(!isNullOrEmpty(UserAccountID)){
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(BankInformationID)){
       if( !isNullOrEmpty(BankName)){
         if(!isNullOrEmpty(SecurityCode)){
           if(!isNullOrEmpty(Expiration)){
