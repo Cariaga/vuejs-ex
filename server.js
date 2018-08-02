@@ -5693,20 +5693,12 @@ app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(HeadOfficeID)){
         if(!isNullOrEmpty(Name)){
-          Models.Distributor.update({
-            UserAccountID: UserAccountID,
-            HeadOfficeID: HeadOfficeID,
-            Name: Name
-          },{
-            where: {DistributorID: DistributorID }
-          })
-          .then(Success => {
-            res.send("Updated");
-          })
-          .catch(error => {
-            // mhhh, wth!
-            console.log("Error Updating");
-            res.send("Error Updating " +error);
+          DistributorUpdate(UserAccountID,HeadOfficeID,Name,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({DistributorUpdateFailed:true});
+            }
           });
         }else{
           res.send({NameFailed:true});
@@ -5721,6 +5713,24 @@ app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:
     res.send({DistributorIDFailed:true});
   }
 });
+function DistributorUpdate(UserAccountID,HeadOfficeID,Name,callback){
+  Models.Distributor.update({
+    UserAccountID: UserAccountID,
+    HeadOfficeID: HeadOfficeID,
+    Name: Name
+  },{
+    where: {DistributorID: DistributorID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
+
 app.get('/Api/v1/Distributor/Clear', function (req, res){
   Models.Distributor.destroy({
     where: {},
@@ -5810,7 +5820,7 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
     if(!isNullOrEmpty(Name)){
       if(!isNullOrEmpty(Description)){
         AddHeadOffice(UserAccountID,Name,Description, function(response) {
-          if(response!=null){
+          if(response!=undefined){
             res.send(response);
           }else{
             res.send({AddHeadOfficeFailed:true});
