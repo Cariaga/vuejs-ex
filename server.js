@@ -5494,7 +5494,11 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
     if(!isNullOrEmpty(DistributorID)){
       if(!isNullOrEmpty(Description)){
         AddShop(UserAccountID,DistributorID,Description,function(response) {
-          res.send(response);
+          if(response!=undefined){
+            res.send(response);
+          }else{
+            res.send({AddShopFailed:true});
+          }
         });
       }else{
         res.send({DescriptionMissing:true});
@@ -5515,16 +5519,15 @@ function AddShop(UserAccountID,DistributorID,Description,callback){
   Models.Shop.sync({alter : true,/*force:true*/});//use force to recreate for non production only
   item1.save()
   .then(Success => {
-    callback("Inserted");
     console.log("----AddShop Start-----");
     console.log(Success);
     console.log("----AddShop End-----");
+    callback("Inserted");
   })
-  
   .catch(error => {
     // mhhh, wth!
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
