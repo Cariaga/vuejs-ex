@@ -4757,7 +4757,11 @@ app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey
               if(!isNullOrEmpty(RegisteredDate)){
                 if(!isNullOrEmpty(RegisteredTime)){
                   AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
-                    res.send(response);
+                    if(response!=undefined){
+                      res.send(response);
+                    }else{
+                      res.send({AddUserAccountFailed:true});
+                    }
                   });
                 }else{
                   res.send({RegisteredTimeMissing:true});
@@ -4800,15 +4804,16 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
   Models.UserAccount.sync({alter : true/*,force:true*/});
   item1.save()
   .then(Success => {
-     callback("Inserted");
+
      console.log("----AddUserAccount Start-----");
      console.log(Success);
      console.log("----AddUserAccount End-----");
+     callback("Inserted");
   })
   .catch(error => {
     // mhhh, wth!
     console.log("error inserting UserAccountID:"+UserAccountID+" \n AccessID:"+AccessID+"\n UserName:"+UserName+"\n Password:"+Password+"\n Verify:"+Verify+"\n ValidKey:"+ValidKey+"\n RegisteredDate:"+RegisteredDate+"\n RegisteredTime:"+RegisteredTime);
-    callback(error);
+    callback(undefined);
   });
 }
 
@@ -5302,31 +5307,52 @@ app.get('/Api/v1/Player/Update/:PlayersID/:UserAccountID/:ShopID/:ScreenName/:Na
   let Name = req.params.Name;
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
-  if(!isNullOrEmpty(PlayersID)&&
-  !isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(ShopID)&&
-  !isNullOrEmpty(ScreenName)&&
-  !isNullOrEmpty(Name)&&
-  !isNullOrEmpty(Surname)&&
-  !isNullOrEmpty(CurrentRoomName)){
-    Models.Player.update({
-      UserAccountID: UserAccountID,
-      ShopID: ShopID,
-      ScreenName: ScreenName,
-      Name: Name,
-      Surname: Surname,
-      CurrentRoomName: CurrentRoomName
-    },{
-      where: {PlayersID: PlayersID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    });
+
+  if(!isNullOrEmpty(PlayersID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(ShopID)){
+        if( !isNullOrEmpty(ScreenName)){
+          if(!isNullOrEmpty(Name)){
+            if(!isNullOrEmpty(Surname)){
+              if(!isNullOrEmpty(CurrentRoomName)){
+                Models.Player.update({
+                  UserAccountID: UserAccountID,
+                  ShopID: ShopID,
+                  ScreenName: ScreenName,
+                  Name: Name,
+                  Surname: Surname,
+                  CurrentRoomName: CurrentRoomName
+                },{
+                  where: {PlayersID: PlayersID }
+                })
+                .then(Success => {
+                  res.send("Updated");
+                })
+                .catch(error => {
+                  // mhhh, wth!
+                  console.log("Error Updating");
+                  res.send("Error Updating " +error);
+                });
+              }else{
+                res.send({CurrentRoomNameMissing:true});
+              }
+            }else{
+              res.send({SurnameMissing:true});
+            }
+          }else{
+            res.send({NameMissing:true});
+          }
+        }else{
+          res.send({ScreenNameMissing:true});
+        }
+      }else{
+        res.send({ShopIDMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({PlayersIDMissing:true});
   }
 });
 
