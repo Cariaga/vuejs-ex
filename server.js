@@ -4607,13 +4607,12 @@ function AddAccessControl(AccessID,AccessName,AccessTags,callback){
     console.log(Success);
     console.log("----AddUserAccount End-----");
   })
-  
   .catch(error => {
-   
     console.log("error inserting");
     callback("error inserting " +error);
   });
 }
+
 app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessControlID = req.params.AccessControlID;
   let AccessID = req.params.AccessID;
@@ -4623,23 +4622,30 @@ app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/
   !isNullOrEmpty(AccessID)&&
   !isNullOrEmpty(AccessName)&&
   !isNullOrEmpty(AccessTags)){
-    Models.AccessControl.update({
-      AccessID: AccessID,
-      AccessName: AccessName,
-      AccessTags: AccessTags
-    },{
-      where: {AccessControlID: AccessControlID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
+
+    AccessControlUpdate(AccessID,AccessName,AccessTags,function(response){
+      res.send(response);
     });
   }
 });
+function AccessControlUpdate(AccessID,AccessName,AccessTags){
+  Models.AccessControl.update({
+    AccessID: AccessID,
+    AccessName: AccessName,
+    AccessTags: AccessTags
+  },{
+    where: {AccessControlID: AccessControlID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    callback();
+  });
+}
+
 app.get('/Api/v1/AccessControl/Clear', function (req, res){
   Models.AccessControl.destroy({
     where: {},
