@@ -5489,15 +5489,21 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
   let UserAccountID = req.params.UserAccountID;
   let DistributorID = req.params.DistributorID;
   let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(DistributorID)&&
-  !isNullOrEmpty(Description)){
-    AddShop(UserAccountID,DistributorID,Description,function(response) {
-      res.send(response);
-    });
-  
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(DistributorID)){
+      if(!isNullOrEmpty(Description)){
+        AddShop(UserAccountID,DistributorID,Description,function(response) {
+          res.send(response);
+        });
+      }else{
+        res.send({DescriptionMissing:true});
+      }
+    }else{
+      res.send({DistributorIDMissing:true});
+    }
   }else{
-    res.send("Missing params");
+    res.send({UserAccountIDMissing:true});
   }
 });
 function AddShop(UserAccountID,DistributorID,Description,callback){
