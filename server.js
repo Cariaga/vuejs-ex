@@ -5005,21 +5005,37 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   let Name = req.params.Name;
   let Surname = req.params.Surname;
   let CurrentRoomName = req.params.CurrentRoomName;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(ShopID)&&
-  !isNullOrEmpty(ScreenName)&&
-  !isNullOrEmpty(Name)&&
-  !isNullOrEmpty(Surname)&&
-  !isNullOrEmpty(CurrentRoomName)){
-    AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,function(response) {
-      if(response!=undefined){
-        res.send(response);
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(ShopID)){
+      if(!isNullOrEmpty(ScreenName)){
+        if(!isNullOrEmpty(Name)){
+          if(!isNullOrEmpty(Surname)){
+            if(!isNullOrEmpty(CurrentRoomName)){
+              AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,function(response) {
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send({AddPlayerFailed:true});
+                }
+              });
+            }else{
+              res.send({CurrentRoomNameMissing:true});
+            }
+          }else{
+            res.send({SurnameMissing:true});
+          }
+        }else{
+          res.send({NameMissing:true});
+        }
       }else{
-        res.send({AddPlayerFailed:true});
+        res.send({ScreenNameMissing:true});
       }
-    });
+    }else{
+      res.send({ShopIDMissing:true});
+    }
   }else{
-    res.send("Missing params");
+    res.send({UserAccountIDMissing:true});
   }
 });
 function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
