@@ -5322,7 +5322,7 @@ app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID
           if(!isNullOrEmpty(Name)){
             if(!isNullOrEmpty(Surname)){
               if(!isNullOrEmpty(CurrentRoomName)){
-                PlayerUpdate(Player,UserAccountID,ShopID,ScreenName,name,Surname,CurrentRoomName,function(response){
+                PlayerUpdate(PlayersID,UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,function(response){
                   if(response!=undefined){
                     res.send(response);
                   }else{
