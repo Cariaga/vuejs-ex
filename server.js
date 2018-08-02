@@ -4586,11 +4586,24 @@ app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/Acc
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
-  if(!isNullOrEmpty(AccessID)&&!isNullOrEmpty(AccessName)&&!isNullOrEmpty(AccessTags)){
-    //Setting up the config
-    AddAccessControl(AccessID,AccessName,AccessTags,function(response) {
-      res.send(response);
-    });
+  if(!isNullOrEmpty(AccessID)){
+    if(!isNullOrEmpty(AccessName)){
+      if(!isNullOrEmpty(AccessTags)){
+        AddAccessControl(AccessID,AccessName,AccessTags,function(response) {
+          if(response!=undefined){
+            res.send(response);
+          }else{
+            res.send({AddAccessControlFailed:true});
+          }
+        });
+      }else{
+        res.send({AccessTagsMissing:true});
+      }
+    }else{
+      res.send({AccessNameMissing:true});
+    }
+  }else{
+    res.send({AccessIDMissing:true});
   }
 });
 function AddAccessControl(AccessID,AccessName,AccessTags,callback){
@@ -4602,14 +4615,14 @@ function AddAccessControl(AccessID,AccessName,AccessTags,callback){
   Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non producti1on
   item1.save()
   .then(Success => {
-    callback("Inserted");
     console.log("----AddUserAccount Start-----");
     console.log(Success);
     console.log("----AddUserAccount End-----");
+    callback("Inserted");
   })
   .catch(error => {
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 
@@ -4618,14 +4631,29 @@ app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
-  if(!isNullOrEmpty(AccessControlID)&&
-  !isNullOrEmpty(AccessID)&&
-  !isNullOrEmpty(AccessName)&&
-  !isNullOrEmpty(AccessTags)){
-
-    AccessControlUpdate(AccessID,AccessName,AccessTags,function(response){
-      res.send(response);
-    });
+  if(!isNullOrEmpty(AccessControlID)){
+    if(!isNullOrEmpty(AccessID)){
+      if(!isNullOrEmpty(AccessName)){
+        if(!isNullOrEmpty(AccessTags)){
+          AccessControlUpdate(AccessID,AccessName,AccessTags,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({AccessControlUpdateFailed:true});
+            }
+           
+          });
+        }else{
+          res.send({AccessTagsMissing:true});
+        }
+      }else{
+        res.send({AccessNameMissing:true});
+      }
+    }else{
+      res.send({AccessIDMissing:true});
+    }
+  }else{
+    res.send({AccessControlIDMissing:true});
   }
 });
 function AccessControlUpdate(AccessID,AccessName,AccessTags){
@@ -4642,7 +4670,7 @@ function AccessControlUpdate(AccessID,AccessName,AccessTags){
   .catch(error => {
     // mhhh, wth!
     console.log("Error Updating " +error);
-    callback();
+    callback(undefined);
   });
 }
 
