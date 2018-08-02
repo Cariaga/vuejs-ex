@@ -2775,25 +2775,13 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
           if(!isNullOrEmpty(Expiration)){
             if(!isNullOrEmpty(Time)){
               if(!isNullOrEmpty(Date)){
-                Models.BankInformation.update({
-                  UserAccountID: UserAccountID,
-                  BankName: BankName,
-                  SecurityCode: SecurityCode,
-                  Expiration: Expiration,
-                  Time: Time,
-                  Date: Date
-                },{
-                  where: {BankInformationID: BankInformationID }
-                })
-                .then(Success => {
-                  res.send("Updated");
-                })
-                
-                .catch(error => {
-                 
-                  console.log("Error Updating");
-                  res.send("Error Updating " +error);
-                }); 
+                BankInformationUpdate(UserAccountID,BankInformationID,BankName,SecurityCode,Expiration,Time,Date,function(response){
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send({BankInformationUpdateFailed:true});
+                  }
+                });
               }else{
                 res.send({DateMissing:true});
               }
@@ -2815,8 +2803,26 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
   }else{
     res.send({BankInformationIDMissing:true});
   }
-
 });
+function BankInformationUpdate(UserAccountID,BankInformationID,BankName,SecurityCode,Expiration,Time,Date,callback){
+  Models.BankInformation.update({
+    UserAccountID: UserAccountID,
+    BankName: BankName,
+    SecurityCode: SecurityCode,
+    Expiration: Expiration,
+    Time: Time,
+    Date: Date
+  },{
+    where: {BankInformationID: BankInformationID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  }); 
+}
 app.get('/Api/v1/BankInformation/Clear', function (req, res){
   Models.BankInformation.destroy({
     where: {},
