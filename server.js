@@ -2146,7 +2146,6 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
   item1.save()
   .then(Success => {
-   
     console.log("----AddNotification Start-----");
     console.log(Success);
     console.log("----AddNotification End-----");
@@ -2154,7 +2153,6 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   })
   
   .catch(error => {
- 
     console.log("error inserting " +error);
     callback(undefined);
   });
@@ -3795,6 +3793,7 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
                 let IsRoomIDFound =false;//false is the result we want
                 async.series([IsRoomIDExistCheck],function(error,response){
                   if(IsRoomIDFound==false){//must be false to be valid
+                    //Not Done
                    /* AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
                      res.send(response);
                     });*/
@@ -4205,9 +4204,33 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
                         let isUserAccountIDFound = undefined;
                         async.series([IsUserAccountIDExistCheck,IsGameHistoryIDExistCheck],function(error,response){
 
-
+                          //not done
                           if(isUserAccountIDFound==true){
-                            res.send({Success:true});
+
+                            Models.GameHistory.update({
+                              UserAccountID: UserAccountID,
+                              RoundID: RoundID,
+                              RoomID: RoomID,
+                              Rank: Rank,
+                              Score: Score,
+                              Card: Card,
+                              Time: Time,
+                              Date: Date,
+                              BeforePoints: BeforePoints,
+                              AfterPoints: AfterPoints
+                            },{
+                              where: {GameHistoryID: GameHistoryID }
+                            })
+                            .then(Success => {
+                              res.send("Updated");
+                            })
+                            
+                            .catch(error => {
+                           
+                              console.log("Error Updating");
+                              res.send("Error Updating " +error);
+                            });
+                          //  res.send({Success:true});
                           }else{
                             res.send({Success:false});
                           }
@@ -4280,29 +4303,7 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(BeforePoints)&&
   !isNullOrEmpty(AfterPoints)){
-    Models.GameHistory.update({
-      UserAccountID: UserAccountID,
-      RoundID: RoundID,
-      RoomID: RoomID,
-      Rank: Rank,
-      Score: Score,
-      Card: Card,
-      Time: Time,
-      Date: Date,
-      BeforePoints: BeforePoints,
-      AfterPoints: AfterPoints
-    },{
-      where: {GameHistoryID: GameHistoryID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
     
-    .catch(error => {
-   
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    });
   }*/
 });
 app.get('/Api/v1/GameHistory/Clear', function (req, res){
@@ -5060,7 +5061,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', fu
             if(!(parseInt(Point)<0)){
               if(parseInt(Point)!=0){
                 if(NewPoints>=0){
-                    res.send({NewPoints:NewPoints});
+                  
                     PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
                       if(response!=undefined){
                         res.send(response);
@@ -5140,7 +5141,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point
               if(parseInt(Point)!=0){
                 if(NewPoints>=0){
                   if(UserAccountIDExist==true){
-                    res.send({NewPoints:NewPoints});
+                 
                     PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
                       if(response!=undefined){
                         res.send(response);
@@ -5321,23 +5322,12 @@ app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID
           if(!isNullOrEmpty(Name)){
             if(!isNullOrEmpty(Surname)){
               if(!isNullOrEmpty(CurrentRoomName)){
-                Models.Player.update({
-                  UserAccountID: UserAccountID,
-                  ShopID: ShopID,
-                  ScreenName: ScreenName,
-                  Name: Name,
-                  Surname: Surname,
-                  CurrentRoomName: CurrentRoomName
-                },{
-                  where: {PlayersID: PlayersID }
-                })
-                .then(Success => {
-                  res.send("Updated");
-                })
-                .catch(error => {
-                  // mhhh, wth!
-                  console.log("Error Updating");
-                  res.send("Error Updating " +error);
+                PlayerUpdate(Player,UserAccountID,ShopID,ScreenName,name,Surname,CurrentRoomName,function(response){
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send({PlayerUpdateFailed:true});
+                  }
                 });
               }else{
                 res.send({CurrentRoomNameMissing:true});
@@ -5361,7 +5351,25 @@ app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID
     res.send({PlayersIDMissing:true});
   }
 });
-
+function PlayerUpdate(PlayersID,UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
+  Models.Player.update({
+    ShopID: ShopID,
+    ScreenName: ScreenName,
+    Name: Name,
+    Surname: Surname,
+    CurrentRoomName: CurrentRoomName
+  },{
+    where: {PlayersID: PlayersID,UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    res.send(undefined);
+  });
+}
 
 app.get('/Api/v1/Player/Clear', function (req, res){
   Models.Player.destroy({
