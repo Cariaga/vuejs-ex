@@ -5857,33 +5857,48 @@ function AddHeadOffice(UserAccountID,Name,Description,callback){
     callback(undefined);
   });
 }
-app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Description/', function (req, res) {
+app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
   let HeadOfficeID = req.params.HeadOfficeID;
   let UserAccountID = req.params.UserAccountID;
-  let Description = req.params.Description;
+  let Name = req.params.Name;
 
   if(!isNullOrEmpty(HeadOfficeID)){
     if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(Description)){
-        Models.HeadOffice.update({
-          UserAccountID: UserAccountID,
-          Name: Name
-        },{
-          where: {HeadOfficeID: HeadOfficeID }
-        })
-        .then(Success => {
-          res.send("Updated");
-        })
-        
-        .catch(error => {
-          // mhhh, wth!
-          console.log("Error Updating");
-          res.send("Error Updating " +error);
+      if(!isNullOrEmpty(Name)){
+        HeadOfficeUpdate(HeadOfficeID,UserAccountID,Name,function(response){
+          if(response!=undefined){
+            res.send(response);
+          }else{
+            res.send({HeadOfficeUpdateFailed:true});
+          }
         });
+      }else{
+        res.send({NameMissing:true});
       }
+    }else{
+      res.send({UserAccountIDMissing:true});
     }
+  }else{
+    res.send({HeadOfficeIDMissing:true});
   }
 });
+function HeadOfficeUpdate(HeadOfficeID,UserAccountID,Name,callback){
+  Models.HeadOffice.update({
+    UserAccountID: UserAccountID,
+    Name: Name
+  },{
+    where: {HeadOfficeID: HeadOfficeID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    res.send(undefined);
+  });
+}
 app.get('/Api/v1/HeadOffice/Clear', function (req, res){
   Models.HeadOffice.destroy({
     where: {},
