@@ -5012,7 +5012,11 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
   !isNullOrEmpty(Surname)&&
   !isNullOrEmpty(CurrentRoomName)){
     AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,function(response) {
-      res.send(response);
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send({AddPlayerFailed:true});
+      }
     });
   }else{
     res.send("Missing params");
