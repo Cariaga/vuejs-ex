@@ -133,7 +133,8 @@ function isEmailExist(Email,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback("Error "+result);
+      console.log("Error "+result);
+      callback(undefined);
     });
 }
 
@@ -151,7 +152,8 @@ function isPhoneNumberExist(PhoneNumber,callback){
       callback(Data);
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
-      callback("Error "+result);
+      console.log("Error "+result);
+      callback(undefined);
     });
 }
 function isUserAccountBlocked(UserAccountID,callback){
@@ -1788,14 +1790,15 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
   Models.SupportTicket.sync({alter : true/*,force:true*/});//force to recreate if non production code
   item1.save()
   .then(Success => {
-    callback("Inserted");
+   
     console.log("----AddSupportTicket Start-----");
     console.log(Success);
     console.log("----AddSupportTicket End-----");
+    callback("Inserted");
   })
   .catch(error => {
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 
@@ -2143,10 +2146,11 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
   item1.save()
   .then(Success => {
-    callback("Inserted");
+   
     console.log("----AddNotification Start-----");
     console.log(Success);
     console.log("----AddNotification End-----");
+    callback("Inserted");
   })
   
   .catch(error => {
@@ -2563,8 +2567,8 @@ function BlackListAll(callback){
      
       callback(Data);
     }).catch(function(result) {//catching any then errors
-
-      callback("Error "+result);
+      console.log("Error "+result);
+      callback(undefined);
     });
 }
 //---BlackList ROUTING END
@@ -2608,7 +2612,7 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
   })
   .catch(error => {
     console.log("error inserting " +error);
-    callback();
+    callback(undefined);
   });
 }
 
@@ -3523,8 +3527,9 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
    
     console.log("----AddDepositHistory Start-----");
     console.log(Success);
-    callback("Inserted");
+   
     console.log("----AddDepositHistory End-----");
+    callback("Inserted");
   })
   
   .catch(error => {
@@ -3850,8 +3855,8 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
   })
   .catch(error => {
    
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 
@@ -4167,8 +4172,8 @@ function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,B
   
   .catch(error => {
    
-    console.log("error inserting");
-    callback("error inserting " +error);
+    console.log("error inserting " +error);
+    callback(undefined);
   });
 }
 
@@ -4428,8 +4433,8 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
     })
     .catch(error => {
     
-      console.log("error inserting");
-      callback("error inserting " +error);
+      console.log("error inserting " +error);
+      callback(undefined);
     });
 }
 app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber', function (req, res) {
@@ -5026,15 +5031,16 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     Models.Player.sync();//use force to clear/delete old table non production only
     item1.save()
     .then(Success => {
-      callback("Inserted");
+      
       console.log("----AddPlayer Start-----");
       console.log(Success);
       console.log("----AddPlayer End-----");
+      callback("Inserted");
     })
     .catch(error => {
       // mhhh, wth!
-      console.log("error inserting");
-      callback("error inserting " +error);
+      console.log("error inserting " +error);
+      callback(undefined);
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
@@ -5221,8 +5227,8 @@ function PlayerUserAccountID(UserAccountID,callback){
     }
   
   }).catch(function(result) {
-
-    callback("Error "+result);
+    console.log("Error "+result)
+    callback(undefined);
   });
 }
 
@@ -5363,7 +5369,7 @@ app.get('/Api/v1/Player/Clear', function (req, res){
     truncate: true
   })
   .then(Success => {
-    callback("Cleared");
+    res.send("Cleared");
   })
   .catch(err=>{
     res.send("Truncate "+err);
