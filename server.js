@@ -3123,7 +3123,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }else{
     res.send({UserAccountIDMissing:true});
   }
-
+/*
 
   if(isNullOrEmpty(WithdrawHistoryID)&&
   isNullOrEmpty(UserAccountID)&&
@@ -3140,7 +3140,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   isNullOrEmpty(RejectedTIME)&&
   isNullOrEmpty(ProcessingTIME)){
     
-  }
+  }*/
 });
 
 function WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
