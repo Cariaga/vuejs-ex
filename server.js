@@ -4641,7 +4641,6 @@ app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/
             }else{
               res.send({AccessControlUpdateFailed:true});
             }
-           
           });
         }else{
           res.send({AccessTagsMissing:true});
@@ -4748,21 +4747,41 @@ app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey
   let ValidKey = req.params.ValidKey;
   let RegisteredDate = req.params.RegisteredDate;
   let RegisteredTime =  req.params.RegisteredTime;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(AccessID)&&
-  !isNullOrEmpty(UserName)&&
-  !isNullOrEmpty(Password)&&
-  !isNullOrEmpty(Verify)&&
-  !isNullOrEmpty(ValidKey)&&
-  !isNullOrEmpty(RegisteredDate)&&
-  !isNullOrEmpty(RegisteredTime)){
-    //This is Direct Date Assigned from API we dont use getCurrentDate And getCurrentTime for control
-   
-    AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
-      res.send(response);
-    });
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(AccessID)){
+      if(!isNullOrEmpty(UserName)){
+        if(!isNullOrEmpty(Password)){
+          if(!isNullOrEmpty(Verify)){
+            if(!isNullOrEmpty(ValidKey)){
+              if(!isNullOrEmpty(RegisteredDate)){
+                if(!isNullOrEmpty(RegisteredTime)){
+                  AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
+                    res.send(response);
+                  });
+                }else{
+                  res.send({RegisteredTimeMissing:true});
+                }
+              }else{
+                res.send({RegisteredDateMissing:true});
+              }
+            }else{
+              res.send({ValidKeyMissing:true});
+            }
+          }else{
+            res.send({VerifyMissing:true});
+          }
+        }else{
+          res.send({PasswordMissing:true});
+        }
+      }else{
+        res.send({UserNameMissing:true});
+      }
+    }else{
+      res.send({AccessIDMissing:true});
+    }
   }else{
-    res.send("Missing params"+AccessID+UserName+Password+Verify+ValidKey+RegisteredDate+RegisteredTime);
+    res.send({UserAccountIDMissing:true});
   }
 });
 
