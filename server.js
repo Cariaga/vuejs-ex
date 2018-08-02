@@ -5039,7 +5039,7 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
 
-app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', function (req, res) {
+app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Point = req.params.Point;
   if(!isNullOrEmpty(UserAccountID)){
@@ -5119,7 +5119,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Add/Point/:Point', f
     res.send({UserAccountIDEmpty:true});
   }
 });
-app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/Subtract/Point/:Point', function (req, res) {
+app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Point = req.params.Point;
   if(!isNullOrEmpty(UserAccountID)){
