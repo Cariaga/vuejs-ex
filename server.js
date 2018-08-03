@@ -129,8 +129,12 @@ function isEmailExist(Email,callback){
       let Data = result.map(function(item) {
           return item;
       });
-
-      callback(Data);
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       console.log("Error "+result);
@@ -149,7 +153,13 @@ function isPhoneNumberExist(PhoneNumber,callback){
       let Data = result.map(function(item) {
           return item;
       });
-      callback(Data);
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       console.log("Error "+result);
@@ -249,7 +259,7 @@ function isUserAccountVerifiedUserName(UserName,callback){
       callback(undefined);
     });
 }
-
+// Not Done
 function isUserAccountVerifiedUserAccountID(UserAccountID,callback){
   Models.UserAccount.sync();
 }
@@ -265,7 +275,12 @@ function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
       let Data = result.map(function(item) {
           return item;
       });
-      callback(Data);
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       callback(result);
@@ -355,7 +370,12 @@ function isScreenNameExist(ScreenName,callback){
       let Data = result.map(function(item) {
           return item;
       });
-      callback(Data);
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+      
      // res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       callback(result);
@@ -1493,9 +1513,6 @@ app.get('/Login',function (req, res) {
               callback5(null,'5');
             }
           }
-
-          
-
           //PlayerUserAccountID
     
       }else{
@@ -1562,6 +1579,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
     VerifyAccountUserAccountID(UserAccountID,Verify,function(response){
       if(response!=undefined){
         res.send({});
+      }else{
+        res.send({VerifyAccountUserAccountIDFailed:true});
       }
     });
   }else{
@@ -1637,6 +1656,7 @@ function Verify(UserName,ValidKey,callback){
         }   
         }
 }
+//Not Done
 function UserAccountUpdateLoginInformation(){
 
 }
@@ -2678,8 +2698,13 @@ function BlackListAll(callback){
           return item;
           
       });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
      
-      callback(Data);
+
     }).catch(function(result) {//catching any then errors
       console.log("Error "+result);
       callback(undefined);
@@ -6155,7 +6180,7 @@ function HeadOfficeUpdate(HeadOfficeID,UserAccountID,Name,callback){
   .catch(error => {
     // mhhh, wth!
     console.log("Error Updating " +error);
-    res.send(undefined);
+    callback(undefined);
   });
 }
 app.get('/Api/v1/HeadOffice/Clear', function (req, res){
