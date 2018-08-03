@@ -2351,22 +2351,12 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
         if(!isNullOrEmpty(Description)){
           if( !isNullOrEmpty(ReportDate)){
             if(!isNullOrEmpty(ReleaseDate)){
-              var item1 = Models.BlackList.build({
-                UserAccountID:UserAccountID,
-                Title:Title,
-                Status:Status,
-                Description:Description,
-                ReportDate:ReportDate,
-                ReleaseDate:ReleaseDate
-              });
-              Models.BlackList.sync({alter : true/*,force:true*/});//Force true to recreate table
-              item1.save()
-              .then(Success => {
-                res.send("Inserted");
-              })
-              .catch(error => {
-                console.log("error inserting");
-                res.send("error inserting " +error);
+              AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseDate,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send({AddBlackListFailed:true});
+                }
               });
             }else{
               res.send({ReleaseDateMissing:true});
@@ -2387,6 +2377,25 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
     res.send({UserAccountIDMissing:true});
   }
 });
+function AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseDate,callback){
+  var item1 = Models.BlackList.build({
+    UserAccountID:UserAccountID,
+    Title:Title,
+    Status:Status,
+    Description:Description,
+    ReportDate:ReportDate,
+    ReleaseDate:ReleaseDate
+  });
+  Models.BlackList.sync({alter : true/*,force:true*/});//Force true to recreate table
+  item1.save()
+  .then(Success => {
+    callback("Inserted");
+  })
+  .catch(error => {
+    console.log("error inserting " +error);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
