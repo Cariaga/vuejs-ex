@@ -2034,20 +2034,34 @@ app.get('/SupportTicket/Request', function (req, res) {
   });
   console.log("Time : "+Time);
   console.log("Date : "+Date);
-
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Title)&&
-  !isNullOrEmpty(Description)&&
-  !isNullOrEmpty(Reason)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)&&
-  !isNullOrEmpty(Status)){
-    AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
-      res.send(response);
-    });
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Title)){
+      if(!isNullOrEmpty(Description)){
+        if(!isNullOrEmpty(Reason)){
+          if(!isNullOrEmpty(Time)){
+            if(!isNullOrEmpty(Date)){
+              if(!isNullOrEmpty(Status)){
+                AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
+                  res.send(response);
+                });
+              }
+            }else{
+              res.send({DateMissing:true});
+            }
+          }else{
+            res.send({TimeMissing:true});
+          }
+        }else{
+          res.send({ReasonMissing:true});
+        }
+      }else{
+        res.send({DescriptionMissing:true});
+      }
+    }else{
+      res.send({TitleMissing:true});
+    }
   }else{
-    let Data ={IsInvalidSupportTicket:false}
-    res.send(Data);
+    res.send({UserAccountIDMissing:true});
   }
 });
 app.get('/UserAccount/SupportTicket', function (req, res) {
