@@ -611,10 +611,10 @@ app.get('/registerheadoffice',function(req,res){
                     }
                     
                   }else{
-                    res.send("WeakPassword");
+                    res.send({WeekPassword:true});
                   }
                 }else{
-                  res.send("InvalidEmail");
+                  res.send({EmailInvalid:true});
                 }
 
               });
@@ -771,10 +771,10 @@ app.get('/registerdistributor',function(req,res){
                       }
 
                     }else{
-                      res.send("WeakPassword");
+                      res.send({WeekPassword:true});
                     }
                   }else{
-                    res.send("InvalidEmail");
+                    res.send({EmailInvalid:true});
                   }
                 }else{
                   res.send("HeadOfficeID Not Found");
@@ -959,10 +959,10 @@ app.get('/registershop',function(req,res){
                         }
 
                       }else{
-                        res.send("WeakPassword");
+                        res.send({WeekPassword:true});
                       }
                   }else{
-                    res.send("InvalidEmail");
+                    res.send({EmailInvalid:true});
                   }
                 }else{
                   res.send("DistributorID Not Found");
