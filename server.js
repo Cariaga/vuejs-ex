@@ -1746,6 +1746,59 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if( !isNullOrEmpty(Title)){
+      if(!isNullOrEmpty(Description)){
+        if(!isNullOrEmpty(Reason)){
+          if(!isNullOrEmpty(Time)){
+            if(!isNullOrEmpty(Date)){
+              if( !isNullOrEmpty(Status)){
+                let UserAccountIDExist =false;
+                async.series([UserAccountIDCheck],function(error,response){
+                  if(UserAccountIDExist==true){
+                    AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
+                      res.send(response);
+                    });
+                  }else{
+                    res.send({UserAccountIDExist:false});
+                  }
+                });
+                function UserAccountIDCheck(callback){
+                  isUserAccountIDExist(UserAccountID,function(response){
+                    let obj = response;
+                    if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                      UserAccountIDExist = true;
+                      callback(null,'1');
+                    }else{
+                      UserAccountIDExist = false;
+                      callback(null,'1');
+                    }
+                  });
+                }
+              }else{
+                res.send({StatusMissing:true});
+              }
+            }else{
+              res.send({DateMissing:true});
+            }
+          }else{
+            res.send({TimeMissing:true});
+          }
+        }else{
+          res.send({ReasonMissing:true});
+        }
+      }else{
+        res.send({DescriptionMissing:true});
+      }
+    }else{
+      res.send({TitleMissing:true});
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+
+/*
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(Title)&&
   !isNullOrEmpty(Description)&&
@@ -1753,29 +1806,8 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)&&
   !isNullOrEmpty(Status)){
-    let UserAccountIDExist =false;
-    async.series([UserAccountIDCheck],function(error,response){
-      if(UserAccountIDExist==true){
-        AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
-          res.send(response);
-        });
-      }else{
-        res.send({UserAccountIDExist:false});
-      }
-    });
-    function UserAccountIDCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        let obj = response;
-        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-          UserAccountIDExist = true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist = false;
-          callback(null,'1');
-        }
-      });
-    }
-  }
+    
+  }*/
 });
 function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   var item1 = Models.SupportTicket.build({
