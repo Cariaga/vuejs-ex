@@ -2623,24 +2623,48 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
   let DeviceCpu = req.params.DeviceCpu;
   let Time = req.params.Time;
   let Date = req.params.Date;
-  if(!isNullOrEmpty(LoginHistoryID)&&
-  !isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(IP)&&
-  !isNullOrEmpty(DeviceName)&&
-  !isNullOrEmpty(DeviceRam)&&
-  !isNullOrEmpty(DeviceCpu)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)){
-    LonginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
-      if(response!=undefined){
-        res.send(response);
+
+  if(!isNullOrEmpty(LoginHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(IP)){
+        if(!isNullOrEmpty(DeviceName)){
+          if(!isNullOrEmpty(DeviceRam)){
+            if(!isNullOrEmpty(DeviceCpu)){
+              if(!isNullOrEmpty(Time)){
+                if(!isNullOrEmpty(Date)){
+                  LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+                    if(response!=undefined){
+                      res.send(response);
+                    }else{
+                      res.send({LoginHistoryUpdateFailed:true});
+                    }
+                  });
+                }else{
+                  res.send({DateMissing:true});
+                }
+              }else{
+                res.send({TimeMissing:true});
+              }
+            }else{
+              res.send({DeviceCpuMissing:true});
+            }
+          }else{
+            res.send({DeviceRamMissing:true});
+          }
+        }else{
+          res.send({DeviceNameMissing:true});
+        }
       }else{
-        res.send({LonginHistoryUpdateFailed:true});
+        res.send({IPMissing:true});
       }
-    });
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({LoginHistoryIDMissing:true});
   }
 });
-function LonginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
+function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
   Models.LoginHistory.update({
     IP: IP,
     DeviceName: DeviceName,
