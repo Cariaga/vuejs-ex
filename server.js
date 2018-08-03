@@ -2464,18 +2464,38 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
-  if(!isNullOrEmpty(BlackListID)&&!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Title)&&!isNullOrEmpty(Description)&&!isNullOrEmpty(ReportDate)&&!isNullOrEmpty(ReleaseDate)){
-    
-    
-    BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-      if(response!=undefined){
-        res.send(response);
-      }else{
-        res.send({BlackListUpdateFailed:true});
-      }
-    });
-  }
 
+  if(!isNullOrEmpty(BlackListID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(Title)){
+        if(!isNullOrEmpty(Description)){
+          if(!isNullOrEmpty(ReportDate)){
+            if(!isNullOrEmpty(ReleaseDate)){
+              BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send({BlackListUpdateFailed:true});
+                }
+              });
+            }else{
+              res.send({ReleaseDateMissing:true});
+            }
+          }else{
+            res.send({ReportDateMissing:true});
+          }
+        }else{
+          res.send({DescriptionMissing:true});
+        }
+      }else{
+        res.send({TitleMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({BlackListIDMissing:true});
+  }
 });
 
 
@@ -2580,16 +2600,40 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   let DeviceCpu = req.params.DeviceCpu;
   let Time = req.params.Time;
   let Date = req.params.Date;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(IP)&&
-  !isNullOrEmpty(DeviceName)&&
-  !isNullOrEmpty(DeviceRam)&&
-  !isNullOrEmpty(DeviceCpu)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)){
-    AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
-      res.send(response);
-    });
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(IP)){
+      if(!isNullOrEmpty(DeviceName)){
+        if(!isNullOrEmpty(DeviceRam)){
+          if(!isNullOrEmpty(DeviceCpu)){
+            if(!isNullOrEmpty(Time)){
+              if(!isNullOrEmpty(Date)){
+                AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send({AddLoginHistoryFailed:true});
+                  }
+                });
+              }else{
+                res.send({DateMissing:true});
+              }
+            }else{
+              res.send({TimeMissing:true});
+            }
+          }else{
+            res.send({DeviceCpuMissing:true});
+          }
+        }else{
+          res.send({DeviceRamMissing:true});
+        }
+      }else{
+        res.send({DeviceNameMissing:true});
+      }
+    }else{
+      res.send({IPMissing:true});
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
   }
 });
 
