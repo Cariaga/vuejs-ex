@@ -645,19 +645,19 @@ app.get('/registerheadoffice',function(req,res){
               }
              
           }else{
-            res.send("Missing Email");
+            res.send({EmailMissing:true});
           }
         }else{
-          res.send("Missing Surname");
+          res.send({SurnameMissing:true});
         }
       }else{
-        res.send("Missing Name");
+        res.send({NameMissing:true});
       }
     }else{
-      res.send("Missing Password");
+      res.send({PasswordMissing:true});
     }
   }else{
-    res.send("Missing UserName");
+    res.send({UserNameMissing:true});
   }
 });
 app.get('/registerdistributor',function(req,res){
@@ -826,22 +826,22 @@ app.get('/registerdistributor',function(req,res){
                 });
               }
             }else{
-              res.send("Missing DistributorID");
+              res.send({DistributorIDMissing:true});
             }
           }else{
-            res.send("Missing Email");
+            res.send({EmailMissing:true});
           }
         }else{
-          res.send("Missing Surname");
+          res.send({SurnameMissing:true});
         }
       }else{
-        res.send("Missing Name");
+        res.send({NameMissing:true});
       }
     }else{
-      res.send("Missing Password");
+      res.send({PasswordMissing:true});
     }
   }else{
-    res.send("Missing UserName");
+    res.send({UserNameMissing:true});
   }
 });
 app.get('/registershop',function(req,res){
@@ -1012,22 +1012,22 @@ app.get('/registershop',function(req,res){
                 });
               }
             }else{
-              res.send("Missing DistributorID");
+              res.send({DistributorIDMissing:true});
             }
           }else{
-            res.send("Missing Email");
+            res.send({EmailMissing:true});
           }
         }else{
-          res.send("Missing Surname");
+          res.send({SurnameMissing:true});
         }
       }else{
-        res.send("Missing Name");
+        res.send({NameMissing:true});
       }
     }else{
-      res.send("Missing Password");
+      res.send({PasswordMissing:true});
     }
   }else{
-    res.send("Missing UserName");
+    res.send({UserNameMissing:true});
   }
 });
 app.get('/register',function (req, res) {
@@ -1148,10 +1148,10 @@ app.get('/register',function (req, res) {
                     }
 
                   }else{
-                    res.send("WeakPassword");
+                    res.send({WeekPassword:true});
                   }
                 }else{
-                  res.send("InvalidEmail");
+                  res.send({EmailInvalid:true});
                 }
             }else{
               res.send("ShopID Not Found");
@@ -1202,23 +1202,23 @@ app.get('/register',function (req, res) {
 
             }
           }else{
-            res.send("Invalid ScreenName");
+            res.send({ScreenNameMissing:true});
           }
           }else{
-            res.send("Invalid Email");
+            res.send({EmailMissing:true});
           }
           
         }else{
-          res.send("Invalid Surname");
+          res.send({SurnameMissing:true});
         }
       }else{
-        res.send("Invalid Name");
+        res.send({NameMissing:true});
       }
     }else{
-      res.send("Invalid Password");
+      res.send({PasswordMissing:true});
     }
   }else{
-    res.send("Invalid UserName");
+    res.send({UserNameMissing:true});
   }
 });
 //--Login End
@@ -1499,13 +1499,13 @@ app.get('/Login',function (req, res) {
           //PlayerUserAccountID
     
       }else{
-        res.send("Invalid Password");
+        res.send({PasswordInvalid:true});
       }
     }else{
-      res.send("Invalid UserName");
+      res.send({UserNameInvalid:true});
     }
   }else{
-    res.send("Missing DeviceInformation");
+    res.send({DeviceInformationsMissing:true});
   }
 });
 //--Login End
