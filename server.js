@@ -2344,28 +2344,47 @@ app.get('/Api/v1/BlackList/Add/:UserAccountID/:Title/:Status/:Description/:Repor
   let Description = req.params.Description;
   let ReportDate = req.params.ReportDate;
   let ReleaseDate = req.params.ReleaseDate;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Title)&&
-  !isNullOrEmpty(Description)&&
-  !isNullOrEmpty(ReportDate)&&
-  !isNullOrEmpty(ReleaseDate)){
-    var item1 = Models.BlackList.build({
-      UserAccountID:UserAccountID,
-      Title:Title,
-      Status:Status,
-      Description:Description,
-      ReportDate:ReportDate,
-      ReleaseDate:ReleaseDate
-    });
-    Models.BlackList.sync({alter : true/*,force:true*/});//Force true to recreate table
-    item1.save()
-    .then(Success => {
-      res.send("Inserted");
-    })
-    .catch(error => {
-      console.log("error inserting");
-      res.send("error inserting " +error);
-    });
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Title)){
+      if(!isNullOrEmpty(Status)){
+        if(!isNullOrEmpty(Description)){
+          if( !isNullOrEmpty(ReportDate)){
+            if(!isNullOrEmpty(ReleaseDate)){
+              var item1 = Models.BlackList.build({
+                UserAccountID:UserAccountID,
+                Title:Title,
+                Status:Status,
+                Description:Description,
+                ReportDate:ReportDate,
+                ReleaseDate:ReleaseDate
+              });
+              Models.BlackList.sync({alter : true/*,force:true*/});//Force true to recreate table
+              item1.save()
+              .then(Success => {
+                res.send("Inserted");
+              })
+              .catch(error => {
+                console.log("error inserting");
+                res.send("error inserting " +error);
+              });
+            }else{
+              res.send({ReleaseDateMissing:true});
+            }
+          }else{
+            res.send({ReportDateMissing:true});
+          }
+        }else{
+          res.send({DescriptionMissing:true});
+        }
+      }else{
+        res.send({StatusMissing:true});
+      }
+    }else{
+      res.send({TitleMissing:true});
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
   }
 });
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
@@ -2456,7 +2475,7 @@ function BlackListStatusUpdate(BlackListID,UserAccountID,Status,callback){
   });
 }
 
-app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:Description/:ReportDate/:ReleaseDate/', function (req, res) {
+app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
   let Status = req.params.Status;
@@ -2467,28 +2486,32 @@ app.get('/Api/v1/BlackList/Update/:BlackListID/:UserAccountID/:Status/:Title/:De
 
   if(!isNullOrEmpty(BlackListID)){
     if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(Title)){
-        if(!isNullOrEmpty(Description)){
-          if(!isNullOrEmpty(ReportDate)){
-            if(!isNullOrEmpty(ReleaseDate)){
-              BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-                if(response!=undefined){
-                  res.send(response);
-                }else{
-                  res.send({BlackListUpdateFailed:true});
-                }
-              });
+      if(!isNullOrEmpty(Status)){
+        if(!isNullOrEmpty(Title)){
+          if(!isNullOrEmpty(Description)){
+            if(!isNullOrEmpty(ReportDate)){
+              if(!isNullOrEmpty(ReleaseDate)){
+                BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send({BlackListUpdateFailed:true});
+                  }
+                });
+              }else{
+                res.send({ReleaseDateMissing:true});
+              }
             }else{
-              res.send({ReleaseDateMissing:true});
+              res.send({ReportDateMissing:true});
             }
           }else{
-            res.send({ReportDateMissing:true});
+            res.send({DescriptionMissing:true});
           }
         }else{
-          res.send({DescriptionMissing:true});
+          res.send({TitleMissing:true});
         }
       }else{
-        res.send({TitleMissing:true});
+        res.send({StatusMissing:true});
       }
     }else{
       res.send({UserAccountIDMissing:true});
