@@ -1812,59 +1812,77 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Title)&&
-  !isNullOrEmpty(Description)&&
-  !isNullOrEmpty(Reason)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Status)){
-    let UserAccountIDExist = false;
-    let SupportTicketIDExist =false;
-    async.series([SupportTicketIDCheck,UserAccountIDCheck],function(error,response){
-      if(UserAccountIDExist==true){
-        if(SupportTicketIDExist==true){
-          SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
-            if(!isNullOrEmpty(response)&&response!=undefined){
-              res.send(response);
+
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Title)){
+      if(!isNullOrEmpty(Description)){
+        if( !isNullOrEmpty(Reason)){
+          if(!isNullOrEmpty(Time)){
+            if(!isNullOrEmpty(Status)){
+              let UserAccountIDExist = false;
+              let SupportTicketIDExist =false;
+              async.series([SupportTicketIDCheck,UserAccountIDCheck],function(error,response){
+                if(UserAccountIDExist==true){
+                  if(SupportTicketIDExist==true){
+                    SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
+                      if(!isNullOrEmpty(response)&&response!=undefined){
+                        res.send(response);
+                      }else{
+                        res.send({SupportTicketUpdateFailed:true});
+                      }
+                    });
+                  }else{
+                    res.send({SupportTicketIDExist:false});
+                  }
+                }else{
+                  res.send({UserAccountIDExist:false});
+                }
+              });
+              
+              function SupportTicketIDCheck(callback){
+                isSupportTicketIDExist(SupportTicketID,function(response){
+                  console.log('1');
+                  let obj = response;
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].SupportTicketID==SupportTicketID){
+                    SupportTicketIDExist = true;
+                    callback(null,'1');
+                  }else{
+                    SupportTicketIDExist = false;
+                    callback(null,'1');
+                  }
+                });
+              }
+
+              function UserAccountIDCheck(callback2){
+                isUserAccountIDExist(UserAccountID,function(response){
+                  console.log('2');
+                  let obj = response;
+                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+                    UserAccountIDExist = true;
+                    callback2(null,'2');
+                  }else{
+                    UserAccountIDExist = false;
+                    callback2(null,'2');
+                  }
+                });
+              }
             }else{
-              res.send({SupportTicketUpdateFailed:true});
+              res.send({StatusMissing:true});
             }
-          });
+          }else{
+            res.send({TimeMissing:true});
+          }
         }else{
-          res.send({SupportTicketIDExist:false});
+          res.send({ReasonMissing:true});
         }
       }else{
-        res.send({UserAccountIDExist:false});
+        res.send({DescriptionMissing:true});
       }
-    });
-    
-    function SupportTicketIDCheck(callback){
-      isSupportTicketIDExist(SupportTicketID,function(response){
-        console.log('1');
-        let obj = response;
-        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].SupportTicketID==SupportTicketID){
-          SupportTicketIDExist = true;
-          callback(null,'1');
-        }else{
-          SupportTicketIDExist = false;
-          callback(null,'1');
-        }
-      });
+    }else{
+      res.send({TitleMissing:true});
     }
-
-    function UserAccountIDCheck(callback2){
-      isUserAccountIDExist(UserAccountID,function(response){
-        console.log('2');
-        let obj = response;
-        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-          UserAccountIDExist = true;
-          callback2(null,'2');
-        }else{
-          UserAccountIDExist = false;
-          callback2(null,'2');
-        }
-      });
-    }
+  }else{
+    res.send({UserAccountIDMissing:true});
   }
 });
 
