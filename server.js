@@ -2631,28 +2631,36 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
   !isNullOrEmpty(DeviceCpu)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
-    Models.LoginHistory.update({
-      UserAccountID: UserAccountID,
-      IP: IP,
-      DeviceName: DeviceName,
-      DeviceRam: DeviceRam,
-      DeviceCpu: DeviceCpu,
-      Time: Time,
-      Date: Date
-    },{
-      where: {LoginHistoryID: LoginHistoryID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    
-    .catch(error => {
-     
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    }); 
+    LonginHistoryUpdate(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send({LonginHistoryUpdateFailed:true});
+      }
+    });
   }
 });
+function LonginHistoryUpdate(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
+  Models.LoginHistory.update({
+    UserAccountID: UserAccountID,
+    IP: IP,
+    DeviceName: DeviceName,
+    DeviceRam: DeviceRam,
+    DeviceCpu: DeviceCpu,
+    Time: Time,
+    Date: Date
+  },{
+    where: {LoginHistoryID: LoginHistoryID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+   
+    console.log("Error Updating " +error);
+    callback(undefined);
+  }); 
+}
 app.get('/Api/v1/LoginHistory/Clear', function (req, res){
   Models.LoginHistory.destroy({
     where: {},
