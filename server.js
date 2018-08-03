@@ -2631,7 +2631,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
   !isNullOrEmpty(DeviceCpu)&&
   !isNullOrEmpty(Time)&&
   !isNullOrEmpty(Date)){
-    LonginHistoryUpdate(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
+    LonginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
       if(response!=undefined){
         res.send(response);
       }else{
@@ -2640,9 +2640,8 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
     });
   }
 });
-function LonginHistoryUpdate(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
+function LonginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
   Models.LoginHistory.update({
-    UserAccountID: UserAccountID,
     IP: IP,
     DeviceName: DeviceName,
     DeviceRam: DeviceRam,
@@ -2650,7 +2649,7 @@ function LonginHistoryUpdate(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Tim
     Time: Time,
     Date: Date
   },{
-    where: {LoginHistoryID: LoginHistoryID }
+    where: {LoginHistoryID: LoginHistoryID,UserAccountID: UserAccountID }
   })
   .then(Success => {
     callback("Updated");
