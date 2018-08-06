@@ -4474,8 +4474,54 @@ function TransferHistoryAll(callback){
 }
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  
+  let TransferHistoryID = req.params.TransferHistoryID;
+  let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
+  let UserAccountIDSender = req.params.UserAccountIDSender;
+  let Amount = req.params.Amount;
+  let Status = req.params.Status;
+  let Reason = req.params.Reason;
+  let TransferedDATE = req.params.TransferedDATE;
+  if(!isNullOrEmpty(TransferHistoryID)){
+    if(!isNullOrEmpty(UserAccountIDReceiver)){
+      if(!isNullOrEmpty(UserAccountIDSender)){
+        if(!isNullOrEmpty(Amount)){
+          if(!isNullOrEmpty(Status)){
+            if(!isNullOrEmpty(Reason)){
+              if(!isNullOrEmpty(TransferedDATE)){
+                AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send([{TransferHistoryUpdateFailed:true}]);
+                  }
+                });
+              }else{
+                res.send({TransferedDATEMissing:true});
+              }
+            }else{
+              res.send({ReasonMissing:true});
+            }
+          }else{
+            res.send({StatusMissing:true});
+          }
+        }else{
+          res.send({AmountMissing:true});
+        }
+      }else{
+        res.send({UserAccountIDSenderMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDReceiverMissing:true});
+    }
+  }else{
+    res.send({TransferHistoryIDMissing:true});
+  }
 });
+
+function AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
+
+}
+
 app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryID = req.params.TransferHistoryID;
