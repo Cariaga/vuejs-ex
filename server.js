@@ -4493,22 +4493,22 @@ function TransferHistoryTrasnferHistoryID(TransferHistoryID,callback){
     callback(undefined);
   });
 }
-app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
+app.get('/Api/v1/TransferHistory/Add/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
+  let TransferHistoryUUID = req.params.TransferHistoryUUID;
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
   let UserAccountIDSender = req.params.UserAccountIDSender;
   let Amount = req.params.Amount;
   let Status = req.params.Status;
   let Reason = req.params.Reason;
   let TransferedDATE = req.params.TransferedDATE;
-
     if(!isNullOrEmpty(UserAccountIDReceiver)){
       if(!isNullOrEmpty(UserAccountIDSender)){
         if(!isNullOrEmpty(Amount)){
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
-                AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
                   if(response!=undefined){
                     res.send(response);
                   }else{
@@ -4535,8 +4535,9 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
     }
 });
 
-function AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
+function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   var item1 = Models.TransferHistory.build({
+    TransferHistoryUUID:TransferHistoryUUID,
     UserAccountIDReceiver:UserAccountIDReceiver,
     UserAccountIDSender:UserAccountIDSender,
     Amount:Amount,
@@ -4561,23 +4562,23 @@ function AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Sta
   });
 }
 
-app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
+app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let TransferHistoryID = req.params.TransferHistoryID;
+  let TransferHistoryUUID = req.params.TransferHistoryUUID;
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
   let UserAccountIDSender = req.params.UserAccountIDSender;
   let Amount = req.params.Amount;
   let Status = req.params.Status;
   let Reason = req.params.Reason;
   let TransferedDATE = req.params.TransferedDATE;
-  if(!isNullOrEmpty(TransferHistoryID)){
+  if(!isNullOrEmpty(TransferHistoryUUID)){
     if(!isNullOrEmpty(UserAccountIDReceiver)){
       if(!isNullOrEmpty(UserAccountIDSender)){
         if(!isNullOrEmpty(Amount)){
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
-                TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
                   if(response!=undefined){
                     res.send(response);
                   }else{
@@ -4606,7 +4607,7 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/Use
     res.send({TransferHistoryIDMissing:true});
   }
 });
-function TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
+function TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.TransferHistory.update({
     UserAccountIDReceiver:UserAccountIDReceiver,
     UserAccountIDSender:UserAccountIDSender,
@@ -4615,7 +4616,7 @@ function TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccou
     Reason:Reason,
     TransferedDATE:TransferedDATE,
   },{
-    where: {TransferHistoryID: TransferHistoryID}
+    where: {TransferHistoryUUID: TransferHistoryUUID}
   })
   .then(Success => {
     callback("Updated");
