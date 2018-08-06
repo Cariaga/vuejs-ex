@@ -4472,13 +4472,11 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
-function TransferHistoryTrasnferHistoryID(callback){
+function TransferHistoryTrasnferHistoryID(TransferHistoryID,callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
     where: {
-      TransferHistoryID: {
-        ne: null//not null
-      }
+      TransferHistoryID:TransferHistoryID
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
