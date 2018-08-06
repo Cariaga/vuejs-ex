@@ -105,6 +105,15 @@ app.get('/SMS/:recipient/:message', function (req, res){
   //console.log(req.params.recipient);
   res.end();
 });
+
+/**
+ *
+ *
+ * @param {*} To
+ * @param {*} From
+ * @param {*} Subject
+ * @param {*} html
+ */
 function SendMail(To,From,Subject,html){
   sendmail({
     from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
@@ -119,6 +128,13 @@ function SendMail(To,From,Subject,html){
 
 
 //--Validation Start
+
+/**
+ *
+ *
+ * @param {*} Email
+ * @param {*} callback
+ */
 function isEmailExist(Email,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -142,6 +158,12 @@ function isEmailExist(Email,callback){
     });
 }
 
+/**
+ *
+ *
+ * @param {*} PhoneNumber
+ * @param {*} callback
+ */
 function isPhoneNumberExist(PhoneNumber,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -166,6 +188,13 @@ function isPhoneNumberExist(PhoneNumber,callback){
       callback(undefined);
     });
 }
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function isUserAccountBlocked(UserAccountID,callback){
   Models.BlackList.sync();
     let result = Models.BlackList.findAll({ 
@@ -191,6 +220,12 @@ function isUserAccountBlocked(UserAccountID,callback){
 }
 
 
+/**
+ *
+ *
+ * @param {*} UserName
+ * @param {*} callback
+ */
 function isUserNameExist(UserName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
@@ -213,6 +248,12 @@ function isUserNameExist(UserName,callback){
     });
 }
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function isUserAccountIDExist(UserAccountID,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
@@ -235,6 +276,13 @@ function isUserAccountIDExist(UserAccountID,callback){
       callback(undefined);
     });
 }
+
+/**
+ *
+ *
+ * @param {*} UserName
+ * @param {*} callback
+ */
 function isUserAccountVerifiedUserName(UserName,callback){
   Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
@@ -260,11 +308,23 @@ function isUserAccountVerifiedUserName(UserName,callback){
     });
 }
 // Not Done
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function isUserAccountVerifiedUserAccountID(UserAccountID,callback){
   Models.UserAccount.sync();
 }
 
 
+/**
+ *
+ *
+ * @param {*} HeadOfficeID
+ * @param {*} callback
+ */
 function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
   Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({ 
@@ -287,6 +347,12 @@ function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
     });
 }
 
+/**
+ *
+ *
+ * @param {*} DistributorID
+ * @param {*} callback
+ */
 function isDistributorAlreadyExist(DistributorID,callback){
   Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
@@ -311,6 +377,12 @@ function isDistributorAlreadyExist(DistributorID,callback){
 }
 
 
+/**
+ *
+ *
+ * @param {*} ShopID
+ * @param {*} callback
+ */
 function isShopAlreadyExist(ShopID,callback){
   Models.Shop.sync();
     let result = Models.Shop.findAll({ 
@@ -335,6 +407,12 @@ function isShopAlreadyExist(ShopID,callback){
     });
 }
 
+/**
+ *
+ *
+ * @param {*} PlayersID
+ * @param {*} callback
+ */
 function isPlayerAlreadyExist(PlayersID,callback){
   Models.Player.sync();
     let result = Models.Player.findAll({ 
@@ -360,6 +438,12 @@ function isPlayerAlreadyExist(PlayersID,callback){
 }
 
 
+/**
+ *
+ *
+ * @param {*} ScreenName
+ * @param {*} callback
+ */
 function isScreenNameExist(ScreenName,callback){
   Models.Player.sync();
     let result = Models.Player.findAll({ 
@@ -385,6 +469,12 @@ function isScreenNameExist(ScreenName,callback){
 //-- Account TypeCheck Start
 //isShop this part of the system is an application layer checking rather than 1 database call for all 3 checks
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function AccountType(UserAccountID,callback){
   let Data = {IsHeadOffice:false,IsDistributor:false,IsShop:false,IsPlayer:false};
   async.series([CheckIsHeadOffice,CheckIsDistributor,CheckIsShop,CheckIsPlayer],function(error,response){
@@ -436,6 +526,13 @@ function AccountType(UserAccountID,callback){
     });
   }
 }
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function isHeadOfficeUserAccountIDExist(UserAccountID,callback){
   Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({ 
@@ -457,6 +554,13 @@ function isHeadOfficeUserAccountIDExist(UserAccountID,callback){
       callback(result);
     });
 }
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function isDistributorUserAccountIDExist(UserAccountID,callback){
   Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
@@ -479,6 +583,13 @@ function isDistributorUserAccountIDExist(UserAccountID,callback){
       callback(undefined);
     });
 }
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function isShopUserAccountIDExist(UserAccountID,callback){
   Models.Shop.sync();
     let result = Models.Shop.findAll({ 
@@ -508,6 +619,12 @@ function isShopUserAccountIDExist(UserAccountID,callback){
 
 
 //** Returns Current Date String*/
+
+/**
+ *
+ *
+ * @param {*} callback
+ */
 function getCurrentDate(callback){
   let today = new Date();
   let dd = today.getDate();
@@ -517,6 +634,12 @@ function getCurrentDate(callback){
   callback(FormatedDate);
 }
 //** Returns Current Time String*/
+
+/**
+ *
+ *
+ * @param {*} callback
+ */
 function getCurrentTime(callback){
   let today = new Date();
   let Hours = today.getHours();
@@ -529,6 +652,7 @@ function getCurrentTime(callback){
 
 //--Validation End
 //--Login Start
+
 app.get('/registerheadoffice',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -1613,6 +1737,14 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
     });
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserName
+ * @param {*} ValidKey
+ * @param {*} callback
+ */
 function Verify(UserName,ValidKey,callback){
   async.waterfall([
           myFirstFunction,
@@ -1661,6 +1793,13 @@ function UserAccountUpdateLoginInformation(){
 
 }
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} VerifiedStatus
+ * @param {*} callback
+ */
 function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   Models.UserAccount.update({
     Verify: VerifiedStatus
@@ -1677,6 +1816,14 @@ function VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,callback){// Ve
     callback(undefined);
   }); 
 }
+
+/**
+ *
+ *
+ * @param {*} UserName
+ * @param {*} ValidKey
+ * @param {*} callback
+ */
 function VerifyAccount(UserName,ValidKey,callback){ // Verification with ValidKey // Public only use // Via ValidKey
   Models.UserAccount.update({
     Verify: true
@@ -1829,6 +1976,19 @@ app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:T
     
   }*/
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Title
+ * @param {*} Description
+ * @param {*} Reason
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} Status
+ * @param {*} callback
+ */
 function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   var item1 = Models.SupportTicket.build({
     UserAccountID:UserAccountID,
@@ -1938,6 +2098,12 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   }
 });
 
+/**
+ *
+ *
+ * @param {*} SupportTicketID
+ * @param {*} callback
+ */
 function isSupportTicketIDExist(SupportTicketID,callback){
   Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
@@ -1962,6 +2128,19 @@ function isSupportTicketIDExist(SupportTicketID,callback){
 }
 
 
+/**
+ *
+ *
+ * @param {*} SupportTicketID
+ * @param {*} UserAccountID
+ * @param {*} Title
+ * @param {*} Description
+ * @param {*} Reason
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} Status
+ * @param {*} callback
+ */
 function SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
   Models.SupportTicket.update({
     Title: Title,
@@ -2067,6 +2246,14 @@ app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', fun
     res.send({InvalidUserAccountID:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Status
+ * @param {*} callback
+ */
 function SupportTicketUserAccountIDByStatus(UserAccountID,Status,callback){
   Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
@@ -2219,6 +2406,16 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
   }
 });
 
+/**
+ *
+ *
+ * @param {*} NotificationType
+ * @param {*} Title
+ * @param {*} Description
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} callback
+ */
 function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   var item1 = Models.Notification.build({
     NotificationType:NotificationType,
@@ -2311,6 +2508,12 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
   }
 });
 
+/**
+ *
+ *
+ * @param {*} NotificationID
+ * @param {*} callback
+ */
 function IsNotificationIDExist(NotificationID,callback){
   Models.Notification.sync();
   let result = Models.Notification.findAll({ 
@@ -2334,6 +2537,17 @@ function IsNotificationIDExist(NotificationID,callback){
 }
 
 
+/**
+ *
+ *
+ * @param {*} NotificationID
+ * @param {*} NotificationType
+ * @param {*} Title
+ * @param {*} Description
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} callback
+ */
 function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
   Models.Notification.update({
     NotificationType: NotificationType,
@@ -2461,6 +2675,18 @@ app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/
     res.send({UserAccountIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Title
+ * @param {*} Status
+ * @param {*} Description
+ * @param {*} ReportDate
+ * @param {*} ReleaseDate
+ * @param {*} callback
+ */
 function AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseDate,callback){
   var item1 = Models.BlackList.build({
     UserAccountID:UserAccountID,
@@ -2553,6 +2779,15 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     res.send("Missing BlackListID "+BlackListID);
   }
 });
+
+/**
+ *
+ *
+ * @param {*} BlackListID
+ * @param {*} UserAccountID
+ * @param {*} Status
+ * @param {*} callback
+ */
 function BlackListStatusUpdate(BlackListID,UserAccountID,Status,callback){
   Models.BlackList.update({
     Status: Status
@@ -2615,6 +2850,18 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
 });
 
 
+/**
+ *
+ *
+ * @param {*} BlackListID
+ * @param {*} UserAccountID
+ * @param {*} Status
+ * @param {*} Title
+ * @param {*} Description
+ * @param {*} ReportDate
+ * @param {*} ReleaseDate
+ * @param {*} callback
+ */
 function BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,callback){//FULL Update For Blacklist
   Models.BlackList.update({
     UserAccountID: UserAccountID,
@@ -2685,6 +2932,12 @@ app.get('/Api/v1/BlackList', function (req, res) {
   }
  // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
 });
+
+/**
+ *
+ *
+ * @param {*} callback
+ */
 function BlackListAll(callback){
   Models.BlackList.sync();
     let result = Models.BlackList.findAll({ 
@@ -2758,6 +3011,18 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   }
 });
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} IP
+ * @param {*} DeviceName
+ * @param {*} DeviceRam
+ * @param {*} DeviceCpu
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} callback
+ */
 function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){//accessed by /Login
   var item1 = Models.LoginHistory.build({
     UserAccountID:UserAccountID,
@@ -2829,6 +3094,20 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
     res.send({LoginHistoryIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} LoginHistoryID
+ * @param {*} UserAccountID
+ * @param {*} IP
+ * @param {*} DeviceName
+ * @param {*} DeviceRam
+ * @param {*} DeviceCpu
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} callback
+ */
 function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
   Models.LoginHistory.update({
     IP: IP,
@@ -2962,6 +3241,19 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Val
     res.send({UserAccountIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} BankName
+ * @param {*} SecurityCode
+ * @param {*} Valid
+ * @param {*} Expiration
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} callback
+ */
 function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration,Time,Date,callback){
   var item1 = Models.BankInformation.build({
     UserAccountID:UserAccountID,
@@ -3026,6 +3318,19 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
     res.send({BankInformationIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} BankInformationID
+ * @param {*} BankName
+ * @param {*} SecurityCode
+ * @param {*} Expiration
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} callback
+ */
 function BankInformationUpdate(UserAccountID,BankInformationID,BankName,SecurityCode,Expiration,Time,Date,callback){
   Models.BankInformation.update({
     UserAccountID: UserAccountID,
@@ -3222,6 +3527,24 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     res.send({UserAccountIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Amount
+ * @param {*} BankNameUsed
+ * @param {*} Status
+ * @param {*} RequestedDATE
+ * @param {*} ApprovedDATE
+ * @param {*} RejectedDATE
+ * @param {*} ProcessingDATE
+ * @param {*} RequestedTIME
+ * @param {*} ApprovedTIME
+ * @param {*} RejectedTIME
+ * @param {*} ProcessingTIME
+ * @param {*} callback
+ */
 function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.WithdrawHistory.build({
     UserAccountID:UserAccountID,
@@ -3393,6 +3716,25 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }*/
 });
 
+/**
+ *
+ *
+ * @param {*} WithdrawHistoryID
+ * @param {*} UserAccountID
+ * @param {*} Amount
+ * @param {*} BankNameUsed
+ * @param {*} SecurityCodeUsed
+ * @param {*} Status
+ * @param {*} RequestedDATE
+ * @param {*} ApprovedDATE
+ * @param {*} RejectedDATE
+ * @param {*} ProcessingDATE
+ * @param {*} RequestedTIME
+ * @param {*} ApprovedTIME
+ * @param {*} RejectedTIME
+ * @param {*} ProcessingTIME
+ * @param {*} callback
+ */
 function WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   Models.WithdrawHistory.update({
     Amount: Amount,
@@ -3609,7 +3951,7 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
   let Status = req.params.Status;
   if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
     let isUserAccountIDFound=false;
-    async.series([IsUserAccountIDExistCheck],function(){
+    async.series([IsUserAccountIDExistCheck],function(error,response){
       if(isUserAccountIDFound==true){
         DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
           if(response!=undefined){
@@ -3643,6 +3985,13 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
   
 });
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Status
+ * @param {*} callback
+ */
 function DepositHistoryUserAccountIDStatus(UserAccountID,Status,callback){
   Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({ 
@@ -3753,6 +4102,24 @@ app.get('/DepositHistory', function (req, res) {
    }
  });
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Amount
+ * @param {*} BankNameUsed
+ * @param {*} SecurityCodeUsed
+ * @param {*} Status
+ * @param {*} RequestedDATE
+ * @param {*} ApprovedDATE
+ * @param {*} RejectedDATE
+ * @param {*} ProcessingDATE
+ * @param {*} RequestedTIME
+ * @param {*} ApprovedTIME
+ * @param {*} RejectedTIME
+ * @param {*} ProcessingTIME
+ * @param {*} callback
+ */
 function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.DepositHistory.build({
     UserAccountID:UserAccountID,
@@ -3936,6 +4303,14 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     res.send({DepositHistoryIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} DepositHistoryID
+ * @param {*} callback
+ */
 function DepositHistoryUserAccountID(UserAccountID,DepositHistoryID,callback){
   Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({ 
@@ -4090,6 +4465,15 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
   }
 });
 
+/**
+ *
+ *
+ * @param {*} RoomID
+ * @param {*} SmallBlind
+ * @param {*} BigBlind
+ * @param {*} Speed
+ * @param {*} callback
+ */
 function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
   var item1 = Models.RoomConfiguration.build({
     RoomID:RoomID,
@@ -4109,6 +4493,12 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
   });
 }
 
+/**
+ *
+ *
+ * @param {*} RoomID
+ * @param {*} callback
+ */
 function IsRoomIDExist(RoomID,callback){
   Models.RoomConfiguration.sync();
   let result = Models.RoomConfiguration.findAll({ 
@@ -4171,6 +4561,14 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
   }
 });
 
+/**
+ *
+ *
+ * @param {*} RoomID
+ * @param {*} SmallBlind
+ * @param {*} BigBlind
+ * @param {*} callback
+ */
 function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,callback){
   Models.RoomConfiguration.sync(/*{force:true}*/);
   Models.RoomConfiguration.update({
@@ -4205,6 +4603,12 @@ app.get('/Api/v1/RoomConfiguration/', function (req, res) {
     });
   }
 });
+
+/**
+ *
+ *
+ * @param {*} callback
+ */
 function RoomConfiguration(callback){
   Models.RoomConfiguration.sync();
     let result = Models.RoomConfiguration.findAll({ 
@@ -4399,6 +4803,22 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
  
   }*/
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} RoundID
+ * @param {*} RoomID
+ * @param {*} Rank
+ * @param {*} Score
+ * @param {*} Card
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} BeforePoints
+ * @param {*} AfterPoints
+ * @param {*} callback
+ */
 function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,callback){
   Models.GameHistory.sync();
   var item1 = Models.GameHistory.build({
@@ -4611,6 +5031,12 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   }
   //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
 });
+
+/**
+ *
+ *
+ * @param {*} callback
+ */
 function GameHistory(callback){
   Models.GameHistory.sync();
   let result = Models.GameHistory.findAll({ 
@@ -4739,6 +5165,15 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
 });
 
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Email
+ * @param {*} PhoneNumber
+ * @param {*} TelephoneNumber
+ * @param {*} callback
+ */
 function UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
   Models.UserInfo.sync(/*{force:true}*/);
   Models.UserInfo.update({
@@ -4911,6 +5346,14 @@ app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/
     res.send({AccessControlIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} AccessID
+ * @param {*} AccessName
+ * @param {*} AccessTags
+ */
 function AccessControlUpdate(AccessID,AccessName,AccessTags){
   Models.AccessControl.update({
     AccessID: AccessID,
@@ -5045,6 +5488,19 @@ app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey
   }
 });
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} AccessID
+ * @param {*} UserName
+ * @param {*} Password
+ * @param {*} Verify
+ * @param {*} ValidKey
+ * @param {*} RegisteredDate
+ * @param {*} RegisteredTime
+ * @param {*} callback
+ */
 function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
   var item1 = Models.UserAccount.build({
     UserAccountID:UserAccountID,
@@ -5201,6 +5657,12 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   }
 });
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function AccountTypeFullCheck(UserAccountID,callback){//this is an application layer constraint
   AccountType(UserAccountID,function(response){
     let Data = response;
@@ -5288,6 +5750,18 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
     res.send({UserAccountIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} ShopID
+ * @param {*} ScreenName
+ * @param {*} Name
+ * @param {*} Surname
+ * @param {*} CurrentRoomName
+ * @param {*} callback
+ */
 function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
     //res.send('test');
     //Setting up the config
@@ -5481,6 +5955,12 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point
   }
 });
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function PlayerUserAccountID(UserAccountID,callback){
   Models.Player.sync();
   let result = Models.Player.findAll({ 
@@ -5503,6 +5983,13 @@ function PlayerUserAccountID(UserAccountID,callback){
   });
 }
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} CurrentPoints
+ * @param {*} callback
+ */
 function PlayerUpdatePoint(UserAccountID,CurrentPoints,callback){
   Models.Player.update({
     CurrentPoints: CurrentPoints
@@ -5561,6 +6048,13 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
 
 
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} CurrentRoomName
+ * @param {*} callback
+ */
 function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
   Models.Player.update({
     CurrentRoomName: CurrentRoomName
@@ -5708,6 +6202,12 @@ app.get('/Api/v1/Player', function (req, res) {
  
 });
 
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
 function UserInfoUserAccountID(UserAccountID,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -5793,6 +6293,15 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
     res.send({UserAccountIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} DistributorID
+ * @param {*} Description
+ * @param {*} callback
+ */
 function AddShop(UserAccountID,DistributorID,Description,callback){
   var item1 = Models.Shop.build({
     UserAccountID:UserAccountID,
@@ -5946,6 +6455,15 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
     res.send({UserAccountIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} HeadOfficeID
+ * @param {*} Name
+ * @param {*} callback
+ */
 function AddDistributor(UserAccountID,HeadOfficeID,Name,callback){
   var item1 = Models.Distributor.build({
     UserAccountID:UserAccountID,
@@ -5997,6 +6515,15 @@ app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:
     res.send({DistributorIDFailed:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} HeadOfficeID
+ * @param {*} Name
+ * @param {*} callback
+ */
 function DistributorUpdate(UserAccountID,HeadOfficeID,Name,callback){
   Models.Distributor.update({
     UserAccountID: UserAccountID,
@@ -6120,6 +6647,15 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
     res.send({UserAccountIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Name
+ * @param {*} Description
+ * @param {*} callback
+ */
 function AddHeadOffice(UserAccountID,Name,Description,callback){
   var item1 = Models.HeadOffice.build({
     UserAccountID:UserAccountID,
@@ -6166,6 +6702,15 @@ app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', f
     res.send({HeadOfficeIDMissing:true});
   }
 });
+
+/**
+ *
+ *
+ * @param {*} HeadOfficeID
+ * @param {*} UserAccountID
+ * @param {*} Name
+ * @param {*} callback
+ */
 function HeadOfficeUpdate(HeadOfficeID,UserAccountID,Name,callback){
   Models.HeadOffice.update({
     UserAccountID: UserAccountID,
@@ -6183,6 +6728,7 @@ function HeadOfficeUpdate(HeadOfficeID,UserAccountID,Name,callback){
     callback(undefined);
   });
 }
+
 app.get('/Api/v1/HeadOffice/Clear', function (req, res){
   Models.HeadOffice.destroy({
     where: {},
@@ -6203,6 +6749,7 @@ app.get('/Api/v1/HeadOffice/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+
 app.get('/Api/v1/HeadOffice', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
@@ -6387,6 +6934,7 @@ app.get('/WithdrawHistory',function (req, res) {
   let isWithdrawAmountValid=false;
   let isUserAccountIDFound =false;
 
+  //Not Done
   async.series([IsUserAccountIDExistCheck,ValidateAccountCheck,ValidateBalanceCheck
 
   ]);

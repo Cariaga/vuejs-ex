@@ -352,6 +352,29 @@ const WithdrawHistory =sequelize.define('WithdrawHistory', {
   ProcessingTIME: Sequelize.TIME,
 });
 
+//NOT DONE
+const TransferHistory =sequelize.define('TransferHistory', {
+  TransferHistoryID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  UserAccountIDReceiver:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
+  UserAccountIDSender:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
+  Amount:Sequelize.INTEGER,
+  BankNameUsed:  Sequelize.STRING,
+  SecurityCodeUsed: Sequelize.STRING,
+  Status:Sequelize.STRING,
+  RequestedDATE: Sequelize.DATE,
+  ApprovedDATE: Sequelize.DATE,
+  RejectedDATE: Sequelize.DATE,
+  ProcessingDATE: Sequelize.DATE,
+  RequestedTIME: Sequelize.TIME,
+  ApprovedTIME: Sequelize.TIME,
+  RejectedTIME: Sequelize.TIME,
+  ProcessingTIME: Sequelize.TIME,
+});
+
 const BankInformation =sequelize.define('BankInformation', {
   BankInformationID: {
     type: Sequelize.INTEGER,
