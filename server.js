@@ -4604,7 +4604,7 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
       res.send({UserAccountIDReceiverMissing:true});
     }
   }else{
-    res.send({TransferHistoryIDMissing:true});
+    res.send({TransferHistoryUUIDMissing:true});
   }
 });
 function TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
