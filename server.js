@@ -4508,13 +4508,19 @@ app.get('/Api/v1/TransferHistory/Add/TransferHistoryUUID/:TransferHistoryUUID/Us
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
-                AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send([{TransferHistoryUpdateFailed:true}]);
-                  }
-                });
+                if(Amount>0){
+                  AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                    if(response!=undefined){
+                      res.send(response);
+                    }else{
+                      res.send([{TransferHistoryUpdateFailed:true}]);
+                    }
+  
+                  });
+                }else{
+                  res.send({AmountInvalidValue:true});
+                }
+                
               }else{
                 res.send({TransferedDATEMissing:true});
               }
@@ -4578,13 +4584,18 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
-                TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send([{TransferHistoryUpdateFailed:true}]);
-                  }
+                async.series([],function(error,response){
+                  TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                    if(response!=undefined){
+                      res.send(response);
+                    }else{
+                      res.send([{TransferHistoryUpdateFailed:true}]);
+                    }
+                  });
                 });
+                function TransferHistoryExistCheck(){
+
+                }
               }else{
                 res.send({TransferedDATEMissing:true});
               }
