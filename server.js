@@ -4473,7 +4473,16 @@ function TransferHistoryAll(callback){
   });
 }
 
-
+app.get('/Api/v1/TransferHistory', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  TransferHistoryUpdate(function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send([{TransferHistoryUpdateFailed:true}]);
+      }
+    });
+});
 function TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.SupportTicket.update({
     UserAccountIDReceiver:UserAccountIDReceiver,
