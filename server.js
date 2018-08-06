@@ -4421,23 +4421,14 @@ app.get('/Api/v1/TransferHistory', function (req, res) {
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.TransferHistory.sync();
-    let result = Models.TransferHistory.findAll({ 
-      where: {
-        TransferHistoryID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-
-      res.send("Error "+result);
+    TransferHistoryAll(function(response){
+      if(response!=undefined){
+        res.send(beautify(response, null, 2, 100));
+      }else{
+        res.send([]);
+      }
     });
+    
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
@@ -4458,7 +4449,29 @@ app.get('/Api/v1/TransferHistory', function (req, res) {
 
   }
 });
-
+function TransferHistoryAll(callback){
+  Models.TransferHistory.sync();
+  let result = Models.TransferHistory.findAll({ 
+    where: {
+      TransferHistoryID: {
+        ne: null//not null
+      }
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
 
 //--TransferHistory ROUTING END
 
