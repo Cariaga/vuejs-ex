@@ -4472,7 +4472,10 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
-
+app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  
+});
 app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   TransferHistoryUpdate(function(response){
