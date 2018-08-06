@@ -4491,21 +4491,37 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/Use
         if(!isNullOrEmpty(Amount)){
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
-              
+              if(!isNullOrEmpty(TransferedDATE)){
+                TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send([{TransferHistoryUpdateFailed:true}]);
+                  }
+                });
+              }else{
+                res.send({});
+              }
+            }else{
+              res.send({});
             }
+          }else{
+            res.send({});
           }
+        }else{
+          res.send({});
         }
+      }else{
+        res.send({});
       }
+    }else{
+      res.send({});
     }
+  }else{
+    res.send({});
   }
 
-  TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-      if(response!=undefined){
-        res.send(response);
-      }else{
-        res.send([{TransferHistoryUpdateFailed:true}]);
-      }
-    });
+
 });
 function TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.TransferHistory.update({
