@@ -4400,6 +4400,21 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
 });
 //---DepositHistory ROUTING END
 //--TransferHistory ROUTING START
+
+
+app.get('/Api/v1/TransferHistory/Clear', function (req, res){
+  Models.TransferHistory.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});
+
 app.get('/Api/v1/TransferHistory', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
@@ -4418,7 +4433,6 @@ app.get('/Api/v1/TransferHistory', function (req, res) {
           return item;
           
       });
-     
       res.send(beautify(Data, null, 2, 100));
     }).catch(function(result) {//catching any then errors
 
