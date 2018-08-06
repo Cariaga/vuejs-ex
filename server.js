@@ -4473,7 +4473,7 @@ function TransferHistoryAll(callback){
   });
 }
 
-app.get('/Api/v1/TransferHistory', function (req, res) {
+app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/UserAccountIDReceiver/UserAccountIDSender/Amount/Status/Reason/TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   TransferHistoryUpdate(function(response){
       if(response!=undefined){
