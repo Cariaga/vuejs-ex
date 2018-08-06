@@ -352,7 +352,7 @@ const WithdrawHistory =sequelize.define('WithdrawHistory', {
   ProcessingTIME: Sequelize.TIME,
 });
 
-//NOT DONE
+
 const TransferHistory =sequelize.define('TransferHistory', {
   TransferHistoryID: {
     type: Sequelize.INTEGER,

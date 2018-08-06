@@ -4399,6 +4399,54 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
 });
 //---DepositHistory ROUTING END
+//--TransferHistory ROUTING START
+app.get('/Api/v1/TransferHistory', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.TransferHistory.sync();
+    let result = Models.TransferHistory.findAll({ 
+      where: {
+        TransferHistoryID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+     
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+
+      res.send("Error "+result);
+    });
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+
+  }
+});
+
+
+//--TransferHistory ROUTING END
 
 //---RoomConfiguration ROUTING START
 app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
