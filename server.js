@@ -4519,7 +4519,24 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
 });
 
 function AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
+  var item1 = Models.TransferHistory.build({
+    UserAccountIDReceiver:UserAccountIDReceiver,UserAccountIDSender:UserAccountIDSender,Amount:Amount,Status:Status,Reason:Reason,TransferedDATE:TransferedDATE
+  });
+  //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
+  Models.TransferHistory.sync({alter : true/*,force:true*/});
+  item1.save()
+  .then(Success => {
 
+     console.log("----AddTransferHistory Start-----");
+     console.log(Success);
+     console.log("----AddTransferHistory End-----");
+     callback("Inserted");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log();
+    callback(undefined);
+  });
 }
 
 app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
