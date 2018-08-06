@@ -359,7 +359,10 @@ const TransferHistory =sequelize.define('TransferHistory', {
     primaryKey: true,
     autoIncrement: true
   },
-  TransferHistoryUUID:Sequelize.UUID,
+  TransferHistoryUUID:{
+    type:Sequelize.UUID,
+    unique: true,
+  },
   UserAccountIDReceiver:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
   UserAccountIDSender:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
   Amount:Sequelize.INTEGER,
