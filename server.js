@@ -4512,7 +4512,6 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
     }else{
       res.send({UserAccountIDReceiverMissing:true});
     }
-  
 });
 
 function AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
@@ -4585,8 +4584,6 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/Use
   }else{
     res.send({TransferHistoryIDMissing:true});
   }
-
-
 });
 function TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.TransferHistory.update({
