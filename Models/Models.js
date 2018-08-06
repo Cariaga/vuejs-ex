@@ -364,7 +364,7 @@ const TransferHistory =sequelize.define('TransferHistory', {
   Amount:Sequelize.INTEGER,
   Status:Sequelize.STRING,
   Reason:Sequelize.STRING,
-  DATE: Sequelize.DATE,
+  TransferedDATE: Sequelize.DATE,
 });
 
 const BankInformation =sequelize.define('BankInformation', {

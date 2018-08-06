@@ -4473,6 +4473,27 @@ function TransferHistoryAll(callback){
   });
 }
 
+
+function TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
+  Models.SupportTicket.update({
+    UserAccountIDReceiver:UserAccountIDReceiver,
+    UserAccountIDSender:UserAccountIDSender,
+    Amount:Amount,
+    Status:Status,
+    Reason:Reason,
+    TransferedDATE:TransferedDATE,
+  },{
+    where: {TransferHistoryID: TransferHistoryID}
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
+
 //--TransferHistory ROUTING END
 
 //---RoomConfiguration ROUTING START
