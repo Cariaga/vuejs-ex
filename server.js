@@ -4472,6 +4472,29 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
+function TransferHistoryTrasnferHistoryID(callback){
+  Models.TransferHistory.sync();
+  let result = Models.TransferHistory.findAll({ 
+    where: {
+      TransferHistoryID: {
+        ne: null//not null
+      }
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
