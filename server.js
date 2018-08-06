@@ -4478,7 +4478,14 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
 });
 app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  TransferHistoryUpdate(function(response){
+  let TransferHistoryID = req.params.TransferHistoryID;
+  let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
+  let UserAccountIDSender = req.params.UserAccountIDSender;
+  let Amount = req.params.Amount;
+  let Status = req.params.Status;
+  let Reason = req.params.Reason;
+  let TransferedDATE = req.params.TransferedDATE;
+  TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
       if(response!=undefined){
         res.send(response);
       }else{
