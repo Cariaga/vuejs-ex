@@ -4474,14 +4474,13 @@ function TransferHistoryAll(callback){
 }
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let TransferHistoryID = req.params.TransferHistoryID;
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
   let UserAccountIDSender = req.params.UserAccountIDSender;
   let Amount = req.params.Amount;
   let Status = req.params.Status;
   let Reason = req.params.Reason;
   let TransferedDATE = req.params.TransferedDATE;
-  if(!isNullOrEmpty(TransferHistoryID)){
+
     if(!isNullOrEmpty(UserAccountIDReceiver)){
       if(!isNullOrEmpty(UserAccountIDSender)){
         if(!isNullOrEmpty(Amount)){
@@ -4513,14 +4512,17 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
     }else{
       res.send({UserAccountIDReceiverMissing:true});
     }
-  }else{
-    res.send({TransferHistoryIDMissing:true});
-  }
+  
 });
 
 function AddTransferHistory(UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   var item1 = Models.TransferHistory.build({
-    UserAccountIDReceiver:UserAccountIDReceiver,UserAccountIDSender:UserAccountIDSender,Amount:Amount,Status:Status,Reason:Reason,TransferedDATE:TransferedDATE
+    UserAccountIDReceiver:UserAccountIDReceiver,
+    UserAccountIDSender:UserAccountIDSender,
+    Amount:Amount,
+    Status:Status,
+    Reason:Reason,
+    TransferedDATE:TransferedDATE
   });
   //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
   Models.TransferHistory.sync({alter : true/*,force:true*/});
