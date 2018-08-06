@@ -362,17 +362,9 @@ const TransferHistory =sequelize.define('TransferHistory', {
   UserAccountIDReceiver:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
   UserAccountIDSender:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
   Amount:Sequelize.INTEGER,
-  BankNameUsed:  Sequelize.STRING,
-  SecurityCodeUsed: Sequelize.STRING,
   Status:Sequelize.STRING,
-  RequestedDATE: Sequelize.DATE,
-  ApprovedDATE: Sequelize.DATE,
-  RejectedDATE: Sequelize.DATE,
-  ProcessingDATE: Sequelize.DATE,
-  RequestedTIME: Sequelize.TIME,
-  ApprovedTIME: Sequelize.TIME,
-  RejectedTIME: Sequelize.TIME,
-  ProcessingTIME: Sequelize.TIME,
+  Reason:Sequelize.STRING,
+  DATE: Sequelize.DATE,
 });
 
 const BankInformation =sequelize.define('BankInformation', {
@@ -531,6 +523,7 @@ const Notification =sequelize.define('Notification', {
   module.exports.RoomConfiguration =RoomConfiguration;
   module.exports.DepositHistory =DepositHistory;
   module.exports.WithdrawHistory =WithdrawHistory;
+  module.exports.TransferHistory = TransferHistory;
   module.exports.BankInformation =BankInformation;
   module.exports.LoginHistory =LoginHistory;
   module.exports.BlackList =BlackList;
