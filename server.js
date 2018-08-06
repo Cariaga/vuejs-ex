@@ -4484,7 +4484,7 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryID/:TransferHistoryID/Use
     });
 });
 function TransferHistoryUpdate(TransferHistoryID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
-  Models.SupportTicket.update({
+  Models.TransferHistory.update({
     UserAccountIDReceiver:UserAccountIDReceiver,
     UserAccountIDSender:UserAccountIDSender,
     Amount:Amount,
