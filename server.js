@@ -4508,7 +4508,7 @@ app.get('/Api/v1/TransferHistory/Add/TransferHistoryUUID/:TransferHistoryUUID/Us
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
-                if(Amount>0){
+                if(parseInt(Amount)>0){
                   AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
                     if(response!=undefined){
                       res.send(response);
