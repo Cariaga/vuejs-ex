@@ -4472,7 +4472,16 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
-
+app.get('/Api/v1/TransferHistroy/Describe',function(req,res){
+  Models.TransferHistory.describe().then(result=>{
+    res.send(result);
+  });
+ /* sequelize.query("SELECT * FROM `users`", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    // We don't need spread here, since only the results will be returned for select queries
+    res.send(users);
+  })*/
+});
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryUUID = uuidv4();
