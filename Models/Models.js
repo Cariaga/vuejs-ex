@@ -380,8 +380,8 @@ const TransferHistory =sequelize.define('TransferHistory', {
 });
 
 TransferHistory.belongsTo(UserAccount, {
-  foreignKey: 'UserAccountID',
-  targetKey: 'UserAccountIDIDReceiver',
+  foreignKey: 'UserAccountIDReceiver',
+  targetKey: 'UserAccountID',
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
 
