@@ -2226,6 +2226,13 @@ app.get('/Api/v1/SupportTicket/', function (req, res) {
   }
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.SupportTicket.sync({alter:true});
+  Models.SupportTicket.describe().then(result=>{
+    res.send([result]);
+  });
+});
 app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -2632,6 +2639,13 @@ app.get('/Api/v1/Notification', function (req, res) {
   }
  // res.send("Notification "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/Notification/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.Notification.sync({alter:true});
+  Models.Notification.describe().then(result=>{
+    res.send([result]);
+  });
+});
 //---Notification ROUTING END
 //---BlackList ROUTING START
 app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
@@ -2932,7 +2946,13 @@ app.get('/Api/v1/BlackList', function (req, res) {
   }
  // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
 });
-
+app.get('/Api/v1/BlackList/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.BlackList.sync({alter:true});
+  Models.BlackList.describe().then(result=>{
+    res.send([result]);
+  });
+});
 /**
  *
  *
@@ -3193,6 +3213,13 @@ app.get('/Api/v1/LoginHistory', function (req, res) {
   }
   //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.LoginHistory.sync({alter:true});
+  Models.LoginHistory.describe().then(result=>{
+    res.send([result]);
+  });
+});
 //---LoginHistory ROUTING END
 //---BankInformation ROUTING START
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
@@ -3414,6 +3441,13 @@ app.get('/Api/v1/BankInformation', function (req, res) {
 
   }
   //res.send("BankInformation "+Offset+" "+ Limit+" "+Sort);
+});
+app.get('/Api/v1/BankInformation/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.BankInformation.sync({alter:true});
+  Models.BankInformation.describe().then(result=>{
+    res.send([result]);
+  });
 });
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START
@@ -3825,6 +3859,13 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
 
   }
   //res.send("WithdrawHistory "+Offset+" "+ Limit+" "+Sort);
+});
+app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.WithdrawHistory.sync({alter:true});
+  Models.WithdrawHistory.describe().then(result=>{
+    res.send([result]);
+  });
 });
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
@@ -4398,6 +4439,13 @@ app.get('/Api/v1/DepositHistory', function (req, res) {
   }
   //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.DepositHistory.sync({alter:true});
+  Models.DepositHistory.describe().then(result=>{
+    res.send([result]);
+  });
+});
 //---DepositHistory ROUTING END
 //--TransferHistory ROUTING START
 
@@ -4906,6 +4954,13 @@ app.get('/Api/v1/RoomConfiguration/', function (req, res) {
     });
   }
 });
+app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.RoomConfiguration.sync({alter:true});
+  Models.RoomConfiguration.describe().then(result=>{
+    res.send([result]);
+  });
+});
 
 /**
  *
@@ -5334,7 +5389,13 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   }
   //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
 });
-
+app.get('/Api/v1/GameHistory/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.GameHistory.sync({alter:true});
+  Models.GameHistory.describe().then(result=>{
+    res.send([result]);
+  });
+});
 /**
  *
  *
@@ -5573,7 +5634,13 @@ function UserInfoUserAccountID(UserAccountID,callback){
       callback(undefined);
     });
 }
-
+app.get('/Api/v1/UserInfo/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.UserInfo.sync({alter:true});
+  Models.UserInfo.describe().then(result=>{
+    res.send([result]);
+  });
+});
 //---UserInfo ROUTING END
 //---AccessControl ROUTING START
 app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
@@ -5896,6 +5963,13 @@ app.get('/Api/v1/UserAccount', function (req, res) {
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
 
+app.get('/Api/v1/UserAccount/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.UserAccount.sync({alter:true});
+  Models.UserAccount.describe().then(result=>{
+    res.send([result]);
+  });
+});
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID =  req.params.UserAccountID;
@@ -6020,7 +6094,7 @@ function GetDistributorFromShop(){
 
 }
 function GetHeadOfficeFromDistributor(){
-  
+
 }
 //---UserAccount ROUTING START
 //---Player ROUTING START
@@ -6516,7 +6590,13 @@ app.get('/Api/v1/Player', function (req, res) {
   }
  
 });
-
+app.get('/Api/v1/Player/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.Player.sync({alter:true});
+  Models.Player.describe().then(result=>{
+    res.send([result]);
+  });
+});
 /**
  *
  *
@@ -6728,6 +6808,13 @@ app.get('/Api/v1/Shop', function (req, res) {
   }
 //  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/Shop/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.Shop.sync({alter:true});
+  Models.Shop.describe().then(result=>{
+    res.send([result]);
+  });
+});
 //---Shop ROUTING END
 //---Distributor ROUTING START
 app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {//check for validation only
@@ -6921,6 +7008,13 @@ app.get('/Api/v1/Distributor', function (req, res) {
   }
   //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/Distributor/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.Distributor.sync({alter:true});
+  Models.Distributor.describe().then(result=>{
+    res.send([result]);
+  });
+});
 //---Distributor ROUTING END
 //---HeadOffice ROUTING START
 app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {//check for validation only
@@ -7102,6 +7196,13 @@ app.get('/Api/v1/HeadOffice', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
   }
  // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
+});
+app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.HeadOffice.sync({alter:true});
+  Models.HeadOffice.describe().then(result=>{
+    res.send([result]);
+  });
 });
 //---HeadOffice ROUTING END
 
