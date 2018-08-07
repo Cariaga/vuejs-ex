@@ -393,6 +393,12 @@ TransferHistory.belongsTo(UserAccount, {
   onDelete: 'CASCADE', hooks:true,
   constraints: true}); 
 
+TransferHistory.belongsTo(UserAccount, {
+    foreignKey: 'UserAccountIDSender',// the key name from a child table e.g TransferHistory
+    targetKey: 'UserAccountID',// the key name from our main parent table e.g UserAccount where we belongTo
+    onDelete: 'CASCADE', hooks:true,
+    constraints: true}); 
+
 const BankInformation =sequelize.define('BankInformation', {
   BankInformationID: {
     type: Sequelize.INTEGER,
