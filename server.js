@@ -6011,9 +6011,17 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
   });
 }
 app.get('/Api/v1/UserAccount/ConntectedAccounts/', function (req, res) {
-  
-});
 
+});
+function GetShopFromPlayer(){
+
+}
+function GetDistributorFromShop(){
+
+}
+function GetHeadOfficeFromDistributor(){
+  
+}
 //---UserAccount ROUTING START
 //---Player ROUTING START
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
