@@ -4472,27 +4472,7 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
-function TransferHistoryUUID(TrasnferHistoryUUID,callback){
-  Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({ 
-    where: {
-      TrasnferHistoryUUID:TrasnferHistoryUUID
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-        
-    });
-    if(Data.length>0){
-      callback(Data);
-    }else{
-      callback(undefined);
-    }
-  }).catch(function(result) {//catching any then errors
-    console.log("Error "+result);
-    callback(undefined);
-  });
-}
+
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryUUID = uuidv4();
@@ -4583,10 +4563,8 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
-
                 if(Amount>=0){
                 let TransferHistoryUUIDExist= false;
-
                 async.series([TransferHistoryUUIDExistCheck],function(error,response){
                   if(TransferHistoryUUIDExist==true){
                     TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
@@ -4599,10 +4577,9 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
                   }else{
                     res.send({TransferHistoryUUIDExist:false});
                   }
-                  
                 });
                 function TransferHistoryUUIDExistCheck(callback){
-                  TransferHistoryUUID(TransferHistoryUUID,function(response){
+                  TransferHistoryTransferHistoryUUID(TransferHistoryUUID,function(response){
                     if(response!=undefined){
                       TransferHistoryUUIDExist=true;
                       callback(null,1);
@@ -4615,8 +4592,7 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
                 }else{
                   res.send({AmountInvalidValue:true});
                 }
-                
-
+              
               }else{
                 res.send({TransferedDATEMissing:true});
               }
@@ -4639,6 +4615,27 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
     res.send({TransferHistoryUUIDMissing:true});
   }
 });
+function TransferHistoryTransferHistoryUUID(TrasnferHistoryUUID,callback){
+  Models.TransferHistory.sync();
+  let result = Models.TransferHistory.findAll({ 
+    where: {
+      TrasnferHistoryUUID:TrasnferHistoryUUID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
 function TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.TransferHistory.update({
     UserAccountIDReceiver:UserAccountIDReceiver,
