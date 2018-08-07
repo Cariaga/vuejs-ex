@@ -4612,6 +4612,8 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
                     }
                   });
                 }
+                }else{
+                  res.send({AmountInvalidValue:true});
                 }
                 
 
