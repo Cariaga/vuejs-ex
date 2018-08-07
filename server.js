@@ -5803,6 +5803,13 @@ app.get('/Api/v1/AccessControl', function (req, res) {
   }
  // res.send("AccessControl "+Offset+" "+ Limit+" "+Sort);
 });
+app.get('/Api/v1/AccessControl/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.AccessControl.sync({alter:true});
+  Models.AccessControl.describe().then(result=>{
+    res.send([result]);
+  });
+});
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
 app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
