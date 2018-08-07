@@ -4472,11 +4472,11 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
-function TransferHistoryTrasnferHistoryID(TransferHistoryID,callback){
+function TransferHistoryTrasnferHistoryUUID(TrasnferHistoryUUID,callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
     where: {
-      TransferHistoryID:TransferHistoryID
+      TrasnferHistoryUUID:TrasnferHistoryUUID
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
@@ -4493,9 +4493,9 @@ function TransferHistoryTrasnferHistoryID(TransferHistoryID,callback){
     callback(undefined);
   });
 }
-app.get('/Api/v1/TransferHistory/Add/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
+app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let TransferHistoryUUID = req.params.TransferHistoryUUID;
+  let TransferHistoryUUID = uuidv4();
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
   let UserAccountIDSender = req.params.UserAccountIDSender;
   let Amount = req.params.Amount;
@@ -4509,14 +4509,14 @@ app.get('/Api/v1/TransferHistory/Add/TransferHistoryUUID/:TransferHistoryUUID/Us
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
                 if(parseInt(Amount)>0){
-                  AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                    if(response!=undefined){
-                      res.send(response);
-                    }else{
-                      res.send([{TransferHistoryUpdateFailed:true}]);
-                    }
-  
-                  });
+             
+                    AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                      if(response!=undefined){
+                        res.send(response);
+                      }else{
+                        res.send([{TransferHistoryUpdateFailed:true}]);
+                      }
+                    });
                 }else{
                   res.send({AmountInvalidValue:true});
                 }
