@@ -372,7 +372,15 @@ const TransferHistory =sequelize.define('TransferHistory', {
       key: 'UserAccountID'
     },
   },
-  UserAccountIDSender:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
+  UserAccountIDSender:{
+    type: Sequelize.STRING,
+    foreignKey:true,
+    unique: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    },
+  },//FK One TransferHistory Many UserAccountID
   Amount:Sequelize.INTEGER,
   Status:Sequelize.STRING,
   Reason:Sequelize.STRING,
