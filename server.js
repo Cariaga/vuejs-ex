@@ -4472,7 +4472,7 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
-function TransferHistoryTrasnferHistoryUUID(TrasnferHistoryUUID,callback){
+function TransferHistoryUUID(TrasnferHistoryUUID,callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
     where: {
@@ -4509,7 +4509,6 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
                 if(parseInt(Amount)>0){
-             
                     AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
                       if(response!=undefined){
                         res.send(response);
@@ -4584,17 +4583,32 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
-                async.series([],function(error,response){
-                  TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                let TransferHistoryUUIDExist= false;
+
+                async.series([TransferHistoryUUIDExistCheck],function(error,response){
+                  if(TransferHistoryUUIDExist==true){
+                    TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                      if(response!=undefined){
+                        res.send(response);
+                      }else{
+                        res.send([{TransferHistoryUpdateFailed:true}]);
+                      }
+                    });
+                  }else{
+                    res.send({TransferHistoryUUIDExist:false});
+                  }
+                  
+                });
+                function TransferHistoryUUIDExistCheck(callback){
+                  TransferHistoryUUID(TransferHistoryUUID,function(response){
                     if(response!=undefined){
-                      res.send(response);
+                      TransferHistoryUUIDExist=true;
+                      callback(null,1);
                     }else{
-                      res.send([{TransferHistoryUpdateFailed:true}]);
+                      TransferHistoryUUIDExist=false;
+                      callback(null,1);
                     }
                   });
-                });
-                function TransferHistoryExistCheck(){
-
                 }
               }else{
                 res.send({TransferedDATEMissing:true});
