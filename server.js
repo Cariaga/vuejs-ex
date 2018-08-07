@@ -4583,6 +4583,8 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
           if(!isNullOrEmpty(Status)){
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
+
+                if(Amount>=0){
                 let TransferHistoryUUIDExist= false;
 
                 async.series([TransferHistoryUUIDExistCheck],function(error,response){
@@ -4610,6 +4612,9 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
                     }
                   });
                 }
+                }
+                
+
               }else{
                 res.send({TransferedDATEMissing:true});
               }
