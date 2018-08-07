@@ -4616,11 +4616,11 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
     res.send({TransferHistoryUUIDMissing:true});
   }
 });
-function TransferHistoryTransferHistoryUUID(TrasnferHistoryUUID,callback){
+function TransferHistoryTransferHistoryUUID(TransferHistoryUUID,callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
     where: {
-      TrasnferHistoryUUID:TrasnferHistoryUUID
+      TransferHistoryUUID:TransferHistoryUUID
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
