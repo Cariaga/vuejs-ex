@@ -4528,7 +4528,7 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
                     });
                   }
                   function UserAccountIDSenderExistCheck(callback){
-                    isUserAccountIDExist(UserAccountIDSender,function(){
+                    isUserAccountIDExist(UserAccountIDSender,function(response){
                       if(response!=null){
                         UserAccountIDSenderExist=true;
                         callback(null,'2');
