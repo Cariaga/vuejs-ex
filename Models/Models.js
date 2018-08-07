@@ -370,6 +370,7 @@ const TransferHistory =sequelize.define('TransferHistory', {
       model: UserAccount,
       key: 'UserAccountID'
     },
+    targetKey: 'UserAccountIDReceiver',
   },
   UserAccountIDSender:Sequelize.STRING,//FK One TransferHistory Many UserAccountID
   Amount:Sequelize.INTEGER,
@@ -379,8 +380,8 @@ const TransferHistory =sequelize.define('TransferHistory', {
 });
 
 TransferHistory.belongsTo(UserAccount, {
-  foreignKey: 'UserAccountID',
-  targetKey: 'UserAccountIDReceiver',
+  foreignKey: 'UserAccountIDReceiver',
+  targetKey: 'UserAccountID',
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
 
