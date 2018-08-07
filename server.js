@@ -4527,6 +4527,7 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
 });
 
 function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
+  Models.TransferHistory.sync({alter : true/*,force:true*/});
   var item1 = Models.TransferHistory.build({
     TransferHistoryUUID:TransferHistoryUUID,
     UserAccountIDReceiver:UserAccountIDReceiver,
@@ -4537,7 +4538,7 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     TransferedDATE:TransferedDATE
   });
   //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
-  Models.TransferHistory.sync({alter : true/*,force:true*/});
+  Models.TransferHistory.sync({/*alter : true*//*,force:true*/});
   item1.save()
   .then(Success => {
 
