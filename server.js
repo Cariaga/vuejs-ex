@@ -4498,7 +4498,7 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
                   let UserAccountIDReceiverExist=false;
                   let UserAccountIDSenderExist=false;
 
-                  async.series([],function(error,response){
+                  async.series([UserAccountIDReceiverExistCheck,UserAccountIDSenderExistCheck],function(error,response){
                     if(UserAccountIDReceiverExist==true){
                         if(UserAccountIDSenderExist==true){
                         AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
@@ -4514,11 +4514,27 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
                     }else{
                       res.send({UserAccountIDReceiverExist:false});
                     }
-                    
-                    
                   });
 
-                    
+                  function UserAccountIDReceiverExistCheck(callback){
+                    UserAccountID(UserAccountIDReceiver,function(response){
+                      if(response!=null){
+                        UserAccountIDReceiverExist=true;
+                      }else{
+                        UserAccountIDReceiverExist=false;
+                      }
+                    });
+                  }
+                  function UserAccountIDSenderExistCheck(callback){
+                    UserAccountID(UserAccountIDSender,function(){
+                      if(response!=null){
+                        UserAccountIDSenderExist=true;
+                      }else{
+                        UserAccountIDSenderExist=false;
+                      }
+                    });
+
+                  }
                 }else{
                   res.send({AmountInvalidValue:true});
                 }
