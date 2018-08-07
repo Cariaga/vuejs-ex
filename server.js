@@ -4580,6 +4580,7 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
                 });
                 function TransferHistoryUUIDExistCheck(callback){
                   TransferHistoryTransferHistoryUUID(TransferHistoryUUID,function(response){
+                    console.log(response);
                     if(response!=undefined){
                       TransferHistoryUUIDExist=true;
                       callback(null,'1');
