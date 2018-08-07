@@ -361,7 +361,13 @@ const TransferHistory =sequelize.define('TransferHistory', {
   },
   TransferHistoryUUID:{
     type:Sequelize.UUID,
+    foreignKey:true,
     unique: true,
+    references: {
+      model: UserAccount,
+      key: 'UserAccountID'
+    },
+    targetKey: 'UserAccountID',
   },
   UserAccountIDReceiver:{
     type: Sequelize.STRING,
