@@ -4473,6 +4473,7 @@ function TransferHistoryAll(callback){
   });
 }
 app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   Models.TransferHistory.describe().then(result=>{
     res.send(result);
   });
