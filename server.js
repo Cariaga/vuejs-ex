@@ -4472,7 +4472,7 @@ function TransferHistoryAll(callback){
     callback(undefined);
   });
 }
-pp.get('/Api/v1/TransferHistory/Describe', function (req, res) {
+app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
   Models.TransferHistory.describe().then(result=>{
     res.send(result);
   });
