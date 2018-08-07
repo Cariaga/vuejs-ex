@@ -4520,10 +4520,10 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
                     isUserAccountIDExist(UserAccountIDReceiver,function(response){
                       if(response!=null){
                         UserAccountIDReceiverExist=true;
-                        callback(null,1);
+                        callback(null,'1');
                       }else{
                         UserAccountIDReceiverExist=false;
-                        callback(null,1);
+                        callback(null,'1');
                       }
                     });
                   }
@@ -4531,10 +4531,10 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
                     isUserAccountIDExist(UserAccountIDSender,function(){
                       if(response!=null){
                         UserAccountIDSenderExist=true;
-                        callback(null,2);
+                        callback(null,'2');
                       }else{
                         UserAccountIDSenderExist=false;
-                        callback(null,2);
+                        callback(null,'2');
                       }
                     });
 
