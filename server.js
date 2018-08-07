@@ -4495,13 +4495,30 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
             if(!isNullOrEmpty(Reason)){
               if(!isNullOrEmpty(TransferedDATE)){
                 if(parseInt(Amount)>0){
-                    AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                      if(response!=undefined){
-                        res.send(response);
+                  let UserAccountIDReceiverExist=false;
+                  let UserAccountIDSenderExist=false;
+
+                  async.series([],function(error,response){
+                    if(UserAccountIDReceiverExist==true){
+                        if(UserAccountIDSenderExist==true){
+                        AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
+                          if(response!=undefined){
+                            res.send(response);
+                          }else{
+                            res.send([{TransferHistoryUpdateFailed:true}]);
+                          }
+                        });
                       }else{
-                        res.send([{TransferHistoryUpdateFailed:true}]);
+                        res.send({UserAccountIDSenderExist:false});
                       }
-                    });
+                    }else{
+                      res.send({UserAccountIDReceiverExist:false});
+                    }
+                    
+                    
+                  });
+
+                    
                 }else{
                   res.send({AmountInvalidValue:true});
                 }
