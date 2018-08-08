@@ -7453,24 +7453,30 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
   let PlayerExist = false;
   let ScreenName =undefined;
   let CurrentPoints = undefined;
+  let UserInfoExist=undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
+    async.series([PlayerCheck,UserInfoCheck,GetParentPlayerLookUp],function(error,response){
       if(PlayerExist==true){
         if(ScreenName!=undefined){
           if(CurrentPoints!=undefined){
-            let MembersListItem = PlayerRelationshipResult;
-            MembersListItem.ScreenName = ScreenName;
-            MembersListItem.CurrentPoints = CurrentPoints;
-            res.send(MembersListItem);
-          }else{
-            res.send({CurrentPointsMissing:true});
-          }
+            if(UserInfoExist==true){
+                let MembersListItem = PlayerRelationshipResult;
+                MembersListItem.ScreenName = ScreenName;
+                MembersListItem.CurrentPoints = CurrentPoints;
+                res.send(MembersListItem);
+              }else{
+                res.send({UserInfoFound:true});
+              }
+            }else{
+              res.send({CurrentPointsMissing:false});
+            }
+            
         }else{
           res.send({ScreenNameMissing:true});
         }
       
       }else{
-       res.send({PlayerInvalidValue:true});
+       res.send({PlayerFound:false});
       }
     });
     function PlayerCheck(callback){
@@ -7486,14 +7492,25 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
         }
       });
     }
+    function UserInfoCheck(callback){
+      UserInfoUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          UserInfoExist=true;
+         callback(null,'2');
+        }else{
+          UserInfoExist= false;
+         callback(null,'2');
+        }
+      });
+    }
     function GetParentPlayerLookUp(callback){
      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
        if(response!=undefined){
          PlayerRelationshipResult=response;
-         callback(null,'2');
+         callback(null,'3');
        }else{
          PlayerRelationshipResult=undefined;
-         callback(null,'2');
+         callback(null,'3');
        }
      });
     }
