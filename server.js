@@ -3179,7 +3179,8 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
   }); 
 }
 
-app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
+app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
   
 });
 
