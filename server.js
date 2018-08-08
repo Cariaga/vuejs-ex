@@ -6133,19 +6133,19 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 }
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
-  let ShopFromPlayer = undefined;
+  let test = undefined;
   let ShopID = ShopFromPlayer[0].ShopID;
 
  async.series([GetShopFromPlayerLookUp],function(error,response){
-  res.send({UserAccountID:UserAccountID,ShopID:ShopID});
+  res.send(test);
  });
  function GetShopFromPlayerLookUp(callback){
   GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
-      ShopFromPlayer=response;
+      test=response;
       callback(null,'1');
     }else{
-      ShopFromPlayer=undefined;
+      test=undefined;
       callback(null,'1');
     }
   });
@@ -6155,7 +6155,7 @@ function GetDistributorFromShopLookUp(callback){
 function  GetHeadOfficeFromDistributorLookUp(callback){
 }
 });
-function GetParentShopUserAccountIDFromPlayerUserAccountID(UserAccountID,callback){
+function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,callback){
   let PlayerUserAccountID=undefined;
   let ShopUserAccountID=undefined;
   async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopID],function(response){
