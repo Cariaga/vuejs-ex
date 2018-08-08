@@ -3195,7 +3195,8 @@ function LoginHistoryUserAccountID(UserAccountID,callback){
   let result = Models.LoginHistory.findAll({ 
     where: {
       UserAccountID:UserAccountID
-   }
+   },
+   order: [['updatedAt', 'DESC']]
   }).then(function(result) {
     let Data = result.map(function(item) {
         return item;
