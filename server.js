@@ -489,7 +489,7 @@ function AccountType(UserAccountID,callback){
 
   function CheckIsHeadOffice(callback1){
     isHeadOfficeUserAccountIDExist(UserAccountID,function(response){
-      if(!isNullOrEmpty(response)&&response.length>0){
+      if(!isNullOrEmpty(response)&&response!=undefined&&response.length>0){
         Data.IsHeadOffice=true;
         callback1(null,'1');
       }else{
@@ -500,7 +500,7 @@ function AccountType(UserAccountID,callback){
   }
   function CheckIsDistributor(callback2){
     isDistributorUserAccountIDExist(UserAccountID,function(response){
-      if(!isNullOrEmpty(response)&&response.length>0){
+      if(!isNullOrEmpty(response)&&response!=undefined&&response.length>0){
         Data.IsDistributor=true;
         callback2(null,'2');
       }else{
@@ -511,7 +511,7 @@ function AccountType(UserAccountID,callback){
   }
   function CheckIsShop(callback3){
     isShopUserAccountIDExist(UserAccountID,function(response){
-      if(!isNullOrEmpty(response)&&response.length>0){
+      if(!isNullOrEmpty(response)&&response!=undefined&&response.length>0){
         Data.IsShop=true;
         callback3(null,'3');
       }else{
@@ -522,7 +522,7 @@ function AccountType(UserAccountID,callback){
   }
   function CheckIsPlayer(callback4){
     isPlayerUserAccountIDExist(UserAccountID,function(response){
-      if(!isNullOrEmpty(response)&&response.length>0){
+      if(!isNullOrEmpty(response)&&response!=undefined&&response.length>0){
         Data.IsPlayer=true;
         callback4(null,'4');
       }else{
