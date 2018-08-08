@@ -6185,6 +6185,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
     }
   });
   function PlayerUserAccountIDCheck(callback){
+    console.log("---PlayerUserAccountIDCheck---");
     Models.Player.sync();
     let result = Models.Player.findAll({ 
       where: {
@@ -6212,6 +6213,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   }
   function ShopFindUserAccountIDCheck(callback2){
     Models.Shop.sync();
+    console.log("---ShopFindUserAccountIDCheck---");
     let result = Models.Shop.findAll({ 
       where: {
         ShopID:ShopID
@@ -6241,6 +6243,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
 
   function DistrbutorFindUserAccountIDCheck(callback3){
     Models.Distributor.sync();
+    console.log("---DistrbutorFindUserAccountIDCheck---");
     console.log("DistributorID : "+DistributorID);
     let result = Models.Distributor.findAll({ 
       where: {
