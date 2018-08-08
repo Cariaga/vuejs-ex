@@ -6159,9 +6159,9 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
   let ShopID=undefined;
   let ShopUserAccountID=undefined;
   async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopIDCheck],function(error,response){
-    if(PlayerUserAccountID!=undefined){
+    if(ShopID!=undefined){
       
-      if(ShopID!=undefined){
+      if( PlayerUserAccountID!=undefined){
         if(ShopUserAccountID!=undefined){
           callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
         }else{
@@ -6169,11 +6169,11 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
           callback(undefined);
         }
       }else{
-        console.log("Failed ShopID");
+        console.log("Failed PlayerUserAccountID");
         callback(undefined);
       }
     }else{
-      console.log("Failed PlayerUserAccountID");
+      console.log("Failed ShopID ");
       callback(undefined);
     }    
 
@@ -6191,6 +6191,7 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
       if(Data.length>0){
         PlayerUserAccountID = Data[0].UserAccountID;
         ShopID = Data[0].ShopID;
+        console("ShopID "+ShopID);
         callback(Data);
         
       }else{
