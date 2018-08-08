@@ -6164,15 +6164,15 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
         if(DistributorID!=undefined){
           if(DistributorUserAccountID!=undefined){
             if(ShopID!=undefined){
-              if( PlayerUserAccountID!=undefined){
-                if(ShopUserAccountID!=undefined){
+              if( ShopUserAccountID !=undefined){
+                if(PlayerUserAccountID!=undefined){
                   callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID,DistributorUserAccountID:DistributorUserAccountID,HeadOfficeUserAccountID:HeadOfficeUserAccountID});
                 }else{
-                  console.log("Failed ShopUserAccountID");
+                  console.log("Failed PlayerUserAccountID");
                   callback(undefined);
                 }
               }else{
-                console.log("Failed PlayerUserAccountID");
+                console.log("Failed ShopUserAccountID");
                 callback(undefined);
               }
             }else{
