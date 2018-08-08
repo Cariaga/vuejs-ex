@@ -7528,6 +7528,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
   let UserInfoExist=undefined;
   let PhoneNumber= undefined;
   let TelephoneNumber= undefined;
+  let LastLogin = undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,PlayerCheck,UserInfoCheck,GetParentPlayerLookUp],function(error,response){
       if(PlayerExist==true){
@@ -7606,6 +7607,17 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
          callback(null,'4');
        }
      });
+    }
+    function GetLatestLogin(callback){
+      LoginHistoryUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          LastLogin= response[0].updatedAt;
+          callback(null,'5');
+        }else{
+          LastLogin=undefined;
+          callback(null,'5');
+        }
+      });
     }
   }else{
     res.send({UserAccountIDMissing:true});
