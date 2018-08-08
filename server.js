@@ -7458,7 +7458,10 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
       if(PlayerExist==true){
         if(ScreenName!=undefined){
           if(CurrentPoints!=undefined){
-            res.send(PlayerRelationshipResult);
+            let MembersListItem = PlayerRelationshipResult;
+            MembersListItem.ScreenName = ScreenName;
+            MembersListItem.CurrentPoints = CurrentPoints;
+            res.send(MembersListItem);
           }else{
             res.send({CurrentPointsMissing:true});
           }
