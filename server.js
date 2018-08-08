@@ -5812,6 +5812,10 @@ app.get('/Api/v1/AccessControl/Describe', function (req, res) {
 });
 //---AccessControl ROUTING END
 //---UserAccount ROUTING START
+app.get('/Api/v1/UserAccount/Branching/UserAccountID/:UserAccountID', function (req, res) {
+
+});
+
 app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
   //USAGE
   //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
@@ -6091,16 +6095,56 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
     }
   });
 }
-app.get('/Api/v1/UserAccount/ConntectedAccounts/', function (req, res) {
+app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let ShopFromPlayer = undefined;
+ async.series([GetShopFromPlayerLookUp],function(error,response){
+  let ShopID = ShopFromPlayer[0].ShopID;
+  res.send({Success:true,ShopID:ShopID});
+ });
+ function GetShopFromPlayerLookUp(callback){
+  GetShopFromPlayer(UserAccountID,function(response){
+    if(response!=undefined){
 
+    }else{
+      
+    }
+  });
+ }
+ function GetDistributorFromShopLookUp(callback){
+  
+}
+function  GetHeadOfficeFromDistributorLookUp(callback){
+  
+}
+ 
 });
-function GetShopFromPlayer(){
+function GetShopFromPlayer(UserAccountID,callback){
+  Models.Player.sync();
+  let result = Models.Player.findAll({ 
+    where: {
+      UserAccountID:UserAccountID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  
+  }).catch(function(result) {
+    console.log("Error "+result)
+    callback(undefined);
+  });
+}
+
+function GetDistributorFromShop(UserAccountID,callback){
 
 }
-function GetDistributorFromShop(){
-
-}
-function GetHeadOfficeFromDistributor(){
+function GetHeadOfficeFromDistributor(UserAccountID,callback){
 
 }
 //---UserAccount ROUTING START
