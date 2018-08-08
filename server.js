@@ -6197,7 +6197,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
       if(Data.length>0){
         PlayerUserAccountID = Data[0].UserAccountID;
         ShopID = Data[0].ShopID;
-        console("ShopID "+ShopID);
+        console.log("ShopID "+ShopID);
         callback(Data);
         
       }else{
