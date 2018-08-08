@@ -6139,7 +6139,7 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
   res.send(test);
  });
  function GetShopFromPlayerLookUp(callback){
-  GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,function(response){
+  GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
       test=response;
       callback(null,'1');
@@ -6149,15 +6149,13 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
     }
   });
  }
-function GetDistributorFromShopLookUp(callback){
-}
-function  GetHeadOfficeFromDistributorLookUp(callback){
-}
 });
-function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,callback){
-  let PlayerUserAccountID=undefined;
-  let ShopID=undefined;
-  let ShopUserAccountID=undefined;
+function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
+  let PlayerUserAccountID=undefined;//set by the PlayerUserAccountIDCheck
+  let ShopID=undefined;//set by the PlayerUserAccountIDCheck
+  let ShopUserAccountID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
+  let DistributorID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
+  
   async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopIDCheck],function(error,response){
     if(ShopID!=undefined){
       
@@ -6176,7 +6174,6 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
       console.log("Failed ShopID ");
       callback(undefined);
     }    
-
   });
   function PlayerUserAccountIDCheck(callback){
     Models.Player.sync();
@@ -6204,6 +6201,34 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
       callback(undefined);
     });
   }
+  function ShopUserAccountIDFromShopIDCheck(callback){
+    Models.Shop.sync();
+    let result = Models.Shop.findAll({ 
+      where: {
+        ShopID:ShopID
+    }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        ShopUserAccountID = Data[0].UserAccountID;
+        DistributorID = Data[0].DistributorID;
+        console.log("ShopUserAccountID "+ShopUserAccountID)
+        callback(Data);
+        
+      }else{
+        ShopUserAccountID= undefined;
+        console.log("Shop Not Found ");
+        callback(undefined);
+      }
+    
+    }).catch(function(result) {
+      console.log("Error "+result)
+      callback(undefined);
+    });
+  }
+
   function ShopUserAccountIDFromShopIDCheck(callback){
     Models.Shop.sync();
     let result = Models.Shop.findAll({ 
