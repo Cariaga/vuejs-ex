@@ -6159,12 +6159,21 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   let HeadOfficeID=undefined; //Set by the DistrbutorFindUserAccountIDCheck
   let HeadOfficeUserAccountID=undefined;// Set by the HeadOfficeFindUserAccountIDCheck
   async.series([PlayerUserAccountIDCheck,ShopFindUserAccountIDCheck,DistrbutorFindUserAccountIDCheck,HeadOfficeFindUserAccountIDCheck],function(error,response){
+    if(HeadOfficeID!=undefined){
+      if(HeadOfficeUserAccountID!=undefined){
+
+      }else{
+        res.send({});
+      }
+    }else{
+
+    }
     if(DistributorID!=undefined){
       if(DistributorUserAccountID!=undefined){
         if(ShopID!=undefined){
           if( PlayerUserAccountID!=undefined){
             if(ShopUserAccountID!=undefined){
-              callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID,DistributorUserAccountID:DistributorUserAccountID});
+              callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID,DistributorUserAccountID:DistributorUserAccountID,HeadOfficeUserAccountID:HeadOfficeUserAccountID});
             }else{
               console.log("Failed ShopUserAccountID");
               callback(undefined);
@@ -6256,6 +6265,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
           return item;
       });
       if(Data.length>0){
+        HeadOfficeID = Data[0].HeadOfficeID;
         DistributorUserAccountID = Data[0].UserAccountID;
         console.log("DistributorUserAccountID "+DistributorUserAccountID)
         callback3(null,Data);
