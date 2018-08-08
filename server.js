@@ -7450,6 +7450,8 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
 app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = undefined;
+  let RegisteredDate = undefined;
+  let RegisteredTime = undefined;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
   let PlayerExist = false;
   let ScreenName =undefined;
@@ -7468,6 +7470,8 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
                 MembersListItem.CurrentPoints = CurrentPoints;
                 MembersListItem.PhoneNumber= PhoneNumber;
                 MembersListItem.TelephoneNumber = TelephoneNumber;
+                MembersListItem.RegisteredDate = RegisteredDate;
+                MembersListItem.RegisteredTime = RegisteredTime;
                 res.send(MembersListItem);
               }else{
                 res.send({UserInfoExist:false});
@@ -7488,6 +7492,8 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
       isUserAccountIDExist(UserAccountID,function(response){
         if(response!=undefined){
           UserAccountIDExist= true;
+          RegisteredDate= response[0].RegisteredDate;
+          RegisteredTime = response[0].RegisteredTime;
         }else{
           UserAccountIDExist=false;
         }
