@@ -6100,7 +6100,8 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
   let ShopFromPlayer = undefined;
  async.series([GetShopFromPlayerLookUp],function(error,response){
   let ShopID = ShopFromPlayer[0].ShopID;
-  res.send({Success:true,ShopID:ShopID});
+  let ShopUserAccountID = ShopFromPlayer[0].UserAccountID;
+  res.send({UserAccountID:UserAccountID,ShopID:ShopID,ShopUserAccountID:ShopUserAccountID});
  });
  function GetShopFromPlayerLookUp(callback){
   GetShopFromPlayer(UserAccountID,function(response){
