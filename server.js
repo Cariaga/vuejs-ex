@@ -6133,24 +6133,36 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 }
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
-  let test = undefined;
-
- async.series([GetShopFromPlayerLookUp],function(error,response){
-  res.send(test);
+  let RelationshipResult = undefined;
+  let Points = undefined;
+ async.series([GetParentPlayerLookUp],function(error,response){
+  res.send(RelationshipResult);
  });
- function GetShopFromPlayerLookUp(callback){
+ function PlayerCheck(callback){
+   PlayerUserAccountID(UserAccountID,function(response){
+     if(response!=undefined){
+      PlayerUserAccountID = response[0].ScreenName;
+      callback(null,'2');
+     }else{
+      callback(null,'2');
+     }
+   });
+ }
+ function GetParentPlayerLookUp(callback){
   GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
-      test=response;
+      RelationshipResult=response;
       callback(null,'1');
     }else{
-      test=undefined;
+      RelationshipResult=undefined;
       callback(null,'1');
     }
   });
  }
 });
-function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
+
+
+function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//maybe a Heavy Operation but it is untested on large data
   let PlayerUserAccountID=undefined;//set by the PlayerUserAccountIDCheck
 
   //--this part are sequencially assigned

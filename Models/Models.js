@@ -115,7 +115,7 @@ Distributor.belongsTo(UserAccount, {
   constraints: true}); 
 
 
-const  Shop =sequelize.define('Shop', {// any number of shop point to a distributer but accountID/shopID both must be u unique
+const Shop =sequelize.define('Shop', {// any number of shop point to a distributer but accountID/shopID both must be u unique
   ShopID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
