@@ -7459,7 +7459,11 @@ app.get('/Api/v1/MembersList/',function(req,res){
         if(ScreenName!=undefined){
           if(CurrentPoints!=undefined){
             res.send(PlayerRelationshipResult);
+          }else{
+            res.send({CurrentPointsMissing:true});
           }
+        }else{
+          res.send({ScreenNameMissing:true});
         }
       
       }else{
