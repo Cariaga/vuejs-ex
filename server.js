@@ -6134,11 +6134,11 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
-  let PlayerExist = undefined;
+  let PlayerExist = false;
   let ScreenName = undefined;
   let CurrentPoints=undefined;
  async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
-   if(PlayerExist!=undefined){
+   if(PlayerExist==true){
     res.send(PlayerRelationshipResult);
    }else{
     res.send({PlayerInvalidValue:true});
@@ -6147,9 +6147,10 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
  function PlayerCheck(callback){
    PlayerUserAccountID(UserAccountID,function(response){
      if(response!=undefined){
-      PlayerExist= false;
+      PlayerExist= true;
       callback(null,'1');
      }else{
+      PlayerExist= false;
       callback(null,'1');
      }
    });
