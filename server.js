@@ -485,10 +485,10 @@ function AccountType(UserAccountID,callback){
     isHeadOfficeUserAccountIDExist(UserAccountID,function(response){
       if(!isNullOrEmpty(response)&&response.length>0){
         Data.IsHeadOffice=true;
-        callback1(null,1);
+        callback1(null,'1');
       }else{
         Data.IsHeadOffice=false;
-        callback1(null,1);
+        callback1(null,'1');
       }
     });
   }
@@ -496,10 +496,10 @@ function AccountType(UserAccountID,callback){
     isDistributorUserAccountIDExist(UserAccountID,function(response){
       if(!isNullOrEmpty(response)&&response.length>0){
         Data.IsDistributor=true;
-        callback2(null,2);
+        callback2(null,'2');
       }else{
         Data.IsDistributor=false;
-        callback2(null,2);
+        callback2(null,'2');
       }
     });
   }
@@ -507,10 +507,10 @@ function AccountType(UserAccountID,callback){
     isShopUserAccountIDExist(UserAccountID,function(response){
       if(!isNullOrEmpty(response)&&response.length>0){
         Data.IsShop=true;
-        callback3(null,3);
+        callback3(null,'3');
       }else{
         Data.IsShop=false;
-        callback3(null,3);
+        callback3(null,'3');
       }
     });
   }
@@ -518,10 +518,10 @@ function AccountType(UserAccountID,callback){
     isPlayerUserAccountIDExist(UserAccountID,function(response){
       if(!isNullOrEmpty(response)&&response.length>0){
         Data.IsPlayer=true;
-        callback4(null,4);
+        callback4(null,'4');
       }else{
         Data.IsPlayer=false;
-        callback4(null,4);
+        callback4(null,'4');
       }
     });
   }
