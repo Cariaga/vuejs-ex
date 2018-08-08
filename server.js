@@ -6061,17 +6061,20 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     //res.send({success:true});
     AccountTypeFullCheck(UserAccountID,function(response){
-      if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
-        res.send({AccountType:response.AccountType});
-      }
-      else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-        res.send("Duplicate UserAccountID AccountType");
-      }
-      else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
-        res.send("No Account No Duplicate");
+      if(response!=undefined){
+        if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
+          res.send({AccountType:response.AccountType});
+        }
+        else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+          res.send("Duplicate UserAccountID AccountType");
+        }
+        else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
+          res.send("No Account No Duplicate");
+        }
       }else{
         res.send("Somthing Went Wrong With AccountTypeFullCheck");
       }
+      
     });
   }else{
     res.send("Missing params");
