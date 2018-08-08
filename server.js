@@ -6185,8 +6185,8 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
     }
   });
   function PlayerUserAccountIDCheck(callback){
-    console.log("---PlayerUserAccountIDCheck---");
     Models.Player.sync();
+    console.log("---PlayerUserAccountIDCheck---");
     let result = Models.Player.findAll({ 
       where: {
         UserAccountID:UserAccountID
@@ -6199,16 +6199,16 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
         PlayerUserAccountID = Data[0].UserAccountID;
         ShopID = Data[0].ShopID;
         console.log("ShopID "+ShopID);
-        callback(Data);
+        callback(null,Data);
         
       }else{
         PlayerUserAccountID= undefined;
-        callback(undefined);
+        callback(null,'1');
       }
     
     }).catch(function(result) {
       console.log("Error "+result)
-      callback(undefined);
+      callback(null,'1');
     });
   }
   function ShopFindUserAccountIDCheck(callback2){
@@ -6227,17 +6227,17 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
         ShopUserAccountID = Data[0].UserAccountID;
         console.log("DistributorID : "+DistributorID);
         console.log("ShopUserAccountID "+ShopUserAccountID)
-        callback2(Data);
+        callback2(null,Data);
         
       }else{
         ShopUserAccountID= undefined;
         console.log("Shop Not Found ");
-        callback2(undefined);
+        callback2(null,'2');
       }
     
     }).catch(function(result) {
       console.log("Error "+result)
-      callback2(undefined);
+      callback2(null,'2');
     });
   }
 
@@ -6256,17 +6256,17 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
       if(Data.length>0){
         DistributorUserAccountID = Data[0].UserAccountID;
         console.log("DistributorUserAccountID "+DistributorUserAccountID)
-        callback3(Data);
+        callback3(null,Data);
         
       }else{
         DistributorUserAccountID= undefined;
         console.log("Distributor Not Found ");
-        callback3(undefined);
+        callback3(null,'3');
       }
     
     }).catch(function(result) {
       console.log("Error "+result)
-      callback3(undefined);
+      callback3(null,'3');
     });
   }
 }
