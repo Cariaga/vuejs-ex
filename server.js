@@ -6249,7 +6249,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
       });
       if(Data.length>0){
         DistributorUserAccountID = Data[0].UserAccountID;
-        console.log("ShopUserAccountID "+DistributorUserAccountID)
+        console.log("DistributorUserAccountID "+DistributorUserAccountID)
         callback(Data);
         
       }else{
