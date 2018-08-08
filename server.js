@@ -7542,6 +7542,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
                 MembersListItem.TelephoneNumber = TelephoneNumber;
                 MembersListItem.RegisteredDate = RegisteredDate;
                 MembersListItem.RegisteredTime = RegisteredTime;
+                MembersListItem.LastLogin= LastLogin;
                 res.send(MembersListItem);
               }else{
                 res.send({UserInfoExist:false});
