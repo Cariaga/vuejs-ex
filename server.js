@@ -7451,10 +7451,17 @@ app.get('/Api/v1/MembersList/',function(req,res){
   let UserAccountID = req.params.UserAccountID;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
   let PlayerExist = false;
+  let ScreenName =undefined;
+  let CurrentPoints = undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
       if(PlayerExist==true){
-       res.send(PlayerRelationshipResult);
+        if(ScreenName!=undefined){
+          if(CurrentPoints!=undefined){
+            res.send(PlayerRelationshipResult);
+          }
+        }
+      
       }else{
        res.send({PlayerInvalidValue:true});
       }
@@ -7463,6 +7470,8 @@ app.get('/Api/v1/MembersList/',function(req,res){
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
          PlayerExist= true;
+         ScreenName = response[0].ScreenName;
+         CurrentPoints = response[0].CurrentPoints;
          callback(null,'1');
         }else{
          PlayerExist= false;
