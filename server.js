@@ -6155,25 +6155,33 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   let ShopID=undefined;//set by the PlayerUserAccountIDCheck
   let ShopUserAccountID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
   let DistributorID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
-  
-  async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopIDCheck],function(error,response){
-    if(ShopID!=undefined){
-      
-      if( PlayerUserAccountID!=undefined){
-        if(ShopUserAccountID!=undefined){
-          callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
+  let DistributorUserAccountID = undefined;
+  async.series([PlayerUserAccountIDCheck,ShopFindUserAccountIDCheck,DistrbutorFindUserAccountIDCheck],function(error,response){
+    if(DistributorID!=undefined){
+
+      if(ShopID!=undefined){
+        if( PlayerUserAccountID!=undefined){
+          if(ShopUserAccountID!=undefined){
+            callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
+          }else{
+            console.log("Failed ShopUserAccountID");
+            callback(undefined);
+          }
         }else{
-          console.log("Failed ShopUserAccountID");
+          console.log("Failed PlayerUserAccountID");
           callback(undefined);
         }
       }else{
-        console.log("Failed PlayerUserAccountID");
+        console.log("Failed ShopID ");
         callback(undefined);
       }
+
     }else{
-      console.log("Failed ShopID ");
+      console.log("Failed DistributorID");
       callback(undefined);
-    }    
+    }
+    
+
   });
   function PlayerUserAccountIDCheck(callback){
     Models.Player.sync();
@@ -6201,7 +6209,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
       callback(undefined);
     });
   }
-  function ShopUserAccountIDFromShopIDCheck(callback){
+  function ShopFindUserAccountIDCheck(callback){
     Models.Shop.sync();
     let result = Models.Shop.findAll({ 
       where: {
@@ -6229,23 +6237,23 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
     });
   }
 
-  function ShopUserAccountIDFromShopIDCheck(callback){
-    Models.Shop.sync();
-    let result = Models.Shop.findAll({ 
+  function DistrbutorFindUserAccountIDCheck(callback){
+    Models.Distributor.sync();
+    let result = Models.Distributor.findAll({ 
       where: {
-        ShopID:ShopID
+        DistributorID:DistributorID
     }
     }).then(function(result) {
       let Data = result.map(function(item) {
           return item;
       });
       if(Data.length>0){
-        ShopUserAccountID = Data[0].UserAccountID;
-        console.log("ShopUserAccountID "+ShopUserAccountID)
+        DistributorUserAccountID = Data[0].UserAccountID;
+        console.log("ShopUserAccountID "+DistributorUserAccountID)
         callback(Data);
         
       }else{
-        ShopUserAccountID= undefined;
+        DistributorUserAccountID= undefined;
         console.log("Shop Not Found ");
         callback(undefined);
       }
