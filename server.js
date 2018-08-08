@@ -7447,7 +7447,7 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
 });
 //---HeadOffice ROUTING END
 //---Sales ROUTING START
-app.get('/Api/v1/MembersList/',function(req,res){
+app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
   let UserAccountID = req.params.UserAccountID;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
   let PlayerExist = false;
