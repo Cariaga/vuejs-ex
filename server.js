@@ -7612,7 +7612,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
     function GetLatestLogin(callback){
       LoginHistoryUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
-          LastLogin= response[0].updatedAt;
+          LastLogin= response[0].createdAt;
           callback(null,'5');
         }else{
           LastLogin=undefined;
