@@ -6134,7 +6134,6 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let test = undefined;
-  let ShopID = ShopFromPlayer[0].ShopID;
 
  async.series([GetShopFromPlayerLookUp],function(error,response){
   res.send(test);
