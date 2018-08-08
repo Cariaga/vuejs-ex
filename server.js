@@ -620,6 +620,30 @@ function isShopUserAccountIDExist(UserAccountID,callback){
     });
 }
 
+function isPlayerUserAccountIDExist(UserAccountID,callback){
+  Models.Player.sync();
+    let result = Models.Player.findAll({ 
+      where: {
+        UserAccountID:UserAccountID,
+        
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+     // res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      console.log(result);
+      callback(undefined);
+    });
+}
+
 
 //--Account Type Check End
 
