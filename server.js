@@ -6152,12 +6152,16 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
 });
 function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   let PlayerUserAccountID=undefined;//set by the PlayerUserAccountIDCheck
+
+  //--this part are sequencially assigned
+  //--we retrieve each id from its parent ID like a tree lookUp
   let ShopID=undefined;//set by the PlayerUserAccountIDCheck
   let ShopUserAccountID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
   let DistributorID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
   let DistributorUserAccountID = undefined;//Set by the DistrbutorFindUserAccountIDCheck
   let HeadOfficeID=undefined; //Set by the DistrbutorFindUserAccountIDCheck
   let HeadOfficeUserAccountID=undefined;// Set by the HeadOfficeFindUserAccountIDCheck
+  
   async.series([PlayerUserAccountIDCheck,ShopFindUserAccountIDCheck,DistrbutorFindUserAccountIDCheck,HeadOfficeFindUserAccountIDCheck],function(error,response){
     if(HeadOfficeID!=undefined){
       if(HeadOfficeUserAccountID!=undefined){
@@ -6209,8 +6213,8 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
           return item;
       });
       if(Data.length>0){
+        ShopID = Data[0].ShopID;//used by ShopFindUserAccountIDCheck
         PlayerUserAccountID = Data[0].UserAccountID;
-        ShopID = Data[0].ShopID;
         console.log("ShopID "+ShopID);
         callback(null,Data);
         
@@ -6236,7 +6240,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
           return item;
       });
       if(Data.length>0){
-        DistributorID = Data[0].DistributorID;
+        DistributorID = Data[0].DistributorID;//used by DistrbutorFindUserAccountIDCheck
         ShopUserAccountID = Data[0].UserAccountID;
         console.log("DistributorID : "+DistributorID);
         console.log("ShopUserAccountID "+ShopUserAccountID)
@@ -6267,7 +6271,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
           return item;
       });
       if(Data.length>0){
-        HeadOfficeID = Data[0].HeadOfficeID;
+        HeadOfficeID = Data[0].HeadOfficeID;//used by HeadOfficeFindUserAccountIDCheck
         DistributorUserAccountID = Data[0].UserAccountID;
         console.log("DistributorUserAccountID "+DistributorUserAccountID)
         callback3(null,Data);
