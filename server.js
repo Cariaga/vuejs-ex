@@ -6029,8 +6029,8 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    res.send({success:true});
-    /*AccountTypeFullCheck(UserAccountID,function(response){
+    //res.send({success:true});
+    AccountTypeFullCheck(UserAccountID,function(response){
       if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
         res.send({AccountType:response.AccountType});
       }
@@ -6039,8 +6039,10 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
       }
       else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
         res.send("No Account No Duplicate");
+      }else{
+        res.send("Somthing Went Wrong With AccountTypeFullCheck");
       }
-    });*/
+    });
   }else{
     res.send("Missing params");
   }
@@ -6103,7 +6105,7 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
  async.series([GetShopFromPlayerLookUp],function(error,response){
   let ShopID = ShopFromPlayer[0].ShopID;
   let ShopUserAccountID = ShopFromPlayer[0].UserAccountID;
-  res.send({UserAccountID:UserAccountID,ShopID:ShopID,ShopUserAccountID:ShopUserAccountID});
+  res.send({UserAccountID:UserAccountID,ShopID:ShopID});
  });
 
  function GetShopFromPlayerLookUp(callback){
