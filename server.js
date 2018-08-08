@@ -3184,7 +3184,7 @@ app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res)
   let UserAccountID = req.params.UserAccountID;
   LoginHistoryUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
-      res.send(response);
+      res.send(beautify(response, null, 2, 100));
     }else{
       res.send({LoginHistoryUserAccountIDFound:false});
     }
