@@ -6158,8 +6158,8 @@ function  GetHeadOfficeFromDistributorLookUp(callback){
 function GetParentShopUserAccountIDFromPlayerUserAccountID(UserAccountID,callback){
   let PlayerUserAccountID=undefined;
   let ShopUserAccountID=undefined;
-  async.series([PlayerUserAccountIDCheck],function(response){
-    callback({PlayerUserAccountID:PlayerUserAccountID});
+  async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopID],function(response){
+    callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
   });
 
   function PlayerUserAccountIDCheck(callback){
@@ -6197,11 +6197,11 @@ function GetParentShopUserAccountIDFromPlayerUserAccountID(UserAccountID,callbac
           return item;
       });
       if(Data.length>0){
-        PlayerUserAccountID = Data[0].UserAccountID;
+        ShopUserAccountID = Data[0].UserAccountID;
         callback(Data);
         
       }else{
-        PlayerUserAccountID= undefined;
+        ShopUserAccountID= undefined;
         callback(undefined);
       }
     
