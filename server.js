@@ -6211,6 +6211,7 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
         
       }else{
         ShopUserAccountID= undefined;
+        console.log("Shop Not Found ");
         callback(undefined);
       }
     
