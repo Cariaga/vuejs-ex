@@ -3190,18 +3190,6 @@ app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res)
     }
   });
 });
-
-app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  LoginHistoryUserAccountIDLatest(UserAccountID,function(response){
-    if(response!=undefined){
-      res.send(beautify(response, null, 2, 100));
-    }else{
-      res.send({LoginHistoryUserAccountIDFound:false});
-    }
-  });
-});
 function LoginHistoryUserAccountID(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
@@ -3224,13 +3212,23 @@ function LoginHistoryUserAccountID(UserAccountID,callback){
     callback(undefined);
   });
 }
+app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  LoginHistoryUserAccountIDLatest(UserAccountID,function(response){
+    if(response!=undefined){
+      res.send(beautify(response, null, 2, 100));
+    }else{
+      res.send({LoginHistoryUserAccountIDFound:false});
+    }
+  });
+});
 function LoginHistoryUserAccountIDLatest(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
     where: {
       UserAccountID:UserAccountID
    },
-   limit:1,
    order: [[updatedAt, 'DESC']]
   }).then(function(result) {
     let Data = result.map(function(item) {
