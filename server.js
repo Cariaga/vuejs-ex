@@ -6210,7 +6210,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
       callback(undefined);
     });
   }
-  function ShopFindUserAccountIDCheck(callback){
+  function ShopFindUserAccountIDCheck(callback2){
     Models.Shop.sync();
     let result = Models.Shop.findAll({ 
       where: {
@@ -6224,21 +6224,21 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
         DistributorID = Data[0].DistributorID;
         ShopUserAccountID = Data[0].UserAccountID;
         console.log("ShopUserAccountID "+ShopUserAccountID)
-        callback(Data);
+        callback2(Data);
         
       }else{
         ShopUserAccountID= undefined;
         console.log("Shop Not Found ");
-        callback(undefined);
+        callback2(undefined);
       }
     
     }).catch(function(result) {
       console.log("Error "+result)
-      callback(undefined);
+      callback2(undefined);
     });
   }
 
-  function DistrbutorFindUserAccountIDCheck(callback){
+  function DistrbutorFindUserAccountIDCheck(callback3){
     Models.Distributor.sync();
     let result = Models.Distributor.findAll({ 
       where: {
@@ -6251,17 +6251,17 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
       if(Data.length>0){
         DistributorUserAccountID = Data[0].UserAccountID;
         console.log("DistributorUserAccountID "+DistributorUserAccountID)
-        callback(Data);
+        callback3(Data);
         
       }else{
         DistributorUserAccountID= undefined;
-        console.log("Shop Not Found "+DistributorUserAccountID);
-        callback(undefined);
+        console.log("Distributor Not Found "+DistributorUserAccountID);
+        callback3(undefined);
       }
     
     }).catch(function(result) {
       console.log("Error "+result)
-      callback(undefined);
+      callback3(undefined);
     });
   }
 }
