@@ -3194,7 +3194,7 @@ app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res)
 app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
-  LoginHistoryUserAccountID(UserAccountID,function(response){
+  LoginHistoryUserAccountIDLatest(UserAccountID,function(response){
     if(response!=undefined){
       res.send(beautify(response, null, 2, 100));
     }else{
