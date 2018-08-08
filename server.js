@@ -6136,7 +6136,7 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
   let RelationshipResult = undefined;
   let ScreenName = undefined;
   let CurrentPoints=undefined;
- async.series([GetParentPlayerLookUp],function(error,response){
+ async.series([GetParentPlayerLookUp,PlayerCheck],function(error,response){
   res.send(RelationshipResult);
  });
  function PlayerCheck(callback){
