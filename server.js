@@ -478,7 +478,13 @@ function isScreenNameExist(ScreenName,callback){
 function AccountType(UserAccountID,callback){
   let Data = {IsHeadOffice:false,IsDistributor:false,IsShop:false,IsPlayer:false};
   async.series([CheckIsHeadOffice,CheckIsDistributor,CheckIsShop,CheckIsPlayer],function(error,response){
-    callback(Data);
+    if(response!=undefined){
+      callback(Data);
+    }else{
+      console.log("AccountType Failed");
+      callback(undefined);
+    }
+   
   });
 
   function CheckIsHeadOffice(callback1){
