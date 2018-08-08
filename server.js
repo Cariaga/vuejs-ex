@@ -3180,6 +3180,7 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
 }
 
 app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   LoginHistoryUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
