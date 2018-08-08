@@ -6155,8 +6155,10 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   let ShopID=undefined;//set by the PlayerUserAccountIDCheck
   let ShopUserAccountID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
   let DistributorID=undefined;//set by the ShopUserAccountIDFromShopIDCheck
-  let DistributorUserAccountID = undefined;
-  async.series([PlayerUserAccountIDCheck,ShopFindUserAccountIDCheck,DistrbutorFindUserAccountIDCheck],function(error,response){
+  let DistributorUserAccountID = undefined;//Set by the DistrbutorFindUserAccountIDCheck
+  let HeadOfficeID=undefined; //Set by the DistrbutorFindUserAccountIDCheck
+  let HeadOfficeUserAccountID=undefined;// Set by the HeadOfficeFindUserAccountIDCheck
+  async.series([PlayerUserAccountIDCheck,ShopFindUserAccountIDCheck,DistrbutorFindUserAccountIDCheck,HeadOfficeFindUserAccountIDCheck],function(error,response){
     if(DistributorID!=undefined){
       if(DistributorUserAccountID!=undefined){
         if(ShopID!=undefined){
@@ -6267,6 +6269,34 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
     }).catch(function(result) {
       console.log("Error "+result)
       callback3(null,'3');
+    });
+  }
+  function HeadOfficeFindUserAccountIDCheck(callback4){
+    Models.HeadOffice.sync();
+    console.log("---DistrbutorFindUserAccountIDCheck---");
+    console.log("DistributorID : "+DistributorID);
+    let result = Models.HeadOffice.findAll({ 
+      where: {
+        DistributorID:DistributorID
+    }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        HeadOfficeUserAccountID = Data[0].UserAccountID;
+        console.log("DistributorUserAccountID "+DistributorUserAccountID)
+        callback4(null,Data);
+        
+      }else{
+        HeadOfficeUserAccountID= undefined;
+        console.log("Distributor Not Found ");
+        callback4(null,'4');
+      }
+    
+    }).catch(function(result) {
+      console.log("Error "+result)
+      callback4(null,'4');
     });
   }
 }
