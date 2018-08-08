@@ -3182,27 +3182,32 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
 app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   LoginHistoryUserAccountID(UserAccountID,function(response){
-    
+    if(response!=undefined){
+      res.send(response);
+    }else{
+      res.send({LoginHistoryUserAccountIDFound:false});
+    }
   });
 });
 function LoginHistoryUserAccountID(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
     where: {
-      LoginHistoryID: {
-        ne: null//not null
-      }
+      UserAccountID:UserAccountID
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
         return item;
-        
     });
-   
-    res.send(beautify(Data, null, 2, 100));
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+    
   }).catch(function(result) {//catching any then errors
-
-    res.send("Error "+result);
+    console.log("Error "+result);
+    callback(undefined);
   });
 }
 
