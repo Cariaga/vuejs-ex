@@ -3196,7 +3196,7 @@ function LoginHistoryUserAccountID(UserAccountID,callback){
     where: {
       UserAccountID:UserAccountID
    },
-   order: [[updatedAt, 'DESC']]
+   order: [['updatedAt', 'DESC']]
   }).then(function(result) {
     let Data = result.map(function(item) {
         return item;
@@ -3229,7 +3229,7 @@ function LoginHistoryUserAccountIDLatest(UserAccountID,callback){
     where: {
       UserAccountID:UserAccountID
    },
-   order: [[updatedAt, 'DESC']]
+   order: [['updatedAt', 'DESC']]
   }).then(function(result) {
     let Data = result.map(function(item) {
         return item;
