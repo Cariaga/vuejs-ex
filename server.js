@@ -6164,8 +6164,17 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
       if(ShopID!=undefined){
         if(ShopUserAccountID!=undefined){
           callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
+        }else{
+          console.log("Failed ShopUserAccountID");
+          callback(undefined);
         }
+      }else{
+        console.log("Failed ShopID");
+        callback(undefined);
       }
+    }else{
+      console.log("Failed PlayerUserAccountID");
+      callback(undefined);
     }    
 
   });
