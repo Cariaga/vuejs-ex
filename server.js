@@ -3178,6 +3178,11 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
     callback(undefined);
   }); 
 }
+
+app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
+  
+});
+
 app.get('/Api/v1/LoginHistory/Clear', function (req, res){
   Models.LoginHistory.destroy({
     where: {},
