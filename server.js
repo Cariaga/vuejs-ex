@@ -6133,7 +6133,6 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 }
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
-  
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
   let PlayerExist = false;
   if(!isNullOrEmpty(UserAccountID)){
