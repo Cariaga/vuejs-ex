@@ -6159,7 +6159,7 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
   let ShopID=undefined;
   let ShopUserAccountID=undefined;
 
-  async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopID],function(response){
+  async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopIDCheck],function(response){
     callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
   });
 
@@ -6175,6 +6175,7 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
       });
       if(Data.length>0){
         PlayerUserAccountID = Data[0].UserAccountID;
+        ShopID = Data[0].ShopID;
         callback(Data);
         
       }else{
@@ -6187,7 +6188,7 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
       callback(undefined);
     });
   }
-  function ShopUserAccountIDFromShopID(callback){
+  function ShopUserAccountIDFromShopIDCheck(callback){
     Models.Shop.sync();
     let result = Models.Shop.findAll({ 
       where: {
