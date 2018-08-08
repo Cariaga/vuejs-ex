@@ -6159,7 +6159,13 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
   let ShopID=undefined;
   let ShopUserAccountID=undefined;
   async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopIDCheck],function(response){
-    callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
+    if(ShopID!=undefined){
+      if(ShopUserAccountID!=undefined){
+        callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
+      }
+    }
+    
+
   });
   function PlayerUserAccountIDCheck(callback){
     Models.Player.sync();
