@@ -7494,8 +7494,10 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
           UserAccountIDExist= true;
           RegisteredDate= response[0].RegisteredDate;
           RegisteredTime = response[0].RegisteredTime;
+          callback(null,'1');
         }else{
           UserAccountIDExist=false;
+          callback(null,'1');
         }
       });
     }
@@ -7505,10 +7507,10 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
          PlayerExist= true;
          ScreenName = response[0].ScreenName;
          CurrentPoints = response[0].CurrentPoints;
-         callback(null,'1');
+         callback(null,'2');
         }else{
          PlayerExist= false;
-         callback(null,'1');
+         callback(null,'2');
         }
       });
     }
@@ -7518,10 +7520,10 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
           UserInfoExist=true;
           PhoneNumber = response[0].PhoneNumber;
           TelephoneNumber = response[0].TelephoneNumber;
-         callback(null,'2');
+         callback(null,'3');
         }else{
           UserInfoExist= false;
-         callback(null,'2');
+         callback(null,'3');
         }
       });
     }
@@ -7529,10 +7531,10 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
        if(response!=undefined){
          PlayerRelationshipResult=response;
-         callback(null,'3');
+         callback(null,'4');
        }else{
          PlayerRelationshipResult=undefined;
-         callback(null,'3');
+         callback(null,'4');
        }
      });
     }
