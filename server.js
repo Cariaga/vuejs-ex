@@ -7465,7 +7465,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
                 MembersListItem.CurrentPoints = CurrentPoints;
                 res.send(MembersListItem);
               }else{
-                res.send({UserInfoFound:true});
+                res.send({UserInfoExist:false});
               }
             }else{
               res.send({CurrentPointsMissing:false});
@@ -7476,7 +7476,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
         }
       
       }else{
-       res.send({PlayerFound:false});
+       res.send({PlayerExist:false});
       }
     });
     function PlayerCheck(callback){
