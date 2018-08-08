@@ -6133,39 +6133,43 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 }
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
+  
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
   let PlayerExist = false;
-  let ScreenName = undefined;
-  let CurrentPoints=undefined;
- async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
-   if(PlayerExist==true){
-    res.send(PlayerRelationshipResult);
-   }else{
-    res.send({PlayerInvalidValue:true});
-   }
- });
- function PlayerCheck(callback){
-   PlayerUserAccountID(UserAccountID,function(response){
-     if(response!=undefined){
-      PlayerExist= true;
-      callback(null,'1');
-     }else{
-      PlayerExist= false;
-      callback(null,'1');
-     }
-   });
- }
- function GetParentPlayerLookUp(callback){
-  GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-    if(response!=undefined){
-      PlayerRelationshipResult=response;
-      callback(null,'2');
-    }else{
-      PlayerRelationshipResult=undefined;
-      callback(null,'2');
+  if(!isNullOrEmpty(UserAccountID)){
+    async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
+      if(PlayerExist==true){
+       res.send(PlayerRelationshipResult);
+      }else{
+       res.send({PlayerInvalidValue:true});
+      }
+    });
+    function PlayerCheck(callback){
+      PlayerUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+         PlayerExist= true;
+         callback(null,'1');
+        }else{
+         PlayerExist= false;
+         callback(null,'1');
+        }
+      });
     }
-  });
- }
+    function GetParentPlayerLookUp(callback){
+     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+       if(response!=undefined){
+         PlayerRelationshipResult=response;
+         callback(null,'2');
+       }else{
+         PlayerRelationshipResult=undefined;
+         callback(null,'2');
+       }
+     });
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+ 
 });
 
 
