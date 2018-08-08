@@ -6285,11 +6285,11 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   }
   function HeadOfficeFindUserAccountIDCheck(callback4){
     Models.HeadOffice.sync();
-    console.log("---DistrbutorFindUserAccountIDCheck---");
-    console.log("DistributorID : "+DistributorID);
+    console.log("---HeadOfficeFindUserAccountIDCheck---");
+    console.log("HeadOfficeID : "+HeadOfficeID);
     let result = Models.HeadOffice.findAll({ 
       where: {
-        DistributorID:DistributorID
+        HeadOfficeID:HeadOfficeID
     }
     }).then(function(result) {
       let Data = result.map(function(item) {
@@ -6297,7 +6297,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
       });
       if(Data.length>0){
         HeadOfficeUserAccountID = Data[0].UserAccountID;
-        console.log("DistributorUserAccountID "+DistributorUserAccountID)
+        console.log("HeadOfficeUserAccountID "+HeadOfficeUserAccountID)
         callback4(null,Data);
         
       }else{
