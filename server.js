@@ -6158,13 +6158,15 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
   let PlayerUserAccountID=undefined;
   let ShopID=undefined;
   let ShopUserAccountID=undefined;
-  async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopIDCheck],function(response){
-    if(ShopID!=undefined){
-      if(ShopUserAccountID!=undefined){
-        callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
+  async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopIDCheck],function(error,response){
+    if(PlayerUserAccountID!=undefined){
+      
+      if(ShopID!=undefined){
+        if(ShopUserAccountID!=undefined){
+          callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
+        }
       }
-    }
-    
+    }    
 
   });
   function PlayerUserAccountIDCheck(callback){
