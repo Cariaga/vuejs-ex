@@ -6140,7 +6140,7 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
   res.send({UserAccountID:UserAccountID,ShopID:ShopID});
  });
  function GetShopFromPlayerLookUp(callback){
-  GetShopFromPlayer(UserAccountID,function(response){
+  GetParentShopIDFromPlayerUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
       ShopFromPlayer=response;
       callback(null,'1');
@@ -6155,7 +6155,7 @@ function GetDistributorFromShopLookUp(callback){
 function  GetHeadOfficeFromDistributorLookUp(callback){
 }
 });
-function GetShopFromPlayer(UserAccountID,callback){
+function GetParentShopIDFromPlayerUserAccountID(UserAccountID,callback){
   Models.Player.sync();
   let result = Models.Player.findAll({ 
     where: {
@@ -6176,9 +6176,29 @@ function GetShopFromPlayer(UserAccountID,callback){
     callback(undefined);
   });
 }
-function GetDistributorFromShopID(ShopID,callback){
+function GetParentDistributorIDFromShopID(ShopID,callback){
+  Models.Distributor.sync();
+  let result = Models.Distributor.findAll({ 
+    where: {
+      ShopID:ShopID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  
+  }).catch(function(result) {
+    console.log("Error "+result)
+    callback(undefined);
+  });
 }
-function GetHeadOfficeFromDistributorID(UserAccountID,callback){
+function GetParentHeadOfficeIDFromDistributorID(DistributorID,callback){
+  
 }
 //---UserAccount ROUTING START
 //---Player ROUTING START
