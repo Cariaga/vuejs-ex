@@ -6255,7 +6255,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
         
       }else{
         DistributorUserAccountID= undefined;
-        console.log("Distributor Not Found "+DistributorUserAccountID);
+        console.log("Distributor Not Found ");
         callback3(undefined);
       }
     
