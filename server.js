@@ -6134,13 +6134,11 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let ShopFromPlayer = undefined;
+  let ShopID = ShopFromPlayer[0].ShopID;
 
  async.series([GetShopFromPlayerLookUp],function(error,response){
-  let ShopID = ShopFromPlayer[0].ShopID;
-  let ShopUserAccountID = ShopFromPlayer[0].UserAccountID;
   res.send({UserAccountID:UserAccountID,ShopID:ShopID});
  });
-
  function GetShopFromPlayerLookUp(callback){
   GetShopFromPlayer(UserAccountID,function(response){
     if(response!=undefined){
@@ -6152,13 +6150,10 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
     }
   });
  }
- function GetDistributorFromShopLookUp(callback){
-  
+function GetDistributorFromShopLookUp(callback){
 }
 function  GetHeadOfficeFromDistributorLookUp(callback){
-  
 }
- 
 });
 function GetShopFromPlayer(UserAccountID,callback){
   Models.Player.sync();
@@ -6181,12 +6176,9 @@ function GetShopFromPlayer(UserAccountID,callback){
     callback(undefined);
   });
 }
-
-function GetDistributorFromShop(UserAccountID,callback){
-
+function GetDistributorFromShopID(ShopID,callback){
 }
-function GetHeadOfficeFromDistributor(UserAccountID,callback){
-
+function GetHeadOfficeFromDistributorID(UserAccountID,callback){
 }
 //---UserAccount ROUTING START
 //---Player ROUTING START
