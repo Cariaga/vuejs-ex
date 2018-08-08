@@ -1,5 +1,5 @@
 // server.js
-
+"use strict";
 // set up ========================
 var express = require('express');
 var Nexmo = require('nexmo');
