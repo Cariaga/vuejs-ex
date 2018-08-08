@@ -6156,7 +6156,9 @@ function  GetHeadOfficeFromDistributorLookUp(callback){
 });
 function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,callback){
   let PlayerUserAccountID=undefined;
+  let ShopID=undefined;
   let ShopUserAccountID=undefined;
+
   async.series([PlayerUserAccountIDCheck,ShopUserAccountIDFromShopID],function(response){
     callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID});
   });
@@ -6197,6 +6199,7 @@ function GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,c
       });
       if(Data.length>0){
         ShopUserAccountID = Data[0].UserAccountID;
+        console.log("ShopUserAccountID "+ShopUserAccountID)
         callback(Data);
         
       }else{
