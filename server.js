@@ -7454,6 +7454,8 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
   let ScreenName =undefined;
   let CurrentPoints = undefined;
   let UserInfoExist=undefined;
+  let PhoneNumber= undefined;
+  let TelephoneNumber= undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([PlayerCheck,UserInfoCheck,GetParentPlayerLookUp],function(error,response){
       if(PlayerExist==true){
@@ -7496,6 +7498,8 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
       UserInfoUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
           UserInfoExist=true;
+          PhoneNumber = response[0].PhoneNumber;
+          TelephoneNumber = response[0].TelephoneNumber;
          callback(null,'2');
         }else{
           UserInfoExist= false;
