@@ -6147,11 +6147,10 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
  function PlayerCheck(callback){
    PlayerUserAccountID(UserAccountID,function(response){
      if(response!=undefined){
-      ScreenName = response[0].ScreenName;
-      CurrentPoints = response[0].CurrentPoints
-      callback(null,'2');
+      PlayerExist= false;
+      callback(null,'1');
      }else{
-      callback(null,'2');
+      callback(null,'1');
      }
    });
  }
@@ -6159,10 +6158,10 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
   GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
       PlayerRelationshipResult=response;
-      callback(null,'1');
+      callback(null,'2');
     }else{
       PlayerRelationshipResult=undefined;
-      callback(null,'1');
+      callback(null,'2');
     }
   });
  }
