@@ -6134,14 +6134,16 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let RelationshipResult = undefined;
-  let Points = undefined;
+  let ScreenName = undefined;
+  let CurrentPoints=undefined;
  async.series([GetParentPlayerLookUp],function(error,response){
   res.send(RelationshipResult);
  });
  function PlayerCheck(callback){
    PlayerUserAccountID(UserAccountID,function(response){
      if(response!=undefined){
-      PlayerUserAccountID = response[0].ScreenName;
+      ScreenName = response[0].ScreenName;
+      CurrentPoints = response[0].CurrentPoints
       callback(null,'2');
      }else{
       callback(null,'2');
