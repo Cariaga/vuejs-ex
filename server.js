@@ -7530,7 +7530,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
   let TelephoneNumber= undefined;
   let LastLogin = undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,PlayerCheck,UserInfoCheck,GetParentPlayerLookUp],function(error,response){
+    async.series([UserAccountCheck,PlayerCheck,UserInfoCheck,GetLatestLogin,GetParentPlayerLookUp],function(error,response){
       if(PlayerExist==true){
         if(ScreenName!=undefined){
           if(CurrentPoints!=undefined){
