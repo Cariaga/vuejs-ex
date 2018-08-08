@@ -6176,7 +6176,8 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
           callback(undefined);
         }
       }else{
-
+        console.log("Failed DistributorUserAccountID");
+        callback(undefined);
       }
     }else{
       console.log("Failed DistributorID");
