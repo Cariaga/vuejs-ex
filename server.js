@@ -6105,9 +6105,11 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
  function GetShopFromPlayerLookUp(callback){
   GetShopFromPlayer(UserAccountID,function(response){
     if(response!=undefined){
-
+      ShopFromPlayer=response;
+      callback(null,'1');
     }else{
-      
+      ShopFromPlayer=undefined;
+      callback(null,'1');
     }
   });
  }
