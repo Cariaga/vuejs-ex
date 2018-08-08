@@ -6133,11 +6133,11 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
 }
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
-  let RelationshipResult = undefined;
+  let PlayerRelationshipResult = undefined;// the resulting parents of Player
   let ScreenName = undefined;
   let CurrentPoints=undefined;
  async.series([GetParentPlayerLookUp,PlayerCheck],function(error,response){
-  res.send(RelationshipResult);
+  res.send(PlayerRelationshipResult);
  });
  function PlayerCheck(callback){
    PlayerUserAccountID(UserAccountID,function(response){
@@ -6153,10 +6153,10 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
  function GetParentPlayerLookUp(callback){
   GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
-      RelationshipResult=response;
+      PlayerRelationshipResult=response;
       callback(null,'1');
     }else{
-      RelationshipResult=undefined;
+      PlayerRelationshipResult=undefined;
       callback(null,'1');
     }
   });
