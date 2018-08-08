@@ -6161,39 +6161,41 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   async.series([PlayerUserAccountIDCheck,ShopFindUserAccountIDCheck,DistrbutorFindUserAccountIDCheck,HeadOfficeFindUserAccountIDCheck],function(error,response){
     if(HeadOfficeID!=undefined){
       if(HeadOfficeUserAccountID!=undefined){
-
-      }else{
-        res.send({});
-      }
-    }else{
-
-    }
-    if(DistributorID!=undefined){
-      if(DistributorUserAccountID!=undefined){
-        if(ShopID!=undefined){
-          if( PlayerUserAccountID!=undefined){
-            if(ShopUserAccountID!=undefined){
-              callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID,DistributorUserAccountID:DistributorUserAccountID,HeadOfficeUserAccountID:HeadOfficeUserAccountID});
+        if(DistributorID!=undefined){
+          if(DistributorUserAccountID!=undefined){
+            if(ShopID!=undefined){
+              if( PlayerUserAccountID!=undefined){
+                if(ShopUserAccountID!=undefined){
+                  callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID,DistributorUserAccountID:DistributorUserAccountID,HeadOfficeUserAccountID:HeadOfficeUserAccountID});
+                }else{
+                  console.log("Failed ShopUserAccountID");
+                  callback(undefined);
+                }
+              }else{
+                console.log("Failed PlayerUserAccountID");
+                callback(undefined);
+              }
             }else{
-              console.log("Failed ShopUserAccountID");
+              console.log("Failed ShopID ");
               callback(undefined);
             }
           }else{
-            console.log("Failed PlayerUserAccountID");
+            console.log("Failed DistributorUserAccountID");
             callback(undefined);
           }
         }else{
-          console.log("Failed ShopID ");
+          console.log("Failed DistributorID");
           callback(undefined);
         }
       }else{
-        console.log("Failed DistributorUserAccountID");
+        console.log("Failed HeadOfficeUserAccountID");
         callback(undefined);
       }
     }else{
-      console.log("Failed DistributorID");
+      console.log("Failed HeadOfficeID");
       callback(undefined);
     }
+    
   });
   function PlayerUserAccountIDCheck(callback){
     Models.Player.sync();
