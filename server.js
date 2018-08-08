@@ -6140,7 +6140,7 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
   res.send({UserAccountID:UserAccountID,ShopID:ShopID});
  });
  function GetShopFromPlayerLookUp(callback){
-  GetParentShopIDFromPlayerUserAccountID(UserAccountID,function(response){
+  GetParentShopPlayerUserAccountIDFromPlayerUserAccountID(UserAccountID,function(response){
     if(response!=undefined){
       ShopFromPlayer=response;
       callback(null,'1');
@@ -6155,26 +6155,61 @@ function GetDistributorFromShopLookUp(callback){
 function  GetHeadOfficeFromDistributorLookUp(callback){
 }
 });
-function GetParentShopIDFromPlayerUserAccountID(UserAccountID,callback){
-  Models.Player.sync();
-  let result = Models.Player.findAll({ 
-    where: {
-      UserAccountID:UserAccountID
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-    });
-    if(Data.length>0){
-      callback(Data);
-    }else{
-      callback(undefined);
-    }
-  
-  }).catch(function(result) {
-    console.log("Error "+result)
-    callback(undefined);
+function GetParentShopUserAccountIDFromPlayerUserAccountID(UserAccountID,callback){
+  let PlayerUserAccountID=undefined;
+  let ShopUserAccountID=undefined;
+  async.series([PlayerUserAccountIDCheck],function(response){
+    callback({PlayerUserAccountID:PlayerUserAccountID});
   });
+
+  function PlayerUserAccountIDCheck(callback){
+    Models.Player.sync();
+    let result = Models.Player.findAll({ 
+      where: {
+        UserAccountID:UserAccountID
+    }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        PlayerUserAccountID = Data[0].UserAccountID;
+        callback(Data);
+        
+      }else{
+        PlayerUserAccountID= undefined;
+        callback(undefined);
+      }
+    
+    }).catch(function(result) {
+      console.log("Error "+result)
+      callback(undefined);
+    });
+  }
+  function ShopUserAccountIDFromShopID(callback){
+    Models.Shop.sync();
+    let result = Models.Shop.findAll({ 
+      where: {
+        ShopID:ShopID
+    }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        PlayerUserAccountID = Data[0].UserAccountID;
+        callback(Data);
+        
+      }else{
+        PlayerUserAccountID= undefined;
+        callback(undefined);
+      }
+    
+    }).catch(function(result) {
+      console.log("Error "+result)
+      callback(undefined);
+    });
+  }
 }
 function GetParentDistributorIDFromShopID(ShopID,callback){
   Models.Distributor.sync();
@@ -6198,7 +6233,7 @@ function GetParentDistributorIDFromShopID(ShopID,callback){
   });
 }
 function GetParentHeadOfficeIDFromDistributorID(DistributorID,callback){
-  
+
 }
 //---UserAccount ROUTING START
 //---Player ROUTING START
