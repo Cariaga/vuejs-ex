@@ -6158,23 +6158,26 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
   let DistributorUserAccountID = undefined;
   async.series([PlayerUserAccountIDCheck,ShopFindUserAccountIDCheck,DistrbutorFindUserAccountIDCheck],function(error,response){
     if(DistributorID!=undefined){
-      if(ShopID!=undefined){
-        if( PlayerUserAccountID!=undefined){
-          if(ShopUserAccountID!=undefined){
-            callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID,DistributorUserAccountID:DistributorUserAccountID});
+      if(DistributorUserAccountID!=undefined){
+        if(ShopID!=undefined){
+          if( PlayerUserAccountID!=undefined){
+            if(ShopUserAccountID!=undefined){
+              callback({PlayerUserAccountID:PlayerUserAccountID,ShopUserAccountID:ShopUserAccountID,DistributorUserAccountID:DistributorUserAccountID});
+            }else{
+              console.log("Failed ShopUserAccountID");
+              callback(undefined);
+            }
           }else{
-            console.log("Failed ShopUserAccountID");
+            console.log("Failed PlayerUserAccountID");
             callback(undefined);
           }
         }else{
-          console.log("Failed PlayerUserAccountID");
+          console.log("Failed ShopID ");
           callback(undefined);
         }
       }else{
-        console.log("Failed ShopID ");
-        callback(undefined);
-      }
 
+      }
     }else{
       console.log("Failed DistributorID");
       callback(undefined);
@@ -6251,7 +6254,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
         
       }else{
         DistributorUserAccountID= undefined;
-        console.log("Shop Not Found ");
+        console.log("Shop Not Found "+DistributorUserAccountID);
         callback(undefined);
       }
     
