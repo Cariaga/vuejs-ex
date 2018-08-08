@@ -6240,6 +6240,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){
 
   function DistrbutorFindUserAccountIDCheck(callback3){
     Models.Distributor.sync();
+    console.log("DistributorID : "+DistributorID);
     let result = Models.Distributor.findAll({ 
       where: {
         DistributorID:DistributorID
