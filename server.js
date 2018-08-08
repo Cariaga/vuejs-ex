@@ -7449,6 +7449,7 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
 //---Sales ROUTING START
 app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
   let UserAccountID = req.params.UserAccountID;
+  let UserAccountIDExist = undefined;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
   let PlayerExist = false;
   let ScreenName =undefined;
@@ -7457,7 +7458,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
   let PhoneNumber= undefined;
   let TelephoneNumber= undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([PlayerCheck,UserInfoCheck,GetParentPlayerLookUp],function(error,response){
+    async.series([UserAccountCheck,PlayerCheck,UserInfoCheck,GetParentPlayerLookUp],function(error,response){
       if(PlayerExist==true){
         if(ScreenName!=undefined){
           if(CurrentPoints!=undefined){
@@ -7465,6 +7466,8 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
                 let MembersListItem = PlayerRelationshipResult;
                 MembersListItem.ScreenName = ScreenName;
                 MembersListItem.CurrentPoints = CurrentPoints;
+                MembersListItem.PhoneNumber= PhoneNumber;
+                MembersListItem.TelephoneNumber = TelephoneNumber;
                 res.send(MembersListItem);
               }else{
                 res.send({UserInfoExist:false});
@@ -7481,6 +7484,15 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
        res.send({PlayerExist:false});
       }
     });
+    function UserAccountCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        if(response!=undefined){
+          UserAccountIDExist= true;
+        }else{
+          UserAccountIDExist=false;
+        }
+      });
+    }
     function PlayerCheck(callback){
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
