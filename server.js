@@ -3196,6 +3196,7 @@ function LoginHistoryUserAccountID(UserAccountID,callback){
     where: {
       UserAccountID:UserAccountID
    },
+   limit:1,
    order: [['updatedAt', 'DESC']]
   }).then(function(result) {
     let Data = result.map(function(item) {
