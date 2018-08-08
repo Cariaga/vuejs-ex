@@ -3181,8 +3181,30 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
 
 app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
-  
+  LoginHistoryUserAccountID(UserAccountID,function(response){
+    
+  });
 });
+function LoginHistoryUserAccountID(UserAccountID,callback){
+  Models.LoginHistory.sync();
+  let result = Models.LoginHistory.findAll({ 
+    where: {
+      LoginHistoryID: {
+        ne: null//not null
+      }
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+   
+    res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+}
 
 app.get('/Api/v1/LoginHistory/Clear', function (req, res){
   Models.LoginHistory.destroy({
