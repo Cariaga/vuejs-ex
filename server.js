@@ -3190,12 +3190,47 @@ app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res)
     }
   });
 });
+
+app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  LoginHistoryUserAccountID(UserAccountID,function(response){
+    if(response!=undefined){
+      res.send(beautify(response, null, 2, 100));
+    }else{
+      res.send({LoginHistoryUserAccountIDFound:false});
+    }
+  });
+});
 function LoginHistoryUserAccountID(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
     where: {
       UserAccountID:UserAccountID
    },
+   order: [[updatedAt, 'DESC']]
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+    
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
+function LoginHistoryUserAccountIDLatest(UserAccountID,callback){
+  Models.LoginHistory.sync();
+  let result = Models.LoginHistory.findAll({ 
+    where: {
+      UserAccountID:UserAccountID
+   },
+   limit:1,
    order: [[updatedAt, 'DESC']]
   }).then(function(result) {
     let Data = result.map(function(item) {
