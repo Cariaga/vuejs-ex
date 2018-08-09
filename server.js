@@ -3119,6 +3119,29 @@ function BlackListAll(callback){
       callback(undefined);
     });
 }
+
+app.get('/Api/v1/BlackList/UserAccountID/:UserAccountID', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  Models.BlackList.sync();
+  let result = Models.BlackList.findAll({ 
+    where: {
+      UserAccountID:UserAccountID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+});
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
