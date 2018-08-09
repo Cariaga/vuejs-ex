@@ -3167,7 +3167,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
           }
           
         }else{
-          //its not a player and not blockable
+          //its not a player and not blockable  relies on PlayerCheck to find if it's a player or not
           res.send({UserAccountIDNotPlayer:false});
         }
       }else{
