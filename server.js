@@ -4065,6 +4065,34 @@ app.get('/Api/v1/WithdrawHistory', function (req, res) {
   }
   //res.send("WithdrawHistory "+Offset+" "+ Limit+" "+Sort);
 });
+
+
+function WithdrawHistoryUserAccountID(UserAccountID,callback){
+  Models.WithdrawHistory.sync();
+    let result = Models.WithdrawHistory.findAll({ 
+      where: {
+        UserAccountID:UserAccountID
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+     
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
+}
+  
+    
+
+
 app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.WithdrawHistory.sync({alter:true});
@@ -4145,18 +4173,16 @@ app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
      });
     }
     function GetWithdrawHistory(callback){
-
-
-     /* DepositHistoryUserAccountID(UserAccountID,function(response){//wrong
+      WithdrawHistoryUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
-          DepositHistoryResult = response;
-          DepositHistoryExist=true;
+          WithdrawHistoryResult = response;
+          WithdrawHistoryExist=true;
           callback(null,'5');
         }else{
-          DepositHistoryExist=false;
+          WithdrawHistoryExist=false;
           callback(null,'5');
         }
-      });*/
+      });
     }
   }else{
     res.send({UserAccountIDMissing:true});
