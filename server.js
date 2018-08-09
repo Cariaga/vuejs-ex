@@ -4671,7 +4671,7 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       DepositListItem.TelephoneNumber = TelephoneNumber;
       DepositListItem.Name = Name;
       DepositListItem.ScreenName = ScreenName;
-      res.send();
+      res.send(DepositListItem);
     });
     function UserAccountCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
