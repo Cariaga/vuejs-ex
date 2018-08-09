@@ -1934,8 +1934,8 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
 });
 //---API Login End
 //---SupportTicket ROUTING START
-app.get('/Api/v1/SupportTicket/Add/:UserAccountID/:Title/:Description/:Reason/:Time/:Date/:Status', function (req, res) {
-  ///USAGE Api/v1/SupportTicket/Add/UserAccountID/Title/Description/Reason/01:57:17/2018-06-27/Status
+app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
+  ///USAGE Api/v1/SupportTicket/Add/UserAccountID/UserAccountID/Title/Title/Description/Description/Reason/Reason/01:57:17/01:57:17/2018-06-27/2018-06-27/Status/Status
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
   let Description = req.params.Description;
@@ -2281,7 +2281,6 @@ app.get('/Api/v1/SupportTicket/OneOnOne/:UserAccountID', function (req, res){
       }else{
         res.send({UserAccountIDExist:false});
       }
-      
     });
     
     function UserAccountCheck(callback){
