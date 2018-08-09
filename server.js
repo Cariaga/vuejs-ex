@@ -3152,7 +3152,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   let Name = undefined;
   let ScreenName =undefined;
   let PlayerRelationshipResult = undefined;
-  let MembersBlackListResult = undefined;
+
 
   let MembersBlackListResult= undefined;//the userAccount Must be a Player Type to have result
   if(!isNullOrEmpty(UserAccountID)){
