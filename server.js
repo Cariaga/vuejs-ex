@@ -3135,7 +3135,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   let MembersBlackListResult= undefined;//the userAccount Must be a Player Type 
   if(!isNullOrEmpty(UserAccountID)){
 
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,BlackListUserAccountID],function(response){
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp/*,BlackListUserAccountID*/],function(response){
       res.send(beautify(PlayerRelationshipResult, null, 2, 100));
     });
     
@@ -3186,7 +3186,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
        }
      });
     }
-    BlackListUserAccountID(UserAccountID,function(response){
+    /*BlackListUserAccountID(UserAccountID,function(response){
       if(response!=undefined){
         MembersBlackListResult= response;
         callback(null,'5');
@@ -3194,7 +3194,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         MembersBlackListResult=undefined;
         callback(null,'5');
       }
-    });
+    });*/
   }else{
     res.send({UserAccountIDMissing:true});
   }
