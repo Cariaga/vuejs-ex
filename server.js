@@ -3168,7 +3168,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
               res.send(MembersBlackListItem);
             }else{
 
-              res.send({MembersBlackListResult:false});
+              res.send({MembersBlackListResultEmpty:true});//empty result mean account was never blocked
             }
            
           }else{
