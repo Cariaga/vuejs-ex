@@ -3139,7 +3139,13 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,/*GetParentPlayerLookUp*//*,BlackListUserAccountID*/],function(error,response){
     if(UserAccountIDExist==true){
       if(UserInfoExist==true){
-        res.send(UserAccountID);
+        if(PlayerExist==true){
+          res.send(UserAccountID);
+        }else{
+          //its not a player and not blockable
+          res.send({PlayerExist:false});
+        }
+        
       }else{
         res.send({UserInfoExist:false});
       }
