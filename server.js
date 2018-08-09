@@ -4651,6 +4651,43 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
     res.send([result]);
   });
 });
+
+app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
+
+    });
+
+    function PlayerCheck(callback){
+      PlayerUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+         PlayerExist= true;
+         callback(null,'1');
+        }else{
+         PlayerExist= false;
+         callback(null,'1');
+        }
+      });
+    }
+    function GetParentPlayerLookUp(callback){
+     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+       if(response!=undefined){
+         PlayerRelationshipResult=response;
+         callback(null,'2');
+       }else{
+         PlayerRelationshipResult=undefined;
+         callback(null,'2');
+       }
+     });
+    }
+  }else{
+
+  }
+  
+});
+
 //---DepositHistory ROUTING END
 //--TransferHistory ROUTING START
 
