@@ -3155,7 +3155,6 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   let PlayerBlackListResult= undefined;//the userAccount Must be a Player Type to have result
 
   if(!isNullOrEmpty(UserAccountID)){
-   
    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetBlackListUserAccountID],function(error,response){
     if(UserAccountIDExist==true){
       if(UserInfoExist==true){
@@ -3277,11 +3276,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         console.log("Not A Player "+UserAccountID);
         callback(null,'5');
       }
-      
-      
-
     }
-    
   }else{
     res.send({UserAccountIDMissing:true});
   }
@@ -3307,7 +3302,11 @@ function BlackListUserAccountID(UserAccountID,callback){
   });
 }
 //---MemberBlackList ROUTING END
+//--IPList ROUTING START
+app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
 
+});
+//--IPList ROUTING END
 
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
