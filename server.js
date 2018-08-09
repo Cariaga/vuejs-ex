@@ -3127,13 +3127,13 @@ app.get('/Api/v1/BlackList/UserAccountID/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
     BlackListUserAccountID(UserAccountID,function(response){
       if(response!=undefined){
-
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send({BlackListUserAccountIDExist:false});
       }
     });
   }else{
-
+    res.send({UserAccountIDMissing:true});
   }
 });
 function BlackListUserAccountID(UserAccountID,callback){
