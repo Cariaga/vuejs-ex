@@ -3163,6 +3163,8 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         if(PlayerExist==true){
           if(PlayerRelationshipResult!=undefined){
             let MembersBlackListItem = PlayerRelationshipResult;
+            MembersBlackListItem.ScreenName =ScreenName;
+            MembersBlackListItem.Name = Name;
             MembersBlackListItem.MembersBlackListResult = MembersBlackListResult;
             if(MembersBlackListResult!=undefined){
               res.send(MembersBlackListItem);
@@ -3223,8 +3225,8 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined&&response.length>0){
          PlayerExist= true;
+         Name= response[0].Name;
          ScreenName = response[0].ScreenName;
-        
          callback(null,'2');
         }else{
          PlayerExist= false;
