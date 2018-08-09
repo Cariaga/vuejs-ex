@@ -4701,8 +4701,6 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       DepositListItem.Name = Name;
       DepositListItem.ScreenName = ScreenName;
       DepositListItem.DepositHistory= DepositHistoryResult;
-      
-
       res.send(DepositListItem);
     });
     function UserAccountCheck(callback){
