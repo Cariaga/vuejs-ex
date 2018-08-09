@@ -2968,7 +2968,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   .then(Success => {
     res.send("Updated this is for testing pourpose");
   }).catch(error => {
-    console.log("Error Updating BlackList with 8 params");
+    console.log("Error Updating "+error);
     res.send(undefined);
   });
 });
