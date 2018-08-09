@@ -4072,6 +4072,96 @@ app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  let PhoneNumber = req.param.PhoneNumber;
+  let TelephoneNumber = req.param.TelephoneNumber;
+  let UserAccountIDExist = false;
+  let UserInfoExist = false;
+  let PlayerExist = false;
+  let ScreenName = undefined;
+  let Name = undefined;
+  let PlayerRelationshipResult =undefined;
+  let WithdrawHistoryExist =false;
+  let WithdrawHistoryResult = undefined;
+  if(!isNullOrEmpty(UserAccountID)){
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetDepositHistory],function(error,response){
+      let WithdrawListItem = PlayerRelationshipResult;
+      WithdrawListItem.PhoneNumber = PhoneNumber;
+      WithdrawListItem.TelephoneNumber = TelephoneNumber;
+      WithdrawListItem.Name = Name;
+      WithdrawListItem.ScreenName = ScreenName;
+      WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
+      res.send(beautify(WithdrawListItem, null, 2, 100));
+    });
+    function UserAccountCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        if(response!=undefined){
+          UserAccountIDExist= true;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist=false;
+          callback(null,'1');
+        }
+      });
+    }
+    function UserInfoCheck(callback){
+      UserInfoUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          UserInfoExist=true;
+          PhoneNumber = response[0].PhoneNumber;
+          TelephoneNumber = response[0].TelephoneNumber;
+         callback(null,'2');
+        }else{
+          UserInfoExist= false;
+         callback(null,'2');
+        }
+      });
+    }
+    function PlayerCheck(callback){
+      PlayerUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+         PlayerExist= true;
+         Name = response[0].Name;
+         ScreenName = response[0].ScreenName;
+         callback(null,'3');
+        }else{
+         PlayerExist= false;
+         callback(null,'3');
+        }
+      });
+    }
+    
+    function GetParentPlayerLookUp(callback){
+     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+       if(response!=undefined){
+         PlayerRelationshipResult=response;
+         callback(null,'4');
+       }else{
+         PlayerRelationshipResult=undefined;
+         callback(null,'4');
+       }
+     });
+    }
+    function GetWithdrawHistory(callback){
+
+
+     /* DepositHistoryUserAccountID(UserAccountID,function(response){//wrong
+        if(response!=undefined){
+          DepositHistoryResult = response;
+          DepositHistoryExist=true;
+          callback(null,'5');
+        }else{
+          DepositHistoryExist=false;
+          callback(null,'5');
+        }
+      });*/
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+});
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
 app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
@@ -4764,7 +4854,7 @@ app.get('/Api/v1/DepositList/UserAccountID/:UserAccountID/', function (req, res)
       });
     }
   }else{
-
+    res.send({UserAccountIDMissing:true});
   }
   
 });
