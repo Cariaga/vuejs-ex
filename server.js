@@ -3166,7 +3166,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
             MembersBlackListItem.Name = Name;
             MembersBlackListItem.MembersBlackListResult = MembersBlackListResult;
             if(MembersBlackListResult!=undefined){
-              res.send(MembersBlackListItem);
+              res.send(beautify(MembersBlackListItem, null, 2, 100));
             }else{
 
               res.send({MembersBlackListResultEmpty:true});//empty result mean account was never blocked
