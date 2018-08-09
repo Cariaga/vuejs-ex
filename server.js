@@ -3122,7 +3122,7 @@ function BlackListAll(callback){
 //---BlackList ROUTING END
 
 //---MemberBlackList ROUTING START
-app.get('/Api/v1/MemberBlackList/UserAccountID/:UserAccountID', function (req, res) {
+app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
