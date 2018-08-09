@@ -7585,7 +7585,7 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
 //---Sales ROUTING START
 app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
   let UserAccountID = req.params.UserAccountID;
-  let UserAccountIDExist = undefined;
+  let UserAccountIDExist = false;
   let RegisteredDate = undefined;
   let RegisteredTime = undefined;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
@@ -7598,33 +7598,38 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
   let LastLogin = undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,PlayerCheck,UserInfoCheck,GetLatestLogin,GetParentPlayerLookUp],function(error,response){
-      if(PlayerExist==true){
-        if(ScreenName!=undefined){
-          if(CurrentPoints!=undefined){
-            if(UserInfoExist==true){
-                let MembersListItem = PlayerRelationshipResult;
-                MembersListItem.ScreenName = ScreenName;
-                MembersListItem.CurrentPoints = CurrentPoints;
-                MembersListItem.PhoneNumber= PhoneNumber;
-                MembersListItem.TelephoneNumber = TelephoneNumber;
-                MembersListItem.RegisteredDate = RegisteredDate;
-                MembersListItem.RegisteredTime = RegisteredTime;
-                MembersListItem.LastLogin= LastLogin;
-                res.send(MembersListItem);
+      if(UserAccountIDExist!=false){
+        if(PlayerExist==true){
+          if(ScreenName!=undefined){
+            if(CurrentPoints!=undefined){
+              if(UserInfoExist==true){
+                  let MembersListItem = PlayerRelationshipResult;
+                  MembersListItem.ScreenName = ScreenName;
+                  MembersListItem.CurrentPoints = CurrentPoints;
+                  MembersListItem.PhoneNumber= PhoneNumber;
+                  MembersListItem.TelephoneNumber = TelephoneNumber;
+                  MembersListItem.RegisteredDate = RegisteredDate;
+                  MembersListItem.RegisteredTime = RegisteredTime;
+                  MembersListItem.LastLogin= LastLogin;
+                  res.send(MembersListItem);
+                }else{
+                  res.send({UserInfoExist:false});
+                }
               }else{
-                res.send({UserInfoExist:false});
+                res.send({CurrentPointsMissing:false});
               }
-            }else{
-              res.send({CurrentPointsMissing:false});
-            }
-            
+              
+          }else{
+            res.send({ScreenNameMissing:true});
+          }
+        
         }else{
-          res.send({ScreenNameMissing:true});
+         res.send({PlayerExist:false});
         }
-      
       }else{
-       res.send({PlayerExist:false});
+        res.send({UserAccountIDExist:false});
       }
+      
     });
     function UserAccountCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
