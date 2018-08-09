@@ -3210,28 +3210,38 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       });
     }
     function UserInfoCheck(callback){
-      UserInfoUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          UserInfoExist=true;
-         callback(null,'2');
-        }else{
-          UserInfoExist= false;
-         callback(null,'2');
-        }
-      });
+      if(UserAccountIDExist==true){
+        UserInfoUserAccountID(UserAccountID,function(response){
+          if(response!=undefined){
+            UserInfoExist=true;
+           callback(null,'2');
+          }else{
+            UserInfoExist= false;
+           callback(null,'2');
+          }
+        });
+      }else{
+        callback(null,'2');
+      }
+      
     }
     function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined&&response.length>0){
-         PlayerExist= true;
-         Name= response[0].Name;
-         ScreenName = response[0].ScreenName;
-         callback(null,'2');
-        }else{
-         PlayerExist= false;
-         callback(null,'2');
-        }
-      });
+      if(UserInfoExist==true){
+        PlayerUserAccountID(UserAccountID,function(response){
+          if(response!=undefined&&response.length>0){
+           PlayerExist= true;
+           Name= response[0].Name;
+           ScreenName = response[0].ScreenName;
+           callback(null,'3');
+          }else{
+           PlayerExist= false;
+           callback(null,'3');
+          }
+        });
+      }else{
+        callback(null,'3');
+      }
+      
     }
     
     function GetParentPlayerLookUp(callback){
