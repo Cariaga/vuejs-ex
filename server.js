@@ -3164,7 +3164,13 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
           if(PlayerRelationshipResult!=undefined){
             let MembersBlackListItem = PlayerRelationshipResult;
             MembersBlackListItem.MembersBlackListResult = MembersBlackListResult;
-            res.send(MembersBlackListItem);
+            if(MembersBlackListResult!=undefined){
+              res.send(MembersBlackListItem);
+            }else{
+              
+              res.send({MembersBlackListResult:false});
+            }
+           
           }else{
             res.send({PlayerRelationshipResultFailed:true});
           }
