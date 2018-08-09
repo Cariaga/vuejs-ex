@@ -3152,7 +3152,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   let Name = undefined;
   let ScreenName =undefined;
   let PlayerRelationshipResult = undefined;
-  let MembersBlackListResult= undefined;//the userAccount Must be a Player Type to have result
+  let PlayerBlackListResult= undefined;//the userAccount Must be a Player Type to have result
 
   if(!isNullOrEmpty(UserAccountID)){
    
@@ -3164,8 +3164,8 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
             let MembersBlackListItem = PlayerRelationshipResult;
             MembersBlackListItem.ScreenName =ScreenName;
             MembersBlackListItem.Name = Name;
-            MembersBlackListItem.MembersBlackListResult = MembersBlackListResult;
-            if(MembersBlackListResult!=undefined){
+            MembersBlackListItem.PlayerBlackListResult = PlayerBlackListResult;
+            if(PlayerBlackListResult!=undefined){
               res.send(beautify(MembersBlackListItem, null, 2, 100));
             }else{
 
@@ -3235,26 +3235,41 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
     }
     
     function GetParentPlayerLookUp(callback){
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'4');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'4');
-       }
-     });
+      if(PlayerExist==true){
+        GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+          if(response!=undefined){
+            PlayerRelationshipResult=response;
+            callback(null,'4');
+          }else{
+            PlayerRelationshipResult=undefined;
+            callback(null,'4');
+          }
+        });
+      }else{
+        console.log("Not A Player "+UserAccountID);
+        callback(null,'4');
+      }
+     
     }
+    //we can check for blocklisted of other accounts but filter out that its a actual player based on function PlayerCheck result
     function GetBlackListUserAccountID(callback){
-      BlackListUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          MembersBlackListResult= response;
-          callback(null,'5');
-        }else{
-          MembersBlackListResult=undefined;
-          callback(null,'5');
-        }
-      });
+      if(PlayerExist==true){
+        BlackListUserAccountID(UserAccountID,function(response){
+          if(response!=undefined){
+            PlayerBlackListResult= response;
+            callback(null,'5');
+          }else{
+            PlayerBlackListResult=undefined;
+            callback(null,'5');
+          }
+        });
+      }else{
+        console.log("Not A Player "+UserAccountID);
+        callback(null,'5');
+      }
+      
+      
+
     }
     
   }else{
