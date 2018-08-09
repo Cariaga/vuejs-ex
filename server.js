@@ -3145,7 +3145,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
     });
     
     function UserAccountCheck(callback){
-
+      console.log("UserAccountCheck "+ UserAccountID);
       isUserAccountIDExist(UserAccountID,function(response){
         if(response!=undefined){
           UserAccountIDExist= true;
@@ -3168,7 +3168,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         }
       });
     }
-    function PlayerCheck(callback){
+    /*function PlayerCheck(callback){
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
          PlayerExist= true;
@@ -3180,7 +3180,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
          callback(null,'3');
         }
       });
-    }
+    }*/
     
     /*function GetParentPlayerLookUp(callback){
      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
