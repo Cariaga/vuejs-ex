@@ -2952,7 +2952,9 @@ function BlackListStatusUpdate(BlackListID,UserAccountID,Status,callback){
     callback(undefined);
   });
 }
-
+app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
+  
+});
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
@@ -3145,7 +3147,6 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
           //its not a player and not blockable
           res.send({AccountNotPlayer:false});
         }
-        
       }else{
         res.send({UserInfoExist:false});
       }
