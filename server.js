@@ -4496,7 +4496,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
                                 });
                               }
                               function IsDepositHistoryIDExistCheck(callback){
-                                DepositHistoryUserAccountID(UserAccountID,DepositHistoryID,function(response){
+                                DepositHistoryIDUserAccountID(UserAccountID,DepositHistoryID,function(response){
                                   if(response!=undefined){
                                     DepositHistoryIDFound=true;
                                     callback(null,'2');
@@ -4557,7 +4557,36 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
  * @param {*} DepositHistoryID
  * @param {*} callback
  */
-function DepositHistoryUserAccountID(UserAccountID,DepositHistoryID,callback){
+function DepositHistoryIDUserAccountID(UserAccountID,DepositHistoryID,callback){
+  Models.DepositHistory.sync();
+  let result = Models.DepositHistory.findAll({ 
+    where: {
+      DepositHistoryID:DepositHistoryID,
+      UserAccountID:UserAccountID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
+
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} DepositHistoryID
+ * @param {*} callback
+ */
+function DepositHistoryUserAccountID(UserAccountID,callback){
   Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({ 
     where: {
@@ -4671,14 +4700,18 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       DepositListItem.TelephoneNumber = TelephoneNumber;
       DepositListItem.Name = Name;
       DepositListItem.ScreenName = ScreenName;
+      
+      DepositHistoryUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+
+        }
+      });
       res.send(DepositListItem);
     });
     function UserAccountCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
         if(response!=undefined){
           UserAccountIDExist= true;
-          RegisteredDate= response[0].RegisteredDate;
-          RegisteredTime = response[0].RegisteredTime;
           callback(null,'1');
         }else{
           UserAccountIDExist=false;
