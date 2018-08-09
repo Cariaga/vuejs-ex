@@ -4583,7 +4583,6 @@ function DepositHistoryIDUserAccountID(UserAccountID,DepositHistoryID,callback){
  *
  *
  * @param {*} UserAccountID
- * @param {*} DepositHistoryID
  * @param {*} callback
  */
 function DepositHistoryUserAccountID(UserAccountID,callback){
@@ -4692,7 +4691,8 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
   let ScreenName = undefined;
   let Name = undefined;
   let PlayerRelationshipResult =undefined;
-
+  let DepositHistoryExist =false;
+  let DepositHistoryResult = undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
       let DepositListItem = PlayerRelationshipResult;
@@ -4700,12 +4700,9 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       DepositListItem.TelephoneNumber = TelephoneNumber;
       DepositListItem.Name = Name;
       DepositListItem.ScreenName = ScreenName;
+      DepositListItem.DepositHistory= DepositHistoryResult;
       
-      DepositHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
 
-        }
-      });
       res.send(DepositListItem);
     });
     function UserAccountCheck(callback){
@@ -4756,6 +4753,18 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
          callback(null,'4');
        }
      });
+    }
+    function GetDepositHistory(callback){
+      DepositHistoryUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          DepositHistoryResult = response;
+          DepositHistoryExist=true;
+          callback(null,'5');
+        }else{
+          DepositHistoryExist=false;
+          callback(null,'5');
+        }
+      });
     }
   }else{
 
