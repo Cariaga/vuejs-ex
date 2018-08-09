@@ -3126,6 +3126,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
+  let RegisteredDate = undefined;
   let UserInfoExist = false;
   let PlayerExist = false;
   let Name = undefined;
@@ -3136,6 +3137,9 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   if(!isNullOrEmpty(UserAccountID)){
 
     async.series([UserAccountCheck,UserInfoCheck,/*PlayerCheck,*//*GetParentPlayerLookUp*//*,BlackListUserAccountID*/],function(response){
+      let MembersBlackListItem =undefined;
+      MembersBlackListItem.UserAccountID = UserAccountID;
+      MembersBlackListItem.RegisteredDate = RegisteredDate;
       res.send({success:true});
     // res.send(beautify(PlayerRelationshipResult, null, 2, 100));
     });
@@ -3145,6 +3149,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       isUserAccountIDExist(UserAccountID,function(response){
         if(response!=undefined){
           UserAccountIDExist= true;
+          RegisteredDate = response[0].updatedAt;
           callback(null,'1');
         }else{
           UserAccountIDExist=false;
