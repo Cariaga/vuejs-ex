@@ -4660,7 +4660,8 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
   let UserAccountIDExist = false;
   let UserInfoExist = false;
   let PlayerExist = false;
-  
+  let ScreenName = undefined;
+  let Name = undefined;
   let PlayerRelationshipResult =undefined;
 
   if(!isNullOrEmpty(UserAccountID)){
@@ -4700,6 +4701,7 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
          PlayerExist= true;
+         ScreenName = response[0].ScreenName;
          callback(null,'3');
         }else{
          PlayerExist= false;
