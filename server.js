@@ -3143,7 +3143,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
           res.send(UserAccountID);
         }else{
           //its not a player and not blockable
-          res.send({PlayerExist:false});
+          res.send({AccountNotPlayer:false});
         }
         
       }else{
