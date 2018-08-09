@@ -3182,14 +3182,14 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
     }
     function PlayerCheck(callback){
       PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
+        if(response!=undefined&&response.length>0){
          PlayerExist= true;
-         Name = response[0].Name;
          ScreenName = response[0].ScreenName;
-         callback(null,'3');
+         CurrentPoints = response[0].CurrentPoints;
+         callback(null,'2');
         }else{
          PlayerExist= false;
-         callback(null,'3');
+         callback(null,'2');
         }
       });
     }
