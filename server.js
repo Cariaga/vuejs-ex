@@ -2270,8 +2270,9 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
   let UserAccountIDExist = false;
   let RegisteredDate = undefined
   let RegisteredTime = undefined;
+  let PlayerRelationshipResult = undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,GetSupportTicketUserAccountID],function(response){
+    async.series([UserAccountCheck,GetSupportTicketUserAccountID,GetParentPlayerLookUp],function(response){
       if(UserAccountIDExist==true){
         if(SupportTicketExist==true){
           res.send({success:true});
@@ -2296,6 +2297,17 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
         }
       });
     }
+    function GetParentPlayerLookUp(callback){//Tree Parent of a Player
+      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          PlayerRelationshipResult=response;
+          callback(null,'4');
+        }else{
+          PlayerRelationshipResult=undefined;
+          callback(null,'4');
+        }
+      });
+     }
     function GetSupportTicketUserAccountID(callback){
       SupportTicketUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
@@ -7669,7 +7681,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
         }
       });
     }
-    function GetParentPlayerLookUp(callback){
+    function GetParentPlayerLookUp(callback){//Tree Parent of a Player
      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
        if(response!=undefined){
          PlayerRelationshipResult=response;
