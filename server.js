@@ -3306,6 +3306,9 @@ function BlackListUserAccountID(UserAccountID,callback){
 app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
+    async.series([],function(response){
+
+    });
   }
 });
 //--IPList ROUTING END
