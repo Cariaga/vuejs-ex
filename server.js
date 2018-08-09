@@ -2954,7 +2954,8 @@ function BlackListStatusUpdate(BlackListID,UserAccountID,Status,callback){
 }
 //blocklist Tester Only
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/ReplaceWith/UserAccountID2/:UserAccountID2', function (req, res) {
-  
+  let UserAccountID = req.params.UserAccountID;
+  let UserAccountID2 = req.params.UserAccountID2;
   Models.BlackList.update({
     UserAccountID: UserAccountID2,
   },{
