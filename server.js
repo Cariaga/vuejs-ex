@@ -3185,7 +3185,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         if(response!=undefined&&response.length>0){
          PlayerExist= true;
          ScreenName = response[0].ScreenName;
-         CurrentPoints = response[0].CurrentPoints;
+        
          callback(null,'2');
         }else{
          PlayerExist= false;
