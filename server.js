@@ -4655,7 +4655,10 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
 app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
+  let UserAccountIDExist = false;
+  let UserInfoExist = false;
   let PlayerExist = false;
+  
   let PlayerRelationshipResult =undefined;
 
   if(!isNullOrEmpty(UserAccountID)){
