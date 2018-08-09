@@ -4669,6 +4669,8 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       let DepositListItem = PlayerRelationshipResult;
       DepositListItem.PhoneNumber = PhoneNumber;
       DepositListItem.TelephoneNumber = TelephoneNumber;
+      DepositListItem.Name = Name;
+      DepositListItem.ScreenName = ScreenName;
       res.send();
     });
     function UserAccountCheck(callback){
@@ -4701,6 +4703,7 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
          PlayerExist= true;
+         Name = response[0].Name;
          ScreenName = response[0].ScreenName;
          callback(null,'3');
         }else{
