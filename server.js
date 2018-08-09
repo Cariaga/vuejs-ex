@@ -2260,7 +2260,7 @@ app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.SupportTicket.sync({alter:true});
   Models.SupportTicket.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 
@@ -2779,7 +2779,7 @@ app.get('/Api/v1/Notification/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Notification.sync({alter:true});
   Models.Notification.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---Notification ROUTING END
@@ -3086,7 +3086,7 @@ app.get('/Api/v1/BlackList/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.BlackList.sync({alter:true});
   Models.BlackList.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 /**
@@ -3422,7 +3422,7 @@ app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.LoginHistory.sync({alter:true});
   Models.LoginHistory.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---LoginHistory ROUTING END
@@ -3651,7 +3651,7 @@ app.get('/Api/v1/BankInformation/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.BankInformation.sync({alter:true});
   Models.BankInformation.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---BankInformation ROUTING END
@@ -4069,7 +4069,7 @@ app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.WithdrawHistory.sync({alter:true});
   Models.WithdrawHistory.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---WithdrawHistory ROUTING END
@@ -4675,7 +4675,7 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.DepositHistory.sync({alter:true});
   Models.DepositHistory.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 
@@ -4700,7 +4700,7 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
       DepositListItem.Name = Name;
       DepositListItem.ScreenName = ScreenName;
       DepositListItem.DepositHistory= DepositHistoryResult;
-      res.send(DepositListItem);
+      res.send(beautify(DepositListItem, null, 2, 100));
     });
     function UserAccountCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
@@ -4847,7 +4847,7 @@ app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.TransferHistory.sync({alter:true});
   Models.TransferHistory.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
@@ -5281,7 +5281,7 @@ app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.RoomConfiguration.sync({alter:true});
   Models.RoomConfiguration.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 
@@ -5716,7 +5716,7 @@ app.get('/Api/v1/GameHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.GameHistory.sync({alter:true});
   Models.GameHistory.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 /**
@@ -5961,7 +5961,7 @@ app.get('/Api/v1/UserInfo/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.UserInfo.sync({alter:true});
   Models.UserInfo.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---UserInfo ROUTING END
@@ -6130,7 +6130,7 @@ app.get('/Api/v1/AccessControl/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.AccessControl.sync({alter:true});
   Models.AccessControl.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---AccessControl ROUTING END
@@ -6298,7 +6298,7 @@ app.get('/Api/v1/UserAccount/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.UserAccount.sync({alter:true});
   Models.UserAccount.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
@@ -7128,7 +7128,7 @@ app.get('/Api/v1/Player/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Player.sync({alter:true});
   Models.Player.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 /**
@@ -7346,7 +7346,7 @@ app.get('/Api/v1/Shop/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Shop.sync({alter:true});
   Models.Shop.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---Shop ROUTING END
@@ -7546,7 +7546,7 @@ app.get('/Api/v1/Distributor/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Distributor.sync({alter:true});
   Models.Distributor.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---Distributor ROUTING END
@@ -7735,7 +7735,7 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HeadOffice.sync({alter:true});
   Models.HeadOffice.describe().then(result=>{
-    res.send([result]);
+    res.send(beautify(result, null, 2, 100));
   });
 });
 //---HeadOffice ROUTING END
@@ -7768,7 +7768,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
                   MembersListItem.RegisteredDate = RegisteredDate;
                   MembersListItem.RegisteredTime = RegisteredTime;
                   MembersListItem.LastLogin= LastLogin;
-                  res.send(MembersListItem);
+                  res.send(beautify(MembersListItem, null, 2, 100));
                 }else{
                   res.send({UserInfoExist:false});
                 }
