@@ -3309,6 +3309,72 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     async.series([],function(response){
 
     });
+    function UserAccountCheck(callback){
+      console.log("UserAccountCheck "+ UserAccountID);
+      isUserAccountIDExist(UserAccountID,function(response){
+        if(response!=undefined){
+          UserAccountIDExist= true;
+          RegisteredDate = response[0].updatedAt;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist=false;
+          callback(null,'1');
+        }
+      });
+    }
+    function UserInfoCheck(callback){
+      if(UserAccountIDExist==true){
+        UserInfoUserAccountID(UserAccountID,function(response){
+          if(response!=undefined){
+            UserInfoExist=true;
+           callback(null,'2');
+          }else{
+            UserInfoExist= false;
+           callback(null,'2');
+          }
+        });
+      }else{
+        callback(null,'2');
+      }
+      
+    }
+    function PlayerCheck(callback){
+      if(UserInfoExist==true){
+        PlayerUserAccountID(UserAccountID,function(response){
+          if(response!=undefined&&response.length>0){
+           PlayerExist= true;
+           Name= response[0].Name;
+           ScreenName = response[0].ScreenName;
+           callback(null,'3');
+          }else{
+           PlayerExist= false;
+           callback(null,'3');
+          }
+        });
+      }else{
+        callback(null,'3');
+      }
+      
+    }
+    
+    function GetParentPlayerLookUp(callback){
+      if(PlayerExist==true){
+        GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+          if(response!=undefined){
+            PlayerRelationshipResult=response;
+            callback(null,'4');
+          }else{
+            PlayerRelationshipResult=undefined;
+            callback(null,'4');
+          }
+        });
+      }else{
+        console.log("Not A Player "+UserAccountID);
+        callback(null,'4');
+      }
+     
+    }
+    
   }
 });
 //--IPList ROUTING END
