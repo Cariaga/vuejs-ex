@@ -4589,7 +4589,6 @@ function DepositHistoryUserAccountID(UserAccountID,callback){
   Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({ 
     where: {
-      DepositHistoryID:DepositHistoryID,
       UserAccountID:UserAccountID
    }
   }).then(function(result) {
