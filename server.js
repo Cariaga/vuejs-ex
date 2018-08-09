@@ -2267,9 +2267,11 @@ app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
 app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function (req, res){
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
-  let SupportTicketExist =false;
   let RegisteredDate = undefined
   let RegisteredTime = undefined;
+  let SupportTicketExist =false;
+  let Status = undefined;
+
   let ScreenName = undefined;
   let PlayerExist=undefined;
   let PlayerRelationshipResult = undefined;
@@ -2282,6 +2284,7 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
           OneOnOneResult.RegisteredDate = RegisteredDate;
           OneOnOneResult.RegisteredTime=RegisteredTime;
           OneOnOneResult.ScreenName=ScreenName;
+          OneOnOneResult.Status = Status;
           res.send(OneOnOneResult);
         }else{
           res.send({SupportTicketExist:false});
@@ -2331,6 +2334,7 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
       SupportTicketUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
           SupportTicketExist=true;
+          Status= response[0].Status;
           callback(null,'4');
         }else{
           SupportTicketExist=false;
