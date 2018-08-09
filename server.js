@@ -4655,6 +4655,8 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
 app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
+  let PhoneNumber = req.param.PhoneNumber;
+  let TelephoneNumber = req.param.TelephoneNumber;
   let UserAccountIDExist = false;
   let UserInfoExist = false;
   let PlayerExist = false;
@@ -4663,7 +4665,10 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
 
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
-      res.send(PlayerRelationshipResult);
+      let DepositListItem = PlayerRelationshipResult;
+      DepositListItem.PhoneNumber = PhoneNumber;
+      DepositListItem.TelephoneNumber = TelephoneNumber;
+      res.send();
     });
     function UserAccountCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
