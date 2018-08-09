@@ -2263,6 +2263,53 @@ app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
     res.send([result]);
   });
 });
+
+app.get('/Api/v1/SupportTicket/OneOnOne/:UserAccountID', function (req, res){
+  let UserAccountID = req.params.UserAccountID;
+  let SupportTicketExist =false;
+  let UserAccountIDExist = false;
+  let RegisteredDate = undefined
+  let RegisteredTime = undefined;
+  if(!isNullOrEmpty(UserAccountID)){
+    async.series([UserAccountCheck,GetSupportTicketUserAccountID],function(response){
+      if(UserAccountIDExist==true){
+        if(SupportTicketExist==true){
+          res.send({success:true});
+        }else{
+          res.send({SupportTicketExist:false});
+        }
+      }else{
+        res.send({UserAccountIDExist:false});
+      }
+      
+    });
+    
+    function UserAccountCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        if(response!=undefined){
+          UserAccountIDExist= true;
+          RegisteredDate= response[0].RegisteredDate;
+          RegisteredTime = response[0].RegisteredTime;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist=false;
+          callback(null,'1');
+        }
+      });
+    }
+    function GetSupportTicketUserAccountID(callback){
+      SupportTicketUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          SupportTicketExist=true;
+          callback(null,'2');
+        }else{
+          SupportTicketExist=false;
+          callback(null,'2');
+        }
+      });
+    }
+  }
+});
 app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -2296,6 +2343,26 @@ function SupportTicketUserAccountIDByStatus(UserAccountID,Status,callback){
     let result = Models.SupportTicket.findAll({ 
       where: {
         UserAccountID:UserAccountID,Status:Status
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
+}
+function SupportTicketUserAccountID(UserAccountID,callback){
+  Models.SupportTicket.sync();
+    let result = Models.SupportTicket.findAll({ 
+      where: {
+        UserAccountID:UserAccountID
      }
     }).then(function(result) {
       let Data = result.map(function(item) {
