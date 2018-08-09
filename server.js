@@ -4655,30 +4655,59 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
 app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
+  let PlayerExist = false;
+  let PlayerRelationshipResult =undefined;
+
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
-
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
+      res.send(PlayerRelationshipResult);
     });
-
+    function UserAccountCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        if(response!=undefined){
+          UserAccountIDExist= true;
+          RegisteredDate= response[0].RegisteredDate;
+          RegisteredTime = response[0].RegisteredTime;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist=false;
+          callback(null,'1');
+        }
+      });
+    }
+    function UserInfoCheck(callback){
+      UserInfoUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          UserInfoExist=true;
+          PhoneNumber = response[0].PhoneNumber;
+          TelephoneNumber = response[0].TelephoneNumber;
+         callback(null,'2');
+        }else{
+          UserInfoExist= false;
+         callback(null,'2');
+        }
+      });
+    }
     function PlayerCheck(callback){
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
          PlayerExist= true;
-         callback(null,'1');
+         callback(null,'3');
         }else{
          PlayerExist= false;
-         callback(null,'1');
+         callback(null,'3');
         }
       });
     }
+    
     function GetParentPlayerLookUp(callback){
      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
        if(response!=undefined){
          PlayerRelationshipResult=response;
-         callback(null,'2');
+         callback(null,'4');
        }else{
          PlayerRelationshipResult=undefined;
-         callback(null,'2');
+         callback(null,'4');
        }
      });
     }
