@@ -4114,7 +4114,7 @@ app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
   let WithdrawHistoryExist =false;
   let WithdrawHistoryResult = undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetDepositHistory],function(error,response){
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetWithdrawHistory],function(error,response){
       let WithdrawListItem = PlayerRelationshipResult;
       WithdrawListItem.PhoneNumber = PhoneNumber;
       WithdrawListItem.TelephoneNumber = TelephoneNumber;
