@@ -2266,13 +2266,17 @@ app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
 
 app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function (req, res){
   let UserAccountID = req.params.UserAccountID;
-  let SupportTicketExist =false;
   let UserAccountIDExist = false;
+  let SupportTicketExist =false;
   let RegisteredDate = undefined
   let RegisteredTime = undefined;
+  let ScreenName = undefined;
+  let CurrentPoints= undefined;
+  let PlayerExist=undefined;
   let PlayerRelationshipResult = undefined;
+ 
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,GetSupportTicketUserAccountID,GetParentPlayerLookUp],function(response){
+    async.series([UserAccountCheck,PlayerCheck,GetParentPlayerLookUp,GetSupportTicketUserAccountID],function(response){
       if(UserAccountIDExist==true){
         if(SupportTicketExist==true){
           let OneOnOneResult = PlayerRelationshipResult;
@@ -2300,14 +2304,27 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
         }
       });
     }
+    function PlayerCheck(callback){
+      PlayerUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+         PlayerExist= true;
+         ScreenName = response[0].ScreenName;
+         CurrentPoints = response[0].CurrentPoints;
+         callback(null,'2');
+        }else{
+         PlayerExist= false;
+         callback(null,'2');
+        }
+      });
+    }
     function GetParentPlayerLookUp(callback){//Tree Parent of a Player
       GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
           PlayerRelationshipResult=response;
-          callback(null,'4');
+          callback(null,'3');
         }else{
           PlayerRelationshipResult=undefined;
-          callback(null,'4');
+          callback(null,'3');
         }
       });
      }
@@ -2315,10 +2332,10 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
       SupportTicketUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
           SupportTicketExist=true;
-          callback(null,'2');
+          callback(null,'4');
         }else{
           SupportTicketExist=false;
-          callback(null,'2');
+          callback(null,'4');
         }
       });
     }
