@@ -2954,23 +2954,20 @@ function BlackListStatusUpdate(BlackListID,UserAccountID,Status,callback){
 }
 //blocklist Tester Only
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/ReplaceWith/UserAccountID2/:UserAccountID2', function (req, res) {
+  
   Models.BlackList.update({
-    UserAccountID: UserAccountID,
-    Status:Status,
-    Title: Title,
-    Description: Description,
-    ReportDate: ReportDate,
-    ReleaseDate: ReleaseDate
+    UserAccountID: UserAccountID2,
   },{
     where: {BlackListID: BlackListID , UserAccountID:UserAccountID }
   })
   .then(Success => {
-    callback("Updated");
+    res.send("Updated this is for testing pourpose");
   }).catch(error => {
     console.log("Error Updating BlackList with 8 params");
-    callback(undefined);
+    res.send(undefined);
   });
 });
+
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
