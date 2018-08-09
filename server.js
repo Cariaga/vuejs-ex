@@ -2275,7 +2275,10 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
     async.series([UserAccountCheck,GetSupportTicketUserAccountID,GetParentPlayerLookUp],function(response){
       if(UserAccountIDExist==true){
         if(SupportTicketExist==true){
-          res.send({success:true});
+          let OneOnOneResult = PlayerRelationshipResult;
+          OneOnOneResult.RegisteredDate = RegisteredDate;
+          OneOnOneResult.RegisteredTime=RegisteredTime;
+          res.send(OneOnOneResult);
         }else{
           res.send({SupportTicketExist:false});
         }
