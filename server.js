@@ -3136,7 +3136,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   let MembersBlackListResult= undefined;//the userAccount Must be a Player Type 
   if(!isNullOrEmpty(UserAccountID)){
    
-   async.series([UserAccountCheck,UserInfoCheck,/*PlayerCheck,*//*GetParentPlayerLookUp*//*,BlackListUserAccountID*/],function(error,response){
+   async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,/*GetParentPlayerLookUp*//*,BlackListUserAccountID*/],function(error,response){
     if(UserAccountIDExist==true){
       if(UserInfoExist==true){
         res.send(UserAccountID);
@@ -3180,7 +3180,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         }
       });
     }
-    /*function PlayerCheck(callback){
+    function PlayerCheck(callback){
       PlayerUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
          PlayerExist= true;
@@ -3192,7 +3192,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
          callback(null,'3');
         }
       });
-    }*/
+    }
     
     /*function GetParentPlayerLookUp(callback){
      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
@@ -8040,7 +8040,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
     }
     function PlayerCheck(callback){
       PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
+        if(response!=undefined&&response.length>0){
          PlayerExist= true;
          ScreenName = response[0].ScreenName;
          CurrentPoints = response[0].CurrentPoints;
