@@ -3125,10 +3125,18 @@ function BlackListAll(callback){
 app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
+  let UserAccountIDExist = false;
+  let UserInfoExist = false;
+  let PlayerExist = false;
+  let Name = undefined;
+  let ScreenName =undefined;
+  let PlayerRelationshipResult = undefined;
+
+  let MembersBlackListResult= undefined;
   if(!isNullOrEmpty(UserAccountID)){
 
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,BlackListUserAccountID],function(response){
-      
+      res.send(beautify(PlayerRelationshipResult, null, 2, 100));
     });
     
     function UserAccountCheck(callback){
@@ -3146,8 +3154,6 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       UserInfoUserAccountID(UserAccountID,function(response){
         if(response!=undefined){
           UserInfoExist=true;
-          PhoneNumber = response[0].PhoneNumber;
-          TelephoneNumber = response[0].TelephoneNumber;
          callback(null,'2');
         }else{
           UserInfoExist= false;
@@ -3182,9 +3188,9 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
     }
     BlackListUserAccountID(UserAccountID,function(response){
       if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
+        MembersBlackListResult= response;
       }else{
-        res.send({BlackListUserAccountIDExist:false});
+        MembersBlackListResult=undefined;
       }
     });
   }else{
