@@ -2271,7 +2271,6 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
   let RegisteredDate = undefined
   let RegisteredTime = undefined;
   let ScreenName = undefined;
-  let CurrentPoints= undefined;
   let PlayerExist=undefined;
   let PlayerRelationshipResult = undefined;
  
@@ -2282,6 +2281,7 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
           let OneOnOneResult = PlayerRelationshipResult;
           OneOnOneResult.RegisteredDate = RegisteredDate;
           OneOnOneResult.RegisteredTime=RegisteredTime;
+          OneOnOneResult.ScreenName=ScreenName;
           res.send(OneOnOneResult);
         }else{
           res.send({SupportTicketExist:false});
@@ -2309,7 +2309,6 @@ app.get('/Api/v1/SupportTicket/OneOnOne/UserAccountID/:UserAccountID', function 
         if(response!=undefined){
          PlayerExist= true;
          ScreenName = response[0].ScreenName;
-         CurrentPoints = response[0].CurrentPoints;
          callback(null,'2');
         }else{
          PlayerExist= false;
