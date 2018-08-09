@@ -2958,6 +2958,7 @@ function BlackListStatusUpdate(BlackListID,UserAccountID,Status,callback){
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/ReplaceWith/UserAccountID2/:UserAccountID2', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let UserAccountID2 = req.params.UserAccountID2;
+  Models.BlackList.sync();
   Models.BlackList.update({
     UserAccountID: UserAccountID2,
   },{
