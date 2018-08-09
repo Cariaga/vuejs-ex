@@ -4694,7 +4694,7 @@ app.get('/Api/v1/DepositList/UserAccount/:UserAccountID/', function (req, res) {
   let DepositHistoryExist =false;
   let DepositHistoryResult = undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetDepositHistory],function(error,response){
       let DepositListItem = PlayerRelationshipResult;
       DepositListItem.PhoneNumber = PhoneNumber;
       DepositListItem.TelephoneNumber = TelephoneNumber;
