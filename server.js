@@ -3137,7 +3137,12 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   if(!isNullOrEmpty(UserAccountID)){
    
    async.series([UserAccountCheck/*,UserInfoCheck,/*PlayerCheck,*//*GetParentPlayerLookUp*//*,BlackListUserAccountID*/],function(error,response){
-    res.send(UserAccountID);
+    if(UserAccountIDExist==true){
+      res.send(UserAccountID);
+    }else{
+      res.send({UserAccountIDExist:false});
+    }
+    
    // let MembersBlackListItem =undefined;
      // MembersBlackListItem.UserAccountID = UserAccountID;
      // MembersBlackListItem.RegisteredDate = RegisteredDate;
