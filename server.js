@@ -3154,7 +3154,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   let PlayerRelationshipResult = undefined;
   let MembersBlackListResult = undefined;
 
-  let MembersBlackListResult= undefined;//the userAccount Must be a Player Type 
+  let MembersBlackListResult= undefined;//the userAccount Must be a Player Type to have result
   if(!isNullOrEmpty(UserAccountID)){
    
    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,BlackListUserAccountID],function(error,response){
@@ -3167,7 +3167,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
             if(MembersBlackListResult!=undefined){
               res.send(MembersBlackListItem);
             }else{
-              
+
               res.send({MembersBlackListResult:false});
             }
            
