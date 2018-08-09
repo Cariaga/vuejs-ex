@@ -3126,6 +3126,60 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
+
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,BlackListUserAccountID],function(response){
+      
+    });
+    
+    function UserAccountCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        if(response!=undefined){
+          UserAccountIDExist= true;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist=false;
+          callback(null,'1');
+        }
+      });
+    }
+    function UserInfoCheck(callback){
+      UserInfoUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          UserInfoExist=true;
+          PhoneNumber = response[0].PhoneNumber;
+          TelephoneNumber = response[0].TelephoneNumber;
+         callback(null,'2');
+        }else{
+          UserInfoExist= false;
+         callback(null,'2');
+        }
+      });
+    }
+    function PlayerCheck(callback){
+      PlayerUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+         PlayerExist= true;
+         Name = response[0].Name;
+         ScreenName = response[0].ScreenName;
+         callback(null,'3');
+        }else{
+         PlayerExist= false;
+         callback(null,'3');
+        }
+      });
+    }
+    
+    function GetParentPlayerLookUp(callback){
+     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+       if(response!=undefined){
+         PlayerRelationshipResult=response;
+         callback(null,'4');
+       }else{
+         PlayerRelationshipResult=undefined;
+         callback(null,'4');
+       }
+     });
+    }
     BlackListUserAccountID(UserAccountID,function(response){
       if(response!=undefined){
         res.send(beautify(response, null, 2, 100));
