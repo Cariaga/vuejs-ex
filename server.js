@@ -3119,11 +3119,12 @@ function BlackListAll(callback){
       callback(undefined);
     });
 }
+//---BlackList ROUTING END
 
-app.get('/Api/v1/BlackList/UserAccountID/:UserAccountID', function (req, res) {
+//---MemberBlackList ROUTING START
+app.get('/Api/v1/MemberBlackList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
-
   if(!isNullOrEmpty(UserAccountID)){
     BlackListUserAccountID(UserAccountID,function(response){
       if(response!=undefined){
@@ -3156,8 +3157,9 @@ function BlackListUserAccountID(UserAccountID,callback){
     callback(undefined);
   });
 }
+//---MemberBlackList ROUTING END
 
-//---BlackList ROUTING END
+
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
   //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
