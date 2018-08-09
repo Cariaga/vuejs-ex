@@ -2856,6 +2856,8 @@ function AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseD
     callback(undefined);
   });
 }
+
+//block list updating of status
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
@@ -3159,7 +3161,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
           res.send(UserAccountID);
         }else{
           //its not a player and not blockable
-          res.send({AccountNotPlayer:false});
+          res.send({UserAccountIDNotPlayer:false});
         }
       }else{
         res.send({UserInfoExist:false});
