@@ -3123,6 +3123,15 @@ function BlackListAll(callback){
 app.get('/Api/v1/BlackList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
+
+  if(!isNullOrEmpty(UserAccountID)){
+    BlackListUserAccountID(UserAccountID,function(response){
+    });
+  }else{
+
+  }
+});
+function BlackListUserAccountID(UserAccountID,callback){
   Models.BlackList.sync();
   let result = Models.BlackList.findAll({ 
     where: {
@@ -3141,7 +3150,8 @@ app.get('/Api/v1/BlackList/UserAccountID/:UserAccountID', function (req, res) {
     console.log("Error "+result);
     callback(undefined);
   });
-});
+}
+
 //---BlackList ROUTING END
 //---LoginHistory ROUTING START
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
