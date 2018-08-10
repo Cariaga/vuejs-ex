@@ -144,13 +144,19 @@ app.post('/authenticate',
   app.use(passport.initialize());
   app.use(passport.session());
   passport.use(Models.User.createStrategy());
-  
+
+
+  app.post('/authenticate', passport.authenticate('local-signin',  { successRedirect: res.send("Authenticated"),
+  failureRedirect: '/signin'}
+  ));
+
+  /*
   app.post('/authenticate', passport.authenticate('local'),
   function(req, res) {
       res.send({
           UserName:req.body.UserName
       });
-    });
+    });*/
 
 
 var nexmo = new Nexmo({
