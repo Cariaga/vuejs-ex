@@ -3,6 +3,19 @@
 // set up ========================
 var express = require('express');
 var Nexmo = require('nexmo');
+
+
+passport.use(new Strategy(
+  function(token, cb) {
+    db.users.findByToken(token, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
+
+
+
 var app = express(); // create our app w/ express
 var async = require("async");
 var fs = require('fs')
@@ -20,7 +33,7 @@ var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
 var helmet = require('helmet');
-
+var passport = require('passport');
 var moment = require('moment');
 
 const Collection = require('linqjs');
@@ -72,6 +85,13 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
+
+app.get('/authenticate',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    res.json({ username: "test", email: "test" });
+  });
+
 
 
 var nexmo = new Nexmo({
