@@ -12,73 +12,13 @@ var BearerStrategy = require('passport-http-bearer').Strategy;
 var session = require("express-session");
 var cookieParser =require("cookie-parser");
 
-/*
-passport.use(new LocalStrategy({
-  usernameField: 'email',
-  passwordField: 'passwd',
-  session: false
-},
-function(username, password, done) {
-  // ...
-}
-));
-*/
-/*
-passport.use(new BearerStrategy(
-  function(token, cb) {
-    return cb(null, user);
-
-   /* db.users.findByToken(token, function(err, user) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      return cb(null, user);
-    });*/
- // }));
  
- passport.use('local',new LocalStrategy(
-  function (UserName, done) {
-      Models.UserAccount.sync();
-      Models.UserAccount.findOne({ where: { UserName: UserName } })
-           .then(function (users) {
-               if (!users) {
-                   return done(null, false, { message: 'Incorrect UserName.' });
-               }
-               return done(null, users);
-           })
-           .catch(err => done(err));
-  }
-));
+
+
 var app = express(); // create our app w/ express
 app.use(helmet());
-app.use(cookieParser());
-app.use(session({ secret: 'super-secret', resave: true, saveUninitialized: true }));
 
-/*
-passport.serializeUser(function(user,done){
-  done(null,user);
-});
-passport.deserializeUser(function(user,done){
-  Models.UserAccount.find({where:{UserID:user.id}}).Success(function(user){
-    done(null,user);
-  }).error(function(err){
-    done(err,null);
-  });
-});*/
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-// used to deserialize the user
-passport.deserializeUser(function(id, done) {
-  User.findById(id).then(function(user) {
-  if(user){
-    done(null, user.get());
-  }
-  else{
-    done(user.errors,null);
-  }
-  });
-});
 
 //must init passport
 
@@ -151,14 +91,45 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
-/*
-app.post('/authenticate',
-  passport.authenticate('bearer', { session: false }),
-  function(req, res) {
-    res.json({ username:"User", email: "Email" });
-  });*/
 
+
+///------------------------
+
+
+passport.use('local',new LocalStrategy(
+  function (UserName, done) {
+      Models.UserAccount.sync();
+      Models.UserAccount.findOne({ where: { UserName: UserName } })
+           .then(function (users) {
+               if (!users) {
+                   return done(null, false, { message: 'Incorrect UserName.' });
+               }
+               return done(null, users);
+           })
+           .catch(err => done(err));
+  }
+));
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+// used to deserialize the user
+passport.deserializeUser(function(id, done) {
+  User.findById(id).then(function(user) {
+  if(user){
+    done(null, user.get());
+  }
+  else{
+    done(user.errors,null);
+  }
+  });
+});
+
+  app.use(cookieParser());
+  app.use(session({ secret: 'super-secret', resave: true, saveUninitialized: true }));
   app.use(passport.initialize());
+  app.use(passport.session());
   passport.use(Models.User.createStrategy());
 
   app.get('/authenticate', function(req,res){
@@ -167,10 +138,12 @@ app.post('/authenticate',
   app.get('/Dashboard', function(req,res){
     res.send('Dashboard worked'); 
   });
-
+  
   app.post('/authenticate', passport.authenticate('local',  { successRedirect: '/Dashboard',
   failureRedirect: '/authenticate'}
   ));
+
+///------------------------
 
 var nexmo = new Nexmo({
     apiKey: "34958c75",
