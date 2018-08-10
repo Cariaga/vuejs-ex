@@ -98,6 +98,7 @@ app.use(passport.session());
 
 passport.use(new CustomStrategy(
   function(req, done) {
+    Models.UserAccount.sync();
     Models.UserAccount.findOne({
       UserName: req.body.UserName
     }, function (err, user) {
