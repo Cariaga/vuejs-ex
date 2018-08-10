@@ -9,7 +9,7 @@ var  passportLocalSequelize = require('passport-local-sequelize');
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var session = require("express-session");
-
+var cookieParser =require("cookie-parser");
 /*
 passport.use(new LocalStrategy({
   usernameField: 'email',
