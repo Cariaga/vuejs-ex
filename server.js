@@ -107,7 +107,7 @@ var auth = function(req, res, next) {
 
 
 //--testing for authetication API key START
-app.post('/Api/v1/posts', verifyToken, (req, res) => {  
+app.post('/Api/v1/Content', verifyToken, (req, res) => {  
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if(err) {
       res.sendStatus(403);
