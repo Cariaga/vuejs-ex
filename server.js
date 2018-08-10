@@ -6,7 +6,8 @@ var Nexmo = require('nexmo');
 var passport = require('passport');
 
 var LocalStrategy = require('passport-local').Strategy;
-var Strategy = require('passport-http-bearer').Strategy;
+var BearerStrategy = require('passport-http-bearer').Strategy;
+
 /*
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -18,9 +19,10 @@ function(username, password, done) {
 }
 ));
 */
-passport.use(new Strategy(
+passport.use(new BearerStrategy(
   function(token, cb) {
     return cb(null, user);
+
    /* db.users.findByToken(token, function(err, user) {
       if (err) { return cb(err); }
       if (!user) { return cb(null, false); }
@@ -102,11 +104,7 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
-/*
-app.post('/authenticate',passport.authenticate('basic', { session: false }),
-function(req, res) {
-  res.json({ id: req.user.id, username: "UserName" });
-});*/
+
 app.post('/authenticate',
   passport.authenticate('bearer', { session: false }),
   function(req, res) {
