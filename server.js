@@ -92,6 +92,27 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-----------------Fail
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -115,27 +136,6 @@ passport.use(new CustomStrategy(
     });
   }
 ));
-
-/*
- req.body.username
-done(err, user);
-
-
-Models.UserInfo.findAll({ 
-      where: {
-        Email: Email//not null
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-
-*/
 passport.use('strategy-name', new CustomStrategy(
   function(req, callback) {
     // Do your custom user finding logic here, or set to false based on req object
@@ -154,7 +154,7 @@ app.get('/Failed', function(req,res){
 app.get('/Sucess', function(req,res){
   res.send('Sucess'); 
 });
-
+*/
 ///------------------------ Fail
 /*
 
