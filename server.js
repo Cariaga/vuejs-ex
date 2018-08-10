@@ -98,7 +98,6 @@ app.use(passport.session());
 
 passport.use(new CustomStrategy(
   function(req, done) {
-    
     Models.UserAccount.sync();
     Models.UserAccount.findAll({ 
       where: {
@@ -109,13 +108,12 @@ passport.use(new CustomStrategy(
           return item;
       });
       if(Data.length>0){
-        done(err, user);
+        done(err, Data);
       }else{
         done(err,null);
       }
     });
   }
-  
 ));
 
 /*
