@@ -3,8 +3,8 @@
 // set up ========================
 var express = require('express');
 var Nexmo = require('nexmo');
-var passport = require('passport'), localPassport = require('passport-local').Strategy;
-
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'passwd',
