@@ -112,12 +112,25 @@ app.post('/Api/v1/Login', function (req, res) {
     res.json({token:token});
   });
 });
-app.post('/Api/v1/Content', function (req, res) {
+app.post('/Api/v1/Content',VerifyToken, function (req, res) {
   res.send({Content:true});
 });
 app.post('/Api/v1/Logout', function (req, res) {
   res.send({Logout:true});
 });
+//FORMAT of Token
+//Authorization : Bearer <access_token>
+
+//Verify Token
+function VerifyToken(req,res,next){
+  //get auth header value
+  let bearerHeader = req.headers['authorization'];
+  if(typeof bearerHeader!=='undefined'){
+
+  }else{
+    res.sendStatus(403);
+  }
+}
 
 //--testing for authetication API key END
 
