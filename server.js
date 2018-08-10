@@ -107,43 +107,53 @@ var auth = function(req, res, next) {
 
 
 //--testing for authetication API key START
-app.post('/Api/v1/Login', function (req, res) {
-
-  jwt.sign({UserName:"test",Password:"test"},'secretkey',{expiresIn:'1d'},function(err,token){//expiration is optional
-    res.json({token:token});
-  });
-});
-app.post('/Api/v1/Content',VerifyToken, function (req, res) {
-  jwt.verify(req.token,'secretkey',function(err,authData){
-    if(err){
+app.post('/Api/v1/posts', verifyToken, (req, res) => {  
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if(err) {
       res.sendStatus(403);
-    }else{
-      res.json({Content:true,authData:authData});
+    } else {
+      res.json({
+        message: 'Post created...',
+        authData
+      });
     }
   });
-  
 });
-app.post('/Api/v1/Logout', function (req, res) {
-  res.send({Logout:true});
+app.post('/Api/v1/authenticate', (req, res) => {
+  // Mock user
+  const user = {
+    id: 1, 
+    username: 'brad',
+    email: 'brad@gmail.com'
+  }
+
+  jwt.sign({user}, 'secretkey', { expiresIn: '1d' }, (err, token) => {
+    res.json({
+      token
+    });
+  });
 });
-//FORMAT of Token
-//Authorization : Bearer <access_token>
-//Verify Token
-function VerifyToken(req,res,next){
-  //explaination https://www.youtube.com/watch?v=7nafaH9SddU
-  //get auth header value
-  let bearerHeader = req.headers['authorization'];
-  if(typeof bearerHeader!=='undefined'){
-    //Split at the space
-    let bearer = bearerHeader.split(' ');
-    //get token from array
-    let bearerToken = bearer[1];
-    //set the token
+// FORMAT OF TOKEN
+// Authorization: Bearer <access_token>
+// Verify Token
+function verifyToken(req, res, next) {
+  // Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  // Check if bearer is undefined
+  if(typeof bearerHeader !== 'undefined') {
+    // Split at the space
+    const bearer = bearerHeader.split(' ');
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
     req.token = bearerToken;
+    // Next middleware
     next();
-  }else{
+  } else {
+    // Forbidden
     res.sendStatus(403);
   }
+
 }
 
 //--testing for authetication API key END
