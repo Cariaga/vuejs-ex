@@ -44,6 +44,12 @@ passport.use(new BearerStrategy(
 ));
 var app = express(); // create our app w/ express
 
+app.post('/authenticate', passport.authenticate('local'),
+function(req, res) {
+    res.send({
+        UserName:req.body.UserName
+    });
+  });
 //must init passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -123,13 +129,7 @@ app.post('/authenticate',
     res.json({ username:"User", email: "Email" });
   });*/
 
-app.post('/authenticate', passport.authenticate('local'),
-function(req, res) {
-    res.send({
-        url:'/Api/v1/UserAccount',
-        UserName:req.body.UserName
-    });
-  });
+
 
 
 var nexmo = new Nexmo({
