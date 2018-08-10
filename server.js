@@ -11,7 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var session = require("express-session");
 var cookieParser =require("cookie-parser");
-
+var jwt = require('jsonwebtoken');
  
 
 
