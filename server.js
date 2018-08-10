@@ -100,7 +100,7 @@ passport.use(new CustomStrategy(
   function(req, done) {
     Models.UserAccount.sync();
     Models.UserAccount.findOne({
-      UserName: req.body.UserName
+      username: req.body.username
     }, function (err, user) {
       done(err, user);
     });
@@ -113,11 +113,18 @@ passport.use('strategy-name', new CustomStrategy(
   }
 ));
 app.post('/authenticate',
-  passport.authenticate('strategy-name', { failureRedirect: '/login' }),
+  passport.authenticate('strategy-name', { failureRedirect: '/Failed' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/Sucess');
   }
 );
+app.get('/Failed', function(req,res){
+  res.send('Failed'); 
+});
+app.get('/Sucess', function(req,res){
+  res.send('Sucess'); 
+});
+
 ///------------------------ Fail
 /*
 
