@@ -108,13 +108,15 @@ var auth = function(req, res, next) {
 
 //--testing for authetication API key START
 app.post('/Api/v1/Login', function (req, res) {
-  res.send({Authenticate:true});
+  jwt.sign({UserName:"test",Password:"test"},'secretkey',function(err,token){
+    res.json({token:token});
+  });
 });
 app.post('/Api/v1/Content', function (req, res) {
-  res.send({Authenticate:true});
+  res.send({Content:true});
 });
 app.post('/Api/v1/Logout', function (req, res) {
-  res.send({Authenticate:true});
+  res.send({Logout:true});
 });
 
 //--testing for authetication API key END
