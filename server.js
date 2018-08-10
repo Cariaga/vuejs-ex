@@ -3,7 +3,7 @@
 // set up ========================
 var express = require('express');
 var Nexmo = require('nexmo');
-var passport = require('passport');
+var passport = require('passport'), localPassport = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -87,7 +87,7 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
-  app.post('/authenticate', 
+app.post('/authenticate', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
