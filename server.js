@@ -7,7 +7,7 @@ var passport = require('passport');
 
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
-
+var session = require("express-session");
 /*
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -52,6 +52,7 @@ function(req, res) {
     });
   });
 //must init passport
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
