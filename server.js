@@ -4,8 +4,14 @@
 var express = require('express');
 var Nexmo = require('nexmo');
 var passport = require('passport');
+
 var LocalStrategy = require('passport-local').Strategy;
 var Strategy = require('passport-http-bearer').Strategy;
+
+//must init passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 /*
 passport.use(new LocalStrategy({
   usernameField: 'email',
