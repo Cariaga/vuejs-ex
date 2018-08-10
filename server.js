@@ -5,14 +5,15 @@ var express = require('express');
 var Nexmo = require('nexmo');
 var passport = require('passport');
 
-passport.use(new Strategy(
-  function(token, cb) {
-    db.users.findByToken(token, function(err, user) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      return cb(null, user);
-    });
-  }));
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'passwd',
+  session: false
+},
+function(username, password, done) {
+  // ...
+}
+));
 
 
 
@@ -86,12 +87,11 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
-app.get('/authenticate',
-  passport.authenticate('bearer', { session: false }),
+  app.post('/authenticate', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
-    res.json({ username: "test", email: "test" });
+    res.redirect('/');
   });
-
 
 
 var nexmo = new Nexmo({

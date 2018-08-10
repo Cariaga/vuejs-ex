@@ -26,7 +26,8 @@
     "linqjs":"^0.0.6",
     "moment":"^2.22.2",
     "helmet":"^3.13.0",
-    "passport":"^0.4.0" 
+    "passport":"^0.4.0",
+    "passport-local":"^1.0.0"
     
   },
   "scripts": {
