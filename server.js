@@ -126,7 +126,12 @@ function VerifyToken(req,res,next){
   //get auth header value
   let bearerHeader = req.headers['authorization'];
   if(typeof bearerHeader!=='undefined'){
-
+    //Split at the space
+    let bearer = bearerHeader.split(' ');
+    //get token from array
+    let bearerToken = bearer[1];
+    //set the token
+    req.token = bearerToken;
   }else{
     res.sendStatus(403);
   }
