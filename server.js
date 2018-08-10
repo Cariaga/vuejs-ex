@@ -99,7 +99,7 @@ app.use(session({
 }));
 
 var auth = function(req, res, next) {
-  if (req.session && req.session.user === "amy" && req.session.admin)
+  if (req.session && req.session.user === "amy")
     return next();
   else
     return res.sendStatus(401);
