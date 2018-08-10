@@ -146,7 +146,7 @@ app.post('/authenticate',
   passport.use(Models.User.createStrategy());
 
 
-  app.post('/authenticate', passport.authenticate('local-signin',  { successRedirect: res.send("Authenticated"),
+  app.post('/authenticate', passport.authenticate('local-signin',  { successRedirect: '/',
   failureRedirect: '/signin'}
   ));
 
