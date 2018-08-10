@@ -559,6 +559,11 @@ const Notification =sequelize.define('Notification', {
     description: Sequelize.STRING,
     qty: Sequelize.INTEGER
   });
+  module.exports.signin = function(req,res){
+
+    res.render('signin'); 
+  
+  }
   module.exports.User = User;
   module.exports.HeadOffice =HeadOffice;
   module.exports.Distributor =Distributor;

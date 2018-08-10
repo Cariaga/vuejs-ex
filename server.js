@@ -162,9 +162,12 @@ app.post('/authenticate',
   app.use(passport.session());
   passport.use(Models.User.createStrategy());
 
-
+  app.get('/authenticate', function(req,res){
+    res.render('authenticate'); 
+  });
+  
   app.post('/authenticate', passport.authenticate('local',  { successRedirect: '/Worked',
-  failureRedirect: '/FailedSignIn'}
+  failureRedirect: '/authenticate'}
   ));
 
   /*
