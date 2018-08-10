@@ -65,6 +65,20 @@ passport.deserializeUser(function(user,done){
   });
 });*/
 
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+// used to deserialize the user
+passport.deserializeUser(function(id, done) {
+  User.findById(id).then(function(user) {
+  if(user){
+    done(null, user.get());
+  }
+  else{
+    done(user.errors,null);
+  }
+  });
+});
 
 //must init passport
 
