@@ -132,6 +132,7 @@ function VerifyToken(req,res,next){
     let bearerToken = bearer[1];
     //set the token
     req.token = bearerToken;
+    next();
   }else{
     res.sendStatus(403);
   }
