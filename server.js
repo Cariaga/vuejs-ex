@@ -88,7 +88,7 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
 });
 
 app.post('/authenticate', 
-  passport.authenticate('local', { failureRedirect: '/login' }),
+  passport.authenticate('local', { failureRedirect: '/authenticate' }),
   function(req, res) {
     res.redirect('/');
   });
