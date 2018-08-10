@@ -104,6 +104,8 @@ var auth = function(req, res, next) {
   else
     return res.sendStatus(401);
 };
+
+//--testing for season based authentication START
 // Login endpoint
 app.post('/authenticate', function (req, res) {
   if (!req.body.UserName) {
@@ -123,101 +125,7 @@ app.get('/logout', function (req, res) {
 app.get('/content', auth, function (req, res) {
   res.send("You can only see this after you've logged in.");
 });
-
-
-/*-----------------Fail
-app.use(cookieParser());
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new CustomStrategy(
-  function(req, done) {
-    Models.UserAccount.sync();
-    Models.UserAccount.findAll({ 
-      where: {
-        UserName: req.body.UserName//not null
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        done(err, Data);
-      }else{
-        done(err,null);
-      }
-    });
-  }
-));
-passport.use('strategy-name', new CustomStrategy(
-  function(req, callback) {
-    // Do your custom user finding logic here, or set to false based on req object
-    callback(null, user);
-  }
-));
-app.post('/authenticate',
-  passport.authenticate('strategy-name', { failureRedirect: '/Failed' }),
-  function(req, res) {
-    res.redirect('/Sucess');
-  }
-);
-app.get('/Failed', function(req,res){
-  res.send('Failed'); 
-});
-app.get('/Sucess', function(req,res){
-  res.send('Sucess'); 
-});
-*/
-///------------------------ Fail
-/*
-
-passport.use('local',new LocalStrategy(
-  function (UserName, done) {
-      Models.UserAccount.sync();
-      Models.UserAccount.findOne({ where: { UserName: UserName } })
-           .then(function (users) {
-               if (!users) {
-                   return done(null, false, { message: 'Incorrect UserName.' });
-               }
-               return done(null, users);
-           })
-           .catch(err => done(err));
-  }
-));
-
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-// used to deserialize the user
-passport.deserializeUser(function(id, done) {
-  User.findById(id).then(function(user) {
-  if(user){
-    done(null, user.get());
-  }
-  else{
-    done(user.errors,null);
-  }
-  });
-});
-
-  app.use(cookieParser());
-  app.use(passport.initialize());
-  app.use(passport.session());
-  passport.use(Models.User.createStrategy());
-
-  app.get('/authenticate', function(req,res){
-    res.send('authenticate Failed'); 
-  });
-  app.get('/Dashboard', function(req,res){
-    res.send('Dashboard worked'); 
-  });
-  
-  app.post('/authenticate', passport.authenticate('local',  { successRedirect: '/Dashboard',
-  failureRedirect: '/authenticate'}
-  ));
-*/
-///------------------------
+//--testing for season based authentication END
 
 var nexmo = new Nexmo({
     apiKey: "34958c75",
