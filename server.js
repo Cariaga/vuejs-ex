@@ -1,6 +1,7 @@
 // server.js
 "use strict";
 // set up ========================
+var helmet = require('helmet');
 var express = require('express');
 var Nexmo = require('nexmo');
 var passport = require('passport');
@@ -44,6 +45,11 @@ passport.use(new BearerStrategy(
   }
 ));
 var app = express(); // create our app w/ express
+app.use(helmet());
+
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.post('/authenticate', passport.authenticate('local'),
 function(req, res) {
@@ -52,9 +58,7 @@ function(req, res) {
     });
   });
 //must init passport
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 var async = require("async");
 var fs = require('fs')
@@ -71,7 +75,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
-var helmet = require('helmet');
+
 
 var moment = require('moment');
 
@@ -86,7 +90,7 @@ app.use(morgan('combined')); // log every request to the console
 app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
-app.use(helmet());
+
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
