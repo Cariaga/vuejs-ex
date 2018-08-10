@@ -92,14 +92,27 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
-
-
-
-
-
-
-
-
+passport.use(new CustomStrategy(
+  function(req, done) {
+    User.findOne({
+      username: req.body.username
+    }, function (err, user) {
+      done(err, user);
+    });
+  }
+));
+passport.use('strategy-name', new CustomStrategy(
+  function(req, callback) {
+    // Do your custom user finding logic here, or set to false based on req object
+    callback(null, user);
+  }
+));
+app.post('/authenticate',
+  passport.authenticate('custom', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  }
+);
 ///------------------------ Fail
 /*
 
