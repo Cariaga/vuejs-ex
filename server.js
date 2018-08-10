@@ -32,6 +32,7 @@ passport.use(new BearerStrategy(
  // }));
  passport.use(new LocalStrategy(
   function (UserName, done) {
+      Models.UserAccount.sync();
       Models.UserAccount.findOne({ where: { UserName: UserName } })
            .then(function (users) {
                if (!users) {
