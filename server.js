@@ -113,7 +113,7 @@ passport.use('strategy-name', new CustomStrategy(
   }
 ));
 app.post('/authenticate',
-  passport.authenticate('custom', { failureRedirect: '/login' }),
+  passport.authenticate('strategy-name', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   }
