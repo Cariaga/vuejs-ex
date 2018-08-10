@@ -105,6 +105,14 @@ var auth = function(req, res, next) {
     return res.sendStatus(401);
 };
 
+
+//--testing for authetication API key START
+
+//--testing for authetication API key END
+
+
+
+
 //--testing for season based authentication START
 // Login endpoint
 app.post('/authenticate', function (req, res) {
