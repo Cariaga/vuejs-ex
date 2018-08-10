@@ -107,6 +107,15 @@ var auth = function(req, res, next) {
 
 
 //--testing for authetication API key START
+app.post('/Api/v1/Login', function (req, res) {
+  res.send({Authenticate:true});
+});
+app.post('/Api/v1/Content', function (req, res) {
+  res.send({Authenticate:true});
+});
+app.post('/Api/v1/Logout', function (req, res) {
+  res.send({Authenticate:true});
+});
 
 //--testing for authetication API key END
 
