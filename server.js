@@ -126,8 +126,8 @@ app.post('/authenticate',
 app.post('/authenticate', passport.authenticate('local'),
 function(req, res) {
     res.send({
-        url:'/profile',
-        username:req.body.username
+        url:'/Api/v1/UserAccount',
+        UserName:req.body.UserName
     });
   });
 
