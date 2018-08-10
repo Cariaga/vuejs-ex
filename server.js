@@ -106,7 +106,7 @@ var auth = function(req, res, next) {
 };
 // Login endpoint
 app.post('/login', function (req, res) {
-  if (!req.query.username || !req.query.password) {
+  if (!req.body.UserName) {
     res.send('login failed');    
   } else if(req.body.UserName === "amy") {
     req.session.user = "amy";
