@@ -172,15 +172,6 @@ app.post('/authenticate',
   failureRedirect: '/authenticate'}
   ));
 
-  /*
-  app.post('/authenticate', passport.authenticate('local'),
-  function(req, res) {
-      res.send({
-          UserName:req.body.UserName
-      });
-    });*/
-
-
 var nexmo = new Nexmo({
     apiKey: "34958c75",
     apiSecret: "VnTUCGBvp3yr2onE",
