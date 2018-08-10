@@ -19,6 +19,7 @@ function(username, password, done) {
 }
 ));
 */
+/*
 passport.use(new BearerStrategy(
   function(token, cb) {
     return cb(null, user);
@@ -28,8 +29,19 @@ passport.use(new BearerStrategy(
       if (!user) { return cb(null, false); }
       return cb(null, user);
     });*/
-  }));
-
+ // }));
+ passport.use(new LocalStrategy(
+  function (UserName, done) {
+      Models.UserAccount.findOne({ where: { UserName: UserName } })
+           .then(function (users) {
+               if (!users) {
+                   return done(null, false, { message: 'Incorrect UserName.' });
+               }
+               return done(null, users);
+           })
+           .catch(err => done(err));
+  }
+));
 var app = express(); // create our app w/ express
 
 //must init passport
@@ -104,11 +116,19 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
-
+/*
 app.post('/authenticate',
   passport.authenticate('bearer', { session: false }),
   function(req, res) {
     res.json({ username:"User", email: "Email" });
+  });*/
+
+app.post('/authenticate', passport.authenticate('local'),
+function(req, res) {
+    res.send({
+        url:'/profile',
+        username:req.body.username
+    });
   });
 
 
