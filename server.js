@@ -98,14 +98,46 @@ app.use(passport.session());
 
 passport.use(new CustomStrategy(
   function(req, done) {
+    
     Models.UserAccount.sync();
-    Models.UserAccount.findOne({
-      username: req.body.username
-    }, function (err, user) {
-      done(err, user);
+    Models.UserAccount.findAll({ 
+      where: {
+        UserName: req.body.UserName//not null
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        done(err, user);
+      }else{
+        done(err,null);
+      }
     });
   }
+  
 ));
+
+/*
+ req.body.username
+done(err, user);
+
+
+Models.UserInfo.findAll({ 
+      where: {
+        Email: Email//not null
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+
+*/
 passport.use('strategy-name', new CustomStrategy(
   function(req, callback) {
     // Do your custom user finding logic here, or set to false based on req object
