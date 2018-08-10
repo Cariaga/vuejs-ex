@@ -32,7 +32,8 @@
     "express-session":"^1.15.6",
     "cookie-parser":"^1.4.3",
     "connect-multiparty":"^2.1.1",
-    "passport-local-sequelize":"^0.8.0"
+    "passport-local-sequelize":"^0.8.0",
+    "bcrypt-nodejs": "^0.0.3"
     
   },
   "scripts": {
