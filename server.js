@@ -92,6 +92,10 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
 passport.use(new CustomStrategy(
   function(req, done) {
     User.findOne({
