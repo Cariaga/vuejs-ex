@@ -87,13 +87,10 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
-app.post('/authenticate',
-  passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.send({Success:true});
-  });
+app.post('/authenticate',passport.authenticate('basic', { session: false }),
+function(req, res) {
+  res.json({ id: req.user.id, username: "UserName" });
+});
 
 
 var nexmo = new Nexmo({
