@@ -87,10 +87,12 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   dialect: 'mysql'
 });
 
-app.get('/authenticate', 
-  passport.authenticate('local', { failureRedirect: '/authenticate' }),
+app.post('/authenticate',
+  passport.authenticate('local'),
   function(req, res) {
-    res.redirect('/');
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.send({Success:true});
   });
 
 
