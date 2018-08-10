@@ -163,10 +163,12 @@ app.post('/authenticate',
   passport.use(Models.User.createStrategy());
 
   app.get('/authenticate', function(req,res){
-    res.send('authenticate'); 
+    res.send('authenticate Failed'); 
   });
-  
-  app.post('/authenticate', passport.authenticate('local',  { successRedirect: '/Worked',
+  app.get('/Dashboard', function(req,res){
+    res.send('Dashboard worked'); 
+  });
+  app.post('/authenticate', passport.authenticate('local',  { successRedirect: '/Dashboard',
   failureRedirect: '/authenticate'}
   ));
 
