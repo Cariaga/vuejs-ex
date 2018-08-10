@@ -98,8 +98,8 @@ app.use(passport.session());
 
 passport.use(new CustomStrategy(
   function(req, done) {
-    User.findOne({
-      username: req.body.username
+    Models.UserAccount.findOne({
+      UserName: req.body.UserName
     }, function (err, user) {
       done(err, user);
     });
