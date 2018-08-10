@@ -113,15 +113,20 @@ app.post('/Api/v1/Login', function (req, res) {
   });
 });
 app.post('/Api/v1/Content',VerifyToken, function (req, res) {
-  jwt.verify(req.token);
-  res.send({Content:true});
+  jwt.verify(req.token,'secretkey',function(err,authData){
+    if(err){
+      res.sendStatus(403);
+    }else{
+      res.json({Content:true,authData:authData});
+    }
+  });
+  
 });
 app.post('/Api/v1/Logout', function (req, res) {
   res.send({Logout:true});
 });
 //FORMAT of Token
 //Authorization : Bearer <access_token>
-
 //Verify Token
 function VerifyToken(req,res,next){
   //get auth header value
