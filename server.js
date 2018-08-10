@@ -109,7 +109,7 @@ app.post('/login', function (req, res) {
   if (!req.body.UserName) {
     res.send('login failed');    
   } else if(req.body.UserName === "amy") {
-    req.session.user = "amy";
+    req.session.UserName = "amy";
     res.send("login success!");
   }
 });
