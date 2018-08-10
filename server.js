@@ -113,6 +113,7 @@ app.post('/Api/v1/Login', function (req, res) {
   });
 });
 app.post('/Api/v1/Content',VerifyToken, function (req, res) {
+  jwt.verify(req.token);
   res.send({Content:true});
 });
 app.post('/Api/v1/Logout', function (req, res) {
