@@ -24,7 +24,8 @@
     "async":"^2.6.1",
     "sendmail":"^1.4.1",
     "linqjs":"^0.0.6",
-    "moment":"^2.22.2"
+    "moment":"^2.22.2",
+    "helmet":"^3.13.0"
     
   },
   "scripts": {

@@ -19,6 +19,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
+var helmet = require('helmet');
 
 var moment = require('moment');
 
@@ -33,6 +34,7 @@ app.use(morgan('combined')); // log every request to the console
 app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
+app.use(helmet());
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -3306,8 +3308,8 @@ function BlackListUserAccountID(UserAccountID,callback){
 app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([],function(response){
-
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck],function(error,response){
+      res.send({Success:true});
     });
     function UserAccountCheck(callback){
       console.log("UserAccountCheck "+ UserAccountID);
@@ -3374,7 +3376,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
       }
      
     }
-    
+
   }
 });
 //--IPList ROUTING END
@@ -5960,9 +5962,6 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
                           }else{
                             res.send({Success:false});
                           }
-
-
-
                         });
                         function IsUserAccountIDExistCheck(callback){
                           isUserAccountIDExist(UserAccountID,function(response){
@@ -5979,9 +5978,6 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
                         function IsGameHistoryIDExistCheck(callback){
                           callback(null,'2');
                         }
-                     
-
-
                         res.send({success:true});
                       }else{
                         res.send({AfterPointsMissing:true});
@@ -8458,12 +8454,7 @@ app.get('/WithdrawHistory',function (req, res) {
     }
   }*/
 });
-
-
-
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
-  
-
 module.exports = app;
