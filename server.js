@@ -3,7 +3,7 @@
 // set up ========================
 var express = require('express');
 var Nexmo = require('nexmo');
-
+var passport = require('passport');
 
 passport.use(new Strategy(
   function(token, cb) {
@@ -33,7 +33,7 @@ var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
 var helmet = require('helmet');
-var passport = require('passport');
+
 var moment = require('moment');
 
 const Collection = require('linqjs');
