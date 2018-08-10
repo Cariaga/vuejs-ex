@@ -127,7 +127,6 @@ passport.deserializeUser(function(id, done) {
 });
 
   app.use(cookieParser());
-  app.use(session({ secret: 'super-secret', resave: true, saveUninitialized: true }));
   app.use(passport.initialize());
   app.use(passport.session());
   passport.use(Models.User.createStrategy());
