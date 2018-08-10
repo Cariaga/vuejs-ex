@@ -163,7 +163,7 @@ app.post('/authenticate',
   passport.use(Models.User.createStrategy());
 
   app.get('/authenticate', function(req,res){
-    res.render('authenticate'); 
+    res.send('authenticate'); 
   });
   
   app.post('/authenticate', passport.authenticate('local',  { successRedirect: '/Worked',
