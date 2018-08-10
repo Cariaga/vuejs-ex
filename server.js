@@ -49,6 +49,17 @@ app.use(helmet());
 
 app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 
+passport.serializeUser(function(user,done){
+  done(null,user);
+});
+passport.deserializeUser(function(user,done){
+  Models.UserAccount.find({where:{UserID:user.id}}).Success(function(user){
+    done(null,user);
+  }).error(function(err){
+    done(err,null);
+  });
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 
