@@ -93,8 +93,15 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
 });
 
 
-///------------------------
 
+
+
+
+
+
+
+///------------------------ Fail
+/*
 
 passport.use('local',new LocalStrategy(
   function (UserName, done) {
@@ -141,7 +148,7 @@ passport.deserializeUser(function(id, done) {
   app.post('/authenticate', passport.authenticate('local',  { successRedirect: '/Dashboard',
   failureRedirect: '/authenticate'}
   ));
-
+*/
 ///------------------------
 
 var nexmo = new Nexmo({
