@@ -19,7 +19,6 @@ function(username, password, done) {
 */
 passport.use(new Strategy(
   function(token, cb) {
-
     return cb(null, user);
    /* db.users.findByToken(token, function(err, user) {
       if (err) { return cb(err); }
