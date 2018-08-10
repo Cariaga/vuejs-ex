@@ -8,9 +8,9 @@
     "body-parser"    : "^1.18.3",
     "express"        : "^4.16.3",
     "morgan"         : "^1.9.0",
-    "mongoose"       : "^5.2.4",
+    "mongoose"       : "^5.2.7",
     "mysql":"^2.16.0",
-    "mysql2":"^1.5.3",
+    "mysql2":"^1.6.1",
     "serve-static":"1.13.2",
     "request":"^2.87.0",
     "is-null-or-empty":"^0.0.1",
@@ -20,12 +20,13 @@
     "cors":"^2.8.4",
     "uuid":"^3.3.2",
     "password-validator":"~4.1.1",
-    "validator":"^10.4.0",
+    "validator":"^10.5.0",
     "async":"^2.6.1",
     "sendmail":"^1.4.1",
     "linqjs":"^0.0.6",
     "moment":"^2.22.2",
-    "helmet":"^3.13.0"
+    "helmet":"^3.13.0",
+    "passport":"^0.4.0" 
     
   },
   "scripts": {
