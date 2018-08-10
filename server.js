@@ -108,7 +108,8 @@ var auth = function(req, res, next) {
 
 //--testing for authetication API key START
 app.post('/Api/v1/Login', function (req, res) {
-  jwt.sign({UserName:"test",Password:"test"},'secretkey',{expiresIn:'1d'},function(err,token){
+
+  jwt.sign({UserName:"test",Password:"test"},'secretkey',{expiresIn:'1d'},function(err,token){//expiration is optional
     res.json({token:token});
   });
 });
