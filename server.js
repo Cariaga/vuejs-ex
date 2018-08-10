@@ -5,10 +5,11 @@ var helmet = require('helmet');
 var express = require('express');
 var Nexmo = require('nexmo');
 var passport = require('passport');
-
+var  passportLocalSequelize = require('passport-local-sequelize');
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var session = require("express-session");
+
 /*
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -46,9 +47,10 @@ passport.use(new BearerStrategy(
 ));
 var app = express(); // create our app w/ express
 app.use(helmet());
+app.use(cookieParser());
+app.use(session({ secret: 'super-secret', resave: true, saveUninitialized: true }));
 
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
-
+/*
 passport.serializeUser(function(user,done){
   done(null,user);
 });
@@ -58,17 +60,18 @@ passport.deserializeUser(function(user,done){
   }).error(function(err){
     done(err,null);
   });
-});
+});*/
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+passport.use(Models.User.createStrategy());
+/*
 app.post('/authenticate', passport.authenticate('local'),
 function(req, res) {
     res.send({
         UserName:req.body.UserName
     });
-  });
+  });*/
 //must init passport
 
 

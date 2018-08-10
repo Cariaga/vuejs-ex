@@ -1,13 +1,28 @@
 var express = require('express');
 const mysql = require('mysql2');
 const Sequelize = require('sequelize');
-
+const  passportLocalSequelize = require('passport-local-sequelize');
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
   dialect: 'mysql',
   define: { engine: 'InnoDB' }
 });
+
+
+var User = mydb.define('User', {
+  nick: Sequelize.STRING,
+  myhash: Sequelize.STRING,
+  mysalt: Sequelize.STRING
+});
+
+passportLocalSequelize.attachToUser(User, {
+  usernameField: 'nick',
+  hashField: 'myhash',
+  saltField: 'mysalt'
+});
+
+
 //<summary>
 //we have Dedicated Headoffice,Distributer,Shop,Player tables because if we used account type we would have a many to many relationship issue and a lot of self joins queries 
 //this way now we have a hierarchy Getting its children/subtype will be easier to read from HeadOffice Down to the Player e.g HeadOffice>Distributor>Shop>Player
@@ -544,6 +559,7 @@ const Notification =sequelize.define('Notification', {
     description: Sequelize.STRING,
     qty: Sequelize.INTEGER
   });
+  module.exports.User = User;
   module.exports.HeadOffice =HeadOffice;
   module.exports.Distributor =Distributor;
   module.exports.Shop =Shop;
