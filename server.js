@@ -4,7 +4,9 @@
 var express = require('express');
 var Nexmo = require('nexmo');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy
+var LocalStrategy = require('passport-local').Strategy;
+var Strategy = require('passport-http-bearer').Strategy;
+/*
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'passwd',
@@ -14,8 +16,15 @@ function(username, password, done) {
   // ...
 }
 ));
-
-
+*/
+passport.use(new Strategy(
+  function(token, cb) {
+    db.users.findByToken(token, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
 
 var app = express(); // create our app w/ express
 var async = require("async");
@@ -86,11 +95,16 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   port: 3306,
   dialect: 'mysql'
 });
-
+/*
 app.post('/authenticate',passport.authenticate('basic', { session: false }),
 function(req, res) {
   res.json({ id: req.user.id, username: "UserName" });
-});
+});*/
+app.post('/authenticate',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    res.json({ username: req.user.username, email: req.user.emails[0].value });
+  });
 
 
 var nexmo = new Nexmo({
