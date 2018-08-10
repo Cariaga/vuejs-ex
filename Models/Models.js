@@ -10,7 +10,7 @@ const  sequelize = new Sequelize('sampledb', 'user', 'user', {
 });
 
 
-var User = mydb.define('User', {
+var User = sequelize.define('User', {
   nick: Sequelize.STRING,
   myhash: Sequelize.STRING,
   mysalt: Sequelize.STRING
