@@ -99,13 +99,13 @@ app.use(session({
 }));
 
 var auth = function(req, res, next) {
-  if (req.session && req.session.user === "amy")
+  if (req.session && req.session.UserName === "amy")
     return next();
   else
     return res.sendStatus(401);
 };
 // Login endpoint
-app.post('/login', function (req, res) {
+app.post('/authenticate', function (req, res) {
   if (!req.body.UserName) {
     res.send('login failed');    
   } else if(req.body.UserName === "amy") {
