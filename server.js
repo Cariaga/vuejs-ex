@@ -62,16 +62,7 @@ passport.deserializeUser(function(user,done){
   });
 });*/
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(Models.User.createStrategy());
 
-app.post('/authenticate', passport.authenticate('local'),
-function(req, res) {
-    res.send({
-        UserName:req.body.UserName
-    });
-  });
 //must init passport
 
 
@@ -150,7 +141,16 @@ app.post('/authenticate',
     res.json({ username:"User", email: "Email" });
   });*/
 
-
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use(Models.User.createStrategy());
+  
+  app.post('/authenticate', passport.authenticate('local'),
+  function(req, res) {
+      res.send({
+          UserName:req.body.UserName
+      });
+    });
 
 
 var nexmo = new Nexmo({
