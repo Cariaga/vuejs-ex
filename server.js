@@ -129,6 +129,7 @@ app.post('/Api/v1/Logout', function (req, res) {
 //Authorization : Bearer <access_token>
 //Verify Token
 function VerifyToken(req,res,next){
+  //explaination https://www.youtube.com/watch?v=7nafaH9SddU
   //get auth header value
   let bearerHeader = req.headers['authorization'];
   if(typeof bearerHeader!=='undefined'){
