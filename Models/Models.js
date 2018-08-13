@@ -503,14 +503,11 @@ BlackList.belongsTo(UserAccount, {
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
 
-
-
 const SupportTicket =sequelize.define('SupportTicket', {
   SupportTicketID: {//PK Can be used to Connect to A user Chat Room Name 
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-
   },
   UserAccountID:{
     type: Sequelize.STRING,
@@ -525,6 +522,7 @@ const SupportTicket =sequelize.define('SupportTicket', {
   Title: Sequelize.STRING,
   Description: Sequelize.STRING,
   Reason:Sequelize.STRING,
+  Answer:Sequelize.STRING,
   Time: Sequelize.TIME,
   Date:Sequelize.DATE,
   Status: Sequelize.STRING

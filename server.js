@@ -2555,15 +2555,19 @@ app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID', function (req, res){
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,PlayerCheck,GetParentPlayerLookUp,GetSupportTicketUserAccountID],function(response){
       if(UserAccountIDExist==true){
-        if(SupportTicketExist==true){
-          let OneOnOneResult = PlayerRelationshipResult;
-          OneOnOneResult.RegisteredDate = RegisteredDate;
-          OneOnOneResult.RegisteredTime=RegisteredTime;
-          OneOnOneResult.ScreenName=ScreenName;
-          OneOnOneResult.Status = Status;
-          res.send(OneOnOneResult);
+        if(PlayerExist==true){
+          if(SupportTicketExist==true){
+            let OneOnOneResult = PlayerRelationshipResult;
+            OneOnOneResult.RegisteredDate = RegisteredDate;
+            OneOnOneResult.RegisteredTime=RegisteredTime;
+            OneOnOneResult.ScreenName=ScreenName;
+            OneOnOneResult.Status = Status;
+            res.send(OneOnOneResult);
+          }else{
+            res.send({SupportTicketExist:false});
+          }
         }else{
-          res.send({SupportTicketExist:false});
+          res.send({PlayerExist:false});
         }
       }else{
         res.send({UserAccountIDExist:false});
