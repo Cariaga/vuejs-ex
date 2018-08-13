@@ -3561,6 +3561,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     
     function GetParentPlayerLookUp(callback){
       if(PlayerExist==true){
+        console.log("4");
         GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
             PlayerRelationshipResult=response;
