@@ -5555,7 +5555,7 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
-app.get('/Api/v1/TransferHistory/Receiver/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
+app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
   if(!isNullOrEmpty(UserAccountID)){
@@ -5582,7 +5582,7 @@ app.get('/Api/v1/TransferHistory/Receiver/UserAccountIDReceiver/:UserAccountIDRe
     res.send({UserAccountIDMissing:true});
   }
 });
-app.get('/Api/v1/TransferHistory/Sender/UserAccountIDSender/:UserAccountIDSender/', function (req, res) {
+app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountIDSender = req.params.UserAccountIDSender;
   if(!isNullOrEmpty(UserAccountID)){
