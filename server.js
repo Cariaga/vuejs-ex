@@ -1857,8 +1857,10 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',
     isUserAccountIDExist(UserAccountID,function(response){
       if(response!=undefined){
         UserAccountIDExist=true;
+        callback(null,'1');
       }else{
         UserAccountIDExist=false;
+        callback(null,'1');
       }
     });
   }
