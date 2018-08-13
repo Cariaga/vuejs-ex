@@ -3481,6 +3481,7 @@ function BlackListUserAccountID(UserAccountID,callback){
 //---MemberBlackList ROUTING END
 //--IPList ROUTING START
 app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
   let UserInfoExist = false;
