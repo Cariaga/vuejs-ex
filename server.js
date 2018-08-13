@@ -1370,13 +1370,13 @@ app.get('/register',function (req, res) {
                           if(AddAccountErrorMessage==""){
                             if(AddUserInfoErrorMessage==""){
                               if(AddPlayerErrorMessage==""){
-                                res.send({Done:"Done"});
+                               
                                 let To = Email;
                                 let From = '';
                                 let Title = 'Email Verification';
                                 let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
                                 SendMail(To,From,Title,VerificationURL);
-
+                                res.send({success:true});
                               }else{
                                 res.send({Failed:"Player Insert"});
                               }
@@ -1640,7 +1640,6 @@ app.get('/Login',function (req, res) {
                          
                          SurName:"",
                          Email:Email,
-                         ContactNumber:"",
                          PhoneNumber:PhoneNumber,
                          TelephoneNumber:TelephoneNumber,
                          AccessID:AccessID
@@ -1837,6 +1836,32 @@ app.get('/Verify',function (req, res) {
     res.send(beautify(Data, null, 2, 100));
   }
 });
+app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',function(req,res){
+  async.series([UserAccountCheck],function(error,response){
+
+  });
+  function UserAccountCheck(callback){
+    
+  }
+});
+
+function UserAccountIDUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
+  Models.UserAccount.update({
+    Email: Email
+  },
+  {
+    where: {UserAccountID:UserAccountID}
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  }); 
+}
+
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {
   let UserAccountIDFound = false;
   let UserAccountID = req.params.UserAccountID;
