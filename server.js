@@ -1837,6 +1837,7 @@ app.get('/Verify',function (req, res) {
   }
 });
 app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',function(req,res){
+  let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
   async.series([UserAccountCheck],function(error,response){
     if(UserAccountIDExist==true){
