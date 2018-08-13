@@ -1866,6 +1866,7 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',
 });
 
 function UserAccountIDUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
+  Models.UserAccount.sync({alter:true});
   Models.UserAccount.update({
     Email: Email
   },
