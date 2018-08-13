@@ -1333,9 +1333,9 @@ app.get('/register',function (req, res) {
           if(!isNullOrEmpty(Email)){
             if(!isNullOrEmpty(ScreenName)){
             
-            let isAccountAlreadyExist=false;
+            /*let isAccountAlreadyExist=false;
             let isEmailAlreadyExist=false;
-            let UserAccountID=false;
+            let UserAccountID=false;*/
             let isShopExist = false;
             async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
               let CurrentTime = undefined;
