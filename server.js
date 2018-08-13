@@ -5568,9 +5568,9 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
     res.send(FullTransferHistory);
   });
   function GetSentTransfer(callback1){
-    TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response){
-      if(response!=undefined){
-        SentTransferResult=response;
+    TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response1){
+      if(response1!=undefined){
+        SentTransferResult=response1;
         callback1(null,'1');
       }else{
         SentTransferResult=[];
@@ -5580,9 +5580,9 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
     });
   }
   function GetRecievedTransfer(callback2){
-    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
-      if(response!=undefined){
-        RecievedTransferResult = response;
+    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response2){
+      if(response2!=undefined){
+        RecievedTransferResult = response2;
         callback2(null,'2');
       }else{
         RecievedTransferResult =[];
