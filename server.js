@@ -1841,7 +1841,6 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',
   async.series([UserAccountCheck],function(error,response){
     if(UserAccountIDExist==true){
       UserAccountIDUpdateEmail(UserAccountID,function(response){
-      
         if(response!=undefined){
          res.send(response);
         }else{
