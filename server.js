@@ -4483,9 +4483,9 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
   let Name = undefined;
   let PlayerRelationshipResult =undefined;
   let WithdrawHistoryExist =false;
-  let WithdrawHistoryResult = undefined;
-  let DepositHistoryResult = undefined;
+  let WithdrawHistoryResult = undefined;//empty array if no history but should not be undefined and still output
   let DepositHistoryExist=false;
+  let DepositHistoryResult = undefined;//empty array if no history but should not be undefined and still output
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetWithdrawHistory,GetDepositHistory],function(error,response){
       let WithdrawListItem = PlayerRelationshipResult;
@@ -4494,6 +4494,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
       WithdrawListItem.Name = Name;
       WithdrawListItem.ScreenName = ScreenName;
       WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
+
       res.send(beautify(WithdrawListItem, null, 2, 100));
     });
     function UserAccountCheck(callback){
@@ -4552,6 +4553,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
           WithdrawHistoryExist=true;
           callback(null,'5');
         }else{
+          WithdrawHistoryResult = [];// this is valid because we want to return empty if no result
           WithdrawHistoryExist=false;
           callback(null,'5');
         }
@@ -4564,6 +4566,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
           DepositHistoryExist=true;
           callback(null,'6');
         }else{
+          DepositHistoryResult = [];// this is valid because we want to return empty if no result
           DepositHistoryExist=false;
           callback(null,'6');
         }
