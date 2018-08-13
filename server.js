@@ -4459,9 +4459,6 @@ function WithdrawHistoryUserAccountID(UserAccountID,callback){
       callback(undefined);
     });
 }
-  
-    
-
 
 app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -4470,8 +4467,9 @@ app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
-
-app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res){//A combination of Deposit and Withdraw List in one request
+//Transaction list of a player not to be confued with TransferHistory between players
+//NOT A TRASFER HISTORY but a transactions performed on and by the PLAYER to SELF Account
+app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res){//A combination of Deposit and Withdraw List in one request but for the player its self
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let PhoneNumber = req.param.PhoneNumber;
@@ -4577,11 +4575,6 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
     res.send({UserAccountIDMissing:true});
   }
 });
-
-
-
-
-
 app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -5448,6 +5441,9 @@ app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+//*not implemented*
+// if the player has points the player can add and subtract transfer to other player
+//must update both the reciving/sender current player points 
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryUUID = uuidv4();
@@ -5559,6 +5555,24 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
+app.get('/Api/v1/TransferHistory/Receiver/UserAccountID/:UserAccountID/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+});
+app.get('/Api/v1/TransferHistory/Sender/UserAccountID/:UserAccountID/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+});
 
 app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
