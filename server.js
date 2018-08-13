@@ -5555,20 +5555,56 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
-app.get('/Api/v1/TransferHistory/Receiver/UserAccountID/:UserAccountID/', function (req, res) {
+app.get('/Api/v1/TransferHistory/Receiver/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
+  let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
   if(!isNullOrEmpty(UserAccountID)){
-    
+    Models.TransferHistory.sync();
+    let result = Models.TransferHistory.findAll({ 
+      where: {
+        UserAccountIDReceiver:UserAccountIDReceiver
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
   }else{
     res.send({UserAccountIDMissing:true});
   }
 });
-app.get('/Api/v1/TransferHistory/Sender/UserAccountID/:UserAccountID/', function (req, res) {
+app.get('/Api/v1/TransferHistory/Sender/UserAccountIDSender/:UserAccountIDSender/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
+  let UserAccountIDSender = req.params.UserAccountIDSender;
   if(!isNullOrEmpty(UserAccountID)){
-    
+    Models.TransferHistory.sync();
+    let result = Models.TransferHistory.findAll({ 
+      where: {
+        UserAccountIDSender:UserAccountIDSender
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
   }else{
     res.send({UserAccountIDMissing:true});
   }
