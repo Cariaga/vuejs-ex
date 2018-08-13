@@ -5561,7 +5561,7 @@ app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/',
   if(!isNullOrEmpty(UserAccountIDReceiver)){
     TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,function(response){
       if(response!=undefined){
-        res.send(response);
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send([]);
       }
@@ -5598,7 +5598,7 @@ app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', fun
   if(!isNullOrEmpty(UserAccountIDSender)){
     TransferHistoryUserAccountIDSender(UserAccountIDSender,function(response){
       if(response!=undefined){
-        res.send(response);
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send([]);
       }
