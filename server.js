@@ -3491,11 +3491,15 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
       if(UserAccountIDExist==true){
         if(UserInfoExist==true){
-          if(PlayerRelationshipResult!=undefined){
-            let Result = {PlayerRelationshipResult:PlayerRelationshipResult};
-            res.send(Result);
+          if(PlayerExist==true){
+            if(PlayerRelationshipResult!=undefined){
+              let Result = {PlayerRelationshipResult:PlayerRelationshipResult};
+              res.send(Result);
+            }else{
+              res.send({PlayerRelationshipResult:false});
+            }
           }else{
-            res.send({PlayerRelationshipResult:false});
+            res.send({PlayerExist:false});
           }
         }else{
           res.send({UserInfoExist:false});
@@ -3513,7 +3517,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
         if(response!=undefined){
           console.log("1");
           UserAccountIDExist= true;
-          //RegisteredDate = response[0].RegisteredDate;
+          RegisteredDate = response[0].RegisteredDate;
           callback(null,'1');
         }else{
           UserAccountIDExist=false;
@@ -3543,6 +3547,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
         PlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
            PlayerExist= true;
+            Name = response[0].Name;
            callback(null,'3');
           }else{
            PlayerExist= false;
