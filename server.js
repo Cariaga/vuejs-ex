@@ -1855,7 +1855,7 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',fun
   function UserAccountCheck(callback){
     isUserAccountIDExist(UserAccountID,function(response){
       if(response!=undefined){
-        UserAccountIDExist=true;
+        UserAccountIDExist= true;
         callback(null,'1');
       }else{
         UserAccountIDExist=false;
