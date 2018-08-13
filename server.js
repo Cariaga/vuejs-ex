@@ -4553,7 +4553,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
           WithdrawHistoryExist=true;
           callback(null,'5');
         }else{
-          WithdrawHistoryResult = [];// this is valid because we want to return empty if no result
+          WithdrawHistoryResult = [];// THIS  is valid because we want to return empty if no result
           WithdrawHistoryExist=false;
           callback(null,'5');
         }
@@ -4566,7 +4566,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
           DepositHistoryExist=true;
           callback(null,'6');
         }else{
-          DepositHistoryResult = [];// this is valid because we want to return empty if no result
+          DepositHistoryResult = [];// THIS is valid because we want to return empty if no result
           DepositHistoryExist=false;
           callback(null,'6');
         }
