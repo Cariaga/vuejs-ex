@@ -1322,8 +1322,8 @@ app.get('/register',function (req, res) {
   let Name = req.query.Name;
   let Surname = req.query.Surname;
   let Email= req.query.Email;
-  let PhoneNumber= req.query.PhoneNumber;//this was never used
-  let TelephoneNumber = "";//this was never used
+  let PhoneNumber= req.query.PhoneNumber;
+  let TelephoneNumber =  req.query.TelephoneNumber;
   let ShopID = req.query.ShopID;
   let ScreenName = req.query.ScreenName;
   if(!isNullOrEmpty(UserName)){
