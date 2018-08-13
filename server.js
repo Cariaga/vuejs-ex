@@ -3523,7 +3523,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     }
     function UserInfoCheck(callback){
      
-      if(UserAccountIDExist==true){
+     
         console.log("2");
         UserInfoUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3534,13 +3534,11 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
            callback(null,'2');
           }
         });
-      }else{
-        callback(null,'2');
-      }
+      
       
     }
     function PlayerCheck(callback){
-      if(UserInfoExist==true){
+    
         console.log("3");
         PlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3551,14 +3549,12 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
            callback(null,'3');
           }
         });
-      }else{
-        callback(null,'3');
-      }
+      
       
     }
     
     function GetParentPlayerLookUp(callback){
-      if(PlayerExist==true){
+     
         console.log("4");
         GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3570,9 +3566,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
             callback(null,'4');
           }
         });
-      }else{
-        callback(null,'4');
-      }
+      
      
     }
 
