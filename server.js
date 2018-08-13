@@ -5561,7 +5561,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
   let SentTransferResult =undefined;
   let RecievedTransferResult = undefined;
 
-  async.series([GetTransferHistoryUserAccountIDReceiver],function(error,response){
+  async.series([GetSentTransfer,GetTransferHistoryUserAccountIDReceiver],function(error,response){
     res.send({success:true});
   });
  /* async.series([GetTransferHistoryUserAccountIDReceiver],function(error,response){
@@ -5572,7 +5572,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
  /*   res.send(FullTransferHistory);
   });*/
 
- /* function GetSentTransfer(callback1){
+ function GetSentTransfer(callback1){
     TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response1){
       if(response1!=undefined){
         SentTransferResult=response1;
@@ -5583,7 +5583,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
       }
      
     });
-  }*/
+  }
   function GetTransferHistoryUserAccountIDReceiver(callback2){
     TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
       if(response!=undefined){
