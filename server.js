@@ -2553,7 +2553,7 @@ app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID', function (req, res){
   let PlayerRelationshipResult = undefined;
  
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,PlayerCheck,GetParentPlayerLookUp,GetSupportTicketUserAccountID],function(response){
+    async.series([UserAccountCheck,PlayerCheck,GetParentPlayerLookUp,GetSupportTicketUserAccountID],function(error,response){
       if(UserAccountIDExist==true){
         if(PlayerExist==true){
           if(SupportTicketExist==true){
