@@ -3512,7 +3512,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
         if(response!=undefined){
           console.log("1");
           UserAccountIDExist= true;
-          //RegisteredDate = response[0].updatedAt;
+          RegisteredDate = response[0].RegisteredDate;
           callback(null,'1');
         }else{
           UserAccountIDExist=false;
