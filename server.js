@@ -1850,7 +1850,6 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',
     }else{
       res.send({UserAccountIDExist:false});
     }
-    
   });
   function UserAccountCheck(callback){
     isUserAccountIDExist(UserAccountID,function(response){
