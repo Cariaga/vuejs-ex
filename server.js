@@ -1837,12 +1837,32 @@ app.get('/Verify',function (req, res) {
   }
 });
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',function(req,res){
+  let UserAccountIDExist = false;
   async.series([UserAccountCheck],function(error,response){
-
+    if(UserAccountIDExist==true){
+      UserAccountIDUpdateEmail(UserAccountID,function(response){
+      
+        if(response!=undefined){
+         res.send(response);
+        }else{
+         res.send({UserAccountIDUpdateEmailFailed:true});
+        }
+       });
+    }else{
+      res.send({UserAccountIDExist:false});
+    }
+    
   });
   function UserAccountCheck(callback){
-    
+    isUserAccountIDExist(UserAccountID,function(response){
+      if(response!=undefined){
+        UserAccountIDExist=true;
+      }else{
+        UserAccountIDExist=false;
+      }
+    });
   }
+    
 });
 
 function UserAccountIDUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
