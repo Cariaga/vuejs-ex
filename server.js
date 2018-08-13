@@ -3496,7 +3496,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
           if(PlayerExist==true){
             if(PlayerRelationshipResult!=undefined){
               if(LoginHistoryResult!=undefined){
-                let Result = {UserAccountID:UserAccountID,Name:Name,PlayerRelationshipResult:PlayerRelationshipResult};
+                let Result = {UserAccountID:UserAccountID,Name:Name,PlayerRelationshipResult:PlayerRelationshipResult,LoginHistoryResult:LoginHistoryResult};
                 res.send(Result);
               }else{
                 res.send({LoginHistoryResult:false});
