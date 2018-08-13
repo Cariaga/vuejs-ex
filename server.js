@@ -5555,19 +5555,19 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
-app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID',function (req, res){
+app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
   let SentTransferResult =undefined;
   let RecievedTransferResult = undefined;
-  async.series([/*GetSentTransfer*/,TransferHistoryUserAccountIDReceiver],function(error,response){
-    let FullTransferHistory = undefined;
+  async.series([GetTransferHistoryUserAccountIDReceiver],function(error,response){
+   /* let FullTransferHistory = undefined;
     FullTransferHistory.SentTransferResult = SentTransferResult;
     FullTransferHistory.RecievedTransferResult = RecievedTransferResult;
-
+*/
     res.send(FullTransferHistory);
   });
-  function GetSentTransfer(callback1){
+ /* function GetSentTransfer(callback1){
     TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response1){
       if(response1!=undefined){
         SentTransferResult=response1;
@@ -5578,8 +5578,8 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
       }
      
     });
-  }
-  function TransferHistoryUserAccountIDReceiver(callback2){
+  }*/
+  function GetTransferHistoryUserAccountIDReceiver(callback2){
     TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
       if(response!=undefined){
         RecievedTransferResult = response;
