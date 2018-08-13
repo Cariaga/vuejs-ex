@@ -3586,7 +3586,6 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
           callback(null,'5');
         }else{
           LoginHistoryResult=undefined;
-          console.log("Not A Player "+UserAccountID);
           callback(null,'5');
         }
       });
