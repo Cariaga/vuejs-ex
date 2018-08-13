@@ -5562,7 +5562,8 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
   let RecievedTransferResult = undefined;
 
   async.series([GetSentTransfer,GetReceiverTransfer],function(error,response){
-    res.send({success:true});
+
+    res.send({SentTransferResult:SentTransferResult,RecievedTransferResult:RecievedTransferResult});
   });
  /* async.series([GetTransferHistoryUserAccountIDReceiver],function(error,response){
    /* let FullTransferHistory = undefined;
