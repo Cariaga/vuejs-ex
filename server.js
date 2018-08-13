@@ -1430,7 +1430,6 @@ app.get('/register',function (req, res) {
                         });
                     
                       }
-
                     }else{
                       res.send({WeekPassword:true});
                     }
@@ -1443,8 +1442,6 @@ app.get('/register',function (req, res) {
               }else{
                 res.send({isAccountAlreadyExist:true});
               }
-              
-            
             });
             function UserNameExistCheck(callback){
              isUserNameExist(UserName,function(response3){
