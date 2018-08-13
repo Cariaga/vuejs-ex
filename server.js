@@ -3487,8 +3487,17 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   let PlayerExist = false;
   let PlayerRelationshipResult =undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck],function(error,response){
-      res.send({Success:true});
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
+      if(UserAccountIDExist==true){
+        if(UserInfoExist==true){
+          if(PlayerRelationshipResult!=undefined){
+            let Result = {PlayerRelationshipResult:PlayerRelationshipResult};
+            res.send(Result);
+          }
+        }
+        
+      }
+     
     });
     function UserAccountCheck(callback){
       console.log("UserAccountCheck "+ UserAccountID);
