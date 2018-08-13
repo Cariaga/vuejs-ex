@@ -5587,8 +5587,6 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
         RecievedTransferResult =undefined;
         callback2(null,'2');
       }
-      
-      
     });
   }
 });
