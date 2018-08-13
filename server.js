@@ -5560,7 +5560,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
   let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
   let SentTransferResult =undefined;
   let RecievedTransferResult = undefined;
-  async.series([GetSentTransfer,GetRecievedTransfer],function(error,response){
+  async.series([GetSentTransfer/*,GetRecievedTransfer*/],function(error,response){
     let FullTransferHistory = undefined;
     FullTransferHistory.SentTransferResult = SentTransferResult;
     FullTransferHistory.RecievedTransferResult = RecievedTransferResult;
