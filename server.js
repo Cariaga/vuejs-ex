@@ -1838,31 +1838,41 @@ app.get('/Verify',function (req, res) {
 });
 app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',function(req,res){
   let UserAccountID = req.params.UserAccountID;
+  let Email = req.params.Email;
   let UserAccountIDExist = false;
-  async.series([UserAccountCheck],function(error,response){
-    if(UserAccountIDExist==true){
-      UserInfoUpdateEmail(UserAccountID,function(response){
-        if(response!=undefined){
-         res.send(response);
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(Email)){
+      async.series([UserAccountCheck],function(error,response){
+        if(UserAccountIDExist==true){
+          UserInfoUpdateEmail(UserAccountID,function(response){
+            if(response!=undefined){
+             res.send(response);
+            }else{
+             res.send({UserAccountIDUpdateEmailFailed:true});
+            }
+           });
         }else{
-         res.send({UserAccountIDUpdateEmailFailed:true});
+          res.send({UserAccountIDExist:false});
         }
-       });
-    }else{
-      res.send({UserAccountIDExist:false});
-    }
-  });
-  function UserAccountCheck(callback){
-    isUserAccountIDExist(UserAccountID,function(response){
-      if(response!=undefined){
-        UserAccountIDExist= true;
-        callback(null,'1');
-      }else{
-        UserAccountIDExist=false;
-        callback(null,'1');
+      });
+      function UserAccountCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          if(response!=undefined){
+            UserAccountIDExist= true;
+            callback(null,'1');
+          }else{
+            UserAccountIDExist=false;
+            callback(null,'1');
+          }
+        });
       }
-    });
+    }else{
+      res.send({EmailMissing:true});
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
   }
+
 });
 
 function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
