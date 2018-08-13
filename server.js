@@ -5555,6 +5555,23 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
+app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID',function (req, res){
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
+  let SentTransferResult =undefined;
+  let RecievedTransferResult = undefined;
+  async.series([]);
+  function GetSentTransfer(callback){
+    TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response){
+      callback(null,'1');
+    });
+  }
+  function GetRecievedTransfer(callback){
+    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
+      callback(null,'2');
+    });
+  }
+});
 app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
@@ -5565,7 +5582,6 @@ app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/',
       }else{
         res.send([]);
       }
-      
     });
   }else{
     res.send({UserAccountIDMissing:true});
