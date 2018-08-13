@@ -1844,7 +1844,7 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',fun
     if(!isNullOrEmpty(Email)){
       async.series([UserAccountCheck],function(error,response){
         if(UserAccountIDExist==true){
-          UserInfoUpdateEmail(UserAccountID,function(response){
+          UserInfoUpdateEmail(UserAccountID,Email,function(response){
             if(response!=undefined){
              res.send(response);
             }else{
