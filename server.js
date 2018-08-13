@@ -127,7 +127,7 @@ app.post('/Api/v1/authenticate', (req, res) => {
     email: 'brad@gmail.com'
   }
 
-  jwt.sign({user}, 'secretkey', { expiresIn: '1d' }, (err, token) => {
+  jwt.sign({user}, 'secretkey', { expiresIn: '2d' }, (err, token) => {
     res.json({
       token
     });
