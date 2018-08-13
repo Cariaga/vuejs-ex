@@ -5560,7 +5560,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
   let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
   let SentTransferResult =undefined;
   let RecievedTransferResult = undefined;
-  async.series([/*GetSentTransfer*/,GetRecievedTransfer],function(error,response){
+  async.series([/*GetSentTransfer*/,TransferHistoryUserAccountIDReceiver],function(error,response){
     let FullTransferHistory = undefined;
     FullTransferHistory.SentTransferResult = SentTransferResult;
     FullTransferHistory.RecievedTransferResult = RecievedTransferResult;
@@ -5579,10 +5579,9 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
      
     });
   }
-  function GetRecievedTransfer(callback2){
-    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response2){
-      if(response2!=undefined){
-        RecievedTransferResult = response2;
+    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
+      if(response!=undefined){
+        RecievedTransferResult = response;
         callback2(null,'2');
       }else{
         RecievedTransferResult =[];
