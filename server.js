@@ -3488,14 +3488,20 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   let PlayerRelationshipResult =undefined;
   let Name =undefined;
   let RegisteredDate = undefined;
+  let LoginHistoryResult =undefined;
   if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
+    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetLoginHistory],function(error,response){
       if(UserAccountIDExist==true){
         if(UserInfoExist==true){
           if(PlayerExist==true){
             if(PlayerRelationshipResult!=undefined){
-              let Result = {UserAccountID:UserAccountID,Name:Name,PlayerRelationshipResult:PlayerRelationshipResult};
-              res.send(Result);
+              if(LoginHistoryResult!=undefined){
+                let Result = {UserAccountID:UserAccountID,Name:Name,PlayerRelationshipResult:PlayerRelationshipResult};
+                res.send(Result);
+              }else{
+                res.send({LoginHistoryResult:false});
+              }
+              
             }else{
               res.send({PlayerRelationshipResult:false});
             }
@@ -3572,8 +3578,18 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
             callback(null,'4');
           }
         });
-      
-     
+    }
+    function GetLoginHistory(callback){
+      LoginHistoryUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+          LoginHistoryResult=response;
+          callback(null,'5');
+        }else{
+          LoginHistoryResult=undefined;
+          console.log("Not A Player "+UserAccountID);
+          callback(null,'5');
+        }
+      });
     }
 
   }
