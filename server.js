@@ -3187,11 +3187,12 @@ app.get('/Api/v1/BlackList/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/BlackList', function (req, res) {
+app.get('/Api/v1/BlackList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.BlackList.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
     BlackListAll(function(response){
@@ -3752,11 +3753,12 @@ app.get('/Api/v1/LoginHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/LoginHistory', function (req, res) {
+app.get('/Api/v1/LoginHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.LoginHistory.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.LoginHistory.sync();
     let result = Models.LoginHistory.findAll({ 
@@ -3815,7 +3817,7 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Val
   let Expiration = req.params.Expiration;
   let Time = req.params.Time;
   let Date = req.params.Date;
-
+  
   if(!isNullOrEmpty(UserAccountID)){
     if(!isNullOrEmpty(BankName)){
       if(!isNullOrEmpty(SecurityCode)){
@@ -3981,11 +3983,12 @@ app.get('/Api/v1/BankInformation/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/BankInformation', function (req, res) {
+app.get('/Api/v1/BankInformation/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.BankInformation.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.BankInformation.sync();
     let result = Models.BankInformation.findAll({ 
@@ -4398,12 +4401,12 @@ app.get('/Api/v1/WithdrawHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/WithdrawHistory', function (req, res) {
+app.get('/Api/v1/WithdrawHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-
+  Models.WithdrawHistory.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.WithdrawHistory.sync();
     let result = Models.WithdrawHistory.findAll({ 
@@ -5226,11 +5229,12 @@ app.get('/Api/v1/DepositHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/DepositHistory', function (req, res) {
+app.get('/Api/v1/DepositHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.DepositHistory.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.DepositHistory.sync();
     let result = Models.DepositHistory.findAll({ 
@@ -5386,11 +5390,12 @@ app.get('/Api/v1/TransferHistory/Clear', function (req, res){
   });
 });
 
-app.get('/Api/v1/TransferHistory', function (req, res) {
+app.get('/Api/v1/TransferHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.TransferHistory.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     TransferHistoryAll(function(response){
       if(response!=undefined){
@@ -5978,6 +5983,7 @@ app.get('/Api/v1/RoomConfiguration/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.RoomConfiguration.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     RoomConfiguration(function(response){
       if(response!=undefined){
@@ -6387,6 +6393,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.GameHistory.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     GameHistory(function(response){
       if(response!=undefined){
@@ -6605,11 +6612,12 @@ app.get('/Api/v1/UserInfo/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/UserInfo', function (req, res) {
+app.get('/Api/v1/UserInfo/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.UserInfo.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -6789,11 +6797,12 @@ app.get('/Api/v1/AccessControl/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/AccessControl', function (req, res) {
+app.get('/Api/v1/AccessControl/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.AccessControl.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.AccessControl.findAll({ 
       where: {
@@ -6955,11 +6964,12 @@ app.get('/Api/v1/Tables/Drop', function (req, res){
  Models.UserAccount.sync({force:true});
   res.send("Droped All Table");
 });
-app.get('/Api/v1/UserAccount', function (req, res) {
+app.get('/Api/v1/UserAccount/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.UserAccount.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
@@ -7784,11 +7794,12 @@ app.get('/Api/v1/Player/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/Player', function (req, res) {
+app.get('/Api/v1/Player/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.Player.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
    
     let result = Models.Player.findAll({ 
@@ -8002,11 +8013,12 @@ app.get('/Api/v1/Shop/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/Shop', function (req, res) {
+app.get('/Api/v1/Shop/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.Shop.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.Shop.findAll({ 
       where: {
@@ -8203,11 +8215,12 @@ app.get('/Api/v1/Distributor/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-app.get('/Api/v1/Distributor', function (req, res) {
+app.get('/Api/v1/Distributor/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.Distributor.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.Distributor.findAll({ 
       where: {
@@ -8398,11 +8411,12 @@ app.get('/Api/v1/HeadOffice/Delete', function (req, res){
   });
 });
 
-app.get('/Api/v1/HeadOffice', function (req, res) {
+app.get('/Api/v1/HeadOffice/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.HeadOffice.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.HeadOffice.findAll({ 
       where: {
