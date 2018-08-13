@@ -3506,7 +3506,9 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     });
     function UserAccountCheck(callback){
       console.log("UserAccountCheck "+ UserAccountID);
+      
       isUserAccountIDExist(UserAccountID,function(response){
+        console.log("1");
         if(response!=undefined){
           UserAccountIDExist= true;
           RegisteredDate = response[0].updatedAt;
@@ -3518,7 +3520,9 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
       });
     }
     function UserInfoCheck(callback){
+     
       if(UserAccountIDExist==true){
+        console.log("2");
         UserInfoUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
             UserInfoExist=true;
@@ -3535,8 +3539,9 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     }
     function PlayerCheck(callback){
       if(UserInfoExist==true){
+        console.log("3");
         PlayerUserAccountID(UserAccountID,function(response){
-          if(response!=undefined&&response.length>0){
+          if(response!=undefined){
            PlayerExist= true;
            Name= response[0].Name;
            ScreenName = response[0].ScreenName;
