@@ -5564,6 +5564,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
     let FullTransferHistory = undefined;
     FullTransferHistory.SentTransferResult = SentTransferResult;
     FullTransferHistory.RecievedTransferResult = RecievedTransferResult;
+
     res.send(FullTransferHistory);
   });
   function GetSentTransfer(callback1){
@@ -5572,7 +5573,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
         SentTransferResult=response;
         callback1(null,'1');
       }else{
-        SentTransferResult=undefined;
+        SentTransferResult=[];
         callback1(null,'1');
       }
      
@@ -5584,7 +5585,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
         RecievedTransferResult = response;
         callback2(null,'2');
       }else{
-        RecievedTransferResult =undefined;
+        RecievedTransferResult =[];
         callback2(null,'2');
       }
     });
