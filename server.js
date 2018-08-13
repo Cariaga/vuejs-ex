@@ -5579,7 +5579,8 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
      
     });
   }
-  function TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,callback2){
+  function TransferHistoryUserAccountIDReceiver(callback2){
+    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
       if(response!=undefined){
         RecievedTransferResult = response;
         callback2(null,'2');
@@ -5587,8 +5588,8 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
         RecievedTransferResult =[];
         callback2(null,'2');
       }
+    });
     }
-  
 });
 app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
