@@ -4494,6 +4494,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
       WithdrawListItem.Name = Name;
       WithdrawListItem.ScreenName = ScreenName;
       WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
+      WithdrawListItem.DepositHistory = DepositHistoryResult;
 
       res.send(beautify(WithdrawListItem, null, 2, 100));
     });
