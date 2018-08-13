@@ -3486,6 +3486,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   let UserInfoExist = false;
   let PlayerExist = false;
   let PlayerRelationshipResult =undefined;
+  let Name =undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp],function(error,response){
       if(UserAccountIDExist==true){
