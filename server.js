@@ -5558,8 +5558,21 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
 app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
-  if(!isNullOrEmpty(UserAccountID)){
-    Models.TransferHistory.sync();
+  if(!isNullOrEmpty(UserAccountIDReceiver)){
+    TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send([]);
+      }
+      
+    });
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+});
+function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,callback){
+  Models.TransferHistory.sync();
     let result = Models.TransferHistory.findAll({ 
       where: {
         UserAccountIDReceiver:UserAccountIDReceiver
@@ -5578,15 +5591,24 @@ app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/',
       console.log("Error "+result);
       callback(undefined);
     });
+}
+app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountIDSender = req.params.UserAccountIDSender;
+  if(!isNullOrEmpty(UserAccountIDSender)){
+    TransferHistoryUserAccountIDSender(UserAccountIDSender,function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send([]);
+      }
+    });
   }else{
     res.send({UserAccountIDMissing:true});
   }
 });
-app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountIDSender = req.params.UserAccountIDSender;
-  if(!isNullOrEmpty(UserAccountID)){
-    Models.TransferHistory.sync();
+function TransferHistoryUserAccountIDSender(UserAccountIDSender,callback){
+  Models.TransferHistory.sync();
     let result = Models.TransferHistory.findAll({ 
       where: {
         UserAccountIDSender:UserAccountIDSender
@@ -5605,10 +5627,7 @@ app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', fun
       console.log("Error "+result);
       callback(undefined);
     });
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
+}
 
 app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
