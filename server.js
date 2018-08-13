@@ -3513,7 +3513,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
         if(response!=undefined){
           console.log("1");
           UserAccountIDExist= true;
-          RegisteredDate = response[0].RegisteredDate;
+          //RegisteredDate = response[0].RegisteredDate;
           callback(null,'1');
         }else{
           UserAccountIDExist=false;
@@ -3568,11 +3568,11 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
             callback(null,'4');
           }else{
             PlayerRelationshipResult=undefined;
+            console.log("Not A Player "+UserAccountID);
             callback(null,'4');
           }
         });
       }else{
-        console.log("Not A Player "+UserAccountID);
         callback(null,'4');
       }
      
