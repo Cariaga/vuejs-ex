@@ -2054,7 +2054,7 @@ app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Des
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
-
+  Models.SupportTicket.sync({alter:true});
   if(!isNullOrEmpty(UserAccountID)){
     if( !isNullOrEmpty(Title)){
       if(!isNullOrEmpty(Description)){
@@ -2327,6 +2327,7 @@ app.get('/Api/v1/SupportTicket/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
+  Models.SupportTicket.sync({alter:true});
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
@@ -3420,6 +3421,10 @@ function BlackListUserAccountID(UserAccountID,callback){
 //--IPList ROUTING START
 app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
+  let UserAccountIDExist = false;
+  let UserInfoExist = false;
+  let PlayerExist = false;
+  let PlayerRelationshipResult =undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck],function(error,response){
       res.send({Success:true});
