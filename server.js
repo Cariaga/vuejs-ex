@@ -1333,116 +1333,120 @@ app.get('/register',function (req, res) {
           if(!isNullOrEmpty(Email)){
             if(!isNullOrEmpty(ScreenName)){
             
-            /*let isAccountAlreadyExist=false;
+            let isAccountAlreadyExist=false;
             let isEmailAlreadyExist=false;
-            let UserAccountID=false;*/
+            let UserAccountID=undefined;
             let isShopExist = false;
-            async.series([myFirstFunction,mySecondFunction,myThirdFunction],function(error,result){
-              let CurrentTime = undefined;
-              let CurrentDate = undefined;
-              getCurrentTime(function(response){
-                CurrentTime=response;
-              });
-              getCurrentDate(function(response){
-                CurrentDate=response;
-              });
-              var schema = new passwordValidator();
-              schema
-              .is().min(8)
-              .has().uppercase()                              // Must have uppercase letters
-              .has().lowercase()                              // Must have lowercase letters
-              .has().digits()                                 // Must have digits
-              .has().not().spaces()                           // Should not have spaces
-          
-        
-       
-              let IsInvalidPassword= !schema.validate(Password);
-              let IsInvalidEmail = !validator.isEmail(Email);
-              let AddAccountErrorMessage="";
-              let AddUserInfoErrorMessage="";
-              let AddPlayerErrorMessage="";
-              if(isShopExist==true){
-                if(IsInvalidEmail==false){
-                  if(IsInvalidPassword==false){
-                    let UUIDUserAccountID =uuidv4();
-                    let UUIDKey =uuidv4();
+            async.series([UserNameExistCheck,EmailExistCheck,ShopExistCheck],function(error,result){
+              if(isAccountAlreadyExist==false){
+                let CurrentTime = undefined;
+                let CurrentDate = undefined;
+                getCurrentTime(function(response){
+                  CurrentTime=response;
+                });
+                getCurrentDate(function(response){
+                  CurrentDate=response;
+                });
+                var schema = new passwordValidator();
+                schema
+                .is().min(8)
+                .has().uppercase()                              // Must have uppercase letters
+                .has().lowercase()                              // Must have lowercase letters
+                .has().digits()                                 // Must have digits
+                .has().not().spaces()                           // Should not have spaces
 
-                    async.series([InsertUserAccount,InsertUserInfo,InsertPlayer],function(error,result2){
-                      if(AddAccountErrorMessage==""){
-                        if(AddUserInfoErrorMessage==""){
-                          if(AddPlayerErrorMessage==""){
-                            res.send({Done:"Done"});
-                            let To = Email;
-                            let From = '';
-                            let Title = 'Email Verification';
-                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
-                            SendMail(To,From,Title,VerificationURL);
+                let IsInvalidPassword= !schema.validate(Password);
+                let IsInvalidEmail = !validator.isEmail(Email);
+                let AddAccountErrorMessage="";
+                let AddUserInfoErrorMessage="";
+                let AddPlayerErrorMessage="";
+                if(isShopExist==true){
+                  if(IsInvalidEmail==false){
+                    if(IsInvalidPassword==false){
+                      let UUIDUserAccountID =uuidv4();
+                      let UUIDKey =uuidv4();
 
+                      async.series([InsertUserAccount,InsertUserInfo,InsertPlayer],function(error,result2){
+                        if(AddAccountErrorMessage==""){
+                          if(AddUserInfoErrorMessage==""){
+                            if(AddPlayerErrorMessage==""){
+                              res.send({Done:"Done"});
+                              let To = Email;
+                              let From = '';
+                              let Title = 'Email Verification';
+                              let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
+                              SendMail(To,From,Title,VerificationURL);
+
+                            }else{
+                              res.send({Failed:"Player Insert"});
+                            }
                           }else{
-                            res.send({Failed:"Player Insert"});
+                            res.send({Failed:"UserInfo Insert"});
                           }
                         }else{
-                          res.send({Failed:"UserInfo Insert"});
+                          res.send({Failed:"UserAccount Insert"});
                         }
-                      }else{
-                        res.send({Failed:"UserAccount Insert"});
+                      });
+
+
+                      function InsertUserAccount(callback1){
+
+                        AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
+                          if(response=="Inserted"){
+                            console.log("Insert UserAccount");
+                            callback1(null,'1');
+                          }else{
+                            console.log("Failed UserAccount" + response);
+                            AddAccountErrorMessage=response;
+                            callback1(null,'1');
+                          }
+                        });
+                      
                       }
-                    });
+                      function InsertUserInfo(callback2){
+                        AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
+                          if(response=="Inserted"){
+                            console.log("Insert UserInfo");
+                            callback2(null,'2');
+                          }else{
+                            console.log("Failed UserInfo" + response);
+                            AddUserInfoErrorMessage=response;
+                            callback2(null,'2');
+                          }
+                        });
 
-
-                    function InsertUserAccount(callback1){
-
-                      AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserAccount");
-                          callback1(null,'1');
-                        }else{
-                          console.log("Failed UserAccount" + response);
-                          AddAccountErrorMessage=response;
-                          callback1(null,'1');
-                        }
-                      });
                     
-                    }
-                    function InsertUserInfo(callback2){
-                      AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserInfo");
-                          callback2(null,'2');
-                        }else{
-                          console.log("Failed UserInfo" + response);
-                          AddUserInfoErrorMessage=response;
-                          callback2(null,'2');
-                        }
-                      });
+                      }
+                      function InsertPlayer(callback3){
+                        AddPlayer(UUIDUserAccountID,ShopID,ScreenName,Name,Surname,'',function(response){
+                          if(response=="Inserted"){
+                            console.log("Insert Player");
+                            callback3(null,'3');
+                          }else{
+                            console.log("Failed Player" +response);
+                            AddPlayerErrorMessage=response;
+                            callback3(null,'3');
+                          }
+                        });
+                    
+                      }
 
-                  
+                    }else{
+                      res.send({WeekPassword:true});
                     }
-                    function InsertPlayer(callback3){
-                      AddPlayer(UUIDUserAccountID,ShopID,ScreenName,Name,Surname,'',function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert Player");
-                          callback3(null,'3');
-                        }else{
-                          console.log("Failed Player" +response);
-                          AddPlayerErrorMessage=response;
-                          callback3(null,'3');
-                        }
-                      });
-                  
-                    }
-
                   }else{
-                    res.send({WeekPassword:true});
+                    res.send({EmailInvalid:true});
                   }
-                }else{
-                  res.send({EmailInvalid:true});
-                }
-            }else{
-              res.send("ShopID Not Found");
-            }
+              }else{
+                res.send({ShopIDExist:false});
+              }
+              }else{
+                res.send({isAccountAlreadyExist:true});
+              }
+              
+            
             });
-            function myFirstFunction(callback){
+            function UserNameExistCheck(callback){
              isUserNameExist(UserName,function(response3){
                let obj = response3;
                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
@@ -1455,7 +1459,7 @@ app.get('/register',function (req, res) {
              });
     
             }
-            function mySecondFunction(callback2){
+            function EmailExistCheck(callback2){
               isEmailExist(Email,function(response){
                 let obj = response;
                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
@@ -1469,7 +1473,7 @@ app.get('/register',function (req, res) {
               });
             }
 
-            function myThirdFunction(callback3){
+            function ShopExistCheck(callback3){
               isShopAlreadyExist(ShopID,function(response){
                 let obj = response;
                 console.log("Checking ShopExist");
