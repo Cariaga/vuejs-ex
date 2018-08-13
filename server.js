@@ -3493,9 +3493,14 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
           if(PlayerRelationshipResult!=undefined){
             let Result = {PlayerRelationshipResult:PlayerRelationshipResult};
             res.send(Result);
+          }else{
+            res.send({PlayerRelationshipResult:false});
           }
+        }else{
+          res.send({UserInfoExist:false});
         }
-        
+      }else{
+        res.send({UserAccountIDExist:false});
       }
      
     });
