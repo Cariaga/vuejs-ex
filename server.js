@@ -3545,8 +3545,6 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
         PlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
            PlayerExist= true;
-           Name= response[0].Name;
-           ScreenName = response[0].ScreenName;
            callback(null,'3');
           }else{
            PlayerExist= false;
