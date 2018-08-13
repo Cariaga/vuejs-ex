@@ -5568,14 +5568,27 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
   });
   function GetSentTransfer(callback){
     TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response){
-      SentTransferResult=response;
-      callback(null,'1');
+      if(response!=undefined){
+        SentTransferResult=response;
+        callback(null,'1');
+      }else{
+        SentTransferResult=undefined;
+        callback(null,'1');
+      }
+     
     });
   }
   function GetRecievedTransfer(callback){
     TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
-      RecievedTransferResult = response;
-      callback(null,'2');
+      if(RecievedTransferResult){
+        RecievedTransferResult = response;
+        callback(null,'2');
+      }else{
+        RecievedTransferResult =undefined;
+        callback(null,'2');
+      }
+      
+      
     });
   }
 });
