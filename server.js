@@ -1840,7 +1840,7 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',
   let UserAccountIDExist = false;
   async.series([UserAccountCheck],function(error,response){
     if(UserAccountIDExist==true){
-      UserAccountIDUpdateEmail(UserAccountID,function(response){
+      UserInfoUpdateEmail(UserAccountID,function(response){
         if(response!=undefined){
          res.send(response);
         }else{
@@ -1865,9 +1865,9 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Email/:Email/',
     
 });
 
-function UserAccountIDUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
-  Models.UserAccount.sync({alter:true});
-  Models.UserAccount.update({
+function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
+  Models.UserInfo.sync({alter:true});
+  Models.UserInfo.update({
     Email: Email
   },
   {
