@@ -5566,26 +5566,26 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
     FullTransferHistory.RecievedTransferResult = RecievedTransferResult;
     res.send(FullTransferHistory);
   });
-  function GetSentTransfer(callback){
+  function GetSentTransfer(callback1){
     TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response){
       if(response!=undefined){
         SentTransferResult=response;
-        callback(null,'1');
+        callback1(null,'1');
       }else{
         SentTransferResult=undefined;
-        callback(null,'1');
+        callback1(null,'1');
       }
      
     });
   }
-  function GetRecievedTransfer(callback){
+  function GetRecievedTransfer(callback2){
     TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
       if(RecievedTransferResult){
         RecievedTransferResult = response;
-        callback(null,'2');
+        callback2(null,'2');
       }else{
         RecievedTransferResult =undefined;
-        callback(null,'2');
+        callback2(null,'2');
       }
       
       
