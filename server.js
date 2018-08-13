@@ -1322,7 +1322,7 @@ app.get('/register',function (req, res) {
   let Name = req.query.Name;
   let Surname = req.query.Surname;
   let Email= req.query.Email;
-  let PhoneNumber= "";//this was never used
+  let PhoneNumber= req.query.PhoneNumber;//this was never used
   let TelephoneNumber = "";//this was never used
   let ShopID = req.query.ShopID;
   let ScreenName = req.query.ScreenName;
@@ -1440,7 +1440,7 @@ app.get('/register',function (req, res) {
                   res.send({ShopIDExist:false});
                   }
                 }else{
-                  res.send({});
+                  res.send({isEmailAlreadyExist:true});
                 }
                 
               }else{
