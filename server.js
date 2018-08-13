@@ -5580,7 +5580,7 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
   }
   function GetRecievedTransfer(callback2){
     TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
-      if(RecievedTransferResult){
+      if(response!=undefined){
         RecievedTransferResult = response;
         callback2(null,'2');
       }else{
