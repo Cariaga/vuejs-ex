@@ -3505,11 +3505,12 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
      
     });
     function UserAccountCheck(callback){
-      console.log("UserAccountCheck "+ UserAccountID);
+     // console.log("UserAccountCheck "+ UserAccountID);
       
       isUserAccountIDExist(UserAccountID,function(response){
-        console.log("1");
+        
         if(response!=undefined){
+          console.log("1");
           UserAccountIDExist= true;
           RegisteredDate = response[0].updatedAt;
           callback(null,'1');
