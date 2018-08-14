@@ -7040,6 +7040,9 @@ function GameHistory(callback){
 }
 //---GameHistory ROUTING END
 //---HandHistory ROUTING START
+app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
+});
+
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.UserAccountID;
@@ -7065,7 +7068,22 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
   }
 });
 function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
-
+  Models.HandHistory.sync(/*{force:true}*/);
+  var item1 = Models.HandHistory.build({
+    UserAccountID:UserAccountID,
+    MoveHand:MoveHand,
+    RoundID:RoundID
+  });
+  Models.HandHistory.sync();//only use force true if you want to destroy replace table
+  item1.save()
+  .then(Success => {
+    callback("Inserted");
+  })
+  .catch(error => {
+  
+    console.log("error inserting " +error);
+    callback(undefined);
+  });
 }
 app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let RoundID =  req.params.RoundID;
@@ -7095,11 +7113,19 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
 function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
 
 }
-
 app.get('/Api/v1/HandHistory/', function (req, res) {
 });
-app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
+app.get('/Api/v1/HandHistory/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.HandHistory.sync({alter:true});
+  Models.HandHistory.describe().then(result=>{
+    res.send(beautify(result, null, 2, 100));
+  });
+
 });
+app.get('/Api/v1/HandHistory/Clear', function (req, res) {
+});
+
 //---HandHistory ROUTING END
 
 
