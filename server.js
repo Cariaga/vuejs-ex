@@ -7158,7 +7158,13 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
     if(!isNullOrEmpty(HandHistoryID)){
       if(!isNullOrEmpty(UserAccountID)){
         if(!isNullOrEmpty(MoveHand)){
-  
+          HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({HandHistoryUpdateFailed:true});
+            }
+          });
         }else{
           res.send({MoveHandMissing:true});
         }
