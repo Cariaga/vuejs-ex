@@ -4291,11 +4291,11 @@ function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDA
     });
 }
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME',function(req,res){
+  let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
   let Status = "Approved";//fixed value
   let ApprovedDATE = req.params.ApprovedDATE;
   let ApprovedTIME = req.params.ApprovedTIME;
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
   if(!isNullOrEmpty(WithdrawHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(Status)){
@@ -4334,11 +4334,11 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAccountID/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME',function(req,res){
+  let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
   let Status = "Processing";//fixed value
   let ProcessingDATE = req.params.ProcessingDATE;
   let ProcessingTIME = req.params.ProcessingTIME;
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
   if(!isNullOrEmpty(Status)){
     if(!isNullOrEmpty(ProcessingDATE)){
       if(!isNullOrEmpty(ProcessingTIME)){
@@ -4354,6 +4354,7 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAcc
   }
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccountID/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME',function(req,res){
+  let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
   let Status = "Rejected";//fixed value
   let RejectedDATE = req.params.RejectedDATE;
