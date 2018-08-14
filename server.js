@@ -4299,7 +4299,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
     if(!isNullOrEmpty(UserAccountID)){
     
         let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
-        let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
+        let isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
         if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
           if(!isNullOrEmpty(ApprovedTIME)){
 
