@@ -4389,7 +4389,11 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
       }else{
         res.send({StatusMissing:true});
       }
+    }else{
+      res.send({UserAccountIDMissing:true});
     }
+  }else{
+    res.send({WithdrawHistoryIDMissing:true});
   }
   
 });
