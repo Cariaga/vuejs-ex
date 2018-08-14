@@ -4348,7 +4348,7 @@ function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,Ap
 }
 
 
-app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAccountID/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
+app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
   let Status = "Processing";//fixed value
@@ -4401,7 +4401,7 @@ function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Status,
     callback(undefined);
   });
 }
-app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccountID/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
+app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
   let Status = "Rejected";//fixed value
