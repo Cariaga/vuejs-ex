@@ -4304,7 +4304,11 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
         if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
           if(!isNullOrEmpty(ApprovedTIME)){
 
-           
+            WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,ApprovedDATE,ApprovedTIME,function(response){
+              if(response!=undefined){
+
+              }
+            });
     
           }else{
             res.send({ApprovedTIMEMissing:true});
@@ -4324,7 +4328,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   
   
 });
-function WithdrawHistoryUpdateApproved(WithdrawHistoryID,UserAccountID,Status,ApprovedDATE,ApprovedTIME){
+function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,ApprovedDATE,ApprovedTIME){
   Models.WithdrawHistory.update({
     ApprovedDATE: ApprovedDATE,
     ApprovedTIME:ApprovedTIME,
@@ -5643,7 +5647,7 @@ app.get('/Api/v1/DepositList/', function (req, res) {
       for(let i=0;i<1000;++i){
         DepositListData.push(DepositListItem);
       }
-      res.send(beautify(DepositListItem, null, 2, 100));
+      res.send(beautify(DepositListData, null, 2, 100));
     });
     function UserAccountCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
