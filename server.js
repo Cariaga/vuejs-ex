@@ -5382,12 +5382,46 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   let UserAccountID = req.params.UserAccountID;
   let ProcessingDATE =  req.params.ProcessingDATE;
   let ProcessingTIME= req.params.ProcessingTIME;
+  if(!isNullOrEmpty(DepositHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(ProcessingDATE)){
+        if(!isNullOrEmpty(ProcessingTIME)){
+          
+        }else{
+          res.send({ProcessingTIMEMissing:true});
+        }
+      }else{
+        res.send({ProcessingDATEMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({DepositHistoryIDMissing:true});
+  }
 });
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let RejectedDATE = req.params.RejectedDATE;
   let RejectedTIME = req.params.RejectedTIME;
+  if(!isNullOrEmpty(DepositHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(RejectedDATE)){
+        if(!isNullOrEmpty(RejectedTIME)){
+          
+        }else{
+          res.send({RejectedTIMEMissing:true});
+        }
+      }else{
+        res.send({RejectedDATEMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({DepositHistoryIDMissing:true});
+  }
 });
 
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
