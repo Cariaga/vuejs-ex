@@ -5401,7 +5401,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
         if(!isNullOrEmpty(ProcessingTIME)){
           DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,function(response){
             if(response!=undefined){
-
+              res.send(response);
             }else{
               res.send({DepositHistoryUpdateProcessingFailed:true});
             }
