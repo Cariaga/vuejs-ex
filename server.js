@@ -5424,7 +5424,7 @@ function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,Processin
   Models.DepositHistory.update({
     ProcessingDATE: ProcessingDATE,
     ProcessingTIME:ProcessingTIME,
-    Status:"Approved"
+    Status:"Processing"
   },{
     where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
   })
@@ -5445,7 +5445,13 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(RejectedDATE)){
         if(!isNullOrEmpty(RejectedTIME)){
-          
+          DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RequestedDATE,RejectedTIME,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({DepositHistoryUpdateRejectedFailed:true});
+            }
+          });
         }else{
           res.send({RejectedTIMEMissing:true});
         }
@@ -5460,11 +5466,11 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   }
 });
 
-function DepositHistoryUpdateRejected(){
+function DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RequestedDATE,RejectedTIME,callback){
   Models.DepositHistory.update({
-    ApprovedDATE: ApprovedDATE,
-    ApprovedTIME:ApprovedTIME,
-    Status:"Approved"
+    ApprovedDATE: RequestedDATE,
+    ApprovedTIME:RejectedTIME,
+    Status:"Rejected"
   },{
     where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
   })
