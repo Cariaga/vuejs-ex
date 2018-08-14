@@ -4334,7 +4334,7 @@ function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,Ap
   Models.WithdrawHistory.update({
     ApprovedDATE: ApprovedDATE,
     ApprovedTIME:ApprovedTIME,
-    Status:Status
+    Status:"Approved"
   },{
     where: {WithdrawHistoryID:WithdrawHistoryID,UserAccountID: UserAccountID }
   })
@@ -4389,7 +4389,7 @@ function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Status,
   Models.WithdrawHistory.update({
     ProcessingDATE: ProcessingDATE,
     ProcessingTIME:ProcessingTIME,
-    Status:Status
+    Status:"Processing"
   },{
     where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
   })
@@ -4442,7 +4442,7 @@ function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,Status,Re
   Models.WithdrawHistory.update({
     RejectedDATE: RejectedDATE,
     RejectedTIME:RejectedTIME,
-    Status:Status,
+    Status:"Rejected"
   },{
     where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
   })
@@ -5377,8 +5377,21 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     res.send({DepositHistoryIDMissing:true});
   }
 });
-function DepositHistoryUpdateApproved(){
-
+function DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,){
+  Models.DepositHistory.update({
+    ApprovedDATE: ApprovedDATE,
+    ApprovedTIME:ApprovedTIME,
+    Status:Status
+  },{
+    where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  }); 
 }
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
