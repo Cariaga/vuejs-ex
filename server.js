@@ -4375,7 +4375,9 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
   if(!isNullOrEmpty(WithdrawHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(Status)){
-        if(!isNullOrEmpty(RejectedDATE)){
+        let RejectedDATEParsed= moment(RejectedDATE, "YYYY-MM-DD");
+        let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
+        if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&ProcessingDATEParsed.year()>1959){
           if(!isNullOrEmpty(RejectedTIME)){
     
           }else{
