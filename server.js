@@ -7052,7 +7052,7 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
       if(!isNullOrEmpty(MoveHand)){
         AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
           if(response!=undefined){
-
+            res.send(response);
           }else{
             res.send({AddHandHistoryFailed:true});
           }
