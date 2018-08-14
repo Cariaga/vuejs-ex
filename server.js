@@ -4290,6 +4290,16 @@ function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDA
       callback(undefined);
     });
 }
+app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME',function(req,res){
+
+});
+app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME',function(req,res){
+  
+});
+app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME',function(req,res){
+  
+});
+
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
 
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
@@ -5573,7 +5583,6 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
                 if(parseInt(Amount)>0){
                   let UserAccountIDReceiverExist=false;
                   let UserAccountIDSenderExist=false;
-
                   async.series([UserAccountIDReceiverExistCheck,UserAccountIDSenderExistCheck],function(error,response){
                     if(UserAccountIDReceiverExist==true){
                         if(UserAccountIDSenderExist==true){
