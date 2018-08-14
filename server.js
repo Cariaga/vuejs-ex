@@ -4737,7 +4737,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
       WithdrawListItem.ScreenName = ScreenName;
       WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
       WithdrawListItem.DepositHistory = DepositHistoryResult;
-      WithdrawListItem.Note ="This is a Mock Up Data we need to iterate all accounts";
+     
       res.send(beautify(WithdrawListItem, null, 2, 100));
     });
     function UserAccountCheck(callback){
@@ -4841,6 +4841,7 @@ app.get('/Api/v1/WithdrawList/',function(req,res){
       WithdrawListItem.Name = Name;
       WithdrawListItem.ScreenName = ScreenName;
       WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
+      WithdrawListItem.Note ="This is a Mock Up Data we need to iterate all accounts";
       for(let i=0;i<1000;++i){
         WithdrawList.push(WithdrawListItem);
       }
