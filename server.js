@@ -5368,11 +5368,11 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     res.send({DepositHistoryIDMissing:true});
   }
 });
-function DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,){
+function DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME){
   Models.DepositHistory.update({
     ApprovedDATE: ApprovedDATE,
     ApprovedTIME:ApprovedTIME,
-    Status:Status
+    Status:"Approved"
   },{
     where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
   })
