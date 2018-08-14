@@ -330,7 +330,7 @@ const HandHistory = sequelize.define('HandHistory', {
   },
   UserAccountID:Sequelize.STRING,//foriegn key to UserAccount
   RoundID:Sequelize.STRING,//foriegn key to GameHistory
-  Hand:Sequelize.STRING
+  MoveHand:Sequelize.STRING//action performed by the player
 });
 
 

@@ -7040,11 +7040,29 @@ function GameHistory(callback){
 }
 //---GameHistory ROUTING END
 //---HandHistory ROUTING START
-app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/Hand/:Hand/', function (req, res) {
+app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
+  let HandHistoryID = req.params.HandHistoryID;
+  let UserAccountID = req.params.UserAccountID;
+  let MoveHand =  req.params.UserAccountID;
+  if(!isNullOrEmpty(HandHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(MoveHand)){
 
+      }
+    }
+  }
 });
-app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/Hand/:Hand/', function (req, res) {
+app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
+  let HandHistoryID = req.params.HandHistoryID;
+  let UserAccountID = req.params.UserAccountID;
+  let MoveHand =  req.params.UserAccountID;
+  if(!isNullOrEmpty(HandHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(MoveHand)){
 
+      }
+    }
+  }
 });
 
 //---HandHistory ROUTING END
