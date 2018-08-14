@@ -4363,7 +4363,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
           if(!isNullOrEmpty(ProcessingTIME)){
             WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Status,ProcessingDATE,ProcessingTIME,function(response){
               if(response!=undefined){
-                send.res(response);
+                res.send(response);
               }else{
                 res.send({WithdrawHistoryUpdateProcessingFailed:true});
               }
