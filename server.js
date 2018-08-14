@@ -4306,7 +4306,9 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
 
             WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,ApprovedDATE,ApprovedTIME,function(response){
               if(response!=undefined){
-
+                res.send(response);
+              }else{
+                res.send({WithdrawHistoryUpdateApprovalFailed:true});
               }
             });
     
