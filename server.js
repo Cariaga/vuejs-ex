@@ -4305,7 +4305,8 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
           if(!isNullOrEmpty(ApprovedTIME)){
             Models.WithdrawHistory.update({
               ApprovedDATE: ApprovedDATE,
-              ApprovedTIME:ApprovedTIME
+              ApprovedTIME:ApprovedTIME,
+              Status:Status
             },{
               where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
             })
@@ -4350,7 +4351,8 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAcc
           if(!isNullOrEmpty(ProcessingTIME)){
             Models.WithdrawHistory.update({
               ProcessingDATE: ProcessingDATE,
-              ProcessingTIME:ProcessingTIME
+              ProcessingTIME:ProcessingTIME,
+              Status:Status
             },{
               where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
             })
@@ -4389,11 +4391,12 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
       if(!isNullOrEmpty(Status)){
         let RejectedDATEParsed= moment(RejectedDATE, "YYYY-MM-DD");
         let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-        if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&ProcessingDATEParsed.year()>1959){
+        if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
           if(!isNullOrEmpty(RejectedTIME)){
             Models.WithdrawHistory.update({
               RejectedDATE: RejectedDATE,
-              RejectedTIME:RejectedTIME
+              RejectedTIME:RejectedTIME,
+              Status:Status,
             },{
               where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
             })
