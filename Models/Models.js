@@ -298,7 +298,7 @@ const GameHistory =sequelize.define('GameHistory', {
  
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
-  RoundID: Sequelize.STRING,// assigned by the room
+  RoundID: Sequelize.STRING,// assigned by the room// every cycle of the room is still considered a single round
 	RoomID:{//
     type: Sequelize.STRING,
     foreignKey: true,
@@ -322,6 +322,19 @@ GameHistory.belongsTo(RoomConfiguration, {
   targetKey: 'RoomID',
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
+
+const HandHistory = sequelize.define('HandHistory', {
+  HandHistoryID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  UserAccountID:Sequelize.STRING,
+  RoundID:Sequelize.STRING,
+  Hand:Sequelize.STRING
+});
+
+
 
 //invoices
 const DepositHistory =sequelize.define('DepositHistory', {
@@ -566,6 +579,7 @@ const Notification =sequelize.define('Notification', {
   module.exports.UserAccount =UserAccount;
   module.exports.AccessControl =AccessControl;
   module.exports.UserInfo =UserInfo;
+  module.exports.HandHistory = HandHistory;
   module.exports.GameHistory =GameHistory;
   module.exports.RoomConfiguration =RoomConfiguration;
   module.exports.DepositHistory =DepositHistory;
