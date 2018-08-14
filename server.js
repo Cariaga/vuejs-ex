@@ -4347,6 +4347,7 @@ function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,Ap
   }); 
 }
 
+
 app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAccountID/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
@@ -4404,20 +4405,7 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
         let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
         if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
           if(!isNullOrEmpty(RejectedTIME)){
-            Models.WithdrawHistory.update({
-              RejectedDATE: RejectedDATE,
-              RejectedTIME:RejectedTIME,
-              Status:Status,
-            },{
-              where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
-            })
-            .then(Success => {
-              callback("Updated");
-            })
-            .catch(error => {
-              console.log("Error Updating " +error);
-              callback(undefined);
-            });
+            
           }else{
             res.send({RejectedTIMEMissing:true});
           }
@@ -4435,7 +4423,22 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
   }
   
 });
-
+function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,Status,RejectedDATE,RejectedTIME,callback){
+  Models.WithdrawHistory.update({
+    RejectedDATE: RejectedDATE,
+    RejectedTIME:RejectedTIME,
+    Status:Status,
+  },{
+    where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
 
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
