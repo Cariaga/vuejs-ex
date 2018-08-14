@@ -4330,6 +4330,19 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
   let Status = "Approved";
   let RejectedDATE = req.params.RejectedDATE;
   let RejectedTIME = req.params.RejectedTIME;
+  if(!isNullOrEmpty(Status)){
+    if(!isNullOrEmpty(RejectedDATE)){
+      if(!isNullOrEmpty(RejectedTIME)){
+
+      }else{
+        res.send({RejectedTIMEMissing:true});
+      }
+    }else{
+      res.send({RejectedDATEMissing:true});
+    }
+  }else{
+    res.send({StatusMissing:true});
+  }
 });
 
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
