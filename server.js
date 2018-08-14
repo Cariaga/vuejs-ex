@@ -7040,12 +7040,74 @@ function GameHistory(callback){
 }
 //---GameHistory ROUTING END
 //---HandHistory ROUTING START
+app.get('/Api/v1/HandHistory/', function (req, res) {
+  HandHistory(function(response){
+    if(response!=undefined){
+      res.send(response);
+    }else{
+      res.send({HandHistoryFailed:true});
+    }
+  });
+});
+function HandHistory(callback){
+  Models.HandHistory.sync();
+  let result = Models.HandHistory.findAll({ 
+    where: {
+      HandHistoryID: {
+        ne: null//not null
+      }
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+    
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
   if(!isNullOrEmpty(UserAccountID)){
-
+    HandHistoryUserAccountID(UserAccountID,function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send({HandHistoryFailed:true});
+      }
+    });
   }
 });
-
+function HandHistoryUserAccountID(UserAccountID,callback){
+  Models.HandHistory.sync();
+  let result = Models.HandHistory.findAll({ 
+    where: {
+      HandHistoryID: {
+        ne: null//not null
+      }
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+    
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.UserAccountID;
@@ -7116,8 +7178,7 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
 function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
 
 }
-app.get('/Api/v1/HandHistory/', function (req, res) {
-});
+
 app.get('/Api/v1/HandHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync({alter:true});
