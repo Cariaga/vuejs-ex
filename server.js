@@ -4304,7 +4304,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
         if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
           if(!isNullOrEmpty(ApprovedTIME)){
 
-            WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,ApprovedDATE,ApprovedTIME,function(response){
+            WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedDATE,ApprovedTIME,function(response){
               if(response!=undefined){
                 res.send(response);
               }else{
@@ -4330,7 +4330,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   
   
 });
-function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,ApprovedDATE,ApprovedTIME,callback){
+function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedDATE,ApprovedTIME,callback){
   Models.WithdrawHistory.update({
     ApprovedDATE: ApprovedDATE,
     ApprovedTIME:ApprovedTIME,
@@ -4361,7 +4361,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
         let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
         if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
           if(!isNullOrEmpty(ProcessingTIME)){
-            WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Status,ProcessingDATE,ProcessingTIME,function(response){
+            WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,ProcessingDATE,ProcessingTIME,function(response){
               if(response!=undefined){
                 res.send(response);
               }else{
@@ -4385,7 +4385,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }
   
 });
-function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Status,ProcessingDATE,ProcessingTIME,callback){
+function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,ProcessingDATE,ProcessingTIME,callback){
   Models.WithdrawHistory.update({
     ProcessingDATE: ProcessingDATE,
     ProcessingTIME:ProcessingTIME,
@@ -4414,7 +4414,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
         let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
         if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
           if(!isNullOrEmpty(RejectedTIME)){
-            WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,Status,RejectedDATE,RejectedTIME,function(response){
+            WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedDATE,RejectedTIME,function(response){
               if(response!=undefined){
                 res.send(response);
               }else{
@@ -4438,7 +4438,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }
   
 });
-function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,Status,RejectedDATE,RejectedTIME,callback){
+function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedDATE,RejectedTIME,callback){
   Models.WithdrawHistory.update({
     RejectedDATE: RejectedDATE,
     RejectedTIME:RejectedTIME,
