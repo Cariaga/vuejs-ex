@@ -7174,7 +7174,22 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
   
 });
 function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
-
+  Models.UserInfo.sync(/*{force:true}*/);
+  Models.UserInfo.update({
+    MoveHand: MoveHand,
+    RoundID: RoundID
+  },{
+    where: {HandHistoryID: HandHistoryID,UserAccountID:UserAccountID }
+  })
+  .then(Success => {
+    console.log("Updated");
+    callback("Updated");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
 }
 
 app.get('/Api/v1/HandHistory/Describe', function (req, res) {
