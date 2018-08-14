@@ -7049,13 +7049,13 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
       if(!isNullOrEmpty(MoveHand)){
 
       }else{
-
+        res.send({MoveHandMissing:true});
       }
     }else{
-
+      res.send({UserAccountIDMissing:true});
     }
   }else{
-
+    res.send({RoundIDMissing:true});
   }
 });
 function AddHandHistory(){
@@ -7073,16 +7073,16 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
         if(!isNullOrEmpty(MoveHand)){
   
         }else{
-  
+          res.send({MoveHandMissing:true});
         }
       }else{
-  
+        res.send({UserAccountIDMissing:true});
       }
     }else{
-  
+      res.send({HandHistoryIDMissing:true});
     }
   }else{
-    
+    res.send({RoundIDMissing:true});
   }
   
 });
