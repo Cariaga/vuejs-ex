@@ -5355,7 +5355,11 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
       if(!isNullOrEmpty(ApprovedDATE)){
         if(!isNullOrEmpty(ApprovedTIME)){
           DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,function(response){
-            
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({DepositHistoryUpdateApprovedFailed:true});
+            }
           });
         }else{
           res.send({ApprovedTIMEMissing:true});
@@ -5395,7 +5399,13 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(ProcessingDATE)){
         if(!isNullOrEmpty(ProcessingTIME)){
-          
+          DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,function(response){
+            if(response!=undefined){
+
+            }else{
+              res.send({DepositHistoryUpdateProcessingFailed:true});
+            }
+          });
         }else{
           res.send({ProcessingTIMEMissing:true});
         }
@@ -5410,8 +5420,21 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   }
 });
 
-function DepositHistoryUpdateProcessing(){
-
+function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,callback){
+  Models.DepositHistory.update({
+    ApprovedDATE: ApprovedDATE,
+    ApprovedTIME:ApprovedTIME,
+    Status:"Approved"
+  },{
+    where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  }); 
 }
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
