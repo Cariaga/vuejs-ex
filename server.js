@@ -7044,24 +7044,38 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
   let HandHistoryID = req.params.HandHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.UserAccountID;
+  let RoundID =  req.params.RoundID;
   if(!isNullOrEmpty(HandHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(MoveHand)){
 
+      }else{
+
       }
+    }else{
+
     }
+  }else{
+
   }
 });
 app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let HandHistoryID = req.params.HandHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.UserAccountID;
+  let RoundID =  req.params.RoundID;
   if(!isNullOrEmpty(HandHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(MoveHand)){
 
+      }else{
+
       }
+    }else{
+
     }
+  }else{
+
   }
 });
 
