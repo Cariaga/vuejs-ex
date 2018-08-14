@@ -7088,9 +7088,7 @@ function HandHistoryUserAccountID(UserAccountID,callback){
   Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({ 
     where: {
-      HandHistoryID: {
-        ne: null//not null
-      }
+      UserAccountID:UserAccountID
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
