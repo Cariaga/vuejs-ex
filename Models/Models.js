@@ -295,7 +295,6 @@ const GameHistory =sequelize.define('GameHistory', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
- 
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
   RoundID: Sequelize.STRING,// assigned by the room// every cycle of the room is still considered a single round
@@ -329,8 +328,8 @@ const HandHistory = sequelize.define('HandHistory', {
     primaryKey: true,
     autoIncrement: true,
   },
-  UserAccountID:Sequelize.STRING,
-  RoundID:Sequelize.STRING,
+  UserAccountID:Sequelize.STRING,//foriegn key to UserAccount
+  RoundID:Sequelize.STRING,//foriegn key to GameHistory
   Hand:Sequelize.STRING
 });
 

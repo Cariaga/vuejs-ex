@@ -7039,6 +7039,17 @@ function GameHistory(callback){
   });
 }
 //---GameHistory ROUTING END
+//---HandHistory ROUTING START
+app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/Hand/:Hand/', function (req, res) {
+
+});
+app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/Hand/:Hand/', function (req, res) {
+
+});
+
+//---HandHistory ROUTING END
+
+
 //---UserInfo ROUTING START
 app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
   //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
