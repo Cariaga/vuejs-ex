@@ -7041,6 +7041,9 @@ function GameHistory(callback){
 //---GameHistory ROUTING END
 //---HandHistory ROUTING START
 app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
+  if(!isNullOrEmpty(UserAccountID)){
+
+  }
 });
 
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
