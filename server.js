@@ -7047,7 +7047,9 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
   if(!isNullOrEmpty(RoundID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(MoveHand)){
-
+        AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
+          
+        });
       }else{
         res.send({MoveHandMissing:true});
       }
@@ -7058,7 +7060,7 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
     res.send({RoundIDMissing:true});
   }
 });
-function AddHandHistory(){
+function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
 
 }
 app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
