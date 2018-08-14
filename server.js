@@ -5342,16 +5342,13 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
   Models.DepositHistory.sync({alter : true});
   item1.save()
   .then(Success => {
-   
     console.log("----AddDepositHistory Start-----");
     console.log(Success);
    
     console.log("----AddDepositHistory End-----");
     callback("Inserted");
   })
-  
   .catch(error => {
-   
     console.log("error inserting " +error);
     callback(undefined);
   });
