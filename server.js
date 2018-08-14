@@ -4291,13 +4291,19 @@ function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDA
     });
 }
 app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME',function(req,res){
-
+  let Status = "Approved";
+  let ApprovedDATE = req.params.ApprovedDATE;
+  let ApprovedTIME = req.params.ApprovedTIME;
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME',function(req,res){
-  
+  let Status = "Approved";
+  let ProcessingDATE = req.params.ProcessingDATE;
+  let ProcessingTIME = req.params.ProcessingTIME;
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME',function(req,res){
-  
+  let Status = "Approved";
+  let RejectedDATE = req.params.RejectedDATE;
+  let RejectedTIME = req.params.RejectedTIME;
 });
 
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
