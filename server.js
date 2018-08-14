@@ -4330,7 +4330,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   
   
 });
-function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,ApprovedDATE,ApprovedTIME){
+function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,Status,ApprovedDATE,ApprovedTIME,callback){
   Models.WithdrawHistory.update({
     ApprovedDATE: ApprovedDATE,
     ApprovedTIME:ApprovedTIME,
