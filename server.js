@@ -7048,7 +7048,11 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(MoveHand)){
         AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
-          
+          if(response!=undefined){
+
+          }else{
+            res.send({AddHandHistoryFailed:true});
+          }
         });
       }else{
         res.send({MoveHandMissing:true});
@@ -7088,7 +7092,14 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
   }
   
 });
+function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
 
+}
+
+app.get('/Api/v1/HandHistory/', function (req, res) {
+});
+app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
+});
 //---HandHistory ROUTING END
 
 
