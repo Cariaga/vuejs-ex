@@ -7041,11 +7041,10 @@ function GameHistory(callback){
 //---GameHistory ROUTING END
 //---HandHistory ROUTING START
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
-  let HandHistoryID = req.params.HandHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.UserAccountID;
   let RoundID =  req.params.RoundID;
-  if(!isNullOrEmpty(HandHistoryID)){
+  if(!isNullOrEmpty(RoundID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(MoveHand)){
 
@@ -7059,24 +7058,33 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
 
   }
 });
+function AddHandHistory(){
+
+}
 app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
+  let RoundID =  req.params.RoundID;
   let HandHistoryID = req.params.HandHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.UserAccountID;
-  let RoundID =  req.params.RoundID;
-  if(!isNullOrEmpty(HandHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(MoveHand)){
-
+  
+  if(!isNullOrEmpty(RoundID)){
+    if(!isNullOrEmpty(HandHistoryID)){
+      if(!isNullOrEmpty(UserAccountID)){
+        if(!isNullOrEmpty(MoveHand)){
+  
+        }else{
+  
+        }
       }else{
-
+  
       }
     }else{
-
+  
     }
   }else{
-
+    
   }
+  
 });
 
 //---HandHistory ROUTING END
