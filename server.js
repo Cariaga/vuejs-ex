@@ -5399,7 +5399,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(ProcessingDATE)){
         if(!isNullOrEmpty(ProcessingTIME)){
-          DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,function(response){
+          DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ProcessingDATE,ProcessingTIME,function(response){
             if(response!=undefined){
               res.send(response);
             }else{
@@ -5420,10 +5420,10 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   }
 });
 
-function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,callback){
+function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ProcessingDATE,ProcessingTIME,callback){
   Models.DepositHistory.update({
-    ApprovedDATE: ApprovedDATE,
-    ApprovedTIME:ApprovedTIME,
+    ProcessingDATE: ProcessingDATE,
+    ProcessingTIME:ProcessingTIME,
     Status:"Approved"
   },{
     where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
@@ -5461,7 +5461,20 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
 });
 
 function DepositHistoryUpdateRejected(){
-
+  Models.DepositHistory.update({
+    ApprovedDATE: ApprovedDATE,
+    ApprovedTIME:ApprovedTIME,
+    Status:"Approved"
+  },{
+    where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  }); 
 }
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
   let DepositHistoryID = req.params.DepositHistoryID;
