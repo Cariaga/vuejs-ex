@@ -4294,11 +4294,37 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/UserAccountID/:UserAccou
   let Status = "Approved";
   let ApprovedDATE = req.params.ApprovedDATE;
   let ApprovedTIME = req.params.ApprovedTIME;
+  if(!isNullOrEmpty(Status)){
+    if(!isNullOrEmpty(ApprovedDATE)){
+      if(!isNullOrEmpty(ApprovedTIME)){
+
+      }else{
+        res.send({ApprovedTIMEMissing:true});
+      }
+    }else{
+      res.send({ApprovedDATEMissing:true});
+    }
+  }else{
+    res.send({StatusMissing:true});
+  }
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAccountID/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME',function(req,res){
   let Status = "Approved";
   let ProcessingDATE = req.params.ProcessingDATE;
   let ProcessingTIME = req.params.ProcessingTIME;
+  if(!isNullOrEmpty(Status)){
+    if(!isNullOrEmpty(ProcessingDATE)){
+      if(!isNullOrEmpty(ProcessingTIME)){
+
+      }else{
+        res.send({ProcessingTIMEMissing:true});
+      }
+    }else{
+      res.send({ProcessingDATEMissing:true});
+    }
+  }else{
+    res.send({StatusMissing:true});
+  }
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccountID/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME',function(req,res){
   let Status = "Approved";
