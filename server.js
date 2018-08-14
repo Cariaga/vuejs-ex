@@ -5377,6 +5377,9 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     res.send({DepositHistoryIDMissing:true});
   }
 });
+function DepositHistoryUpdateApproved(){
+
+}
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -5400,6 +5403,10 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     res.send({DepositHistoryIDMissing:true});
   }
 });
+
+function DepositHistoryUpdateProcessing(){
+
+}
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -5424,6 +5431,9 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   }
 });
 
+function DepositHistoryUpdateRejected(){
+
+}
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
