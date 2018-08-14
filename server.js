@@ -5445,7 +5445,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(RejectedDATE)){
         if(!isNullOrEmpty(RejectedTIME)){
-          DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RequestedDATE,RejectedTIME,function(response){
+          DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RejectedDATE,RejectedTIME,function(response){
             if(response!=undefined){
               res.send(response);
             }else{
