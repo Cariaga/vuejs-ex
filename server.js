@@ -4407,7 +4407,7 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
           if(!isNullOrEmpty(RejectedTIME)){
             WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,Status,RejectedDATE,RejectedTIME,function(response){
               if(response!=undefined){
-
+                send.res(response);
               }else{
                 res.send({WithdrawHistoryUpdateRejectedFailed:true});
               }
