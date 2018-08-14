@@ -4290,43 +4290,47 @@ function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDA
       callback(undefined);
     });
 }
-app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/UserAccountID/:UserAccountID/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME',function(req,res){
+app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME',function(req,res){
   let UserAccountID =req.params.UserAccountID;
   let Status = "Approved";//fixed value
   let ApprovedDATE = req.params.ApprovedDATE;
   let ApprovedTIME = req.params.ApprovedTIME;
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Status)){
-      if(!isNullOrEmpty(ApprovedDATE)){
-        if(!isNullOrEmpty(ApprovedTIME)){
-          Models.WithdrawHistory.update({
-            ApprovedDATE: ApprovedDATE,
-            ApprovedTIME:ApprovedTIME
-          },{
-            where: {UserAccountID: UserAccountID }
-          })
-          .then(Success => {
-            callback("Updated");
-          })
-          .catch(error => {
-            console.log("Error Updating " +error);
-            callback(undefined);
-          }); 
-  
+  if(!isNullOrEmpty(WithdrawHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(Status)){
+        if(!isNullOrEmpty(ApprovedDATE)){
+          if(!isNullOrEmpty(ApprovedTIME)){
+            Models.WithdrawHistory.update({
+              ApprovedDATE: ApprovedDATE,
+              ApprovedTIME:ApprovedTIME
+            },{
+              where: {UserAccountID: UserAccountID }
+            })
+            .then(Success => {
+              callback("Updated");
+            })
+            .catch(error => {
+              console.log("Error Updating " +error);
+              callback(undefined);
+            }); 
+    
+          }else{
+            res.send({ApprovedTIMEMissing:true});
+          }
         }else{
-          res.send({ApprovedTIMEMissing:true});
+          res.send({ApprovedDATEMissing:true});
         }
       }else{
-        res.send({ApprovedDATEMissing:true});
+        res.send({StatusMissing:true});
       }
     }else{
-      res.send({StatusMissing:true});
+      res.send({UserAccountIDMissing:true});
     }
   }else{
-    res.send({UserAccountIDMissing:true});
+    res.send({WithdrawHistoryIDMissing:true});
   }
+  
   
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAccountID/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME',function(req,res){
