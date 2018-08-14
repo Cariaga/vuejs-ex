@@ -5354,7 +5354,9 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(ApprovedDATE)){
         if(!isNullOrEmpty(ApprovedTIME)){
-
+          DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,function(response){
+            
+          });
         }else{
           res.send({ApprovedTIMEMissing:true});
         }
@@ -5368,7 +5370,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
     res.send({DepositHistoryIDMissing:true});
   }
 });
-function DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME){
+function DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,callback){
   Models.DepositHistory.update({
     ApprovedDATE: ApprovedDATE,
     ApprovedTIME:ApprovedTIME,
