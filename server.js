@@ -5519,7 +5519,7 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
 //we need to retreive all records and branches of each account
 app.get('/Api/v1/DepositList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = "6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/";
+  let UserAccountID = "6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6";
   let PhoneNumber = req.param.PhoneNumber;
   let TelephoneNumber = req.param.TelephoneNumber;
   let UserAccountIDExist = false;
@@ -5532,12 +5532,18 @@ app.get('/Api/v1/DepositList/', function (req, res) {
   let DepositHistoryResult = undefined;
   if(!isNullOrEmpty(UserAccountID)){
     async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetDepositHistory],function(error,response){
+      let DepositListData =[];
+
       let DepositListItem = PlayerRelationshipResult;
       DepositListItem.PhoneNumber = PhoneNumber;
       DepositListItem.TelephoneNumber = TelephoneNumber;
       DepositListItem.Name = Name;
       DepositListItem.ScreenName = ScreenName;
       DepositListItem.DepositHistory= DepositHistoryResult;
+      DepositListItem.Note ="This is a Mock Up Data we need to iterate all accounts";
+      for(let i=0;i<1000;++i){
+        DepositListData.push(DepositListItem);
+      }
       res.send(beautify(DepositListItem, null, 2, 100));
     });
     function UserAccountCheck(callback){
