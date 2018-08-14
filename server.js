@@ -4307,7 +4307,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
               ApprovedDATE: ApprovedDATE,
               ApprovedTIME:ApprovedTIME
             },{
-              where: {UserAccountID: UserAccountID }
+              where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
             })
             .then(Success => {
               callback("Updated");
@@ -4348,7 +4348,19 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAcc
         let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
         if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
           if(!isNullOrEmpty(ProcessingTIME)){
-    
+            Models.WithdrawHistory.update({
+              ProcessingDATE: ProcessingDATE,
+              ProcessingTIME:ProcessingTIME
+            },{
+              where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
+            })
+            .then(Success => {
+              callback("Updated");
+            })
+            .catch(error => {
+              console.log("Error Updating " +error);
+              callback(undefined);
+            }); 
           }else{
             res.send({ProcessingTIMEMissing:true});
           }
@@ -4379,7 +4391,19 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
         let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
         if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&ProcessingDATEParsed.year()>1959){
           if(!isNullOrEmpty(RejectedTIME)){
-    
+            Models.WithdrawHistory.update({
+              RejectedDATE: RejectedDATE,
+              RejectedTIME:RejectedTIME
+            },{
+              where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
+            })
+            .then(Success => {
+              callback("Updated");
+            })
+            .catch(error => {
+              console.log("Error Updating " +error);
+              callback(undefined);
+            });
           }else{
             res.send({RejectedTIMEMissing:true});
           }
