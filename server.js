@@ -5359,6 +5359,23 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   let UserAccountID = req.params.UserAccountID;
   let ApprovedDATE = req.params.ApprovedDATE;
   let ApprovedTIME = req.params.ApprovedTIME;
+  if(!isNullOrEmpty(DepositHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(ApprovedDATE)){
+        if(!isNullOrEmpty(ApprovedTIME)){
+
+        }else{
+          res.send({ApprovedTIMEMissing:true});
+        }
+      }else{
+        res.send({ApprovedDATEMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  }else{
+    res.send({DepositHistoryIDMissing:true});
+  }
 });
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
