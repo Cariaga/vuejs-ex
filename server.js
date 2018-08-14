@@ -4361,7 +4361,13 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAcc
         let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
         if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
           if(!isNullOrEmpty(ProcessingTIME)){
-             
+            WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Status,ProcessingDATE,ProcessingTIME,function(response){
+              if(response!=undefined){
+                send.res(response);
+              }else{
+                res.send({WithdrawHistoryUpdateProcessingFailed:true});
+              }
+            });
           }else{
             res.send({ProcessingTIMEMissing:true});
           }
