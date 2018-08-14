@@ -5541,10 +5541,11 @@ app.get('/Api/v1/DepositList/', function (req, res) {
       DepositListItem.ScreenName = ScreenName;
       DepositListItem.DepositHistory= DepositHistoryResult;
       DepositListItem.Note ="This is a Mock Up Data we need to iterate all accounts";
+
       for(let i=0;i<1000;++i){
         DepositListData.push(DepositListItem);
       }
-      res.send(beautify(DepositListItem, null, 2, 100));
+      res.send(beautify(DepositListData, null, 2, 100));
     });
     function UserAccountCheck(callback){
       isUserAccountIDExist(UserAccountID,function(response){
