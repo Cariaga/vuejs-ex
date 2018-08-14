@@ -4299,7 +4299,9 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   if(!isNullOrEmpty(WithdrawHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(Status)){
-        if(!isNullOrEmpty(ApprovedDATE)){
+        let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
+        let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
+        if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
           if(!isNullOrEmpty(ApprovedTIME)){
             Models.WithdrawHistory.update({
               ApprovedDATE: ApprovedDATE,
@@ -4339,19 +4341,30 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAcc
   let Status = "Processing";//fixed value
   let ProcessingDATE = req.params.ProcessingDATE;
   let ProcessingTIME = req.params.ProcessingTIME;
-  if(!isNullOrEmpty(Status)){
-    if(!isNullOrEmpty(ProcessingDATE)){
-      if(!isNullOrEmpty(ProcessingTIME)){
-
+  if(!isNullOrEmpty(WithdrawHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(Status)){
+        let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
+        let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
+        if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
+          if(!isNullOrEmpty(ProcessingTIME)){
+    
+          }else{
+            res.send({ProcessingTIMEMissing:true});
+          }
+        }else{
+          res.send({ProcessingDATEMissing:true});
+        }
       }else{
-        res.send({ProcessingTIMEMissing:true});
+        res.send({StatusMissing:true});
       }
     }else{
-      res.send({ProcessingDATEMissing:true});
+      res.send({UserAccountIDMissing:true});
     }
   }else{
-    res.send({StatusMissing:true});
+    res.send({WithdrawHistoryIDMissing:true});
   }
+  
 });
 app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccountID/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
@@ -4359,20 +4372,24 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccou
   let Status = "Rejected";//fixed value
   let RejectedDATE = req.params.RejectedDATE;
   let RejectedTIME = req.params.RejectedTIME;
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
-  if(!isNullOrEmpty(Status)){
-    if(!isNullOrEmpty(RejectedDATE)){
-      if(!isNullOrEmpty(RejectedTIME)){
-
+  if(!isNullOrEmpty(WithdrawHistoryID)){
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(Status)){
+        if(!isNullOrEmpty(RejectedDATE)){
+          if(!isNullOrEmpty(RejectedTIME)){
+    
+          }else{
+            res.send({RejectedTIMEMissing:true});
+          }
+        }else{
+          res.send({RejectedDATEMissing:true});
+        }
       }else{
-        res.send({RejectedTIMEMissing:true});
+        res.send({StatusMissing:true});
       }
-    }else{
-      res.send({RejectedDATEMissing:true});
     }
-  }else{
-    res.send({StatusMissing:true});
   }
+  
 });
 
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
