@@ -4361,20 +4361,7 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAcc
         let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
         if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
           if(!isNullOrEmpty(ProcessingTIME)){
-            Models.WithdrawHistory.update({
-              ProcessingDATE: ProcessingDATE,
-              ProcessingTIME:ProcessingTIME,
-              Status:Status
-            },{
-              where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
-            })
-            .then(Success => {
-              callback("Updated");
-            })
-            .catch(error => {
-              console.log("Error Updating " +error);
-              callback(undefined);
-            }); 
+             
           }else{
             res.send({ProcessingTIMEMissing:true});
           }
@@ -4392,6 +4379,22 @@ app.get('/Api/v1/WithdrawHistory/Update/Status/Processing/UserAccountID/:UserAcc
   }
   
 });
+function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Status,ProcessingDATE,ProcessingTIME,callback){
+  Models.WithdrawHistory.update({
+    ProcessingDATE: ProcessingDATE,
+    ProcessingTIME:ProcessingTIME,
+    Status:Status
+  },{
+    where: {UserAccountID: UserAccountID,WithdrawHistoryID:WithdrawHistoryID }
+  })
+  .then(Success => {
+    callback("Updated");
+  })
+  .catch(error => {
+    console.log("Error Updating " +error);
+    callback(undefined);
+  });
+}
 app.get('/Api/v1/WithdrawHistory/Update/Status/Rejected/UserAccountID/:UserAccountID/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
