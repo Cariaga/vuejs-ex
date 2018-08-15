@@ -7267,6 +7267,19 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 
 //---HandHistory ROUTING END
 //---HandHistoryList ROUTING START
+
+app.get('/Api/v1/HandHistoryList/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  if(!isNullOrEmpty(UserAccountID)){
+    HandHistoryUserAccountID(UserAccountID,function(response){
+      if(response!=undefined){
+        res.send(beautify(response, null, 2, 100));
+      }else{
+        res.send({HandHistoryFailed:true});
+      }
+    });
+  }
+});
 //---HandHistoryList ROUTING END
 
 
