@@ -7125,6 +7125,8 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
                   res.send({AddHandHistoryFailed:true});
                 }
               });
+            }else{
+              res.send({PlayerExist:false});
             }
           }else{
             res.send({UserAccountIDExist:false});
