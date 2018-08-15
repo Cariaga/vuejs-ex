@@ -2112,25 +2112,47 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
 //---API Login End
 
 //---POKER ROUTING START
-app.get('/Api/v1/Poker/:hand', (req, res) =>
+app.get('/Api/v1/Poker/:Hand/', (req, res) =>
 {
-      var temp = req.params.hand;
-      var cnv = JSON.parse("[" + temp + "]"); // to array
-      var a;
-      var cmb = Combinatorics.combination(cnv, 5);
-      var combi = [];
+    let PlayerHand = req.params.Hand;
+      let cnv = JSON.parse("[" + PlayerHand + "]"); // to array
+      let a;
+      let cmb = Combinatorics.combination(cnv, 5);//5 for holdem 7 for omha
+      let AllCombinations = [];
       //var combToString = [];
       var i = 0;
       while(a = cmb.next())
       {
-        combi.push(a);
+        AllCombinations.push(a);
       }
-      var combToString = [];
-      for(var i = 0; i < combi.length; i++)
+      let combToString = [];
+      for(var i = 0; i < AllCombinations.length; i++)
       {
-        combToString.push(new PokerHand(combi[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
+        combToString.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
       }
-      const bestScore = sortBy(combToString, 'score');
+      let bestScore = sortBy(combToString, 'score');
+      res.send(bestScore);
+});
+app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
+{
+  let PlayerHand = req.params.Hand;
+      
+      let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
+      let a;
+      let cmb = Combinatorics.combination(ArrayHand, 7);//5 for holdem 7 for omha
+      let AllCombinations = [];
+      //var combToString = [];
+      let i = 0;
+      while(a = cmb.next())
+      {
+        AllCombinations.push(a);
+      }
+      let combToString = [];
+      for(let i = 0; i < AllCombinations.length; i++)
+      {
+        combToString.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
+      }
+      let bestScore = sortBy(combToString, 'score');
       res.send(bestScore);
 });
 //---POKER ROUTING END
