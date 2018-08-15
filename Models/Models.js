@@ -330,21 +330,34 @@ const HandHistory = sequelize.define('HandHistory', {
   },
   UserAccountID:{
     type: Sequelize.STRING,
-    unique: true,
     foreignKey: true,
     references: {
       model: UserAccount,
       key: 'UserAccountID'
     }
   },//foriegn key to UserAccount
-  RoundID:Sequelize.STRING,//foriegn key to GameHistory
+  RoundID:{
+    type: Sequelize.STRING,
+    foreignKey: true,
+    references: {
+      model: GameHistory,
+      key: 'RoundID'
+    }
+  },//foriegn key to GameHistory
   MoveHand:Sequelize.STRING//action performed by the player
 });
+
 HandHistory.belongsTo(UserAccount, {
   foreignKey: 'UserAccountID',
   targetKey: 'UserAccountID',
   onDelete: 'SET NULL', hooks:true,
-  constraints: true}); 
+  constraints: true});
+  
+HandHistory.belongsTo(GameHistory, {
+  foreignKey: 'RoundID',
+  targetKey: 'RoundID',
+  onDelete: 'SET NULL', hooks:true,
+  constraints: true});  
 
 
 //invoices
