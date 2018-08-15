@@ -12,7 +12,10 @@ var BearerStrategy = require('passport-http-bearer').Strategy;
 var session = require("express-session");
 var cookieParser =require("cookie-parser");
 var jwt = require('jsonwebtoken');
- 
+
+var Combinatorics = require('js-combinatorics');
+const PokerHand = require('poker-hand-evaluator');
+const sortBy = require('sort-array');
 
 
 var app = express(); // create our app w/ express
@@ -2053,6 +2056,9 @@ app.get('/Api/v1', function (req, res) {
   res.send('Api v1 version');
 });
 //--API version START
+
+
+
 //---API SignOut Start
 app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
   let UserName = req.params.UserName;
@@ -2104,6 +2110,36 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
   }*/
 });
 //---API Login End
+
+//---POKER ROUTING START
+app.get('/Api/v1/poker/:hand', (req, res) =>
+{
+      var temp = req.params.hand;
+      var cnv = JSON.parse("[" + temp + "]"); // to array
+      var a;
+      var cmb = Combinatorics.combination(cnv, 5);
+      var combi = [];
+      //var combToString = [];
+      var i = 0;
+      while(a = cmb.next())
+      {
+        combi.push(a);
+        //combToString[i].push(combi[i].join().replace(/\,/ig, " "));
+        //myPokerHand = new PokerHand(combToString[a]);
+      }
+      //var combToString = combi[0].join().replace(/\,/ig, " "); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
+      //const myPokerHand = new PokerHand(combToString);
+      //res.send(myPokerHand);
+      var combToString = [];
+      for(var i = 0; i < combi.length; i++)
+      {
+        combToString.push(new PokerHand(combi[i].join().replace(/\,/ig, " ")));
+      }
+      const bestScore = sortBy(combToString, 'score');
+      res.send(bestScore);
+});
+//---POKER ROUTING END
+
 //---SupportTicket ROUTING START
 app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
   ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
