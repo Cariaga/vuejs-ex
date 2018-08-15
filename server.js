@@ -7282,7 +7282,7 @@ app.get('/Api/v1/HandHistoryList/', function (req, res) {
           }
         });
       }else{
-        res.send({});
+        res.send({UserAccountIDExist:false});
       }
     });
     function UserAccountIDCheck(callback){
