@@ -7285,13 +7285,22 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
       if(!isNullOrEmpty(PhoneNumber)){
         if(!isNullOrEmpty(TelephoneNumber)){
           let UserAccountIDExist= false;
-          async.series([UserAccountIDCheck],function(error,response){
+          let UserInfoExist= false;
+          async.series([UserAccountIDCheck,UserInfoCheck],function(error,response){
             if(UserAccountIDExist==true){
-              AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
-                res.send(response);
-              });
+              if(UserInfoExist==false){//must not exist already
+                AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
+                  if(response!=undefined){
+                    res.send(response);
+                  }else{
+                    res.send({AddUserInfoFailed:true});
+                  }
+                });
+              }else{
+                res.send({UserInfoExist:true});
+              }
             }else{
-              res.send({AddUserInfoFailed:true});
+              res.send({UserAccountIDExist:true});
             }
           });
           
@@ -7304,6 +7313,17 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
               }else{
                 UserAccountIDExist = false;
                 callback(null,'1');
+              }
+            });
+          }
+          function UserInfoCheck(callback){
+            UserInfoUserAccountID(UserAccountID,function(response){
+              if(response!=undefined){
+                UserInfoExist=true;
+               callback(null,'3');
+              }else{
+                UserInfoExist= false;
+               callback(null,'3');
               }
             });
           }
