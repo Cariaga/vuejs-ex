@@ -7316,9 +7316,9 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 });
 
 //---HandHistory ROUTING END
-//---HandHistoryList ROUTING START
+//---HandList ROUTING START
 
-app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, res) {
+app.get('/Api/v1/HandList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
@@ -7350,7 +7350,7 @@ app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, r
     }
   }
 });
-//---HandHistoryList ROUTING END
+//---HandList ROUTING END
 
 
 //---UserInfo ROUTING START
