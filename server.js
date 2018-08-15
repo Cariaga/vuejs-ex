@@ -6419,13 +6419,13 @@ function TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAcc
 //--TransferHistory ROUTING END
 
 //---RoomConfiguration ROUTING START
-app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
-  //USAGE /Api/v1/RoomConfiguration/Add/RoomID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
-  let RoomID = req.params.RoomID;
+app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
+  //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
+  let SeasonID = req.params.SeasonID;
   let SmallBlind = req.params.SmallBlind;
   let BigBlind = req.params.BigBlind;
   let Speed = req.params.Speed;
-  if(!isNullOrEmpty(RoomID)){
+  if(!isNullOrEmpty(SeasonID)){
     if( !isNullOrEmpty(SmallBlind)){
       if( !isNullOrEmpty(BigBlind)){
         if(!isNullOrEmpty(Speed)){
@@ -6433,27 +6433,27 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
             if(validator.isNumeric(BigBlind)){
               if(validator.isNumeric(Speed)){
                 
-                let IsRoomIDFound =false;//false is the result we want
-                async.series([IsRoomIDExistCheck],function(error,response){
-                  if(IsRoomIDFound==false){//must be false to be valid
+                let IsSeasonIDFound =false;//false is the result we want
+                async.series([IsSeasonIDExistCheck],function(error,response){
+                  if(IsSeasonIDFound==false){//must be false to be valid
                     //Not Done
-                   /* AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+                   /* AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,function(response){
                      res.send(response);
                     });*/
                     res.send({Success:true});
                   }else{
-                    res.send({RoomIDAlreadyExist:true});
+                    res.send({SeasonIDAlreadyExist:true});
                   }
                   
                 });
 
-                function IsRoomIDExistCheck(callback2){
-                  IsRoomIDExist(RoomID,function(response2){
+                function IsSeasonIDExistCheck(callback2){
+                  IsSeasonIDExist(SeasonID,function(response2){
                     if(response2!=undefined){
-                      IsRoomIDFound=true;
+                      IsSeasonIDFound=true;
                       callback2(null,'1');
                     }else{
-                      IsRoomIDFound= false;
+                      IsSeasonIDFound= false;
                       callback2(null,'1');
                     }
                   });
@@ -6479,22 +6479,22 @@ app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/Big
       res.send({SmallBlindMissing:true});
     }
   }else{
-    res.send({RoomIDMissing:true});
+    res.send({SeasonIDMissing:true});
   }
 });
 
 /**
  *
  *
- * @param {*} RoomID
+ * @param {*} SeasonID
  * @param {*} SmallBlind
  * @param {*} BigBlind
  * @param {*} Speed
  * @param {*} callback
  */
-function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
+function AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,callback){
   var item1 = Models.RoomConfiguration.build({
-    RoomID:RoomID,
+    SeasonID:SeasonID,
     SmallBlind:SmallBlind,
     BigBlind:BigBlind,
     Speed:Speed
@@ -6514,14 +6514,14 @@ function AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,callback){
 /**
  *
  *
- * @param {*} RoomID
+ * @param {*} SeasonID
  * @param {*} callback
  */
-function IsRoomIDExist(RoomID,callback){
+function IsSeasonIDExist(SeasonID,callback){
   Models.RoomConfiguration.sync();
   let result = Models.RoomConfiguration.findAll({ 
     where: {
-      RoomID:RoomID
+      SeasonID:SeasonID
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
@@ -6539,17 +6539,17 @@ function IsRoomIDExist(RoomID,callback){
     callback(undefined);
   });
 }
-app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
-  let RoomID = req.params.RoomID;
+app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
+  let SeasonID = req.params.SeasonID;
   let SmallBlind = req.params.SmallBlind;
   let BigBlind = req.params.BigBlind;
-  if(!isNullOrEmpty(RoomID)){
+  if(!isNullOrEmpty(SeasonID)){
     if(!isNullOrEmpty(SmallBlind)){
       if(!isNullOrEmpty(BigBlind)){
-        let IsRoomIDFound = false;// for the update RoomID Must Exist
-        async.series([IsRoomIDExistCheck],function(error,response){
-          RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,function(response){
-            if(IsRoomIDFound==true){
+        let IsSeasonIDFound = false;// for the update SeasonID Must Exist
+        async.series([IsSeasonIDExistCheck],function(error,response){
+          RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID,SmallBlind,BigBlind,function(response){
+            if(IsSeasonIDFound==true){
               res.send(response);
             }else{
               res.send({});
@@ -6557,13 +6557,13 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
           });
         });
 
-        function IsRoomIDExistCheck(callback){
-          IsRoomIDExist(RoomID,function(response){
+        function IsSeasonIDExistCheck(callback){
+          IsSeasonIDExist(SeasonID,function(response){
             if(response!=undefined){
-              IsRoomIDFound=true;
+              IsSeasonIDFound=true;
               callback(null,'1');
             }else{
-              IsRoomIDFound =false;
+              IsSeasonIDFound =false;
               callback(null,'1');
             }
           }); 
@@ -6575,25 +6575,25 @@ app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/
       res.send({SmallBlindMissing:true});
     }
   }else{
-    res.send({RoomIDMissing:true});
+    res.send({SeasonIDMissing:true});
   }
 });
 
 /**
  *
  *
- * @param {*} RoomID
+ * @param {*} SeasonID
  * @param {*} SmallBlind
  * @param {*} BigBlind
  * @param {*} callback
  */
-function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID,SmallBlind,BigBlind,callback){
+function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID,SmallBlind,BigBlind,callback){
   Models.RoomConfiguration.sync(/*{force:true}*/);
   Models.RoomConfiguration.update({
     SmallBlind:SmallBlind,
     BigBlind:BigBlind
   },{
-    where: {RoomID: RoomID }
+    where: {SeasonID: SeasonID }
   })
   .then(Success => {
     console.log("Updated");
@@ -6666,7 +6666,7 @@ app.get('/Api/v1/RoomConfiguration/Clear', function (req, res){
   Models.RoomConfiguration.destroy({
     where: {},
     truncate: true}).then(function(result) {
-      sequelize.queryInterface.removeConstraint('GameHistory', 'RoomID');
+      sequelize.queryInterface.removeConstraint('GameHistory', 'SeasonID');
     res.send("Cleared");
   }).catch(function(result) {//catching any then errors
 
@@ -6687,12 +6687,12 @@ app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 //---RoomConfiguration ROUTING END
 
 //---GameHistory ROUTING START
-app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
-  //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/RoomID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
+app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
+  //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
-  let RoomID = req.params.RoomID;
+  let SeasonID = req.params.SeasonID;
   let Rank = req.params.Rank;
   let Score = req.params.Score;
   let Card = req.params.Card;
@@ -6703,7 +6703,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
 
   if(!isNullOrEmpty(UserAccountID)){
     if(!isNullOrEmpty(RoundID)){
-      if(!isNullOrEmpty(RoomID)){
+      if(!isNullOrEmpty(SeasonID)){
         if( !isNullOrEmpty(Rank)){
           if(!isNullOrEmpty(Score)){
             if(!isNullOrEmpty(Card)){
@@ -6728,16 +6728,16 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                               Rank=="STRAIGHT_FLUSH"||
                               Rank=="ROYAL_FLUSH"){
                                   let isUserAccountIDExistFound = false;
-                                  let isRoomIDFound =false;
-                                  async.series([IsUserAccountIDExistCheck,IsRoomIDExistCheck],function(error,response){
+                                  let isSeasonIDFound =false;
+                                  async.series([IsUserAccountIDExistCheck,IsSeasonIDExistCheck],function(error,response){
                                  
                                     if(isUserAccountIDExistFound==true){
-                                      if(isRoomIDFound==true){
-                                        AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
+                                      if(isSeasonIDFound==true){
+                                        AddGameHistory(UserAccountID,RoundID,SeasonID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
                                           res.send(response);
                                         });
                                       }else{
-                                        res.send({RoomIDInvalid:false});
+                                        res.send({SeasonIDInvalid:false});
                                       }                           
                                     }else{
                                       res.send({UserAccountIDInvalid:false});
@@ -6754,13 +6754,13 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
                                     }
                                   });
                                 }
-                                function IsRoomIDExistCheck(callback){
-                                  IsRoomIDExist(RoomID,function(response){
+                                function IsSeasonIDExistCheck(callback){
+                                  IsSeasonIDExist(SeasonID,function(response){
                                     if(response!=undefined){
-                                      isRoomIDFound=true;
+                                      isSeasonIDFound=true;
                                       callback(null,'2');
                                     }else{
-                                      isRoomIDFound=false;
+                                      isSeasonIDFound=false;
                                       callback(null,'2');
                                     }
                                   });
@@ -6807,7 +6807,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
           res.send({RankMissing:true});
         }
       }else{
-        res.send({RoomIDMissing:true});
+        res.send({SeasonIDMissing:true});
       }
     }else{
       res.send({RoundIDMissing:true});
@@ -6818,7 +6818,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
 /*
   if(!isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(RoundID)&&
-  !isNullOrEmpty(RoomID)&&
+  !isNullOrEmpty(SeasonID)&&
   !isNullOrEmpty(Rank)&&
   !isNullOrEmpty(Score)&&
   !isNullOrEmpty(Card)&&
@@ -6835,7 +6835,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
  *
  * @param {*} UserAccountID
  * @param {*} RoundID
- * @param {*} RoomID
+ * @param {*} SeasonID
  * @param {*} Rank
  * @param {*} Score
  * @param {*} Card
@@ -6845,12 +6845,12 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/Rou
  * @param {*} AfterPoints
  * @param {*} callback
  */
-function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,callback){
+function AddGameHistory(UserAccountID,RoundID,SeasonID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,callback){
   Models.GameHistory.sync();
   var item1 = Models.GameHistory.build({
     UserAccountID:UserAccountID,
     RoundID:RoundID,
-    RoomID:RoomID,
+    SeasonID:SeasonID,
     Rank:Rank,
     Score:Score,
     Card:Card,
@@ -6872,12 +6872,12 @@ function AddGameHistory(UserAccountID,RoundID,RoomID,Rank,Score,Card,Time,Date,B
   });
 }
 
-app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/RoomID/:RoomID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function(req,res) {
+app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function(req,res) {
  
   let GameHistoryID = req.params.GameHistoryID;
   let UserAccountID = req.params.UserAccountID;
   let RoundID = req.params.RoundID;
-  let RoomID = req.params.RoomID;
+  let SeasonID = req.params.SeasonID;
   let Rank = req.params.Rank;
   let Score = req.params.Score;
   let Card = req.params.Card;
@@ -6888,7 +6888,7 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
 
   if(!isNullOrEmpty(GameHistoryID)){
     if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(RoomID)){
+      if(!isNullOrEmpty(SeasonID)){
         if(!isNullOrEmpty(RoundID)){
           if(!isNullOrEmpty(Rank)){
             if(!isNullOrEmpty(Score)){
@@ -6906,7 +6906,7 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
                             Models.GameHistory.update({
                               UserAccountID: UserAccountID,
                               RoundID: RoundID,
-                              RoomID: RoomID,
+                              SeasonID: SeasonID,
                               Rank: Rank,
                               Score: Score,
                               Card: Card,
@@ -6985,7 +6985,7 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
   if(!isNullOrEmpty(GameHistoryID)&&
   !isNullOrEmpty(UserAccountID)&&
   !isNullOrEmpty(RoundID)&&
-  !isNullOrEmpty(RoomID)&&
+  !isNullOrEmpty(SeasonID)&&
   !isNullOrEmpty(Rank)&&
   !isNullOrEmpty(Score)&&
   !isNullOrEmpty(Card)&&
