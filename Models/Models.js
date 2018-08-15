@@ -281,7 +281,7 @@ const RoomConfiguration =sequelize.define('RoomConfiguration', {
     autoIncrement: true,
  
   },
-  RoomID: {
+  SeasonID: {
     type: Sequelize.STRING,
     unique:true
   },
@@ -297,15 +297,15 @@ const GameHistory =sequelize.define('GameHistory', {
     autoIncrement: true,
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
-  RoundID: Sequelize.STRING,// assigned by the room// every cycle of the room is still considered a single round
-	RoomID:{//
+  SeasonID: Sequelize.STRING,// assigned by the room// every cycle of the room is still considered a single round
+	SeasonID:{//
     type: Sequelize.STRING,
     foreignKey: true,
     references: {
       model: RoomConfiguration,
-      key: 'RoomID'
+      key: 'SeasonID'
     },
-    targetKey: 'RoomID',
+    targetKey: 'SeasonID',
   },// assigned by the room
 	Rank: Sequelize.STRING,
 	Score: Sequelize.INTEGER,
@@ -317,8 +317,8 @@ const GameHistory =sequelize.define('GameHistory', {
 });
 
 GameHistory.belongsTo(RoomConfiguration, {
-  foreignKey: 'RoomID',
-  targetKey: 'RoomID',
+  foreignKey: 'SeasonID',
+  targetKey: 'SeasonID',
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
 
@@ -336,12 +336,12 @@ const HandHistory = sequelize.define('HandHistory', {
       key: 'UserAccountID'
     }
   },//foriegn key to UserAccount
-  RoundID:{
+  SeasonID:{
     type: Sequelize.STRING,
     foreignKey: true,
     references: {
       model: GameHistory,
-      key: 'RoundID'
+      key: 'SeasonID'
     }
   },//foriegn key to GameHistory
   MoveHand:Sequelize.STRING//action performed by the player
@@ -354,8 +354,8 @@ HandHistory.belongsTo(UserAccount, {
   constraints: true});
   
 HandHistory.belongsTo(GameHistory, {
-  foreignKey: 'RoundID',
-  targetKey: 'RoundID',
+  foreignKey: 'SeasonID',
+  targetKey: 'SeasonID',
   onDelete: 'SET NULL', hooks:true,
   constraints: true});  
 
