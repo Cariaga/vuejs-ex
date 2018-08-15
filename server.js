@@ -7110,7 +7110,7 @@ function HandHistoryUserAccountID(UserAccountID,callback){
 }
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
-  let MoveHand =  req.params.UserAccountID;
+  let MoveHand =  req.params.MoveHand;
   let RoundID =  req.params.RoundID;
   if(!isNullOrEmpty(RoundID)){
     if(!isNullOrEmpty(UserAccountID)){
