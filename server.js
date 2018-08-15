@@ -2112,9 +2112,9 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
 //---API Login End
 
 //---POKER ROUTING START
-app.get('/Api/v1/Poker/:Hand/', (req, res) =>
+app.get('/Api/v1/Poker/:PlayerHand/', (req, res) =>
 {
-  let PlayerHand = req.params.Hand;
+  let PlayerHand = req.params.PlayerHand;
   let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
 
   let cmb = Combinatorics.combination(ArrayHand, 7);//5 for holdem 7 for omha
@@ -2132,9 +2132,9 @@ app.get('/Api/v1/Poker/:Hand/', (req, res) =>
   let bestScore = sortBy(EvaluatedHand, 'score');
   res.send(bestScore);
 });
-app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
+app.get('/Api/v1/Omaha/:PlayerHand/', (req, res) =>
 {
-      let PlayerHand = req.params.Hand;
+      let PlayerHand = req.params.PlayerHand;
       let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
  
       let cmb = Combinatorics.combination(ArrayHand, 7);//5 for holdem 7 for omha
