@@ -7266,6 +7266,8 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 });
 
 //---HandHistory ROUTING END
+//---HandHistoryList ROUTING START
+//---HandHistoryList ROUTING END
 
 
 //---UserInfo ROUTING START
