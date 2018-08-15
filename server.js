@@ -7114,20 +7114,23 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(MoveHand)){
         let UserAccountIDExist = false;
-        async.series([UserAccountIDCheck],function(response){
+        let PlayerExist = false;
+        async.series([UserAccountIDCheck,PlayerCheck],function(error,response){
           if(UserAccountIDExist==true){
-            AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
-              if(response!=undefined){
-                res.send(response);
-              }else{
-                res.send({AddHandHistoryFailed:true});
-              }
-            });
-
+            if(PlayerExist==true){
+              AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send({AddHandHistoryFailed:true});
+                }
+              });
+            }
           }else{
             res.send({UserAccountIDExist:false});
           }
         });
+        
         function UserAccountIDCheck(callback){
           isUserAccountIDExist(UserAccountID,function(response){
             let obj = response;
@@ -7137,6 +7140,17 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
             }else{
               UserAccountIDExist = false;
               callback(null,'1');
+            }
+          });
+        }
+        function PlayerCheck(callback){
+          PlayerUserAccountID(UserAccountID,function(response){
+            if(response!=undefined){
+             PlayerExist= true;
+             callback(null,'1');
+            }else{
+             PlayerExist= false;
+             callback(null,'1');
             }
           });
         }
