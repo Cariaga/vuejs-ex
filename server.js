@@ -7284,9 +7284,29 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
     if(!isNullOrEmpty(Email)){
       if(!isNullOrEmpty(PhoneNumber)){
         if(!isNullOrEmpty(TelephoneNumber)){
-          AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
-            res.send(response);
+          let UserAccountIDExist= false;
+          async.series([UserAccountIDCheck],function(error,response){
+            if(UserAccountIDExist==true){
+              AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
+                res.send(response);
+              });
+            }else{
+              res.send({AddUserInfoFailed:true});
+            }
           });
+          
+          function UserAccountIDCheck(callback){
+            isUserAccountIDExist(UserAccountID,function(response){
+              let obj = response;
+              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
+                UserAccountIDExist = true;
+                callback(null,'1');
+              }else{
+                UserAccountIDExist = false;
+                callback(null,'1');
+              }
+            });
+          }
         }else{
           res.send({TelephoneNumberMissing:true});
         }
