@@ -7268,8 +7268,9 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 //---HandHistory ROUTING END
 //---HandHistoryList ROUTING START
 
-app.get('/Api/v1/HandHistoryList/', function (req, res) {
+app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
   if(!isNullOrEmpty(UserAccountID)){
     let UserAccountIDExist = false;
     async.series([UserAccountIDCheck],function(error,response){
@@ -7297,7 +7298,6 @@ app.get('/Api/v1/HandHistoryList/', function (req, res) {
         }
       });
     }
-    
   }
 });
 //---HandHistoryList ROUTING END
