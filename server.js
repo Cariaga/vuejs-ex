@@ -2116,10 +2116,10 @@ app.get('/Api/v1/Poker/:Hand/', (req, res) =>
 {
   let PlayerHand = req.params.Hand;
   let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
-  let a;
+
   let cmb = Combinatorics.combination(ArrayHand, 7);//5 for holdem 7 for omha
   let AllCombinations = [];
-  let i = 0;
+  let a;
   while(a = cmb.next())
   {
     AllCombinations.push(a);
@@ -2136,10 +2136,10 @@ app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
 {
       let PlayerHand = req.params.Hand;
       let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
-      let a;
+ 
       let cmb = Combinatorics.combination(ArrayHand, 7);//5 for holdem 7 for omha
       let AllCombinations = [];
-      let i = 0;
+      let a;
       while(a = cmb.next())
       {
         AllCombinations.push(a);
