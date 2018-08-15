@@ -281,7 +281,7 @@ const RoomConfiguration =sequelize.define('RoomConfiguration', {
     autoIncrement: true,
  
   },
-  SeasonID: {
+  RoomID: {
     type: Sequelize.STRING,
     unique:true
   },
@@ -298,14 +298,14 @@ const GameHistory =sequelize.define('GameHistory', {
   },
   UserAccountID:Sequelize.STRING,//FK Many UserAccount can have many GameHistoryID
   SeasonID: Sequelize.STRING,// assigned by the room// every cycle of the room is still considered a single round
-	SeasonID:{//
+	RoomID:{//
     type: Sequelize.STRING,
     foreignKey: true,
     references: {
       model: RoomConfiguration,
-      key: 'SeasonID'
+      key: 'RoomID'
     },
-    targetKey: 'SeasonID',
+    targetKey: 'RoomID',
   },// assigned by the room
 	Rank: Sequelize.STRING,
 	Score: Sequelize.INTEGER,
@@ -317,8 +317,8 @@ const GameHistory =sequelize.define('GameHistory', {
 });
 
 GameHistory.belongsTo(RoomConfiguration, {
-  foreignKey: 'SeasonID',
-  targetKey: 'SeasonID',
+  foreignKey: 'RoomID',
+  targetKey: 'RoomID',
   onDelete: 'SET NULL', hooks:true,
   constraints: true}); 
 
