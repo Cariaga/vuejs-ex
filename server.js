@@ -7271,20 +7271,33 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 app.get('/Api/v1/HandHistoryList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   if(!isNullOrEmpty(UserAccountID)){
-    
-    async.series([],function(response){
-      if(response){
-
-      }
-    });
-
-    HandHistoryUserAccountID(UserAccountID,function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
+    let UserAccountIDExist = false;
+    async.series([UserAccountIDCheck],function(error,response){
+      if(UserAccountIDExist==true){
+        HandHistoryUserAccountID(UserAccountID,function(response){
+          if(response!=undefined){
+            res.send(beautify(response, null, 2, 100));
+          }else{
+            res.send({HandHistoryFailed:true});
+          }
+        });
       }else{
-        res.send({HandHistoryFailed:true});
+        res.send({});
       }
     });
+    function UserAccountIDCheck(callback){
+      isUserAccountIDExist(UserAccountID,function(response){
+        let obj = response;
+        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
+          UserAccountIDExist = true;
+          callback(null,'1');
+        }else{
+          UserAccountIDExist = false;
+          callback(null,'1');
+        }
+      });
+    }
+    
   }
 });
 //---HandHistoryList ROUTING END
