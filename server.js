@@ -246,7 +246,7 @@ function SendMail(To,From,Subject,html){
  * @param {*} Email
  * @param {*} callback
  */
-function isEmailExist(Email,callback){
+function UserInfoEmailExist(Email,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
       where: {
@@ -916,7 +916,7 @@ app.get('/registerheadoffice',function(req,res){
                });
               }
               function mySecondFunction(callback2){
-                isEmailExist(Email,function(response){
+                UserInfoEmailExist(Email,function(response){
                   let obj = response;
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
@@ -1079,7 +1079,7 @@ app.get('/registerdistributor',function(req,res){
       
               }
               function mySecondFunction(callback2){
-                isEmailExist(Email,function(response){
+                UserInfoEmailExist(Email,function(response){
                   let obj = response;
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
@@ -1268,7 +1268,7 @@ app.get('/registershop',function(req,res){
       
               }
               function mySecondFunction(callback2){
-                isEmailExist(Email,function(response){
+                UserInfoEmailExist(Email,function(response){
                   let obj = response;
                   if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                     isEmailAlreadyExist=true;
@@ -1460,7 +1460,7 @@ app.get('/register',function (req, res) {
     
             }
             function EmailExistCheck(callback2){
-              isEmailExist(Email,function(response){
+              UserInfoEmailExist(Email,function(response){
                 let obj = response;
                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                   isEmailAlreadyExist=true;
@@ -7287,7 +7287,7 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
           let UserAccountIDExist= false;
           let UserInfoExist= false;
           let isEmailExist =false;
-          async.series([UserAccountIDCheck,UserInfoCheck,EmailExistCheck],function(error,response){
+          async.series([UserAccountIDCheck,UserInfoCheck,UserInfoEmailExistCheck],function(error,response){
             if(UserAccountIDExist==true){
               if(UserInfoExist==false){//must not exist already
                 if(isEmailExist==false){//must Be False
@@ -7333,8 +7333,8 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
               }
             });
           }
-          function EmailExistCheck(callback2){
-            isEmailExist(Email,function(response){
+          function UserInfoEmailExistCheck(callback2){
+            UserInfoEmailExist(Email,function(response){
               let obj = response;
               if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
                 isEmailExist=true;
