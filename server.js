@@ -7113,13 +7113,34 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
   if(!isNullOrEmpty(RoundID)){
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(MoveHand)){
-        AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
-          if(response!=undefined){
-            res.send(response);
+        let UserAccountIDExist = false;
+        async.series([UserAccountIDCheck],function(response){
+          if(UserAccountIDExist==true){
+            AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
+              if(response!=undefined){
+                res.send(response);
+              }else{
+                res.send({AddHandHistoryFailed:true});
+              }
+            });
+
           }else{
-            res.send({AddHandHistoryFailed:true});
+            res.send({UserAccountIDExist:false});
           }
         });
+        function UserAccountIDCheck(callback){
+          isUserAccountIDExist(UserAccountID,function(response){
+            let obj = response;
+            if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
+              UserAccountIDExist = true;
+              callback(null,'1');
+            }else{
+              UserAccountIDExist = false;
+              callback(null,'1');
+            }
+          });
+        }
+        
       }else{
         res.send({MoveHandMissing:true});
       }
