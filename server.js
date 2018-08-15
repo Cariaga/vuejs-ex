@@ -2124,16 +2124,11 @@ app.get('/Api/v1/Poker/:hand', (req, res) =>
       while(a = cmb.next())
       {
         combi.push(a);
-        //combToString[i].push(combi[i].join().replace(/\,/ig, " "));
-        //myPokerHand = new PokerHand(combToString[a]);
       }
-      //var combToString = combi[0].join().replace(/\,/ig, " "); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
-      //const myPokerHand = new PokerHand(combToString);
-      //res.send(myPokerHand);
       var combToString = [];
       for(var i = 0; i < combi.length; i++)
       {
-        combToString.push(new PokerHand(combi[i].join().replace(/\,/ig, " ")));
+        combToString.push(new PokerHand(combi[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
       }
       const bestScore = sortBy(combToString, 'score');
       res.send(bestScore);
