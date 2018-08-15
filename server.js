@@ -2126,7 +2126,7 @@ app.get('/Api/v1/Poker/:Hand/', (req, res) =>
         AllCombinations.push(a);
       }
       let combToString = [];
-      for(var i = 0; i < AllCombinations.length; i++)
+      for(var i = 0; i < AllCombinations.length; ++i)
       {
         combToString.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
       }
@@ -2147,7 +2147,7 @@ app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
         AllCombinations.push(a);
       }
       let combToString = [];
-      for(let i = 0; i < AllCombinations.length; i++)
+      for(let i = 0; i < AllCombinations.length; ++i)
       {
         combToString.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
       }
