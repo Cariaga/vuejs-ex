@@ -7226,8 +7226,8 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
   
 });
 function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
-  Models.UserInfo.sync(/*{force:true}*/);
-  Models.UserInfo.update({
+  Models.HandHistory.sync(/*{force:true}*/);
+  Models.HandHistory.update({
     MoveHand: MoveHand,
     RoundID: RoundID
   },{
