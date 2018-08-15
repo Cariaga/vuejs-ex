@@ -7253,7 +7253,7 @@ app.get('/Api/v1/HandHistory/Describe', function (req, res) {
 
 });
 app.get('/Api/v1/HandHistory/Clear', function (req, res) {
-  Models.UserInfo.destroy({
+  Models.HandHistory.destroy({
     where: {},
     truncate: true
   })
