@@ -7046,7 +7046,7 @@ app.get('/Api/v1/HandHistory/', function (req, res) {
     if(response!=undefined){
       res.send(beautify(response, null, 2, 100));
     }else{
-      res.send({HandHistoryFailed:true});
+      res.send([]);
     }
   });
 });
