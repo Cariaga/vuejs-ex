@@ -7271,6 +7271,13 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 app.get('/Api/v1/HandHistoryList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   if(!isNullOrEmpty(UserAccountID)){
+    
+    async.series([],function(response){
+      if(response){
+
+      }
+    });
+
     HandHistoryUserAccountID(UserAccountID,function(response){
       if(response!=undefined){
         res.send(beautify(response, null, 2, 100));
