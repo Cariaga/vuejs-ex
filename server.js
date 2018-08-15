@@ -8274,7 +8274,6 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point
               if(parseInt(Point)!=0){
                 if(NewPoints>=0){
                   if(UserAccountIDExist==true){
-                 
                     PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
                       if(response!=undefined){
                         res.send(response);
@@ -8394,7 +8393,6 @@ function PlayerUpdatePoint(UserAccountID,CurrentPoints,callback){
     callback(undefined);
   });
 }
-
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let CurrentRoomName = req.params.CurrentRoomName;
