@@ -7288,7 +7288,7 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
           let UserInfoExist= false;
           let isEmailExist =false;
           async.series([UserAccountIDCheck,UserInfoCheck,UserInfoEmailExistCheck],function(error,response){
-            res.send({isEmailExist:isEmailExist})
+           
             if(UserAccountIDExist==true){
               if(UserInfoExist==false){//must not exist already
                 if(isEmailExist==false){//must Be False
