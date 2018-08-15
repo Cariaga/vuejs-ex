@@ -7041,9 +7041,10 @@ function GameHistory(callback){
 //---GameHistory ROUTING END
 //---HandHistory ROUTING START
 app.get('/Api/v1/HandHistory/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   HandHistory(function(response){
     if(response!=undefined){
-      res.send(response);
+      res.send(beautify(response, null, 2, 100));
     }else{
       res.send({HandHistoryFailed:true});
     }
@@ -7074,10 +7075,11 @@ function HandHistory(callback){
   });
 }
 app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   if(!isNullOrEmpty(UserAccountID)){
     HandHistoryUserAccountID(UserAccountID,function(response){
       if(response!=undefined){
-        res.send(response);
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send({HandHistoryFailed:true});
       }
@@ -7112,8 +7114,11 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
   let RoundID =  req.params.RoundID;
   if(!isNullOrEmpty(RoundID)){
     if(!isNullOrEmpty(UserAccountID)){
+      
       if(!isNullOrEmpty(MoveHand)){
-        let UserAccountIDExist = false;
+
+        if(MoveHand=="Fold"||MoveHand=="Call"||MoveHand=="Raise"||MoveHand=="Check"){
+          let UserAccountIDExist = false;
         let PlayerExist = false;
         async.series([UserAccountIDCheck,PlayerCheck],function(error,response){
           if(UserAccountIDExist==true){
@@ -7156,6 +7161,10 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
             }
           });
         }
+        }else{
+          res.send({MoveHandInvalidValue:true});
+        }
+        
         
       }else{
         res.send({MoveHandMissing:true});
