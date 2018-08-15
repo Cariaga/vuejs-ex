@@ -2112,7 +2112,7 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
 //---API Login End
 
 //---POKER ROUTING START
-app.get('/Api/v1/poker/:hand', (req, res) =>
+app.get('/Api/v1/Poker/:hand', (req, res) =>
 {
       var temp = req.params.hand;
       var cnv = JSON.parse("[" + temp + "]"); // to array
