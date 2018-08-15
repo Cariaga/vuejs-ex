@@ -7286,16 +7286,22 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
         if(!isNullOrEmpty(TelephoneNumber)){
           let UserAccountIDExist= false;
           let UserInfoExist= false;
-          async.series([UserAccountIDCheck,UserInfoCheck],function(error,response){
+          let isEmailExist =false;
+          async.series([UserAccountIDCheck,UserInfoCheck,EmailExistCheck],function(error,response){
             if(UserAccountIDExist==true){
               if(UserInfoExist==false){//must not exist already
-                AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send({AddUserInfoFailed:true});
-                  }
-                });
+                if(isEmailExist==false){//must Be False
+                  AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
+                    if(response!=undefined){
+                      res.send(response);
+                    }else{
+                      res.send({AddUserInfoFailed:true});
+                    }
+                  });
+                }else{
+                  res.send({UserInfoExist:true});
+                }
+                
               }else{
                 res.send({UserInfoExist:true});
               }
@@ -7324,6 +7330,19 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
               }else{
                 UserInfoExist= false;
                callback(null,'3');
+              }
+            });
+          }
+          function EmailExistCheck(callback2){
+            isEmailExist(Email,function(response){
+              let obj = response;
+              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
+                isEmailExist=true;
+                callback2(null,2);
+                
+              }else{
+                isEmailExist=false;
+                callback2(null,2);
               }
             });
           }
