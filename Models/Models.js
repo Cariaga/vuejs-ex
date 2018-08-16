@@ -337,14 +337,14 @@ const HandHistory = sequelize.define('HandHistory', {
     }
   },//foriegn key to UserAccount
   RoundID:Sequelize.STRING,
-  SeasonID:{
+ /* SeasonID:{
     type: Sequelize.STRING,
     foreignKey: true,
     references: {
       model: GameHistory,
       key: 'SeasonID'
     }
-  },//foriegn key to GameHistory
+  },*///foriegn key to GameHistory
   MoveHand:Sequelize.STRING//action performed by the player
 });
 
@@ -353,12 +353,12 @@ HandHistory.belongsTo(UserAccount, {
   targetKey: 'UserAccountID',
   onDelete: 'SET NULL', hooks:true,
   constraints: true});
-  
+  /*
 HandHistory.belongsTo(GameHistory, {
   foreignKey: 'SeasonID',
   targetKey: 'SeasonID',
   onDelete: 'SET NULL', hooks:true,
-  constraints: true});  
+  constraints: true});  */
 
 
 //invoices
