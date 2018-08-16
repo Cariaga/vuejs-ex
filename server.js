@@ -7276,7 +7276,7 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
   
 });
 function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
-  Models.HandHistory.sync(/*{force:true}*/);
+  Models.HandHistory.sync();
   Models.HandHistory.update({
     MoveHand: MoveHand,
     RoundID: RoundID
@@ -7301,6 +7301,9 @@ app.get('/Api/v1/HandHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 
+});
+app.get('/test/drop',function (req,res){
+  Sequelize.queryInterface.dropTable('GameHistory');
 });
 app.get('/Api/v1/HandHistory/Clear', function (req, res) {
   Models.HandHistory.destroy({
