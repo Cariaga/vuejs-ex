@@ -594,7 +594,16 @@ const Notification =sequelize.define('Notification', {
     description: Sequelize.STRING,
     qty: Sequelize.INTEGER
   });
-
+  module.exports = {
+    up: function(queryInterface, Sequelize) {
+      // logic for transforming into the new state
+      queryInterface.removeColumn('GameHistory', 'RoundID')
+    },
+   
+    down: function(queryInterface, Sequelize) {
+      // logic for reverting the changes
+    }
+  }
   module.exports.User = User;
   module.exports.HeadOffice =HeadOffice;
   module.exports.Distributor =Distributor;

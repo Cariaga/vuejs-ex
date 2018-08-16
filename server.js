@@ -7303,7 +7303,7 @@ app.get('/Api/v1/HandHistory/Describe', function (req, res) {
 
 });
 app.get('/test/drop',function (req,res){
-  Sequelize.queryInterface.dropTable('GameHistory');
+  
 });
 app.get('/Api/v1/HandHistory/Clear', function (req, res) {
   Models.HandHistory.destroy({
