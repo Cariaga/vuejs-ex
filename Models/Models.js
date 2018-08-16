@@ -597,7 +597,7 @@ const Notification =sequelize.define('Notification', {
   module.exports = {
     up: function(queryInterface, Sequelize) {
       // logic for transforming into the new state
-      queryInterface.removeColumn('GameHistory', 'RoundID')
+      queryInterface.removeColumn('HandHistory', 'RoundID')
     },
    
     down: function(queryInterface, Sequelize) {
