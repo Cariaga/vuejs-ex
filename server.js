@@ -7229,6 +7229,7 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
           let UserAccountIDExist = false;
         let PlayerExist = false;
         async.series([UserAccountIDCheck,PlayerCheck],function(error,response){
+
           if(UserAccountIDExist==true){
             if(PlayerExist==true){
               AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
@@ -7244,6 +7245,7 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
           }else{
             res.send({UserAccountIDExist:false});
           }
+
         });
         
         function UserAccountIDCheck(callback){
@@ -7260,6 +7262,7 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
         }
         function PlayerCheck(callback){
           PlayerUserAccountID(UserAccountID,function(response){
+            
             if(response!=undefined){
              PlayerExist= true;
              callback(null,'1');
