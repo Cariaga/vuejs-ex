@@ -22,7 +22,7 @@ passportLocalSequelize.attachToUser(User, {
   saltField: 'mysalt'
 });
 
-/*Never Use ALTER AND FORCE add the column manually using sequelize query try to match it based database first not entity first
+/*Never Use ALTER AND FORCE add the column manually using sequelize.query() try to match it based database first not entity first
 to test if the sequelize schema is matching the database schema, it is to do raw queries and if both sequelize and sql based worked on the same query request like findAll() that is corrent
 but if empty sequelize version is empty while sql query version is not then that means it both schema dosn't match*/
 
@@ -356,7 +356,8 @@ const HandHistory = sequelize.define('HandHistory', {
       key: 'SeasonID'
     }*/
  // },//foriegn key to GameHistory*/
-  MoveHand:Sequelize.STRING//action performed by the player
+  MoveHand:Sequelize.STRING,//action performed by the player
+  Somthing:Sequelize.STRING
 });
 
 HandHistory.belongsTo(UserAccount, {
