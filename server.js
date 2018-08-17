@@ -7060,7 +7060,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
 });
 app.get('/Api/v1/GameHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.GameHistory.sync({alter:true});//Never call Alter or Force during a rename process
+  //Models.GameHistory.sync({alter:true});//Never call Alter or Force during a Database Alter process
   Models.GameHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -7346,7 +7346,7 @@ function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback
 
 app.get('/Api/v1/HandHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync({alter:true});
+  Models.HandHistory.sync({alter:true});//Never call Alter and force during a sequelize.query without matching the model with the database first
   Models.HandHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
