@@ -36,7 +36,8 @@ passportLocalSequelize.attachToUser(User, {
 //Step 1 Raw query for renaming sequelize.query('ALTER TABLE `HandHistories` CHANGE COLUMN `OldColumnName` `NewColumnName` VARCHAR(255)', { model: Models.HandHistory })
 //Step 2 Rename the new matching schema name No need to use queryInterface renaming adding or removeing
 //Aditional note if you use the force it will delete the database schema and follow the new schema based on the sequelize schema which is like a Schema first approch like in entity framework don't do this on a running system
-//if you plan on adding/removing/modifying columns to the running database sehema you must modify both sequelize schema and mysql schema then run the raw sequelize query 
+//if you plan on adding/removing/modifying columns to the running database sehema you must modify both sequelize schema and mysql schema then run the raw sequelize query
+//if that is ok you can now test select the table that was changed if no result the sequelize  schema did not match mysql
 //</summary>
 
 
@@ -343,7 +344,7 @@ const HandHistory = sequelize.define('HandHistory', {
       key: 'UserAccountID'
     }
   },//foriegn key to UserAccount
-  read_more:Sequelize.STRING,
+  SeasonID:Sequelize.STRING,
  /* SeasonID:{
     type: Sequelize.STRING,
    /* foreignKey: true,
