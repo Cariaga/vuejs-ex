@@ -2057,7 +2057,14 @@ app.get('/Api/v1', function (req, res) {
 });
 //--API version START
 
+app.get('/Api/v1/Show/Tables/', function (req, res) {
 
+  sequelize.query("show tables", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    res.send(users);
+  })
+
+});
 
 //---API SignOut Start
 app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
