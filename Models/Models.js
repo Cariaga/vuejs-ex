@@ -336,14 +336,14 @@ const HandHistory = sequelize.define('HandHistory', {
       key: 'UserAccountID'
     }
   },//foriegn key to UserAccount
-  SeasonID:{
+ /* SeasonID:{
     type: Sequelize.STRING,
    /* foreignKey: true,
     references: {
       model: GameHistory,
       key: 'SeasonID'
     }*/
-  },//foriegn key to GameHistory
+ // },//foriegn key to GameHistory*/
   MoveHand:Sequelize.STRING//action performed by the player
 });
 
@@ -597,7 +597,7 @@ const Notification =sequelize.define('Notification', {
   module.exports = {
     up: function(queryInterface, Sequelize) {
       // logic for transforming into the new state
-     return queryInterface.renameColumn('HandHistory', 'RoundID','SeasonID')
+     return queryInterface.renameColumn('HandHistory', 'SeasonID','RoundID')
     },
    
     down: function(queryInterface, Sequelize) {
