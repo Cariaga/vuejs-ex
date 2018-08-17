@@ -7168,13 +7168,21 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
   Models.HandHistory.sync();//only use force true if you want to destroy replace table
   item1.save()
   .then(Success => {
-    callback("Inserted");
+    res.send("Inserted");
   })
   .catch(error => {
   
     console.log("error inserting " +error);
-    callback(undefined);
+    res.send("Failed");
   });
+});
+
+app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
+  sequelize.query("SELECT * FROM `HandHistory`", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    // We don't need spread here, since only the results will be returned for select queries
+    res.send(user);
+  })
 });
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
