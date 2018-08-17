@@ -31,6 +31,13 @@ passportLocalSequelize.attachToUser(User, {
 //Important Note : HeadOffice Distributor Shop Player UserAccountID Must Never exist in both instance This is must be validated at application Layer instead
 //</summary>
 
+//<summary>
+//Developer Note : in order to rename a column a sequelized schema to match the database schema you MUST use Alter Table in raw query 
+//Step 1 Raw query for renaming sequelize.query('ALTER TABLE `HandHistories` CHANGE COLUMN `OldColumnName` `NewColumnName` VARCHAR(255)', { model: Models.HandHistory })
+//Step 2 Rename the new matching schema name No need to use queryInterface renaming adding or removeing
+//Aditional note if you use the force it will delete the database schema and follow the new schema based on the sequelize schema which is like a Schema first approch like in entity framework don't do this on a running system
+//if you plan on adding/removing/modifying columns to the running database sehema you must modify both sequelize schema and mysql schema then run the raw sequelize query 
+//</summary>
 
 
 const UserAccount =sequelize.define('UserAccount', {//the main schema
