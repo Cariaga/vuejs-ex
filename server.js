@@ -7180,7 +7180,7 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
 app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
   sequelize.query('SELECT * FROM HandHistory', { model: Models.HandHistory }).then(projects => {
     // Each record will now be a instance of Project
-    res.send(projects);
+    res.send(projects.length);
   })
 });
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
