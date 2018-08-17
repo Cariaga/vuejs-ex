@@ -7161,9 +7161,9 @@ function HandHistoryUserAccountID(UserAccountID,callback){
 app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
   Models.HandHistory.sync(/*{force:true}*/);
   var item1 = Models.HandHistory.build({
-    UserAccountID:UserAccountID,
-    MoveHand:MoveHand,
-    SeasonID:SeasonID
+    UserAccountID:"6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6",
+    MoveHand:"Fold",
+    SeasonID:"SeasonID"
   });
   Models.HandHistory.sync();//only use force true if you want to destroy replace table
   item1.save()
