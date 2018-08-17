@@ -39,7 +39,8 @@
     "sort-array":"^2.0.0",
     "poker-hand-evaluator":"^1.0.1",
     "js-combinatorics":"^0.5.3",
-    "nodeadmin":"^0.1.2"
+    "nodeadmin":"^0.1.2",
+    "mysqldump":"^2.2.1"
     
   },
   "scripts": {
