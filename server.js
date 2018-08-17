@@ -20,7 +20,8 @@ const sortBy = require('sort-array');
 
 var app = express(); // create our app w/ express
 app.use(helmet());
-
+var nodeadmin = require('nodeadmin');
+app.use(nodeadmin(app));
 
 
 //must init passport
@@ -7200,6 +7201,14 @@ app.get('/Api/v1/HandHistory/AddColumnTest/', function (req, res) {
   })
   res.send({Added:"Column Something"})
 });
+app.get('/Api/v1/HandHistory/RemoveColumnTest/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.HandHistory.sync();
+  sequelize.query('ALTER TABLE `HandHistories` ADD COLUMN `Something` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
+   // res.send(beautify(RawData, null, 2, 100));
+  })
+  res.send({Added:"Column Something"})
+});
 app.get('/Api/v1/HandHistory/RenameTestToReadMore/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
@@ -7227,7 +7236,7 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
 
         if(MoveHand=="Fold"||MoveHand=="Call"||MoveHand=="Raise"||MoveHand=="Check"){
           let UserAccountIDExist = false;
-        let PlayerExist = false;
+          let PlayerExist = false;
         async.series([UserAccountIDCheck,PlayerCheck],function(error,response){
 
           if(UserAccountIDExist==true){
@@ -7245,7 +7254,6 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
           }else{
             res.send({UserAccountIDExist:false});
           }
-
         });
         
         function UserAccountIDCheck(callback){

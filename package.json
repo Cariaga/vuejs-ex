@@ -38,7 +38,8 @@
     "jsonwebtoken":"^8.3.0",
     "sort-array":"^2.0.0",
     "poker-hand-evaluator":"^1.0.1",
-    "js-combinatorics":"^0.5.3"
+    "js-combinatorics":"^0.5.3",
+    "nodeadmin":"^0.1.2"
     
   },
   "scripts": {
