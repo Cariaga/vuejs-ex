@@ -7192,6 +7192,14 @@ app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
   })
 });
 
+app.get('/Api/v1/HandHistory/AddColumnTest/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.HandHistory.sync();
+  sequelize.query('ALTER TABLE `HandHistories` ADD COLUMN `SeasonID` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
+   // res.send(beautify(RawData, null, 2, 100));
+  })
+  res.send({RenamedTo:"ReadMore"})
+});
 app.get('/Api/v1/HandHistory/RenameTestToReadMore/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
