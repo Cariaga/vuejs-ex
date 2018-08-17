@@ -7184,11 +7184,13 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
 });
 
 app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
   sequelize.query('SELECT * FROM HandHistories', { model: Models.HandHistory }).then(RawData => {
     // Each record will now be a instance of Project
-    console.log(RawData);
-    res.send("Done in console");
+    //console.log(RawData);
+    //res.send(RawData);
+    res.send(beautify(RawData, null, 2, 100));
   })
 });
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
