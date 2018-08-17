@@ -7178,6 +7178,7 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
 });
 
 app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
+  Models.HandHistory.sync();
   sequelize.query('SELECT * FROM HandHistory', { model: Models.HandHistory }).then(projects => {
     // Each record will now be a instance of Project
     console.log(projects);
