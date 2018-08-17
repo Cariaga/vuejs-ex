@@ -7196,15 +7196,17 @@ app.get('/Api/v1/HandHistory/RenameTestToReadMore/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
   sequelize.query('ALTER TABLE `HandHistories` CHANGE COLUMN `SeasonID` `read_more` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
-    res.send(beautify(RawData, null, 2, 100));
+   // res.send(beautify(RawData, null, 2, 100));
   })
+  res.send({RenamedTo:"ReadMore"})
 });
 app.get('/Api/v1/HandHistory/RenameTestToSeason/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
   sequelize.query('ALTER TABLE `HandHistories` CHANGE COLUMN `read_more` `SeasonID` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
-    res.send(beautify(RawData, null, 2, 100));
+  
   })
+  res.send({RenamedTo:"SeasonID"})
 });
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
