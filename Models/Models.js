@@ -336,7 +336,7 @@ const HandHistory = sequelize.define('HandHistory', {
       key: 'UserAccountID'
     }
   },//foriegn key to UserAccount
-  SeasonID:Sequelize.STRING,
+  read_more:Sequelize.STRING,
  /* SeasonID:{
     type: Sequelize.STRING,
    /* foreignKey: true,
