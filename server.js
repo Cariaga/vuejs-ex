@@ -7204,7 +7204,7 @@ app.get('/Api/v1/HandHistory/AddColumnTest/', function (req, res) {
 app.get('/Api/v1/HandHistory/RemoveColumnTest/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
-  sequelize.query('ALTER TABLE `HandHistories` ADD COLUMN `Something` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
+  sequelize.query('ALTER TABLE `HandHistories` DROP COLUMN `Something`', { model: Models.HandHistory }).then(RawData => {
    // res.send(beautify(RawData, null, 2, 100));
   })
   res.send({Added:"Column Something"})
