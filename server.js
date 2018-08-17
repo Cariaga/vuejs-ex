@@ -7198,7 +7198,7 @@ app.get('/Api/v1/HandHistory/AddColumnTest/', function (req, res) {
   sequelize.query('ALTER TABLE `HandHistories` ADD COLUMN `Something` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
    // res.send(beautify(RawData, null, 2, 100));
   })
-  res.send({RenamedTo:"Add Column Something"})
+  res.send({Added:"Column Something"})
 });
 app.get('/Api/v1/HandHistory/RenameTestToReadMore/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
