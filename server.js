@@ -2058,12 +2058,11 @@ app.get('/Api/v1', function (req, res) {
 //--API version START
 
 app.get('/Api/v1/Show/Tables/', function (req, res) {
-
+  res.setHeader('Content-Type', 'application/json');
   sequelize.query("show tables", { type: sequelize.QueryTypes.SELECT})
-  .then(users => {
-    res.send(users);
+  .then(Tables => {
+    res.send(beautify(Tables, null, 2, 100));
   })
-
 });
 
 //---API SignOut Start
@@ -7186,9 +7185,9 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
 
 app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
   Models.HandHistory.sync();
-  sequelize.query('SELECT * FROM HandHistories', { model: Models.HandHistory }).then(projects => {
+  sequelize.query('SELECT * FROM HandHistories', { model: Models.HandHistory }).then(RawData => {
     // Each record will now be a instance of Project
-    console.log(projects);
+    console.log(RawData);
     res.send("Done in console");
   })
 });
