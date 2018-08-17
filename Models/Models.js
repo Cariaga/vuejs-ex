@@ -23,7 +23,8 @@ passportLocalSequelize.attachToUser(User, {
 });
 
 /*Never Use ALTER AND FORCE add the column manually using sequelize query try to match it based database first not entity first
-to test if the sequelize schema is matching the database schema is to do raw queries*/
+to test if the sequelize schema is matching the database schema, it is to do raw queries and if both sequelize and sql based worked on the same query request like findAll() that is corrent
+but if empty sequelize version is empty while sql query version is not then that means it both schema dosn't match*/
 
 //<summary>
 //we have Dedicated Headoffice,Distributer,Shop,Player tables because if we used account type we would have a many to many relationship issue and a lot of self joins queries 
