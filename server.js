@@ -1879,7 +1879,7 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',fun
 });
 
 function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
-  Models.UserInfo.sync({alter:true});
+  Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.UserInfo.update({
     Email: Email
   },
@@ -2170,7 +2170,7 @@ app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Des
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
-  Models.SupportTicket.sync({alter:true});
+  Models.SupportTicket.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(!isNullOrEmpty(UserAccountID)){
     if( !isNullOrEmpty(Title)){
       if(!isNullOrEmpty(Description)){
@@ -2443,7 +2443,7 @@ app.get('/Api/v1/SupportTicket/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.SupportTicket.sync({alter:true});
+  Models.SupportTicket.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({ 
@@ -2486,7 +2486,7 @@ app.get('/Api/v1/SupportTicket/', function (req, res) {
 });
 app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.SupportTicket.sync({alter:true});
+  Models.SupportTicket.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.SupportTicket.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -3009,7 +3009,7 @@ app.get('/Api/v1/Notification', function (req, res) {
 });
 app.get('/Api/v1/Notification/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.Notification.sync({alter:true});
+  Models.Notification.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.Notification.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -3308,7 +3308,7 @@ app.get('/Api/v1/BlackList/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.BlackList.sync({alter:true});
+  Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
     BlackListAll(function(response){
@@ -3337,7 +3337,7 @@ app.get('/Api/v1/BlackList/', function (req, res) {
 });
 app.get('/Api/v1/BlackList/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.BlackList.sync({alter:true});
+  Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.BlackList.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -3911,7 +3911,7 @@ app.get('/Api/v1/LoginHistory/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.LoginHistory.sync({alter:true});
+  Models.LoginHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.LoginHistory.sync();
     let result = Models.LoginHistory.findAll({ 
@@ -3954,7 +3954,7 @@ app.get('/Api/v1/LoginHistory/', function (req, res) {
 });
 app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.LoginHistory.sync({alter:true});
+  Models.LoginHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.LoginHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -4141,7 +4141,7 @@ app.get('/Api/v1/BankInformation/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.BankInformation.sync({alter:true});
+  Models.BankInformation.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.BankInformation.sync();
     let result = Models.BankInformation.findAll({ 
@@ -4184,7 +4184,7 @@ app.get('/Api/v1/BankInformation/', function (req, res) {
 });
 app.get('/Api/v1/BankInformation/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.BankInformation.sync({alter:true});
+  Models.BankInformation.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.BankInformation.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -4714,7 +4714,7 @@ app.get('/Api/v1/WithdrawHistory/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.WithdrawHistory.sync({alter:true});
+  Models.WithdrawHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.WithdrawHistory.sync();
     let result = Models.WithdrawHistory.findAll({ 
@@ -4782,7 +4782,7 @@ function WithdrawHistoryUserAccountID(UserAccountID,callback){
 
 app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.WithdrawHistory.sync({alter:true});
+  Models.WithdrawHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.WithdrawHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -5770,7 +5770,7 @@ app.get('/Api/v1/DepositHistory/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.DepositHistory.sync({alter:true});
+  Models.DepositHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.DepositHistory.sync();
     let result = Models.DepositHistory.findAll({ 
@@ -5813,7 +5813,7 @@ app.get('/Api/v1/DepositHistory/', function (req, res) {
 });
 app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.DepositHistory.sync({alter:true});
+  Models.DepositHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.DepositHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -6030,7 +6030,7 @@ app.get('/Api/v1/TransferHistory/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.TransferHistory.sync({alter:true});
+  Models.TransferHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     TransferHistoryAll(function(response){
       if(response!=undefined){
@@ -6085,7 +6085,7 @@ function TransferHistoryAll(callback){
 }
 app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.TransferHistory.sync({alter:true});
+  Models.TransferHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.TransferHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -6617,7 +6617,7 @@ app.get('/Api/v1/RoomConfiguration/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.RoomConfiguration.sync({alter:true});
+  Models.RoomConfiguration.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     RoomConfiguration(function(response){
       if(response!=undefined){
@@ -6630,7 +6630,7 @@ app.get('/Api/v1/RoomConfiguration/', function (req, res) {
 });
 app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.RoomConfiguration.sync({alter:true});
+  Models.RoomConfiguration.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.RoomConfiguration.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -7027,7 +7027,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.GameHistory.sync({alter:true});
+  Models.GameHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     GameHistory(function(response){
       if(response!=undefined){
@@ -7060,7 +7060,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
 });
 app.get('/Api/v1/GameHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  //Models.GameHistory.sync({alter:true});//Never call Alter or Force during a Database Alter process
+  Models.GameHistory.sync();//Never call Alter or Force during a Database table Alter process before knowing that it can query select all first
   Models.GameHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -7165,7 +7165,7 @@ function HandHistoryUserAccountID(UserAccountID,callback){
   });
 }
 app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
-  Models.HandHistory.sync({alter:true});
+  Models.HandHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   
   var item1 = Models.HandHistory.build({
     UserAccountID:"6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6",
@@ -7346,7 +7346,7 @@ function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback
 
 app.get('/Api/v1/HandHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync({alter:true});//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.HandHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.HandHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -7622,7 +7622,7 @@ app.get('/Api/v1/UserInfo/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.UserInfo.sync({alter:true});
+  Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -7677,7 +7677,7 @@ function UserInfoUserAccountID(UserAccountID,callback){
 }
 app.get('/Api/v1/UserInfo/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.UserInfo.sync({alter:true});
+  Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.UserInfo.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -7807,7 +7807,7 @@ app.get('/Api/v1/AccessControl/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.AccessControl.sync({alter:true});
+  Models.AccessControl.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.AccessControl.findAll({ 
       where: {
@@ -7847,7 +7847,7 @@ app.get('/Api/v1/AccessControl/', function (req, res) {
 });
 app.get('/Api/v1/AccessControl/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.AccessControl.sync({alter:true});
+  Models.AccessControl.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.AccessControl.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -7974,7 +7974,7 @@ app.get('/Api/v1/UserAccount/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.UserAccount.sync({alter:true});
+  Models.UserAccount.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({ 
@@ -8016,7 +8016,7 @@ app.get('/Api/v1/UserAccount/', function (req, res) {
 
 app.get('/Api/v1/UserAccount/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.UserAccount.sync({alter:true});
+  Models.UserAccount.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.UserAccount.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -8802,7 +8802,7 @@ app.get('/Api/v1/Player/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.Player.sync({alter:true});
+  Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
    
     let result = Models.Player.findAll({ 
@@ -8845,7 +8845,7 @@ app.get('/Api/v1/Player/', function (req, res) {
 });
 app.get('/Api/v1/Player/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.Player.sync({alter:true});
+  Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.Player.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -9021,7 +9021,7 @@ app.get('/Api/v1/Shop/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.Shop.sync({alter:true});
+  Models.Shop.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.Shop.findAll({ 
       where: {
@@ -9064,7 +9064,7 @@ app.get('/Api/v1/Shop/', function (req, res) {
 });
 app.get('/Api/v1/Shop/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.Shop.sync({alter:true});
+  Models.Shop.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.Shop.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -9223,7 +9223,7 @@ app.get('/Api/v1/Distributor/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.Distributor.sync({alter:true});
+  Models.Distributor.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.Distributor.findAll({ 
       where: {
@@ -9265,7 +9265,7 @@ app.get('/Api/v1/Distributor/', function (req, res) {
 });
 app.get('/Api/v1/Distributor/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.Distributor.sync({alter:true});
+  Models.Distributor.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.Distributor.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
@@ -9419,7 +9419,7 @@ app.get('/Api/v1/HeadOffice/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.HeadOffice.sync({alter:true});
+  Models.HeadOffice.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.HeadOffice.findAll({ 
       where: {
@@ -9455,7 +9455,7 @@ app.get('/Api/v1/HeadOffice/', function (req, res) {
 });
 app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.HeadOffice.sync({alter:true});
+  Models.HeadOffice.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.HeadOffice.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
