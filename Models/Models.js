@@ -22,7 +22,8 @@ passportLocalSequelize.attachToUser(User, {
   saltField: 'mysalt'
 });
 
-/*Never Use ALTER AND FORCE add the column manually using sequelize query try to match it based database first not entity first*/
+/*Never Use ALTER AND FORCE add the column manually using sequelize query try to match it based database first not entity first
+to test if the sequelize schema is matching the database schema is to do raw queries*/
 
 //<summary>
 //we have Dedicated Headoffice,Distributer,Shop,Player tables because if we used account type we would have a many to many relationship issue and a lot of self joins queries 
