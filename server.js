@@ -7178,10 +7178,9 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
 });
 
 app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
-  sequelize.query("SELECT * FROM `HandHistory`", { type: sequelize.QueryTypes.SELECT})
-  .then(users => {
-    // We don't need spread here, since only the results will be returned for select queries
-    res.send(user);
+  sequelize.query('SELECT * FROM HandHistory', { model: Models.HandHistory }).then(projects => {
+    // Each record will now be a instance of Project
+    res.send(projects);
   })
 });
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
