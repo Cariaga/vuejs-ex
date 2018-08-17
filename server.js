@@ -7165,7 +7165,7 @@ function HandHistoryUserAccountID(UserAccountID,callback){
   });
 }
 app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
-  Models.HandHistory.sync(/*{force:true}*/);
+  Models.HandHistory.sync({alter:true});
   var item1 = Models.HandHistory.build({
     UserAccountID:"6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6",
     MoveHand:"Fold",
