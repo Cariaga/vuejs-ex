@@ -7166,6 +7166,7 @@ function HandHistoryUserAccountID(UserAccountID,callback){
 }
 app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
   Models.HandHistory.sync({alter:true});
+  
   var item1 = Models.HandHistory.build({
     UserAccountID:"6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6",
     MoveHand:"Fold",
@@ -7187,9 +7188,14 @@ app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
   sequelize.query('SELECT * FROM HandHistories', { model: Models.HandHistory }).then(RawData => {
-    // Each record will now be a instance of Project
-    //console.log(RawData);
-    //res.send(RawData);
+    res.send(beautify(RawData, null, 2, 100));
+  })
+});
+
+app.get('/Api/v1/HandHistory/RenameTest/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.HandHistory.sync();
+  sequelize.query('ALTER TABLE `HandHistories` CHANGE COLUMN `SeasonID` `read_more` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
     res.send(beautify(RawData, null, 2, 100));
   })
 });
