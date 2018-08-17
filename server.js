@@ -7314,7 +7314,7 @@ function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback
 
 app.get('/Api/v1/HandHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync();
+  Models.HandHistory.sync({alter:true});
   Models.HandHistory.describe().then(result=>{
     res.send(beautify(result, null, 2, 100));
   });
