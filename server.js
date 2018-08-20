@@ -774,6 +774,8 @@ app.get('/Api/v1/Distributor/HeadOfficeID/:HeadOfficeID/', function (req, res) {
         res.send([]);
       }
     });
+  }else{
+    res.send({HeadOfficeIDMissing:true});
   }
 });
 function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){ // returns Distributor
@@ -808,6 +810,8 @@ app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
         res.send([]);
       }
     });
+  }else{
+    res.send({DistributorIDMissing:true});
   }
 });
 function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
@@ -842,6 +846,8 @@ app.get('/Api/v1/Shop/ShopID/:ShopID/', function (req, res) {
         res.send([]);
       }
     });
+  }else{
+    res.send({ShopIDMissing:true});
   }
 });
 function ChildPlayersFromShopID(ShopID,callback){//returns players
