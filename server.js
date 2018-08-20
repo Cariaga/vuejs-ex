@@ -841,7 +841,7 @@ function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
 app.get('/Api/v1/Player/ShopID/:ShopID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let ShopID = req.params.ShopID;
-  if(!isNullOrEmpty(DistributorID)){
+  if(!isNullOrEmpty(ShopID)){
     ChildPlayersFromShopID(ShopID,function(response){
       if(response!=undefined){
         res.send(beautify(response, null, 2, 100));
