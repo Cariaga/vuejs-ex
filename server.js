@@ -838,7 +838,7 @@ function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
     callback(undefined);
   });
 }
-app.get('/Api/v1/Shop/ShopID/:ShopID/', function (req, res) {
+app.get('/Api/v1/Player/ShopID/:ShopID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let ShopID = req.params.ShopID;
   if(!isNullOrEmpty(DistributorID)){
