@@ -766,7 +766,6 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let RawQuery = req.params.RawQuery;
-  RawQuery = 'SELECT * from Players group by ShopID';
 
   const connection = mysql.createConnection({
     host     : '172.30.166.206',
