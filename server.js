@@ -766,13 +766,29 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let RawQuery = req.params.RawQuery;
-  sequelize.sync();
+
+
+  const connection = mysql.createConnection({
+    host: '172.30.166.206',
+    user: 'user',
+    database: 'sampledb'
+  });
+   
+  // simple query
+  connection.query(RawQuery,
+    function(err, results, fields) {
+      console.log(results); // results contains rows returned by server
+      console.log(fields); // fields contains extra meta data about results, if available
+      res.send(beautify(results, null, 2, 100));
+    });
+
+  /*sequelize.sync();
   sequelize.query(RawQuery,{ type: sequelize.QueryTypes.SELECT}).then(RawData => {
     console.log(RawData);
     res.send(beautify(RawData, null, 2, 100));
   }).error(onReject=>{
     res.secret({Error:onReject});
-  });
+  });*/
 });
 
 
