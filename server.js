@@ -845,8 +845,8 @@ app.get('/Api/v1/Shop/ShopID/:ShopID/', function (req, res) {
   }
 });
 function ChildPlayersFromShopID(ShopID,callback){//returns players
-  Models.Shop.sync();
-  let result = Models.Shop.findAll({ 
+  Models.Player.sync();
+  let result = Models.Player.findAll({ 
     where: {
       ShopID:ShopID,
    }
