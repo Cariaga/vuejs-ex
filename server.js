@@ -769,10 +769,11 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
 
 
   const connection = mysql.createConnection({
-    host: '172.30.166.206',
-    user: 'user',
-    pass:'user',
-    database: 'sampledb'
+    host     : '172.30.166.206',
+    user     : 'user',
+    password : 'user',
+    port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
+    database : 'sampledb'
   });
    
   // simple query
