@@ -763,6 +763,74 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 
 //--Account Type Check End
 
+function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){
+  Models.Distributor.sync();
+  let result = Models.Distributor.findAll({ 
+    where: {
+      HeadOfficeID:HeadOfficeID,
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+   
+   // res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+    console.log(result);
+    callback(undefined);
+  });
+}
+function ChildShopsFromHeadOfficeID(ShopID,callback){
+  Models.Shop.sync();
+  let result = Models.Shop.findAll({ 
+    where: {
+      ShopID:ShopID,
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+   
+   // res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+    console.log(result);
+    callback(undefined);
+  });
+}
+
+function ChildPlayersFromShopID(ShopID,callback){
+  Models.Shop.sync();
+  let result = Models.Shop.findAll({ 
+    where: {
+      ShopID:ShopID,
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+   
+   // res.send(beautify(Data, null, 2, 100));
+  }).catch(function(result) {//catching any then errors
+    console.log(result);
+    callback(undefined);
+  });
+}
+
 
 //** Returns Current Date String*/
 
