@@ -766,7 +766,7 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 //--Account Child From Parent START
 app.get('/Api/v1/Distributor/HeadOfficeID/:HeadOfficeID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let HeadOfficeID = req.param.HeadOfficeID;
+  let HeadOfficeID = req.params.HeadOfficeID;
   if(!isNullOrEmpty(HeadOfficeID)){
     ChildDistributorsFromHeadOfficeID(HeadOfficeID,function(response){
       if(response!=undefined){
@@ -803,7 +803,7 @@ function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){ // returns Di
 }
 app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let DistributorID = req.param.DistributorID;
+  let DistributorID = req.params.DistributorID;
   if(!isNullOrEmpty(DistributorID)){
     ChildShopsFromDistributorID(DistributorID,function(response){
       if(response!=undefined){
@@ -840,7 +840,7 @@ function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
 }
 app.get('/Api/v1/Shop/ShopID/:ShopID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let ShopID = req.param.ShopID;
+  let ShopID = req.params.ShopID;
   if(!isNullOrEmpty(DistributorID)){
     ChildPlayersFromShopID(ShopID,function(response){
       if(response!=undefined){

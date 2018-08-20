@@ -282,9 +282,6 @@ UserInfo.belongsTo(UserAccount, {
     targetKey: 'UserAccountID',
     onDelete: 'SET NULL', hooks:true,
     constraints: true}); 
-
-
-
 const RoomConfiguration =sequelize.define('RoomConfiguration', {
   RoomConfigurationID: {
     type: Sequelize.INTEGER,
@@ -300,7 +297,6 @@ const RoomConfiguration =sequelize.define('RoomConfiguration', {
   BigBlind:Sequelize.INTEGER,//dosn't change upon creating room only
   Speed:Sequelize.INTEGER//dosn't change upon creating room only
 });
-
 const GameHistory =sequelize.define('GameHistory', {
   GameHistoryID: {
     type: Sequelize.INTEGER,
@@ -326,7 +322,6 @@ const GameHistory =sequelize.define('GameHistory', {
   BeforePoints:  Sequelize.INTEGER,
   AfterPoints: Sequelize.INTEGER//also called current Points
 });
-
 GameHistory.belongsTo(RoomConfiguration, {
   foreignKey: 'RoomID',
   targetKey: 'RoomID',
