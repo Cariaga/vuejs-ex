@@ -753,7 +753,7 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
         callback(undefined);
       }
      
-     // res.send(beautify(Data, null, 2, 100));
+     // res.send(beautify(response, null, 2, 100));
     }).catch(function(result) {//catching any then errors
       console.log(result);
       callback(undefined);
@@ -770,7 +770,7 @@ app.get('/Api/v1/Distributor/HeadOfficeID/:HeadOfficeID/', function (req, res) {
   if(!isNullOrEmpty(HeadOfficeID)){
     ChildDistributorsFromHeadOfficeID(HeadOfficeID,function(response){
       if(response!=undefined){
-        res.send(response);
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send([]);
       }
@@ -807,7 +807,7 @@ app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
   if(!isNullOrEmpty(DistributorID)){
     ChildShopsFromDistributorID(DistributorID,function(response){
       if(response!=undefined){
-        res.send(response);
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send([]);
       }
@@ -844,7 +844,7 @@ app.get('/Api/v1/Shop/ShopID/:ShopID/', function (req, res) {
   if(!isNullOrEmpty(DistributorID)){
     ChildPlayersFromShopID(ShopID,function(response){
       if(response!=undefined){
-        res.send(response);
+        res.send(beautify(response, null, 2, 100));
       }else{
         res.send([]);
       }
