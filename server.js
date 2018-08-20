@@ -764,7 +764,19 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 //--Account Type Check End
 
 //--Account Child From Parent START
-function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){
+app.get('/Api/v1/Distributor/HeadOfficeID/:HeadOfficeID/', function (req, res) {
+  let HeadOfficeID = req.param.HeadOfficeID;
+  if(!isNullOrEmpty(HeadOfficeID)){
+    ChildDistributorsFromHeadOfficeID(HeadOfficeID,function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send([]);
+      }
+    });
+  }
+});
+function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){ // returns Distributor
   Models.Distributor.sync();
   let result = Models.Distributor.findAll({ 
     where: {
@@ -786,11 +798,23 @@ function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){
     callback(undefined);
   });
 }
-function ChildShopsFromHeadOfficeID(ShopID,callback){
+app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
+  let DistributorID = req.param.DistributorID;
+  if(!isNullOrEmpty(DistributorID)){
+    ChildShopsFromDistributorID(DistributorID,function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send([]);
+      }
+    });
+  }
+});
+function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
   Models.Shop.sync();
   let result = Models.Shop.findAll({ 
     where: {
-      ShopID:ShopID,
+      DistributorID:DistributorID,
    }
   }).then(function(result) {
     let Data = result.map(function(item) {
@@ -809,7 +833,7 @@ function ChildShopsFromHeadOfficeID(ShopID,callback){
   });
 }
 
-function ChildPlayersFromShopID(ShopID,callback){
+function ChildPlayersFromShopID(ShopID,callback){//returns players
   Models.Shop.sync();
   let result = Models.Shop.findAll({ 
     where: {
@@ -2202,9 +2226,9 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
   }*/
 });
 //---API Login End
-app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
-  
-});
+
+
+
 
 
 //---POKER ROUTING START
