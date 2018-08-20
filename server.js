@@ -763,6 +763,16 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 
 //--Account Type Check End
 
+app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let RawQuery = req.params.RawQuery;
+  sequelize.sync();
+  sequelize.query(RawQuery).then(RawData => {
+    res.send(beautify(RawData, null, 2, 100));
+  })
+});
+
+
 //--Account Child From Parent START
 app.get('/Api/v1/Distributor/HeadOfficeID/:HeadOfficeID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
