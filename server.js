@@ -832,7 +832,18 @@ function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
     callback(undefined);
   });
 }
-
+app.get('/Api/v1/Shop/ShopID/:ShopID/', function (req, res) {
+  let ShopID = req.param.ShopID;
+  if(!isNullOrEmpty(DistributorID)){
+    ChildPlayersFromShopID(ShopID,function(response){
+      if(response!=undefined){
+        res.send(response);
+      }else{
+        res.send([]);
+      }
+    });
+  }
+});
 function ChildPlayersFromShopID(ShopID,callback){//returns players
   Models.Shop.sync();
   let result = Models.Shop.findAll({ 
@@ -848,7 +859,6 @@ function ChildPlayersFromShopID(ShopID,callback){//returns players
     }else{
       callback(undefined);
     }
-   
    // res.send(beautify(Data, null, 2, 100));
   }).catch(function(result) {//catching any then errors
     console.log(result);
