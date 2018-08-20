@@ -775,7 +775,7 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
     port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
     database : 'sampledb'
   });
-   
+  connection.connect();
   // simple query
   connection.query(RawQuery,
     function(err, results, fields) {
@@ -784,6 +784,7 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
       console.log(fields); // fields contains extra meta data about results, if available
       res.send(beautify(results, null, 2, 100));
     });
+    connection.end();
 
   /*sequelize.sync();
   sequelize.query(RawQuery,{ type: sequelize.QueryTypes.SELECT}).then(RawData => {
