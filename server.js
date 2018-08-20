@@ -763,6 +763,7 @@ function isPlayerUserAccountIDExist(UserAccountID,callback){
 
 //--Account Type Check End
 
+//--Account Child From Parent START
 function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){
   Models.Distributor.sync();
   let result = Models.Distributor.findAll({ 
@@ -830,7 +831,7 @@ function ChildPlayersFromShopID(ShopID,callback){
     callback(undefined);
   });
 }
-
+//--Account Child From Parent End
 
 //** Returns Current Date String*/
 
@@ -2201,6 +2202,10 @@ app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
   }*/
 });
 //---API Login End
+app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
+  
+});
+
 
 //---POKER ROUTING START
 app.get('/Api/v1/Poker/:Hand/', (req, res) =>
@@ -3388,6 +3393,7 @@ app.get('/Api/v1/BlackList/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+
 app.get('/Api/v1/BlackList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
