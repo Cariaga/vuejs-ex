@@ -767,7 +767,7 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let RawQuery = req.params.RawQuery;
   sequelize.sync();
-  sequelize.query(RawQuery).then(RawData => {
+  sequelize.query(RawQuery,{ type: sequelize.QueryTypes.SELECT}).then(RawData => {
     res.send(beautify(RawData, null, 2, 100));
   })
 });
