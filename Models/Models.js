@@ -43,6 +43,8 @@ but if empty sequelize version is empty while sql query version is not then that
 //if that is ok you can now test select the table that was changed if no result the sequelize  schema did not match mysql
 //</summary>
 
+//ONLY_FULL_GROUP_BY is Now Enabled by default in 5.7+ it means you need to specify the required columns in the select without using *
+
 
 const UserAccount =sequelize.define('UserAccount', {//the main schema
   UserID: {//PK only used in this part
