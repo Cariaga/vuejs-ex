@@ -1,0 +1,24 @@
+.list {
+  display: inline-flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
+}
+
+.list li {
+  margin: 0 2.5px;
+}
+
+.abs {
+  position: absolute;
+}
+
+/* TRANSITION */
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
+}
+
+.component-fade-enter, .component-fade-leave-to {
+  opacity: 0;
+}
+

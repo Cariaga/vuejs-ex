@@ -1,0 +1,84 @@
+<head>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="vue-instance">
+            <el-button type="primary" v-on:click="onSubmit">Primary</el-button>
+            <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              prop="BlackListID"
+              label="BlackListID"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="UserAccountID"
+              label="UserAccountID"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="Title"
+              label="Title">
+            </el-table-column>
+            <el-table-column
+              prop="Description"
+              label="Description">
+            </el-table-column>
+            <el-table-column
+              prop="ReportDate"
+              label="ReportDate">
+            </el-table-column>
+            <el-table-column
+              prop="ReleaseDate"
+              label="ReleaseDate">
+            </el-table-column>
+            <el-table-column
+              prop="createdAt"
+              label="createdAt">
+            </el-table-column>
+            <el-table-column
+              prop="updatedAt"
+              label="updatedAt">
+            </el-table-column>
+          </el-table>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
+  <script>
+    window.addEventListener("load", function(event) {
+  var vm = new Vue({
+    el: '#vue-instance',
+    data() {
+    return {
+      tableData:[]
+    }
+  },computed: {  
+    },
+      created: function(){
+          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
+        $(document).ready(function () {
+          
+          /* vm.tableData = [{ "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" } ];*/
+          
+       $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList', function (data) {
+       // console.log(data);
+       vm.tableData=data;
+        });
+       });
+      },
+    methods: {
+      onSubmit() {
+        
+      }
+    }
+  });
+  });
+  </script>

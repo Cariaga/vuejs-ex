@@ -1,0 +1,15 @@
+{
+    "mysql": {
+        "database": "sampledb",
+        "user": "user",
+        "password": "user"
+    },
+    "server": {
+        "port": 3306
+    },
+    "app": {
+        "layouts": true,
+        "themes": true,
+        "languages": true
+    }
+}

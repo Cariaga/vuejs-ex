@@ -1,0 +1,168 @@
+<head>
+  <title>Poker</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/theme-chalk/index.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <router-link class="navbar-brand" :to="{ path: '/' }">Poker</router-link>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: '/hello' }">Hello</a>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: '/hello-again' }">Hello Again</a>
+          </li>
+        </ul>
+    </nav>
+    <div class="container col-10">
+      <div class="jumbotron mt-3">
+        <router-view keep-alive></router-view>
+      </div>
+    </div>
+</div> 
+
+
+<template id="welcome-template">
+  <transition name="component-fade" appear>
+          <div id="vue-instance">
+            <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              prop="BlackListID"
+              label="BlackListID"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="UserAccountID"
+              label="UserAccountID"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="Title"
+              label="Title">
+            </el-table-column>
+            <el-table-column
+              prop="Description"
+              label="Description">
+            </el-table-column>
+            <el-table-column
+              prop="ReportDate"
+              label="ReportDate">
+            </el-table-column>
+            <el-table-column
+              prop="ReleaseDate"
+              label="ReleaseDate">
+            </el-table-column>
+            <el-table-column
+              prop="createdAt"
+              label="createdAt">
+            </el-table-column>
+            <el-table-column
+              prop="updatedAt"
+              label="updatedAt">
+            </el-table-column>
+          </el-table>
+        </div>
+  </transition>
+</template>
+
+<template id="hello-template">
+  <transition name="component-fade" mode="out-in" appear>
+    <div class="container">
+      <h1 class="display-6 abs">Hello World!</h1>
+    </div>
+  </transition>
+</template>
+
+<template id="hello-again-template">
+  <transition name="component-fade" appear>
+    <div class="container">
+      <h1 class="display-6 abs">Hello Again!</h1>
+    </div>
+  </transition>
+</template> 
+</body>
+
+<script>
+    window.addEventListener('load', function(event) {
+  var vm = new Vue({
+    el: '#vue-instance',
+    data() {
+    return {
+      tableData: [],      
+    }
+  },
+      created: function(){
+          //http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BlackList
+        $(document).ready(function () {
+          
+           // vm.tableData = [{ "BlackListID": 1, "UserAccountID": "UserAccountID", "Title": "Title", "Description": "Description", "ReportDate": "2018-06-27T00:00:00.000Z", "ReleaseDate": "2018-06-27T00:00:00.000Z", "createdAt": "2018-06-27T14:34:16.000Z", "updatedAt": "2018-06-27T14:34:16.000Z" } ];
+          
+       $.getJSON('https://holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Api/v1/BankInformation', function (data) {
+       // console.log(data);
+       vm.tableData=data;
+        });
+       });
+      },
+   
+  });
+  // 0. If using a module system, call Vue.use(VueRouter)
+
+// 1. Define route components.
+// These can be imported from other files
+const Welcome = {
+  template: '#welcome-template'
+}
+
+const HelloWorld = {
+  template: '#hello-template'
+}
+
+const HelloAgain = {
+  template: '#hello-again-template'
+}
+
+// 2. Define some routes
+// Each route should map to a component. The "component" can
+// either be an actual component constructor created via
+// Vue.extend(), or just a component options object.
+// We'll talk about nested routes later.
+const routes = [
+  { path: '/', component: Welcome },
+  { path: '/hello', component: HelloWorld },
+  { path: '/hello-again', component: HelloAgain }
+]
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = new VueRouter({
+  routes
+})
+
+// 4. Create and mount the root instance.
+// Make sure to inject the router with the router option to make the
+// whole app router-aware.
+const app = new Vue({
+  router
+}).$mount('#app')
+
+// Now the app has started!
+  });
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.2/locale/en.min.js"></script>
