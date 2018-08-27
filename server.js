@@ -17,7 +17,6 @@ const sortBy = require('sort-array');
 
 var app = express(); // create our app w/ express
 app.use(helmet());
-var nodeadmin = require('nodeadmin');
 
 
 
