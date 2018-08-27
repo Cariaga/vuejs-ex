@@ -74,6 +74,32 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
     }
   //  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
   });
+  
+  app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
+    //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+    let UserAccountID = req.params.UserAccountID;
+    let DistributorID = req.params.DistributorID;
+    let Description = req.params.Description;
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(DistributorID)){
+        if(!isNullOrEmpty(Description)){
+          AddShop(UserAccountID,DistributorID,Description,function(response) {
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({AddShopFailed:true});
+            }
+          });
+        }else{
+          res.send({DescriptionMissing:true});
+        }
+      }else{
+        res.send({DistributorIDMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  });
 //--Select End
 
 //--Update Start

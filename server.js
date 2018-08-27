@@ -3798,7 +3798,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
 //--IPList ROUTING END
 
 //---LoginHistory ROUTING START --------------------------------------------MIGRATED
-app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
+/*app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
   //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
   let IP = req.params.IP;
@@ -3842,7 +3842,7 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -4342,7 +4342,7 @@ app.get('/Api/v1/BankInformation/Describe', function (req, res) {
 });
 //---BankInformation ROUTING END
 //---WithdrawHistory ROUTING START -----------------------------------------MIGRATED
-app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
+/*app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
   // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/1234/Status/Processing/RequestedDATE/2010-06-27/ApprovedDATE/2018-06-27/RejectedDATE/2018-06-27/ProcessingDATE/2018-06-27/RequestedTIME/01:57:17/ApprovedTIME/01:57:17/RejectedTIME/01:57:17/ProcessingTIME/01:57:17
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;
@@ -4451,7 +4451,7 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -6581,7 +6581,7 @@ function TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAcc
 //--TransferHistory ROUTING END
 
 //---RoomConfiguration ROUTING START    ---------------------------MIGRATED
-app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
+/*app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
   //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
   let SeasonID = req.params.SeasonID;
   let SmallBlind = req.params.SmallBlind;
@@ -6595,14 +6595,14 @@ app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind
             if(validator.isNumeric(BigBlind)){
               if(validator.isNumeric(Speed)){
                 
-                let IsSeasonIDFound =false;//false is the result we want
+              /*  let IsSeasonIDFound =false;//false is the result we want
                 async.series([IsSeasonIDExistCheck],function(error,response){
                   if(IsSeasonIDFound==false){//must be false to be valid
                     //Not Done
                    /* AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,function(response){
                      res.send(response);
                     });*/
-                    res.send({Success:true});
+               /*     res.send({Success:true});
                   }else{
                     res.send({SeasonIDAlreadyExist:true});
                   }
@@ -6643,7 +6643,7 @@ app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind
   }else{
     res.send({SeasonIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -6850,7 +6850,7 @@ app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 //---RoomConfiguration ROUTING END
 
 //---GameHistory ROUTING START -----------------------------MIGRATED
-app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
+/*app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
   //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -6991,7 +6991,7 @@ app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID
   !isNullOrEmpty(AfterPoints)){
  
   }*/
-});
+/*});*/
 
 /**
  *
@@ -7374,7 +7374,7 @@ app.get('/Api/v1/HandHistory/RenameTestToSeason/', function (req, res) {
 
 
 // ---------------------------MIGRATED
-app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
+/*app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.MoveHand;
   let RoundID =  req.params.RoundID;
@@ -7443,7 +7443,7 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
   }else{
     res.send({RoundIDMissing:true});
   }
-});
+});*/
 
 // ----------------migrated
 function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
@@ -7580,7 +7580,7 @@ app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, r
 
 
 //---UserInfo ROUTING START --------------------------migrated
-app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
+/*app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
   //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
   //Tests for foreignKey should result in  foreign key constraint fails Error
@@ -7670,7 +7670,7 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 
 // migrated
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
@@ -7863,7 +7863,7 @@ app.get('/Api/v1/UserInfo/Describe', function (req, res) {
 //---UserInfo ROUTING END
 
 //---AccessControl ROUTING START -------------------------------migrated
-app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
+/*app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
   let AccessTags = req.params.AccessTags;
@@ -7886,7 +7886,7 @@ app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/Acc
   }else{
     res.send({AccessIDMissing:true});
   }
-});
+});*/
 // mmigrated
 function AddAccessControl(AccessID,AccessName,AccessTags,callback){
   var item1 = Models.AccessControl.build({
@@ -8539,6 +8539,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//mayb
 //---UserAccount ROUTING START
 
 //---Player ROUTING START -----------------=migrated
+/*
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
   //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
   let UserAccountID = req.params.UserAccountID;
@@ -8580,6 +8581,7 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
     res.send({UserAccountIDMissing:true});
   }
 });
+*/
 
 /**
  *
@@ -9071,7 +9073,7 @@ function UserInfoUserAccountID(UserAccountID,callback){
     });
 }
 
-
+/*//migrate
 app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {//check for validation only
   //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
   res.setHeader('Content-Type', 'application/json');
@@ -9088,7 +9090,7 @@ app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {//check 
   }else{
     res.send("Missing params");
   }
-});
+});*/
 
 //---Player ROUTING START
 //---Shop ROUTING START
@@ -9109,7 +9111,7 @@ app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {//check fo
     res.send("Missing params");
   }
 });
-
+/*//migrate
 app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
   //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
   let UserAccountID = req.params.UserAccountID;
@@ -9135,7 +9137,7 @@ app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function
     res.send({UserAccountIDMissing:true});
   }
 });
-
+*/
 /**
  *
  *
@@ -9281,6 +9283,7 @@ app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {//c
     res.send("Missing params");
   }
 });
+/*migrate
 app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
   //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
   let UserAccountID = req.params.UserAccountID;
@@ -9306,7 +9309,7 @@ app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function 
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -9484,6 +9487,7 @@ app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {//ch
     res.send("Missing params");
   }
 });
+
 app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
   //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
   let UserAccountID = req.params.UserAccountID;

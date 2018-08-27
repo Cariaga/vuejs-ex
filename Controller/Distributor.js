@@ -89,6 +89,32 @@ app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
     }
     //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
   });
+  app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
+    //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
+    let UserAccountID = req.params.UserAccountID;
+    let HeadOfficeID = req.params.HeadOfficeID;
+    let Name = req.params.Name;
+  
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(HeadOfficeID)){
+        if(!isNullOrEmpty(Name)){
+          AddDistributor(UserAccountID,HeadOfficeID,Name,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({AddDistributorFailed:true});
+            }
+          });
+        }else{
+          res.send({NameMissing:true});
+        }
+      }else{
+        res.send({HeadOfficeIDMissing:true});
+      }
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+  });
 //--Select End
 
 //--Update Start

@@ -310,6 +310,24 @@ app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID
     res.send({PlayersIDMissing:true});
   }
 });
+
+app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {//check for validation only
+  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    isPlayerUserAccountIDExist(UserAccountID,function(response) {
+      if(!isNullOrEmpty(response)&&response.length>0){
+        res.send({isPlayer:true});
+      }else{
+        res.send({isPlayer:false});
+      }
+      
+    });
+  }else{
+    res.send("Missing params");
+  }
+});
 //--Select End
 
 //--Update Start
