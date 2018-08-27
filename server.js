@@ -3792,7 +3792,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
 });
 //--IPList ROUTING END
 
-//---LoginHistory ROUTING START
+//---LoginHistory ROUTING START --------------------------------------------MIGRATED
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
   //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -3936,6 +3936,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
  * @param {*} Date
  * @param {*} callback
  */
+// ------------------------------------------ MIGRATED
 function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
   Models.LoginHistory.update({
     IP: IP,
@@ -4099,7 +4100,8 @@ app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
   });
 });
 //---LoginHistory ROUTING END
-//---BankInformation ROUTING START
+
+//---BankInformation ROUTING START---------------------------------------------------------MIGRATED
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
   //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -4159,6 +4161,7 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Val
  * @param {*} Date
  * @param {*} callback
  */
+// --------------------------------------- MIGRATED
 function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration,Time,Date,callback){
   var item1 = Models.BankInformation.build({
     UserAccountID:UserAccountID,
