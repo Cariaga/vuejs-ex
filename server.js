@@ -6466,7 +6466,7 @@ function TransferHistoryUserAccountIDSender(UserAccountIDSender,callback){
       callback(undefined);
     });
 }
-
+/*//migrate
 app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryUUID = req.params.TransferHistoryUUID;
@@ -6536,6 +6536,7 @@ app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID
     res.send({TransferHistoryUUIDMissing:true});
   }
 });
+*/
 function TransferHistoryTransferHistoryUUID(TransferHistoryUUID,callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
@@ -6700,6 +6701,7 @@ function IsSeasonIDExist(SeasonID,callback){
     callback(undefined);
   });
 }
+/*//migrate
 app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
   let SeasonID = req.params.SeasonID;
   let SmallBlind = req.params.SmallBlind;
@@ -6739,7 +6741,7 @@ app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBl
     res.send({SeasonIDMissing:true});
   }
 });
-
+*/
 /**
  *
  *
@@ -6766,14 +6768,14 @@ function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID,SmallBlind,BigBli
     callback(undefined);
   });
 }
-
+/*//migrate
 app.get('/Api/v1/RoomConfiguration/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.RoomConfiguration.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  Models.RoomConfiguration.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+/*  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     RoomConfiguration(function(response){
       if(response!=undefined){
         res.send(beautify(response, null, 2, 100));
@@ -6782,7 +6784,7 @@ app.get('/Api/v1/RoomConfiguration/', function (req, res) {
       }
     });
   }
-});
+});*/
 app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.RoomConfiguration.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
