@@ -3962,7 +3962,7 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
     callback(undefined);
   }); 
 }
-
+/*//migrated
 app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -3973,7 +3973,7 @@ app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res)
       res.send({LoginHistoryUserAccountIDFound:false});
     }
   });
-});
+});*/
 function LoginHistoryUserAccountID(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
@@ -4108,6 +4108,7 @@ app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
 });
 //---LoginHistory ROUTING END
 //---BankInformation ROUTING START
+
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
   //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -4186,6 +4187,7 @@ function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration
     callback(undefined);
   });
 }
+/*//migrated
 app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function(req,res){
   let BankInformationID = req.params.BankInformationID;
   let UserAccountID = req.params.UserAccountID;
@@ -4230,7 +4232,7 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
   }else{
     res.send({BankInformationIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -4493,6 +4495,7 @@ function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDA
       callback(undefined);
     });
 }
+/*
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
@@ -4529,7 +4532,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }
   
   
-});
+});*/
 function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedDATE,ApprovedTIME,callback){
   Models.WithdrawHistory.update({
     ApprovedDATE: ApprovedDATE,

@@ -108,6 +108,17 @@ app.get('/Api/v1/LoginHistory/', function (req, res) {
     }
     //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
   });
+  app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
+    LoginHistoryUserAccountID(UserAccountID,function(response){
+      if(response!=undefined){
+        res.send(beautify(response, null, 2, 100));
+      }else{
+        res.send({LoginHistoryUserAccountIDFound:false});
+      }
+    });
+  });
 //--Select End
 
 //--Update Start
