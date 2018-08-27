@@ -3154,6 +3154,7 @@ app.get('/Api/v1/Notification/Describe', function (req, res) {
 });
 //---Notification ROUTING END
 //---BlackList ROUTING START
+/*//migrated
 app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
   //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -3194,7 +3195,7 @@ app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -3228,6 +3229,7 @@ function AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseD
 }
 
 //block list updating of status
+/*migrated
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
@@ -3300,7 +3302,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   }else{
     res.send("Missing BlackListID "+BlackListID);
   }
-});
+});*/
 
 /**
  *
@@ -3342,7 +3344,8 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     res.send(undefined);
   });
 });
-
+/*
+//migrated
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
@@ -3387,7 +3390,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   }else{
     res.send({BlackListIDMissing:true});
   }
-});
+});*/
 
 
 /**
@@ -3441,20 +3444,20 @@ app.get('/Api/v1/BlackList/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-
+/*
 app.get('/Api/v1/BlackList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+ /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
     BlackListAll(function(response){
       res.send(beautify(response, null, 2, 100));
     });
   }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+ /* if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
@@ -3473,7 +3476,7 @@ app.get('/Api/v1/BlackList/', function (req, res) {
 
   }
  // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
-});
+});*/
 app.get('/Api/v1/BlackList/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -3514,7 +3517,7 @@ function BlackListAll(callback){
 //---BlackList ROUTING END
 
 //---MemberBlackList ROUTING START
-app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
+/*app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
@@ -3567,7 +3570,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
     // res.send(beautify(PlayerRelationshipResult, null, 2, 100));
     });
     
-    function UserAccountCheck(callback){
+  /*  function UserAccountCheck(callback){
       console.log("UserAccountCheck "+ UserAccountID);
       isUserAccountIDExist(UserAccountID,function(response){
         if(response!=undefined){
@@ -3580,7 +3583,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         }
       });
     }
-    function UserInfoCheck(callback){
+ /*  function UserInfoCheck(callback){
       if(UserAccountIDExist==true){
         UserInfoUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3596,7 +3599,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       }
       
     }
-    function PlayerCheck(callback){
+ /*   function PlayerCheck(callback){
       if(UserInfoExist==true){
         PlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined&&response.length>0){
@@ -3615,7 +3618,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       
     }
     
-    function GetParentPlayerLookUp(callback){
+  /*  function GetParentPlayerLookUp(callback){
       if(PlayerExist==true){
         GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3633,7 +3636,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
      
     }
     //we can check for blocklisted of other accounts but filter out that its a actual player based on function PlayerCheck result
-    function GetBlackListUserAccountID(callback){
+ /*   function GetBlackListUserAccountID(callback){
       if(PlayerExist==true){
         BlackListUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3652,7 +3655,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 function BlackListUserAccountID(UserAccountID,callback){
   Models.BlackList.sync();
   let result = Models.BlackList.findAll({ 
