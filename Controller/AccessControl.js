@@ -3,7 +3,7 @@
 module.exports = function(app) {
     app.get('/', function(req, res) {
       console.log('got the get!');
-      res.send("Worked Update");
+      res.send("Worked Select");
     });
   };
   
