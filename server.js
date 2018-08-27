@@ -7792,7 +7792,7 @@ app.get('/Api/v1/UserInfo/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.UserInfo.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
  /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -8191,6 +8191,7 @@ app.get('/Api/v1/UserAccount/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+/*//migrate
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID =  req.params.UserAccountID;
@@ -8234,7 +8235,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:Verifie
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
-
+*/
+/*//migrate
 app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -8259,7 +8261,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   }else{
     res.send("Missing params");
   }
-});
+});*/
 
 /**
  *
@@ -8312,6 +8314,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
   });
 }
 
+/*
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
@@ -8350,7 +8353,7 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
     res.send({UserAccountIDMissing:true});
   }
  
-});
+});*/
 
 
 function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//maybe a Heavy Operation but it is untested on large data
@@ -8602,7 +8605,7 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
-
+/*//migrate
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Point = req.params.Point;
@@ -8682,7 +8685,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', fu
   }else{
     res.send({UserAccountIDEmpty:true});
   }
-});
+});*/
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Point = req.params.Point;
