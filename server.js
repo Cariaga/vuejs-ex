@@ -784,14 +784,6 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
       res.send(beautify(results, null, 2, 100));
     });
     connection.end();
-
-  /*sequelize.sync();
-  sequelize.query(RawQuery,{ type: sequelize.QueryTypes.SELECT}).then(RawData => {
-    console.log(RawData);
-    res.send(beautify(RawData, null, 2, 100));
-  }).error(onReject=>{
-    res.secret({Error:onReject});
-  });*/
 });
 
 
