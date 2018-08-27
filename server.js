@@ -7166,12 +7166,13 @@ app.get('/Api/v1/GameHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+/*
 app.get('/Api/v1/GameHistory', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.GameHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.GameHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     GameHistory(function(response){
       if(response!=undefined){
@@ -7201,7 +7202,7 @@ app.get('/Api/v1/GameHistory', function (req, res) {
 
   }
   //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
-});
+});*/
 app.get('/Api/v1/GameHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.GameHistory.sync();//Never call Alter or Force during a Database table Alter process before knowing that it can query select all first
@@ -7274,6 +7275,8 @@ function HandHistory(callback){
     callback(undefined);
   });
 }
+
+/*
 app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   if(!isNullOrEmpty(UserAccountID)){
@@ -7285,7 +7288,7 @@ app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) 
       }
     });
   }
-});
+});*/
 function HandHistoryUserAccountID(UserAccountID,callback){
   Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({ 
@@ -7327,7 +7330,7 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
     res.send("Failed");
   });
 });
-
+/* un used squelize
 app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync();
@@ -7367,7 +7370,7 @@ app.get('/Api/v1/HandHistory/RenameTestToSeason/', function (req, res) {
   
   })
   res.send({RenamedTo:"SeasonID"})
-});
+});*/
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.MoveHand;
@@ -7456,6 +7459,7 @@ function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
     callback(undefined);
   });
 }
+/*//migrate
 app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let RoundID =  req.params.RoundID;
   let HandHistoryID = req.params.HandHistoryID;
@@ -7487,6 +7491,7 @@ app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:
   }
   
 });
+*/
 function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
   Models.HandHistory.sync();
   Models.HandHistory.update({
@@ -7532,7 +7537,7 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 
 //---HandHistory ROUTING END
 //---HandHistoryList ROUTING START
-
+/*//migrate
 app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -7564,7 +7569,7 @@ app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, r
       });
     }
   }
-});
+});*/
 //---HandHistoryList ROUTING END
 
 
@@ -7680,6 +7685,8 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
       callback(undefined);
     });
 }
+
+/*//migate
 app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
@@ -7728,7 +7735,7 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/Phone
   }else{
     res.send({UserAccountIDExist:false});
   }
-});
+});*/
 
 
 /**
@@ -7779,13 +7786,14 @@ app.get('/Api/v1/UserInfo/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+/*
 app.get('/Api/v1/UserInfo/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
   Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+ /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
       where: {
@@ -7816,7 +7824,7 @@ app.get('/Api/v1/UserInfo/', function (req, res) {
   }
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
   }
-});
+});*/
 function UserInfoUserAccountID(UserAccountID,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -7889,7 +7897,7 @@ function AddAccessControl(AccessID,AccessName,AccessTags,callback){
     callback(undefined);
   });
 }
-
+/*//migrate
 app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessControlID = req.params.AccessControlID;
   let AccessID = req.params.AccessID;
@@ -7918,7 +7926,7 @@ app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/
   }else{
     res.send({AccessControlIDMissing:true});
   }
-});
+});*/
 
 /**
  *
