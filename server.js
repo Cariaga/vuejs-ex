@@ -9967,7 +9967,7 @@ app.get('/WithdrawHistory',function (req, res) {
   }*/
 });
 
-app.use(nodeadmin(app));
+
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
