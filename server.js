@@ -7444,6 +7444,8 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
     res.send({RoundIDMissing:true});
   }
 });
+
+// ----------------migrated
 function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
   Models.HandHistory.sync(/*{force:true}*/);
   var item1 = Models.HandHistory.build({
@@ -7577,7 +7579,7 @@ app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, r
 //---HandHistoryList ROUTING END
 
 
-//---UserInfo ROUTING START
+//---UserInfo ROUTING START --------------------------migrated
 app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
   //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
@@ -7669,6 +7671,8 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
     res.send({UserAccountIDMissing:true});
   }
 });
+
+// migrated
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
 
     Models.UserInfo.sync(/*{force:true}*/);
