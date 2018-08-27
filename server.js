@@ -8534,7 +8534,8 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//mayb
 }
 
 //---UserAccount ROUTING START
-//---Player ROUTING START
+
+//---Player ROUTING START -----------------=migrated
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
   //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
   let UserAccountID = req.params.UserAccountID;
@@ -8588,6 +8589,8 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
+
+//  ----------------------------------migrated
 function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
     //res.send('test');
     //Setting up the config
