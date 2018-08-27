@@ -3154,6 +3154,7 @@ app.get('/Api/v1/Notification/Describe', function (req, res) {
 });
 //---Notification ROUTING END
 //---BlackList ROUTING START
+/*//migrated
 app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
   //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -3194,7 +3195,7 @@ app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -3228,6 +3229,7 @@ function AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseD
 }
 
 //block list updating of status
+/*migrated
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
@@ -3300,7 +3302,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   }else{
     res.send("Missing BlackListID "+BlackListID);
   }
-});
+});*/
 
 /**
  *
@@ -3342,7 +3344,8 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     res.send(undefined);
   });
 });
-
+/*
+//migrated
 app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
   let BlackListID = req.params.BlackListID;
   let UserAccountID = req.params.UserAccountID;
@@ -3387,7 +3390,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
   }else{
     res.send({BlackListIDMissing:true});
   }
-});
+});*/
 
 
 /**
@@ -3441,20 +3444,20 @@ app.get('/Api/v1/BlackList/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-
+/*
 app.get('/Api/v1/BlackList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  Models.BlackList.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+ /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
     BlackListAll(function(response){
       res.send(beautify(response, null, 2, 100));
     });
   }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+ /* if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
   }
   if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
@@ -3473,7 +3476,7 @@ app.get('/Api/v1/BlackList/', function (req, res) {
 
   }
  // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
-});
+});*/
 app.get('/Api/v1/BlackList/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -3514,6 +3517,7 @@ function BlackListAll(callback){
 //---BlackList ROUTING END
 
 //---MemberBlackList ROUTING START
+/*migrated
 app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -3567,7 +3571,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
     // res.send(beautify(PlayerRelationshipResult, null, 2, 100));
     });
     
-    function UserAccountCheck(callback){
+  /*  function UserAccountCheck(callback){
       console.log("UserAccountCheck "+ UserAccountID);
       isUserAccountIDExist(UserAccountID,function(response){
         if(response!=undefined){
@@ -3580,7 +3584,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
         }
       });
     }
-    function UserInfoCheck(callback){
+ /*  function UserInfoCheck(callback){
       if(UserAccountIDExist==true){
         UserInfoUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3596,7 +3600,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       }
       
     }
-    function PlayerCheck(callback){
+ /*   function PlayerCheck(callback){
       if(UserInfoExist==true){
         PlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined&&response.length>0){
@@ -3615,7 +3619,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       
     }
     
-    function GetParentPlayerLookUp(callback){
+  /*  function GetParentPlayerLookUp(callback){
       if(PlayerExist==true){
         GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3633,7 +3637,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
      
     }
     //we can check for blocklisted of other accounts but filter out that its a actual player based on function PlayerCheck result
-    function GetBlackListUserAccountID(callback){
+ /*   function GetBlackListUserAccountID(callback){
       if(PlayerExist==true){
         BlackListUserAccountID(UserAccountID,function(response){
           if(response!=undefined){
@@ -3652,7 +3656,7 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 function BlackListUserAccountID(UserAccountID,callback){
   Models.BlackList.sync();
   let result = Models.BlackList.findAll({ 
@@ -3675,6 +3679,7 @@ function BlackListUserAccountID(UserAccountID,callback){
 }
 //---MemberBlackList ROUTING END
 //--IPList ROUTING START
+/*//migrated
 app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -3789,7 +3794,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     }
 
   }
-});
+});*/
 //--IPList ROUTING END
 
 //---LoginHistory ROUTING START --------------------------------------------MIGRATED
@@ -3872,6 +3877,7 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
   });
 }
 
+/*//migrated
 app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
   let LoginHistoryID = req.params.LoginHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -3921,7 +3927,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
   }else{
     res.send({LoginHistoryIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -3957,7 +3963,7 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
     callback(undefined);
   }); 
 }
-
+/*//migrated
 app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -3968,7 +3974,7 @@ app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res)
       res.send({LoginHistoryUserAccountIDFound:false});
     }
   });
-});
+});*/
 function LoginHistoryUserAccountID(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
@@ -3990,7 +3996,8 @@ function LoginHistoryUserAccountID(UserAccountID,callback){
     console.log("Error "+result);
     callback(undefined);
   });
-}
+}/*
+
 app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -4001,7 +4008,7 @@ app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (r
       res.send({LoginHistoryUserAccountIDFound:false});
     }
   });
-});
+});*/
 function LoginHistoryUserAccountIDLatest(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
@@ -4046,6 +4053,7 @@ app.get('/Api/v1/LoginHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+
 app.get('/Api/v1/LoginHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
@@ -4100,8 +4108,13 @@ app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
   });
 });
 //---LoginHistory ROUTING END
+<<<<<<< HEAD
 
 //---BankInformation ROUTING START---------------------------------------------------------MIGRATED
+=======
+//---BankInformation ROUTING START
+
+>>>>>>> 38877fa8a2406863136473271e6c1ebc2b87576a
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
   //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -4181,6 +4194,7 @@ function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration
     callback(undefined);
   });
 }
+/*//migrated
 app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function(req,res){
   let BankInformationID = req.params.BankInformationID;
   let UserAccountID = req.params.UserAccountID;
@@ -4225,7 +4239,7 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
   }else{
     res.send({BankInformationIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -4332,7 +4346,7 @@ app.get('/Api/v1/BankInformation/Describe', function (req, res) {
   });
 });
 //---BankInformation ROUTING END
-//---WithdrawHistory ROUTING START
+//---WithdrawHistory ROUTING START -----------------------------------------MIGRATED
 app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
   // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/1234/Status/Processing/RequestedDATE/2010-06-27/ApprovedDATE/2018-06-27/RejectedDATE/2018-06-27/ProcessingDATE/2018-06-27/RequestedTIME/01:57:17/ApprovedTIME/01:57:17/RejectedTIME/01:57:17/ProcessingTIME/01:57:17
   let UserAccountID = req.params.UserAccountID;
@@ -4488,6 +4502,7 @@ function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDA
       callback(undefined);
     });
 }
+/*
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
@@ -4524,7 +4539,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }
   
   
-});
+});*/
 function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedDATE,ApprovedTIME,callback){
   Models.WithdrawHistory.update({
     ApprovedDATE: ApprovedDATE,
