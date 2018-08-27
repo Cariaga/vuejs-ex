@@ -3450,7 +3450,7 @@ app.get('/Api/v1/BlackList/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.BlackList.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
  /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
     BlackListAll(function(response){
@@ -3995,7 +3995,8 @@ function LoginHistoryUserAccountID(UserAccountID,callback){
     console.log("Error "+result);
     callback(undefined);
   });
-}
+}/*
+
 app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -4006,7 +4007,7 @@ app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (r
       res.send({LoginHistoryUserAccountIDFound:false});
     }
   });
-});
+});*/
 function LoginHistoryUserAccountIDLatest(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
@@ -4051,6 +4052,7 @@ app.get('/Api/v1/LoginHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+
 app.get('/Api/v1/LoginHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;

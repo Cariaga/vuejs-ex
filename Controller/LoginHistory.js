@@ -50,6 +50,64 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
       res.send({LoginHistoryIDMissing:true});
     }
   });
+  app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
+    LoginHistoryUserAccountIDLatest(UserAccountID,function(response){
+      if(response!=undefined){
+        res.send(beautify(response, null, 2, 100));
+      }else{
+        res.send({LoginHistoryUserAccountIDFound:false});
+      }
+    });
+  });
+  
+app.get('/Api/v1/LoginHistory/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset =  req.query.Offset;
+    let Limit =  req.query.Limit;
+    let Sort =  req.query.Sort;
+    Models.LoginHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+      Models.LoginHistory.sync();
+      let result = Models.LoginHistory.findAll({ 
+        where: {
+          LoginHistoryID: {
+            ne: null//not null
+          }
+       }
+      }).then(function(result) {
+        let Data = result.map(function(item) {
+            return item;
+            
+        });
+       
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function(result) {//catching any then errors
+  
+        res.send("Error "+result);
+      });
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
+  });
 //--Select End
 
 //--Update Start
