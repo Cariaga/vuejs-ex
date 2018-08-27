@@ -3,6 +3,7 @@
 // set up ========================
 var helmet = require('helmet');
 var express = require('express');
+const routes = require('express').Router();
 var Nexmo = require('nexmo');
 var bCrypt = require('bcrypt-nodejs');
 var passport = require('passport');
@@ -9986,5 +9987,6 @@ app.use(nodeadmin(app));
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
-
+  
+module.exports = routes;
 module.exports = app;
