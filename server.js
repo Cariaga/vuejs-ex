@@ -824,6 +824,7 @@ function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){ // returns Di
     callback(undefined);
   });
 }
+/*
 app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let DistributorID = req.params.DistributorID;
@@ -838,7 +839,7 @@ app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
   }else{
     res.send({DistributorIDMissing:true});
   }
-});
+});*/
 function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
   Models.Shop.sync();
   let result = Models.Shop.findAll({ 
@@ -861,6 +862,7 @@ function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
     callback(undefined);
   });
 }
+/*
 app.get('/Api/v1/Player/ShopID/:ShopID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let ShopID = req.params.ShopID;
@@ -875,7 +877,7 @@ app.get('/Api/v1/Player/ShopID/:ShopID/', function (req, res) {
   }else{
     res.send({ShopIDMissing:true});
   }
-});
+});*/
 function ChildPlayersFromShopID(ShopID,callback){//returns players
   Models.Player.sync();
   let result = Models.Player.findAll({ 
@@ -1977,6 +1979,7 @@ app.get('/Verify',function (req, res) {
     res.send(beautify(Data, null, 2, 100));
   }
 });
+/*
 app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',function(req,res){
   let UserAccountID = req.params.UserAccountID;
   let Email = req.params.Email;
@@ -2013,8 +2016,7 @@ app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',fun
   }else{
     res.send({UserAccountIDMissing:true});
   }
-
-});
+});*/
 
 function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -2033,8 +2035,8 @@ function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With 
     callback(undefined);
   }); 
 }
-
-app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {
+/*
+app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {//migrated
   let UserAccountIDFound = false;
   let UserAccountID = req.params.UserAccountID;
   let Verify = req.params.Verify;
@@ -2056,8 +2058,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
  });
   function myFirstFunction(callback2) {
     console.log('1');
-    Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-    let result = Models.UserAccount.findAll({ 
+    Models.UserAccount.sync();//makes sure table exist and syncs it
+ /*  let result = Models.UserAccount.findAll({ 
       where: {
         UserName:UserName//not null
         ,
@@ -2078,7 +2080,7 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
       callback2(null,result2);
     });
   }
-});
+});*/
 
 /**
  *
@@ -2303,6 +2305,7 @@ app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
 //---POKER ROUTING END
 
 //---SupportTicket ROUTING START
+/*//migrated
 app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
   ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
   let UserAccountID = req.params.UserAccountID;
@@ -2312,7 +2315,7 @@ app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Des
   let Time = req.params.Time;
   let Date = req.params.Date;
   let Status = req.params.Status;
-  Models.SupportTicket.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.SupportTicket.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(!isNullOrEmpty(UserAccountID)){
     if( !isNullOrEmpty(Title)){
       if(!isNullOrEmpty(Description)){
@@ -2363,19 +2366,8 @@ app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Des
   }else{
     res.send({UserAccountIDMissing:true});
   }
-
-/*
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(Title)&&
-  !isNullOrEmpty(Description)&&
-  !isNullOrEmpty(Reason)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)&&
-  !isNullOrEmpty(Status)){
-    
-  }*/
 });
-
+*/
 /**
  *
  *
@@ -2412,7 +2404,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
     callback(undefined);
   });
 }
-
+/*//migrated
 app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
   // USAGE /Api/v1/SupportTicket/Update/SupportTicketID/1/UserAccountID/89a5b95d-8d5d-455b-8139-8e8317fdd392/Title/Title/Description/Description/Reason/Reason2/Time/12:34:56/Date/2009-05-31/Status/Status
   let SupportTicketID = req.params.SupportTicketID;
@@ -2495,7 +2487,7 @@ app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccou
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -2634,7 +2626,7 @@ app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
   });
 });
 
-
+/*migrated
 app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -2654,7 +2646,7 @@ app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', fun
   }else{
     res.send({InvalidUserAccountID:true});
   }
-});
+});*/
 
 /**
  *
@@ -2750,6 +2742,7 @@ app.get('/SupportTicket/Request', function (req, res) {
     res.send({UserAccountIDMissing:true});
   }
 });
+/* migrated
 app.get('/UserAccount/SupportTicket', function (req, res) {
   // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
   // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb&Status=Pending
@@ -2795,10 +2788,11 @@ app.get('/UserAccount/SupportTicket', function (req, res) {
     let Data = {IsInvalidUserAccountID:true}
     res.send(Data);
   }
-});
+});*/
 //---SupportTicket ROUTING END
 
 //---OneOnOne ROUTING START
+/* //migrated
 app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID', function (req, res){
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
@@ -2883,9 +2877,11 @@ app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID', function (req, res){
     }
   }
 });
+*/
 //---OneOnOne ROUTING END
 
 //---Notification ROUTING START
+/*//migrated
 app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
   let NotificationType = req.params.NotificationType;
   let Title = req.params.Title;
@@ -2922,7 +2918,7 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
     res.send({NotificationTypeMissing:true});
   }
 });
-
+*/
 /**
  *
  *
@@ -2955,7 +2951,7 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
     callback(undefined);
   });
 }
-
+/*//migrated
 app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Time/:Time/Date/:Date', function (req, res) {
   let NotificationID = req.params.NotificationID;
   let NotificationType = req.params.NotificationType;
@@ -3023,7 +3019,7 @@ app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/Notification
   }else{
     res.send({NotifiactionIDMissing:true});
   }
-});
+});*/
 
 /**
  *
