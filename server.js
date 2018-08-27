@@ -3797,7 +3797,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
 });*/
 //--IPList ROUTING END
 
-//---LoginHistory ROUTING START
+//---LoginHistory ROUTING START --------------------------------------------MIGRATED
 app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
   //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -3942,6 +3942,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
  * @param {*} Date
  * @param {*} callback
  */
+// ------------------------------------------ MIGRATED
 function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
   Models.LoginHistory.update({
     IP: IP,
@@ -4107,8 +4108,13 @@ app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
   });
 });
 //---LoginHistory ROUTING END
+<<<<<<< HEAD
+
+//---BankInformation ROUTING START---------------------------------------------------------MIGRATED
+=======
 //---BankInformation ROUTING START
 
+>>>>>>> 38877fa8a2406863136473271e6c1ebc2b87576a
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
   //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -4168,6 +4174,7 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Val
  * @param {*} Date
  * @param {*} callback
  */
+// --------------------------------------- MIGRATED
 function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration,Time,Date,callback){
   var item1 = Models.BankInformation.build({
     UserAccountID:UserAccountID,
@@ -4339,7 +4346,7 @@ app.get('/Api/v1/BankInformation/Describe', function (req, res) {
   });
 });
 //---BankInformation ROUTING END
-//---WithdrawHistory ROUTING START
+//---WithdrawHistory ROUTING START -----------------------------------------MIGRATED
 app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
   // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/1234/Status/Processing/RequestedDATE/2010-06-27/ApprovedDATE/2018-06-27/RejectedDATE/2018-06-27/ProcessingDATE/2018-06-27/RequestedTIME/01:57:17/ApprovedTIME/01:57:17/RejectedTIME/01:57:17/ProcessingTIME/01:57:17
   let UserAccountID = req.params.UserAccountID;
@@ -5211,7 +5218,8 @@ app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
   }
 });*/
 //---WithdrawHistory ROUTING END
-//---DepositHistory ROUTING START
+
+//---DepositHistory ROUTING START 
 app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
  // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
   let UserAccountID = req.params.UserAccountID;
@@ -5502,6 +5510,8 @@ app.get('/DepositHistory', function (req, res) {
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
+
+// -------------------------MIGRATED 
 function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.DepositHistory.build({
     UserAccountID:UserAccountID,
@@ -6231,12 +6241,18 @@ app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+<<<<<<< HEAD
 /*
 /*
 //migrate
 not implemented*
+=======
+
+//*not implemented*
+>>>>>>> c849d7201b15df32dc2ad31d609a84046ac63f0a
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
+// -------------------------- MIGRATED
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryUUID = uuidv4();
@@ -6320,6 +6336,7 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
     }
 });*/
 
+// -------------------------- MIGRATED
 function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.TransferHistory.sync({alter : true/*,force:true*/});
   var item1 = Models.TransferHistory.build({
@@ -6347,7 +6364,11 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
+<<<<<<< HEAD
 /*
+=======
+
+>>>>>>> c849d7201b15df32dc2ad31d609a84046ac63f0a
 app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
