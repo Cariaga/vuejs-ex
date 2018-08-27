@@ -8314,7 +8314,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
   });
 }
 
-/*
+/*//migrate
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
@@ -8686,6 +8686,8 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', fu
     res.send({UserAccountIDEmpty:true});
   }
 });*/
+
+/*migrate
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Point = req.params.Point;
@@ -8820,6 +8822,7 @@ function PlayerUpdatePoint(UserAccountID,CurrentPoints,callback){
     callback(undefined);
   });
 }
+/*
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let CurrentRoomName = req.params.CurrentRoomName;
@@ -8858,7 +8861,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
   }else{
     res.send({UserAccountIDEmpty:true});
   }
-});
+});*/
 
 
 
@@ -8884,6 +8887,7 @@ function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
     callback(undefined);
   });
 }
+/*//migrate
 app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let PlayersID = req.params.PlayersID;
   let UserAccountID = req.params.UserAccountID;
@@ -8928,7 +8932,7 @@ app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID
   }else{
     res.send({PlayersIDMissing:true});
   }
-});
+});*/
 function PlayerUpdate(PlayersID,UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
   Models.Player.update({
     ShopID: ShopID,
@@ -8970,13 +8974,14 @@ app.get('/Api/v1/Player/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+/*//migrate
 app.get('/Api/v1/Player/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  Models.Player.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+ /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
    
     let result = Models.Player.findAll({ 
       where: {
@@ -9015,7 +9020,7 @@ app.get('/Api/v1/Player/', function (req, res) {
     res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
  
-});
+});*/
 app.get('/Api/v1/Player/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database

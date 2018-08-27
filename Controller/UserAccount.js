@@ -199,6 +199,46 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
       res.send(Data);
     }
   });
+  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let CurrentRoomName = req.params.CurrentRoomName;
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(CurrentRoomName)){
+      let UserAccountIDExist =false;
+      async.series([UserAccountIDCheck],function(error,response){
+        if(UserAccountIDExist==true){
+          PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
+              if(response!=undefined){
+                res.send(response);
+              }else{
+                res.send({PayerUpdateRoomNameUpdateFailed:true});
+              }
+          });
+        }else{
+          res.send({UserAccountIDExist:false});
+        }
+      });
+      function UserAccountIDCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          let obj = response;
+          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+            UserAccountIDExist = true;
+            callback(null,'1');
+          }else{
+            UserAccountIDExist = false;
+            callback(null,'1');
+          }
+        });
+      }
+
+    }else{
+      res.send({CurrentRoomNameEmpty:true});
+    }
+  }else{
+    res.send({UserAccountIDEmpty:true});
+  }
+});
+
 //--Select End
 
 //--Update Start
