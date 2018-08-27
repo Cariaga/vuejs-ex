@@ -1,7 +1,6 @@
 var express = require('express');
 const mysql = require('mysql2');
 const Sequelize = require('sequelize');
-const  passportLocalSequelize = require('passport-local-sequelize');
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
