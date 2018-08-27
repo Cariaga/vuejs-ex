@@ -5528,6 +5528,8 @@ app.get('/DepositHistory', function (req, res) {
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
+
+// -------------------------MIGRATED 
 function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,callback){
   var item1 = Models.DepositHistory.build({
     UserAccountID:UserAccountID,
@@ -6248,9 +6250,11 @@ app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+
 //*not implemented*
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
+// -------------------------- MIGRATED
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryUUID = uuidv4();
@@ -6334,6 +6338,7 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
     }
 });
 
+// -------------------------- MIGRATED
 function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.TransferHistory.sync({alter : true/*,force:true*/});
   var item1 = Models.TransferHistory.build({
@@ -6361,6 +6366,7 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
+
 app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
