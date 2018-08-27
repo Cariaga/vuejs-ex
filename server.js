@@ -5,11 +5,7 @@ var helmet = require('helmet');
 var express = require('express');
 const routes = require('express').Router();
 var Nexmo = require('nexmo');
-var bCrypt = require('bcrypt-nodejs');
-var passport = require('passport');
-var  passportLocalSequelize = require('passport-local-sequelize');
-var LocalStrategy = require('passport-local').Strategy;
-var BearerStrategy = require('passport-http-bearer').Strategy;
+
 var session = require("express-session");
 var cookieParser =require("cookie-parser");
 var jwt = require('jsonwebtoken');
@@ -43,7 +39,6 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
-var CustomStrategy = require('passport-custom').Strategy;
 
 var moment = require('moment');
 
