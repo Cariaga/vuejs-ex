@@ -6849,7 +6849,7 @@ app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 
 //---RoomConfiguration ROUTING END
 
-//---GameHistory ROUTING START
+//---GameHistory ROUTING START -----------------------------MIGRATED
 app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
   //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
   res.setHeader('Content-Type', 'application/json');
@@ -7371,6 +7371,9 @@ app.get('/Api/v1/HandHistory/RenameTestToSeason/', function (req, res) {
   })
   res.send({RenamedTo:"SeasonID"})
 });*/
+
+
+// ---------------------------MIGRATED
 app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let MoveHand =  req.params.MoveHand;
@@ -7441,6 +7444,8 @@ app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand
     res.send({RoundIDMissing:true});
   }
 });
+
+// ----------------migrated
 function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
   Models.HandHistory.sync(/*{force:true}*/);
   var item1 = Models.HandHistory.build({
@@ -7459,6 +7464,7 @@ function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
     callback(undefined);
   });
 }
+
 /*//migrate
 app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
   let RoundID =  req.params.RoundID;
@@ -7573,7 +7579,7 @@ app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, r
 //---HandHistoryList ROUTING END
 
 
-//---UserInfo ROUTING START
+//---UserInfo ROUTING START --------------------------migrated
 app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
   //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
@@ -7665,6 +7671,8 @@ app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNum
     res.send({UserAccountIDMissing:true});
   }
 });
+
+// migrated
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
 
     Models.UserInfo.sync(/*{force:true}*/);
@@ -7853,7 +7861,8 @@ app.get('/Api/v1/UserInfo/Describe', function (req, res) {
   });
 });
 //---UserInfo ROUTING END
-//---AccessControl ROUTING START
+
+//---AccessControl ROUTING START -------------------------------migrated
 app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessID = req.params.AccessID;
   let AccessName = req.params.AccessName;
@@ -7878,6 +7887,7 @@ app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/Acc
     res.send({AccessIDMissing:true});
   }
 });
+// mmigrated
 function AddAccessControl(AccessID,AccessName,AccessTags,callback){
   var item1 = Models.AccessControl.build({
     AccessID:AccessID,
@@ -8023,8 +8033,9 @@ app.get('/Api/v1/AccessControl/Describe', function (req, res) {
   });
 });
 //---AccessControl ROUTING END
-//---UserAccount ROUTING START
 
+
+//---UserAccount ROUTING START ------------------migrate
 app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
   //USAGE
   //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
@@ -8091,6 +8102,8 @@ app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey
  * @param {*} RegisteredTime
  * @param {*} callback
  */
+
+// ---------------------migrated
 function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
   var item1 = Models.UserAccount.build({
     UserAccountID:UserAccountID,
@@ -8524,7 +8537,8 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//mayb
 }
 
 //---UserAccount ROUTING START
-//---Player ROUTING START
+
+//---Player ROUTING START -----------------=migrated
 app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
   //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
   let UserAccountID = req.params.UserAccountID;
@@ -8578,6 +8592,8 @@ app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:C
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
+
+//  ----------------------------------migrated
 function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
     //res.send('test');
     //Setting up the config
