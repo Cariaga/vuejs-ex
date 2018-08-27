@@ -6580,7 +6580,7 @@ function TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAcc
 
 //--TransferHistory ROUTING END
 
-//---RoomConfiguration ROUTING START
+//---RoomConfiguration ROUTING START    ---------------------------MIGRATED
 app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
   //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
   let SeasonID = req.params.SeasonID;
