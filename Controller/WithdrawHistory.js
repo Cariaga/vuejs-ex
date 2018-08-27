@@ -32,8 +32,45 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
     }else{
       res.send({WithdrawHistoryIDMissing:true});
     }
+  });
+  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
+    let WithdrawHistoryID = req.params.WithdrawHistoryID;
+    let UserAccountID =req.params.UserAccountID;
+    let ProcessingDATE = req.params.ProcessingDATE;
+    let ProcessingTIME = req.params.ProcessingTIME;
+    if(!isNullOrEmpty(WithdrawHistoryID)){
+      if(!isNullOrEmpty(UserAccountID)){
     
+          let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
+          let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
+          if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
+            if(!isNullOrEmpty(ProcessingTIME)){
+              WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,ProcessingDATE,ProcessingTIME,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send({WithdrawHistoryUpdateProcessingFailed:true});
+                }
+              });
+            }else{
+              res.send({ProcessingTIMEMissing:true});
+            }
+          }else{
+            res.send({ProcessingDATEMissing:true});
+          
+        }
+      }else{
+        res.send({UserAccountIDMissing:true});
+      }
+    }else{
+      res.send({WithdrawHistoryIDMissing:true});
+    }
+  });
+  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
+    let WithdrawHistoryID = req.params.WithdrawHistoryID;
+    let UserAccountID =req.params.UserAccountID;
     
+<<<<<<< HEAD
   });
 
 
@@ -148,3 +185,34 @@ app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     res.send({UserAccountIDMissing:true});
   }
 });
+=======
+    let RejectedDATE = req.params.RejectedDATE;
+    let RejectedTIME = req.params.RejectedTIME;
+    if(!isNullOrEmpty(WithdrawHistoryID)){
+      if(!isNullOrEmpty(UserAccountID)){
+   
+          let RejectedDATEParsed= moment(RejectedDATE, "YYYY-MM-DD");
+          let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
+          if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
+            if(!isNullOrEmpty(RejectedTIME)){
+              WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedDATE,RejectedTIME,function(response){
+                if(response!=undefined){
+                  res.send(response);
+                }else{
+                  res.send({WithdrawHistoryUpdateRejectedFailed:true});
+                }
+              });
+            }else{
+              res.send({RejectedTIMEMissing:true});
+            }
+          }else{
+            res.send({RejectedDATEMissing:true});
+          }
+      }else{
+        res.send({UserAccountIDMissing:true});
+      }
+    }else{
+      res.send({WithdrawHistoryIDMissing:true});
+    }
+  });
+>>>>>>> a048d875b37114882dbcc133b172c59df51c4a5a
