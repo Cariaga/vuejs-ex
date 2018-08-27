@@ -5532,7 +5532,7 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
     callback(undefined);
   });
 }
-
+/*//migrated
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -5577,7 +5577,8 @@ function DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDAT
     console.log("Error Updating " +error);
     callback(undefined);
   }); 
-}
+}*/
+/*//migrate
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -5606,7 +5607,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   }else{
     res.send({DepositHistoryIDMissing:true});
   }
-});
+});*/
 
 function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ProcessingDATE,ProcessingTIME,callback){
   Models.DepositHistory.update({
@@ -5624,6 +5625,7 @@ function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,Processin
     callback(undefined);
   }); 
 }
+/*//migrate
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -5652,7 +5654,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   }else{
     res.send({DepositHistoryIDMissing:true});
   }
-});
+});*/
 
 function DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RequestedDATE,RejectedTIME,callback){
   Models.DepositHistory.update({
@@ -5670,6 +5672,8 @@ function DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RequestedDA
     callback(undefined);
   }); 
 }
+
+/*//migrate
 app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
   let DepositHistoryID = req.params.DepositHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -5819,7 +5823,7 @@ app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAc
   }else{
     res.send({DepositHistoryIDMissing:true});
   }
-});
+});*/
 
 /**
  *
@@ -5897,13 +5901,14 @@ app.get('/Api/v1/DepositHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+/*//migrate
 app.get('/Api/v1/DepositHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.DepositHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  Models.DepositHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  /*if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.DepositHistory.sync();
     let result = Models.DepositHistory.findAll({ 
       where: {
@@ -5942,7 +5947,7 @@ app.get('/Api/v1/DepositHistory/', function (req, res) {
 
   }
   //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
-});
+});*/
 app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.DepositHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -5953,6 +5958,7 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
 
 //NOT DONE temporarly displays arrays
 //we need to retreive all records and branches of each account
+/*//migrate
 app.get('/Api/v1/DepositList/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = "6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6";
@@ -6049,6 +6055,8 @@ app.get('/Api/v1/DepositList/', function (req, res) {
   }
   
 });
+*/
+/*//migrate
 
 app.get('/Api/v1/DepositList/UserAccountID/:UserAccountID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -6155,15 +6163,16 @@ app.get('/Api/v1/TransferHistory/Clear', function (req, res){
   .catch(err=>{
     res.send("Truncate "+err);
   });
-});
+});*/
 
+/*//migrate
 app.get('/Api/v1/TransferHistory/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.TransferHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  Models.TransferHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+/*  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     TransferHistoryAll(function(response){
       if(response!=undefined){
         res.send(beautify(response, null, 2, 100));
@@ -6191,7 +6200,7 @@ app.get('/Api/v1/TransferHistory/', function (req, res) {
   if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
   }
-});
+});*/
 function TransferHistoryAll(callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
@@ -6222,7 +6231,10 @@ app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
-//*not implemented*
+/*
+/*
+//migrate
+not implemented*
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
@@ -6306,7 +6318,7 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
     }else{
       res.send({UserAccountIDReceiverMissing:true});
     }
-});
+});*/
 
 function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
   Models.TransferHistory.sync({alter : true/*,force:true*/});
@@ -6335,6 +6347,7 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
+/*
 app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
@@ -6370,7 +6383,8 @@ app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAn
       }
     });
     }
-});
+});*/
+/*//migrate
 app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
@@ -6385,7 +6399,7 @@ app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/',
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,callback){
   Models.TransferHistory.sync();
     let result = Models.TransferHistory.findAll({ 
