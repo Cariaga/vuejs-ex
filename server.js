@@ -8033,8 +8033,9 @@ app.get('/Api/v1/AccessControl/Describe', function (req, res) {
   });
 });
 //---AccessControl ROUTING END
-//---UserAccount ROUTING START
 
+
+//---UserAccount ROUTING START ------------------migrate
 app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
   //USAGE
   //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
@@ -8101,6 +8102,8 @@ app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey
  * @param {*} RegisteredTime
  * @param {*} callback
  */
+
+// ---------------------migrated
 function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
   var item1 = Models.UserAccount.build({
     UserAccountID:UserAccountID,

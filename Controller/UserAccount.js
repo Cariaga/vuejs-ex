@@ -97,117 +97,103 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
 //--Update End
 
 
-//---UserInfo ROUTING START
-app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
-  //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
-  //Tests for foreignKey should result in  foreign key constraint fails Error
-  // /Api/v1/UserInfo/Add/5879999/Email14535432/PhoneNumber/TelephoneNumber
 
-  let UserAccountID = req.params.UserAccountID;
-  let Email = req.params.Email;
-  let PhoneNumber = req.params.PhoneNumber;
-  let TelephoneNumber = req.params.TelephoneNumber;
+
+
+//---UserAccount ROUTING START ------------------migrate
+app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
+  //USAGE
+  //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
+  let UserAccountID = uuidv4();
+  let AccessID = req.params.AccessID;
+  let UserName = req.params.UserName;
+  let Password = req.params.Password;
+  let Verify = req.params.Verify;
+  let ValidKey = req.params.ValidKey;
+  let RegisteredDate = req.params.RegisteredDate;
+  let RegisteredTime =  req.params.RegisteredTime;
 
   if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Email)){
-      if(!isNullOrEmpty(PhoneNumber)){
-        if(!isNullOrEmpty(TelephoneNumber)){
-          let UserAccountIDExist= false;
-          let UserInfoExist= false;
-          let isEmailExist =false;
-          async.series([UserAccountIDCheck,UserInfoCheck,UserInfoEmailExistCheck],function(error,response){
-           
-            if(UserAccountIDExist==true){
-              if(UserInfoExist==false){//must not exist already
-                if(isEmailExist==false){//must Be False
-                  AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
+    if(!isNullOrEmpty(AccessID)){
+      if(!isNullOrEmpty(UserName)){
+        if(!isNullOrEmpty(Password)){
+          if(!isNullOrEmpty(Verify)){
+            if(!isNullOrEmpty(ValidKey)){
+              if(!isNullOrEmpty(RegisteredDate)){
+                if(!isNullOrEmpty(RegisteredTime)){
+                  AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
                     if(response!=undefined){
                       res.send(response);
                     }else{
-                      res.send({AddUserInfoFailed:true});
+                      res.send({AddUserAccountFailed:true});
                     }
                   });
                 }else{
-                  res.send({UserInfoExist:true});
+                  res.send({RegisteredTimeMissing:true});
                 }
-                
               }else{
-                res.send({UserInfoExist:true});
+                res.send({RegisteredDateMissing:true});
               }
             }else{
-              res.send({UserAccountIDExist:true});
+              res.send({ValidKeyMissing:true});
             }
-          });
-          
-          function UserAccountIDCheck(callback){
-            isUserAccountIDExist(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-                UserAccountIDExist = true;
-                callback(null,'1');
-              }else{
-                UserAccountIDExist = false;
-                callback(null,'1');
-              }
-            });
-          }
-          function UserInfoCheck(callback){
-            UserInfoUserAccountID(UserAccountID,function(response){
-              if(response!=undefined){
-                UserInfoExist=true;
-               callback(null,'3');
-              }else{
-                UserInfoExist= false;
-               callback(null,'3');
-              }
-            });
-          }
-          function UserInfoEmailExistCheck(callback){
-            UserInfoEmailExist(Email,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
-                isEmailExist=true;
-                callback(null,2);
-                
-              }else{
-                isEmailExist=false;
-                callback(null,2);
-              }
-            });
+          }else{
+            res.send({VerifyMissing:true});
           }
         }else{
-          res.send({TelephoneNumberMissing:true});
+          res.send({PasswordMissing:true});
         }
       }else{
-        res.send({PhoneNumberMissing:true});
+        res.send({UserNameMissing:true});
       }
     }else{
-      res.send({EmailMissing:true});
+      res.send({AccessIDMissing:true});
     }
   }else{
     res.send({UserAccountIDMissing:true});
   }
 });
 
-// migrated
-function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} AccessID
+ * @param {*} UserName
+ * @param {*} Password
+ * @param {*} Verify
+ * @param {*} ValidKey
+ * @param {*} RegisteredDate
+ * @param {*} RegisteredTime
+ * @param {*} callback
+ */
 
-    Models.UserInfo.sync(/*{force:true}*/);
-    var item1 = Models.UserInfo.build({
-      UserAccountID:UserAccountID,
-      Email:Email,
-      PhoneNumber:PhoneNumber,
-      TelephoneNumber:TelephoneNumber
-    });
-    Models.UserInfo.sync();//only use force true if you want to destroy replace table
-    item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
-    
-      console.log("error inserting " +error);
-      callback(undefined);
-    });
+// ---------------------migrated
+function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime, callback){
+  var item1 = Models.UserAccount.build({
+    UserAccountID:UserAccountID,
+    AccessID:AccessID,
+    UserName:UserName,
+    Password:Password,
+    Verify:Verify,
+    ValidKey:ValidKey,
+    RegisteredDate:RegisteredDate,
+    RegisteredTime:RegisteredTime
+  });
+  //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
+  Models.UserAccount.sync({alter : true/*,force:true*/});
+  item1.save()
+  .then(Success => {
+
+     console.log("----AddUserAccount Start-----");
+     console.log(Success);
+     console.log("----AddUserAccount End-----");
+     callback("Inserted");
+  })
+  .catch(error => {
+    // mhhh, wth!
+    console.log("error inserting UserAccountID:"+UserAccountID+" \n AccessID:"+AccessID+"\n UserName:"+UserName+"\n Password:"+Password+"\n Verify:"+Verify+"\n ValidKey:"+ValidKey+"\n RegisteredDate:"+RegisteredDate+"\n RegisteredTime:"+RegisteredTime);
+    callback(undefined);
+  });
 }
