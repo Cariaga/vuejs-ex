@@ -4550,7 +4550,7 @@ function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedD
   }); 
 }
 
-
+/*//migrateds
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
@@ -4584,7 +4584,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
     res.send({WithdrawHistoryIDMissing:true});
   }
   
-});
+});*/
 function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,ProcessingDATE,ProcessingTIME,callback){
   Models.WithdrawHistory.update({
     ProcessingDATE: ProcessingDATE,
@@ -4601,6 +4601,7 @@ function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Process
     callback(undefined);
   });
 }
+/*
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
   let UserAccountID =req.params.UserAccountID;
@@ -4633,8 +4634,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }else{
     res.send({WithdrawHistoryIDMissing:true});
   }
-  
-});
+});*/
 function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedDATE,RejectedTIME,callback){
   Models.WithdrawHistory.update({
     RejectedDATE: RejectedDATE,
@@ -4651,6 +4651,7 @@ function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedD
     callback(undefined);
   });
 }
+/*//migrated
 app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
 
   let WithdrawHistoryID = req.params.WithdrawHistoryID;
@@ -4775,26 +4776,7 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
   }else{
     res.send({UserAccountIDMissing:true});
   }
-/*
-
-  if(isNullOrEmpty(WithdrawHistoryID)&&
-  isNullOrEmpty(UserAccountID)&&
-  isNullOrEmpty(Amount)&&
-  isNullOrEmpty(BankNameUsed)&&
-  isNullOrEmpty(SecurityCodeUsed)&&
-  isNullOrEmpty(Status)&&
-  isNullOrEmpty(RequestedDATE)&&
-  isNullOrEmpty(ApprovedDATE)&&
-  isNullOrEmpty(RejectedDATE)&&
-  isNullOrEmpty(ProcessingDATE)&&
-  isNullOrEmpty(RequestedTIME)&&
-  !isNullOrEmpty(ApprovedTIME)&&
-  isNullOrEmpty(RejectedTIME)&&
-  isNullOrEmpty(ProcessingTIME)){
-    
-  }*/
-});
-
+});*/
 /**
  *
  *
@@ -5045,6 +5027,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
     res.send({UserAccountIDMissing:true});
   }
 });
+/*//migrate
 app.get('/Api/v1/WithdrawList/',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = "6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6";
@@ -5137,7 +5120,8 @@ app.get('/Api/v1/WithdrawList/',function(req,res){
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
+/*
 app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -5225,7 +5209,7 @@ app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 //---WithdrawHistory ROUTING END
 //---DepositHistory ROUTING START
 app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
@@ -5344,7 +5328,7 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
     res.send({UserAccountIDMissing:true});
   }  
 });
-
+/*//migrated
 app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -5381,9 +5365,7 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
   }else{
     res.send({StatusInvalidValue:true});
   }
-
-  
-});
+});*/
 
 /**
  *
