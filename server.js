@@ -9472,6 +9472,8 @@ app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {//ch
     res.send("Missing params");
   }
 });
+
+// -----------------------------------migrated
 app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
   //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
   let UserAccountID = req.params.UserAccountID;
@@ -9506,6 +9508,8 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
  * @param {*} Description
  * @param {*} callback
  */
+
+// -------------------------migrated
 function AddHeadOffice(UserAccountID,Name,Description,callback){
   var item1 = Models.HeadOffice.build({
     UserAccountID:UserAccountID,
@@ -9527,6 +9531,7 @@ function AddHeadOffice(UserAccountID,Name,Description,callback){
     callback(undefined);
   });
 }
+
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
   let HeadOfficeID = req.params.HeadOfficeID;
   let UserAccountID = req.params.UserAccountID;
