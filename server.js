@@ -3517,7 +3517,8 @@ function BlackListAll(callback){
 //---BlackList ROUTING END
 
 //---MemberBlackList ROUTING START
-/*app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
+/*migrated
+app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
@@ -3678,6 +3679,7 @@ function BlackListUserAccountID(UserAccountID,callback){
 }
 //---MemberBlackList ROUTING END
 //--IPList ROUTING START
+/*//migrated
 app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -3792,7 +3794,7 @@ app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     }
 
   }
-});
+});*/
 //--IPList ROUTING END
 
 //---LoginHistory ROUTING START
@@ -3875,6 +3877,7 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
   });
 }
 
+/*//migrated
 app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
   let LoginHistoryID = req.params.LoginHistoryID;
   let UserAccountID = req.params.UserAccountID;
@@ -3924,7 +3927,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
   }else{
     res.send({LoginHistoryIDMissing:true});
   }
-});
+});*/
 
 /**
  *
