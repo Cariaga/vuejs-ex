@@ -13,7 +13,7 @@ var jwt = require('jsonwebtoken');
 var Combinatorics = require('js-combinatorics');
 const PokerHand = require('poker-hand-evaluator');
 const sortBy = require('sort-array');
-const mysqldump = require('mysqldump');
+
 
 var app = express(); // create our app w/ express
 app.use(helmet());
@@ -932,20 +932,6 @@ function getCurrentTime(callback){
 
 
 //--Validation End
-//--Dump to file start
-app.get('/dump',function(req,res){
-  let x = mysqldump({
-    connection: {
-        host: '172.30.166.206',
-        user: 'user',
-        password: 'user',
-        database: 'sampledb',
-    },
-    dumpToFile: './dump.sql',
-});
-});
-
-//--Dump to file end
 
 //--Login Start
 
