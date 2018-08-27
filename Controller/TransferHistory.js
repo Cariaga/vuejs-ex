@@ -204,3 +204,39 @@ app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceive
       callback(undefined);
     });
   }
+  app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
+    let SentTransferResult =undefined;
+    let RecievedTransferResult = undefined;
+  
+    async.series([GetSentTransfer,GetReceiverTransfer],function(error,response){
+      let FullTransferHistory = {SentTransferResult:SentTransferResult,RecievedTransferResult:RecievedTransferResult};
+  
+      res.send(FullTransferHistory);
+    });
+  
+   function GetSentTransfer(callback1){
+      TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response1){
+        if(response1!=undefined){
+          SentTransferResult=response1;
+          callback1(null,'1');
+        }else{
+          SentTransferResult=[];
+          callback1(null,'1');
+        }
+       
+      });
+    }
+    function GetReceiverTransfer(callback2){
+      TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
+        if(response!=undefined){
+          RecievedTransferResult = response;
+          callback2(null,'2');
+        }else{
+          RecievedTransferResult =[];
+          callback2(null,'2');
+        }
+      });
+      }
+  });

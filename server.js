@@ -4108,13 +4108,8 @@ app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
   });
 });
 //---LoginHistory ROUTING END
-<<<<<<< HEAD
-
-//---BankInformation ROUTING START---------------------------------------------------------MIGRATED
-=======
 //---BankInformation ROUTING START
 
->>>>>>> 38877fa8a2406863136473271e6c1ebc2b87576a
 app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
   //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
   let UserAccountID = req.params.UserAccountID;
@@ -6241,18 +6236,12 @@ app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
-<<<<<<< HEAD
-/*
-/*
-//migrate
-not implemented*
-=======
 
 //*not implemented*
->>>>>>> c849d7201b15df32dc2ad31d609a84046ac63f0a
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
 // -------------------------- MIGRATED
+/*
 app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let TransferHistoryUUID = uuidv4();
@@ -6364,11 +6353,7 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
-<<<<<<< HEAD
-/*
-=======
-
->>>>>>> c849d7201b15df32dc2ad31d609a84046ac63f0a
+/*//migrate
 app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
   res.setHeader('Content-Type', 'application/json');
   let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
@@ -6442,6 +6427,8 @@ function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,callback){
       callback(undefined);
     });
 }
+
+/*//migrate
 app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountIDSender = req.params.UserAccountIDSender;
@@ -6457,6 +6444,7 @@ app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', fun
     res.send({UserAccountIDMissing:true});
   }
 });
+*/
 function TransferHistoryUserAccountIDSender(UserAccountIDSender,callback){
   Models.TransferHistory.sync();
     let result = Models.TransferHistory.findAll({ 
