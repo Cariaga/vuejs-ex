@@ -7800,7 +7800,7 @@ app.get('/Api/v1/UserInfo/', function (req, res) {
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.UserInfo.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
  /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -8204,6 +8204,7 @@ app.get('/Api/v1/UserAccount/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+/*//migrate
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID =  req.params.UserAccountID;
@@ -8247,7 +8248,8 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:Verifie
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
 });
-
+*/
+/*//migrate
 app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
@@ -8272,7 +8274,7 @@ app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
   }else{
     res.send("Missing params");
   }
-});
+});*/
 
 /**
  *
@@ -8325,6 +8327,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
   });
 }
 
+/*//migrate
 app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let PlayerRelationshipResult = undefined;// the resulting parents of Player
@@ -8363,7 +8366,7 @@ app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', f
     res.send({UserAccountIDMissing:true});
   }
  
-});
+});*/
 
 
 function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//maybe a Heavy Operation but it is untested on large data
@@ -8618,7 +8621,7 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
-
+/*//migrate
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Point = req.params.Point;
@@ -8698,7 +8701,9 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', fu
   }else{
     res.send({UserAccountIDEmpty:true});
   }
-});
+});*/
+
+/*migrate
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let Point = req.params.Point;
@@ -8833,6 +8838,7 @@ function PlayerUpdatePoint(UserAccountID,CurrentPoints,callback){
     callback(undefined);
   });
 }
+/*
 app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let UserAccountID = req.params.UserAccountID;
   let CurrentRoomName = req.params.CurrentRoomName;
@@ -8871,7 +8877,7 @@ app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:Cur
   }else{
     res.send({UserAccountIDEmpty:true});
   }
-});
+});*/
 
 
 
@@ -8897,6 +8903,7 @@ function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
     callback(undefined);
   });
 }
+/*//migrate
 app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', function (req, res) {
   let PlayersID = req.params.PlayersID;
   let UserAccountID = req.params.UserAccountID;
@@ -8941,7 +8948,7 @@ app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID
   }else{
     res.send({PlayersIDMissing:true});
   }
-});
+});*/
 function PlayerUpdate(PlayersID,UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
   Models.Player.update({
     ShopID: ShopID,
@@ -8983,13 +8990,14 @@ app.get('/Api/v1/Player/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+/*//migrate
 app.get('/Api/v1/Player/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  Models.Player.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+ /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
    
     let result = Models.Player.findAll({ 
       where: {
@@ -9028,7 +9036,7 @@ app.get('/Api/v1/Player/', function (req, res) {
     res.send("Player "+Offset+" "+ Limit+" "+Sort);
   }
  
-});
+});*/
 app.get('/Api/v1/Player/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -9156,6 +9164,7 @@ function AddShop(UserAccountID,DistributorID,Description,callback){
     callback(undefined);
   });
 }
+/*
 app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
   let ShopID = req.params.ShopID;
   let UserAccountID = req.params.UserAccountID;
@@ -9182,7 +9191,7 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
       res.send("Error Updating " +error);
     });
   }
-});
+});*/
 app.get('/Api/v1/Shop/Clear', function (req, res){
   Models.Shop.destroy({
     where: {UserID:1},
@@ -9202,12 +9211,13 @@ app.get('/Api/v1/Shop/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+/*//migrate
 app.get('/Api/v1/Shop/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.Shop.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.Shop.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.Shop.findAll({ 
       where: {
@@ -9247,7 +9257,7 @@ app.get('/Api/v1/Shop/', function (req, res) {
 
   }
 //  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
-});
+});*/
 app.get('/Api/v1/Shop/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Shop.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -9328,6 +9338,7 @@ function AddDistributor(UserAccountID,HeadOfficeID,Name,callback){
     
   });
 }
+/*//migrate
 app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', function (req, res) {
   let DistributorID = req.params.DistributorID;
   let UserAccountID = req.params.UserAccountID;
@@ -9357,7 +9368,7 @@ app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:
     res.send({DistributorIDFailed:true});
   }
 });
-
+*/
 /**
  *
  *
@@ -9404,12 +9415,13 @@ app.get('/Api/v1/Distributor/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
+/*//migrate
 app.get('/Api/v1/Distributor/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
   let Limit =  req.query.Limit;
   let Sort =  req.query.Sort;
-  Models.Distributor.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.Distributor.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
     let result = Models.Distributor.findAll({ 
       where: {
@@ -9448,7 +9460,7 @@ app.get('/Api/v1/Distributor/', function (req, res) {
 
   }
   //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
-});
+});*/
 app.get('/Api/v1/Distributor/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Distributor.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -9653,6 +9665,7 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
 });
 //---HeadOffice ROUTING END
 //---Sales ROUTING START
+/*//migrate
 app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
   let UserAccountID = req.params.UserAccountID;
   let UserAccountIDExist = false;
@@ -9765,7 +9778,7 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
   }else{
     res.send({UserAccountIDMissing:true});
   }
-});
+});*/
 //---Sales ROUTING END
 
 app.get('/testseq', function (req, res) {

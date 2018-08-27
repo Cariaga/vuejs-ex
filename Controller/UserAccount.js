@@ -1,4 +1,112 @@
 //--Select Start
+app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID =  req.params.UserAccountID;
+  let VerifiedStatus =  req.params.VerifiedStatus;// only true or false state no other value type
+  console.log(UserAccountID+" "+VerifiedStatus);
+  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(VerifiedStatus)){
+    if(VerifiedStatus=="true" || VerifiedStatus=="false"){//must be validated like a string because 
+      Models.UserAccount.sync();
+      let UserAccountIDExist = false;
+      async.series([UserAccountIDCheck],function(err,response){
+        if(UserAccountIDExist==true){
+          //res.send({UserAccountIDExist:UserAccountIDExist});
+          VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,function(response){
+            if(!isNullOrEmpty(response)&&response!=undefined){
+              res.send(response);
+            }else{
+              res.send({VerifyAccountUserAccountIDFailed:true});
+            }
+          });
+        }else{
+          res.send({UserAccountIDExist:UserAccountIDExist});
+        }
+      });
+      function UserAccountIDCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          let obj = response;
+          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+            UserAccountIDExist = true;
+            callback(null,'1');
+          }else{
+            UserAccountIDExist = false;
+            callback(null,'1');
+          }
+        });
+      }
+    }else{
+      res.send({VerfiedStatusInvalidValue:true});
+    }
+  }else{
+    res.send({MissingParameters:true});
+  }
+  //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
+});
+
+app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let PlayerRelationshipResult = undefined;// the resulting parents of Player
+  let PlayerExist = false;
+  if(!isNullOrEmpty(UserAccountID)){
+    async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
+      if(PlayerExist==true){
+       res.send(PlayerRelationshipResult);
+      }else{
+       res.send({PlayerInvalidValue:true});
+      }
+    });
+    function PlayerCheck(callback){
+      PlayerUserAccountID(UserAccountID,function(response){
+        if(response!=undefined){
+         PlayerExist= true;
+         callback(null,'1');
+        }else{
+         PlayerExist= false;
+         callback(null,'1');
+        }
+      });
+    }
+    function GetParentPlayerLookUp(callback){
+     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
+       if(response!=undefined){
+         PlayerRelationshipResult=response;
+         callback(null,'2');
+       }else{
+         PlayerRelationshipResult=undefined;
+         callback(null,'2');
+       }
+     });
+    }
+  }else{
+    res.send({UserAccountIDMissing:true});
+  }
+ 
+});
+app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    //res.send({success:true});
+    AccountTypeFullCheck(UserAccountID,function(response){
+      if(response!=undefined){
+        if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
+          res.send({AccountType:response.AccountType});
+        }
+        else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
+          res.send("Duplicate UserAccountID AccountType");
+        }
+        else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
+          res.send("No Account No Duplicate");
+        }
+      }else{
+        res.send("Somthing Went Wrong With AccountTypeFullCheck");
+      }
+      
+    });
+  }else{
+    res.send("Missing params");
+  }
+});
 app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {//migrated
     let UserAccountIDFound = false;
     let UserAccountID = req.params.UserAccountID;
@@ -91,6 +199,46 @@ app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify'
       res.send(Data);
     }
   });
+  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
+  let UserAccountID = req.params.UserAccountID;
+  let CurrentRoomName = req.params.CurrentRoomName;
+  if(!isNullOrEmpty(UserAccountID)){
+    if(!isNullOrEmpty(CurrentRoomName)){
+      let UserAccountIDExist =false;
+      async.series([UserAccountIDCheck],function(error,response){
+        if(UserAccountIDExist==true){
+          PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
+              if(response!=undefined){
+                res.send(response);
+              }else{
+                res.send({PayerUpdateRoomNameUpdateFailed:true});
+              }
+          });
+        }else{
+          res.send({UserAccountIDExist:false});
+        }
+      });
+      function UserAccountIDCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          let obj = response;
+          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
+            UserAccountIDExist = true;
+            callback(null,'1');
+          }else{
+            UserAccountIDExist = false;
+            callback(null,'1');
+          }
+        });
+      }
+
+    }else{
+      res.send({CurrentRoomNameEmpty:true});
+    }
+  }else{
+    res.send({UserAccountIDEmpty:true});
+  }
+});
+
 //--Select End
 
 //--Update Start
