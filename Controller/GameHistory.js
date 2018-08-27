@@ -124,6 +124,43 @@ app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:
       
     }*/
   });
+
+  app.get('/Api/v1/GameHistory', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset =  req.query.Offset;
+    let Limit =  req.query.Limit;
+    let Sort =  req.query.Sort;
+    Models.GameHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+      GameHistory(function(response){
+        if(response!=undefined){
+          res.send(res.send(beautify(response, null, 2, 100)));
+        }else{
+          res.send([]);
+        }
+       
+      });
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
+  });
 //--Select End
 
 //--Update Start
