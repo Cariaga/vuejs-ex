@@ -63,9 +63,9 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 
 
 // connect to MongoDB database
-mongoose.connect(database.url);
+/*mongoose.connect(database.url);
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'connection error:'));*/
 
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
