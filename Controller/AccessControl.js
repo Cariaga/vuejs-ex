@@ -1,4 +1,10 @@
 
+//--Select Start
+module.exports = function(app) {
+
+
+
+    
 app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessControlID = req.params.AccessControlID;
   let AccessID = req.params.AccessID;
@@ -29,8 +35,6 @@ app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/
   }
 });
 
-//--Select Start
-module.exports = function(app) {
     /*app.get('/selectTest', function(req, res) {
       console.log('got the get!');
       res.send("Worked Select");
