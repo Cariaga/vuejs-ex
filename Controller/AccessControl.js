@@ -1,5 +1,4 @@
 
-//--Select Start
 module.exports = function(app) {
 app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
   let AccessControlID = req.params.AccessControlID;
@@ -29,8 +28,9 @@ app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/
   }else{
     res.send({AccessControlIDMissing:true});
   }
-});
-module.exports = function(app) {
+  });
+}
+  module.exports = function(app) {
     app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
       let AccessID = req.params.AccessID;
       let AccessName = req.params.AccessName;
@@ -56,7 +56,6 @@ module.exports = function(app) {
         }
       });
       };
-  }
 // mmigrated
 function AddAccessControl(AccessID,AccessName,AccessTags,callback){
   /*var item1 = Models.AccessControl.build({
