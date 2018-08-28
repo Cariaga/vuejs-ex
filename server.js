@@ -1979,7 +1979,6 @@ app.get('/Verify',function (req, res) {
     res.send(beautify(Data, null, 2, 100));
   }
 });
-/*
 
 
 function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
