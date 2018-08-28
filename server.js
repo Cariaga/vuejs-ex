@@ -1980,43 +1980,7 @@ app.get('/Verify',function (req, res) {
   }
 });
 /*
-app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/',function(req,res){
-  let UserAccountID = req.params.UserAccountID;
-  let Email = req.params.Email;
-  let UserAccountIDExist = false;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Email)){
-      async.series([UserAccountCheck],function(error,response){
-        if(UserAccountIDExist==true){
-          UserInfoUpdateEmail(UserAccountID,Email,function(response){
-            if(response!=undefined){
-             res.send(response);
-            }else{
-             res.send({UserAccountIDUpdateEmailFailed:true});
-            }
-           });
-        }else{
-          res.send({UserAccountIDExist:false});
-        }
-      });
-      function UserAccountCheck(callback){
-        isUserAccountIDExist(UserAccountID,function(response){
-          if(response!=undefined){
-            UserAccountIDExist= true;
-            callback(null,'1');
-          }else{
-            UserAccountIDExist=false;
-            callback(null,'1');
-          }
-        });
-      }
-    }else{
-      res.send({EmailMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
+
 
 function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   Models.UserInfo.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -2035,52 +1999,7 @@ function UserInfoUpdateEmail(UserAccountID,Email,callback){// Verification With 
     callback(undefined);
   }); 
 }
-/*
-app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) {//migrated
-  let UserAccountIDFound = false;
-  let UserAccountID = req.params.UserAccountID;
-  let Verify = req.params.Verify;
-  async.waterfall([
-    myFirstFunction
- ], function (err, result) {//final function
-  if(UserAccountIDFound==true){
-    VerifyAccountUserAccountID(UserAccountID,Verify,function(response){
-      if(response!=undefined){
-        res.send({});
-      }else{
-        res.send({VerifyAccountUserAccountIDFailed:true});
-      }
-    });
-  }else{
-    res.send({UserAccountIDInvalid:true});
-  }
-     callback(result);
- });
-  function myFirstFunction(callback2) {
-    console.log('1');
-    Models.UserAccount.sync();//makes sure table exist and syncs it
- /*  let result = Models.UserAccount.findAll({ 
-      where: {
-        UserName:UserName//not null
-        ,
-        ValidKey:ValidKey//not null
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {return item;});
-    //  console.log('2');
-      if(Data.length>0){
-        UserAccountIDFound=true;
-      }else{
-        UserAccountIDFound=false;
-      }
-      callback2(null,Data);
-    }).catch(function(result2){
-      console.log("Verify Error : "+result2);
-    //  console.log('2');
-      callback2(null,result2);
-    });
-  }
-});*/
+
 
 /**
  *
@@ -2302,72 +2221,6 @@ app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
       let bestScore = sortBy(EvaluatedHand, 'score');
       res.send(bestScore);
 });
-//---POKER ROUTING END
-
-//---SupportTicket ROUTING START
-/*//migrated
-app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
-  ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
-  let UserAccountID = req.params.UserAccountID;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let Reason = req.params.Reason;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  let Status = req.params.Status;
-  Models.SupportTicket.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(!isNullOrEmpty(UserAccountID)){
-    if( !isNullOrEmpty(Title)){
-      if(!isNullOrEmpty(Description)){
-        if(!isNullOrEmpty(Reason)){
-          if(!isNullOrEmpty(Time)){
-            if(!isNullOrEmpty(Date)){
-              if( !isNullOrEmpty(Status)){
-                let UserAccountIDExist =false;
-                async.series([UserAccountIDCheck],function(error,response){
-                  if(UserAccountIDExist==true){
-                    AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,function(response) {
-                      res.send(response);
-                    });
-                  }else{
-                    res.send({UserAccountIDExist:false});
-                  }
-                });
-                function UserAccountIDCheck(callback){
-                  isUserAccountIDExist(UserAccountID,function(response){
-                    let obj = response;
-                    if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                      UserAccountIDExist = true;
-                      callback(null,'1');
-                    }else{
-                      UserAccountIDExist = false;
-                      callback(null,'1');
-                    }
-                  });
-                }
-              }else{
-                res.send({StatusMissing:true});
-              }
-            }else{
-              res.send({DateMissing:true});
-            }
-          }else{
-            res.send({TimeMissing:true});
-          }
-        }else{
-          res.send({ReasonMissing:true});
-        }
-      }else{
-        res.send({DescriptionMissing:true});
-      }
-    }else{
-      res.send({TitleMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
-*/
 /**
  *
  *
@@ -2404,90 +2257,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
     callback(undefined);
   });
 }
-/*//migrated
-app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
-  // USAGE /Api/v1/SupportTicket/Update/SupportTicketID/1/UserAccountID/89a5b95d-8d5d-455b-8139-8e8317fdd392/Title/Title/Description/Description/Reason/Reason2/Time/12:34:56/Date/2009-05-31/Status/Status
-  let SupportTicketID = req.params.SupportTicketID;
-  let UserAccountID = req.params.UserAccountID;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let Reason = req.params.Reason;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  let Status = req.params.Status;
 
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Title)){
-      if(!isNullOrEmpty(Description)){
-        if( !isNullOrEmpty(Reason)){
-          if(!isNullOrEmpty(Time)){
-            if(!isNullOrEmpty(Status)){
-              let UserAccountIDExist = false;
-              let SupportTicketIDExist =false;
-              async.series([SupportTicketIDCheck,UserAccountIDCheck],function(error,response){
-                if(UserAccountIDExist==true){
-                  if(SupportTicketIDExist==true){
-                    SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,function(response){
-                      if(!isNullOrEmpty(response)&&response!=undefined){
-                        res.send(response);
-                      }else{
-                        res.send({SupportTicketUpdateFailed:true});
-                      }
-                    });
-                  }else{
-                    res.send({SupportTicketIDExist:false});
-                  }
-                }else{
-                  res.send({UserAccountIDExist:false});
-                }
-              });
-              
-              function SupportTicketIDCheck(callback){
-                isSupportTicketIDExist(SupportTicketID,function(response){
-                  console.log('1');
-                  let obj = response;
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].SupportTicketID==SupportTicketID){
-                    SupportTicketIDExist = true;
-                    callback(null,'1');
-                  }else{
-                    SupportTicketIDExist = false;
-                    callback(null,'1');
-                  }
-                });
-              }
-
-              function UserAccountIDCheck(callback2){
-                isUserAccountIDExist(UserAccountID,function(response){
-                  console.log('2');
-                  let obj = response;
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                    UserAccountIDExist = true;
-                    callback2(null,'2');
-                  }else{
-                    UserAccountIDExist = false;
-                    callback2(null,'2');
-                  }
-                });
-              }
-            }else{
-              res.send({StatusMissing:true});
-            }
-          }else{
-            res.send({TimeMissing:true});
-          }
-        }else{
-          res.send({ReasonMissing:true});
-        }
-      }else{
-        res.send({DescriptionMissing:true});
-      }
-    }else{
-      res.send({TitleMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -2626,27 +2396,6 @@ app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
   });
 });
 
-/*migrated
-app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  let Status = req.params.Status;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Status)){
-      SupportTicketUserAccountIDByStatus(UserAccountID,Status,function(response){
-        if(response!=undefined){
-          res.send(beautify(response, null, 2, 100));
-        }else{
-          res.send({SupportTicketUserAccountIDByStatusFailed:true});
-        }
-      });
-    }else{
-      res.send({InvalidStatusType:true});
-    }
-  }else{
-    res.send({InvalidUserAccountID:true});
-  }
-});*/
 
 /**
  *
@@ -2742,183 +2491,11 @@ app.get('/SupportTicket/Request', function (req, res) {
     res.send({UserAccountIDMissing:true});
   }
 });
-/* migrated
-app.get('/UserAccount/SupportTicket', function (req, res) {
-  // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
-  // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb&Status=Pending
-  let UserAccountID =  req.query.UserAccountID;
-  let Status =  req.query.Status;
-  if(!isNullOrEmpty(UserAccountID)&&isNullOrEmpty(Status)){
-    Models.SupportTicket.sync();
-    let result = Models.SupportTicket.findAll({ 
-      where: {
-        UserAccountID: UserAccountID//not null
-        
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      res.send("Error "+result);
-    });
-  }
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(Status)){
-    Models.SupportTicket.sync();
-    let result = Models.SupportTicket.findAll({ 
-      where: {
-        UserAccountID: UserAccountID,
-        Status:Status//not null
-        
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
 
-      res.send("Error "+result);
-    });
-  }
-  else{
-    let Data = {IsInvalidUserAccountID:true}
-    res.send(Data);
-  }
-});*/
-//---SupportTicket ROUTING END
 
-//---OneOnOne ROUTING START
-/* //migrated
-app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID', function (req, res){
-  let UserAccountID = req.params.UserAccountID;
-  let UserAccountIDExist = false;
-  let RegisteredDate = undefined
-  let RegisteredTime = undefined;
-  let SupportTicketExist =false;
-  let Status = undefined;
 
-  let ScreenName = undefined;
-  let PlayerExist=undefined;
-  let PlayerRelationshipResult = undefined;
- 
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,PlayerCheck,GetParentPlayerLookUp,GetSupportTicketUserAccountID],function(error,response){
-      if(UserAccountIDExist==true){
-        if(PlayerExist==true){
-          if(SupportTicketExist==true){
-            let OneOnOneResult = PlayerRelationshipResult;
-            OneOnOneResult.RegisteredDate = RegisteredDate;
-            OneOnOneResult.RegisteredTime=RegisteredTime;
-            OneOnOneResult.ScreenName=ScreenName;
-            OneOnOneResult.Status = Status;
-            res.send(OneOnOneResult);
-          }else{
-            res.send({SupportTicketExist:false});
-          }
-        }else{
-          res.send({PlayerExist:false});
-        }
-      }else{
-        res.send({UserAccountIDExist:false});
-      }
-    });
-    
-    function UserAccountCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          RegisteredDate= response[0].RegisteredDate;
-          RegisteredTime = response[0].RegisteredTime;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-         PlayerExist= true;
-         ScreenName = response[0].ScreenName;
-         callback(null,'2');
-        }else{
-         PlayerExist= false;
-         callback(null,'2');
-        }
-      });
-    }
-    function GetParentPlayerLookUp(callback){//Tree Parent of a Player
-      GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          PlayerRelationshipResult=response;
-          callback(null,'3');
-        }else{
-          PlayerRelationshipResult=undefined;
-          callback(null,'3');
-        }
-      });
-     }
-    function GetSupportTicketUserAccountID(callback){
-      SupportTicketUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          SupportTicketExist=true;
-          Status= response[0].Status;
-          callback(null,'4');
-        }else{
-          SupportTicketExist=false;
-          callback(null,'4');
-        }
-      });
-    }
-  }
-});
-*/
-//---OneOnOne ROUTING END
 
-//---Notification ROUTING START
-/*//migrated
-app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
-  let NotificationType = req.params.NotificationType;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  //USAGE Api/v1/Notification/Add/NotificationType/Title/Description/01:57:17/2018-06-27
 
-  if(!isNullOrEmpty(NotificationType)){
-    if(!isNullOrEmpty(Title)){
-      if(!isNullOrEmpty(Description)){
-        if(!isNullOrEmpty(Time)){
-          if(!isNullOrEmpty(Date)){
-            AddNotification(NotificationType,Title,Description,Time,Date,function(response) {
-              if(response!=undefined){
-               res.send(response);
-              }else{
-                res.send({AddNotificationFailed:true});
-              }
-           });
-          }else{
-            res.send({DateMissing:true});
-          }
-        }else{
-          res.send({TimeMissing:true});
-        }
-      }else{
-        res.send({DescriptionMissing:true});
-      }
-    }else{
-      res.send({TitleMissing:true});
-    }
-  }else{
-    res.send({NotificationTypeMissing:true});
-  }
-});
-*/
 /**
  *
  *
@@ -2951,75 +2528,7 @@ function AddNotification(NotificationType,Title,Description,Time,Date,callback){
     callback(undefined);
   });
 }
-/*//migrated
-app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Time/:Time/Date/:Date', function (req, res) {
-  let NotificationID = req.params.NotificationID;
-  let NotificationType = req.params.NotificationType;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  if(!isNullOrEmpty(NotificationID)){
-    if(!isNullOrEmpty(NotificationType)){
-      if(!isNullOrEmpty(Title)){
-        if(!isNullOrEmpty(Description)){
-          if(!isNullOrEmpty(Time)){
-            if(!isNullOrEmpty(Date)){
-              let NotificationIDExist= undefined;
-              async.series([IsNotificationIDExistCheck],function(error,response){
-                if(NotificationIDExist==true){
-                  if(response!=undefined){
-                  
-                   NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
-                      res.send(response);
-                    });
-                  }else{
-                    res.send({NotificationUpdateFailed:true});
-                  }
-                }else{
-                  res.send({NotificationIDExist:false});
-                }
-              });
-              function IsNotificationIDExistCheck(callback){
-               // console.log("IsNotificationIDExistCheck 1");
-                IsNotificationIDExist(NotificationID,function(response){
-                //  console.log("IsNotificationIDExistCheck 2");
-                  if(response!=undefined){
-                   // console.log("IsNotificationIDExistCheck 3");
-                    if(response[0].NotificationID==NotificationID){
-                      NotificationIDExist=true;
-                      callback(null,'1');
-                    }else{
-                      NotificationIDExist=undefined;
-                      callback(null,'1');
-                    }
-                 
-                  }else{
-                    NotificationIDExist=undefined;
-                    callback(null,'1');
-                  }
-                });
-              }
 
-            }else{
-              res.send({DateMissing:true});
-            }
-          }else{
-            res.send({TimeMissing:true});
-          }
-        }else{
-          res.send({DescriptionMissing:true});
-        }
-      }else{
-        res.send({TitleMissing:true});
-      }
-    }else{
-      res.send({NotificationTypeMissing:true});
-    }
-  }else{
-    res.send({NotifiactionIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -3153,49 +2662,7 @@ app.get('/Api/v1/Notification/Describe', function (req, res) {
   });
 });
 //---Notification ROUTING END
-//---BlackList ROUTING START
-/*//migrated
-app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
-  //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
-  let UserAccountID = req.params.UserAccountID;
-  let Title = req.params.Title;
-  let Status = req.params.Status;
-  let Description = req.params.Description;
-  let ReportDate = req.params.ReportDate;
-  let ReleaseDate = req.params.ReleaseDate;
 
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Title)){
-      if(!isNullOrEmpty(Status)){
-        if(!isNullOrEmpty(Description)){
-          if( !isNullOrEmpty(ReportDate)){
-            if(!isNullOrEmpty(ReleaseDate)){
-              AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseDate,function(response){
-                if(response!=undefined){
-                  res.send(response);
-                }else{
-                  res.send({AddBlackListFailed:true});
-                }
-              });
-            }else{
-              res.send({ReleaseDateMissing:true});
-            }
-          }else{
-            res.send({ReportDateMissing:true});
-          }
-        }else{
-          res.send({DescriptionMissing:true});
-        }
-      }else{
-        res.send({StatusMissing:true});
-      }
-    }else{
-      res.send({TitleMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -3228,81 +2695,7 @@ function AddBlackList(UserAccountID,Title,Status,Description,ReportDate,ReleaseD
   });
 }
 
-//block list updating of status
-/*migrated
-app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
-  let BlackListID = req.params.BlackListID;
-  let UserAccountID = req.params.UserAccountID;
-  let Status = req.params.Status;//status to set
-  if(!isNullOrEmpty(BlackListID)){
-    if(!isNullOrEmpty(UserAccountID)){
-        if(!isNullOrEmpty(Status)){
-            let AccountStatus = undefined;//status retrived
-            let UserAccountIDExist = false;
-            let FoundBlackListID= undefined;//used to check if it matches the BlackListID params
-            async.series([UserAccountIDCheck,IsAccountBlockedCheck],function(err,response){
-                  if(FoundBlackListID == BlackListID){//it must match the id of the given params // for aditional validation besides UserAccountID
-                    if(UserAccountIDExist==true){
-                      if(Status=="Blocked"||Status=="Released"){
-                        if(Status!=AccountStatus){
-                          BlackListStatusUpdate(BlackListID,UserAccountID,Status,function(response){
-                            console.log("Status Set");
-                            if(response!=undefined){
-                              res.send(response);
-                            }else{
-                              res.send({BlackListStatusUpdateFailed:true});
-                            }
-                          });
-                        }else{
-                          res.send({StatusAlready:AccountStatus});//Account Aleady Set To This status
-                        }
-                      }else{
-                        res.send({InvalidStatusType:true});//Status is Invalid
-                      }
-                  }else{
-                    res.send({UserAccountIDExist:UserAccountIDExist});//Exist in the UserAccount Table
-                  }
-                }else{
-                  res.send({InvalidBlackListID:true});
-                } 
-        });
 
-        function UserAccountIDCheck(callback){
-          isUserAccountIDExist(UserAccountID,function(response){
-            let obj = response;
-            if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-              UserAccountIDExist = true;
-              callback(null,'1');
-            }else{
-              UserAccountIDExist = false;
-              callback(null,'1');
-            }
-          });
-        }
-        function IsAccountBlockedCheck(callback){
-          isUserAccountBlocked(UserAccountID,function(response){
-            let obj = response;
-            if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-              console.log('IsAccountBlockedCheck');
-              FoundBlackListID =obj[0].BlackListID;//matching Blacklist ID
-              AccountStatus=obj[0].Status;
-              callback(null,'1');
-            }else{
-              AccountStatus=undefined;
-              callback(null,'1');
-            }
-          });
-        }
-      }else{
-        res.send("Missing Status "+Status);
-      }
-    }else{
-      res.send("Missing UserAccountID "+UserAccountID);
-    }
-  }else{
-    res.send("Missing BlackListID "+BlackListID);
-  }
-});*/
 
 /**
  *
@@ -3344,53 +2737,7 @@ app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAc
     res.send(undefined);
   });
 });
-/*
-//migrated
-app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
-  let BlackListID = req.params.BlackListID;
-  let UserAccountID = req.params.UserAccountID;
-  let Status = req.params.Status;
-  let Title = req.params.Title;
-  let Description = req.params.Description;
-  let ReportDate = req.params.ReportDate;
-  let ReleaseDate = req.params.ReleaseDate;
 
-  if(!isNullOrEmpty(BlackListID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(Status)){
-        if(!isNullOrEmpty(Title)){
-          if(!isNullOrEmpty(Description)){
-            if(!isNullOrEmpty(ReportDate)){
-              if(!isNullOrEmpty(ReleaseDate)){
-                BlackListUpdate(BlackListID,UserAccountID,Status,Title,Description,ReportDate,ReleaseDate,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send({BlackListUpdateFailed:true});
-                  }
-                });
-              }else{
-                res.send({ReleaseDateMissing:true});
-              }
-            }else{
-              res.send({ReportDateMissing:true});
-            }
-          }else{
-            res.send({DescriptionMissing:true});
-          }
-        }else{
-          res.send({TitleMissing:true});
-        }
-      }else{
-        res.send({StatusMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({BlackListIDMissing:true});
-  }
-});*/
 
 
 /**
@@ -3444,39 +2791,7 @@ app.get('/Api/v1/BlackList/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-/*
-app.get('/Api/v1/BlackList/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.BlackList.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
- /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
-    BlackListAll(function(response){
-      res.send(beautify(response, null, 2, 100));
-    });
-  }
- /* if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
- // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
-});*/
 app.get('/Api/v1/BlackList/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -3516,147 +2831,7 @@ function BlackListAll(callback){
 }
 //---BlackList ROUTING END
 
-//---MemberBlackList ROUTING START
-/*migrated
-app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  let UserAccountIDExist = false;
-  let RegisteredDate = undefined;
-  let UserInfoExist = false;
-  let PlayerExist = false;
-  let Name = undefined;
-  let ScreenName =undefined;
-  let PlayerRelationshipResult = undefined;
-  let PlayerBlackListResult= undefined;//the userAccount Must be a Player Type to have result
 
-  if(!isNullOrEmpty(UserAccountID)){
-   async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetBlackListUserAccountID],function(error,response){
-    if(UserAccountIDExist==true){
-      if(UserInfoExist==true){
-        if(PlayerExist==true){
-          if(PlayerRelationshipResult!=undefined){
-            let MembersBlackListItem = PlayerRelationshipResult;
-            MembersBlackListItem.ScreenName =ScreenName;
-            MembersBlackListItem.Name = Name;
-            MembersBlackListItem.PlayerBlackListResult = PlayerBlackListResult;
-            if(PlayerBlackListResult!=undefined){
-              res.send(beautify(MembersBlackListItem, null, 2, 100));
-            }else{
-
-              res.send({MembersBlackListResultEmpty:true});//empty result mean account was never blocked
-            }
-           
-          }else{
-            res.send({PlayerRelationshipResultFailed:true});
-          }
-          
-        }else{
-          //its not a player and not blockable  relies on PlayerCheck to find if it's a player or not
-          res.send({UserAccountIDNotPlayer:false});
-        }
-      }else{
-        res.send({UserInfoExist:false});
-      }
-     
-
-    }else{
-      res.send({UserAccountIDExist:false});
-    }
-    
-   // let MembersBlackListItem =undefined;
-     // MembersBlackListItem.UserAccountID = UserAccountID;
-     // MembersBlackListItem.RegisteredDate = RegisteredDate;
-    //  res.send(MembersBlackListItem);
-    // res.send(beautify(PlayerRelationshipResult, null, 2, 100));
-    });
-    
-  /*  function UserAccountCheck(callback){
-      console.log("UserAccountCheck "+ UserAccountID);
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          RegisteredDate = response[0].updatedAt;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
- /*  function UserInfoCheck(callback){
-      if(UserAccountIDExist==true){
-        UserInfoUserAccountID(UserAccountID,function(response){
-          if(response!=undefined){
-            UserInfoExist=true;
-           callback(null,'2');
-          }else{
-            UserInfoExist= false;
-           callback(null,'2');
-          }
-        });
-      }else{
-        callback(null,'2');
-      }
-      
-    }
- /*   function PlayerCheck(callback){
-      if(UserInfoExist==true){
-        PlayerUserAccountID(UserAccountID,function(response){
-          if(response!=undefined&&response.length>0){
-           PlayerExist= true;
-           Name= response[0].Name;
-           ScreenName = response[0].ScreenName;
-           callback(null,'3');
-          }else{
-           PlayerExist= false;
-           callback(null,'3');
-          }
-        });
-      }else{
-        callback(null,'3');
-      }
-      
-    }
-    
-  /*  function GetParentPlayerLookUp(callback){
-      if(PlayerExist==true){
-        GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-          if(response!=undefined){
-            PlayerRelationshipResult=response;
-            callback(null,'4');
-          }else{
-            PlayerRelationshipResult=undefined;
-            callback(null,'4');
-          }
-        });
-      }else{
-        console.log("Not A Player "+UserAccountID);
-        callback(null,'4');
-      }
-     
-    }
-    //we can check for blocklisted of other accounts but filter out that its a actual player based on function PlayerCheck result
- /*   function GetBlackListUserAccountID(callback){
-      if(PlayerExist==true){
-        BlackListUserAccountID(UserAccountID,function(response){
-          if(response!=undefined){
-            PlayerBlackListResult= response;
-            callback(null,'5');
-          }else{
-            PlayerBlackListResult=undefined;
-            callback(null,'5');
-          }
-        });
-      }else{
-        console.log("Not A Player "+UserAccountID);
-        callback(null,'5');
-      }
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 function BlackListUserAccountID(UserAccountID,callback){
   Models.BlackList.sync();
   let result = Models.BlackList.findAll({ 
@@ -3677,172 +2852,8 @@ function BlackListUserAccountID(UserAccountID,callback){
     callback(undefined);
   });
 }
-//---MemberBlackList ROUTING END
-//--IPList ROUTING START
-/*//migrated
-app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  let UserAccountIDExist = false;
-  let UserInfoExist = false;
-  let PlayerExist = false;
-  let PlayerRelationshipResult =undefined;
-  let Name =undefined;
-  let RegisteredDate = undefined;
-  let LoginHistoryResult =undefined;
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetLoginHistory],function(error,response){
-      if(UserAccountIDExist==true){
-        if(UserInfoExist==true){
-          if(PlayerExist==true){
-            if(PlayerRelationshipResult!=undefined){
-              if(LoginHistoryResult!=undefined){
-                let Result = {UserAccountID:UserAccountID,Name:Name,PlayerRelationshipResult:PlayerRelationshipResult,LoginHistoryResult:LoginHistoryResult};
-                res.send(beautify(Result, null, 2, 100));
-        
-              }else{
-                res.send({LoginHistoryResult:false});
-              }
-              
-            }else{
-              res.send({PlayerRelationshipResult:false});
-            }
-          }else{
-            res.send({PlayerExist:false});
-          }
-        }else{
-          res.send({UserInfoExist:false});
-        }
-      }else{
-        res.send({UserAccountIDExist:false});
-      }
-     
-    });
-    function UserAccountCheck(callback){
-     // console.log("UserAccountCheck "+ UserAccountID);
-      
-      isUserAccountIDExist(UserAccountID,function(response){
-        
-        if(response!=undefined){
-          console.log("1");
-          UserAccountIDExist= true;
-          RegisteredDate = response[0].RegisteredDate;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
-    function UserInfoCheck(callback){
-     
-     
-        console.log("2");
-        UserInfoUserAccountID(UserAccountID,function(response){
-          if(response!=undefined){
-            UserInfoExist=true;
-           callback(null,'2');
-          }else{
-            UserInfoExist= false;
-           callback(null,'2');
-          }
-        });
-      
-      
-    }
-    function PlayerCheck(callback){
-    
-        console.log("3");
-        PlayerUserAccountID(UserAccountID,function(response){
-          if(response!=undefined){
-           PlayerExist= true;
-            Name = response[0].Name;
-           callback(null,'3');
-          }else{
-           PlayerExist= false;
-           callback(null,'3');
-          }
-        });
-      
-      
-    }
-    
-    function GetParentPlayerLookUp(callback){
-     
-        console.log("4");
-        GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-          if(response!=undefined){
-            PlayerRelationshipResult=response;
-            callback(null,'4');
-          }else{
-            PlayerRelationshipResult=undefined;
-            console.log("Not A Player "+UserAccountID);
-            callback(null,'4');
-          }
-        });
-    }
-    function GetLoginHistory(callback){
-      LoginHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          LoginHistoryResult=response;
-          callback(null,'5');
-        }else{
-          LoginHistoryResult=undefined;
-          callback(null,'5');
-        }
-      });
-    }
 
-  }
-});*/
-//--IPList ROUTING END
 
-//---LoginHistory ROUTING START --------------------------------------------MIGRATED
-/*app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
-  //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
-  let UserAccountID = req.params.UserAccountID;
-  let IP = req.params.IP;
-  let DeviceName = req.params.DeviceName;
-  let DeviceRam = req.params.DeviceRam;
-  let DeviceCpu = req.params.DeviceCpu;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(IP)){
-      if(!isNullOrEmpty(DeviceName)){
-        if(!isNullOrEmpty(DeviceRam)){
-          if(!isNullOrEmpty(DeviceCpu)){
-            if(!isNullOrEmpty(Time)){
-              if(!isNullOrEmpty(Date)){
-                AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send({AddLoginHistoryFailed:true});
-                  }
-                });
-              }else{
-                res.send({DateMissing:true});
-              }
-            }else{
-              res.send({TimeMissing:true});
-            }
-          }else{
-            res.send({DeviceCpuMissing:true});
-          }
-        }else{
-          res.send({DeviceRamMissing:true});
-        }
-      }else{
-        res.send({DeviceNameMissing:true});
-      }
-    }else{
-      res.send({IPMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -3877,57 +2888,6 @@ function AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Da
   });
 }
 
-/*//migrated
-app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
-  let LoginHistoryID = req.params.LoginHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let IP = req.params.IP;
-  let DeviceName = req.params.DeviceName;
-  let DeviceRam = req.params.DeviceRam;
-  let DeviceCpu = req.params.DeviceCpu;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-
-  if(!isNullOrEmpty(LoginHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(IP)){
-        if(!isNullOrEmpty(DeviceName)){
-          if(!isNullOrEmpty(DeviceRam)){
-            if(!isNullOrEmpty(DeviceCpu)){
-              if(!isNullOrEmpty(Time)){
-                if(!isNullOrEmpty(Date)){
-                  LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response){
-                    if(response!=undefined){
-                      res.send(response);
-                    }else{
-                      res.send({LoginHistoryUpdateFailed:true});
-                    }
-                  });
-                }else{
-                  res.send({DateMissing:true});
-                }
-              }else{
-                res.send({TimeMissing:true});
-              }
-            }else{
-              res.send({DeviceCpuMissing:true});
-            }
-          }else{
-            res.send({DeviceRamMissing:true});
-          }
-        }else{
-          res.send({DeviceNameMissing:true});
-        }
-      }else{
-        res.send({IPMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({LoginHistoryIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -3963,18 +2923,7 @@ function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam
     callback(undefined);
   }); 
 }
-/*//migrated
-app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  LoginHistoryUserAccountID(UserAccountID,function(response){
-    if(response!=undefined){
-      res.send(beautify(response, null, 2, 100));
-    }else{
-      res.send({LoginHistoryUserAccountIDFound:false});
-    }
-  });
-});*/
+
 function LoginHistoryUserAccountID(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
@@ -3996,19 +2945,7 @@ function LoginHistoryUserAccountID(UserAccountID,callback){
     console.log("Error "+result);
     callback(undefined);
   });
-}/*
-
-app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  LoginHistoryUserAccountIDLatest(UserAccountID,function(response){
-    if(response!=undefined){
-      res.send(beautify(response, null, 2, 100));
-    }else{
-      res.send({LoginHistoryUserAccountIDFound:false});
-    }
-  });
-});*/
+}
 function LoginHistoryUserAccountIDLatest(UserAccountID,callback){
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({ 
@@ -4189,52 +3126,7 @@ function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration
     callback(undefined);
   });
 }
-/*//migrated
-app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function(req,res){
-  let BankInformationID = req.params.BankInformationID;
-  let UserAccountID = req.params.UserAccountID;
-  let BankName = req.params.BankName;
-  let SecurityCode = req.params.SecurityCode;
-  let Expiration = req.params.Expiration;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
 
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(BankInformationID)){
-      if( !isNullOrEmpty(BankName)){
-        if(!isNullOrEmpty(SecurityCode)){
-          if(!isNullOrEmpty(Expiration)){
-            if(!isNullOrEmpty(Time)){
-              if(!isNullOrEmpty(Date)){
-                BankInformationUpdate(UserAccountID,BankInformationID,BankName,SecurityCode,Expiration,Time,Date,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send({BankInformationUpdateFailed:true});
-                  }
-                });
-              }else{
-                res.send({DateMissing:true});
-              }
-            }else{
-              res.send({TimeMissing:true});
-            }
-          }else{
-            res.send({ExpirationMissing:true});
-          }
-        }else{
-          res.send({SecurityCodeMissing:true});
-        }
-      }else{
-        res.send({BankNameMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({BankInformationIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -4341,117 +3233,6 @@ app.get('/Api/v1/BankInformation/Describe', function (req, res) {
   });
 });
 //---BankInformation ROUTING END
-//---WithdrawHistory ROUTING START -----------------------------------------MIGRATED
-/*app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
-  // USAGE /Api/v1/WithdrawHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/1234/Status/Processing/RequestedDATE/2010-06-27/ApprovedDATE/2018-06-27/RejectedDATE/2018-06-27/ProcessingDATE/2018-06-27/RequestedTIME/01:57:17/ApprovedTIME/01:57:17/RejectedTIME/01:57:17/ProcessingTIME/01:57:17
-  let UserAccountID = req.params.UserAccountID;
-  let Amount = req.params.Amount;
-  let BankNameUsed = req.params.BankNameUsed;
-  let SecurityCodeUsed = req.params.SecurityCodeUsed;
-  let Status = req.params.Status;
-  let RequestedDATE = req.params.RequestedDATE;
-  let ApprovedDATE = req.params.ApprovedDATE;
-  let RejectedDATE = req.params.RejectedDATE;
-  let ProcessingDATE = req.params.ProcessingDATE;
-  let RequestedTIME = req.params.RequestedTIME;
-  let ApprovedTIME = req.params.ApprovedTIME;
-  let RejectedTIME = req.params.RejectedTIME;
-  let ProcessingTIME = req.params.ProcessingTIME;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Amount)){
-      if(!isNullOrEmpty(BankNameUsed)){
-        if(!isNullOrEmpty(SecurityCodeUsed)){
-          if(!isNullOrEmpty(Status)){
-              let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
-              let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
-            if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true&&RequestedDATEParsed.year()>1959){
-                let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
-                let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
-              if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
-                  let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
-                  let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-                if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
-                    let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
-                    let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
-                  if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
-                    if(!isNullOrEmpty(RequestedTIME)){
-                      if( !isNullOrEmpty(ApprovedTIME)){
-                        if( !isNullOrEmpty(RejectedTIME)){
-                          if(!isNullOrEmpty(ProcessingTIME)){
-                        
-                            if(validator.isNumeric(Amount)){
-                              if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-                                  let isUserAccountIDFound= false;
-                                  async.series([UserAccountIDCheck],function(error,response){
-                                    if(isUserAccountIDFound==true){
-                                    AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDATE,ApprovedDATE,RejectedDATE,ProcessingDATE,RequestedTIME,ApprovedTIME,RejectedTIME,ProcessingTIME,function(response) {
-                                        if(response!=undefined){
-                                          res.send({Success:true});
-                                        }else{
-                                          res.send({Success:false});
-                                        }
-                                      });
-                                    }else{
-                                      res.send({UserAccountIDFound:false});
-                                    }
-                                  });
-                                  function UserAccountIDCheck(callback){
-                                    isUserAccountIDExist(UserAccountID,function(response){
-                                      let obj = response;
-                                      if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-                                        isUserAccountIDFound = true;
-                                        callback(null,'1');
-                                      }else{
-                                        isUserAccountIDFound = false;
-                                        callback(null,'1');
-                                      }
-                                    });
-                                  }
-                              }else{
-                                res.send({StatusInvalidValue:true});
-                              }
-                            }
-                          }else{
-                            res.send({ProcessingTIMEMissing:true});
-                          }
-                        }else{
-                          res.send({RejectedTIMEMissing:true});
-                        }
-                      }else{
-                        res.send({ApprovedTIMEMissing:true});
-                      }
-                    }else{
-                      res.send({RequestedTIMEMissing:true});
-                    }
-                  }else{
-                    res.send({ProcessingDATEInvalid:true});
-                  }
-                }else{
-                  res.send({RejectedDATEInvalid:true});
-                }
-              }else{
-                res.send({ApprovedDATEInvalid:true});
-              }
-            }else{
-              res.send({RequestedDATEInvalid:true});
-            }
-          }else{
-            res.send({StatusMissing:true});
-          }
-        }else{
-          res.send({SecurityCodeUsedMissing:true});
-        }
-      }else{
-        res.send({BankNameUsedMissing:true});
-      }
-    }else{
-      res.send({AmountMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -4497,44 +3278,7 @@ function AddWithdrawHistory(UserAccountID,Amount,BankNameUsed,Status,RequestedDA
       callback(undefined);
     });
 }
-/*
-app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
-  let UserAccountID =req.params.UserAccountID;
-  let ApprovedDATE = req.params.ApprovedDATE;
-  let ApprovedTIME = req.params.ApprovedTIME;
-  if(!isNullOrEmpty(WithdrawHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-    
-        let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
-        let isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
-        if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
-          if(!isNullOrEmpty(ApprovedTIME)){
 
-            WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedDATE,ApprovedTIME,function(response){
-              if(response!=undefined){
-                res.send(response);
-              }else{
-                res.send({WithdrawHistoryUpdateApprovalFailed:true});
-              }
-            });
-    
-          }else{
-            res.send({ApprovedTIMEMissing:true});
-          }
-        }else{
-          res.send({ApprovedDATEMissing:true});
-        }
-      
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({WithdrawHistoryIDMissing:true});
-  }
-  
-  
-});*/
 function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedDATE,ApprovedTIME,callback){
   Models.WithdrawHistory.update({
     ApprovedDATE: ApprovedDATE,
@@ -4552,41 +3296,6 @@ function WithdrawHistoryUpdateApproved(UserAccountID,WithdrawHistoryID,ApprovedD
   }); 
 }
 
-/*//migrateds
-app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
-  let UserAccountID =req.params.UserAccountID;
-  let ProcessingDATE = req.params.ProcessingDATE;
-  let ProcessingTIME = req.params.ProcessingTIME;
-  if(!isNullOrEmpty(WithdrawHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-  
-        let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
-        let  isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
-        if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
-          if(!isNullOrEmpty(ProcessingTIME)){
-            WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,ProcessingDATE,ProcessingTIME,function(response){
-              if(response!=undefined){
-                res.send(response);
-              }else{
-                res.send({WithdrawHistoryUpdateProcessingFailed:true});
-              }
-            });
-          }else{
-            res.send({ProcessingTIMEMissing:true});
-          }
-        }else{
-          res.send({ProcessingDATEMissing:true});
-        
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({WithdrawHistoryIDMissing:true});
-  }
-  
-});*/
 function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,ProcessingDATE,ProcessingTIME,callback){
   Models.WithdrawHistory.update({
     ProcessingDATE: ProcessingDATE,
@@ -4603,40 +3312,7 @@ function WithdrawHistoryUpdateProcessing(UserAccountID,WithdrawHistoryID,Process
     callback(undefined);
   });
 }
-/*
-app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
-  let UserAccountID =req.params.UserAccountID;
-  
-  let RejectedDATE = req.params.RejectedDATE;
-  let RejectedTIME = req.params.RejectedTIME;
-  if(!isNullOrEmpty(WithdrawHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
- 
-        let RejectedDATEParsed= moment(RejectedDATE, "YYYY-MM-DD");
-        let  isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-        if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
-          if(!isNullOrEmpty(RejectedTIME)){
-            WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedDATE,RejectedTIME,function(response){
-              if(response!=undefined){
-                res.send(response);
-              }else{
-                res.send({WithdrawHistoryUpdateRejectedFailed:true});
-              }
-            });
-          }else{
-            res.send({RejectedTIMEMissing:true});
-          }
-        }else{
-          res.send({RejectedDATEMissing:true});
-        }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({WithdrawHistoryIDMissing:true});
-  }
-});*/
+
 function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedDATE,RejectedTIME,callback){
   Models.WithdrawHistory.update({
     RejectedDATE: RejectedDATE,
@@ -4653,132 +3329,7 @@ function WithdrawHistoryUpdateRejected(UserAccountID,WithdrawHistoryID,RejectedD
     callback(undefined);
   });
 }
-/*//migrated
-app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
 
-  let WithdrawHistoryID = req.params.WithdrawHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let Amount = req.params.Amount;
-  let BankNameUsed = req.params.BankNameUsed;
-  let SecurityCodeUsed = req.params.SecurityCodeUsed;
-  let Status = req.params.Status;
-  let RequestedDATE = req.params.RequestedDATE;
-  let ApprovedDATE = req.params.ApprovedDATE;
-  let RejectedDATE = req.params.RejectedDATE;
-  let ProcessingDATE = req.params.ProcessingDATE;
-  let RequestedTIME = req.params.RequestedTIME;
-  let ApprovedTIME = req.params.ApprovedTIME;
-  let RejectedTIME = req.params.RejectedTIME;
-  let ProcessingTIME = req.params.ProcessingTIME;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Amount)){
-      if(!isNullOrEmpty(BankNameUsed)){
-        if(!isNullOrEmpty(SecurityCodeUsed)){
-          if(!isNullOrEmpty(Status)){
-              let RequestedDATEParsed= moment(RequestedDATE, "YYYY-MM-DD");
-              let  isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
-            if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true&&RequestedDATEParsed.year()>1959){
-                let ApprovedDATEParsed= moment(ApprovedDATE, "YYYY-MM-DD");
-                let  isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
-              if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true&&ApprovedDATEParsed.year()>1959){
-                  let RejectedDATEParsed=moment(RejectedDATE, "YYYY-MM-DD");
-                  let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-                if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true&&RejectedDATEParsed.year()>1959){
-                    let ProcessingDATEParsed= moment(ProcessingDATE, "YYYY-MM-DD");
-                    let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
-                  if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true&&ProcessingDATEParsed.year()>1959){
-                    if(!isNullOrEmpty(RequestedTIME)){
-                      if( !isNullOrEmpty(ApprovedTIME)){
-                        if( !isNullOrEmpty(RejectedTIME)){
-                          if(!isNullOrEmpty(ProcessingTIME)){
-                        
-                            if(validator.isNumeric(Amount)){
-                              if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-                                  let isUserAccountIDFound= false;
-                                  async.series([UserAccountIDCheck],function(error,response){
-                                    if(isUserAccountIDFound==true){
-                                      WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,
-                                        Amount,
-                                        BankNameUsed,
-                                        SecurityCodeUsed,
-                                        Status,
-                                        RequestedDATE,
-                                        ApprovedDATE,
-                                        RejectedDATE,
-                                        ProcessingDATE,
-                                        RequestedTIME,
-                                        ApprovedTIME,
-                                        RejectedTIME,
-                                        ProcessingTIME,
-                                        function(response){
-                                        if(response!=undefined){
-                                          res.send({Success:true});
-                                        }else{
-                                          res.send({WithdrawHistoryUpdateFailed:true});
-                                        }
-                                      });
-                                        
-                                    }else{
-                                      res.send({UserAccountIDFound:false});
-                                    }
-                                  });
-                                  function UserAccountIDCheck(callback){
-                                    isUserAccountIDExist(UserAccountID,function(response){
-                                      let obj = response;
-                                      if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-                                        isUserAccountIDFound = true;
-                                        callback(null,'1');
-                                      }else{
-                                        isUserAccountIDFound = false;
-                                        callback(null,'1');
-                                      }
-                                    });
-                                  }
-                              }else{
-                                res.send({StatusInvalidValue:true});
-                              }
-                            }
-                          }else{
-                            res.send({ProcessingTIMEMissing:true});
-                          }
-                        }else{
-                          res.send({RejectedTIMEMissing:true});
-                        }
-                      }else{
-                        res.send({ApprovedTIMEMissing:true});
-                      }
-                    }else{
-                      res.send({RequestedTIMEMissing:true});
-                    }
-                  }else{
-                    res.send({ProcessingDATEInvalid:true});
-                  }
-                }else{
-                  res.send({RejectedDATEInvalid:true});
-                }
-              }else{
-                res.send({ApprovedDATEInvalid:true});
-              }
-            }else{
-              res.send({RequestedDATEInvalid:true});
-            }
-          }else{
-            res.send({StatusMissing:true});
-          }
-        }else{
-          res.send({SecurityCodeUsedMissing:true});
-        }
-      }else{
-        res.send({BankNameUsedMissing:true});
-      }
-    }else{
-      res.send({AmountMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 /**
  *
  *
@@ -5029,189 +3580,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
     res.send({UserAccountIDMissing:true});
   }
 });
-/*//migrate
-app.get('/Api/v1/WithdrawList/',function(req,res){
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = "6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6";
-  let PhoneNumber = req.param.PhoneNumber;
-  let TelephoneNumber = req.param.TelephoneNumber;
-  let UserAccountIDExist = false;
-  let UserInfoExist = false;
-  let PlayerExist = false;
-  let ScreenName = undefined;
-  let Name = undefined;
-  let PlayerRelationshipResult =undefined;
-  let WithdrawHistoryExist =false;
-  let WithdrawHistoryResult = undefined;
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetWithdrawHistory],function(error,response){
-      let WithdrawList = [];
-      let WithdrawListItem = PlayerRelationshipResult;
-      WithdrawListItem.PhoneNumber = PhoneNumber;
-      WithdrawListItem.TelephoneNumber = TelephoneNumber;
-      WithdrawListItem.Name = Name;
-      WithdrawListItem.ScreenName = ScreenName;
-      WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
-      WithdrawListItem.Note ="This is a Mock Up Data we need to iterate all accounts";
-      for(let i=0;i<1000;++i){
-        WithdrawList.push(WithdrawListItem);
-      }
-      res.send(beautify(WithdrawList, null, 2, 100));
-    });
-    function UserAccountCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
-    function UserInfoCheck(callback){
-      UserInfoUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          UserInfoExist=true;
-          PhoneNumber = response[0].PhoneNumber;
-          TelephoneNumber = response[0].TelephoneNumber;
-         callback(null,'2');
-        }else{
-          UserInfoExist= false;
-         callback(null,'2');
-        }
-      });
-    }
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-         PlayerExist= true;
-         Name = response[0].Name;
-         ScreenName = response[0].ScreenName;
-         callback(null,'3');
-        }else{
-         PlayerExist= false;
-         callback(null,'3');
-        }
-      });
-    }
-    
-    function GetParentPlayerLookUp(callback){
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'4');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'4');
-       }
-     });
-    }
-    function GetWithdrawHistory(callback){
-      WithdrawHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          WithdrawHistoryResult = response;
-          WithdrawHistoryExist=true;
-          callback(null,'5');
-        }else{
-          WithdrawHistoryExist=false;
-          callback(null,'5');
-        }
-      });
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
-/*
-app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/',function(req,res){
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  let PhoneNumber = req.param.PhoneNumber;
-  let TelephoneNumber = req.param.TelephoneNumber;
-  let UserAccountIDExist = false;
-  let UserInfoExist = false;
-  let PlayerExist = false;
-  let ScreenName = undefined;
-  let Name = undefined;
-  let PlayerRelationshipResult =undefined;
-  let WithdrawHistoryExist =false;
-  let WithdrawHistoryResult = undefined;
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetWithdrawHistory],function(error,response){
-      let WithdrawListItem = PlayerRelationshipResult;
-      WithdrawListItem.PhoneNumber = PhoneNumber;
-      WithdrawListItem.TelephoneNumber = TelephoneNumber;
-      WithdrawListItem.Name = Name;
-      WithdrawListItem.ScreenName = ScreenName;
-      WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
-      res.send(beautify(WithdrawListItem, null, 2, 100));
-    });
-    function UserAccountCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
-    function UserInfoCheck(callback){
-      UserInfoUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          UserInfoExist=true;
-          PhoneNumber = response[0].PhoneNumber;
-          TelephoneNumber = response[0].TelephoneNumber;
-         callback(null,'2');
-        }else{
-          UserInfoExist= false;
-         callback(null,'2');
-        }
-      });
-    }
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-         PlayerExist= true;
-         Name = response[0].Name;
-         ScreenName = response[0].ScreenName;
-         callback(null,'3');
-        }else{
-         PlayerExist= false;
-         callback(null,'3');
-        }
-      });
-    }
-    
-    function GetParentPlayerLookUp(callback){
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'4');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'4');
-       }
-     });
-    }
-    function GetWithdrawHistory(callback){
-      WithdrawHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          WithdrawHistoryResult = response;
-          WithdrawHistoryExist=true;
-          callback(null,'5');
-        }else{
-          WithdrawHistoryExist=false;
-          callback(null,'5');
-        }
-      });
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
+
 //---WithdrawHistory ROUTING END
 
 //---DepositHistory ROUTING START 
@@ -5331,44 +3700,7 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
     res.send({UserAccountIDMissing:true});
   }  
 });
-/*//migrated
-app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  let Status = req.params.Status;
-  if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-    let isUserAccountIDFound=false;
-    async.series([IsUserAccountIDExistCheck],function(error,response){
-      if(isUserAccountIDFound==true){
-        DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
-          if(response!=undefined){
-            res.send(beautify(response, null, 2, 100));
-          }else{
-            res.send({});
-          }
-        });
-      }else{
-        res.send({UserAccountIDFound:false});
-      }
-    });
-    function IsUserAccountIDExistCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          isUserAccountIDFound=true;
-          callback(null,'1');
-        }else{
-          isUserAccountIDFound=false;
-          callback(null,'1');
-        }
-      
-      });
-      
-    }
-    
-  }else{
-    res.send({StatusInvalidValue:true});
-  }
-});*/
+
 
 /**
  *
@@ -5537,82 +3869,7 @@ function AddDepositHistory(UserAccountID,Amount,BankNameUsed,SecurityCodeUsed,St
     callback(undefined);
   });
 }
-/*//migrated
-app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
-  let DepositHistoryID = req.params.DepositHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let ApprovedDATE = req.params.ApprovedDATE;
-  let ApprovedTIME = req.params.ApprovedTIME;
-  if(!isNullOrEmpty(DepositHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(ApprovedDATE)){
-        if(!isNullOrEmpty(ApprovedTIME)){
-          DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({DepositHistoryUpdateApprovedFailed:true});
-            }
-          });
-        }else{
-          res.send({ApprovedTIMEMissing:true});
-        }
-      }else{
-        res.send({ApprovedDATEMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({DepositHistoryIDMissing:true});
-  }
-});
-function DepositHistoryUpdateApproved(UserAccountID,DepositHistoryID,ApprovedDATE,ApprovedTIME,callback){
-  Models.DepositHistory.update({
-    ApprovedDATE: ApprovedDATE,
-    ApprovedTIME:ApprovedTIME,
-    Status:"Approved"
-  },{
-    where: {DepositHistoryID:DepositHistoryID,UserAccountID: UserAccountID }
-  })
-  .then(Success => {
-    callback("Updated");
-  })
-  .catch(error => {
-    console.log("Error Updating " +error);
-    callback(undefined);
-  }); 
-}*/
-/*//migrate
-app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/',function(req,res){
-  let DepositHistoryID = req.params.DepositHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let ProcessingDATE =  req.params.ProcessingDATE;
-  let ProcessingTIME= req.params.ProcessingTIME;
-  if(!isNullOrEmpty(DepositHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(ProcessingDATE)){
-        if(!isNullOrEmpty(ProcessingTIME)){
-          DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ProcessingDATE,ProcessingTIME,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({DepositHistoryUpdateProcessingFailed:true});
-            }
-          });
-        }else{
-          res.send({ProcessingTIMEMissing:true});
-        }
-      }else{
-        res.send({ProcessingDATEMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({DepositHistoryIDMissing:true});
-  }
-});*/
+
 
 function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,ProcessingDATE,ProcessingTIME,callback){
   Models.DepositHistory.update({
@@ -5630,36 +3887,7 @@ function DepositHistoryUpdateProcessing(UserAccountID,DepositHistoryID,Processin
     callback(undefined);
   }); 
 }
-/*//migrate
-app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/',function(req,res){
-  let DepositHistoryID = req.params.DepositHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let RejectedDATE = req.params.RejectedDATE;
-  let RejectedTIME = req.params.RejectedTIME;
-  if(!isNullOrEmpty(DepositHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(RejectedDATE)){
-        if(!isNullOrEmpty(RejectedTIME)){
-          DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RejectedDATE,RejectedTIME,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({DepositHistoryUpdateRejectedFailed:true});
-            }
-          });
-        }else{
-          res.send({RejectedTIMEMissing:true});
-        }
-      }else{
-        res.send({RejectedDATEMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({DepositHistoryIDMissing:true});
-  }
-});*/
+
 
 function DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RequestedDATE,RejectedTIME,callback){
   Models.DepositHistory.update({
@@ -5678,157 +3906,6 @@ function DepositHistoryUpdateRejected(UserAccountID,DepositHistoryID,RequestedDA
   }); 
 }
 
-/*//migrate
-app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
-  let DepositHistoryID = req.params.DepositHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let Amount = req.params.Amount;
-  let BankNameUsed = req.params.BankNameUsed;
-  let SecurityCodeUsed = req.params.SecurityCodeUsed;
-  let Status = req.params.Status;
-  let RequestedDATE = req.params.RequestedDATE;
-  let ApprovedDATE = req.params.ApprovedDATE;
-  let RejectedDATE = req.params.RejectedDATE;
-  let ProcessingDATE = req.params.ProcessingDATE;
-  let RequestedTIME = req.params.RequestedTIME;
-  let ApprovedTIME = req.params.ApprovedTIME;
-  let RejectedTIME = req.params.RejectedTIME;
-  let ProcessingTIME = req.params.ProcessingTIME;
-  if(!isNullOrEmpty(DepositHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(Amount)){
-        if(!isNullOrEmpty(BankNameUsed)){
-          if(!isNullOrEmpty(SecurityCodeUsed)){
-            if(!isNullOrEmpty(Status)){
-              let RequestedDATEParsed = moment(RequestedDATE,"YYYY-MM-DD");
-              let isValidRequestedDATEParsed = RequestedDATEParsed.isValid();
-              if(!isNullOrEmpty(RequestedDATE)&&isValidRequestedDATEParsed==true){
-                let ApprovedDATEParsed = moment(ApprovedDATE,"YYYY-MM-DD");
-                let isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
-                if(!isNullOrEmpty(ApprovedDATE)&&isValidApprovedDATEParsed==true){
-                  let RejectedDATEParsed = moment(RejectedDATE,"YYYY-MM-DD");
-                  let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-                  if(!isNullOrEmpty(RejectedDATE)&&isValidRejectedDATEParsed==true){
-                    let ProcessingDATEParsed = moment(ProcessingDATE,"YYYY-MM-DD");
-                    let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
-                    if(!isNullOrEmpty(ProcessingDATE)&&isValidProcessingDATEParsed==true){
-                      if(!isNullOrEmpty(RequestedTIME)){
-                        if(!isNullOrEmpty(ApprovedTIME)){
-                          if(!isNullOrEmpty(RejectedTIME)){
-                            if(!isNullOrEmpty(ProcessingTIME)){
-                              
-                              let UserAccountIDFound =false;
-                              let DepositHistoryIDFound=false;
-                              async.series([IsUserAccountIDExistCheck,IsDepositHistoryIDExistCheck],function(error,response){
-                                if(Status=="Approved"||Status=="Pending"||Status=="Rejected"){
-                                  if(DepositHistoryIDFound==true){
-
-                                    if(UserAccountIDFound==true){
-
-                                      Models.DepositHistory.update({
-                                        UserAccountID: UserAccountID,
-                                        Amount: Amount,
-                                        BankNameUsed: BankNameUsed,
-                                        SecurityCodeUsed: SecurityCodeUsed,
-                                        Status: Status,
-                                        RequestedDATE: RequestedDATE,
-                                        ApprovedDATE: ApprovedDATE,
-                                        RejectedDATE: RejectedDATE,
-                                        ProcessingDATE: ProcessingDATE,
-                                        RequestedTIME: RequestedTIME,
-                                        ApprovedTIME: ApprovedTIME,
-                                        RejectedTIME: RejectedTIME,
-                                        ProcessingTIME: ProcessingTIME,
-                                      },{
-                                        where: {DepositHistoryID:DepositHistoryID }
-                                      })
-                                      .then(Success => {
-                                        res.send("Updated");
-                                      })
-                                      
-                                      .catch(error => {
-                                      
-                                        console.log("Error Updating");
-                                        res.send("Error Updating " +error);
-                                      });
-
-
-                                      res.send({Success:true});
-                                    }else{
-                                      res.send({});
-                                    }
-                                  }else{
-                                    res.send({DepositHistoryIDInvalidValue:true});
-                                  }
-                                  }else{
-                                    res.send({StatusInvalidValue:true});
-                                  }
-                              });
-                              function IsUserAccountIDExistCheck(callback){
-                                isUserAccountIDExist(UserAccountID,function(response){
-                                  if(response!=undefined){
-                                    UserAccountIDFound=true;
-                                    callback(null,'1');
-                                  }else{
-                                    UserAccountIDFound=false;
-                                    callback(null,'1');
-                                  }
-                                });
-                              }
-                              function IsDepositHistoryIDExistCheck(callback){
-                                DepositHistoryIDUserAccountID(UserAccountID,DepositHistoryID,function(response){
-                                  if(response!=undefined){
-                                    DepositHistoryIDFound=true;
-                                    callback(null,'2');
-                                  }else{
-                                    DepositHistoryIDFound=false;
-                                    callback(null,'2');
-                                  }
-                                });
-                              }
-                            }else{
-                              res.send({ProcessingTIMEMissing:true});
-                            }
-                          }else{
-                            res.send({RejectedTIMEMissing:true});
-                          }
-                        }else{
-                          res.send({ApprovedTIMEMissing:true});
-                        }
-                      }else{
-                        res.send({RequestedTIMEMissing:true});
-                      }
-                    }else{
-                      res.send({ProcessingDATEMissing:true});
-                    }
-                  }else{
-                    res.send({RejectedDATEMissing:true});
-                  }
-                }else{
-                  res.send({ApprovedDATEMissing:true});
-                }
-              }else{
-                res.send({RequestedDATEMissing:true});
-              }
-            }else{
-              res.send({StatusMissing:true});
-            }
-          }else{
-            res.send({SecurityCodeUsedMissing:true});
-          }
-        }else{
-          res.send({BankNameUsedMissing:true});
-        }
-      }else{
-        res.send({AmountMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({DepositHistoryIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -5906,53 +3983,7 @@ app.get('/Api/v1/DepositHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-/*//migrate
-app.get('/Api/v1/DepositHistory/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.DepositHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  /*if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.DepositHistory.sync();
-    let result = Models.DepositHistory.findAll({ 
-      where: {
-        DepositHistoryID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-     
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
 
-      res.send("Error "+result);
-    });
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
-});*/
 app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.DepositHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -5961,251 +3992,8 @@ app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
   });
 });
 
-//NOT DONE temporarly displays arrays
-//we need to retreive all records and branches of each account
-/*//migrate
-app.get('/Api/v1/DepositList/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = "6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6";
-  let PhoneNumber = req.param.PhoneNumber;
-  let TelephoneNumber = req.param.TelephoneNumber;
-  let UserAccountIDExist = false;
-  let UserInfoExist = false;
-  let PlayerExist = false;
-  let ScreenName = undefined;
-  let Name = undefined;
-  let PlayerRelationshipResult =undefined;
-  let DepositHistoryExist =false;
-  let DepositHistoryResult = undefined;
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetDepositHistory],function(error,response){
-      let DepositListData =[];
-
-      let DepositListItem = PlayerRelationshipResult;
-      DepositListItem.PhoneNumber = PhoneNumber;
-      DepositListItem.TelephoneNumber = TelephoneNumber;
-      DepositListItem.Name = Name;
-      DepositListItem.ScreenName = ScreenName;
-      DepositListItem.DepositHistory= DepositHistoryResult;
-      DepositListItem.Note ="This is a Mock Up Data we need to iterate all accounts";
-      
-      for(let i=0;i<1000;++i){
-        DepositListData.push(DepositListItem);
-      }
-      res.send(beautify(DepositListData, null, 2, 100));
-    });
-    function UserAccountCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
-    function UserInfoCheck(callback){
-      UserInfoUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          UserInfoExist=true;
-          PhoneNumber = response[0].PhoneNumber;
-          TelephoneNumber = response[0].TelephoneNumber;
-         callback(null,'2');
-        }else{
-          UserInfoExist= false;
-         callback(null,'2');
-        }
-      });
-    }
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-         PlayerExist= true;
-         Name = response[0].Name;
-         ScreenName = response[0].ScreenName;
-         callback(null,'3');
-        }else{
-         PlayerExist= false;
-         callback(null,'3');
-        }
-      });
-    }
-    
-    function GetParentPlayerLookUp(callback){
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'4');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'4');
-       }
-     });
-    }
-    function GetDepositHistory(callback){
-      DepositHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          DepositHistoryResult = response;
-          DepositHistoryExist=true;
-          callback(null,'5');
-        }else{
-          DepositHistoryExist=false;
-          callback(null,'5');
-        }
-      });
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-  
-});
-*/
-/*//migrate
-
-app.get('/Api/v1/DepositList/UserAccountID/:UserAccountID/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  let PhoneNumber = req.param.PhoneNumber;
-  let TelephoneNumber = req.param.TelephoneNumber;
-  let UserAccountIDExist = false;
-  let UserInfoExist = false;
-  let PlayerExist = false;
-  let ScreenName = undefined;
-  let Name = undefined;
-  let PlayerRelationshipResult =undefined;
-  let DepositHistoryExist =false;
-  let DepositHistoryResult = undefined;
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetDepositHistory],function(error,response){
-      let DepositListItem = PlayerRelationshipResult;
-      DepositListItem.PhoneNumber = PhoneNumber;
-      DepositListItem.TelephoneNumber = TelephoneNumber;
-      DepositListItem.Name = Name;
-      DepositListItem.ScreenName = ScreenName;
-      DepositListItem.DepositHistory= DepositHistoryResult;
-      res.send(beautify(DepositListItem, null, 2, 100));
-    });
-    function UserAccountCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
-    function UserInfoCheck(callback){
-      UserInfoUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          UserInfoExist=true;
-          PhoneNumber = response[0].PhoneNumber;
-          TelephoneNumber = response[0].TelephoneNumber;
-         callback(null,'2');
-        }else{
-          UserInfoExist= false;
-         callback(null,'2');
-        }
-      });
-    }
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-         PlayerExist= true;
-         Name = response[0].Name;
-         ScreenName = response[0].ScreenName;
-         callback(null,'3');
-        }else{
-         PlayerExist= false;
-         callback(null,'3');
-        }
-      });
-    }
-    
-    function GetParentPlayerLookUp(callback){
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'4');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'4');
-       }
-     });
-    }
-    function GetDepositHistory(callback){
-      DepositHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          DepositHistoryResult = response;
-          DepositHistoryExist=true;
-          callback(null,'5');
-        }else{
-          DepositHistoryExist=false;
-          callback(null,'5');
-        }
-      });
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-  
-});
-
-//---DepositHistory ROUTING END
-//--TransferHistory ROUTING START
 
 
-app.get('/Api/v1/TransferHistory/Clear', function (req, res){
-  Models.TransferHistory.destroy({
-    where: {},
-    truncate: true
-  })
-  .then(Success => {
-    res.send("Cleared");
-  })
-  .catch(err=>{
-    res.send("Truncate "+err);
-  });
-});*/
-
-/*//migrate
-app.get('/Api/v1/TransferHistory/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.TransferHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-/*  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    TransferHistoryAll(function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send([]);
-      }
-    });
-    
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-});*/
 function TransferHistoryAll(callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
@@ -6237,93 +4025,7 @@ app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
   });
 });
 
-//*not implemented*
-// if the player has points the player can add and subtract transfer to other player
-//must update both the reciving/sender current player points 
-// -------------------------- MIGRATED
-/*
-app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let TransferHistoryUUID = uuidv4();
-  let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
-  let UserAccountIDSender = req.params.UserAccountIDSender;
-  let Amount = req.params.Amount;
-  let Status = req.params.Status;
-  let Reason = req.params.Reason;
-  let TransferedDATE = req.params.TransferedDATE;
-    if(!isNullOrEmpty(UserAccountIDReceiver)){
-      if(!isNullOrEmpty(UserAccountIDSender)){
-        if(!isNullOrEmpty(Amount)){
-          if(!isNullOrEmpty(Status)){
-            if(!isNullOrEmpty(Reason)){
-              if(!isNullOrEmpty(TransferedDATE)){
-                if(parseInt(Amount)>0){
-                  let UserAccountIDReceiverExist=false;
-                  let UserAccountIDSenderExist=false;
-                  async.series([UserAccountIDReceiverExistCheck,UserAccountIDSenderExistCheck],function(error,response){
-                    if(UserAccountIDReceiverExist==true){
-                        if(UserAccountIDSenderExist==true){
-                        AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                          if(response!=undefined){
-                            res.send(response);
-                          }else{
-                            res.send([{TransferHistoryUpdateFailed:true}]);
-                          }
-                        });
-                      }else{
-                        res.send({UserAccountIDSenderExist:false});
-                      }
-                    }else{
-                      res.send({UserAccountIDReceiverExist:false});
-                    }
-                  });
 
-                  function UserAccountIDReceiverExistCheck(callback){
-                    isUserAccountIDExist(UserAccountIDReceiver,function(response){
-                      if(response!=null){
-                        UserAccountIDReceiverExist=true;
-                        callback(null,'1');
-                      }else{
-                        UserAccountIDReceiverExist=false;
-                        callback(null,'1');
-                      }
-                    });
-                  }
-                  function UserAccountIDSenderExistCheck(callback){
-                    isUserAccountIDExist(UserAccountIDSender,function(response){
-                      if(response!=null){
-                        UserAccountIDSenderExist=true;
-                        callback(null,'2');
-                      }else{
-                        UserAccountIDSenderExist=false;
-                        callback(null,'2');
-                      }
-                    });
-
-                  }
-                }else{
-                  res.send({AmountInvalidValue:true});
-                }
-                
-              }else{
-                res.send({TransferedDATEMissing:true});
-              }
-            }else{
-              res.send({ReasonMissing:true});
-            }
-          }else{
-            res.send({StatusMissing:true});
-          }
-        }else{
-          res.send({AmountMissing:true});
-        }
-      }else{
-        res.send({UserAccountIDSenderMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDReceiverMissing:true});
-    }
-});*/
 
 // -------------------------- MIGRATED
 function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
@@ -6353,59 +4055,7 @@ function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccoun
     callback(undefined);
   });
 }
-/*//migrate
-app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
-  let SentTransferResult =undefined;
-  let RecievedTransferResult = undefined;
 
-  async.series([GetSentTransfer,GetReceiverTransfer],function(error,response){
-    let FullTransferHistory = {SentTransferResult:SentTransferResult,RecievedTransferResult:RecievedTransferResult};
-
-    res.send(FullTransferHistory);
-  });
-
- function GetSentTransfer(callback1){
-    TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response1){
-      if(response1!=undefined){
-        SentTransferResult=response1;
-        callback1(null,'1');
-      }else{
-        SentTransferResult=[];
-        callback1(null,'1');
-      }
-     
-    });
-  }
-  function GetReceiverTransfer(callback2){
-    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
-      if(response!=undefined){
-        RecievedTransferResult = response;
-        callback2(null,'2');
-      }else{
-        RecievedTransferResult =[];
-        callback2(null,'2');
-      }
-    });
-    }
-});*/
-/*//migrate
-app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
-  if(!isNullOrEmpty(UserAccountIDReceiver)){
-    TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send([]);
-      }
-    });
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,callback){
   Models.TransferHistory.sync();
     let result = Models.TransferHistory.findAll({ 
@@ -6428,23 +4078,6 @@ function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,callback){
     });
 }
 
-/*//migrate
-app.get('/Api/v1/TransferHistory/UserAccountIDSender/:UserAccountIDSender/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountIDSender = req.params.UserAccountIDSender;
-  if(!isNullOrEmpty(UserAccountIDSender)){
-    TransferHistoryUserAccountIDSender(UserAccountIDSender,function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send([]);
-      }
-    });
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
-*/
 function TransferHistoryUserAccountIDSender(UserAccountIDSender,callback){
   Models.TransferHistory.sync();
     let result = Models.TransferHistory.findAll({ 
@@ -6466,77 +4099,7 @@ function TransferHistoryUserAccountIDSender(UserAccountIDSender,callback){
       callback(undefined);
     });
 }
-/*//migrate
-app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let TransferHistoryUUID = req.params.TransferHistoryUUID;
-  let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
-  let UserAccountIDSender = req.params.UserAccountIDSender;
-  let Amount = req.params.Amount;
-  let Status = req.params.Status;
-  let Reason = req.params.Reason;
-  let TransferedDATE = req.params.TransferedDATE;
-  if(!isNullOrEmpty(TransferHistoryUUID)){
-    if(!isNullOrEmpty(UserAccountIDReceiver)){
-      if(!isNullOrEmpty(UserAccountIDSender)){
-        if(!isNullOrEmpty(Amount)){
-          if(!isNullOrEmpty(Status)){
-            if(!isNullOrEmpty(Reason)){
-              if(!isNullOrEmpty(TransferedDATE)){
-                if(Amount>=0){
-                let TransferHistoryUUIDExist= false;
-                async.series([TransferHistoryUUIDExistCheck],function(error,response){
-                  if(TransferHistoryUUIDExist==true){
-                    TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                      if(response!=undefined){
-                        res.send(response);
-                      }else{
-                        res.send([{TransferHistoryUpdateFailed:true}]);
-                      }
-                    });
-                  }else{
-                    res.send({TransferHistoryUUIDExist:false});
-                  }
-                });
-                function TransferHistoryUUIDExistCheck(callback){
-                  TransferHistoryTransferHistoryUUID(TransferHistoryUUID,function(response){
-                    console.log(response);
-                    if(response!=undefined){
-                      TransferHistoryUUIDExist=true;
-                      callback(null,'1');
-                    }else{
-                      TransferHistoryUUIDExist=false;
-                      callback(null,'1');
-                    }
-                  });
-                }
-                }else{
-                  res.send({AmountInvalidValue:true});
-                }
-              
-              }else{
-                res.send({TransferedDATEMissing:true});
-              }
-            }else{
-              res.send({ReasonMissing:true});
-            }
-          }else{
-            res.send({StatusMissing:true});
-          }
-        }else{
-          res.send({AmountMissing:true});
-        }
-      }else{
-        res.send({UserAccountIDSenderMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDReceiverMissing:true});
-    }
-  }else{
-    res.send({TransferHistoryUUIDMissing:true});
-  }
-});
-*/
+
 function TransferHistoryTransferHistoryUUID(TransferHistoryUUID,callback){
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({ 
@@ -6580,70 +4143,7 @@ function TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAcc
 
 //--TransferHistory ROUTING END
 
-//---RoomConfiguration ROUTING START    ---------------------------MIGRATED
-/*app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
-  //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
-  let SeasonID = req.params.SeasonID;
-  let SmallBlind = req.params.SmallBlind;
-  let BigBlind = req.params.BigBlind;
-  let Speed = req.params.Speed;
-  if(!isNullOrEmpty(SeasonID)){
-    if( !isNullOrEmpty(SmallBlind)){
-      if( !isNullOrEmpty(BigBlind)){
-        if(!isNullOrEmpty(Speed)){
-          if(validator.isNumeric(SmallBlind)){
-            if(validator.isNumeric(BigBlind)){
-              if(validator.isNumeric(Speed)){
-                
-              /*  let IsSeasonIDFound =false;//false is the result we want
-                async.series([IsSeasonIDExistCheck],function(error,response){
-                  if(IsSeasonIDFound==false){//must be false to be valid
-                    //Not Done
-                   /* AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,function(response){
-                     res.send(response);
-                    });*/
-               /*     res.send({Success:true});
-                  }else{
-                    res.send({SeasonIDAlreadyExist:true});
-                  }
-                  
-                });
 
-                function IsSeasonIDExistCheck(callback2){
-                  IsSeasonIDExist(SeasonID,function(response2){
-                    if(response2!=undefined){
-                      IsSeasonIDFound=true;
-                      callback2(null,'1');
-                    }else{
-                      IsSeasonIDFound= false;
-                      callback2(null,'1');
-                    }
-                  });
-                }
-                
-
-              }else{
-                res.send({SppedInvalidValue:true});
-              }
-            }else{
-              res.send({BigBlindInvalidValue:true});
-            }
-          }else{
-            res.send({SmallBlindInvalidValue:true});
-          }
-        }else{
-          res.send({SpeedMissing:true});
-        }
-      }else{
-        res.send({BigBlindMissing:true});
-      }
-    }else{
-      res.send({SmallBlindMissing:true});
-    }
-  }else{
-    res.send({SeasonIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -6701,47 +4201,7 @@ function IsSeasonIDExist(SeasonID,callback){
     callback(undefined);
   });
 }
-/*//migrate
-app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
-  let SeasonID = req.params.SeasonID;
-  let SmallBlind = req.params.SmallBlind;
-  let BigBlind = req.params.BigBlind;
-  if(!isNullOrEmpty(SeasonID)){
-    if(!isNullOrEmpty(SmallBlind)){
-      if(!isNullOrEmpty(BigBlind)){
-        let IsSeasonIDFound = false;// for the update SeasonID Must Exist
-        async.series([IsSeasonIDExistCheck],function(error,response){
-          RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID,SmallBlind,BigBlind,function(response){
-            if(IsSeasonIDFound==true){
-              res.send(response);
-            }else{
-              res.send({});
-            }
-          });
-        });
 
-        function IsSeasonIDExistCheck(callback){
-          IsSeasonIDExist(SeasonID,function(response){
-            if(response!=undefined){
-              IsSeasonIDFound=true;
-              callback(null,'1');
-            }else{
-              IsSeasonIDFound =false;
-              callback(null,'1');
-            }
-          }); 
-        }
-      }else{
-        res.send({BigBlindMissing:true});
-      }
-    }else{
-      res.send({SmallBlindMissing:true});
-    }
-  }else{
-    res.send({SeasonIDMissing:true});
-  }
-});
-*/
 /**
  *
  *
@@ -6768,23 +4228,7 @@ function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID,SmallBlind,BigBli
     callback(undefined);
   });
 }
-/*//migrate
-app.get('/Api/v1/RoomConfiguration/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.RoomConfiguration.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-/*  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    RoomConfiguration(function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send({});
-      }
-    });
-  }
-});*/
+
 app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.RoomConfiguration.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -6849,149 +4293,6 @@ app.get('/Api/v1/RoomConfiguration/Delete', function (req, res){
 
 //---RoomConfiguration ROUTING END
 
-//---GameHistory ROUTING START -----------------------------MIGRATED
-/*app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
-  //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  let RoundID = req.params.RoundID;
-  let SeasonID = req.params.SeasonID;
-  let Rank = req.params.Rank;
-  let Score = req.params.Score;
-  let Card = req.params.Card;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  let BeforePoints = req.params.BeforePoints;
-  let AfterPoints = req.params.AfterPoints;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(RoundID)){
-      if(!isNullOrEmpty(SeasonID)){
-        if( !isNullOrEmpty(Rank)){
-          if(!isNullOrEmpty(Score)){
-            if(!isNullOrEmpty(Card)){
-              if(!isNullOrEmpty(Time)){
-                if(!isNullOrEmpty(Date)){
-                  if(!isNullOrEmpty(BeforePoints)){
-                    if(!isNullOrEmpty(AfterPoints)){
-                      if(validator.isNumeric(BeforePoints)){
-                        if(validator.isNumeric(AfterPoints)){
-                          if(validator.isNumeric(Score)){
-                            let countedCards =  Card.split(",");//card counting validate that we have 5 cards
-                            let countedStringLength = Card.length;//Must be 14 including commas in count
-                            if(countedCards.length==5&&countedStringLength==14){
-                              if(Rank=="HIGH_CARD"||
-                              Rank=="ONE_PAIR"||
-                              Rank=="TWO_PAIRS"||
-                              Rank=="THREE_OF_A_KIND"||
-                              Rank=="STRAIGHT"||
-                              Rank=="FLUSH"||
-                              Rank=="FULL_HOUSE"||
-                              Rank=="FOUR_OF_A_KIND"||
-                              Rank=="STRAIGHT_FLUSH"||
-                              Rank=="ROYAL_FLUSH"){
-                                  let isUserAccountIDExistFound = false;
-                                  let isSeasonIDFound =false;
-                                  async.series([IsUserAccountIDExistCheck,IsSeasonIDExistCheck],function(error,response){
-                                 
-                                    if(isUserAccountIDExistFound==true){
-                                      if(isSeasonIDFound==true){
-                                        AddGameHistory(UserAccountID,RoundID,SeasonID,Rank,Score,Card,Time,Date,BeforePoints,AfterPoints,function(response){
-                                          res.send(response);
-                                        });
-                                      }else{
-                                        res.send({SeasonIDInvalid:false});
-                                      }                           
-                                    }else{
-                                      res.send({UserAccountIDInvalid:false});
-                                    }
-                                });
-                                function IsUserAccountIDExistCheck(callback){
-                                  isUserAccountIDExist(UserAccountID,function(response){
-                                    if(response!=undefined){
-                                      isUserAccountIDExistFound=true;
-                                      callback(null,'1');
-                                    }else{
-                                      isUserAccountIDExistFound=false;
-                                      callback(null,'1');
-                                    }
-                                  });
-                                }
-                                function IsSeasonIDExistCheck(callback){
-                                  IsSeasonIDExist(SeasonID,function(response){
-                                    if(response!=undefined){
-                                      isSeasonIDFound=true;
-                                      callback(null,'2');
-                                    }else{
-                                      isSeasonIDFound=false;
-                                      callback(null,'2');
-                                    }
-                                  });
-                                }
-                              }else{
-                                res.send({CardInvalid:true});
-                              }
-    
-                            }else{
-                              res.send({RequiresCards:5});
-                            }
-                          }else{
-                            res.send({ScoreInvalidValue:true});
-                          }
-                        }else{
-                         res.send({AfterPointsInvalidValue:true}); 
-                        }
-                      }else{
-                        res.send({BeforePointsInvalidValue:true}); 
-                      }
-                      
-                      
-                      
-
-                    }else{
-                      res.send({AfterPoints:true});
-                    }
-                  }else{
-                    res.send({BeforePoints:true});
-                  }
-                }else{
-                  res.send({DateMissing:true});
-                }
-              }else{
-                res.send({TimeMissing:true});
-              }
-            }else{
-              res.send({CardMissing:true});
-            }
-          }else{
-            res.send({ScoreMissing:true});
-          }
-        }else{
-          res.send({RankMissing:true});
-        }
-      }else{
-        res.send({SeasonIDMissing:true});
-      }
-    }else{
-      res.send({RoundIDMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-/*
-  if(!isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(RoundID)&&
-  !isNullOrEmpty(SeasonID)&&
-  !isNullOrEmpty(Rank)&&
-  !isNullOrEmpty(Score)&&
-  !isNullOrEmpty(Card)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)&&
-  !isNullOrEmpty(BeforePoints)&&
-  !isNullOrEmpty(AfterPoints)){
- 
-  }*/
-/*});*/
 
 /**
  *
@@ -7034,118 +4335,7 @@ function AddGameHistory(UserAccountID,RoundID,SeasonID,Rank,Score,Card,Time,Date
     callback(undefined);
   });
 }
-/*//migrate
-app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function(req,res) {
- 
-  let GameHistoryID = req.params.GameHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let RoundID = req.params.RoundID;
-  let SeasonID = req.params.SeasonID;
-  let Rank = req.params.Rank;
-  let Score = req.params.Score;
-  let Card = req.params.Card;
-  let Time = req.params.Time;
-  let Date = req.params.Date;
-  let BeforePoints = req.params.BeforePoints;
-  let AfterPoints = req.params.AfterPoints;
 
-  if(!isNullOrEmpty(GameHistoryID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(SeasonID)){
-        if(!isNullOrEmpty(RoundID)){
-          if(!isNullOrEmpty(Rank)){
-            if(!isNullOrEmpty(Score)){
-              if(!isNullOrEmpty(Card)){
-                if(!isNullOrEmpty(Time)){
-                  if(!isNullOrEmpty(Date)){
-                    if(!isNullOrEmpty(BeforePoints)){
-                      if(!isNullOrEmpty(AfterPoints)){
-                        let isUserAccountIDFound = undefined;
-                        async.series([IsUserAccountIDExistCheck,IsGameHistoryIDExistCheck],function(error,response){
-
-                          //not done
-                          if(isUserAccountIDFound==true){
-
-                            Models.GameHistory.update({
-                              UserAccountID: UserAccountID,
-                              RoundID: RoundID,
-                              SeasonID: SeasonID,
-                              Rank: Rank,
-                              Score: Score,
-                              Card: Card,
-                              Time: Time,
-                              Date: Date,
-                              BeforePoints: BeforePoints,
-                              AfterPoints: AfterPoints
-                            },{
-                              where: {GameHistoryID: GameHistoryID }
-                            })
-                            .then(Success => {
-                              res.send("Updated");
-                            })
-                            
-                            .catch(error => {
-                           
-                              console.log("Error Updating");
-                              res.send("Error Updating " +error);
-                            });
-                          //  res.send({Success:true});
-                          }else{
-                            res.send({Success:false});
-                          }
-                        });
-                        function IsUserAccountIDExistCheck(callback){
-                          isUserAccountIDExist(UserAccountID,function(response){
-                            if(response!=undefined){
-                              isUserAccountIDFound=true;
-                              callback(null,'1');
-                            }else{
-                              isUserAccountIDFound =false;
-                              callback(null,'1');
-                            }
-                           
-                          });
-                        }
-                        function IsGameHistoryIDExistCheck(callback){
-                          callback(null,'2');
-                        }
-                        res.send({success:true});
-                      }else{
-                        res.send({AfterPointsMissing:true});
-                      }
-                    }else{
-                      res.send({BeforePointsMissing:true});
-                    }
-                  }else{
-                    res.send({DateMissing:true});
-                  }
-                }else{
-                  res.send({TimeMissing:true});
-                }
-              }else{
-                res.send({CardMissing:true});
-              }
-            }else{
-              res.send({ScoreMissing:true});
-            }
-          }else{
-            res.send({RankMissing:true});
-          }
-        }else{
-          res.send({RoundIDMissing:true});
-        }
-      }else{
-        
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({GameHistoryIDMissing:true});
-  }
-
-
-});*/
 app.get('/Api/v1/GameHistory/Clear', function (req, res){
   Models.GameHistory.destroy({
     where: {},
@@ -7166,43 +4356,7 @@ app.get('/Api/v1/GameHistory/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-/*
-app.get('/Api/v1/GameHistory', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.GameHistory.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    GameHistory(function(response){
-      if(response!=undefined){
-        res.send(res.send(beautify(response, null, 2, 100)));
-      }else{
-        res.send([]);
-      }
-     
-    });
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
-});*/
 app.get('/Api/v1/GameHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.GameHistory.sync();//Never call Alter or Force during a Database table Alter process before knowing that it can query select all first
@@ -7276,19 +4430,7 @@ function HandHistory(callback){
   });
 }
 
-/*
-app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  if(!isNullOrEmpty(UserAccountID)){
-    HandHistoryUserAccountID(UserAccountID,function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send({HandHistoryFailed:true});
-      }
-    });
-  }
-});*/
+
 function HandHistoryUserAccountID(UserAccountID,callback){
   Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({ 
@@ -7330,120 +4472,10 @@ app.get('/Api/v1/HandHistory/AddTest/', function (req, res) {
     res.send("Failed");
   });
 });
-/* un used squelize
-app.get('/Api/v1/HandHistory/RawQuery/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync();
-  sequelize.query('SELECT * FROM HandHistories', { model: Models.HandHistory }).then(RawData => {
-    res.send(beautify(RawData, null, 2, 100));
-  })
-});
-
-app.get('/Api/v1/HandHistory/AddColumnTest/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync();
-  sequelize.query('ALTER TABLE `HandHistories` ADD COLUMN `Something` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
-   // res.send(beautify(RawData, null, 2, 100));
-  })
-  res.send({Added:"Column Something"})
-});
-app.get('/Api/v1/HandHistory/RemoveColumnTest/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync();
-  sequelize.query('ALTER TABLE `HandHistories` DROP COLUMN `Something`', { model: Models.HandHistory }).then(RawData => {
-   // res.send(beautify(RawData, null, 2, 100));
-  })
-  res.send({Added:"Column Something"})
-});
-app.get('/Api/v1/HandHistory/RenameTestToReadMore/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync();
-  sequelize.query('ALTER TABLE `HandHistories` CHANGE COLUMN `SeasonID` `read_more` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
-   // res.send(beautify(RawData, null, 2, 100));
-  })
-  res.send({RenamedTo:"ReadMore"})
-});
-app.get('/Api/v1/HandHistory/RenameTestToSeason/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.HandHistory.sync();
-  sequelize.query('ALTER TABLE `HandHistories` CHANGE COLUMN `read_more` `SeasonID` VARCHAR(255)', { model: Models.HandHistory }).then(RawData => {
-  
-  })
-  res.send({RenamedTo:"SeasonID"})
-});*/
 
 
-// ---------------------------MIGRATED
-/*app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
-  let MoveHand =  req.params.MoveHand;
-  let RoundID =  req.params.RoundID;
-  if(!isNullOrEmpty(RoundID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      
-      if(!isNullOrEmpty(MoveHand)){
 
-        if(MoveHand=="Fold"||MoveHand=="Call"||MoveHand=="Raise"||MoveHand=="Check"){
-          let UserAccountIDExist = false;
-          let PlayerExist = false;
-        async.series([UserAccountIDCheck,PlayerCheck],function(error,response){
 
-          if(UserAccountIDExist==true){
-            if(PlayerExist==true){
-              AddHandHistory(UserAccountID,MoveHand,RoundID,function(response){
-                if(response!=undefined){
-                  res.send(response);
-                }else{
-                  res.send({AddHandHistoryFailed:true});
-                }
-              });
-            }else{
-              res.send({PlayerExist:false});
-            }
-          }else{
-            res.send({UserAccountIDExist:false});
-          }
-        });
-        
-        function UserAccountIDCheck(callback){
-          isUserAccountIDExist(UserAccountID,function(response){
-            let obj = response;
-            if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-              UserAccountIDExist = true;
-              callback(null,'1');
-            }else{
-              UserAccountIDExist = false;
-              callback(null,'1');
-            }
-          });
-        }
-        function PlayerCheck(callback){
-          PlayerUserAccountID(UserAccountID,function(response){
-            
-            if(response!=undefined){
-             PlayerExist= true;
-             callback(null,'1');
-            }else{
-             PlayerExist= false;
-             callback(null,'1');
-            }
-          });
-        }
-        }else{
-          res.send({MoveHandInvalidValue:true});
-        }
-        
-        
-      }else{
-        res.send({MoveHandMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({RoundIDMissing:true});
-  }
-});*/
 
 // ----------------migrated
 function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
@@ -7465,39 +4497,7 @@ function AddHandHistory(UserAccountID,MoveHand,RoundID,callback){
   });
 }
 
-/*//migrate
-app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
-  let RoundID =  req.params.RoundID;
-  let HandHistoryID = req.params.HandHistoryID;
-  let UserAccountID = req.params.UserAccountID;
-  let MoveHand =  req.params.UserAccountID;
-  
-  if(!isNullOrEmpty(RoundID)){
-    if(!isNullOrEmpty(HandHistoryID)){
-      if(!isNullOrEmpty(UserAccountID)){
-        if(!isNullOrEmpty(MoveHand)){
-          HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({HandHistoryUpdateFailed:true});
-            }
-          });
-        }else{
-          res.send({MoveHandMissing:true});
-        }
-      }else{
-        res.send({UserAccountIDMissing:true});
-      }
-    }else{
-      res.send({HandHistoryIDMissing:true});
-    }
-  }else{
-    res.send({RoundIDMissing:true});
-  }
-  
-});
-*/
+
 function HandHistoryUpdate(HandHistoryID,UserAccountID,MoveHand,RoundID,callback){
   Models.HandHistory.sync();
   Models.HandHistory.update({
@@ -7543,134 +4543,11 @@ app.get('/Api/v1/HandHistory/Clear', function (req, res) {
 
 //---HandHistory ROUTING END
 //---HandHistoryList ROUTING START
-/*//migrate
-app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  if(!isNullOrEmpty(UserAccountID)){
-    let UserAccountIDExist = false;
-    async.series([UserAccountIDCheck],function(error,response){
-      if(UserAccountIDExist==true){
-        HandHistoryUserAccountID(UserAccountID,function(response){
-          if(response!=undefined){
-            res.send(beautify(response, null, 2, 100));
-          }else{
-            res.send({HandHistoryFailed:true});
-          }
-        });
-      }else{
-        res.send({UserAccountIDExist:false});
-      }
-    });
-    function UserAccountIDCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        let obj = response;
-        if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-          UserAccountIDExist = true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist = false;
-          callback(null,'1');
-        }
-      });
-    }
-  }
-});*/
+
 //---HandHistoryList ROUTING END
 
 
 //---UserInfo ROUTING START --------------------------migrated
-/*app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
-  //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
-
-  //Tests for foreignKey should result in  foreign key constraint fails Error
-  // /Api/v1/UserInfo/Add/5879999/Email14535432/PhoneNumber/TelephoneNumber
-
-  let UserAccountID = req.params.UserAccountID;
-  let Email = req.params.Email;
-  let PhoneNumber = req.params.PhoneNumber;
-  let TelephoneNumber = req.params.TelephoneNumber;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Email)){
-      if(!isNullOrEmpty(PhoneNumber)){
-        if(!isNullOrEmpty(TelephoneNumber)){
-          let UserAccountIDExist= false;
-          let UserInfoExist= false;
-          let isEmailExist =false;
-          async.series([UserAccountIDCheck,UserInfoCheck,UserInfoEmailExistCheck],function(error,response){
-           
-            if(UserAccountIDExist==true){
-              if(UserInfoExist==false){//must not exist already
-                if(isEmailExist==false){//must Be False
-                  AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response) {
-                    if(response!=undefined){
-                      res.send(response);
-                    }else{
-                      res.send({AddUserInfoFailed:true});
-                    }
-                  });
-                }else{
-                  res.send({UserInfoExist:true});
-                }
-                
-              }else{
-                res.send({UserInfoExist:true});
-              }
-            }else{
-              res.send({UserAccountIDExist:true});
-            }
-          });
-          
-          function UserAccountIDCheck(callback){
-            isUserAccountIDExist(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-                UserAccountIDExist = true;
-                callback(null,'1');
-              }else{
-                UserAccountIDExist = false;
-                callback(null,'1');
-              }
-            });
-          }
-          function UserInfoCheck(callback){
-            UserInfoUserAccountID(UserAccountID,function(response){
-              if(response!=undefined){
-                UserInfoExist=true;
-               callback(null,'3');
-              }else{
-                UserInfoExist= false;
-               callback(null,'3');
-              }
-            });
-          }
-          function UserInfoEmailExistCheck(callback){
-            UserInfoEmailExist(Email,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
-                isEmailExist=true;
-                callback(null,2);
-                
-              }else{
-                isEmailExist=false;
-                callback(null,2);
-              }
-            });
-          }
-        }else{
-          res.send({TelephoneNumberMissing:true});
-        }
-      }else{
-        res.send({PhoneNumberMissing:true});
-      }
-    }else{
-      res.send({EmailMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 
 // migrated
 function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
@@ -7694,56 +4571,7 @@ function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
     });
 }
 
-/*//migate
-app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
-  let Email = req.params.Email;
-  let PhoneNumber = req.params.PhoneNumber;
-  let TelephoneNumber = req.params.TelephoneNumber;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Email)){
-      if(!isNullOrEmpty(PhoneNumber)){
-        if(!isNullOrEmpty(TelephoneNumber)){
-          let UserAccountIDExist=false;
-          async.series([UserAccountIDCheck],function(error,response){
-            if(UserAccountIDExist==true){
-              UserInfoUpdate(UserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                if(!isNullOrEmpty(response)&&response!=undefined){
-                  res.send(response);
-                }else{
-                  res.send({UserInfoUpdateFailed:true});
-                  }
-              });
-            }else{
-              res.send({UserAccountIDExist:false});
-            }
-          });
-          function UserAccountIDCheck(callback){
-            isUserAccountIDExist(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-                UserAccountIDExist = true;
-                callback(null,'1');
-              }else{
-                UserAccountIDExist = false;
-                callback(null,'1');
-              }
-            });
-          }
 
-        }else{
-          res.send({TelephoneNumberExist:false});
-        }
-      }else{
-        res.send({PhoneNumberExist:false});
-      }
-    }else{
-      res.send({EmailExist:false});
-    }
-  }else{
-    res.send({UserAccountIDExist:false});
-  }
-});*/
 
 
 /**
@@ -7794,45 +4622,7 @@ app.get('/Api/v1/UserInfo/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-/*
-app.get('/Api/v1/UserInfo/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.UserInfo.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
- /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    Models.UserInfo.sync();
-    let result = Models.UserInfo.findAll({ 
-      where: {
-        UserInfoID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-     
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
 
-      res.send("Error "+result);
-    });
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-  }
-});*/
 function UserInfoUserAccountID(UserAccountID,callback){
   Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({ 
@@ -7862,31 +4652,7 @@ app.get('/Api/v1/UserInfo/Describe', function (req, res) {
 });
 //---UserInfo ROUTING END
 
-//---AccessControl ROUTING START -------------------------------migrated
-/*app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
-  let AccessID = req.params.AccessID;
-  let AccessName = req.params.AccessName;
-  let AccessTags = req.params.AccessTags;
-  if(!isNullOrEmpty(AccessID)){
-    if(!isNullOrEmpty(AccessName)){
-      if(!isNullOrEmpty(AccessTags)){
-        AddAccessControl(AccessID,AccessName,AccessTags,function(response) {
-          if(response!=undefined){
-            res.send(response);
-          }else{
-            res.send({AddAccessControlFailed:true});
-          }
-        });
-      }else{
-        res.send({AccessTagsMissing:true});
-      }
-    }else{
-      res.send({AccessNameMissing:true});
-    }
-  }else{
-    res.send({AccessIDMissing:true});
-  }
-});*/
+
 // mmigrated
 function AddAccessControl(AccessID,AccessName,AccessTags,callback){
   var item1 = Models.AccessControl.build({
@@ -7907,36 +4673,7 @@ function AddAccessControl(AccessID,AccessName,AccessTags,callback){
     callback(undefined);
   });
 }
-/*//migrate
-app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
-  let AccessControlID = req.params.AccessControlID;
-  let AccessID = req.params.AccessID;
-  let AccessName = req.params.AccessName;
-  let AccessTags = req.params.AccessTags;
-  if(!isNullOrEmpty(AccessControlID)){
-    if(!isNullOrEmpty(AccessID)){
-      if(!isNullOrEmpty(AccessName)){
-        if(!isNullOrEmpty(AccessTags)){
-          AccessControlUpdate(AccessID,AccessName,AccessTags,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({AccessControlUpdateFailed:true});
-            }
-          });
-        }else{
-          res.send({AccessTagsMissing:true});
-        }
-      }else{
-        res.send({AccessNameMissing:true});
-      }
-    }else{
-      res.send({AccessIDMissing:true});
-    }
-  }else{
-    res.send({AccessControlIDMissing:true});
-  }
-});*/
+
 
 /**
  *
@@ -8032,63 +4769,6 @@ app.get('/Api/v1/AccessControl/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
-//---AccessControl ROUTING END
-
-
-//---UserAccount ROUTING START ------------------migrate
-app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
-  //USAGE
-  //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
-  let UserAccountID = uuidv4();
-  let AccessID = req.params.AccessID;
-  let UserName = req.params.UserName;
-  let Password = req.params.Password;
-  let Verify = req.params.Verify;
-  let ValidKey = req.params.ValidKey;
-  let RegisteredDate = req.params.RegisteredDate;
-  let RegisteredTime =  req.params.RegisteredTime;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(AccessID)){
-      if(!isNullOrEmpty(UserName)){
-        if(!isNullOrEmpty(Password)){
-          if(!isNullOrEmpty(Verify)){
-            if(!isNullOrEmpty(ValidKey)){
-              if(!isNullOrEmpty(RegisteredDate)){
-                if(!isNullOrEmpty(RegisteredTime)){
-                  AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey,RegisteredDate,RegisteredTime,function(response) {
-                    if(response!=undefined){
-                      res.send(response);
-                    }else{
-                      res.send({AddUserAccountFailed:true});
-                    }
-                  });
-                }else{
-                  res.send({RegisteredTimeMissing:true});
-                }
-              }else{
-                res.send({RegisteredDateMissing:true});
-              }
-            }else{
-              res.send({ValidKeyMissing:true});
-            }
-          }else{
-            res.send({VerifyMissing:true});
-          }
-        }else{
-          res.send({PasswordMissing:true});
-        }
-      }else{
-        res.send({UserNameMissing:true});
-      }
-    }else{
-      res.send({AccessIDMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
-
 /**
  *
  *
@@ -8204,77 +4884,7 @@ app.get('/Api/v1/UserAccount/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
-/*//migrate
-app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID =  req.params.UserAccountID;
-  let VerifiedStatus =  req.params.VerifiedStatus;// only true or false state no other value type
-  console.log(UserAccountID+" "+VerifiedStatus);
-  if(!isNullOrEmpty(UserAccountID)&&!isNullOrEmpty(VerifiedStatus)){
-    if(VerifiedStatus=="true" || VerifiedStatus=="false"){//must be validated like a string because 
-      Models.UserAccount.sync();
-      let UserAccountIDExist = false;
-      async.series([UserAccountIDCheck],function(err,response){
-        if(UserAccountIDExist==true){
-          //res.send({UserAccountIDExist:UserAccountIDExist});
-          VerifyAccountUserAccountID(UserAccountID,VerifiedStatus,function(response){
-            if(!isNullOrEmpty(response)&&response!=undefined){
-              res.send(response);
-            }else{
-              res.send({VerifyAccountUserAccountIDFailed:true});
-            }
-          });
-        }else{
-          res.send({UserAccountIDExist:UserAccountIDExist});
-        }
-      });
-      function UserAccountIDCheck(callback){
-        isUserAccountIDExist(UserAccountID,function(response){
-          let obj = response;
-          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-            UserAccountIDExist = true;
-            callback(null,'1');
-          }else{
-            UserAccountIDExist = false;
-            callback(null,'1');
-          }
-        });
-      }
-    }else{
-      res.send({VerfiedStatusInvalidValue:true});
-    }
-  }else{
-    res.send({MissingParameters:true});
-  }
-  //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
-});
-*/
-/*//migrate
-app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  if(!isNullOrEmpty(UserAccountID)){
-    //res.send({success:true});
-    AccountTypeFullCheck(UserAccountID,function(response){
-      if(response!=undefined){
-        if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
-          res.send({AccountType:response.AccountType});
-        }
-        else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-          res.send("Duplicate UserAccountID AccountType");
-        }
-        else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==false){
-          res.send("No Account No Duplicate");
-        }
-      }else{
-        res.send("Somthing Went Wrong With AccountTypeFullCheck");
-      }
-      
-    });
-  }else{
-    res.send("Missing params");
-  }
-});*/
+
 
 /**
  *
@@ -8327,46 +4937,7 @@ function AccountTypeFullCheck(UserAccountID,callback){//this is an application l
   });
 }
 
-/*//migrate
-app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
-  let PlayerRelationshipResult = undefined;// the resulting parents of Player
-  let PlayerExist = false;
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([PlayerCheck,GetParentPlayerLookUp],function(error,response){
-      if(PlayerExist==true){
-       res.send(PlayerRelationshipResult);
-      }else{
-       res.send({PlayerInvalidValue:true});
-      }
-    });
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-         PlayerExist= true;
-         callback(null,'1');
-        }else{
-         PlayerExist= false;
-         callback(null,'1');
-        }
-      });
-    }
-    function GetParentPlayerLookUp(callback){
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'2');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'2');
-       }
-     });
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
- 
-});*/
+
 
 
 function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//maybe a Heavy Operation but it is untested on large data
@@ -8536,52 +5107,7 @@ function GetParentRelationshipPlayerUserAccountID(UserAccountID,callback){//mayb
   }
 }
 
-//---UserAccount ROUTING START
 
-//---Player ROUTING START -----------------=migrated
-/*
-app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
-  //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
-  let UserAccountID = req.params.UserAccountID;
-  let ShopID = req.params.ShopID;
-  let ScreenName = req.params.ScreenName;
-  let Name = req.params.Name;
-  let Surname = req.params.Surname;
-  let CurrentRoomName = req.params.CurrentRoomName;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(ShopID)){
-      if(!isNullOrEmpty(ScreenName)){
-        if(!isNullOrEmpty(Name)){
-          if(!isNullOrEmpty(Surname)){
-            if(!isNullOrEmpty(CurrentRoomName)){
-              AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,function(response) {
-                if(response!=undefined){
-                  res.send(response);
-                }else{
-                  res.send({AddPlayerFailed:true});
-                }
-              });
-            }else{
-              res.send({CurrentRoomNameMissing:true});
-            }
-          }else{
-            res.send({SurnameMissing:true});
-          }
-        }else{
-          res.send({NameMissing:true});
-        }
-      }else{
-        res.send({ScreenNameMissing:true});
-      }
-    }else{
-      res.send({ShopIDMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
-*/
 
 /**
  *
@@ -8623,172 +5149,7 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
-/*//migrate
-app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
-  let Point = req.params.Point;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Point)){
-      if(validator.isInt(Point)==true){
-        let UserAccountIDExist =false;
-        let CurrentPoints = undefined;
-        async.series([UserAccountIDCheck,PlayerCurrentPointsCheck],function(error,response){
-      
-          if(UserAccountIDExist==true){
-            let NewPoints = parseInt(CurrentPoints)+parseInt(Point);
-            if(!(parseInt(Point)<0)){
-              if(parseInt(Point)!=0){
-                if(NewPoints>=0){
-                  
-                    PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
-                      if(response!=undefined){
-                        res.send(response);
-                      }else{
-                        res.send({PlayerUpdatePointFailed:true});
-                      }
-                    });
-                }
-              }else{
-                res.send({NothingToAdd:true});
-              }
-            }else{
-              res.send({IsPointNegativeValue:true});
-            }
-            
-          }else{
-            res.send({UserAccountIDExist:false});
-          }
-         
 
-        });
-        function UserAccountIDCheck(callback){
-          if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
-            isUserAccountIDExist(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                UserAccountIDExist = true;
-                callback(null,'1');
-              }else{
-                UserAccountIDExist = false;
-                callback(null,'1');
-              }
-            });
-          }else{
-          
-            callback(null,'1');
-          }
-        }
-        function PlayerCurrentPointsCheck(callback){
-          if(UserAccountIDExist!=undefined){
-            PlayerUserAccountID(UserAccountID,function(response){
-              let obj = response;
-              if(obj!=undefined&&obj[0].CurrentPoints!=undefined){
-                CurrentPoints = obj[0].CurrentPoints;
-                callback(null,'1');
-              }else{
-                CurrentPoints = undefined;
-                callback(null,'1');
-              }
-            });
-          }else{
-            callback(null,'1');
-          }
-        }
-      }else{
-        res.send({PointInvalidValue:true});
-      }
-    }else{
-      res.send({PointEmpty:true});
-    }
-  }else{
-    res.send({UserAccountIDEmpty:true});
-  }
-});*/
-
-/*migrate
-app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
-  let Point = req.params.Point;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Point)){
-      if(validator.isInt(Point)==true){
-        let UserAccountIDExist =false;
-        let CurrentPoints = undefined;
-        async.series([UserAccountIDCheck,PlayerCurrentPointsCheck],function(error,response){
-          if(UserAccountIDExist==true){
-            let NewPoints = parseInt(CurrentPoints)-parseInt(Point);
-            if(!(parseInt(Point)<0)){
-              if(parseInt(Point)!=0){
-                if(NewPoints>=0){
-                  if(UserAccountIDExist==true){
-                    PlayerUpdatePoint(UserAccountID,NewPoints,function(response){
-                      if(response!=undefined){
-                        res.send(response);
-                      }else{
-                        res.send({PlayerUpdatePointFailed:true});
-                      }
-                    });
-                  }else{
-                    res.send({UserAccountIDExist:false});
-                  }
-                }else{
-                  res.send({NotEnoughPoints:true});
-                }
-              }else{
-                res.send({NothingToSubtract:true});
-              }
-            }else{
-              res.send({IsPointNegativeValue:true});
-            }
-          }else{
-            res.send({UserAccountIDEmpty:true});
-          }
-          
-          
-        });
-        function UserAccountIDCheck(callback){
-          if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
-            isUserAccountIDExist(UserAccountID,function(response){
-              let obj = response;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-                UserAccountIDExist = true;
-                callback(null,'1');
-              }else{
-                UserAccountIDExist = false;
-                callback(null,'1');
-              }
-            });
-          }else{
-          
-            callback(null,'1');
-          }
-        }
-        function PlayerCurrentPointsCheck(callback){
-          if(UserAccountIDExist!=undefined){
-            PlayerUserAccountID(UserAccountID,function(response){
-              let obj = response;
-              if(obj!=undefined&&obj[0].CurrentPoints!=undefined){
-                CurrentPoints = obj[0].CurrentPoints;
-                callback(null,'1');
-              }else{
-                CurrentPoints = undefined;
-                callback(null,'1');
-              }
-            });
-          }else{
-            callback(null,'1');
-          }
-        }
-      }else{
-        res.send({PointInvalidValue:true});
-      }
-    }else{
-      res.send({PointEmpty:true});
-    }
-  }else{
-    res.send({UserAccountIDEmpty:true});
-  }
-});
 
 /**
  *
@@ -8840,46 +5201,7 @@ function PlayerUpdatePoint(UserAccountID,CurrentPoints,callback){
     callback(undefined);
   });
 }
-/*
-app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
-  let UserAccountID = req.params.UserAccountID;
-  let CurrentRoomName = req.params.CurrentRoomName;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(CurrentRoomName)){
-      let UserAccountIDExist =false;
-      async.series([UserAccountIDCheck],function(error,response){
-        if(UserAccountIDExist==true){
-          PayerUpdateRoomName(UserAccountID,CurrentRoomName,function(response){
-              if(response!=undefined){
-                res.send(response);
-              }else{
-                res.send({PayerUpdateRoomNameUpdateFailed:true});
-              }
-          });
-        }else{
-          res.send({UserAccountIDExist:false});
-        }
-      });
-      function UserAccountIDCheck(callback){
-        isUserAccountIDExist(UserAccountID,function(response){
-          let obj = response;
-          if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserAccountID==UserAccountID){
-            UserAccountIDExist = true;
-            callback(null,'1');
-          }else{
-            UserAccountIDExist = false;
-            callback(null,'1');
-          }
-        });
-      }
 
-    }else{
-      res.send({CurrentRoomNameEmpty:true});
-    }
-  }else{
-    res.send({UserAccountIDEmpty:true});
-  }
-});*/
 
 
 
@@ -8905,52 +5227,7 @@ function PayerUpdateRoomName(UserAccountID,CurrentRoomName,callback){
     callback(undefined);
   });
 }
-/*//migrate
-app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', function (req, res) {
-  let PlayersID = req.params.PlayersID;
-  let UserAccountID = req.params.UserAccountID;
-  let ShopID = req.params.ShopID;
-  let ScreenName = req.params.ScreenName;
-  let Name = req.params.Name;
-  let Surname = req.params.Surname;
-  let CurrentRoomName = req.params.CurrentRoomName;
 
-  if(!isNullOrEmpty(PlayersID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(ShopID)){
-        if( !isNullOrEmpty(ScreenName)){
-          if(!isNullOrEmpty(Name)){
-            if(!isNullOrEmpty(Surname)){
-              if(!isNullOrEmpty(CurrentRoomName)){
-                PlayerUpdate(PlayersID,UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,function(response){
-                  if(response!=undefined){
-                    res.send(response);
-                  }else{
-                    res.send({PlayerUpdateFailed:true});
-                  }
-                });
-              }else{
-                res.send({CurrentRoomNameMissing:true});
-              }
-            }else{
-              res.send({SurnameMissing:true});
-            }
-          }else{
-            res.send({NameMissing:true});
-          }
-        }else{
-          res.send({ScreenNameMissing:true});
-        }
-      }else{
-        res.send({ShopIDMissing:true});
-      }
-    }else{
-      res.send({UserAccountIDMissing:true});
-    }
-  }else{
-    res.send({PlayersIDMissing:true});
-  }
-});*/
 function PlayerUpdate(PlayersID,UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,callback){
   Models.Player.update({
     ShopID: ShopID,
@@ -8992,53 +5269,7 @@ app.get('/Api/v1/Player/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-/*//migrate
-app.get('/Api/v1/Player/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.Player.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
- /* if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-   
-    let result = Models.Player.findAll({ 
-      where: {
-        PlayersID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {
 
-      res.send("Error "+result);
-    });
-    //res.send("Player "+Offset+" "+ Limit+" "+Sort);
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-    res.send("Player "+Offset+" "+ Limit+" "+Sort);
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    res.send("Player "+Offset+" "+ Limit+" "+Sort);
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-    res.send("Player "+Offset+" "+ Limit+" "+Sort);
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-    res.send("Player "+Offset+" "+ Limit+" "+Sort);
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-    res.send("Player "+Offset+" "+ Limit+" "+Sort);
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    res.send("Player "+Offset+" "+ Limit+" "+Sort);
-  }
- 
-});*/
 app.get('/Api/v1/Player/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -9073,24 +5304,7 @@ function UserInfoUserAccountID(UserAccountID,callback){
     });
 }
 
-/*//migrate
-app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) {//check for validation only
-  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  if(!isNullOrEmpty(UserAccountID)){
-    isPlayerUserAccountIDExist(UserAccountID,function(response) {
-      if(!isNullOrEmpty(response)&&response.length>0){
-        res.send({isPlayer:true});
-      }else{
-        res.send({isPlayer:false});
-      }
-      
-    });
-  }else{
-    res.send("Missing params");
-  }
-});*/
+
 
 //---Player ROUTING START
 //---Shop ROUTING START
@@ -9111,33 +5325,7 @@ app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {//check fo
     res.send("Missing params");
   }
 });
-/*//migrate
-app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
-  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
-  let UserAccountID = req.params.UserAccountID;
-  let DistributorID = req.params.DistributorID;
-  let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(DistributorID)){
-      if(!isNullOrEmpty(Description)){
-        AddShop(UserAccountID,DistributorID,Description,function(response) {
-          if(response!=undefined){
-            res.send(response);
-          }else{
-            res.send({AddShopFailed:true});
-          }
-        });
-      }else{
-        res.send({DescriptionMissing:true});
-      }
-    }else{
-      res.send({DistributorIDMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
-*/
+
 /**
  *
  *
@@ -9166,34 +5354,7 @@ function AddShop(UserAccountID,DistributorID,Description,callback){
     callback(undefined);
   });
 }
-/*
-app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
-  let ShopID = req.params.ShopID;
-  let UserAccountID = req.params.UserAccountID;
-  let DistributorID = req.params.DistributorID;
-  let Description = req.params.Description;
-  if(!isNullOrEmpty(ShopID)&&
-  !isNullOrEmpty(UserAccountID)&&
-  !isNullOrEmpty(DistributorID)&&
-  !isNullOrEmpty(Description)){
-    Models.Shop.update({
-      UserAccountID: UserAccountID,
-      DistributorID: DistributorID,
-      Description: Description
-    },{
-      where: {ShopID: ShopID }
-    })
-    .then(Success => {
-      res.send("Updated");
-    })
-    
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating");
-      res.send("Error Updating " +error);
-    });
-  }
-});*/
+
 app.get('/Api/v1/Shop/Clear', function (req, res){
   Models.Shop.destroy({
     where: {UserID:1},
@@ -9213,53 +5374,7 @@ app.get('/Api/v1/Shop/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-/*//migrate
-app.get('/Api/v1/Shop/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.Shop.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    let result = Models.Shop.findAll({ 
-      where: {
-        ShopID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-     
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
 
-      res.send("Error "+result);
-    });
-   
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-//  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
-});*/
 app.get('/Api/v1/Shop/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Shop.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -9283,33 +5398,6 @@ app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {//c
     res.send("Missing params");
   }
 });
-/*migrate
-app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
-  //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
-  let UserAccountID = req.params.UserAccountID;
-  let HeadOfficeID = req.params.HeadOfficeID;
-  let Name = req.params.Name;
-
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(HeadOfficeID)){
-      if(!isNullOrEmpty(Name)){
-        AddDistributor(UserAccountID,HeadOfficeID,Name,function(response){
-          if(response!=undefined){
-            res.send(response);
-          }else{
-            res.send({AddDistributorFailed:true});
-          }
-        });
-      }else{
-        res.send({NameMissing:true});
-      }
-    }else{
-      res.send({HeadOfficeIDMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
 
 /**
  *
@@ -9341,37 +5429,7 @@ function AddDistributor(UserAccountID,HeadOfficeID,Name,callback){
     
   });
 }
-/*//migrate
-app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', function (req, res) {
-  let DistributorID = req.params.DistributorID;
-  let UserAccountID = req.params.UserAccountID;
-  let HeadOfficeID = req.params.HeadOfficeID;
-  let Name = req.params.Name;
-  if(!isNullOrEmpty(DistributorID)){
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(HeadOfficeID)){
-        if(!isNullOrEmpty(Name)){
-          DistributorUpdate(UserAccountID,HeadOfficeID,Name,function(response){
-            if(response!=undefined){
-              res.send(response);
-            }else{
-              res.send({DistributorUpdateFailed:true});
-            }
-          });
-        }else{
-          res.send({NameFailed:true});
-        }
-      }else{
-        res.send({HeadOfficeIDFailed:true});
-      }
-    }else{
-      res.send({UserAccountIDFailed:true});
-    }
-  }else{
-    res.send({DistributorIDFailed:true});
-  }
-});
-*/
+
 /**
  *
  *
@@ -9418,52 +5476,7 @@ app.get('/Api/v1/Distributor/Delete', function (req, res){
     res.send("Error "+result);
   });
 });
-/*//migrate
-app.get('/Api/v1/Distributor/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.Distributor.sync();//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    let result = Models.Distributor.findAll({ 
-      where: {
-        DistributorID: {
-          ne: null//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-     
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
 
-      res.send("Error "+result);
-    });
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
-});*/
 app.get('/Api/v1/Distributor/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.Distributor.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -9488,35 +5501,6 @@ app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {//ch
   }
 });
 
-<<<<<<< HEAD
-=======
-// -----------------------------------migrated
->>>>>>> 4aa6b6993934ba87d5be445820a78e6d3fdddbb6
-app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
-  //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
-  let UserAccountID = req.params.UserAccountID;
-  let Name = req.params.Name;
-  let Description = req.params.Description;
-  if(!isNullOrEmpty(UserAccountID)){
-    if(!isNullOrEmpty(Name)){
-      if(!isNullOrEmpty(Description)){
-        AddHeadOffice(UserAccountID,Name,Description, function(response) {
-          if(response!=undefined){
-            res.send(response);
-          }else{
-            res.send({AddHeadOfficeFailed:true});
-          } 
-        });
-      }else{
-        res.send({DescriptionMissing:true})
-      }
-    }else{
-      res.send({NameMissing:true});
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
 
 /**
  *
@@ -9669,123 +5653,7 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
-//---HeadOffice ROUTING END
-//---Sales ROUTING START
-/*//migrate
-app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
-  let UserAccountID = req.params.UserAccountID;
-  let UserAccountIDExist = false;
-  let RegisteredDate = undefined;
-  let RegisteredTime = undefined;
-  let PlayerRelationshipResult = undefined;// the resulting parents of Player
-  let PlayerExist = false;
-  let ScreenName =undefined;
-  let CurrentPoints = undefined;
-  let UserInfoExist=undefined;
-  let PhoneNumber= undefined;
-  let TelephoneNumber= undefined;
-  let LastLogin = undefined;
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,PlayerCheck,UserInfoCheck,GetLatestLogin,GetParentPlayerLookUp],function(error,response){
-      if(UserAccountIDExist!=false){
-        if(PlayerExist==true){
-          if(ScreenName!=undefined){
-            if(CurrentPoints!=undefined){
-              if(UserInfoExist==true){
-                  let MembersListItem = PlayerRelationshipResult;
-                  MembersListItem.ScreenName = ScreenName;
-                  MembersListItem.CurrentPoints = CurrentPoints;
-                  MembersListItem.PhoneNumber= PhoneNumber;
-                  MembersListItem.TelephoneNumber = TelephoneNumber;
-                  MembersListItem.RegisteredDate = RegisteredDate;
-                  MembersListItem.RegisteredTime = RegisteredTime;
-                  MembersListItem.LastLogin= LastLogin;
-                  res.send(beautify(MembersListItem, null, 2, 100));
-                }else{
-                  res.send({UserInfoExist:false});
-                }
-              }else{
-                res.send({CurrentPointsMissing:false});
-              }
-              
-          }else{
-            res.send({ScreenNameMissing:true});
-          }
-        
-        }else{
-         res.send({PlayerExist:false});
-        }
-      }else{
-        res.send({UserAccountIDExist:false});
-      }
-      
-    });
-    function UserAccountCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          RegisteredDate= response[0].RegisteredDate;
-          RegisteredTime = response[0].RegisteredTime;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
-        }
-      });
-    }
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined&&response.length>0){
-         PlayerExist= true;
-         ScreenName = response[0].ScreenName;
-         CurrentPoints = response[0].CurrentPoints;
-         callback(null,'2');
-        }else{
-         PlayerExist= false;
-         callback(null,'2');
-        }
-      });
-    }
-    function UserInfoCheck(callback){
-      UserInfoUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          UserInfoExist=true;
-          PhoneNumber = response[0].PhoneNumber;
-          TelephoneNumber = response[0].TelephoneNumber;
-         callback(null,'3');
-        }else{
-          UserInfoExist= false;
-         callback(null,'3');
-        }
-      });
-    }
-    function GetParentPlayerLookUp(callback){//Tree Parent of a Player
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'4');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'4');
-       }
-     });
-    }
-    function GetLatestLogin(callback){
-      LoginHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          LastLogin= response[0].createdAt;
-          callback(null,'5');
-        }else{
-          LastLogin=undefined;
-          callback(null,'5');
-        }
-      });
-    }
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});*/
-//---Sales ROUTING END
+
 
 app.get('/testseq', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
