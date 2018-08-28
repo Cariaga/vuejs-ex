@@ -4653,71 +4653,6 @@ app.get('/Api/v1/UserInfo/Describe', function (req, res) {
 
 
 // mmigrated
-function AddAccessControl(AccessID,AccessName,AccessTags,callback){
-  var item1 = Models.AccessControl.build({
-    AccessID:AccessID,
-    AccessName:AccessName,
-    AccessTags:AccessTags
-  });
-  Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non producti1on
-  item1.save()
-  .then(Success => {
-    console.log("----AddUserAccount Start-----");
-    console.log(Success);
-    console.log("----AddUserAccount End-----");
-    callback("Inserted");
-  })
-  .catch(error => {
-    console.log("error inserting " +error);
-    callback(undefined);
-  });
-}
-
-
-/**
- *
- *
- * @param {*} AccessID
- * @param {*} AccessName
- * @param {*} AccessTags
- */
-function AccessControlUpdate(AccessID,AccessName,AccessTags){
-  Models.AccessControl.update({
-    AccessID: AccessID,
-    AccessName: AccessName,
-    AccessTags: AccessTags
-  },{
-    where: {AccessControlID: AccessControlID }
-  })
-  .then(Success => {
-    callback("Updated");
-  })
-  .catch(error => {
-    // mhhh, wth!
-    console.log("Error Updating " +error);
-    callback(undefined);
-  });
-}
-
-app.get('/Api/v1/AccessControl/Clear', function (req, res){
-  Models.AccessControl.destroy({
-    where: {},
-    truncate: true
-  })
-  .then(Success => {
-    res.send("Cleared");
-  })
-  .catch(err=>{
-    res.send("Truncate "+err);
-  });
-});
-app.get('/Api/v1/AccessControl/Delete', function (req, res){
-  Models.AccessControl.sync({force:true}).then(function(result) {
-    res.send("Deleted");
-  }).catch(function(result) {//catching any then errors
-    res.send("Error "+result);
-  });
-});
 app.get('/Api/v1/AccessControl/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset =  req.query.Offset;
@@ -5781,8 +5716,6 @@ app.get('/notification/', function (req, res) {
 
 
 
-
-
 app.get('/WithdrawHistory',function (req, res) {
   let UserName = req.query.UserName;
   let Password = req.query.Password;
@@ -5810,77 +5743,6 @@ app.get('/WithdrawHistory',function (req, res) {
   function ValidateBalanceCheck(callback){
     callback(null,'3');
   }
-  /*
-  async.waterfall([ValidateAccount,ValidateBalance],function(err,response){
-    MyFinalFunction();
-    
-  });
-  function ValidateAccount(callback){
-    isUserNameExist(UserName,function(response){
-      let obj = response;
-      if(!isNullOrEmpty(obj)&&obj!=undefined){
-        if(obj[0].UserName==UserName&&obj[0].Password==Password){
-          let Data =  {IsInvalidAccount:false};
-          callback(null,Data)
-        }
-      }else{
-        let Data =  {IsInvalidAccount:true};
-        callback(null,Data)
-      }
-    });
-  }
-  function ValidateBalance(arg0,callback){
-    let IsInvalidAccount = arg0.IsInvalidAccount;
-    console.log(arg0);
-    if(!IsInvalidAccount){
-      //Unconfigured
-      
-      res.send(arg0);
-      callback(null,response);
-    }else{
-      res.send(arg0);
-      callback(null,response);
-    }
-  }*/
- 
-/*
-  function MyFinalFunction(){
-    if(!isNullOrEmpty(Amount)&&Amount>0){
-      if(!isNullOrEmpty(Bank)){
-        if(!isNullOrEmpty(AccountNumber)){
-          if(!isNullOrEmpty(Name)){
-            if(!isNullOrEmpty(ContactNumber)){
-              if(!isNullOrEmpty(WithdrawPassword)){
-  
-                
-                let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:1};
-                res.send(Data);
-              }else{
-            
-                let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:true,ResponseCode:1};
-                res.send(Data);
-              }
-            }else{
-              let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:true,IsInvalidWithdrawPassword:false,ResponseCode:2};
-              res.send(Data);
-            }
-          }else{
-            let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:true,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:3};
-            res.send(Data);
-          }
-        }else{
-          let Data = {IsInvalidAmount:false,IsInvalidBankName:false,IsInvalidAccountNumber:true,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:4};
-          res.send(Data);
-        }
-      }else{
-        let Data = {IsInvalidAmount:false,IsInvalidBankName:true,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:5};
-        res.send(Data);
-      }
-    }else{
-      let Data = {IsInvalidAmount:true,IsInvalidBankName:false,IsInvalidAccountNumber:false,IsInvalidName:false,IsInvalidContactNumber:false,IsInvalidWithdrawPassword:false,ResponseCode:6};
-      res.send(Data);
-    }
-  }*/
 });
 
 
