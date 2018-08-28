@@ -1,6 +1,5 @@
-
-//--Select Start
-app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
+module.exports = function(app){
+  app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     let ShopID = req.params.ShopID;
     let UserAccountID = req.params.UserAccountID;
     let DistributorID = req.params.DistributorID;
@@ -27,7 +26,8 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
       });
     }
   });
-
+}
+module.exports = function(app){
   app.get('/Api/v1/Shop/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset =  req.query.Offset;
@@ -74,7 +74,8 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
     }
   //  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
   });
-  
+}
+module.exports = function(app){
   app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
@@ -100,6 +101,13 @@ app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/
       res.send({UserAccountIDMissing:true});
     }
   });
+}
+//--Select Start
+
+
+
+  
+
 //--Select End
 
 //--Update Start

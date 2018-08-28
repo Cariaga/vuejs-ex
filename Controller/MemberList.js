@@ -1,4 +1,6 @@
-app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
+
+module.exports = function(app){
+  app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(req,res){
     let UserAccountID = req.params.UserAccountID;
     let UserAccountIDExist = false;
     let RegisteredDate = undefined;
@@ -111,3 +113,4 @@ app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID',function(
       res.send({UserAccountIDMissing:true});
     }
   });
+}

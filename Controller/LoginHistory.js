@@ -1,6 +1,5 @@
-
-//--Select Start
-app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
+module.exports = function(app){
+  app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date',function(req,res){
     let LoginHistoryID = req.params.LoginHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let IP = req.params.IP;
@@ -50,6 +49,8 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
       res.send({LoginHistoryIDMissing:true});
     }
   });
+};
+module.exports = function(app){
   app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -61,8 +62,7 @@ app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceN
       }
     });
   });
-  
-app.get('/Api/v1/LoginHistory/', function (req, res) {
+  app.get('/Api/v1/LoginHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset =  req.query.Offset;
     let Limit =  req.query.Limit;
@@ -108,24 +108,9 @@ app.get('/Api/v1/LoginHistory/', function (req, res) {
     }
     //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
   });
-  app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let UserAccountID = req.params.UserAccountID;
-    LoginHistoryUserAccountID(UserAccountID,function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send({LoginHistoryUserAccountIDFound:false});
-      }
-    });
-  });
-//--Select End
-
-//--Update Start
-//--Update End
-
-//---LoginHistory ROUTING START
-app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
+};
+module.exports = function(app){
+  app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
     //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let IP = req.params.IP;
@@ -170,6 +155,30 @@ app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:Dev
       res.send({UserAccountIDMissing:true});
     }
   });
+}
+//--Select Start
+
+
+  
+
+  app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
+    LoginHistoryUserAccountID(UserAccountID,function(response){
+      if(response!=undefined){
+        res.send(beautify(response, null, 2, 100));
+      }else{
+        res.send({LoginHistoryUserAccountIDFound:false});
+      }
+    });
+  });
+//--Select End
+
+//--Update Start
+//--Update End
+
+//---LoginHistory ROUTING START
+
 
   /**
  *

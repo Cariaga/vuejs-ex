@@ -1,6 +1,5 @@
-
-//--Select Start
-app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
+module.exports = function(app){
+  app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/',function(req,res){
     let SeasonID = req.params.SeasonID;
     let SmallBlind = req.params.SmallBlind;
     let BigBlind = req.params.BigBlind;
@@ -39,6 +38,73 @@ app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBl
       res.send({SeasonIDMissing:true});
     }
   });
+}
+module.exports = function(app){
+  app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
+    //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
+    let SeasonID = req.params.SeasonID;
+    let SmallBlind = req.params.SmallBlind;
+    let BigBlind = req.params.BigBlind;
+    let Speed = req.params.Speed;
+    if(!isNullOrEmpty(SeasonID)){
+      if( !isNullOrEmpty(SmallBlind)){
+        if( !isNullOrEmpty(BigBlind)){
+          if(!isNullOrEmpty(Speed)){
+            if(validator.isNumeric(SmallBlind)){
+              if(validator.isNumeric(BigBlind)){
+                if(validator.isNumeric(Speed)){
+                  
+                  let IsSeasonIDFound =false;//false is the result we want
+                  async.series([IsSeasonIDExistCheck],function(error,response){
+                    if(IsSeasonIDFound==false){//must be false to be valid
+                      //Not Done
+                     /* AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,function(response){
+                       res.send(response);
+                      });*/
+                      res.send({Success:true});
+                    }else{
+                      res.send({SeasonIDAlreadyExist:true});
+                    }
+                    
+                  });
+  
+                  function IsSeasonIDExistCheck(callback2){
+                    IsSeasonIDExist(SeasonID,function(response2){
+                      if(response2!=undefined){
+                        IsSeasonIDFound=true;
+                        callback2(null,'1');
+                      }else{
+                        IsSeasonIDFound= false;
+                        callback2(null,'1');
+                      }
+                    });
+                  }
+                  
+  
+                }else{
+                  res.send({SppedInvalidValue:true});
+                }
+              }else{
+                res.send({BigBlindInvalidValue:true});
+              }
+            }else{
+              res.send({SmallBlindInvalidValue:true});
+            }
+          }else{
+            res.send({SpeedMissing:true});
+          }
+        }else{
+          res.send({BigBlindMissing:true});
+        }
+      }else{
+        res.send({SmallBlindMissing:true});
+      }
+    }else{
+      res.send({SeasonIDMissing:true});
+    }
+  });
+}
+module.exports = function(app){
   app.get('/Api/v1/RoomConfiguration/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset =  req.query.Offset;
@@ -55,6 +121,10 @@ app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBl
       });
     }
   });
+}
+//--Select Start
+
+
 //--Select End
 
 //--Update Start
@@ -63,66 +133,3 @@ app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBl
 
 
 //---RoomConfiguration ROUTING START    ---------------------------MIGRATED
-app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
-  //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
-  let SeasonID = req.params.SeasonID;
-  let SmallBlind = req.params.SmallBlind;
-  let BigBlind = req.params.BigBlind;
-  let Speed = req.params.Speed;
-  if(!isNullOrEmpty(SeasonID)){
-    if( !isNullOrEmpty(SmallBlind)){
-      if( !isNullOrEmpty(BigBlind)){
-        if(!isNullOrEmpty(Speed)){
-          if(validator.isNumeric(SmallBlind)){
-            if(validator.isNumeric(BigBlind)){
-              if(validator.isNumeric(Speed)){
-                
-                let IsSeasonIDFound =false;//false is the result we want
-                async.series([IsSeasonIDExistCheck],function(error,response){
-                  if(IsSeasonIDFound==false){//must be false to be valid
-                    //Not Done
-                   /* AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,function(response){
-                     res.send(response);
-                    });*/
-                    res.send({Success:true});
-                  }else{
-                    res.send({SeasonIDAlreadyExist:true});
-                  }
-                  
-                });
-
-                function IsSeasonIDExistCheck(callback2){
-                  IsSeasonIDExist(SeasonID,function(response2){
-                    if(response2!=undefined){
-                      IsSeasonIDFound=true;
-                      callback2(null,'1');
-                    }else{
-                      IsSeasonIDFound= false;
-                      callback2(null,'1');
-                    }
-                  });
-                }
-                
-
-              }else{
-                res.send({SppedInvalidValue:true});
-              }
-            }else{
-              res.send({BigBlindInvalidValue:true});
-            }
-          }else{
-            res.send({SmallBlindInvalidValue:true});
-          }
-        }else{
-          res.send({SpeedMissing:true});
-        }
-      }else{
-        res.send({BigBlindMissing:true});
-      }
-    }else{
-      res.send({SmallBlindMissing:true});
-    }
-  }else{
-    res.send({SeasonIDMissing:true});
-  }
-});

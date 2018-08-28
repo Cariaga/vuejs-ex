@@ -1,4 +1,5 @@
-app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
+module.exports = function(app){
+  app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let UserAccountIDExist = false;
@@ -137,3 +138,4 @@ app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, 
       res.send({UserAccountIDMissing:true});
     }
   });
+}

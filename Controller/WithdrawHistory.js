@@ -1,4 +1,5 @@
-app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
+module.exports = function(app){
+  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
     let UserAccountID =req.params.UserAccountID;
     let ApprovedDATE = req.params.ApprovedDATE;
@@ -99,3 +100,6 @@ app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/Use
       res.send({WithdrawHistoryIDMissing:true});
     }
   });
+}
+
+

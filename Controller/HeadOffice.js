@@ -1,13 +1,5 @@
-
-//--Select Start
-//--Select End
-
-//--Update Start
-//--Update End
-
-
-// -----------------------------------migrated
-app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
+module.exports = function(app){
+  app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
@@ -32,6 +24,8 @@ app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (r
       res.send({UserAccountIDMissing:true});
     }
   });
+}
+
   
   /**
    *
