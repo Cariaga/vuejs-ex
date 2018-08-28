@@ -1,6 +1,7 @@
 
 //--Select Start
-app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function(req,res){
+module.exports = function(app) {
+  app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function(req,res){
     let BankInformationID = req.params.BankInformationID;
     let UserAccountID = req.params.UserAccountID;
     let BankName = req.params.BankName;
@@ -45,13 +46,9 @@ app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankN
       res.send({BankInformationIDMissing:true});
     }
   });
-//--Select End
-
-//--Update Start
-//--Update End
-
-//---BankInformation ROUTING START
-app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
+}
+module.exports = function(app) {
+  app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
     //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let BankName = req.params.BankName;
@@ -97,6 +94,15 @@ app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Val
       res.send({UserAccountIDMissing:true});
     }
   });
+}
+
+//--Select End
+
+//--Update Start
+//--Update End
+
+//---BankInformation ROUTING START
+
 
 
   /**
