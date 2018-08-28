@@ -1,88 +1,4 @@
-
-//--Select Start
-app.get('/Api/v1/DepositHistory/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset =  req.query.Offset;
-    let Limit =  req.query.Limit;
-    let Sort =  req.query.Sort;
-    Models.DepositHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-      Models.DepositHistory.sync();
-      let result = Models.DepositHistory.findAll({ 
-        where: {
-          DepositHistoryID: {
-            ne: null//not null
-          }
-       }
-      }).then(function(result) {
-        let Data = result.map(function(item) {
-            return item;
-            
-        });
-       
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function(result) {//catching any then errors
-  
-        res.send("Error "+result);
-      });
-    }
-    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-  
-    }
-    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-  
-    }
-    //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
-  });
-app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let UserAccountID = req.params.UserAccountID;
-    let Status = req.params.Status;
-    if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
-      let isUserAccountIDFound=false;
-      async.series([IsUserAccountIDExistCheck],function(error,response){
-        if(isUserAccountIDFound==true){
-          DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
-            if(response!=undefined){
-              res.send(beautify(response, null, 2, 100));
-            }else{
-              res.send({});
-            }
-          });
-        }else{
-          res.send({UserAccountIDFound:false});
-        }
-      });
-      function IsUserAccountIDExistCheck(callback){
-        isUserAccountIDExist(UserAccountID,function(response){
-          if(response!=undefined){
-            isUserAccountIDFound=true;
-            callback(null,'1');
-          }else{
-            isUserAccountIDFound=false;
-            callback(null,'1');
-          }
-        
-        });
-        
-      }
-      
-    }else{
-      res.send({StatusInvalidValue:true});
-    }
-  });
+module.exports = function(app) {
   app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/',function(req,res){
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
@@ -320,13 +236,95 @@ app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/
       res.send({DepositHistoryIDMissing:true});
     }
   });
-//--Select End
+}
 
-//--Update Start
-//--Update End
-
-//---DepositHistory ROUTING START 
-app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
+module.exports = function(app) {
+  app.get('/Api/v1/DepositHistory/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset =  req.query.Offset;
+    let Limit =  req.query.Limit;
+    let Sort =  req.query.Sort;
+    Models.DepositHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+      Models.DepositHistory.sync();
+      let result = Models.DepositHistory.findAll({ 
+        where: {
+          DepositHistoryID: {
+            ne: null//not null
+          }
+       }
+      }).then(function(result) {
+        let Data = result.map(function(item) {
+            return item;
+            
+        });
+       
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function(result) {//catching any then errors
+  
+        res.send("Error "+result);
+      });
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    //res.send("DepositHistory "+Offset+" "+ Limit+" "+Sort);
+  });
+  app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
+    let Status = req.params.Status;
+    if(Status=="Approved"||Status=="Processing"||Status=="Rejected"){
+      let isUserAccountIDFound=false;
+      async.series([IsUserAccountIDExistCheck],function(error,response){
+        if(isUserAccountIDFound==true){
+          DepositHistoryUserAccountIDStatus(UserAccountID,Status,function(response){
+            if(response!=undefined){
+              res.send(beautify(response, null, 2, 100));
+            }else{
+              res.send({});
+            }
+          });
+        }else{
+          res.send({UserAccountIDFound:false});
+        }
+      });
+      function IsUserAccountIDExistCheck(callback){
+        isUserAccountIDExist(UserAccountID,function(response){
+          if(response!=undefined){
+            isUserAccountIDFound=true;
+            callback(null,'1');
+          }else{
+            isUserAccountIDFound=false;
+            callback(null,'1');
+          }
+        
+        });
+        
+      }
+      
+    }else{
+      res.send({StatusInvalidValue:true});
+    }
+  });
+};
+module.exports = function(app) {
+  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
      let UserAccountID = req.params.UserAccountID;
      let Amount = req.params.Amount;
@@ -442,7 +440,8 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
        res.send({UserAccountIDMissing:true});
      }  
    });
-
+}
+//---DepositHistory ROUTING START 
    /**
  *
  *
