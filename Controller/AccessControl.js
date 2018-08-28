@@ -58,13 +58,13 @@ app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/Acc
   };
 // mmigrated
 function AddAccessControl(AccessID,AccessName,AccessTags,callback){
-  var item1 = Models.AccessControl.build({
+  /*var item1 = Models.AccessControl.build({
     AccessID:AccessID,
     AccessName:AccessName,
     AccessTags:AccessTags
   });
-  Models.AccessControl.sync({alter : true/*,force:true*/});//use force only on non producti1on
-  item1.save()
+  Models.AccessControl.sync({alter : true});//use force only on non producti1on
+  /*item1.save()
   .then(Success => {
     console.log("----AddUserAccount Start-----");
     console.log(Success);
@@ -74,5 +74,5 @@ function AddAccessControl(AccessID,AccessName,AccessTags,callback){
   .catch(error => {
     console.log("error inserting " +error);
     callback(undefined);
-  });
+  });*/
 }
