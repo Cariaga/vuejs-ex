@@ -25,10 +25,9 @@
     "poker-hand-evaluator": "^1.0.1",
     "request": "^2.88.0",
     "sendmail": "^1.4.1",
-    "sequelize": "^4.38.0",
     "sort-array": "^2.0.0",
     "uuid": "^3.3.2",
-    "validator": "^10.6.0"
+    "validator": "^10.7.0"
   },
   "scripts": {
     "start": "node server.js"

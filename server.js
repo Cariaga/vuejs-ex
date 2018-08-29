@@ -28,7 +28,6 @@ var request = require('request');*/
 
 var isNullOrEmpty = require('is-null-or-empty');
 const mysql = require('mysql2');
-var Sequelize = require('sequelize');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
