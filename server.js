@@ -446,32 +446,6 @@ app.get('/DepositHistory', function (req, res) {
    }
  });
  */
-
-// simple query
-
-app.get('/testsql/:ip/', function (req, res) {
-    var mysqlHost =req.params.ip;
-    
-
-  // create the connection to database
-  //get the ip from services tab in openshift cluster ip
-  const connection = mysql.createConnection({
-    host     : '172.30.166.206',
-    user     : 'user',
-    password : 'user',
-    port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
-    database : 'sampledb'
-  });
-  connection.query(
-    'SELECT 1',
-    function(err, results, fields) {
-      console.log(err);
-      console.log(results); // results contains rows returned by server
-      console.log(fields); // fields contains extra meta data about results, if available
-      res.send(results);
-    }
-  );
-})
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
