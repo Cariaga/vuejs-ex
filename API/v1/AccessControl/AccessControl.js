@@ -3,7 +3,7 @@ let AccessControlModel = require("./AccessControlModel");
 
 
 module.exports = function (app) {//MODIFY
-  app.get('/api/tester',function(req,res){
+  app.get('/eh',function(req,res){
     res.send('test');
   });
 
