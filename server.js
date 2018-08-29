@@ -38,8 +38,9 @@ var moment = require('moment');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 
-let eh =require('./routes/v1/AccessControl/AccessControl.js')(app);
-app.use('/eh', eh);
+require('./routes/v1/AccessControl/AccessControl')(app);
+
+
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users

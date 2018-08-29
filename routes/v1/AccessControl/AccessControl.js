@@ -1,14 +1,18 @@
 //var beautify = require("json-beautify");
 //let AccessControlModel = require("./AccessControlModel");
 var express = require('express');
-const router =express.Router();
+var router = express.Router();
 
+
+/*
 router.get('/eh',function(req,res){
   res.send('test');
-});
+});*/
 
 let MODIFY = function(app) {//MODIFY
- 
+  app.get('/eh',function(req,res){
+    res.send('test');
+  });
 
   /*app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
    
