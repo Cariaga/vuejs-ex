@@ -347,7 +347,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//STRUTURE
   app.get('/Api/v1/UserAccount/Clear', function (req, res) { // will not work due to constraint
     //res.send('Doesnt clear use Delete');
     Models.UserAccount.destroy({
