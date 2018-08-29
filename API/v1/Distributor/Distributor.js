@@ -162,7 +162,7 @@ module.exports = function (app) {
     }).then(function (result) {
       res.send("Deleted");
     }).catch(function (result) { //catching any then errors
-  
+
       res.send("Error " + result);
     });
   });
@@ -174,22 +174,23 @@ module.exports = function (app) {
     });
   });
 }
-
-app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) { //check for validation only
-  let UserAccountID = req.params.UserAccountID;
-  if (!isNullOrEmpty(UserAccountID)) {
-    isDistributorUserAccountIDExist(UserAccountID, function (response) {
-      if (!isNullOrEmpty(response) && response.length > 0) {
-        res.send({
-          isDistributer: true
-        });
-      } else {
-        res.send({
-          isDistributer: false
-        });
-      }
-    });
-  } else {
-    res.send("Missing params");
-  }
-});
+module.exports = function (app) {
+  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) { //check for validation only
+    let UserAccountID = req.params.UserAccountID;
+    if (!isNullOrEmpty(UserAccountID)) {
+      isDistributorUserAccountIDExist(UserAccountID, function (response) {
+        if (!isNullOrEmpty(response) && response.length > 0) {
+          res.send({
+            isDistributer: true
+          });
+        } else {
+          res.send({
+            isDistributer: false
+          });
+        }
+      });
+    } else {
+      res.send("Missing params");
+    }
+  });
+}

@@ -438,69 +438,32 @@ module.exports = function (app) {
 }
 
 
-
-
-
-app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) { //check for validation only
-  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  if (!isNullOrEmpty(UserAccountID)) {
-    isPlayerUserAccountIDExist(UserAccountID, function (response) {
-      if (!isNullOrEmpty(response) && response.length > 0) {
-        res.send({
-          isPlayer: true
-        });
-      } else {
-        res.send({
-          isPlayer: false
-        });
-      }
-    });
-  } else {
-    res.send("Missing params");
-  }
-});
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} ShopID
- * @param {*} ScreenName
- * @param {*} Name
- * @param {*} Surname
- * @param {*} CurrentRoomName
- * @param {*} callback
- */
-
-//  ----------------------------------migrated
-function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
-  //res.send('test');
-  //Setting up the config
-  let item1 = Models.Player.build({
-    UserAccountID: UserAccountID,
-    ShopID: ShopID,
-    ScreenName: ScreenName,
-    Name: Name,
-    Surname: Surname,
-    CurrentRoomName: CurrentRoomName
+module.exports = function (app) {
+  app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) { //check for validation only
+    //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
+    if (!isNullOrEmpty(UserAccountID)) {
+      isPlayerUserAccountIDExist(UserAccountID, function (response) {
+        if (!isNullOrEmpty(response) && response.length > 0) {
+          res.send({
+            isPlayer: true
+          });
+        } else {
+          res.send({
+            isPlayer: false
+          });
+        }
+      });
+    } else {
+      res.send("Missing params");
+    }
   });
-  Models.Player.sync(); //use force to clear/delete old table non production only
-  item1.save()
-    .then(Success => {
-
-      console.log("----AddPlayer Start-----");
-      console.log(Success);
-      console.log("----AddPlayer End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting " + error);
-      callback(undefined);
-    });
-  //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
+
+
+
+
 module.exports = function (app) {
   app.get('/Api/v1/Player/Clear', function (req, res) {
     Models.Player.destroy({

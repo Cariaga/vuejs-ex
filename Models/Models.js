@@ -346,8 +346,8 @@ const HandHistory = sequelize.define('HandHistory', {
       model: GameHistory,
       key: 'SeasonID'
     }*/
- // },//foriegn key to GameHistory*/
- /* MoveHand:Sequelize.STRING,//action performed by the player
+// },//foriegn key to GameHistory*/
+/* MoveHand:Sequelize.STRING,//action performed by the player
   Something:Sequelize.STRING
 });
 

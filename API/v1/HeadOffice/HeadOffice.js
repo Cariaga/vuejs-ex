@@ -86,72 +86,75 @@ module.exports = function (app) {
     });
   });
 }
-
-app.get('/Api/v1/HeadOffice/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset = req.query.Offset;
-  let Limit = req.query.Limit;
-  let Sort = req.query.Sort;
-  Models.HeadOffice.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-    let result = Models.HeadOffice.findAll({
-      where: {
-        HeadOfficeID: {
-          ne: null //not null
-        }
-      }
-    }).then(function (result) {
-      let Data = result.map(function (item) {
-        return item;
-
-      });
-
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function (result) { //catching any then errors
-
-      res.send("Error " + result);
-    });
-  }
-  if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-  if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
-  if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-  if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-  if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-  if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
-  // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
-});
-
-
-app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
-  let HeadOfficeID = req.params.HeadOfficeID;
-  let UserAccountID = req.params.UserAccountID;
-  let Name = req.params.Name;
-
-  if (!isNullOrEmpty(HeadOfficeID)) {
-    if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(Name)) {
-        HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, function (response) {
-          if (response != undefined) {
-            res.send(response);
-          } else {
-            res.send({
-              HeadOfficeUpdateFailed: true
-            });
+module.exports = function (app) {
+  app.get('/Api/v1/HeadOffice/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset = req.query.Offset;
+    let Limit = req.query.Limit;
+    let Sort = req.query.Sort;
+    Models.HeadOffice.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+      let result = Models.HeadOffice.findAll({
+        where: {
+          HeadOfficeID: {
+            ne: null //not null
           }
+        }
+      }).then(function (result) {
+        let Data = result.map(function (item) {
+          return item;
+  
         });
+  
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function (result) { //catching any then errors
+  
+        res.send("Error " + result);
+      });
+    }
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
+    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
+    // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
+  });
+}
+
+module.exports = function (app) {
+  app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
+    let HeadOfficeID = req.params.HeadOfficeID;
+    let UserAccountID = req.params.UserAccountID;
+    let Name = req.params.Name;
+  
+    if (!isNullOrEmpty(HeadOfficeID)) {
+      if (!isNullOrEmpty(UserAccountID)) {
+        if (!isNullOrEmpty(Name)) {
+          HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, function (response) {
+            if (response != undefined) {
+              res.send(response);
+            } else {
+              res.send({
+                HeadOfficeUpdateFailed: true
+              });
+            }
+          });
+        } else {
+          res.send({
+            NameMissing: true
+          });
+        }
       } else {
         res.send({
-          NameMissing: true
+          UserAccountIDMissing: true
         });
       }
     } else {
       res.send({
-        UserAccountIDMissing: true
+        HeadOfficeIDMissing: true
       });
     }
-  } else {
-    res.send({
-      HeadOfficeIDMissing: true
-    });
-  }
-});
+  });
+}
+

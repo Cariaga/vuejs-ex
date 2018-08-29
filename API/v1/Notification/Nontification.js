@@ -1,6 +1,7 @@
 var beautify = require("json-beautify");
 //--Select Start
-app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
+module.exports = function (app) {
+  app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
@@ -36,119 +37,127 @@ app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:D
       res.send({NotificationTypeMissing:true});
     }
   });
-  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Time/:Time/Date/:Date', function (req, res) {
-    let NotificationID = req.params.NotificationID;
-    let NotificationType = req.params.NotificationType;
-    let Title = req.params.Title;
-    let Description = req.params.Description;
-    let Time = req.params.Time;
-    let Date = req.params.Date;
-    if(!isNullOrEmpty(NotificationID)){
-      if(!isNullOrEmpty(NotificationType)){
-        if(!isNullOrEmpty(Title)){
-          if(!isNullOrEmpty(Description)){
-            if(!isNullOrEmpty(Time)){
-              if(!isNullOrEmpty(Date)){
-                let NotificationIDExist= undefined;
-                async.series([IsNotificationIDExistCheck],function(error,response){
-                  if(NotificationIDExist==true){
-                    if(response!=undefined){
-                    
-                     NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
-                        res.send(response);
-                      });
+}
+
+  module.exports = function (app) {
+    app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Time/:Time/Date/:Date', function (req, res) {
+      let NotificationID = req.params.NotificationID;
+      let NotificationType = req.params.NotificationType;
+      let Title = req.params.Title;
+      let Description = req.params.Description;
+      let Time = req.params.Time;
+      let Date = req.params.Date;
+      if(!isNullOrEmpty(NotificationID)){
+        if(!isNullOrEmpty(NotificationType)){
+          if(!isNullOrEmpty(Title)){
+            if(!isNullOrEmpty(Description)){
+              if(!isNullOrEmpty(Time)){
+                if(!isNullOrEmpty(Date)){
+                  let NotificationIDExist= undefined;
+                  async.series([IsNotificationIDExistCheck],function(error,response){
+                    if(NotificationIDExist==true){
+                      if(response!=undefined){
+                      
+                       NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
+                          res.send(response);
+                        });
+                      }else{
+                        res.send({NotificationUpdateFailed:true});
+                      }
                     }else{
-                      res.send({NotificationUpdateFailed:true});
+                      res.send({NotificationIDExist:false});
                     }
-                  }else{
-                    res.send({NotificationIDExist:false});
-                  }
-                });
-                function IsNotificationIDExistCheck(callback){
-                 // console.log("IsNotificationIDExistCheck 1");
-                  IsNotificationIDExist(NotificationID,function(response){
-                  //  console.log("IsNotificationIDExistCheck 2");
-                    if(response!=undefined){
-                     // console.log("IsNotificationIDExistCheck 3");
-                      if(response[0].NotificationID==NotificationID){
-                        NotificationIDExist=true;
-                        callback(null,'1');
+                  });
+                  function IsNotificationIDExistCheck(callback){
+                   // console.log("IsNotificationIDExistCheck 1");
+                    IsNotificationIDExist(NotificationID,function(response){
+                    //  console.log("IsNotificationIDExistCheck 2");
+                      if(response!=undefined){
+                       // console.log("IsNotificationIDExistCheck 3");
+                        if(response[0].NotificationID==NotificationID){
+                          NotificationIDExist=true;
+                          callback(null,'1');
+                        }else{
+                          NotificationIDExist=undefined;
+                          callback(null,'1');
+                        }
+                     
                       }else{
                         NotificationIDExist=undefined;
                         callback(null,'1');
                       }
-                   
-                    }else{
-                      NotificationIDExist=undefined;
-                      callback(null,'1');
-                    }
-                  });
+                    });
+                  }
+    
+                }else{
+                  res.send({DateMissing:true});
                 }
-  
               }else{
-                res.send({DateMissing:true});
+                res.send({TimeMissing:true});
               }
             }else{
-              res.send({TimeMissing:true});
+              res.send({DescriptionMissing:true});
             }
           }else{
-            res.send({DescriptionMissing:true});
+            res.send({TitleMissing:true});
           }
         }else{
-          res.send({TitleMissing:true});
+          res.send({NotificationTypeMissing:true});
         }
       }else{
-        res.send({NotificationTypeMissing:true});
+        res.send({NotifiactionIDMissing:true});
       }
-    }else{
-      res.send({NotifiactionIDMissing:true});
-    }
-  });
-  app.get('/Api/v1/Notification', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset =  req.query.Offset;
-    let Limit =  req.query.Limit;
-    let Sort =  req.query.Sort;
-    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-      Models.Notification.sync();
-      let result = Models.Notification.findAll({ 
-        where: {
-          NotificationID: {
-            ne: null//not null
-          }
-       }
-      }).then(function(result) {
-        let Data = result.map(function(item) {
-            return item;
-            
+    });
+  }
+
+  module.exports = function (app) {
+    app.get('/Api/v1/Notification', function (req, res) {
+      res.setHeader('Content-Type', 'application/json');
+      let Offset =  req.query.Offset;
+      let Limit =  req.query.Limit;
+      let Sort =  req.query.Sort;
+      if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+        Models.Notification.sync();
+        let result = Models.Notification.findAll({ 
+          where: {
+            NotificationID: {
+              ne: null//not null
+            }
+         }
+        }).then(function(result) {
+          let Data = result.map(function(item) {
+              return item;
+              
+          });
+         
+          res.send(beautify(Data, null, 2, 100));
+        }).catch(function(result) {//catching any then errors
+    
+          res.send("Error "+result);
         });
-       
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function(result) {//catching any then errors
-  
-        res.send("Error "+result);
-      });
-    }
-    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-  
-    }
-    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-  
-    }
-    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-  
-    }
-   // res.send("Notification "+Offset+" "+ Limit+" "+Sort);
-  });
+      }
+      if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    
+      }
+      if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    
+      }
+      if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    
+      }
+      if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    
+      }
+      if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    
+      }
+      if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    
+      }
+     // res.send("Notification "+Offset+" "+ Limit+" "+Sort);
+    });
+  }
+
   module.exports = function (app) {
     app.get('/Api/v1/Notification/Clear', function (req, res){
       Models.Notification.destroy({

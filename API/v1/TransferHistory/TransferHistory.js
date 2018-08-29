@@ -331,18 +331,6 @@ module.exports = function (app) {
     }
   });
 }
-
-
-//--Select End
-
-//--Update Start
-//--Update End
-
-
-
-
-
-
 //Transaction list of a player not to be confued with TransferHistory between players
 //NOT A TRASFER HISTORY but a transactions performed on and by the PLAYER to SELF Account
 app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, res) { //A combination of Deposit and Withdraw List in one request but for the player its self
