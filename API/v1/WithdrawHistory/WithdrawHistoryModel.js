@@ -136,3 +136,67 @@ function WithdrawHistoryUpdate(WithdrawHistoryID,UserAccountID,Amount,BankNameUs
       callback(undefined);
     });
   }
+  function HandHistoryUserAccountID(UserAccountID,callback){
+    Models.HandHistory.sync();
+    let result = Models.HandHistory.findAll({ 
+      where: {
+        UserAccountID:UserAccountID
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+      
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
+  }
+  function AddUserInfo(UserAccountID,Email,PhoneNumber,TelephoneNumber,callback){
+
+    Models.UserInfo.sync(/*{force:true}*/);
+    var item1 = Models.UserInfo.build({
+      UserAccountID:UserAccountID,
+      Email:Email,
+      PhoneNumber:PhoneNumber,
+      TelephoneNumber:TelephoneNumber
+    });
+    Models.UserInfo.sync();//only use force true if you want to destroy replace table
+    item1.save()
+    .then(Success => {
+      callback("Inserted");
+    })
+    .catch(error => {
+    
+      console.log("error inserting " +error);
+      callback(undefined);
+    });
+}
+function WithdrawHistoryUserAccountID(UserAccountID,callback){
+    Models.WithdrawHistory.sync();
+      let result = Models.WithdrawHistory.findAll({ 
+        where: {
+          UserAccountID:UserAccountID
+       }
+      }).then(function(result) {
+        let Data = result.map(function(item) {
+            return item;
+            
+        });
+        if(Data.length>0){
+          callback(Data);
+        }else{
+          callback(undefined);
+        }
+       
+      }).catch(function(result) {//catching any then errors
+        console.log("Error "+result);
+        callback(undefined);
+      });
+  }

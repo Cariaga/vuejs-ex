@@ -178,3 +178,24 @@ app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+
+app.get('/Api/v1/UserInfo/Clear', function (req, res){
+  Models.UserInfo.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});
+app.get('/Api/v1/UserInfo/Delete', function (req, res){
+  Models.UserInfo.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+});

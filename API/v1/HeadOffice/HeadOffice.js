@@ -27,34 +27,110 @@ module.exports = function(app){
 }
 
   
-  /**
-   *
-   *
-   * @param {*} UserAccountID
-   * @param {*} Name
-   * @param {*} Description
-   * @param {*} callback
-   */
-  
-  // -------------------------migrated
-  function AddHeadOffice(UserAccountID,Name,Description,callback){
-    var item1 = Models.HeadOffice.build({
-      UserAccountID:UserAccountID,
-      Name:Name,
-      Description:Description
-    });
-    Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
-    item1.save()
-    .then(Success => {
-    
-      console.log("----AddHeadOffice Start-----");
-      console.log(Success);
-      console.log("----AddHeadOffice End-----");
-      callback("Inserted");
+
+  app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {//check for validation only
+    let UserAccountID = req.params.UserAccountID;
+    if(!isNullOrEmpty(UserAccountID)){
+      isHeadOfficeUserAccountIDExist(UserAccountID,function(response) {
+        if(!isNullOrEmpty(response)&&response.length>0){
+          res.send({isHeadOffice:true});
+        }else{
+          res.send({isHeadOffice:false});
+        }
+      });
+    }else{
+      res.send("Missing params");
+    }
+  });
+  app.get('/Api/v1/HeadOffice/Clear', function (req, res){
+    Models.HeadOffice.destroy({
+      where: {},
+      truncate: true
     })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting " +error);
-      callback(undefined);
+    .then(Success => {
+      res.send("Cleared");
+    })
+    .catch(err=>{
+      res.send("Truncate "+err);
     });
-  }
+  });
+  app.get('/Api/v1/HeadOffice/Delete', function (req, res){
+    Models.HeadOffice.sync({force:true}).then(function(result) {
+      res.send("Deleted");
+    }).catch(function(result) {//catching any then errors
+  
+      res.send("Error "+result);
+    });
+  });
+  app.get('/Api/v1/HeadOffice/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset =  req.query.Offset;
+    let Limit =  req.query.Limit;
+    let Sort =  req.query.Sort;
+    Models.HeadOffice.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+      let result = Models.HeadOffice.findAll({ 
+        where: {
+          HeadOfficeID: {
+            ne: null//not null
+          }
+       }
+      }).then(function(result) {
+        let Data = result.map(function(item) {
+            return item;
+            
+        });
+       
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function(result) {//catching any then errors
+  
+        res.send("Error "+result);
+      });
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    }
+    if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    }
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    }
+   // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
+  });
+  app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    Models.HeadOffice.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.HeadOffice.describe().then(result=>{
+      res.send(beautify(result, null, 2, 100));
+    });
+  });
+  
+  app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
+    let HeadOfficeID = req.params.HeadOfficeID;
+    let UserAccountID = req.params.UserAccountID;
+    let Name = req.params.Name;
+  
+    if(!isNullOrEmpty(HeadOfficeID)){
+      if(!isNullOrEmpty(UserAccountID)){
+        if(!isNullOrEmpty(Name)){
+          HeadOfficeUpdate(HeadOfficeID,UserAccountID,Name,function(response){
+            if(response!=undefined){
+              res.send(response);
+            }else{
+              res.send({HeadOfficeUpdateFailed:true});
+            }
+          });
+        }else{
+          res.send({NameMissing:true});
+        }
+      }else{
+        res.send({UserAccountIDMissing:true});
+      }
+    }else{
+      res.send({HeadOfficeIDMissing:true});
+    }
+  });

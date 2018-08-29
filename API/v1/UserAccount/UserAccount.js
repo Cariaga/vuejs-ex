@@ -295,21 +295,65 @@ module.exports = function(app){
     }
   });
 }
-//--Select Start
 
+app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to constraint
+  //res.send('Doesnt clear use Delete');
+    Models.UserAccount.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
 
+});
+app.get('/Api/v1/UserAccount/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  let Offset =  req.query.Offset;
+  let Limit =  req.query.Limit;
+  let Sort =  req.query.Sort;
+  Models.UserAccount.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+    Models.UserAccount.sync();
+    let result = Models.UserAccount.findAll({ 
+      where: {
+        UserID: {
+          ne: null//not null
+        }
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function(result) {//catching any then errors
+      res.send("Error "+result);
+    });
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
+  }
+  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
+  }
+  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
+  }
+  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
 
-//--Select End
+  }
+  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
 
-//--Update Start
-//--Update End
-
-
-
+  }
+  //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
+});
 
 
 
@@ -358,3 +402,10 @@ function AddUserAccount(UserAccountID,AccessID,UserName,Password,Verify,ValidKey
     callback(undefined);
   });
 }
+app.get('/Api/v1/UserAccount/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.UserAccount.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.UserAccount.describe().then(result=>{
+    res.send(beautify(result, null, 2, 100));
+  });
+});

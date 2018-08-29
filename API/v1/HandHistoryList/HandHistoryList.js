@@ -126,3 +126,15 @@ module.exports = function(app){
   });
 }
  
+app.get('/Api/v1/HandHistory/Clear', function (req, res) {
+  Models.HandHistory.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});

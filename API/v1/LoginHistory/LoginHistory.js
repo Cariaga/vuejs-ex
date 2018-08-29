@@ -180,36 +180,76 @@ module.exports = function(app){
 //---LoginHistory ROUTING START
 
 
-  /**
- *
- *
- * @param {*} LoginHistoryID
- * @param {*} UserAccountID
- * @param {*} IP
- * @param {*} DeviceName
- * @param {*} DeviceRam
- * @param {*} DeviceCpu
- * @param {*} Time
- * @param {*} Date
- * @param {*} callback
- */
-function LoginHistoryUpdate(LoginHistoryID,UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,callback){
-    Models.LoginHistory.update({
-      IP: IP,
-      DeviceName: DeviceName,
-      DeviceRam: DeviceRam,
-      DeviceCpu: DeviceCpu,
-      Time: Time,
-      Date: Date
-    },{
-      where: {LoginHistoryID: LoginHistoryID,UserAccountID: UserAccountID }
+  app.get('/Api/v1/LoginHistory/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset =  req.query.Offset;
+    let Limit =  req.query.Limit;
+    let Sort =  req.query.Sort;
+    Models.LoginHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+      Models.LoginHistory.sync();
+      let result = Models.LoginHistory.findAll({ 
+        where: {
+          LoginHistoryID: {
+            ne: null//not null
+          }
+       }
+      }).then(function(result) {
+        let Data = result.map(function(item) {
+            return item;
+            
+        });
+       
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function(result) {//catching any then errors
+  
+        res.send("Error "+result);
+      });
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  
+    }
+    if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  
+    }
+    //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
+  });
+  app.get('/Api/v1/LoginHistory/Clear', function (req, res){
+    Models.LoginHistory.destroy({
+      where: {},
+      truncate: true
     })
     .then(Success => {
-      callback("Updated");
+      res.send("Cleared");
     })
-    .catch(error => {
-     
-      console.log("Error Updating " +error);
-      callback(undefined);
-    }); 
-  }
+    .catch(err=>{
+      res.send("Truncate "+err);
+    });
+  });
+  app.get('/Api/v1/LoginHistory/Delete', function (req, res){
+    Models.LoginHistory.sync({force:true}).then(function(result) {
+      res.send("Deleted");
+    }).catch(function(result) {//catching any then errors
+  
+      res.send("Error "+result);
+    });
+  });
+  app.get('/Api/v1/LoginHistory/Describe', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    Models.LoginHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.LoginHistory.describe().then(result=>{
+      res.send(beautify(result, null, 2, 100));
+    });
+  });

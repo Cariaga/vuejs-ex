@@ -212,3 +212,31 @@ app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Des
     res.send(Data);
   }
 });
+app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.SupportTicket.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.SupportTicket.describe().then(result=>{
+    res.send(beautify(result, null, 2, 100));
+  });
+});
+
+app.get('/Api/v1/SupportTicket/Clear', function (req, res){
+  Models.SupportTicket.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});
+app.get('/Api/v1/SupportTicket/Delete', function (req, res){
+  Models.SupportTicket.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+});

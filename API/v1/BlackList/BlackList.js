@@ -243,10 +243,31 @@ module.exports = function(app) {
   });
 }
   
+app.get('/Api/v1/BlackList/Clear', function (req, res){
+  Models.BlackList.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});
+app.get('/Api/v1/BlackList/Delete', function (req, res){
+  Models.BlackList.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
 
+    res.send("Error "+result);
+  });
+});
 
- 
-//--Select End
-
-//--Update Start
-//--Update End
+app.get('/Api/v1/BlackList/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.BlackList.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.BlackList.describe().then(result=>{
+    res.send(beautify(result, null, 2, 100));
+  });
+});

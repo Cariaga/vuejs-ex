@@ -427,3 +427,31 @@ function AddPlayer(UserAccountID,ShopID,ScreenName,Name,Surname,CurrentRoomName,
     });
     //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
+app.get('/Api/v1/Player/Clear', function (req, res){
+  Models.Player.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});
+app.get('/Api/v1/Player/Delete', function (req, res){
+  
+  Models.Player.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+});
+app.get('/Api/v1/Player/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.Player.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.Player.describe().then(result=>{
+    res.send(beautify(result, null, 2, 100));
+  });
+});

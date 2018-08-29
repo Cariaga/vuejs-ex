@@ -340,3 +340,30 @@ function AddGameHistory(UserAccountID,RoundID,SeasonID,Rank,Score,Card,Time,Date
     callback(undefined);
   });
 }
+app.get('/Api/v1/GameHistory/Clear', function (req, res){
+  Models.GameHistory.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});
+app.get('/Api/v1/GameHistory/Delete', function (req, res){
+  Models.GameHistory.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+});
+app.get('/Api/v1/GameHistory/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.GameHistory.sync();//Never call Alter or Force during a Database table Alter process before knowing that it can query select all first
+  Models.GameHistory.describe().then(result=>{
+    res.send(beautify(result, null, 2, 100));
+  });
+});

@@ -110,3 +110,58 @@ function DepositHistoryIDUserAccountID(UserAccountID,DepositHistoryID,callback){
       callback(undefined);
     });
   }
+  /**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Status
+ * @param {*} callback
+ */
+function DepositHistoryUserAccountIDStatus(UserAccountID,Status,callback){
+    Models.DepositHistory.sync();
+    let result = Models.DepositHistory.findAll({ 
+      where: {
+        UserAccountID:UserAccountID,
+        Status:Status
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+          
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
+  }
+  /**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} callback
+ */
+function DepositHistoryUserAccountID(UserAccountID,callback){
+    Models.DepositHistory.sync();
+    let result = Models.DepositHistory.findAll({ 
+      where: {
+        UserAccountID:UserAccountID
+     }
+    }).then(function(result) {
+      let Data = result.map(function(item) {
+          return item;
+      });
+      if(Data.length>0){
+        callback(Data);
+      }else{
+        callback(undefined);
+      }
+    }).catch(function(result) {//catching any then errors
+      console.log("Error "+result);
+      callback(undefined);
+    });
+  }

@@ -123,3 +123,32 @@ module.exports = function(app){
   });
 }
 
+app.get('/Api/v1/Distributor/Clear', function (req, res){
+  Models.Distributor.destroy({
+    where: {},
+    truncate: true
+  })
+  .then(Success => {
+    res.send("Cleared");
+  })
+  .catch(err=>{
+    res.send("Truncate "+err);
+  });
+});
+app.get('/Api/v1/Distributor/Delete', function (req, res){
+  Models.Distributor.sync({force:true}).then(function(result) {
+    res.send("Deleted");
+  }).catch(function(result) {//catching any then errors
+
+    res.send("Error "+result);
+  });
+});
+app.get('/Api/v1/Distributor/Describe', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  Models.Distributor.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.Distributor.describe().then(result=>{
+    res.send(beautify(result, null, 2, 100));
+  });
+});
+//---Distributor ROUTING END
+//---HeadOffice ROUTING START
