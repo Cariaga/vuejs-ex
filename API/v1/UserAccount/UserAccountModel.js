@@ -117,3 +117,47 @@ function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { /
       callback(undefined);
     });
 }
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} AccessID
+ * @param {*} UserName
+ * @param {*} Password
+ * @param {*} Verify
+ * @param {*} ValidKey
+ * @param {*} RegisteredDate
+ * @param {*} RegisteredTime
+ * @param {*} callback
+ */
+
+// ---------------------migrated
+function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
+  var item1 = Models.UserAccount.build({
+    UserAccountID: UserAccountID,
+    AccessID: AccessID,
+    UserName: UserName,
+    Password: Password,
+    Verify: Verify,
+    ValidKey: ValidKey,
+    RegisteredDate: RegisteredDate,
+    RegisteredTime: RegisteredTime
+  });
+  //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
+  Models.UserAccount.sync({
+    alter: true /*,force:true*/
+  });
+  item1.save()
+    .then(Success => {
+
+      console.log("----AddUserAccount Start-----");
+      console.log(Success);
+      console.log("----AddUserAccount End-----");
+      callback("Inserted");
+    })
+    .catch(error => {
+      // mhhh, wth!
+      console.log("error inserting UserAccountID:" + UserAccountID + " \n AccessID:" + AccessID + "\n UserName:" + UserName + "\n Password:" + Password + "\n Verify:" + Verify + "\n ValidKey:" + ValidKey + "\n RegisteredDate:" + RegisteredDate + "\n RegisteredTime:" + RegisteredTime);
+      callback(undefined);
+    });
+}

@@ -42,6 +42,47 @@ function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Tim
 /**
  *
  *
+ * @param {*} UserAccountID
+ * @param {*} RoundID
+ * @param {*} SeasonID
+ * @param {*} Rank
+ * @param {*} Score
+ * @param {*} Card
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} BeforePoints
+ * @param {*} AfterPoints
+ * @param {*} callback
+ */
+function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
+  Models.GameHistory.sync();
+  var item1 = Models.GameHistory.build({
+    UserAccountID: UserAccountID,
+    RoundID: RoundID,
+    SeasonID: SeasonID,
+    Rank: Rank,
+    Score: Score,
+    Card: Card,
+    Time: Time,
+    Date: Date,
+    BeforePoints: BeforePoints,
+    AfterPoints: AfterPoints
+  });
+  Models.GameHistory.sync(); //use force to delete old table non production
+  item1.save()
+    .then(Success => {
+      callback("Inserted");
+    })
+
+    .catch(error => {
+
+      console.log("error inserting " + error);
+      callback(undefined);
+    });
+}
+/**
+ *
+ *
  * @param {*} callback
  */
 function GameHistory(callback) {

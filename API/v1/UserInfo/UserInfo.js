@@ -265,31 +265,3 @@ module.exports = function (app) {
 
 
 
-
-
-
-
-//---UserInfo ROUTING START
-
-
-// migrated
-function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
-
-  Models.UserInfo.sync( /*{force:true}*/ );
-  var item1 = Models.UserInfo.build({
-    UserAccountID: UserAccountID,
-    Email: Email,
-    PhoneNumber: PhoneNumber,
-    TelephoneNumber: TelephoneNumber
-  });
-  Models.UserInfo.sync(); //only use force true if you want to destroy replace table
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
-
-      console.log("error inserting " + error);
-      callback(undefined);
-    });
-}

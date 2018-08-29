@@ -149,24 +149,7 @@ module.exports = function (app) {
 
 
 
-function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
-  Models.HandHistory.sync( /*{force:true}*/ );
-  var item1 = Models.HandHistory.build({
-    UserAccountID: UserAccountID,
-    MoveHand: MoveHand,
-    RoundID: RoundID
-  });
-  Models.HandHistory.sync(); //only use force true if you want to destroy replace table
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
 
-      console.log("error inserting " + error);
-      callback(undefined);
-    });
-}
 app.get('/Api/v1/HandHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   Models.HandHistory.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
