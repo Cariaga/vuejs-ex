@@ -1,6 +1,14 @@
 var beautify = require("json-beautify");
+let AccessControlModel = require("./AccessControlModel");
+
+
 module.exports = function (app) {//MODIFY
-  app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
+  app.get('/api/tester',function(req,res){
+    res.send('test');
+  });
+
+  /*app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
+   
     let AccessControlID = req.params.AccessControlID;
     let AccessID = req.params.AccessID;
     let AccessName = req.params.AccessName;
@@ -9,7 +17,7 @@ module.exports = function (app) {//MODIFY
       if (!isNullOrEmpty(AccessID)) {
         if (!isNullOrEmpty(AccessName)) {
           if (!isNullOrEmpty(AccessTags)) {
-            AccessControlUpdate(AccessID, AccessName, AccessTags, function (response) {
+            AccessControlModel.AccessControlUpdate(AccessID, AccessName, AccessTags, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -38,7 +46,7 @@ module.exports = function (app) {//MODIFY
         AccessControlIDMissing: true
       });
     }
-  });
+  });*/
 }
 module.exports = function (app) {//INSERT
   app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
@@ -73,9 +81,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-};
-
-
+}
 module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/AccessControl/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
