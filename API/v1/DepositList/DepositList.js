@@ -104,8 +104,6 @@ module.exports = function (app) {
     }
 
   });
-}
-module.exports = function (app) {
   app.get('/Api/v1/DepositList/UserAccountID/:UserAccountID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;

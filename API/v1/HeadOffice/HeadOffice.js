@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
     let UserAccountID = req.params.UserAccountID;
@@ -33,29 +33,30 @@ module.exports = function (app) {
       });
     }
   });
+  app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) { //check for validation only
+    let UserAccountID = req.params.UserAccountID;
+    if (!isNullOrEmpty(UserAccountID)) {
+      isHeadOfficeUserAccountIDExist(UserAccountID, function (response) {
+        if (!isNullOrEmpty(response) && response.length > 0) {
+          res.send({
+            isHeadOffice: true
+          });
+        } else {
+          res.send({
+            isHeadOffice: false
+          });
+        }
+      });
+    } else {
+      res.send("Missing params");
+    }
+  });
 }
 
 
 
-app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) { //check for validation only
-  let UserAccountID = req.params.UserAccountID;
-  if (!isNullOrEmpty(UserAccountID)) {
-    isHeadOfficeUserAccountIDExist(UserAccountID, function (response) {
-      if (!isNullOrEmpty(response) && response.length > 0) {
-        res.send({
-          isHeadOffice: true
-        });
-      } else {
-        res.send({
-          isHeadOffice: false
-        });
-      }
-    });
-  } else {
-    res.send("Missing params");
-  }
-});
-module.exports = function (app) {
+
+module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/HeadOffice/Clear', function (req, res) {
     Models.HeadOffice.destroy({
         where: {},
@@ -86,7 +87,7 @@ module.exports = function (app) {
     });
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/HeadOffice/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -122,7 +123,7 @@ module.exports = function (app) {
   });
 }
 
-module.exports = function (app) {
+module.exports = function (app) {//MODIFY
   app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
     let HeadOfficeID = req.params.HeadOfficeID;
     let UserAccountID = req.params.UserAccountID;

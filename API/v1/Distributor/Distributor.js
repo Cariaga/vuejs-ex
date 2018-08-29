@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/Distributor/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -45,9 +45,27 @@ module.exports = function (app) {
     }
     //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
   });
+  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) { //check for validation only
+    let UserAccountID = req.params.UserAccountID;
+    if (!isNullOrEmpty(UserAccountID)) {
+      isDistributorUserAccountIDExist(UserAccountID, function (response) {
+        if (!isNullOrEmpty(response) && response.length > 0) {
+          res.send({
+            isDistributer: true
+          });
+        } else {
+          res.send({
+            isDistributer: false
+          });
+        }
+      });
+    } else {
+      res.send("Missing params");
+    }
+  });
 }
 
-module.exports = function (app) {
+module.exports = function (app) {//MODIFY
   app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', function (req, res) {
     let DistributorID = req.params.DistributorID;
     let UserAccountID = req.params.UserAccountID;
@@ -88,7 +106,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
     //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
     let UserAccountID = req.params.UserAccountID;
@@ -143,7 +161,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/Distributor/Clear', function (req, res) {
     Models.Distributor.destroy({
         where: {},
@@ -175,22 +193,5 @@ module.exports = function (app) {
   });
 }
 module.exports = function (app) {
-  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) { //check for validation only
-    let UserAccountID = req.params.UserAccountID;
-    if (!isNullOrEmpty(UserAccountID)) {
-      isDistributorUserAccountIDExist(UserAccountID, function (response) {
-        if (!isNullOrEmpty(response) && response.length > 0) {
-          res.send({
-            isDistributer: true
-          });
-        } else {
-          res.send({
-            isDistributer: false
-          });
-        }
-      });
-    } else {
-      res.send("Missing params");
-    }
-  });
+  
 }

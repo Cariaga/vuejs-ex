@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//MODIFY
   app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Point = req.params.Point;
@@ -375,7 +375,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
     //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
     let UserAccountID = req.params.UserAccountID;
@@ -456,7 +456,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/Player/Clear', function (req, res) {
     Models.Player.destroy({
         where: {},

@@ -262,7 +262,7 @@ module.exports = function (app) {
   });
 }
 
-module.exports = function (app) {
+module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/SupportTicket/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.SupportTicket.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database

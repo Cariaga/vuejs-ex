@@ -1,6 +1,6 @@
 var beautify = require("json-beautify");
 //--Select Start
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
@@ -39,7 +39,7 @@ module.exports = function (app) {
   });
 }
 
-  module.exports = function (app) {
+  module.exports = function (app) {//MODIFY
     app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Time/:Time/Date/:Date', function (req, res) {
       let NotificationID = req.params.NotificationID;
       let NotificationType = req.params.NotificationType;
@@ -110,7 +110,7 @@ module.exports = function (app) {
     });
   }
 
-  module.exports = function (app) {
+  module.exports = function (app) {//SELECTION
     app.get('/Api/v1/Notification', function (req, res) {
       res.setHeader('Content-Type', 'application/json');
       let Offset =  req.query.Offset;
@@ -158,7 +158,7 @@ module.exports = function (app) {
     });
   }
 
-  module.exports = function (app) {
+  module.exports = function (app) {//STRUCTURE
     app.get('/Api/v1/Notification/Clear', function (req, res){
       Models.Notification.destroy({
         where: {},

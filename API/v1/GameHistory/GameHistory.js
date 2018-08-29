@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//MODIFY
   app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
 
     let GameHistoryID = req.params.GameHistoryID;
@@ -153,7 +153,7 @@ module.exports = function (app) {
       }*/
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/GameHistory', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -191,7 +191,7 @@ module.exports = function (app) {
     //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
     //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
     res.setHeader('Content-Type', 'application/json');
@@ -359,7 +359,7 @@ module.exports = function (app) {
 
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/GameHistory/Clear', function (req, res) {
     Models.GameHistory.destroy({
         where: {},

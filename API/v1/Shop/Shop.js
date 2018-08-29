@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//MODIFY
   app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     let ShopID = req.params.ShopID;
     let UserAccountID = req.params.UserAccountID;
@@ -30,7 +30,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/Shop/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -77,8 +77,29 @@ module.exports = function (app) {
     }
     //  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
   });
+  app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) { //check for validation only
+    //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
+    if (!isNullOrEmpty(UserAccountID)) {
+      isShopUserAccountIDExist(UserAccountID, function (response) {
+        if (!isNullOrEmpty(response) && response.length > 0) {
+          res.send({
+            isShop: true
+          });
+        } else {
+          res.send({
+            isShop: false
+          });
+        }
+  
+      });
+    } else {
+      res.send("Missing params");
+    }
+  });
 }
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
@@ -113,7 +134,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/Shop/Clear', function (req, res) {
     Models.Shop.destroy({
         where: {
@@ -143,28 +164,5 @@ module.exports = function (app) {
     Models.Shop.describe().then(result => {
       res.send(beautify(result, null, 2, 100));
     });
-  });
-}
-module.exports = function (app) {
-  app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) { //check for validation only
-    //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
-    res.setHeader('Content-Type', 'application/json');
-    let UserAccountID = req.params.UserAccountID;
-    if (!isNullOrEmpty(UserAccountID)) {
-      isShopUserAccountIDExist(UserAccountID, function (response) {
-        if (!isNullOrEmpty(response) && response.length > 0) {
-          res.send({
-            isShop: true
-          });
-        } else {
-          res.send({
-            isShop: false
-          });
-        }
-  
-      });
-    } else {
-      res.send("Missing params");
-    }
   });
 }

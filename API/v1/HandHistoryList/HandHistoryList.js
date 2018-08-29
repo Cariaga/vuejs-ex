@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -38,7 +38,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
     //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
@@ -149,7 +149,7 @@ module.exports = function (app) {
     }
   });
 }
-module.exports = function (app) {
+module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/HandHistory/Clear', function (req, res) {
     Models.HandHistory.destroy({
         where: {},
