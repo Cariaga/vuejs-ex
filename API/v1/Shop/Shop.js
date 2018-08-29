@@ -128,3 +128,20 @@ app.get('/Api/v1/Shop/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
+app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {//check for validation only
+  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
+  res.setHeader('Content-Type', 'application/json');
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    isShopUserAccountIDExist(UserAccountID,function(response) {
+      if(!isNullOrEmpty(response)&&response.length>0){
+        res.send({isShop:true});
+      }else{
+        res.send({isShop:false});
+      }
+      
+    });
+  }else{
+    res.send("Missing params");
+  }
+});

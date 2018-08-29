@@ -150,5 +150,17 @@ app.get('/Api/v1/Distributor/Describe', function (req, res) {
     res.send(beautify(result, null, 2, 100));
   });
 });
-//---Distributor ROUTING END
-//---HeadOffice ROUTING START
+app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {//check for validation only
+  let UserAccountID = req.params.UserAccountID;
+  if(!isNullOrEmpty(UserAccountID)){
+    isDistributorUserAccountIDExist(UserAccountID,function(response) {
+      if(!isNullOrEmpty(response)&&response.length>0){
+        res.send({isDistributer:true});
+      }else{
+        res.send({isDistributer:false});
+      }
+    });
+  }else{
+    res.send("Missing params");
+  }
+});

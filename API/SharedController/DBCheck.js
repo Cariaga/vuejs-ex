@@ -395,3 +395,30 @@ function IsSeasonIDExist(SeasonID,callback){
   }
   
 }
+/**
+ *
+ *
+ * @param {*} NotificationID
+ * @param {*} callback
+ */
+function IsNotificationIDExist(NotificationID,callback){
+  Models.Notification.sync();
+  let result = Models.Notification.findAll({ 
+    where: {
+      NotificationID:NotificationID
+   }
+  }).then(function(result) {
+    let Data = result.map(function(item) {
+        return item;
+        
+    });
+    if(Data.length>0){
+      callback(Data);
+    }else{
+      callback(undefined);
+    }
+  }).catch(function(result) {//catching any then errors
+    console.log("Error "+result);
+    callback(undefined);
+  });
+}

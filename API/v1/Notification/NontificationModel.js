@@ -1,10 +1,4 @@
-app.get('/Api/v1/Notification/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.Notification.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.Notification.describe().then(result=>{
-      res.send(beautify(result, null, 2, 100));
-    });
-  });
+
 
   /**
  *
@@ -36,3 +30,37 @@ function NotificationUpdate(NotificationID,NotificationType,Title,Description,Ti
     callback(undefined);
   }); 
 }
+
+/**
+ *
+ *
+ * @param {*} NotificationType
+ * @param {*} Title
+ * @param {*} Description
+ * @param {*} Time
+ * @param {*} Date
+ * @param {*} callback
+ */
+function AddNotification(NotificationType,Title,Description,Time,Date,callback){
+  var item1 = Models.Notification.build({
+    NotificationType:NotificationType,
+    Title:Title,
+    Description:Description,
+    Time:Time,
+    Date:Date
+  });
+  Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
+  item1.save()
+  .then(Success => {
+    console.log("----AddNotification Start-----");
+    console.log(Success);
+    console.log("----AddNotification End-----");
+    callback("Inserted");
+  })
+  
+  .catch(error => {
+    console.log("error inserting " +error);
+    callback(undefined);
+  });
+}
+
