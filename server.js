@@ -246,12 +246,6 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
     connection.end();
 });
 
-
-
-
-
-
-
 //--Login End
 
 //--API START

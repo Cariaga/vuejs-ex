@@ -26,3 +26,4 @@ function AddShop(UserAccountID,DistributorID,Description,callback){
       callback(undefined);
     });
   }
+  
