@@ -13,6 +13,9 @@ module.exports = function(app) {//MODIFY
   app.get('/eh',function(req,res){
     res.send('test');
   });
+  app.get('/eh2',function(req,res){
+    res.send('test2');
+  });
 
   /*app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
    
@@ -99,4 +102,3 @@ module.exports = function(app) {//MODIFY
     });
   });
 }*/
-module.exports = router;
