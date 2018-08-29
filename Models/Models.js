@@ -628,4 +628,4 @@ const Notification =sequelize.define('Notification', {
   module.exports.BlackList =BlackList;
   module.exports.SupportTicket =SupportTicket;
   module.exports.Notification =Notification;
-  module.exports.Item =Item;
+  module.exports.Item =Item;*/
