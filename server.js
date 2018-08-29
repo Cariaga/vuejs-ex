@@ -40,7 +40,7 @@ const sendmail = require('sendmail')();
 
 require("./routes/test")(app);
 //var Models = require("./Models/Models");
-var Controller = require('./API/v1/AccessControl/AccessControl')(app);
+require('./API/v1/AccessControl/AccessControl')(app);
 
 
 // configuration =================
