@@ -258,6 +258,7 @@ app.get('/Api/v1', function (req, res) {
 });
 //--API version START
 
+/*
 app.get('/Api/v1/Show/Tables/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   sequelize.query("show tables", { type: sequelize.QueryTypes.SELECT})
@@ -265,7 +266,7 @@ app.get('/Api/v1/Show/Tables/', function (req, res) {
     res.send(beautify(Tables, null, 2, 100));
   })
 });
-
+*/
 //---API SignOut Start
 
 
