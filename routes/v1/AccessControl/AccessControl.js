@@ -46,7 +46,7 @@ module.exports = function(app) {//MODIFY
       });
     }
   });*/
-}
+};
 
 /*module.exports = function (app) {//INSERT
   app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
@@ -90,4 +90,4 @@ module.exports = function (app) {//STRUCTURE
       res.send(beautify(result, null, 2, 100));
     });
   });
-}
+}*/
