@@ -48,7 +48,7 @@ module.exports = function(app) {//MODIFY
   });*/
 };
 
-/*module.exports = function (app) {//INSERT
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
     let AccessID = req.params.AccessID;
     let AccessName = req.params.AccessName;
@@ -86,8 +86,8 @@ module.exports = function (app) {//STRUCTURE
   app.get('/Api/v1/AccessControl/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.AccessControl.sync( ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  /*  Models.AccessControl.describe().then(result => {
+    Models.AccessControl.describe().then(result => {
       res.send(beautify(result, null, 2, 100));
     });
   });
-}*/
+}
