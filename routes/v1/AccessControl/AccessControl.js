@@ -9,7 +9,7 @@ router.get('/eh',function(req,res){
   res.send('test');
 });*/
 
-let MODIFY = function(app) {//MODIFY
+module.exports = function(app) {//MODIFY
   app.get('/eh',function(req,res){
     res.send('test');
   });
