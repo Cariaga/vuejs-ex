@@ -132,86 +132,63 @@ module.exports = function (app) {
     }
   });
 }
-
-
-app.get('/Api/v1/WithdrawHistory/Clear', function (req, res) {
-  Models.WithdrawHistory.destroy({
-      where: {},
-      truncate: true
-    })
-    .then(Success => {
-      res.send("Cleared");
-    })
-    .catch(err => {
-      res.send("Truncate " + err);
-    });
-});
-app.get('/Api/v1/WithdrawHistory/Delete', function (req, res) {
-  Models.WithdrawHistory.sync({
-    force: true
-  }).then(function (result) {
-    res.send("Deleted");
-  }).catch(function (result) { //catching any then errors
-
-    res.send("Error " + result);
-  });
-});
-
-app.get('/Api/v1/WithdrawHistory/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset = req.query.Offset;
-  let Limit = req.query.Limit;
-  let Sort = req.query.Sort;
-  Models.WithdrawHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-    Models.WithdrawHistory.sync();
-    let result = Models.WithdrawHistory.findAll({
-      where: {
-        WithdrawHistoryID: {
-          ne: null //not null
-        }
-      }
-    }).then(function (result) {
-      let Data = result.map(function (item) {
-        return item;
-
-      });
-
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function (result) { //catching any then errors
-
-      res.send("Error " + result);
-    });
-  }
-  if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-  }
-  if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-  }
-  if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-  }
-  if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-  }
-  if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-  }
-  if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-  }
-  //res.send("WithdrawHistory "+Offset+" "+ Limit+" "+Sort);
-});
-
-app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.WithdrawHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  Models.WithdrawHistory.describe().then(result => {
-    res.send(beautify(result, null, 2, 100));
-  });
-});
 module.exports = function (app) {
+  app.get('/Api/v1/WithdrawHistory/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset = req.query.Offset;
+    let Limit = req.query.Limit;
+    let Sort = req.query.Sort;
+    Models.WithdrawHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+      Models.WithdrawHistory.sync();
+      let result = Models.WithdrawHistory.findAll({
+        where: {
+          WithdrawHistoryID: {
+            ne: null //not null
+          }
+        }
+      }).then(function (result) {
+        let Data = result.map(function (item) {
+          return item;
+  
+        });
+  
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function (result) { //catching any then errors
+  
+        res.send("Error " + result);
+      });
+    }
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+  
+    }
+    //res.send("WithdrawHistory "+Offset+" "+ Limit+" "+Sort);
+  });
+  
+}
+module.exports = function (app) {
+  app.get('/Api/v1/WithdrawHistory/Describe', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    Models.WithdrawHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.WithdrawHistory.describe().then(result => {
+      res.send(beautify(result, null, 2, 100));
+    });
+  });
   app.get('/Api/v1/UserInfo/Clear', function (req, res) {
     Models.UserInfo.destroy({
         where: {},
@@ -226,6 +203,28 @@ module.exports = function (app) {
   });
   app.get('/Api/v1/UserInfo/Delete', function (req, res) {
     Models.UserInfo.sync({
+      force: true
+    }).then(function (result) {
+      res.send("Deleted");
+    }).catch(function (result) { //catching any then errors
+  
+      res.send("Error " + result);
+    });
+  });
+  app.get('/Api/v1/WithdrawHistory/Clear', function (req, res) {
+    Models.WithdrawHistory.destroy({
+        where: {},
+        truncate: true
+      })
+      .then(Success => {
+        res.send("Cleared");
+      })
+      .catch(err => {
+        res.send("Truncate " + err);
+      });
+  });
+  app.get('/Api/v1/WithdrawHistory/Delete', function (req, res) {
+    Models.WithdrawHistory.sync({
       force: true
     }).then(function (result) {
       res.send("Deleted");

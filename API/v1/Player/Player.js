@@ -375,10 +375,6 @@ module.exports = function (app) {
     }
   });
 }
-//--Select Start
-
-
-
 module.exports = function (app) {
   app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
     //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
@@ -460,10 +456,6 @@ module.exports = function (app) {
     }
   });
 }
-
-
-
-
 module.exports = function (app) {
   app.get('/Api/v1/Player/Clear', function (req, res) {
     Models.Player.destroy({
