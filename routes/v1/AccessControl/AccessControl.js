@@ -1,8 +1,7 @@
-var beautify = require("json-beautify");
-let AccessControlModel = require("./AccessControlModel");
+//var beautify = require("json-beautify");
+//let AccessControlModel = require("./AccessControlModel");
 
-
-module.exports = function (app) {//MODIFY
+module.exports = function(app) {//MODIFY
   app.get('/eh',function(req,res){
     res.send('test');
   });
