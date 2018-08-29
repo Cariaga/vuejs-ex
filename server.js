@@ -38,7 +38,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 
-let eh =require('./routes/v1/AccessControl/AccessControl')(app);
+let eh =require('./routes/v1/AccessControl/AccessControl.js')(app);
 app.use('/eh', eh);
 
 // configuration =================
