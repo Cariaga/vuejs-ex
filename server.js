@@ -310,7 +310,7 @@ app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
       let bestScore = sortBy(EvaluatedHand, 'score');
       res.send(bestScore);
 });
-
+/*
 app.get('/SupportTicket/Request', function (req, res) {
   
   let UserAccountID = req.query.UserAccountID;
@@ -358,7 +358,8 @@ app.get('/SupportTicket/Request', function (req, res) {
     res.send({UserAccountIDMissing:true});
   }
 });
-
+*/
+/*
 app.get('/DepositHistory', function (req, res) {
   //DepositHistory?UserName=4dshg5D4d&Password=sdgsdrhGHSD46&Amount=132&BankNameUsed=BankNameUsed&SecurityCodeUsed=SecurityCodeUsed
    let UserName = req.query.UserName;
@@ -444,7 +445,8 @@ app.get('/DepositHistory', function (req, res) {
     res.send(Data);
    }
  });
- 
+ */
+
 // simple query
 
 app.get('/testsql/:ip/', function (req, res) {
