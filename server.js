@@ -18,20 +18,14 @@ const sortBy = require('sort-array');
 var app = express(); // create our app w/ express
 app.use(helmet());
 
-
-
-//must init passport
-
-
 var async = require("async");
 var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
-/*var mongoose = require('mongoose'); // mongoose for mongodb
-var Schema = mongoose.Schema;*/
-
+/*
 var database = require('./config/database'); //load the database config
-var request = require('request');
+var request = require('request');*/
+
 var isNullOrEmpty = require('is-null-or-empty');
 const mysql = require('mysql2');
 var Sequelize = require('sequelize');
@@ -55,17 +49,8 @@ app.use(morgan('combined')); // log every request to the console
 app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
-
-
-
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-
-
-// connect to MongoDB database
-/*mongoose.connect(database.url);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));*/
 
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
@@ -88,7 +73,7 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-
+/*
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
   port: 3306,
@@ -100,6 +85,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+*/
 
 var auth = function(req, res, next) {
   if (req.session && req.session.UserName === "amy")
@@ -161,10 +147,6 @@ function verifyToken(req, res, next) {
 }
 
 //--testing for authetication API key END
-
-
-
-
 //--testing for season based authentication START
 // Login endpoint
 app.post('/authenticate', function (req, res) {
@@ -264,588 +246,12 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
     connection.end();
 });
 
-function getCurrentDate(callback){
-  let today = new Date();
-  let dd = today.getDate();
-  let mm = today.getMonth(); 
-  let yyyy = today.getFullYear();
-  let FormatedDate = yyyy+'/'+mm+'/'+dd;
-  callback(FormatedDate);
-}
-//** Returns Current Time String*/
-
-/**
- *
- *
- * @param {*} callback
- */
-function getCurrentTime(callback){
-  let today = new Date();
-  let Hours = today.getHours();
-  let Minutes = today.getMinutes();
-  let Seconds = today.getSeconds();
-  let FormatedTime =Hours+":"+Minutes+":"+Seconds;
-  callback(FormatedTime);
-}
-
-app.get('/registerheadoffice',function(req,res){
-  res.setHeader('Content-Type', 'application/json');
-  let UserName= req.query.UserName;
-  let Password = req.query.Password;
-  let Name = req.query.Name;
-  let Surname = req.query.Surname;
-  let Email= req.query.Email;
-  let PhoneNumber= "";//this was never used
-  let TelephoneNumber = "";//this was never used
-  let Description = req.query.Description;
-  if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(Password)){
-      if(!isNullOrEmpty(Name)){
-        if(!isNullOrEmpty(Surname)){
-          if(!isNullOrEmpty(Email)){
-              let isAccountAlreadyExist=false;
-              let isEmailAlreadyExist=false;
-              let UserAccountID=false;
-              async.series([myFirstFunction,mySecondFunction],function(error,result){
-                let CurrentTime = undefined;
-                let CurrentDate = undefined;
-                getCurrentTime(function(response){
-                  CurrentTime=response;
-                });
-                getCurrentDate(function(response){
-                  CurrentDate=response;
-                });
-                var schema = new passwordValidator();
-                schema
-                .is().min(8)
-                .has().uppercase()                              // Must have uppercase letters
-                .has().lowercase()                              // Must have lowercase letters
-                .has().digits()                                 // Must have digits
-                .has().not().spaces()                           // Should not have spaces
-                let IsInvalidPassword= !schema.validate(Password);
-                let IsInvalidEmail = !validator.isEmail(Email);
-                let AddAccountErrorMessage="";
-                let AddUserInfoErrorMessage="";
-               let AddDistributorErrorMessage="";
-                if(IsInvalidEmail==false){
-                  if(IsInvalidPassword==false){
-                    let UUIDUserAccountID =uuidv4();
-                    let UUIDKey =uuidv4();
-                    async.series([InsertUserAccount,InsertUserInfo,InsertHeadOffice],function(error,result2){
-                      if(AddAccountErrorMessage==""){
-                        if(AddUserInfoErrorMessage==""){
-                          if(AddDistributorErrorMessage==""){
-                            let To = Email;
-                            let From = '';
-                            let Title = 'Email Verification';
-                            let VerificationURL= 'http://nodejs-mongo-persistent-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com/Verify?UserName='+UserName+'&VerifyKey='+UUIDKey;
-                            SendMail(To,From,Title,VerificationURL);
-                            res.send({Done:"Done"});
-                          }else{
-                            res.send({Failed:"headoffice Insert"});
-                          }
-                        }else{
-                          res.send({Failed:"UserInfo Insert"});
-                        }
-                      }else{
-                        res.send({Failed:"UserAccount Insert"});
-                      }
-                    });
-                    function InsertUserAccount(callback1){
-
-                      AddUserAccount(UUIDUserAccountID,"AccessID",UserName,Password,false,UUIDKey,CurrentDate,CurrentTime,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserAccount");
-                          callback1(null,'1');
-                        }else{
-                          console.log("Failed UserAccount" + response);
-                          AddAccountErrorMessage=response;
-                          callback1(null,'1');
-                        }
-                      });
-                    }
-                    function InsertUserInfo(callback2){
-                      AddUserInfo(UUIDUserAccountID,Email,PhoneNumber,TelephoneNumber,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert UserInfo");
-                          callback2(null,'2');
-                        }else{
-                          console.log("Failed UserInfo" + response);
-                          AddUserInfoErrorMessage=response;
-                          callback2(null,'2');
-                        }
-                      });
-                    }
-                    function InsertHeadOffice(callback3){//headoffice dosn't have a parent ID like Distributor Shop and Player
-                      AddHeadOffice(UUIDUserAccountID,Name,Description,function(response){
-                        if(response=="Inserted"){
-                          console.log("Insert headoffice");
-                          callback3(null,'3');
-                        }else{
-                          console.log("Failed headoffice" +response);
-                          AddDistributorErrorMessage=response;
-                          callback3(null,'3');
-                        }
-                      });
-                    }
-                    
-                  }else{
-                    res.send({WeekPassword:true});
-                  }
-                }else{
-                  res.send({EmailInvalid:true});
-                }
-
-              });
-              function myFirstFunction(callback){
-               isUserNameExist(UserName,function(response3){
-                 let obj = response3;
-                 if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0){
-                     isAccountAlreadyExist=true;
-                     UserAccountID=obj[0].UserAccountID;
-                     callback(null,1);
-                 }else{
-                    callback(null,1);
-                 }
-               });
-              }
-              function mySecondFunction(callback2){
-                UserInfoEmailExist(Email,function(response){
-                  let obj = response;
-                  if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].Email==Email){
-                    isEmailAlreadyExist=true;
-                    callback2(null,2);
-                    
-                  }else{
-                    isEmailAlreadyExist=false;
-                    callback2(null,2);
-                  }
-                });
-              }
-             
-          }else{
-            res.send({EmailMissing:true});
-          }
-        }else{
-          res.send({SurnameMissing:true});
-        }
-      }else{
-        res.send({NameMissing:true});
-      }
-    }else{
-      res.send({PasswordMissing:true});
-    }
-  }else{
-    res.send({UserNameMissing:true});
-  }
-});
-//--Login End
-//--Login Start
-app.get('/Login',function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
-  let UserName= req.query.UserName;
-  let Password = req.query.Password;
-  let DeviceUUID = req.query.DeviceUUID;
-  let IP = req.query.IP;
-  let DeviceName = req.query.DeviceName;
-  let DeviceRam = req.query.DeviceRam;
-  let DeviceCpu = req.query.DeviceCpu;
-  let OperatingSystem = req.query.OperatingSystem;
-  let GraphicsDevice = req.query.GraphicsDevice;
-  let Time = req.query.Time;//01:57:17
-  let Date = req.query.Date;//2018-06-27
-  if(!isNullOrEmpty(DeviceUUID)&&
-  !isNullOrEmpty(IP)&&
-  !isNullOrEmpty(DeviceName)&&
-  !isNullOrEmpty(DeviceRam)&&
-  !isNullOrEmpty(DeviceCpu)&&
-  !isNullOrEmpty(OperatingSystem)&&
-  !isNullOrEmpty(GraphicsDevice)&&
-  !isNullOrEmpty(Time)&&
-  !isNullOrEmpty(Date)){
-    if(!isNullOrEmpty(UserName)){
-      if(!isNullOrEmpty(Password)){
-        let UserAccountID ="";
-        let AccountStatus="";
-        let AccountType =undefined;
-        let AccountVerified=false;
-        let Email= undefined;
-        let PhoneNumber = undefined;
-        let TelephoneNumber = undefined;
-        let AccessType = undefined;
-        let AccessID = undefined;
-        async.series([
-          UserNameInternalValidate,
-          UserAccountInternalValidate,
-          UserAccountBlockedInternalValidate,
-          AccountTypeInternalValidate,
-          GetUserInfoInternalValidate
-        ], function (err, result) {//final function
-          if(UserAccountID!=""){
-            if(AccountVerified==true){
-            if(AccountStatus!="Blocked"){
-              console.log('done');
-                // result now equals 'done'
-              console.log('3');
-                Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-                  console.log('4');
-                      AddLoginHistory(UserAccountID,IP,DeviceName,DeviceRam,DeviceCpu,Time,Date,function(response3){
-                        console.log('5');
-                        console.log(response3);
-                        if(AccountType=="HeadOffice"){
-                          console.log('6 HeadOffice');
-                           // we need diffrent Data for diffrent AccountType
-                           let Data ={Status:"Verified",
-                           Controller:"/Login",
-                           UserAccountID:UserAccountID,
-                           Solution:"No Issue",
-                           UserName:UserName,
-                           AccountStatus:AccountStatus,
-                           AccountType:AccountType,
-                           AccountVerified:AccountVerified,
-                           Name:"",
-                           SurName:"",
-                           Email:Email,
-                           PhoneNumber:PhoneNumber,
-                           TelephoneNumber:TelephoneNumber,
-                           AccessID:AccessID
-                           }
-                           res.send(Data);
-                        }
-
-                       else if(AccountType=="Distributor"){
-                          console.log('6 Distributor');
-                          // we need diffrent Data for diffrent AccountType
-                          let Data ={Status:"Verified",
-                          Controller:"/Login",
-                          UserAccountID:UserAccountID,
-                          Solution:"No Issue",
-                          UserName:UserName,
-                          AccountStatus:AccountStatus,
-                          AccountType:AccountType,
-                          AccountVerified:AccountVerified,
-                          Name:"",
-                          SurName:"",
-                          Email:Email,
-                          PhoneNumber:PhoneNumber,
-                          TelephoneNumber:TelephoneNumber,
-                          AccessID:AccessID
-                          }
-                          res.send(Data);
-                        }
-                       else if(AccountType=="Shop"){
-                          console.log('6 Shop');
-                          // we need diffrent Data for diffrent AccountType
-                          let Data ={Status:"Verified",
-                          Controller:"/Login",
-                          UserAccountID:UserAccountID,
-                          Solution:"No Issue",
-                          UserName:UserName,
-                          AccountStatus:AccountStatus,
-                          AccountType:AccountType,
-                          AccountVerified:AccountVerified,
-                          Name:"",
-                          SurName:"",
-                          Email:Email,
-                          PhoneNumber:PhoneNumber,
-                          TelephoneNumber:TelephoneNumber,
-                          AccessID:AccessID
-                          }
-                          res.send(Data);
-                        }
-                       else if(AccountType=="Player"){
-                          console.log('6 Player');
-                         // we need diffrent Data for diffrent AccountType
-                         let Data ={Status:"Verified",
-                         Controller:"/Login",
-                         UserAccountID:UserAccountID,
-                         Solution:"No Issue",
-                         UserName:UserName,
-                         AccountStatus:AccountStatus,
-                         AccountType:AccountType,
-                         AccountVerified:AccountVerified,
-                         Name:"",
-                         
-                         SurName:"",
-                         Email:Email,
-                         PhoneNumber:PhoneNumber,
-                         TelephoneNumber:TelephoneNumber,
-                         AccessID:AccessID
-                         }
-                         let PlayerExist=false;
-                         async.series([PlayerUserAccountIDInternal],function(err,response){
-
-                           if(PlayerExist==true){
-                            res.send(Data);
-                           }else{
-                            res.send({PlayerUserAccountExist:false});
-                           }
-                          
-                         });
-
-                         function PlayerUserAccountIDInternal(callback6){
-                          UserInfoUserAccountID(UserAccountID,function(response){
-                            if(response!=undefined){
-                             Data.ScreenName = response[0].ScreenName;
-                             Data.SurName = response[0].Surname;
-                             PlayerExist=true;
-                             callback6(null,'1');
-                            }else{
-                              PlayerExist=false;
-                              callback6(null,'1');
-                            }
-                          });
-                         }
-
-                       
-                        }else{
-                          res.send({UnknownAccoutType:true});
-                        }
-                      });
-
-              }else{
-                let Data = {AccountStatus:AccountStatus};
-                res.send(Data);
-              }
-            }else{
-              let Data = {AccountVerified:false};
-              res.send(Data);
-            }
-            }else{
-              let Data = {isUserNameExist:false};
-              res.send(Data)
-            }
-          });
-          function UserNameInternalValidate(callback){//we retrive the UserAccountID
-            console.log('UserNameInternalValidate');
-           isUserNameExist(UserName,function(response3){
-             let obj = response3;
-             if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
-                 AccessID = obj[0].AccessID;
-                 UserAccountID= obj[0].UserAccountID;
-                 console.log('UserNameInternalValidate '+UserAccountID)
-                 callback(null,'1');
-             }else{
-                UserAccountID= "";
-                callback(null,'1');
-             }
-           });
-          }
-          function UserAccountInternalValidate(callback2){
-            console.log('UserAccountInternalValidate');
-            isUserAccountVerifiedUserName(UserName,function(response3){
-              let obj = response3;
-              if(!isNullOrEmpty(obj)&&obj!=undefined&&obj.length>0&&obj[0].UserName==UserName){
-                  AccountVerified= obj[0].Verify;
-                  console.log('UserAccountInternalValidate '+AccountVerified);
-                callback2(null,'2');
-              }else{
-                AccountVerified= false;
-               callback2(null,'2');
-              }
-            });
-          }
-          function UserAccountBlockedInternalValidate(callback3){
-            console.log('UserAccountBlockedInternalValidate');
-            if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
-              isUserAccountBlocked(UserAccountID,function(response){
-                let obj = response;
-                if(!isNullOrEmpty(obj)&&obj!=undefined&&obj[0].UserAccountID==UserAccountID){
-                  AccountStatus=obj[0].Status;
-                  console.log('UserAccountBlockedInternalValidate '+AccountStatus);
-                  
-                  callback3(null,'3');
-                }else{
-                  AccountStatus="";
-                  callback3(null,'3');
-                }
-              });
-            }else{
-              console.log("Login myThirdFunction Failed UserAccountID Empty");
-              callback3(null,'3');
-            }
-          }
-          function AccountTypeInternalValidate(callback4){
-            console.log("AccountTypeInternalValidate");
-            if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
-              AccountTypeFullCheck(UserAccountID,function(response){
-                if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==false&&response.FoundAccount==true){
-                 // res.send({AccountType:response.AccountType});
-                  AccountType =response.AccountType;
-                  callback4(null,'4');
-                }else if(!isNullOrEmpty(response)&&response.UnSafeDuplicate==true&&response.FoundAccount==false){
-                 
-                  AccountType =response.AccountType;
-                  console.log("AccountTypeInternalValidate Duplicate UserAccountID AccountType" +AccountType);
-                  callback4(null,'4');
-                }else{
-                  AccountType =response.AccountType;
-                  callback4(null,'4');
-                }
-              });
-            }else{
-              console.log("Login myForthFunction Failed UserAccountID Empty");
-              callback4(null,'4');
-            }
-          }
-
-          function GetUserInfoInternalValidate(callback5){
-            console.log("GetUserInfo");
-            if(!isNullOrEmpty(UserAccountID)&&UserAccountID!=undefined){
-              UserInfoUserAccountID(UserAccountID,function(response){
-               
-                if(response!=undefined){
-                   Email= response[0].Email;
-                   PhoneNumber = response[0].PhoneNumber;
-                   TelephoneNumber = response[0].TelephoneNumber;
-                  console.log("GetUserInfo" +AccountType);
-                  callback5(null,'5');
-                }else{
-                  callback5(null,'5');
-                }
-              });
-            }else{
-              console.log("Login GetUserInfo Failed UserAccountID");
-              callback5(null,'5');
-            }
-          }
-          //PlayerUserAccountID
-    
-      }else{
-        res.send({PasswordInvalid:true});
-      }
-    }else{
-      res.send({UserNameInvalid:true});
-    }
-  }else{
-    res.send({DeviceInformationsMissing:true});
-  }
-});
-//--Login End
-//--Login Start
-app.get('/Verify',function (req, res) {
-  // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
-  res.setHeader('Content-Type', 'application/json');
-  let UserName= req.query.UserName;
-  let ValidKey= req.query.VerifyKey;
-  if(!isNullOrEmpty(UserName)){
-    if(!isNullOrEmpty(ValidKey)){
-      isUserNameExist(UserName,function(response3){
-        console.log("Verify response : "+response3);
-        let obj = response3;
-        if(!isNullOrEmpty(obj)&&obj!=undefined){
-          if(obj[0].UserName==UserName){
-        
-            Verify(UserName,ValidKey,function(response){
-              if(response.Verified==false){
-                VerifyAccount(UserName,ValidKey,function(response2){
-      
-                  let Data = {validUserName:true,validUserKey:true,isAlreadyRegistered :false,isUserNameExist:true,ResponseCode:1};
-                  res.send(beautify(Data, null, 2, 100));
-                });
-              }else{
-                let Data = {validUserName:true,validUserKey:true,isAlreadyRegistered :true,isUserNameExist:true,ResponseCode:2};
-                  res.send(beautify(Data, null, 2, 100));
-              }
-            });
-          }
-        }
-        else{
-          let Data = {validUserName:true,validUserKey:true,isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:3};
-          res.send(beautify(Data, null, 2, 100));
-        }
-      });   
-    }else{
-      let Data = {validUserName:true,validUserKey:false,isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:4};
-      res.send(beautify(Data, null, 2, 100));
-    }
-  }else{
-    let Data = {validUserName:false,validUserKey:false,isAlreadyRegistered :false,isUserNameExist:false,ResponseCode:5};
-    res.send(beautify(Data, null, 2, 100));
-  }
-});
 
 
 
 
 
-/**
- *
- *
- * @param {*} UserName
- * @param {*} ValidKey
- * @param {*} callback
- */
-function Verify(UserName,ValidKey,callback){
-  async.waterfall([
-          myFirstFunction,
-          mySecondFunction,
-       ], function (err, result) {//final function
-           // result now equals 'done'
-          // console.log('5');
-           callback(result);
-       });
-        function myFirstFunction(callback2) {
-          console.log('1');
-          Models.UserAccount.sync(/*{force:true}*/);//makes sure table exist and syncs it
-          let result = Models.UserAccount.findAll({ 
-            where: {
-              UserName:UserName//not null
-              ,
-              ValidKey:ValidKey//not null
-           }
-          }).then(function(result) {
-            let Data = result.map(function(item) {return item;});
-          //  console.log('2');
-            callback2(null,Data);
-          }).catch(function(result2){
-            console.log("Verify Error : "+result2);
-          //  console.log('2');
-            callback2(null,result2);
-          });
-       
-        }
-       function mySecondFunction(arg1,callback3) {
-      //  console.log(arg1);
-      //  console.log('3'+arg1[0].Verify);
-        if(arg1[0].Verify==true){
-          let result3 = {Verified:true};
-        //  console.log('4');
-          callback3(null,result3);
-        }else{
-          let result3 = {Verified:false};
-        //  console.log('4');
-          callback3(null,result3);
-        }   
-        }
-}
 
-
-
-/**
- *
- *
- * @param {*} UserName
- * @param {*} ValidKey
- * @param {*} callback
- */
-function VerifyAccount(UserName,ValidKey,callback){ // Verification with ValidKey // Public only use // Via ValidKey
-  Models.UserAccount.update({
-    Verify: true
-  },
-  {
-    where: {UserName:UserName,ValidKey:ValidKey}
-  })
-  .then(Success => {
-    callback("Updated");
-  })
-  
-  .catch(error => {
-    console.log("Error Updating " +error);
-    callback();
-  }); 
-}
 //--Login End
 
 //--API START
@@ -868,59 +274,6 @@ app.get('/Api/v1/Show/Tables/', function (req, res) {
 });
 
 //---API SignOut Start
-app.get('/Api/v1/SignOut/:UserName/:SignOutKey', function (req, res) {
-  let UserName = req.params.UserName;
-  let Password = req.params.SignOutKey;
-
-  if(!isNullOrEmpty(UserName)&&
-  !isNullOrEmpty(SignOutKey)){
-
-    res.send('test login');
-  }else{
-    res.send('no params sent');
-  }
-});
-
-//---API SignOut End
-//---API Login Start
-app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
-  res.send('Not Used use Query Version Instead');
-  /*let UserName = req.params.UserName;
-  let Password = req.params.Password;
-
-  if(!isNullOrEmpty(UserName)&&
-  !isNullOrEmpty(Password)){
-    let isVerified;
-    let result = Models.UserAccount.findAll({ 
-      where: {
-        UserName: {
-          eq: UserName//not null
-        },
-        Password: {
-          eq: Password//not null
-        }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      
-      res.send("Error "+result);
-
-    })
-
-/*
-  }else{
-    res.send('no params sent');
-  }*/
-});
-//---API Login End
-
-
-
 
 
 //---POKER ROUTING START
@@ -964,19 +317,6 @@ app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
       let bestScore = sortBy(EvaluatedHand, 'score');
       res.send(bestScore);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get('/SupportTicket/Request', function (req, res) {
   
@@ -1025,82 +365,6 @@ app.get('/SupportTicket/Request', function (req, res) {
     res.send({UserAccountIDMissing:true});
   }
 });
-
-
-
-
-
-/**
- *
- *
- * @param {*} NotificationType
- * @param {*} Title
- * @param {*} Description
- * @param {*} Time
- * @param {*} Date
- * @param {*} callback
- */
-function AddNotification(NotificationType,Title,Description,Time,Date,callback){
-  var item1 = Models.Notification.build({
-    NotificationType:NotificationType,
-    Title:Title,
-    Description:Description,
-    Time:Time,
-    Date:Date
-  });
-  Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
-  item1.save()
-  .then(Success => {
-    console.log("----AddNotification Start-----");
-    console.log(Success);
-    console.log("----AddNotification End-----");
-    callback("Inserted");
-  })
-  
-  .catch(error => {
-    console.log("error inserting " +error);
-    callback(undefined);
-  });
-}
-
-
-/**
- *
- *
- * @param {*} NotificationID
- * @param {*} callback
- */
-function IsNotificationIDExist(NotificationID,callback){
-  Models.Notification.sync();
-  let result = Models.Notification.findAll({ 
-    where: {
-      NotificationID:NotificationID
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-        
-    });
-    if(Data.length>0){
-      callback(Data);
-    }else{
-      callback(undefined);
-    }
-  }).catch(function(result) {//catching any then errors
-    console.log("Error "+result);
-    callback(undefined);
-  });
-}
-
-
-
-
-
-
-
-
-
-
 
 app.get('/DepositHistory', function (req, res) {
   //DepositHistory?UserName=4dshg5D4d&Password=sdgsdrhGHSD46&Amount=132&BankNameUsed=BankNameUsed&SecurityCodeUsed=SecurityCodeUsed
@@ -1188,49 +452,6 @@ app.get('/DepositHistory', function (req, res) {
    }
  });
  
-//---Player ROUTING START
-//---Shop ROUTING START
-app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) {//check for validation only
-  //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountID = req.params.UserAccountID;
-  if(!isNullOrEmpty(UserAccountID)){
-    isShopUserAccountIDExist(UserAccountID,function(response) {
-      if(!isNullOrEmpty(response)&&response.length>0){
-        res.send({isShop:true});
-      }else{
-        res.send({isShop:false});
-      }
-      
-    });
-  }else{
-    res.send("Missing params");
-  }
-});
-
-
-
-//---Shop ROUTING END
-//---Distributor ROUTING START
-app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) {//check for validation only
-  let UserAccountID = req.params.UserAccountID;
-  if(!isNullOrEmpty(UserAccountID)){
-    isDistributorUserAccountIDExist(UserAccountID,function(response) {
-      if(!isNullOrEmpty(response)&&response.length>0){
-        res.send({isDistributer:true});
-      }else{
-        res.send({isDistributer:false});
-      }
-    });
-  }else{
-    res.send("Missing params");
-  }
-});
-
-
-
-
-
 // simple query
 
 app.get('/testsql/:ip/', function (req, res) {
@@ -1256,52 +477,6 @@ app.get('/testsql/:ip/', function (req, res) {
     }
   );
 })
-
-app.get('/notification/', function (req, res) {
-    var NotificationData =
-    {
-  "Notification": [
-    {
-      "Titles": "Event Coming",
-      "Date": "10/10/2018",
-      "Time": "12:00AM",
-      "Description": "Some Event going"
-    }
-  ]
-}
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(NotificationData, null, 3));
-})
-app.get('/WithdrawHistory',function (req, res) {
-  let UserName = req.query.UserName;
-  let Password = req.query.Password;
-
-  let Amount = req.query.Amount;
-  let Bank = req.query.Bank;
-  let AccountNumber = req.query.AccountNumber;
-  let Name =req.query.Name ;
-  let ContactNumber= req.query.ContactNumber;
-  let WithdrawPassword = req.query.WithdrawPassword;
-
-  let isWithdrawAmountValid=false;
-  let isUserAccountIDFound =false;
-
-  //Not Done
-  async.series([IsUserAccountIDExistCheck,ValidateAccountCheck,ValidateBalanceCheck
-
-  ]);
-  function IsUserAccountIDExistCheck(callback){
-   callback(null,'1');
-  }
-  function ValidateAccountCheck(callback){
-    callback(null,'2');
-  }
-  function ValidateBalanceCheck(callback){
-    callback(null,'3');
-  }
-});
-
-
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
   console.log('Server running on http://%s:%s', ip, port);
