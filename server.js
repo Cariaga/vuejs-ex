@@ -38,9 +38,8 @@ var moment = require('moment');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 
+require('./routes/v1/AccessControl/AccessControl')(app);
 require("./routes/test")(app);
-//var Models = require("./Models/Models");
-require('./routes/API/v1/AccessControl/AccessControl')(app);
 
 
 // configuration =================
