@@ -244,184 +244,18 @@ function SendMail(To,From,Subject,html){
 
 //--Validation Start
 
-/**
- *
- *
- * @param {*} Email
- * @param {*} callback
- */
-function UserInfoEmailExist(Email,callback){
-  Models.UserInfo.sync();
-    let result = Models.UserInfo.findAll({ 
-      where: {
-        Email: Email//not null
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log("Error "+result);
-      callback(undefined);
-    });
-}
-
-/**
- *
- *
- * @param {*} PhoneNumber
- * @param {*} callback
- */
-function isPhoneNumberExist(PhoneNumber,callback){
-  Models.UserInfo.sync();
-    let result = Models.UserInfo.findAll({ 
-      where: {
-        PhoneNumber: PhoneNumber//not null
-
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log("Error "+result);
-      callback(undefined);
-    });
-}
-
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} callback
- */
-function isUserAccountBlocked(UserAccountID,callback){
-  Models.BlackList.sync();
-    let result = Models.BlackList.findAll({ 
-      where: {
-        UserAccountID: UserAccountID,//not null
-        Status:"Blocked",
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log(result);
-      callback(undefined);
-      //callback("Error "+result);
-    });
-}
 
 
-/**
- *
- *
- * @param {*} UserName
- * @param {*} callback
- */
-function isUserNameExist(UserName,callback){
-  Models.UserAccount.sync();
-    let result = Models.UserAccount.findAll({ 
-      where: {
-        UserName: UserName//not null
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-     // console.log(result);
-      callback(undefined);
-    });
-}
 
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} callback
- */
-function isUserAccountIDExist(UserAccountID,callback){
-  Models.UserAccount.sync();
-    let result = Models.UserAccount.findAll({ 
-      where: {
-        UserAccountID: UserAccountID//not null
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-     // console.log(result);
-      callback(undefined);
-    });
-}
 
-/**
- *
- *
- * @param {*} UserName
- * @param {*} callback
- */
-function isUserAccountVerifiedUserName(UserName,callback){
-  Models.UserAccount.sync();
-    let result = Models.UserAccount.findAll({ 
-      where: {
-        UserName:UserName,
-        Verify: true
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        console.log("isUserAccountVerified test");
-        callback(Data);
 
-      }else{
-        callback(undefined);
-      }
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log(result);
-      callback(undefined);
-    });
-}
+
+
+
+
+
+
+
 // Not Done
 /**
  *
@@ -434,152 +268,10 @@ function isUserAccountVerifiedUserAccountID(UserAccountID,callback){
 }
 
 
-/**
- *
- *
- * @param {*} HeadOfficeID
- * @param {*} callback
- */
-function isHeadOfficeAlreadyExist(HeadOfficeID,callback){
-  Models.HeadOffice.sync();
-    let result = Models.HeadOffice.findAll({ 
-      where: {
-        HeadOfficeID:HeadOfficeID,
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      callback(result);
-    });
-}
-
-/**
- *
- *
- * @param {*} DistributorID
- * @param {*} callback
- */
-function isDistributorAlreadyExist(DistributorID,callback){
-  Models.Distributor.sync();
-    let result = Models.Distributor.findAll({ 
-      where: {
-        DistributorID:DistributorID,
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log(result);
-      callback(undefined);
-    });
-}
 
 
-/**
- *
- *
- * @param {*} ShopID
- * @param {*} callback
- */
-function isShopAlreadyExist(ShopID,callback){
-  Models.Shop.sync();
-    let result = Models.Shop.findAll({ 
-      where: {
-        ShopID:ShopID,
-        
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log(result);
-      callback(undefined);
-    });
-}
-
-/**
- *
- *
- * @param {*} PlayersID
- * @param {*} callback
- */
-function isPlayerAlreadyExist(PlayersID,callback){
-  Models.Player.sync();
-    let result = Models.Player.findAll({ 
-      where: {
-        PlayersID:PlayersID,
-        
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log(result);
-      callback(undefined);
-    });
-}
 
 
-/**
- *
- *
- * @param {*} ScreenName
- * @param {*} callback
- */
-function isScreenNameExist(ScreenName,callback){
-  Models.Player.sync();
-    let result = Models.Player.findAll({ 
-      where: {
-        ScreenName:ScreenName,
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-      
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      callback(result);
-    });
-}
 
 //-- Account TypeCheck Start
 //isShop this part of the system is an application layer checking rather than 1 database call for all 3 checks
@@ -802,28 +494,7 @@ app.get('/Api/v1/Distributor/HeadOfficeID/:HeadOfficeID/', function (req, res) {
     res.send({HeadOfficeIDMissing:true});
   }
 });
-function ChildDistributorsFromHeadOfficeID(HeadOfficeID,callback){ // returns Distributor
-  Models.Distributor.sync();
-  let result = Models.Distributor.findAll({ 
-    where: {
-      HeadOfficeID:HeadOfficeID,
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-    });
-    if(Data.length>0){
-      callback(Data);
-    }else{
-      callback(undefined);
-    }
-   
-   // res.send(beautify(Data, null, 2, 100));
-  }).catch(function(result) {//catching any then errors
-    console.log(result);
-    callback(undefined);
-  });
-}
+
 /*
 app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -840,28 +511,7 @@ app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
     res.send({DistributorIDMissing:true});
   }
 });*/
-function ChildShopsFromDistributorID(DistributorID,callback){//returns shops
-  Models.Shop.sync();
-  let result = Models.Shop.findAll({ 
-    where: {
-      DistributorID:DistributorID,
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-    });
-    if(Data.length>0){
-      callback(Data);
-    }else{
-      callback(undefined);
-    }
-   
-   // res.send(beautify(Data, null, 2, 100));
-  }).catch(function(result) {//catching any then errors
-    console.log(result);
-    callback(undefined);
-  });
-}
+
 /*
 app.get('/Api/v1/Player/ShopID/:ShopID/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -1088,6 +738,7 @@ app.get('/registerheadoffice',function(req,res){
     res.send({UserNameMissing:true});
   }
 });
+/*
 app.get('/registerdistributor',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -1272,6 +923,8 @@ app.get('/registerdistributor',function(req,res){
     res.send({UserNameMissing:true});
   }
 });
+*/
+/*
 app.get('/registershop',function(req,res){
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -1457,7 +1110,7 @@ app.get('/registershop',function(req,res){
   }else{
     res.send({UserNameMissing:true});
   }
-});
+});*/
 app.get('/register',function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserName= req.query.UserName;
@@ -2258,34 +1911,7 @@ function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Statu
 }
 
 
-/**
- *
- *
- * @param {*} SupportTicketID
- * @param {*} callback
- */
-function isSupportTicketIDExist(SupportTicketID,callback){
-  Models.SupportTicket.sync();
-    let result = Models.SupportTicket.findAll({ 
-      where: {
-        SupportTicketID:SupportTicketID
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-      });
-      if(Data.length>0){
-        callback(Data);
-      }else{
-        callback(undefined);
-      }
-     
-     // res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
-      console.log(result);
-      callback(undefined);
-    });
-}
+
 
 
 /**
@@ -4172,34 +3798,7 @@ function AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,callback){
   });
 }
 
-/**
- *
- *
- * @param {*} SeasonID
- * @param {*} callback
- */
-function IsSeasonIDExist(SeasonID,callback){
-  Models.RoomConfiguration.sync();
-  let result = Models.RoomConfiguration.findAll({ 
-    where: {
-      SeasonID:SeasonID
-   }
-  }).then(function(result) {
-    let Data = result.map(function(item) {
-        return item;
-        
-    });
-    if(Data.length>0){
-      callback(Data);
-    }else{
-      callback(undefined);
-    }
-  
-  }).catch(function(result) {//catching any then errors
-    console.log("Error "+result);
-    callback(undefined);
-  });
-}
+
 
 /**
  *
@@ -4760,11 +4359,6 @@ app.get('/Api/v1/UserAccount/Clear', function (req, res){// will not work due to
     res.send("Truncate "+err);
   });
 
-});
-app.get('/Api/v1/Tables/Drop', function (req, res){
-  sequelize.queryInterface.dropAllTables();
- Models.UserAccount.sync({force:true});
-  res.send("Droped All Table");
 });
 app.get('/Api/v1/UserAccount/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -5434,40 +5028,6 @@ app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) {//ch
     res.send("Missing params");
   }
 });
-
-
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} Name
- * @param {*} Description
- * @param {*} callback
- */
-
-// -------------------------migrated
-function AddHeadOffice(UserAccountID,Name,Description,callback){
-  var item1 = Models.HeadOffice.build({
-    UserAccountID:UserAccountID,
-    Name:Name,
-    Description:Description
-  });
-  Models.HeadOffice.sync({alter : true,/*force:true*/});//force true rebuilds table for non production only
-  item1.save()
-  .then(Success => {
-  
-    console.log("----AddHeadOffice Start-----");
-    console.log(Success);
-    console.log("----AddHeadOffice End-----");
-    callback("Inserted");
-  })
-  .catch(error => {
-    // mhhh, wth!
-    console.log("error inserting " +error);
-    callback(undefined);
-  });
-}
-
 app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
   let HeadOfficeID = req.params.HeadOfficeID;
   let UserAccountID = req.params.UserAccountID;
@@ -5589,34 +5149,7 @@ app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
 });
 
 
-app.get('/testseq', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
- 
-//Setting up the config
-var item1 = Models.Item.build({
-  name:'Laptop',
-  description: 'Acer 2340TL',
-  qty: 23
-});
-Models.Item.sync({alter : true});
-item1.save().catch(error => {
-  // mhhh, wth!
-  console.log("error inserting");
-});
 
-
-var result = Models.Item.findAll({
-  where: {
-    name: 'Laptop'
-  }
-}).then(function(result) {
-  var Data = result.map(function(item) {
-      return item;
-  });
-  
-  res.send(beautify(Data, null, 2, 100));
-});
-});
 // simple query
 
 app.get('/testsql/:ip/', function (req, res) {
@@ -5643,61 +5176,6 @@ app.get('/testsql/:ip/', function (req, res) {
   );
 })
 
- 
-// with placeholder
-/*connection.query(
-  'SELECT * FROM `table` WHERE `name` = ? AND `age` > ?',
-  ['Page', 45],
-  function(err, results) {
-    console.log(results);
-  }
-);*/
-//connect to Mysql database
-/*
-var mysqlClient = mysql.createConnection(mysqlString);
-
-mysqlClient.query('SELECT 1 as id, 103 as value UNION SELECT 2 as id, 556 as value', function(err, rows, fields) {
-  if(err) console.log(err);
-  console.log('The solution is: ', rows);
-  mysqlClient.end();
-});*/
-
-/*
-mysqlClient.connect(function(err){
-  if (err) console.log( "SOME ERROR :" +err);
-});*/
-
-
-
-
-
-
-app.get('/jsontest/', function (req, res) {
-  
-  res.send(JSON.stringify([{"userId": 1,"id": 1,"title": "delectus aut autem","completed": false},{"userId": 12,"id": 12,"title": "delectus aut autem2","completed": false}], null, 3));
-})
-
-
-/*
-var db = Mongoose.connect(database.url, function(error){
-    if(error) console.log(error);
-
-        console.log("connection successful");
-});*/
-
-//parameter test
-app.get('/users/:userId/', function (req, res) {
- 
-  res.send(req.params)
-})
-//testing db connection test for mongoose
-app.get('/connectiontest/', function (req, res) {
- //mongoose.connection.readyState == 0; // not connected
-//mongoose.connection.readyState == 1; // connected
-  res.send("mongoose.connection.readyState : "+mongoose.connection.readyState)
-})
-
-
 app.get('/notification/', function (req, res) {
     var NotificationData =
     {
@@ -5713,9 +5191,6 @@ app.get('/notification/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(NotificationData, null, 3));
 })
-
-
-
 app.get('/WithdrawHistory',function (req, res) {
   let UserName = req.query.UserName;
   let Password = req.query.Password;
