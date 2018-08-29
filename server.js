@@ -7,7 +7,7 @@ const routes = require('express').Router();
 var Nexmo = require('nexmo');
 
 var session = require("express-session");
-var cookieParser =require("cookie-parser");
+var cookieParser = require("cookie-parser");
 var jwt = require('jsonwebtoken');
 
 var Combinatorics = require('js-combinatorics');
@@ -31,7 +31,7 @@ const mysql = require('mysql2');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
-var validator = require('validator');//email,mobile phone,isIP,isPostalCode,credit card
+var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 
 var moment = require('moment');
 
@@ -45,11 +45,15 @@ var Controller = require("./API/v1/AccessControl/AccessControl")(app);
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('combined')); // log every request to the console
-app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({
+  'extended': 'true'
+})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
-app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
+app.use(bodyParser.json({
+  type: 'application/vnd.api+json'
+})); // parse application/vnd.api+json as json
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-    ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+  ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
@@ -72,33 +76,23 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-/*
-const  sequelize = new Sequelize('sampledb', 'user', 'user', {
-  host:'172.30.166.206',
-  port: 3306,
-  dialect: 'mysql'
-});
-
-app.use(session({
+/*app.use(session({
   secret: '2C44-4D44-WppQ38S',
   resave: true,
   saveUninitialized: true
 }));
 */
 
-var auth = function(req, res, next) {
+var auth = function (req, res, next) {
   if (req.session && req.session.UserName === "amy")
     return next();
   else
     return res.sendStatus(401);
 };
-
-
-
 //--testing for authetication API key START
-app.post('/Api/v1/Content', verifyToken, (req, res) => {  
+app.post('/Api/v1/Content', verifyToken, (req, res) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
-    if(err) {
+    if (err) {
       res.sendStatus(403);
     } else {
       res.json({
@@ -111,12 +105,16 @@ app.post('/Api/v1/Content', verifyToken, (req, res) => {
 app.post('/Api/v1/authenticate', (req, res) => {
   // Mock user
   const user = {
-    id: 1, 
+    id: 1,
     username: 'brad',
     email: 'brad@gmail.com'
   }
 
-  jwt.sign({user}, 'secretkey', { expiresIn: '2d' }, (err, token) => {
+  jwt.sign({
+    user
+  }, 'secretkey', {
+    expiresIn: '2d'
+  }, (err, token) => {
     res.json({
       token
     });
@@ -129,7 +127,7 @@ function verifyToken(req, res, next) {
   // Get auth header value
   const bearerHeader = req.headers['authorization'];
   // Check if bearer is undefined
-  if(typeof bearerHeader !== 'undefined') {
+  if (typeof bearerHeader !== 'undefined') {
     // Split at the space
     const bearer = bearerHeader.split(' ');
     // Get token from array
@@ -150,8 +148,8 @@ function verifyToken(req, res, next) {
 // Login endpoint
 app.post('/authenticate', function (req, res) {
   if (!req.body.UserName) {
-    res.send('login failed');    
-  } else if(req.body.UserName === "amy") {
+    res.send('login failed');
+  } else if (req.body.UserName === "amy") {
     req.session.UserName = "amy";
     res.send("login success!");
   }
@@ -169,32 +167,36 @@ app.get('/content', auth, function (req, res) {
 //--testing for season based authentication END
 
 var nexmo = new Nexmo({
-    apiKey: "34958c75",
-    apiSecret: "VnTUCGBvp3yr2onE",
-   /* applicationId: APP_ID,
-    privateKey: PRIVATE_KEY_PATH,*/
-  }, {debug:true});
+  apiKey: "34958c75",
+  apiSecret: "VnTUCGBvp3yr2onE",
+  /* applicationId: APP_ID,
+   privateKey: PRIVATE_KEY_PATH,*/
+}, {
+  debug: true
+});
 
-app.get('/SMS/:recipient/:message', function (req, res){
-  let sender= "825080825012";
+app.get('/SMS/:recipient/:message', function (req, res) {
+  let sender = "825080825012";
   let recipient = req.params.recipient.split(",");
-  let message =req.params.message;
+  let message = req.params.message;
 
-  
-  if(message.length>69){
-    console.log("Message Too Long "+message);
-  }else{
-    for (i = 0; i < recipient.length; i++) { 
+
+  if (message.length > 69) {
+    console.log("Message Too Long " + message);
+  } else {
+    for (i = 0; i < recipient.length; i++) {
       console.log(recipient[i]);
-  
-     nexmo.message.sendSms(sender, recipient[i], message,{type:'unicode'},
-      (err,responseData)=>{
-        if(err){
-          console.log(err);
-      }else{
-        console.dir(responseData);
-      }
-    });
+
+      nexmo.message.sendSms(sender, recipient[i], message, {
+          type: 'unicode'
+        },
+        (err, responseData) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.dir(responseData);
+          }
+        });
     }
   }
 
@@ -209,16 +211,16 @@ app.get('/SMS/:recipient/:message', function (req, res){
  * @param {*} Subject
  * @param {*} html
  */
-function SendMail(To,From,Subject,html){
+function SendMail(To, From, Subject, html) {
   sendmail({
     from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
     to: 'cariaga.info@gmail.com',
     subject: Subject,
     html: html,
-  }, function(err, reply) {
+  }, function (err, reply) {
     console.log(err && err.stack);
     console.dir(reply);
-});
+  });
 }
 //--Account Type Check End
 
@@ -227,89 +229,66 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
   let RawQuery = req.params.RawQuery;
 
   const connection = mysql.createConnection({
-    host     : '172.30.166.206',
-    user     : 'user',
-    password : 'user',
-    port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
-    database : 'sampledb'
+    host: '172.30.166.206',
+    user: 'user',
+    password: 'user',
+    port: process.env.OPENSHIFT_MYSQL_DB_PORT,
+    database: 'sampledb'
   });
   connection.connect();
   // simple query
   connection.query(RawQuery,
-    function(err, results, fields) {
+    function (err, results, fields) {
       console.log(err);
       console.log(results); // results contains rows returned by server
       console.log(fields); // fields contains extra meta data about results, if available
       res.send(beautify(results, null, 2, 100));
     });
-    connection.end();
+  connection.end();
 });
 
 //--Login End
 
-//--API START
 app.get('/Api/', function (req, res) {
   res.send('pick version');
 });
-//API version END
-//--API START
 app.get('/Api/v1', function (req, res) {
   res.send('Api v1 version');
 });
-//--API version START
-
-/*
-app.get('/Api/v1/Show/Tables/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  sequelize.query("show tables", { type: sequelize.QueryTypes.SELECT})
-  .then(Tables => {
-    res.send(beautify(Tables, null, 2, 100));
-  })
-});
-*/
-//---API SignOut Start
-
-
 //---POKER ROUTING START
-app.get('/Api/v1/Poker/:Hand/', (req, res) =>
-{
+app.get('/Api/v1/Poker/:Hand/', (req, res) => {
   let PlayerHand = req.params.Hand;
   let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
 
-  let cmb = Combinatorics.combination(ArrayHand, 7);//5 for holdem 7 for omha
+  let cmb = Combinatorics.combination(ArrayHand, 7); //5 for holdem 7 for omha
   let AllCombinations = [];
   let a;
-  while(a = cmb.next())
-  {
+  while (a = cmb.next()) {
     AllCombinations.push(a);
   }
   let EvaluatedHand = [];
-  for(let i = 0; i < AllCombinations.length; ++i)
-  {
+  for (let i = 0; i < AllCombinations.length; ++i) {
     EvaluatedHand.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
   }
   let bestScore = sortBy(EvaluatedHand, 'score');
   res.send(bestScore);
 });
-app.get('/Api/v1/Omaha/:Hand/', (req, res) =>
-{
-      let PlayerHand = req.params.Hand;
-      let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
- 
-      let cmb = Combinatorics.combination(ArrayHand, 7);//5 for holdem 7 for omha
-      let AllCombinations = [];
-      let a;
-      while(a = cmb.next())
-      {
-        AllCombinations.push(a);
-      }
-      let EvaluatedHand = [];
-      for(let i = 0; i < AllCombinations.length; ++i)
-      {
-        EvaluatedHand.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
-      }
-      let bestScore = sortBy(EvaluatedHand, 'score');
-      res.send(bestScore);
+app.get('/Api/v1/Omaha/:Hand/', (req, res) => {
+  let PlayerHand = req.params.Hand;
+  let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
+
+  let cmb = Combinatorics.combination(ArrayHand, 7); //5 for holdem 7 for omha
+  let AllCombinations = [];
+  let a;
+  while (a = cmb.next()) {
+    AllCombinations.push(a);
+  }
+  let EvaluatedHand = [];
+  for (let i = 0; i < AllCombinations.length; ++i) {
+    EvaluatedHand.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
+  }
+  let bestScore = sortBy(EvaluatedHand, 'score');
+  res.send(bestScore);
 });
 /*
 app.get('/SupportTicket/Request', function (req, res) {
@@ -449,7 +428,7 @@ app.get('/DepositHistory', function (req, res) {
  */
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
-  console.log('Server running on http://%s:%s', ip, port);
+console.log('Server running on http://%s:%s', ip, port);
 
 module.exports = routes;
 module.exports = app;
