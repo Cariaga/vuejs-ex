@@ -338,41 +338,10 @@ module.exports = function (app) {
 //--Update Start
 //--Update End
 
-//*not implemented*
-// if the player has points the player can add and subtract transfer to other player
-//must update both the reciving/sender current player points 
-// -------------------------- MIGRATED
 
 
-function AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
-  Models.TransferHistory.sync({
-    alter: true /*,force:true*/
-  });
-  var item1 = Models.TransferHistory.build({
-    TransferHistoryUUID: TransferHistoryUUID,
-    UserAccountIDReceiver: UserAccountIDReceiver,
-    UserAccountIDSender: UserAccountIDSender,
-    Amount: Amount,
-    Status: Status,
-    Reason: Reason,
-    TransferedDATE: TransferedDATE
-  });
-  //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
-  Models.TransferHistory.sync({ /*alter : true*/ /*,force:true*/ });
-  item1.save()
-    .then(Success => {
 
-      console.log("----AddTransferHistory Start-----");
-      console.log(Success);
-      console.log("----AddTransferHistory End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log();
-      callback(undefined);
-    });
-}
+
 
 //Transaction list of a player not to be confued with TransferHistory between players
 //NOT A TRASFER HISTORY but a transactions performed on and by the PLAYER to SELF Account
@@ -489,13 +458,16 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     });
   }
 });
-app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  Models.TransferHistory.describe().then(result => {
-    res.send(beautify(result, null, 2, 100));
+module.exports = function (app) {
+  app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.TransferHistory.describe().then(result => {
+      res.send(beautify(result, null, 2, 100));
+    });
   });
-});
+}
+
 app.get('/Api/v1/SupportTicket/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset = req.query.Offset;

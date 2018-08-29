@@ -265,6 +265,7 @@ app.get('/Api/v1/LoginHistory/', function (req, res) {
   }
   //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
 });
+
 app.get('/Api/v1/LoginHistory/Clear', function (req, res) {
   Models.LoginHistory.destroy({
       where: {},

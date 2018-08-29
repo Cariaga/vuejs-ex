@@ -346,21 +346,30 @@ module.exports = function (app) {
     }
   });
 }
-
-app.get('/Api/v1/UserAccount/Clear', function (req, res) { // will not work due to constraint
-  //res.send('Doesnt clear use Delete');
-  Models.UserAccount.destroy({
-      where: {},
-      truncate: true
-    })
-    .then(Success => {
-      res.send("Cleared");
-    })
-    .catch(err => {
-      res.send("Truncate " + err);
+module.exports = function (app) {
+  app.get('/Api/v1/UserAccount/Clear', function (req, res) { // will not work due to constraint
+    //res.send('Doesnt clear use Delete');
+    Models.UserAccount.destroy({
+        where: {},
+        truncate: true
+      })
+      .then(Success => {
+        res.send("Cleared");
+      })
+      .catch(err => {
+        res.send("Truncate " + err);
+      });
+  
+  });
+  app.get('/Api/v1/UserAccount/Describe', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    Models.UserAccount.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.UserAccount.describe().then(result => {
+      res.send(beautify(result, null, 2, 100));
     });
+  });
+}
 
-});
 app.get('/Api/v1/UserAccount/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let Offset = req.query.Offset;
@@ -404,11 +413,4 @@ app.get('/Api/v1/UserAccount/', function (req, res) {
 
   }
   //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
-});
-app.get('/Api/v1/UserAccount/Describe', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  Models.UserAccount.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  Models.UserAccount.describe().then(result => {
-    res.send(beautify(result, null, 2, 100));
-  });
 });

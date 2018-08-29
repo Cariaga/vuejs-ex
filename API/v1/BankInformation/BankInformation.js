@@ -182,37 +182,27 @@ module.exports = function (app) {
     });
   });
 }
-
-//--Select End
-
-//--Update Start
-//--Update End
-
-//---BankInformation ROUTING START
-
-
-
-
-
-app.get('/Api/v1/BankInformation/Clear', function (req, res) {
-  Models.BankInformation.destroy({
-      where: {},
-      truncate: true
-    })
-    .then(Success => {
-      res.send("Cleared");
-    })
-    .catch(err => {
-      res.send("Truncate " + err);
-    });
-});
-app.get('/Api/v1/BankInformation/Delete', function (req, res) {
-  Models.BankInformation.sync({
-    force: true
-  }).then(function (result) {
-    res.send("Deleted");
-  }).catch(function (result) { //catching any then errors
-
-    res.send("Error " + result);
+module.exports = function (app) {
+  app.get('/Api/v1/BankInformation/Clear', function (req, res) {
+    Models.BankInformation.destroy({
+        where: {},
+        truncate: true
+      })
+      .then(Success => {
+        res.send("Cleared");
+      })
+      .catch(err => {
+        res.send("Truncate " + err);
+      });
   });
-});
+  app.get('/Api/v1/BankInformation/Delete', function (req, res) {
+    Models.BankInformation.sync({
+      force: true
+    }).then(function (result) {
+      res.send("Deleted");
+    }).catch(function (result) { //catching any then errors
+  
+      res.send("Error " + result);
+    });
+  });
+}
