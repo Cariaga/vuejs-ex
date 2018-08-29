@@ -1,4 +1,4 @@
-module.exports = function(app){
+module.exports = function (app) {
   app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let TransferHistoryUUID = req.params.TransferHistoryUUID;
@@ -8,193 +8,224 @@ module.exports = function(app){
     let Status = req.params.Status;
     let Reason = req.params.Reason;
     let TransferedDATE = req.params.TransferedDATE;
-    if(!isNullOrEmpty(TransferHistoryUUID)){
-      if(!isNullOrEmpty(UserAccountIDReceiver)){
-        if(!isNullOrEmpty(UserAccountIDSender)){
-          if(!isNullOrEmpty(Amount)){
-            if(!isNullOrEmpty(Status)){
-              if(!isNullOrEmpty(Reason)){
-                if(!isNullOrEmpty(TransferedDATE)){
-                  if(Amount>=0){
-                  let TransferHistoryUUIDExist= false;
-                  async.series([TransferHistoryUUIDExistCheck],function(error,response){
-                    if(TransferHistoryUUIDExist==true){
-                      TransferHistoryUpdate(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                        if(response!=undefined){
-                          res.send(response);
-                        }else{
-                          res.send([{TransferHistoryUpdateFailed:true}]);
-                        }
-                      });
-                    }else{
-                      res.send({TransferHistoryUUIDExist:false});
-                    }
-                  });
-                  function TransferHistoryUUIDExistCheck(callback){
-                    TransferHistoryTransferHistoryUUID(TransferHistoryUUID,function(response){
-                      console.log(response);
-                      if(response!=undefined){
-                        TransferHistoryUUIDExist=true;
-                        callback(null,'1');
-                      }else{
-                        TransferHistoryUUIDExist=false;
-                        callback(null,'1');
+    if (!isNullOrEmpty(TransferHistoryUUID)) {
+      if (!isNullOrEmpty(UserAccountIDReceiver)) {
+        if (!isNullOrEmpty(UserAccountIDSender)) {
+          if (!isNullOrEmpty(Amount)) {
+            if (!isNullOrEmpty(Status)) {
+              if (!isNullOrEmpty(Reason)) {
+                if (!isNullOrEmpty(TransferedDATE)) {
+                  if (Amount >= 0) {
+                    let TransferHistoryUUIDExist = false;
+                    async.series([TransferHistoryUUIDExistCheck], function (error, response) {
+                      if (TransferHistoryUUIDExist == true) {
+                        TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          } else {
+                            res.send([{
+                              TransferHistoryUpdateFailed: true
+                            }]);
+                          }
+                        });
+                      } else {
+                        res.send({
+                          TransferHistoryUUIDExist: false
+                        });
                       }
                     });
+
+                    function TransferHistoryUUIDExistCheck(callback) {
+                      TransferHistoryTransferHistoryUUID(TransferHistoryUUID, function (response) {
+                        console.log(response);
+                        if (response != undefined) {
+                          TransferHistoryUUIDExist = true;
+                          callback(null, '1');
+                        } else {
+                          TransferHistoryUUIDExist = false;
+                          callback(null, '1');
+                        }
+                      });
+                    }
+                  } else {
+                    res.send({
+                      AmountInvalidValue: true
+                    });
                   }
-                  }else{
-                    res.send({AmountInvalidValue:true});
-                  }
-                
-                }else{
-                  res.send({TransferedDATEMissing:true});
+
+                } else {
+                  res.send({
+                    TransferedDATEMissing: true
+                  });
                 }
-              }else{
-                res.send({ReasonMissing:true});
+              } else {
+                res.send({
+                  ReasonMissing: true
+                });
               }
-            }else{
-              res.send({StatusMissing:true});
+            } else {
+              res.send({
+                StatusMissing: true
+              });
             }
-          }else{
-            res.send({AmountMissing:true});
+          } else {
+            res.send({
+              AmountMissing: true
+            });
           }
-        }else{
-          res.send({UserAccountIDSenderMissing:true});
+        } else {
+          res.send({
+            UserAccountIDSenderMissing: true
+          });
         }
-      }else{
-        res.send({UserAccountIDReceiverMissing:true});
+      } else {
+        res.send({
+          UserAccountIDReceiverMissing: true
+        });
       }
-    }else{
-      res.send({TransferHistoryUUIDMissing:true});
+    } else {
+      res.send({
+        TransferHistoryUUIDMissing: true
+      });
     }
   });
 }
-module.exports = function(app){
+module.exports = function (app) {
   //--Select Start
-app.get('/Api/v1/TransferHistory/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.TransferHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-    TransferHistoryAll(function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send([]);
-      }
-    });
-    
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  app.get('/Api/v1/TransferHistory/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset = req.query.Offset;
+    let Limit = req.query.Limit;
+    let Sort = req.query.Sort;
+    Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+      TransferHistoryAll(function (response) {
+        if (response != undefined) {
+          res.send(beautify(response, null, 2, 100));
+        } else {
+          res.send([]);
+        }
+      });
 
-  }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
-
-  }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
-
-  }
-});
-app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
-  let SentTransferResult =undefined;
-  let RecievedTransferResult = undefined;
-
-  async.series([GetSentTransfer,GetReceiverTransfer],function(error,response){
-    let FullTransferHistory = {SentTransferResult:SentTransferResult,RecievedTransferResult:RecievedTransferResult};
-
-    res.send(FullTransferHistory);
-  });
-
- function GetSentTransfer(callback1){
-    TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response1){
-      if(response1!=undefined){
-        SentTransferResult=response1;
-        callback1(null,'1');
-      }else{
-        SentTransferResult=[];
-        callback1(null,'1');
-      }
-     
-    });
-  }
-  function GetReceiverTransfer(callback2){
-    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
-      if(response!=undefined){
-        RecievedTransferResult = response;
-        callback2(null,'2');
-      }else{
-        RecievedTransferResult =[];
-        callback2(null,'2');
-      }
-    });
     }
-});
-app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
-  if(!isNullOrEmpty(UserAccountIDReceiver)){
-    TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver,function(response){
-      if(response!=undefined){
-        res.send(beautify(response, null, 2, 100));
-      }else{
-        res.send([]);
-      }
-    });
-  }else{
-    res.send({UserAccountIDMissing:true});
-  }
-});
-app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/',function (req, res){
-  res.setHeader('Content-Type', 'application/json');
-  let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
-  let SentTransferResult =undefined;
-  let RecievedTransferResult = undefined;
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
 
-  async.series([GetSentTransfer,GetReceiverTransfer],function(error,response){
-    let FullTransferHistory = {SentTransferResult:SentTransferResult,RecievedTransferResult:RecievedTransferResult};
-
-    res.send(FullTransferHistory);
-  });
-
- function GetSentTransfer(callback1){
-    TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID,function(response1){
-      if(response1!=undefined){
-        SentTransferResult=response1;
-        callback1(null,'1');
-      }else{
-        SentTransferResult=[];
-        callback1(null,'1');
-      }
-     
-    });
-  }
-  function GetReceiverTransfer(callback2){
-    TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID,function(response){
-      if(response!=undefined){
-        RecievedTransferResult = response;
-        callback2(null,'2');
-      }else{
-        RecievedTransferResult =[];
-        callback2(null,'2');
-      }
-    });
     }
-});
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+
+    }
+    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+
+    }
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+
+    }
+  });
+  app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
+    let SentTransferResult = undefined;
+    let RecievedTransferResult = undefined;
+
+    async.series([GetSentTransfer, GetReceiverTransfer], function (error, response) {
+      let FullTransferHistory = {
+        SentTransferResult: SentTransferResult,
+        RecievedTransferResult: RecievedTransferResult
+      };
+
+      res.send(FullTransferHistory);
+    });
+
+    function GetSentTransfer(callback1) {
+      TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID, function (response1) {
+        if (response1 != undefined) {
+          SentTransferResult = response1;
+          callback1(null, '1');
+        } else {
+          SentTransferResult = [];
+          callback1(null, '1');
+        }
+
+      });
+    }
+
+    function GetReceiverTransfer(callback2) {
+      TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID, function (response) {
+        if (response != undefined) {
+          RecievedTransferResult = response;
+          callback2(null, '2');
+        } else {
+          RecievedTransferResult = [];
+          callback2(null, '2');
+        }
+      });
+    }
+  });
+  app.get('/Api/v1/TransferHistory/UserAccountIDReceiver/:UserAccountIDReceiver/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
+    if (!isNullOrEmpty(UserAccountIDReceiver)) {
+      TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, function (response) {
+        if (response != undefined) {
+          res.send(beautify(response, null, 2, 100));
+        } else {
+          res.send([]);
+        }
+      });
+    } else {
+      res.send({
+        UserAccountIDMissing: true
+      });
+    }
+  });
+  app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
+    let SentTransferResult = undefined;
+    let RecievedTransferResult = undefined;
+
+    async.series([GetSentTransfer, GetReceiverTransfer], function (error, response) {
+      let FullTransferHistory = {
+        SentTransferResult: SentTransferResult,
+        RecievedTransferResult: RecievedTransferResult
+      };
+
+      res.send(FullTransferHistory);
+    });
+
+    function GetSentTransfer(callback1) {
+      TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID, function (response1) {
+        if (response1 != undefined) {
+          SentTransferResult = response1;
+          callback1(null, '1');
+        } else {
+          SentTransferResult = [];
+          callback1(null, '1');
+        }
+
+      });
+    }
+
+    function GetReceiverTransfer(callback2) {
+      TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID, function (response) {
+        if (response != undefined) {
+          RecievedTransferResult = response;
+          callback2(null, '2');
+        } else {
+          RecievedTransferResult = [];
+          callback2(null, '2');
+        }
+      });
+    }
+  });
 }
-module.exports = function(app){
+module.exports = function (app) {
   app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let TransferHistoryUUID = uuidv4();
@@ -204,78 +235,99 @@ module.exports = function(app){
     let Status = req.params.Status;
     let Reason = req.params.Reason;
     let TransferedDATE = req.params.TransferedDATE;
-      if(!isNullOrEmpty(UserAccountIDReceiver)){
-        if(!isNullOrEmpty(UserAccountIDSender)){
-          if(!isNullOrEmpty(Amount)){
-            if(!isNullOrEmpty(Status)){
-              if(!isNullOrEmpty(Reason)){
-                if(!isNullOrEmpty(TransferedDATE)){
-                  if(parseInt(Amount)>0){
-                    let UserAccountIDReceiverExist=false;
-                    let UserAccountIDSenderExist=false;
-                    async.series([UserAccountIDReceiverExistCheck,UserAccountIDSenderExistCheck],function(error,response){
-                      if(UserAccountIDReceiverExist==true){
-                          if(UserAccountIDSenderExist==true){
-                          AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,function(response){
-                            if(response!=undefined){
-                              res.send(response);
-                            }else{
-                              res.send([{TransferHistoryUpdateFailed:true}]);
-                            }
-                          });
-                        }else{
-                          res.send({UserAccountIDSenderExist:false});
-                        }
-                      }else{
-                        res.send({UserAccountIDReceiverExist:false});
+    if (!isNullOrEmpty(UserAccountIDReceiver)) {
+      if (!isNullOrEmpty(UserAccountIDSender)) {
+        if (!isNullOrEmpty(Amount)) {
+          if (!isNullOrEmpty(Status)) {
+            if (!isNullOrEmpty(Reason)) {
+              if (!isNullOrEmpty(TransferedDATE)) {
+                if (parseInt(Amount) > 0) {
+                  let UserAccountIDReceiverExist = false;
+                  let UserAccountIDSenderExist = false;
+                  async.series([UserAccountIDReceiverExistCheck, UserAccountIDSenderExistCheck], function (error, response) {
+                    if (UserAccountIDReceiverExist == true) {
+                      if (UserAccountIDSenderExist == true) {
+                        AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          } else {
+                            res.send([{
+                              TransferHistoryUpdateFailed: true
+                            }]);
+                          }
+                        });
+                      } else {
+                        res.send({
+                          UserAccountIDSenderExist: false
+                        });
+                      }
+                    } else {
+                      res.send({
+                        UserAccountIDReceiverExist: false
+                      });
+                    }
+                  });
+
+                  function UserAccountIDReceiverExistCheck(callback) {
+                    isUserAccountIDExist(UserAccountIDReceiver, function (response) {
+                      if (response != null) {
+                        UserAccountIDReceiverExist = true;
+                        callback(null, '1');
+                      } else {
+                        UserAccountIDReceiverExist = false;
+                        callback(null, '1');
                       }
                     });
-  
-                    function UserAccountIDReceiverExistCheck(callback){
-                      isUserAccountIDExist(UserAccountIDReceiver,function(response){
-                        if(response!=null){
-                          UserAccountIDReceiverExist=true;
-                          callback(null,'1');
-                        }else{
-                          UserAccountIDReceiverExist=false;
-                          callback(null,'1');
-                        }
-                      });
-                    }
-                    function UserAccountIDSenderExistCheck(callback){
-                      isUserAccountIDExist(UserAccountIDSender,function(response){
-                        if(response!=null){
-                          UserAccountIDSenderExist=true;
-                          callback(null,'2');
-                        }else{
-                          UserAccountIDSenderExist=false;
-                          callback(null,'2');
-                        }
-                      });
-  
-                    }
-                  }else{
-                    res.send({AmountInvalidValue:true});
                   }
-                  
-                }else{
-                  res.send({TransferedDATEMissing:true});
+
+                  function UserAccountIDSenderExistCheck(callback) {
+                    isUserAccountIDExist(UserAccountIDSender, function (response) {
+                      if (response != null) {
+                        UserAccountIDSenderExist = true;
+                        callback(null, '2');
+                      } else {
+                        UserAccountIDSenderExist = false;
+                        callback(null, '2');
+                      }
+                    });
+
+                  }
+                } else {
+                  res.send({
+                    AmountInvalidValue: true
+                  });
                 }
-              }else{
-                res.send({ReasonMissing:true});
+
+              } else {
+                res.send({
+                  TransferedDATEMissing: true
+                });
               }
-            }else{
-              res.send({StatusMissing:true});
+            } else {
+              res.send({
+                ReasonMissing: true
+              });
             }
-          }else{
-            res.send({AmountMissing:true});
+          } else {
+            res.send({
+              StatusMissing: true
+            });
           }
-        }else{
-          res.send({UserAccountIDSenderMissing:true});
+        } else {
+          res.send({
+            AmountMissing: true
+          });
         }
-      }else{
-        res.send({UserAccountIDReceiverMissing:true});
+      } else {
+        res.send({
+          UserAccountIDSenderMissing: true
+        });
       }
+    } else {
+      res.send({
+        UserAccountIDReceiverMissing: true
+      });
+    }
   });
 }
 
@@ -290,38 +342,40 @@ module.exports = function(app){
 //must update both the reciving/sender current player points 
 // -------------------------- MIGRATED
 
-  
-  function AddTransferHistory(TransferHistoryUUID,UserAccountIDReceiver,UserAccountIDSender,Amount,Status,Reason,TransferedDATE,callback){
-    Models.TransferHistory.sync({alter : true/*,force:true*/});
-    var item1 = Models.TransferHistory.build({
-      TransferHistoryUUID:TransferHistoryUUID,
-      UserAccountIDReceiver:UserAccountIDReceiver,
-      UserAccountIDSender:UserAccountIDSender,
-      Amount:Amount,
-      Status:Status,
-      Reason:Reason,
-      TransferedDATE:TransferedDATE
-    });
-    //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
-    Models.TransferHistory.sync({/*alter : true*//*,force:true*/});
-    item1.save()
+
+function AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
+  Models.TransferHistory.sync({
+    alter: true /*,force:true*/
+  });
+  var item1 = Models.TransferHistory.build({
+    TransferHistoryUUID: TransferHistoryUUID,
+    UserAccountIDReceiver: UserAccountIDReceiver,
+    UserAccountIDSender: UserAccountIDSender,
+    Amount: Amount,
+    Status: Status,
+    Reason: Reason,
+    TransferedDATE: TransferedDATE
+  });
+  //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
+  Models.TransferHistory.sync({ /*alter : true*/ /*,force:true*/ });
+  item1.save()
     .then(Success => {
-  
-       console.log("----AddTransferHistory Start-----");
-       console.log(Success);
-       console.log("----AddTransferHistory End-----");
-       callback("Inserted");
+
+      console.log("----AddTransferHistory Start-----");
+      console.log(Success);
+      console.log("----AddTransferHistory End-----");
+      callback("Inserted");
     })
     .catch(error => {
       // mhhh, wth!
       console.log();
       callback(undefined);
     });
-  }
+}
 
 //Transaction list of a player not to be confued with TransferHistory between players
 //NOT A TRASFER HISTORY but a transactions performed on and by the PLAYER to SELF Account
-app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res){//A combination of Deposit and Withdraw List in one request but for the player its self
+app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, res) { //A combination of Deposit and Withdraw List in one request but for the player its self
   res.setHeader('Content-Type', 'application/json');
   let UserAccountID = req.params.UserAccountID;
   let PhoneNumber = req.param.PhoneNumber;
@@ -331,151 +385,158 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/',function(req,res
   let PlayerExist = false;
   let ScreenName = undefined;
   let Name = undefined;
-  let PlayerRelationshipResult =undefined;
-  let WithdrawHistoryExist =false;
-  let WithdrawHistoryResult = undefined;//empty array if no history but should not be undefined and still output
-  let DepositHistoryExist=false;
-  let DepositHistoryResult = undefined;//empty array if no history but should not be undefined and still output
-  if(!isNullOrEmpty(UserAccountID)){
-    async.series([UserAccountCheck,UserInfoCheck,PlayerCheck,GetParentPlayerLookUp,GetWithdrawHistory,GetDepositHistory],function(error,response){
+  let PlayerRelationshipResult = undefined;
+  let WithdrawHistoryExist = false;
+  let WithdrawHistoryResult = undefined; //empty array if no history but should not be undefined and still output
+  let DepositHistoryExist = false;
+  let DepositHistoryResult = undefined; //empty array if no history but should not be undefined and still output
+  if (!isNullOrEmpty(UserAccountID)) {
+    async.series([UserAccountCheck, UserInfoCheck, PlayerCheck, GetParentPlayerLookUp, GetWithdrawHistory, GetDepositHistory], function (error, response) {
       let WithdrawListItem = PlayerRelationshipResult;
       WithdrawListItem.PhoneNumber = PhoneNumber;
       WithdrawListItem.TelephoneNumber = TelephoneNumber;
       WithdrawListItem.Name = Name;
       WithdrawListItem.ScreenName = ScreenName;
-      WithdrawListItem.WithdrawHistory= WithdrawHistoryResult;
+      WithdrawListItem.WithdrawHistory = WithdrawHistoryResult;
       WithdrawListItem.DepositHistory = DepositHistoryResult;
-     
+
       res.send(beautify(WithdrawListItem, null, 2, 100));
     });
-    function UserAccountCheck(callback){
-      isUserAccountIDExist(UserAccountID,function(response){
-        if(response!=undefined){
-          UserAccountIDExist= true;
-          callback(null,'1');
-        }else{
-          UserAccountIDExist=false;
-          callback(null,'1');
+
+    function UserAccountCheck(callback) {
+      isUserAccountIDExist(UserAccountID, function (response) {
+        if (response != undefined) {
+          UserAccountIDExist = true;
+          callback(null, '1');
+        } else {
+          UserAccountIDExist = false;
+          callback(null, '1');
         }
       });
     }
-    function UserInfoCheck(callback){
-      UserInfoUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          UserInfoExist=true;
+
+    function UserInfoCheck(callback) {
+      UserInfoUserAccountID(UserAccountID, function (response) {
+        if (response != undefined) {
+          UserInfoExist = true;
           PhoneNumber = response[0].PhoneNumber;
           TelephoneNumber = response[0].TelephoneNumber;
-         callback(null,'2');
-        }else{
-          UserInfoExist= false;
-         callback(null,'2');
+          callback(null, '2');
+        } else {
+          UserInfoExist = false;
+          callback(null, '2');
         }
       });
     }
-    function PlayerCheck(callback){
-      PlayerUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-         PlayerExist= true;
-         Name = response[0].Name;
-         ScreenName = response[0].ScreenName;
-         callback(null,'3');
-        }else{
-         PlayerExist= false;
-         callback(null,'3');
+
+    function PlayerCheck(callback) {
+      PlayerUserAccountID(UserAccountID, function (response) {
+        if (response != undefined) {
+          PlayerExist = true;
+          Name = response[0].Name;
+          ScreenName = response[0].ScreenName;
+          callback(null, '3');
+        } else {
+          PlayerExist = false;
+          callback(null, '3');
         }
       });
     }
-    
-    function GetParentPlayerLookUp(callback){
-     GetParentRelationshipPlayerUserAccountID(UserAccountID,function(response){
-       if(response!=undefined){
-         PlayerRelationshipResult=response;
-         callback(null,'4');
-       }else{
-         PlayerRelationshipResult=undefined;
-         callback(null,'4');
-       }
-     });
+
+    function GetParentPlayerLookUp(callback) {
+      GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+        if (response != undefined) {
+          PlayerRelationshipResult = response;
+          callback(null, '4');
+        } else {
+          PlayerRelationshipResult = undefined;
+          callback(null, '4');
+        }
+      });
     }
-    function GetWithdrawHistory(callback){
-      WithdrawHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
+
+    function GetWithdrawHistory(callback) {
+      WithdrawHistoryUserAccountID(UserAccountID, function (response) {
+        if (response != undefined) {
           WithdrawHistoryResult = response;
-          WithdrawHistoryExist=true;
-          callback(null,'5');
-        }else{
-          WithdrawHistoryResult = [];// THIS  is valid because we want to return empty if no result
-          WithdrawHistoryExist=false;
-          callback(null,'5');
+          WithdrawHistoryExist = true;
+          callback(null, '5');
+        } else {
+          WithdrawHistoryResult = []; // THIS  is valid because we want to return empty if no result
+          WithdrawHistoryExist = false;
+          callback(null, '5');
         }
       });
     }
-    function GetDepositHistory(callback){
-      DepositHistoryUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
+
+    function GetDepositHistory(callback) {
+      DepositHistoryUserAccountID(UserAccountID, function (response) {
+        if (response != undefined) {
           DepositHistoryResult = response;
-          DepositHistoryExist=true;
-          callback(null,'6');
-        }else{
-          DepositHistoryResult = [];// THIS is valid because we want to return empty if no result
-          DepositHistoryExist=false;
-          callback(null,'6');
+          DepositHistoryExist = true;
+          callback(null, '6');
+        } else {
+          DepositHistoryResult = []; // THIS is valid because we want to return empty if no result
+          DepositHistoryExist = false;
+          callback(null, '6');
         }
       });
     }
-  }else{
-    res.send({UserAccountIDMissing:true});
+  } else {
+    res.send({
+      UserAccountIDMissing: true
+    });
   }
 });
 app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  Models.TransferHistory.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  Models.TransferHistory.describe().then(result=>{
+  Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  Models.TransferHistory.describe().then(result => {
     res.send(beautify(result, null, 2, 100));
   });
 });
 app.get('/Api/v1/SupportTicket/', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let Offset =  req.query.Offset;
-  let Limit =  req.query.Limit;
-  let Sort =  req.query.Sort;
-  Models.SupportTicket.sync(/*{alter:true}*/);//Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  let Offset = req.query.Offset;
+  let Limit = req.query.Limit;
+  let Sort = req.query.Sort;
+  Models.SupportTicket.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
     Models.SupportTicket.sync();
-    let result = Models.SupportTicket.findAll({ 
+    let result = Models.SupportTicket.findAll({
       where: {
         SupportTicketID: {
-          ne: null//not null
+          ne: null //not null
         }
-     }
-    }).then(function(result) {
-      let Data = result.map(function(item) {
-          return item;
-          
-      });
-     
-      res.send(beautify(Data, null, 2, 100));
-    }).catch(function(result) {//catching any then errors
+      }
+    }).then(function (result) {
+      let Data = result.map(function (item) {
+        return item;
 
-      res.send("Error "+result);
+      });
+
+      res.send(beautify(Data, null, 2, 100));
+    }).catch(function (result) { //catching any then errors
+
+      res.send("Error " + result);
     });
   }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
 
   }
-  if(!isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
 
   }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
 
   }
-  if(isNullOrEmpty(Offset)&&!isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
 
   }
-  if(isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&!isNullOrEmpty(Sort)){
+  if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
 
   }
-  if(!isNullOrEmpty(Offset)&&isNullOrEmpty(Limit)&&isNullOrEmpty(Sort)){
+  if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
 
   }
   //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);

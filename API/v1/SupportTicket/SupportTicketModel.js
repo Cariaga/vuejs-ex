@@ -1,52 +1,53 @@
-function SupportTicketUserAccountID(UserAccountID,callback){
-    Models.SupportTicket.sync();
-      let result = Models.SupportTicket.findAll({ 
-        where: {
-          UserAccountID:UserAccountID
-       }
-      }).then(function(result) {
-        let Data = result.map(function(item) {
-            return item;
-        });
-        if(Data.length>0){
-          callback(Data);
-        }else{
-          callback(undefined);
-        }
-      }).catch(function(result) {//catching any then errors
-        console.log("Error "+result);
-        callback(undefined);
-      });
-  }
+function SupportTicketUserAccountID(UserAccountID, callback) {
+  Models.SupportTicket.sync();
+  let result = Models.SupportTicket.findAll({
+    where: {
+      UserAccountID: UserAccountID
+    }
+  }).then(function (result) {
+    let Data = result.map(function (item) {
+      return item;
+    });
+    if (Data.length > 0) {
+      callback(Data);
+    } else {
+      callback(undefined);
+    }
+  }).catch(function (result) { //catching any then errors
+    console.log("Error " + result);
+    callback(undefined);
+  });
+}
 
-  /**
+/**
  *
  *
  * @param {*} UserAccountID
  * @param {*} Status
  * @param {*} callback
  */
-function SupportTicketUserAccountIDByStatus(UserAccountID,Status,callback){
-    Models.SupportTicket.sync();
-      let result = Models.SupportTicket.findAll({ 
-        where: {
-          UserAccountID:UserAccountID,Status:Status
-       }
-      }).then(function(result) {
-        let Data = result.map(function(item) {
-            return item;
-        });
-        if(Data.length>0){
-          callback(Data);
-        }else{
-          callback(undefined);
-        }
-      }).catch(function(result) {//catching any then errors
-        console.log("Error "+result);
-        callback(undefined);
-      });
-  }
-  /**
+function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
+  Models.SupportTicket.sync();
+  let result = Models.SupportTicket.findAll({
+    where: {
+      UserAccountID: UserAccountID,
+      Status: Status
+    }
+  }).then(function (result) {
+    let Data = result.map(function (item) {
+      return item;
+    });
+    if (Data.length > 0) {
+      callback(Data);
+    } else {
+      callback(undefined);
+    }
+  }).catch(function (result) { //catching any then errors
+    console.log("Error " + result);
+    callback(undefined);
+  });
+}
+/**
  *
  *
  * @param {*} SupportTicketID
@@ -59,26 +60,29 @@ function SupportTicketUserAccountIDByStatus(UserAccountID,Status,callback){
  * @param {*} Status
  * @param {*} callback
  */
-function SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
-    Models.SupportTicket.update({
+function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
+  Models.SupportTicket.update({
       Title: Title,
       Description: Description,
       Reason: Reason,
       Time: Time,
       Date: Date,
       Status: Status
-    },{
-      where: {SupportTicketID: SupportTicketID,UserAccountID:UserAccountID }
+    }, {
+      where: {
+        SupportTicketID: SupportTicketID,
+        UserAccountID: UserAccountID
+      }
     })
     .then(Success => {
       callback("Updated");
     })
     .catch(error => {
-      console.log("Error Updating " +error);
+      console.log("Error Updating " + error);
       callback(undefined);
     });
-  }
-  /**
+}
+/**
  *
  *
  * @param {*} UserAccountID
@@ -90,27 +94,29 @@ function SupportTicketUpdate(SupportTicketID,UserAccountID,Title,Description,Rea
  * @param {*} Status
  * @param {*} callback
  */
-function AddSupportTicket(UserAccountID,Title,Description,Reason,Time,Date,Status,callback){
-    var item1 = Models.SupportTicket.build({
-      UserAccountID:UserAccountID,
-      Title:Title,
-      Description:Description,
-      Reason:Reason,
-      Time:Time,
-      Date:Date,
-      Status:Status
-    });
-    Models.SupportTicket.sync({alter : true/*,force:true*/});//force to recreate if non production code
-    item1.save()
+function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
+  var item1 = Models.SupportTicket.build({
+    UserAccountID: UserAccountID,
+    Title: Title,
+    Description: Description,
+    Reason: Reason,
+    Time: Time,
+    Date: Date,
+    Status: Status
+  });
+  Models.SupportTicket.sync({
+    alter: true /*,force:true*/
+  }); //force to recreate if non production code
+  item1.save()
     .then(Success => {
-     
+
       console.log("----AddSupportTicket Start-----");
       console.log(Success);
       console.log("----AddSupportTicket End-----");
       callback("Inserted");
     })
     .catch(error => {
-      console.log("error inserting " +error);
+      console.log("error inserting " + error);
       callback(undefined);
     });
-  }
+}

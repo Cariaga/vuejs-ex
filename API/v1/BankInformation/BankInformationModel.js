@@ -1,4 +1,3 @@
-
 /**
  *
  *
@@ -11,26 +10,28 @@
  * @param {*} Date
  * @param {*} callback
  */
-function BankInformationUpdate(UserAccountID,BankInformationID,BankName,SecurityCode,Expiration,Time,Date,callback){
-    Models.BankInformation.update({
+function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
+  Models.BankInformation.update({
       UserAccountID: UserAccountID,
       BankName: BankName,
       SecurityCode: SecurityCode,
       Expiration: Expiration,
       Time: Time,
       Date: Date
-    },{
-      where: {BankInformationID: BankInformationID }
+    }, {
+      where: {
+        BankInformationID: BankInformationID
+      }
     })
     .then(Success => {
       callback("Updated");
     })
     .catch(error => {
-      console.log("Error Updating " +error);
+      console.log("Error Updating " + error);
       callback(undefined);
-    }); 
-  }
-  /**
+    });
+}
+/**
  *
  *
  * @param {*} UserAccountID
@@ -43,22 +44,24 @@ function BankInformationUpdate(UserAccountID,BankInformationID,BankName,Security
  * @param {*} callback
  */
 // --------------------------------------- MIGRATED
-function BankInformationAdd(UserAccountID,BankName,SecurityCode,Valid,Expiration,Time,Date,callback){
+function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
   var item1 = Models.BankInformation.build({
-    UserAccountID:UserAccountID,
-    BankName:BankName,
-    SecurityCode:SecurityCode,
-    Valid:Valid,
-    Expiration:Expiration,
-    Time:Time,
-    Date:Date
+    UserAccountID: UserAccountID,
+    BankName: BankName,
+    SecurityCode: SecurityCode,
+    Valid: Valid,
+    Expiration: Expiration,
+    Time: Time,
+    Date: Date
   });
-  Models.BankInformation.sync({alter : true/*,force:true*/});//force recreates deletes old table
+  Models.BankInformation.sync({
+    alter: true /*,force:true*/
+  }); //force recreates deletes old table
   item1.save().then(Success => {
-   callback("Inserted");
-  })
-  .catch(error => {
-    console.log("error inserting " +error);
-    callback(undefined);
-  });
+      callback("Inserted");
+    })
+    .catch(error => {
+      console.log("error inserting " + error);
+      callback(undefined);
+    });
 }
