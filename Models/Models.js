@@ -1,5 +1,6 @@
 var express = require('express');
 const mysql = require('mysql2');
+/*
 const Sequelize = require('sequelize');
 const  sequelize = new Sequelize('sampledb', 'user', 'user', {
   host:'172.30.166.206',
@@ -14,7 +15,7 @@ var User = sequelize.define('User', {
   myhash: Sequelize.STRING,
   mysalt: Sequelize.STRING
 });
-
+*/
 /*Never Use ALTER AND FORCE add the column manually using sequelize.query() try to match it based database first not entity first
 to test if the sequelize schema is matching the database schema, it is to do raw queries and if both sequelize and sql based worked on the same query request like findAll() that is corrent
 but if empty sequelize version is empty while sql query version is not then that means it both schema dosn't match*/
@@ -37,7 +38,7 @@ but if empty sequelize version is empty while sql query version is not then that
 //</summary>
 
 //ONLY_FULL_GROUP_BY is Now Enabled by default in 5.7+ it means you need to specify the required columns in the select without using *
-
+/*
 
 const UserAccount =sequelize.define('UserAccount', {//the main schema
   UserID: {//PK only used in this part
@@ -183,7 +184,7 @@ Shop.belongsTo(UserAccount, {
       foreignKey: 'UserAccountID'
    })
 };*/
-
+/*
 const Player =sequelize.define('Player', {//any number of player point to a shopID but accountID/PlayersID both unique
   PlayersID: {
     type: Sequelize.INTEGER,
@@ -346,7 +347,7 @@ const HandHistory = sequelize.define('HandHistory', {
       key: 'SeasonID'
     }*/
  // },//foriegn key to GameHistory*/
-  MoveHand:Sequelize.STRING,//action performed by the player
+ /* MoveHand:Sequelize.STRING,//action performed by the player
   Something:Sequelize.STRING
 });
 
@@ -364,7 +365,7 @@ HandHistory.belongsTo(GameHistory, {
 
 
 //invoices
-const DepositHistory =sequelize.define('DepositHistory', {
+/*const DepositHistory =sequelize.define('DepositHistory', {
   DepositHistoryID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
