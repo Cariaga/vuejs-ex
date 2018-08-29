@@ -1,7 +1,7 @@
 //var beautify = require("json-beautify");
 //let AccessControlModel = require("./AccessControlModel");
 var express = require('express');
-const router = express.require('express').Router();
+const router =express.Router();
 
 router.get('/eh',function(req,res){
   res.send('test');
