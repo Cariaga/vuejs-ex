@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 module.exports = function (app) {
   app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     let ShopID = req.params.ShopID;

@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 module.exports = function (app) {
   app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
     let AccessControlID = req.params.AccessControlID;

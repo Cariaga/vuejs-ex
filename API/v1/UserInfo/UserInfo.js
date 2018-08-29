@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 module.exports = function (app) {
   app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;

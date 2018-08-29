@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 app.get('/Login', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date

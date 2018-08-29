@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 module.exports = function (app) {
   app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/', function (req, res) {
     let SeasonID = req.params.SeasonID;

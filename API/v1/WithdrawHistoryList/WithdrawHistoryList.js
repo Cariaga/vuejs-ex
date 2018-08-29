@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 module.exports = function (app) {
   app.get('/Api/v1/WithdrawList/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

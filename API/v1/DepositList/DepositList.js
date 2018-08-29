@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 module.exports = function (app) {
   //NOT DONE temporarly displays arrays
   //we need to retreive all records and branches of each account

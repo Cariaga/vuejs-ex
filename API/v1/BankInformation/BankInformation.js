@@ -1,4 +1,5 @@
 //--Select Start
+var beautify = require("json-beautify");
 module.exports = function (app) {
   app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function (req, res) {
     let BankInformationID = req.params.BankInformationID;

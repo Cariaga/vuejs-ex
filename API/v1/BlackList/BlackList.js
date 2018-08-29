@@ -1,4 +1,5 @@
 //--Select Start
+var beautify = require("json-beautify");
 module.exports = function (app) {
   app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
     let BlackListID = req.params.BlackListID;

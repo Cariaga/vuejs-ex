@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 app.get('/Verify', function (req, res) {
   // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
   res.setHeader('Content-Type', 'application/json');

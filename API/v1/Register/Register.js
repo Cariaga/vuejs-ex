@@ -1,3 +1,4 @@
+var beautify = require("json-beautify");
 app.get('/registerheadoffice', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let UserName = req.query.UserName;
