@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//INSERT
   app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
     ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
     let UserAccountID = req.params.UserAccountID;
@@ -80,7 +80,7 @@ module.exports = function (app) {
   });
 }
 
-module.exports = function (app) {
+module.exports = function (app) {//MODIFY
   app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
     // USAGE /Api/v1/SupportTicket/Update/SupportTicketID/1/UserAccountID/89a5b95d-8d5d-455b-8139-8e8317fdd392/Title/Title/Description/Description/Reason/Reason2/Time/12:34:56/Date/2009-05-31/Status/Status
     let SupportTicketID = req.params.SupportTicketID;
@@ -183,7 +183,55 @@ module.exports = function (app) {
     }
   });  
 }
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
+  app.get('/Api/v1/SupportTicket/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset = req.query.Offset;
+    let Limit = req.query.Limit;
+    let Sort = req.query.Sort;
+    Models.SupportTicket.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+      Models.SupportTicket.sync();
+      let result = Models.SupportTicket.findAll({
+        where: {
+          SupportTicketID: {
+            ne: null //not null
+          }
+        }
+      }).then(function (result) {
+        let Data = result.map(function (item) {
+          return item;
+  
+        });
+  
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function (result) { //catching any then errors
+  
+        res.send("Error " + result);
+      });
+    }
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+  
+    }
+    //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
+  });
+
+
   app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -208,56 +256,6 @@ module.exports = function (app) {
       res.send({
         InvalidUserAccountID: true
       });
-    }
-  });
-}
-
-module.exports = function (app) {
-  app.get('/UserAccount/SupportTicket', function (req, res) {
-    // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb
-    // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb&Status=Pending
-    let UserAccountID = req.query.UserAccountID;
-    let Status = req.query.Status;
-    if (!isNullOrEmpty(UserAccountID) && isNullOrEmpty(Status)) {
-      Models.SupportTicket.sync();
-      let result = Models.SupportTicket.findAll({
-        where: {
-          UserAccountID: UserAccountID //not null
-  
-        }
-      }).then(function (result) {
-        let Data = result.map(function (item) {
-          return item;
-  
-        });
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function (result) { //catching any then errors
-        res.send("Error " + result);
-      });
-    }
-    if (!isNullOrEmpty(UserAccountID) && !isNullOrEmpty(Status)) {
-      Models.SupportTicket.sync();
-      let result = Models.SupportTicket.findAll({
-        where: {
-          UserAccountID: UserAccountID,
-          Status: Status //not null
-  
-        }
-      }).then(function (result) {
-        let Data = result.map(function (item) {
-          return item;
-  
-        });
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function (result) { //catching any then errors
-  
-        res.send("Error " + result);
-      });
-    } else {
-      let Data = {
-        IsInvalidUserAccountID: true
-      }
-      res.send(Data);
     }
   });
 }

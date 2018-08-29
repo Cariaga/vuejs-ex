@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/WithdrawList/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = "6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6";
@@ -99,8 +99,6 @@ module.exports = function (app) {
       });
     }
   });
-}
-module.exports = function (app) {
   app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;

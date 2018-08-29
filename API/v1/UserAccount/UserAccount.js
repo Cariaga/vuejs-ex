@@ -1,5 +1,5 @@
 var beautify = require("json-beautify");
-module.exports = function (app) {
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -52,7 +52,55 @@ module.exports = function (app) {
     }
     //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
   });
-  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) { //migrated
+  app.get('/Api/v1/UserAccount/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Offset = req.query.Offset;
+    let Limit = req.query.Limit;
+    let Sort = req.query.Sort;
+    Models.UserAccount.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+      Models.UserAccount.sync();
+      let result = Models.UserAccount.findAll({
+        where: {
+          UserID: {
+            ne: null //not null
+          }
+        }
+      }).then(function (result) {
+        let Data = result.map(function (item) {
+          return item;
+  
+        });
+        res.send(beautify(Data, null, 2, 100));
+      }).catch(function (result) { //catching any then errors
+        res.send("Error " + result);
+      });
+    }
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
+  
+    }
+    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+  
+    }
+    //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
+  });
+
+
+}
+module.exports = function (app) {//MODIFY
+  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) { 
     let UserAccountIDFound = false;
     let UserAccountID = req.params.UserAccountID;
     let Verify = req.params.Verify;
@@ -152,101 +200,8 @@ module.exports = function (app) {
       });
     }
   });
-
 }
-module.exports = function (app) {
-  app.get('/Api/v1/UserAccount/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset = req.query.Offset;
-    let Limit = req.query.Limit;
-    let Sort = req.query.Sort;
-    Models.UserAccount.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      Models.UserAccount.sync();
-      let result = Models.UserAccount.findAll({
-        where: {
-          UserID: {
-            ne: null //not null
-          }
-        }
-      }).then(function (result) {
-        let Data = result.map(function (item) {
-          return item;
-  
-        });
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function (result) { //catching any then errors
-        res.send("Error " + result);
-      });
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
-    }
-    //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
-  });
-}
-module.exports = function (app) {
-  app.get('/Api/v1/UserAccount/ConntectedAccounts/UserAccountID/:UserAccountID', function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
-    let PlayerRelationshipResult = undefined; // the resulting parents of Player
-    let PlayerExist = false;
-    if (!isNullOrEmpty(UserAccountID)) {
-      async.series([PlayerCheck, GetParentPlayerLookUp], function (error, response) {
-        if (PlayerExist == true) {
-          res.send(PlayerRelationshipResult);
-        } else {
-          res.send({
-            PlayerInvalidValue: true
-          });
-        }
-      });
-
-      function PlayerCheck(callback) {
-        PlayerUserAccountID(UserAccountID, function (response) {
-          if (response != undefined) {
-            PlayerExist = true;
-            callback(null, '1');
-          } else {
-            PlayerExist = false;
-            callback(null, '1');
-          }
-        });
-      }
-
-      function GetParentPlayerLookUp(callback) {
-        GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
-          if (response != undefined) {
-            PlayerRelationshipResult = response;
-            callback(null, '2');
-          } else {
-            PlayerRelationshipResult = undefined;
-            callback(null, '2');
-          }
-        });
-      }
-    } else {
-      res.send({
-        UserAccountIDMissing: true
-      });
-    }
-
-  });
-
+module.exports = function (app) {//SELECTION
   app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
