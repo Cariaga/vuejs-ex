@@ -13,7 +13,6 @@ module.exports = function (app) {//MODIFY
     let Description = req.params.Description;
     let ReportDate = req.params.ReportDate;
     let ReleaseDate = req.params.ReleaseDate;
-
     if (!isNullOrEmpty(BlackListID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Status)) {
