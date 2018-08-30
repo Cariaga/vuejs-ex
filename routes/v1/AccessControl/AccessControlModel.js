@@ -1,9 +1,3 @@
-
-module.exports = {
-  calc: function(a, b) {
-      return  x(a, b);                
-  }
-}
 module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName, AccessTags, callback) {
   /*var item1 = Models.AccessControl.build({
     AccessID:AccessID,
@@ -26,7 +20,7 @@ module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName
 
 
 
-module.exports = function AccessControlUpdate(AccessID, AccessName, AccessTags, callback) {
+module.exports.AccessControlUpdate = function AccessControlUpdate(AccessID, AccessName, AccessTags, callback) {
   /*var item1 = Models.AccessControl.build({
     AccessID:AccessID,
     AccessName:AccessName,
