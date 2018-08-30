@@ -1,6 +1,6 @@
 //var beautify = require("json-beautify");
 let DBConnect = require("../../SharedController/DBConnect");
-let DBConnect = require("../../SharedController/DBCheck");
+let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 
 let AccessControlModel = require("./AccessControlModel");
