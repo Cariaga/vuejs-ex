@@ -207,8 +207,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-}
-module.exports = function (app) {//INSERT
+//INSERT
   app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
     //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
     let UserAccountID = req.params.UserAccountID;
@@ -264,8 +263,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
-module.exports = function (app) {//SELECTION
+//SELECTION
   app.get('/Api/v1/BlackList/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -298,8 +296,7 @@ module.exports = function (app) {//SELECTION
     }
     // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
   });
-}
-module.exports = function (app) {//STRUCTURE
+//STRUCTURE
   app.get('/Api/v1/BlackList/Clear', function (req, res) {
     Models.BlackList.destroy({
         where: {},

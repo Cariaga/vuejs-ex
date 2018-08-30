@@ -68,9 +68,7 @@ module.exports = function (app) {//MODIFT
       });
     }
   });
-};
-
-module.exports = function (app) {//INSERT
+//INSERT
   app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
     //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
@@ -132,8 +130,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
-module.exports = function (app) {//SELECTION
+  //SELECTION
   app.get('/Api/v1/LoginHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -252,8 +249,7 @@ module.exports = function (app) {//SELECTION
     }
     //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
   });
-}
-module.exports = function (app) {//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/LoginHistory/Clear', function (req, res) {
     Models.LoginHistory.destroy({
         where: {},

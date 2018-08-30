@@ -96,10 +96,7 @@ module.exports = function (app) {//SELECTION
     }
     //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
   });
-
-
-}
-module.exports = function (app) {//MODIFY
+  //MODIFY
   app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) { 
     let UserAccountIDFound = false;
     let UserAccountID = req.params.UserAccountID;
@@ -200,8 +197,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-}
-module.exports = function (app) {//SELECTION
+  //SELECTION
   app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -274,8 +270,7 @@ module.exports = function (app) {//SELECTION
       res.send(Data);
     }
   });
-}
-module.exports = function (app) {
+
   app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
@@ -346,8 +341,7 @@ module.exports = function (app) {
       });
     }
   });
-}
-module.exports = function (app) {//STRUTURE
+  //STRUTURE
   app.get('/Api/v1/UserAccount/Clear', function (req, res) { // will not work due to constraint
     //res.send('Doesnt clear use Delete');
     Models.UserAccount.destroy({

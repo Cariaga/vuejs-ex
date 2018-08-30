@@ -108,8 +108,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-}
-module.exports = function (app) {//Insert
+  //Insert
   app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', function (req, res) {
     //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
@@ -219,8 +218,7 @@ module.exports = function (app) {//Insert
       });
     }
   });
-}
-module.exports = function (app) {//SELECTION
+  //SELECTION
   app.get('/Api/v1/UserInfo/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -253,10 +251,7 @@ module.exports = function (app) {//SELECTION
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
   });
-
-  
-}
-module.exports = function (app) {//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/UserInfo/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.UserInfo.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database

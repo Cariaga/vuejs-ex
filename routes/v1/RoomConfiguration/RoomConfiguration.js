@@ -45,8 +45,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-}
-module.exports = function (app) {//INSERT
+  //INSERT
   app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
     //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
     let SeasonID = req.params.SeasonID;
@@ -128,8 +127,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
-module.exports = function (app) {//SELECTION
+  //SELECTION
   app.get('/Api/v1/RoomConfiguration/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -146,8 +144,7 @@ module.exports = function (app) {//SELECTION
       });
     }
   });
-}
-module.exports = function (app) {
+  
   app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.RoomConfiguration.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database

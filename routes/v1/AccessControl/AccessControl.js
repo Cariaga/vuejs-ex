@@ -10,14 +10,9 @@ router.get('/eh',function(req,res){
 });*/
 
 module.exports = function(app) {//MODIFY
-  app.get('/eh',function(req,res){
-    res.send('test');
-  });
-  app.get('/eh2',function(req,res){
-    res.send('test2');
-  });
 
-  /*app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
+
+  app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
    
     let AccessControlID = req.params.AccessControlID;
     let AccessID = req.params.AccessID;
@@ -56,10 +51,8 @@ module.exports = function(app) {//MODIFY
         AccessControlIDMissing: true
       });
     }
-  });*/
-};
-
-/*module.exports = function (app) {//INSERT
+  });
+//INSERT
   app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
     let AccessID = req.params.AccessID;
     let AccessName = req.params.AccessName;
@@ -92,8 +85,8 @@ module.exports = function(app) {//MODIFY
       });
     }
   });
-}*/
-/*module.exports = function (app) {//STRUCTURE
+
+//STRUCTURE
   app.get('/Api/v1/AccessControl/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.AccessControl.sync( ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -101,4 +94,4 @@ module.exports = function(app) {//MODIFY
       res.send(beautify(result, null, 2, 100));
     });
   });
-}*/
+}

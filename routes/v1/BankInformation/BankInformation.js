@@ -62,8 +62,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-}
-module.exports = function (app) {//INSERT
+//INSERT
   app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
     //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
@@ -126,8 +125,8 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
-module.exports = function (app) {//SELECTION
+
+//SELECTION
   app.get('/Api/v1/BankInformation/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -181,8 +180,8 @@ module.exports = function (app) {//SELECTION
       res.send(beautify(result, null, 2, 100));
     });
   });
-}
-module.exports = function (app) {//STRUCTURE
+
+//STRUCTURE
   app.get('/Api/v1/BankInformation/Clear', function (req, res) {
     Models.BankInformation.destroy({
         where: {},

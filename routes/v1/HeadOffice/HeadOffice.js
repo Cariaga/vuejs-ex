@@ -51,12 +51,7 @@ module.exports = function (app) {//INSERT
       res.send("Missing params");
     }
   });
-}
-
-
-
-
-module.exports = function (app) {//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/HeadOffice/Clear', function (req, res) {
     Models.HeadOffice.destroy({
         where: {},
@@ -86,8 +81,7 @@ module.exports = function (app) {//STRUCTURE
       res.send(beautify(result, null, 2, 100));
     });
   });
-}
-module.exports = function (app) {//SELECTION
+  //SELECTION
   app.get('/Api/v1/HeadOffice/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -121,9 +115,7 @@ module.exports = function (app) {//SELECTION
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
     // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
   });
-}
-
-module.exports = function (app) {//MODIFY
+  //MODIFY
   app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
     let HeadOfficeID = req.params.HeadOfficeID;
     let UserAccountID = req.params.UserAccountID;

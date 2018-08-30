@@ -63,9 +63,7 @@ module.exports = function (app) {//SELECTION
       res.send("Missing params");
     }
   });
-}
-
-module.exports = function (app) {//MODIFY
+//MODIFY
   app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', function (req, res) {
     let DistributorID = req.params.DistributorID;
     let UserAccountID = req.params.UserAccountID;
@@ -105,8 +103,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-}
-module.exports = function (app) {//INSERT
+//INSERT
   app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
     //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
     let UserAccountID = req.params.UserAccountID;
@@ -141,8 +138,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
-module.exports = function (app) {
+
   app.get('/Api/v1/Shop/DistributorID/:DistributorID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let DistributorID = req.params.DistributorID;
@@ -160,8 +156,7 @@ module.exports = function (app) {
       });
     }
   });
-}
-module.exports = function (app) {//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/Distributor/Clear', function (req, res) {
     Models.Distributor.destroy({
         where: {},
@@ -191,7 +186,4 @@ module.exports = function (app) {//STRUCTURE
       res.send(beautify(result, null, 2, 100));
     });
   });
-}
-module.exports = function (app) {
-  
 }

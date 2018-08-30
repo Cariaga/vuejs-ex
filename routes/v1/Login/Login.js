@@ -301,9 +301,7 @@ module.exports = function (app) {
       });
     }
   });
-}
 
-module.exports = function (app) {
   app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
     res.send('Not Used use Query Version Instead');
     /*let UserName = req.params.UserName;
