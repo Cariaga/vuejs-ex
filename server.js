@@ -244,30 +244,7 @@ function SendMail(To, From, Subject, html) {
     console.dir(reply);
   });
 }
-//--Account Type Check End
 
-app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  let RawQuery = req.params.RawQuery;
-/*
-  const connection = mysql.createConnection({
-    host: '172.30.166.206',
-    user: 'user',
-    password: 'user',
-    port: process.env.OPENSHIFT_MYSQL_DB_PORT,
-    database: 'sampledb'
-  });
-  connection.connect();
-  // simple query
-  connection.query(RawQuery,
-    function (err, results, fields) {
-      console.log(err);
-      console.log(results); // results contains rows returned by server
-      console.log(fields); // fields contains extra meta data about results, if available
-      res.send(beautify(results, null, 2, 100));
-    });
-  connection.end();*/
-});
 
 //--Login End
 
