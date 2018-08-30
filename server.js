@@ -224,7 +224,8 @@ app.get('/SMS/:recipient/:message', function (req, res) {
 
   res.end();
 });
-require('./API/SharedController/DBConnect').DBConnect('select * From UserAccount',function(response){
+const db = require('./API/SharedController/DBConnect');
+db.DBConnect('select * From UserAccount',function(response){
   console.log(response);
 });
 

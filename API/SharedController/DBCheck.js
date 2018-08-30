@@ -1,4 +1,5 @@
 let DBConnect = require("../../SharedController/DBConnect");
+const mysql = require('mysql2');
 module.exports = function (app) {
   /**
    *
