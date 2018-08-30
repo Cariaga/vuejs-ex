@@ -308,8 +308,6 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-}
-module.exports = function (app) {
   app.get('/Api/v1/Player/ShopID/:ShopID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let ShopID = req.params.ShopID;
@@ -327,8 +325,7 @@ module.exports = function (app) {
       });
     }
   });
-}
-module.exports = function (app) {
+
   app.get('/Api/v1/Player/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -374,8 +371,7 @@ module.exports = function (app) {
       res.send("Player " + Offset + " " + Limit + " " + Sort);
     }
   });
-}
-module.exports = function (app) {//INSERT
+  //INSERT
   app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', function (req, res) {
     //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
     let UserAccountID = req.params.UserAccountID;
@@ -431,10 +427,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
 
-
-module.exports = function (app) {
   app.get('/Api/v1/Player/Validate/:UserAccountID/', function (req, res) { //check for validation only
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     res.setHeader('Content-Type', 'application/json');
@@ -455,8 +448,7 @@ module.exports = function (app) {
       res.send("Missing params");
     }
   });
-}
-module.exports = function (app) {//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/Player/Clear', function (req, res) {
     Models.Player.destroy({
         where: {},

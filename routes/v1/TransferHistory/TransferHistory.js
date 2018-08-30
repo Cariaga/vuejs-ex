@@ -90,10 +90,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-  
-}
-module.exports = function (app) {//SELECTION
-  //--Select Start
+  //SELECTION
   app.get('/Api/v1/TransferHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -448,8 +445,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
-module.exports = function (app) {//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database

@@ -29,8 +29,7 @@ module.exports = function (app) {//MODIFY
         });
     }
   });
-}
-module.exports = function (app) {//SELECTION
+  //SELECTION
   app.get('/Api/v1/Shop/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -98,8 +97,7 @@ module.exports = function (app) {//SELECTION
       res.send("Missing params");
     }
   });
-}
-module.exports = function (app) {//INSERT
+  //INSERT
   app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
@@ -133,8 +131,7 @@ module.exports = function (app) {//INSERT
       });
     }
   });
-}
-module.exports = function (app) {//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/Shop/Clear', function (req, res) {
     Models.Shop.destroy({
         where: {
