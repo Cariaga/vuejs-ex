@@ -1,9 +1,11 @@
 const mysql = require('mysql2');
+//DEBUGGING mysql
+//if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
     const connection = mysql.createConnection({
-      host: '172.30.166.206'||'localhost'||'192.168.254.106',
-      user: 'new',
-      password: 'user',
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb'
     });
@@ -15,6 +17,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
         /*console.log(results); // results contains rows returned by server
         console.log(fields); // fields contains extra meta data about results, if available*/
         callback(results);
+        
       });
-    connection.end();
+      connection.end();
 }
