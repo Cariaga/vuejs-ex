@@ -1,6 +1,6 @@
 
 
-module.exports = function HandHistory(callback) {
+module.exports.HandHistory = function HandHistory(callback) {
   Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({
     where: {

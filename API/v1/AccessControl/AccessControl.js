@@ -1,9 +1,10 @@
 //var beautify = require("json-beautify");
+let AccessControlModel = require("../");
 let AccessControlModel = require("./AccessControlModel");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function(app) {//MODIFY
   app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
-   
+    
     let AccessControlID = req.params.AccessControlID;
     let AccessID = req.params.AccessID;
     let AccessName = req.params.AccessName;

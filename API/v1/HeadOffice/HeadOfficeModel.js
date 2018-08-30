@@ -1,4 +1,4 @@
-module.exports = function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
+module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
   Models.HandHistory.sync( /*{force:true}*/ );
   var item1 = Models.HandHistory.build({
     UserAccountID: UserAccountID,
@@ -24,7 +24,7 @@ module.exports = function AddHandHistory(UserAccountID, MoveHand, RoundID, callb
  * @param {*} Description
  * @param {*} callback
  */
-module.exports = function AddHeadOffice(UserAccountID, Name, Description, callback) {
+module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, callback) {
   var item1 = Models.HeadOffice.build({
     UserAccountID: UserAccountID,
     Name: Name,
@@ -56,7 +56,7 @@ module.exports = function AddHeadOffice(UserAccountID, Name, Description, callba
  * @param {*} Name
  * @param {*} callback
  */
-module.exports = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
+module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
   Models.HeadOffice.update({
       UserAccountID: UserAccountID,
       Name: Name
