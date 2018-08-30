@@ -13,7 +13,7 @@
  * @param {*} AfterPoints
  * @param {*} callback
  */
-function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
+module.exports = function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
   Models.GameHistory.sync();
   var item1 = Models.GameHistory.build({
     UserAccountID: UserAccountID,
@@ -54,7 +54,7 @@ function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Tim
  * @param {*} AfterPoints
  * @param {*} callback
  */
-function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
+module.exports = function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
   Models.GameHistory.sync();
   var item1 = Models.GameHistory.build({
     UserAccountID: UserAccountID,
@@ -85,7 +85,7 @@ function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Tim
  *
  * @param {*} callback
  */
-function GameHistory(callback) {
+module.exports = function GameHistory(callback) {
   Models.GameHistory.sync();
   let result = Models.GameHistory.findAll({
     where: {

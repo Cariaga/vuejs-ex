@@ -3,7 +3,7 @@
  *
  * @param {*} callback
  */
-function BlackListAll(callback) {
+module.exports = function BlackListAll(callback) {
   Models.BlackList.sync();
   let result = Models.BlackList.findAll({
     where: {
@@ -29,7 +29,7 @@ function BlackListAll(callback) {
   });
 }
 
-function BlackListUserAccountID(UserAccountID, callback) {
+module.exports = function BlackListUserAccountID(UserAccountID, callback) {
   Models.BlackList.sync();
   let result = Models.BlackList.findAll({
     where: {
@@ -62,7 +62,7 @@ function BlackListUserAccountID(UserAccountID, callback) {
  * @param {*} ReleaseDate
  * @param {*} callback
  */
-function BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, callback) { //FULL Update For Blacklist
+module.exports = function BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, callback) { //FULL Update For Blacklist
   Models.BlackList.update({
       UserAccountID: UserAccountID,
       Status: Status,
@@ -91,7 +91,7 @@ function BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description,
  * @param {*} Status
  * @param {*} callback
  */
-function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
+module.exports = function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
   Models.BlackList.update({
       Status: Status
     }, {
@@ -120,7 +120,7 @@ function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
  * @param {*} ReleaseDate
  * @param {*} callback
  */
-function AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, callback) {
+module.exports = function AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, callback) {
   var item1 = Models.BlackList.build({
     UserAccountID: UserAccountID,
     Title: Title,

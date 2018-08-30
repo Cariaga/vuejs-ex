@@ -11,7 +11,7 @@
  * @param {*} Date
  * @param {*} callback
  */
-function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
+module.exports = function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
   Models.Notification.update({
     NotificationType: NotificationType,
     Title: Title,
@@ -41,7 +41,7 @@ function NotificationUpdate(NotificationID,NotificationType,Title,Description,Ti
  * @param {*} Date
  * @param {*} callback
  */
-function AddNotification(NotificationType,Title,Description,Time,Date,callback){
+module.exports = function AddNotification(NotificationType,Title,Description,Time,Date,callback){
   var item1 = Models.Notification.build({
     NotificationType:NotificationType,
     Title:Title,

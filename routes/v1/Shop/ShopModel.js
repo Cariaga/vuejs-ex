@@ -6,7 +6,7 @@
  * @param {*} Description
  * @param {*} callback
  */
-function AddShop(UserAccountID, DistributorID, Description, callback) {
+module.exports = function AddShop(UserAccountID, DistributorID, Description, callback) {
   var item1 = Models.Shop.build({
     UserAccountID: UserAccountID,
     DistributorID: DistributorID,

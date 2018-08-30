@@ -10,7 +10,7 @@
  * @param {*} Date
  * @param {*} callback
  */
-function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
+module.exports = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
   Models.BankInformation.update({
       UserAccountID: UserAccountID,
       BankName: BankName,
@@ -43,7 +43,7 @@ function BankInformationUpdate(UserAccountID, BankInformationID, BankName, Secur
  * @param {*} Date
  * @param {*} callback
  */
-function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
+module.exports = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
   var item1 = Models.BankInformation.build({
     UserAccountID: UserAccountID,
     BankName: BankName,
@@ -77,7 +77,7 @@ function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expira
  * @param {*} callback
  */
 // --------------------------------------- MIGRATED
-function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
+module.exports = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
   var item1 = Models.BankInformation.build({
     UserAccountID: UserAccountID,
     BankName: BankName,

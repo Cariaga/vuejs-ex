@@ -1,15 +1,6 @@
-app.get('/Api/v1/HandHistory/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  HandHistory(function (response) {
-    if (response != undefined) {
-      res.send(beautify(response, null, 2, 100));
-    } else {
-      res.send([]);
-    }
-  });
-});
 
-function HandHistory(callback) {
+
+module.exports = function HandHistory(callback) {
   Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({
     where: {

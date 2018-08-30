@@ -1,4 +1,4 @@
-function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
+module.exports = function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
   Models.HandHistory.sync( /*{force:true}*/ );
   var item1 = Models.HandHistory.build({
     UserAccountID: UserAccountID,
@@ -26,7 +26,7 @@ function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
  */
 
 // -------------------------migrated
-function AddHeadOffice(UserAccountID, Name, Description, callback) {
+module.exports = function AddHeadOffice(UserAccountID, Name, Description, callback) {
   var item1 = Models.HeadOffice.build({
     UserAccountID: UserAccountID,
     Name: Name,
@@ -58,7 +58,7 @@ function AddHeadOffice(UserAccountID, Name, Description, callback) {
  * @param {*} Name
  * @param {*} callback
  */
-function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
+module.exports = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
   Models.HeadOffice.update({
       UserAccountID: UserAccountID,
       Name: Name

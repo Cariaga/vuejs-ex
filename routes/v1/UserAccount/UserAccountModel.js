@@ -13,7 +13,7 @@
  */
 
 // ---------------------migrated
-function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
+module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
   var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,
@@ -43,7 +43,7 @@ function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, Val
     });
 }
 
-function LoginHistoryUserAccountID(UserAccountID, callback) {
+module.exports = function LoginHistoryUserAccountID(UserAccountID, callback) {
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
@@ -68,7 +68,7 @@ function LoginHistoryUserAccountID(UserAccountID, callback) {
   });
 }
 
-function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
+module.exports = function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
   Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
@@ -100,7 +100,7 @@ function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
  * @param {*} VerifiedStatus
  * @param {*} callback
  */
-function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
+module.exports = function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   Models.UserAccount.update({
       Verify: VerifiedStatus
     }, {
@@ -132,7 +132,7 @@ function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { /
  */
 
 // ---------------------migrated
-function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
+module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
   var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,

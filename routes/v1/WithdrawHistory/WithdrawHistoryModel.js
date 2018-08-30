@@ -15,7 +15,7 @@
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+module.exports =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   var item1 = Models.WithdrawHistory.build({
     UserAccountID: UserAccountID,
     Amount: Amount,
@@ -61,7 +61,7 @@ function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, Request
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+module.exports = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   Models.WithdrawHistory.update({
       Amount: Amount,
       BankNameUsed: BankNameUsed,
@@ -90,7 +90,7 @@ function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNam
     });
 }
 
-function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
+module.exports = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
   Models.WithdrawHistory.update({
       ApprovedDATE: ApprovedDATE,
       ApprovedTIME: ApprovedTIME,
@@ -110,7 +110,7 @@ function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, Approve
     });
 }
 
-function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
+module.exports = function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   Models.WithdrawHistory.update({
       ProcessingDATE: ProcessingDATE,
       ProcessingTIME: ProcessingTIME,
@@ -130,7 +130,7 @@ function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, Proce
     });
 }
 
-function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
+module.exports = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
   Models.WithdrawHistory.update({
       RejectedDATE: RejectedDATE,
       RejectedTIME: RejectedTIME,
@@ -150,7 +150,7 @@ function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, Rejecte
     });
 }
 
-function HandHistoryUserAccountID(UserAccountID, callback) {
+module.exports = function HandHistoryUserAccountID(UserAccountID, callback) {
   Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({
     where: {
@@ -173,7 +173,7 @@ function HandHistoryUserAccountID(UserAccountID, callback) {
   });
 }
 
-function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
+module.exports = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
   Models.UserInfo.sync( /*{force:true}*/ );
   var item1 = Models.UserInfo.build({
@@ -194,7 +194,7 @@ function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callbac
     });
 }
 
-function WithdrawHistoryUserAccountID(UserAccountID, callback) {
+module.exports = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
   Models.WithdrawHistory.sync();
   let result = Models.WithdrawHistory.findAll({
     where: {

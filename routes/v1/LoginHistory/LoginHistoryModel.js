@@ -11,7 +11,7 @@
  * @param {*} Date
  * @param {*} callback
  */
-function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
+module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
   Models.LoginHistory.update({
       IP: IP,
       DeviceName: DeviceName,
@@ -47,7 +47,7 @@ function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, Devic
  * @param {*} Date
  * @param {*} callback
  */
-function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) { //accessed by /Login
+module.exports = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) { //accessed by /Login
   var item1 = Models.LoginHistory.build({
     UserAccountID: UserAccountID,
     IP: IP,
@@ -84,8 +84,7 @@ function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Ti
  * @param {*} Date
  * @param {*} callback
  */
-// ------------------------------------------ MIGRATED
-function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
+module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
   Models.LoginHistory.update({
       IP: IP,
       DeviceName: DeviceName,

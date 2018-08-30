@@ -11,7 +11,7 @@
  */
 
 //  ----------------------------------migrated
-function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   //res.send('test');
   //Setting up the config
   let item1 = Models.Player.build({
@@ -45,7 +45,7 @@ function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoom
  * @param {*} UserAccountID
  * @param {*} callback
  */
-function PlayerUserAccountID(UserAccountID, callback) {
+module.exports = function PlayerUserAccountID(UserAccountID, callback) {
   Models.Player.sync();
   let result = Models.Player.findAll({
     where: {
@@ -73,7 +73,7 @@ function PlayerUserAccountID(UserAccountID, callback) {
  * @param {*} CurrentPoints
  * @param {*} callback
  */
-function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
+module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
   Models.Player.update({
       CurrentPoints: CurrentPoints
     }, {
@@ -97,7 +97,7 @@ function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
  * @param {*} CurrentPoints
  * @param {*} callback
  */
-function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
+module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
   Models.Player.update({
       CurrentPoints: CurrentPoints
     }, {
@@ -122,7 +122,7 @@ function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
-function PayerUpdateRoomName(UserAccountID, CurrentRoomName, callback) {
+module.exports =function PayerUpdateRoomName(UserAccountID, CurrentRoomName, callback) {
   Models.Player.update({
       CurrentRoomName: CurrentRoomName
     }, {
@@ -140,7 +140,7 @@ function PayerUpdateRoomName(UserAccountID, CurrentRoomName, callback) {
     });
 }
 
-function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+module.exports = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   Models.Player.update({
       ShopID: ShopID,
       ScreenName: ScreenName,
@@ -173,9 +173,7 @@ function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surnam
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
-
-//  ----------------------------------migrated
-function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   //res.send('test');
   //Setting up the config
   let item1 = Models.Player.build({

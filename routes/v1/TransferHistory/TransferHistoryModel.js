@@ -1,4 +1,4 @@
-function TransferHistoryAll(callback) {
+module.exports = function TransferHistoryAll(callback) {
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
@@ -22,7 +22,7 @@ function TransferHistoryAll(callback) {
   });
 }
 
-function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {
+module.exports = function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
@@ -44,7 +44,7 @@ function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {
   });
 }
 
-function TransferHistoryUserAccountIDSender(UserAccountIDSender, callback) {
+module.exports = function TransferHistoryUserAccountIDSender(UserAccountIDSender, callback) {
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
@@ -66,7 +66,7 @@ function TransferHistoryUserAccountIDSender(UserAccountIDSender, callback) {
   });
 }
 
-function TransferHistoryTransferHistoryUUID(TransferHistoryUUID, callback) {
+module.exports = function TransferHistoryTransferHistoryUUID(TransferHistoryUUID, callback) {
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
@@ -88,7 +88,7 @@ function TransferHistoryTransferHistoryUUID(TransferHistoryUUID, callback) {
   });
 }
 
-function TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
+module.exports = function TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
   Models.TransferHistory.update({
       UserAccountIDReceiver: UserAccountIDReceiver,
       UserAccountIDSender: UserAccountIDSender,
@@ -113,7 +113,7 @@ function TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserA
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
 // -------------------------- MIGRATED
-function AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
+module.exports = function AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
   Models.TransferHistory.sync({
     alter: true /*,force:true*/
   });

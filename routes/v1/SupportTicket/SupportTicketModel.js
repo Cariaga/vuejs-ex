@@ -1,4 +1,4 @@
-function SupportTicketUserAccountID(UserAccountID, callback) {
+module.exports = function SupportTicketUserAccountID(UserAccountID, callback) {
   Models.SupportTicket.sync();
   let result = Models.SupportTicket.findAll({
     where: {
@@ -26,7 +26,7 @@ function SupportTicketUserAccountID(UserAccountID, callback) {
  * @param {*} Status
  * @param {*} callback
  */
-function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
+module.exports = function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
   Models.SupportTicket.sync();
   let result = Models.SupportTicket.findAll({
     where: {

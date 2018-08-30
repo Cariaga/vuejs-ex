@@ -1,4 +1,4 @@
-function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, callback) {
+module.exports = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, callback) {
   Models.HandHistory.sync();
   Models.HandHistory.update({
       MoveHand: MoveHand,
@@ -19,7 +19,7 @@ function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, call
       callback(undefined);
     });
 }
-function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
+module.exports =function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
   Models.HandHistory.sync( /*{force:true}*/ );
   var item1 = Models.HandHistory.build({
     UserAccountID: UserAccountID,

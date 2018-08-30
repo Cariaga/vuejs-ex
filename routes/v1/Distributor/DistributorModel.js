@@ -6,7 +6,7 @@
  * @param {*} Name
  * @param {*} callback
  */
-function AddDistributor(UserAccountID, HeadOfficeID, Name, callback) {
+module.exports = function AddDistributor(UserAccountID, HeadOfficeID, Name, callback) {
   var item1 = Models.Distributor.build({
     UserAccountID: UserAccountID,
     HeadOfficeID: HeadOfficeID,
@@ -39,7 +39,7 @@ function AddDistributor(UserAccountID, HeadOfficeID, Name, callback) {
  * @param {*} Name
  * @param {*} callback
  */
-function DistributorUpdate(UserAccountID, HeadOfficeID, Name, callback) {
+module.exports = function DistributorUpdate(UserAccountID, HeadOfficeID, Name, callback) {
   Models.Distributor.update({
       UserAccountID: UserAccountID,
       HeadOfficeID: HeadOfficeID,

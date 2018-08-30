@@ -7,7 +7,7 @@
  * @param {*} Speed
  * @param {*} callback
  */
-function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, Speed, callback) {
+module.exports = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, Speed, callback) {
   var item1 = Models.RoomConfiguration.build({
     SeasonID: SeasonID,
     SmallBlind: SmallBlind,

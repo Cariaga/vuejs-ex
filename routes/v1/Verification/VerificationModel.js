@@ -5,7 +5,7 @@
  * @param {*} ValidKey
  * @param {*} callback
  */
-function VerifyAccount(UserName, ValidKey, callback) { // Verification with ValidKey // Public only use // Via ValidKey
+module.exports = function VerifyAccount(UserName, ValidKey, callback) { // Verification with ValidKey // Public only use // Via ValidKey
   Models.UserAccount.update({
       Verify: true
     }, {
@@ -31,7 +31,7 @@ function VerifyAccount(UserName, ValidKey, callback) { // Verification with Vali
  * @param {*} ValidKey
  * @param {*} callback
  */
-function Verify(UserName, ValidKey, callback) {
+module.exports = function Verify(UserName, ValidKey, callback) {
   async.waterfall([
     myFirstFunction,
     mySecondFunction,

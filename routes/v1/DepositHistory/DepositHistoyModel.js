@@ -17,7 +17,7 @@
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+module.exports = function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   var item1 = Models.DepositHistory.build({
     UserAccountID: UserAccountID,
     Amount: Amount,
@@ -50,7 +50,7 @@ function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed
     });
 }
 
-function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, callback) {
+module.exports = function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   Models.DepositHistory.update({
       ProcessingDATE: ProcessingDATE,
       ProcessingTIME: ProcessingTIME,
@@ -71,7 +71,7 @@ function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, Process
 }
 
 
-function DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RequestedDATE, RejectedTIME, callback) {
+module.exports = function DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RequestedDATE, RejectedTIME, callback) {
   Models.DepositHistory.update({
       ApprovedDATE: RequestedDATE,
       ApprovedTIME: RejectedTIME,
@@ -97,7 +97,7 @@ function DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, Requested
  * @param {*} DepositHistoryID
  * @param {*} callback
  */
-function DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, callback) {
+module.exports = function DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, callback) {
   Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({
     where: {
@@ -125,7 +125,7 @@ function DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, callback
  * @param {*} Status
  * @param {*} callback
  */
-function DepositHistoryUserAccountIDStatus(UserAccountID, Status, callback) {
+module.exports = function DepositHistoryUserAccountIDStatus(UserAccountID, Status, callback) {
   Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({
     where: {
@@ -153,7 +153,7 @@ function DepositHistoryUserAccountIDStatus(UserAccountID, Status, callback) {
  * @param {*} UserAccountID
  * @param {*} callback
  */
-function DepositHistoryUserAccountID(UserAccountID, callback) {
+module.exports = function DepositHistoryUserAccountID(UserAccountID, callback) {
   Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({
     where: {
