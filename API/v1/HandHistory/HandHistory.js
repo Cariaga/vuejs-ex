@@ -98,7 +98,7 @@ module.exports = function (app) {//MODIFY
             }
 
             function PlayerCheck(callback) {
-              PlayerUserAccountID(UserAccountID, function (response) {
+              DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
 
                 if (response != undefined) {
                   PlayerExist = true;

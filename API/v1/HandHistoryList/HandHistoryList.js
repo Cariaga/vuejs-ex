@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/HandHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    HandHistory(function (response) {
+    HandHistoryModel.HandHistory(function (response) {
       if (response != undefined) {
         res.send(beautify(response, null, 2, 100));
       } else {
@@ -22,7 +22,7 @@ module.exports = function (app) {//SELECTION
       let UserAccountIDExist = false;
       async.series([UserAccountIDCheck], function (error, response) {
         if (UserAccountIDExist == true) {
-          HandHistoryUserAccountID(UserAccountID, function (response) {
+          HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
             if (response != undefined) {
               res.send(beautify(response, null, 2, 100));
             } else {

@@ -240,7 +240,7 @@ module.exports = function (app) {//INSERT
     let Status = req.params.Status;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Status)) {
-        SupportTicketUserAccountIDByStatus(UserAccountID, Status, function (response) {
+        SupportTicketModel.SupportTicketUserAccountIDByStatus(UserAccountID, Status, function (response) {
           if (response != undefined) {
             res.send(beautify(response, null, 2, 100));
           } else {
