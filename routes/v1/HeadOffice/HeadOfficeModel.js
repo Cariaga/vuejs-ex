@@ -24,8 +24,6 @@ module.exports = function AddHandHistory(UserAccountID, MoveHand, RoundID, callb
  * @param {*} Description
  * @param {*} callback
  */
-
-// -------------------------migrated
 module.exports = function AddHeadOffice(UserAccountID, Name, Description, callback) {
   var item1 = Models.HeadOffice.build({
     UserAccountID: UserAccountID,

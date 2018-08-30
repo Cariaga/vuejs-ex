@@ -9,8 +9,6 @@
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
-
-//  ----------------------------------migrated
 module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   //res.send('test');
   //Setting up the config

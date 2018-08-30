@@ -76,7 +76,6 @@ module.exports = function BankInformationAdd(UserAccountID, BankName, SecurityCo
  * @param {*} Date
  * @param {*} callback
  */
-// --------------------------------------- MIGRATED
 module.exports = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
   var item1 = Models.BankInformation.build({
     UserAccountID: UserAccountID,

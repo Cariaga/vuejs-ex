@@ -11,8 +11,6 @@
  * @param {*} RegisteredTime
  * @param {*} callback
  */
-
-// ---------------------migrated
 module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
   var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
