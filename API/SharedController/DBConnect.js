@@ -2,8 +2,8 @@ const mysql = require('mysql2');
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
     const connection = mysql.createConnection({
       host: '172.30.166.206'||'localhost'||'192.168.254.106',
-      user: 'newuser',
-      password: 'user',
+      user: 'user',
+      password: 'password',
       port: process.env.OPENSHIFT_MYSQL_DB_PORT,
       database: 'sampledb'
     });
