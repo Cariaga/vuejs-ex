@@ -86,7 +86,7 @@ module.exports = function (app) {//MODIFY
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      isShopUserAccountIDExist(UserAccountID, function (response) {
+      DBCheck.isShopUserAccountIDExist(UserAccountID, function (response) {
         if (!isNullOrEmpty(response) && response.length > 0) {
           res.send({
             isShop: true

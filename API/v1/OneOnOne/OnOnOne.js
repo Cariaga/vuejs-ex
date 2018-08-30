@@ -45,7 +45,7 @@ module.exports = function (app) {//SELECTION
       });
 
       function UserAccountCheck(callback) {
-        isUserAccountIDExist(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
           if (response != undefined) {
             UserAccountIDExist = true;
             RegisteredDate = response[0].RegisteredDate;
@@ -59,7 +59,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function PlayerCheck(callback) {
-        PlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerExist = true;
             ScreenName = response[0].ScreenName;
@@ -72,7 +72,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function GetParentPlayerLookUp(callback) { //Tree Parent of a Player
-        GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerRelationshipResult = response;
             callback(null, '3');
@@ -84,7 +84,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function GetSupportTicketUserAccountID(callback) {
-        SupportTicketUserAccountID(UserAccountID, function (response) {
+        DBCheck.SupportTicketUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             SupportTicketExist = true;
             Status = response[0].Status;

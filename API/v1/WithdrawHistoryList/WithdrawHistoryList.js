@@ -36,7 +36,7 @@ module.exports = function (app) {//SELECTION
       });
 
       function UserAccountCheck(callback) {
-        isUserAccountIDExist(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
           if (response != undefined) {
             UserAccountIDExist = true;
             callback(null, '1');
@@ -48,7 +48,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function UserInfoCheck(callback) {
-        UserInfoUserAccountID(UserAccountID, function (response) {
+        DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             UserInfoExist = true;
             PhoneNumber = response[0].PhoneNumber;
@@ -62,7 +62,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function PlayerCheck(callback) {
-        PlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerExist = true;
             Name = response[0].Name;
@@ -76,7 +76,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function GetParentPlayerLookUp(callback) {
-        GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerRelationshipResult = response;
             callback(null, '4');
@@ -88,7 +88,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function GetWithdrawHistory(callback) {
-        WithdrawHistoryUserAccountID(UserAccountID, function (response) {
+        DBCheck.WithdrawHistoryUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             WithdrawHistoryResult = response;
             WithdrawHistoryExist = true;
@@ -130,7 +130,7 @@ module.exports = function (app) {//SELECTION
       });
 
       function UserAccountCheck(callback) {
-        isUserAccountIDExist(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
           if (response != undefined) {
             UserAccountIDExist = true;
             callback(null, '1');
@@ -142,7 +142,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function UserInfoCheck(callback) {
-        UserInfoUserAccountID(UserAccountID, function (response) {
+        DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             UserInfoExist = true;
             PhoneNumber = response[0].PhoneNumber;
@@ -156,7 +156,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function PlayerCheck(callback) {
-        PlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerExist = true;
             Name = response[0].Name;
@@ -170,7 +170,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function GetParentPlayerLookUp(callback) {
-        GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerRelationshipResult = response;
             callback(null, '4');
@@ -182,7 +182,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function GetWithdrawHistory(callback) {
-        WithdrawHistoryUserAccountID(UserAccountID, function (response) {
+        DBCheck.WithdrawHistoryUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             WithdrawHistoryResult = response;
             WithdrawHistoryExist = true;

@@ -41,7 +41,7 @@ module.exports = function (app) {//INSERT
   app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', function (req, res) { //check for validation only
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      isHeadOfficeUserAccountIDExist(UserAccountID, function (response) {
+      DBCheck.isHeadOfficeUserAccountIDExist(UserAccountID, function (response) {
         if (!isNullOrEmpty(response) && response.length > 0) {
           res.send({
             isHeadOffice: true

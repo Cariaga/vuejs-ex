@@ -130,7 +130,7 @@ module.exports = function (app) {
               });
   
               function myFirstFunction(callback) {
-                isUserNameExist(UserName, function (response3) {
+                DBCheck.isUserNameExist(UserName, function (response3) {
                   let obj = response3;
                   if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0) {
                     isAccountAlreadyExist = true;
@@ -143,7 +143,7 @@ module.exports = function (app) {
               }
   
               function mySecondFunction(callback2) {
-                UserInfoEmailExist(Email, function (response) {
+                DBCheck.UserInfoEmailExist(Email, function (response) {
                   let obj = response;
                   if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].Email == Email) {
                     isEmailAlreadyExist = true;

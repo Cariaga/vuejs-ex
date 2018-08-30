@@ -62,7 +62,7 @@ module.exports = function (app) {//SELECTION
       function UserAccountCheck(callback) {
         // console.log("UserAccountCheck "+ UserAccountID);
 
-        isUserAccountIDExist(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
 
           if (response != undefined) {
             console.log("1");
@@ -80,7 +80,7 @@ module.exports = function (app) {//SELECTION
 
 
         console.log("2");
-        UserInfoUserAccountID(UserAccountID, function (response) {
+        DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             UserInfoExist = true;
             callback(null, '2');
@@ -96,7 +96,7 @@ module.exports = function (app) {//SELECTION
       function PlayerCheck(callback) {
 
         console.log("3");
-        PlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerExist = true;
             Name = response[0].Name;
@@ -113,7 +113,7 @@ module.exports = function (app) {//SELECTION
       function GetParentPlayerLookUp(callback) {
 
         console.log("4");
-        GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerRelationshipResult = response;
             callback(null, '4');
@@ -126,7 +126,7 @@ module.exports = function (app) {//SELECTION
       }
 
       function GetLoginHistory(callback) {
-        LoginHistoryUserAccountID(UserAccountID, function (response) {
+        DBCheck.LoginHistoryUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             LoginHistoryResult = response;
             callback(null, '5');

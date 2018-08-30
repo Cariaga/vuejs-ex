@@ -11,7 +11,7 @@ module.exports = function (app) {
     let ValidKey = req.query.VerifyKey;
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(ValidKey)) {
-        isUserNameExist(UserName, function (response3) {
+        DBCheck.isUserNameExist(UserName, function (response3) {
           console.log("Verify response : " + response3);
           let obj = response3;
           if (!isNullOrEmpty(obj) && obj != undefined) {

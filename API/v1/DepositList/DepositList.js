@@ -38,7 +38,7 @@ module.exports = function (app) {
       });
 
       function UserAccountCheck(callback) {
-        isUserAccountIDExist(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
           if (response != undefined) {
             UserAccountIDExist = true;
             callback(null, '1');
@@ -50,7 +50,7 @@ module.exports = function (app) {
       }
 
       function UserInfoCheck(callback) {
-        UserInfoUserAccountID(UserAccountID, function (response) {
+        DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             UserInfoExist = true;
             PhoneNumber = response[0].PhoneNumber;
@@ -64,7 +64,7 @@ module.exports = function (app) {
       }
 
       function PlayerCheck(callback) {
-        PlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerExist = true;
             Name = response[0].Name;
@@ -133,7 +133,7 @@ module.exports = function (app) {
       });
 
       function UserAccountCheck(callback) {
-        isUserAccountIDExist(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
           if (response != undefined) {
             UserAccountIDExist = true;
             callback(null, '1');
@@ -145,7 +145,7 @@ module.exports = function (app) {
       }
 
       function UserInfoCheck(callback) {
-        UserInfoUserAccountID(UserAccountID, function (response) {
+        DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             UserInfoExist = true;
             PhoneNumber = response[0].PhoneNumber;

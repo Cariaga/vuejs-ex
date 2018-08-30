@@ -53,7 +53,7 @@ module.exports = function (app) {//SELECTION
   app.get('/Api/v1/Distributor/Validate/:UserAccountID/', function (req, res) { //check for validation only
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      isDistributorUserAccountIDExist(UserAccountID, function (response) {
+      DBCheck.isDistributorUserAccountIDExist(UserAccountID, function (response) {
         if (!isNullOrEmpty(response) && response.length > 0) {
           res.send({
             isDistributer: true

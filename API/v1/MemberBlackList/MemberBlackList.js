@@ -70,7 +70,7 @@ module.exports = function (app) {//SELECTION
 
       function UserAccountCheck(callback) {
         console.log("UserAccountCheck " + UserAccountID);
-        isUserAccountIDExist(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
           if (response != undefined) {
             UserAccountIDExist = true;
             RegisteredDate = response[0].updatedAt;
@@ -84,7 +84,7 @@ module.exports = function (app) {//SELECTION
 
       function UserInfoCheck(callback) {
         if (UserAccountIDExist == true) {
-          UserInfoUserAccountID(UserAccountID, function (response) {
+          DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
             if (response != undefined) {
               UserInfoExist = true;
               callback(null, '2');
@@ -101,7 +101,7 @@ module.exports = function (app) {//SELECTION
 
       function PlayerCheck(callback) {
         if (UserInfoExist == true) {
-          PlayerUserAccountID(UserAccountID, function (response) {
+          DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
             if (response != undefined && response.length > 0) {
               PlayerExist = true;
               Name = response[0].Name;
@@ -120,7 +120,7 @@ module.exports = function (app) {//SELECTION
 
       function GetParentPlayerLookUp(callback) {
         if (PlayerExist == true) {
-          GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+          DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
             if (response != undefined) {
               PlayerRelationshipResult = response;
               callback(null, '4');
@@ -138,7 +138,7 @@ module.exports = function (app) {//SELECTION
       //we can check for blocklisted of other accounts but filter out that its a actual player based on function PlayerCheck result
       function GetBlackListUserAccountID(callback) {
         if (PlayerExist == true) {
-          BlackListUserAccountID(UserAccountID, function (response) {
+          DBCheck.lackListUserAccountID(UserAccountID, function (response) {
             if (response != undefined) {
               PlayerBlackListResult = response;
               callback(null, '5');

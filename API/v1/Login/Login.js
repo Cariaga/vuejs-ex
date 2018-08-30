@@ -150,7 +150,7 @@ module.exports = function (app) {
                       });
   
                       function PlayerUserAccountIDInternal(callback6) {
-                        UserInfoUserAccountID(UserAccountID, function (response) {
+                        DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
                           if (response != undefined) {
                             Data.ScreenName = response[0].ScreenName;
                             Data.SurName = response[0].Surname;
@@ -193,7 +193,7 @@ module.exports = function (app) {
   
           function UserNameInternalValidate(callback) { //we retrive the UserAccountID
             console.log('UserNameInternalValidate');
-            isUserNameExist(UserName, function (response3) {
+            DBCheck.isUserNameExist(UserName, function (response3) {
               let obj = response3;
               if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserName == UserName) {
                 AccessID = obj[0].AccessID;
@@ -209,7 +209,7 @@ module.exports = function (app) {
   
           function UserAccountInternalValidate(callback2) {
             console.log('UserAccountInternalValidate');
-            isUserAccountVerifiedUserName(UserName, function (response3) {
+            DBCheck.isUserAccountVerifiedUserName(UserName, function (response3) {
               let obj = response3;
               if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserName == UserName) {
                 AccountVerified = obj[0].Verify;
@@ -225,7 +225,7 @@ module.exports = function (app) {
           function UserAccountBlockedInternalValidate(callback3) {
             console.log('UserAccountBlockedInternalValidate');
             if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
-              isUserAccountBlocked(UserAccountID, function (response) {
+              DBCheck.isUserAccountBlocked(UserAccountID, function (response) {
                 let obj = response;
                 if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
                   AccountStatus = obj[0].Status;

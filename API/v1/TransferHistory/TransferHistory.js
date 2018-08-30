@@ -163,7 +163,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     });
 
     function UserAccountCheck(callback) {
-      isUserAccountIDExist(UserAccountID, function (response) {
+      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
         if (response != undefined) {
           UserAccountIDExist = true;
           callback(null, '1');
@@ -390,7 +390,7 @@ module.exports = function (app) {//INSERT
                   });
 
                   function UserAccountIDReceiverExistCheck(callback) {
-                    isUserAccountIDExist(UserAccountIDReceiver, function (response) {
+                    DBCheck.isUserAccountIDExist(UserAccountIDReceiver, function (response) {
                       if (response != null) {
                         UserAccountIDReceiverExist = true;
                         callback(null, '1');
@@ -402,7 +402,7 @@ module.exports = function (app) {//INSERT
                   }
 
                   function UserAccountIDSenderExistCheck(callback) {
-                    isUserAccountIDExist(UserAccountIDSender, function (response) {
+                    DBCheck.isUserAccountIDExist(UserAccountIDSender, function (response) {
                       if (response != null) {
                         UserAccountIDSenderExist = true;
                         callback(null, '2');

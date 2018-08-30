@@ -70,7 +70,7 @@ module.exports = function (app) {//MODIFY
                           });
 
                           function IsUserAccountIDExistCheck(callback) {
-                            isUserAccountIDExist(UserAccountID, function (response) {
+                            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                               if (response != undefined) {
                                 isUserAccountIDFound = true;
                                 callback(null, '1');
@@ -257,7 +257,7 @@ module.exports = function (app) {//MODIFY
                                   });
 
                                   function IsUserAccountIDExistCheck(callback) {
-                                    isUserAccountIDExist(UserAccountID, function (response) {
+                                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                                       if (response != undefined) {
                                         isUserAccountIDExistFound = true;
                                         callback(null, '1');
@@ -269,7 +269,7 @@ module.exports = function (app) {//MODIFY
                                   }
 
                                   function IsSeasonIDExistCheck(callback) {
-                                    IsSeasonIDExist(SeasonID, function (response) {
+                                    DBCheck.IsSeasonIDExist(SeasonID, function (response) {
                                       if (response != undefined) {
                                         isSeasonIDFound = true;
                                         callback(null, '2');

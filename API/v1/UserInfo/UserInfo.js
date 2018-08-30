@@ -30,7 +30,7 @@ module.exports = function (app) {//MODIFY
         });
 
         function UserAccountCheck(callback) {
-          isUserAccountIDExist(UserAccountID, function (response) {
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response != undefined) {
               UserAccountIDExist = true;
               callback(null, '1');
@@ -80,7 +80,7 @@ module.exports = function (app) {//MODIFY
             });
 
             function UserAccountIDCheck(callback) {
-              isUserAccountIDExist(UserAccountID, function (response) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 let obj = response;
                 if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
                   UserAccountIDExist = true;
@@ -165,7 +165,7 @@ module.exports = function (app) {//MODIFY
             });
 
             function UserAccountIDCheck(callback) {
-              isUserAccountIDExist(UserAccountID, function (response) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 let obj = response;
                 if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
                   UserAccountIDExist = true;
@@ -178,7 +178,7 @@ module.exports = function (app) {//MODIFY
             }
 
             function UserInfoCheck(callback) {
-              UserInfoUserAccountID(UserAccountID, function (response) {
+              DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
                 if (response != undefined) {
                   UserInfoExist = true;
                   callback(null, '3');
@@ -190,7 +190,7 @@ module.exports = function (app) {//MODIFY
             }
 
             function UserInfoEmailExistCheck(callback) {
-              UserInfoEmailExist(Email, function (response) {
+              DBCheck.UserInfoEmailExist(Email, function (response) {
                 let obj = response;
                 if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].Email == Email) {
                   isEmailExist = true;

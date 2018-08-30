@@ -36,7 +36,7 @@ module.exports = function (app) {//INSERT
                   });
   
                   function UserAccountIDCheck(callback) {
-                    isUserAccountIDExist(UserAccountID, function (response) {
+                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                       let obj = response;
                       if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
                         UserAccountIDExist = true;
@@ -128,7 +128,7 @@ module.exports = function (app) {//INSERT
                 });
   
                 function SupportTicketIDCheck(callback) {
-                  isSupportTicketIDExist(SupportTicketID, function (response) {
+                  DBCheck.isSupportTicketIDExist(SupportTicketID, function (response) {
                     console.log('1');
                     let obj = response;
                     if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].SupportTicketID == SupportTicketID) {
@@ -142,7 +142,7 @@ module.exports = function (app) {//INSERT
                 }
   
                 function UserAccountIDCheck(callback2) {
-                  isUserAccountIDExist(UserAccountID, function (response) {
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                     console.log('2');
                     let obj = response;
                     if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {

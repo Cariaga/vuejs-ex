@@ -85,7 +85,7 @@ module.exports = function (app) {//MODIFY
             });
 
             function UserAccountIDCheck(callback) {
-              isUserAccountIDExist(UserAccountID, function (response) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 let obj = response;
                 if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
                   UserAccountIDExist = true;

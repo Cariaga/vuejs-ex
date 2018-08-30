@@ -53,7 +53,7 @@ module.exports = function (app) {//MODIFY
 
           function UserAccountIDCheck(callback) {
             if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
-              isUserAccountIDExist(UserAccountID, function (response) {
+              DBCheck.DBCheckisUserAccountIDExist(UserAccountID, function (response) {
                 let obj = response;
                 if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
                   UserAccountIDExist = true;
@@ -71,7 +71,7 @@ module.exports = function (app) {//MODIFY
 
           function PlayerCurrentPointsCheck(callback) {
             if (UserAccountIDExist != undefined) {
-              PlayerUserAccountID(UserAccountID, function (response) {
+              DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
                 let obj = response;
                 if (obj != undefined && obj[0].CurrentPoints != undefined) {
                   CurrentPoints = obj[0].CurrentPoints;
@@ -93,6 +93,54 @@ module.exports = function (app) {//MODIFY
       } else {
         res.send({
           PointEmpty: true
+        });
+      }
+    } else {
+      res.send({
+        UserAccountIDEmpty: true
+      });
+    }
+  });
+  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let CurrentRoomName = req.params.CurrentRoomName;
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(CurrentRoomName)) {
+        let UserAccountIDExist = false;
+        async.series([UserAccountIDCheck], function (error, response) {
+          if (UserAccountIDExist == true) {
+            PlayerModel.PayerUpdateRoomName(UserAccountID, CurrentRoomName, function (response) {
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                res.send({
+                  PayerUpdateRoomNameUpdateFailed: true
+                });
+              }
+            });
+          } else {
+            res.send({
+              UserAccountIDExist: false
+            });
+          }
+        });
+
+        function UserAccountIDCheck(callback) {
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            let obj = response;
+            if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
+              UserAccountIDExist = true;
+              callback(null, '1');
+            } else {
+              UserAccountIDExist = false;
+              callback(null, '1');
+            }
+          });
+        }
+
+      } else {
+        res.send({
+          CurrentRoomNameEmpty: true
         });
       }
     } else {
@@ -217,7 +265,7 @@ module.exports = function (app) {//MODIFY
 
           function UserAccountIDCheck(callback) {
             if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
-              isUserAccountIDExist(UserAccountID, function (response) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 let obj = response;
                 if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
                   UserAccountIDExist = true;
@@ -235,7 +283,7 @@ module.exports = function (app) {//MODIFY
 
           function PlayerCurrentPointsCheck(callback) {
             if (UserAccountIDExist != undefined) {
-              PlayerUserAccountID(UserAccountID, function (response) {
+              DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
                 let obj = response;
                 if (obj != undefined && obj[0].CurrentPoints != undefined) {
                   CurrentPoints = obj[0].CurrentPoints;
@@ -290,7 +338,7 @@ module.exports = function (app) {//MODIFY
         });
 
         function UserAccountIDCheck(callback) {
-          isUserAccountIDExist(UserAccountID, function (response) {
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             let obj = response;
             if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
               UserAccountIDExist = true;
@@ -317,7 +365,7 @@ module.exports = function (app) {//MODIFY
     res.setHeader('Content-Type', 'application/json');
     let ShopID = req.params.ShopID;
     if (!isNullOrEmpty(ShopID)) {
-      ChildPlayersFromShopID(ShopID, function (response) {
+      DBCheck.ChildPlayersFromShopID(ShopID, function (response) {
         if (response != undefined) {
           res.send(beautify(response, null, 2, 100));
         } else {
@@ -438,7 +486,7 @@ module.exports = function (app) {//MODIFY
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      isPlayerUserAccountIDExist(UserAccountID, function (response) {
+      DBCheck.isPlayerUserAccountIDExist(UserAccountID, function (response) {
         if (!isNullOrEmpty(response) && response.length > 0) {
           res.send({
             isPlayer: true

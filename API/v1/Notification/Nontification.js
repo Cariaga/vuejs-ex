@@ -73,7 +73,7 @@ module.exports = function (app) {//INSERT
                   });
                   function IsNotificationIDExistCheck(callback){
                    // console.log("IsNotificationIDExistCheck 1");
-                    IsNotificationIDExist(NotificationID,function(response){
+                   DBCheck.IsNotificationIDExist(NotificationID,function(response){
                     //  console.log("IsNotificationIDExistCheck 2");
                       if(response!=undefined){
                        // console.log("IsNotificationIDExistCheck 3");

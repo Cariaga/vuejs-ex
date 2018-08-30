@@ -24,7 +24,7 @@ module.exports = function (app) {//MODIFY
           });
 
           function IsSeasonIDExistCheck(callback) {
-            IsSeasonIDExist(SeasonID, function (response) {
+            DBCheck.IsSeasonIDExist(SeasonID, function (response) {
               if (response != undefined) {
                 IsSeasonIDFound = true;
                 callback(null, '1');
@@ -84,7 +84,7 @@ module.exports = function (app) {//MODIFY
                   });
 
                   function IsSeasonIDExistCheck(callback2) {
-                    IsSeasonIDExist(SeasonID, function (response2) {
+                    DBCheck.IsSeasonIDExist(SeasonID, function (response2) {
                       if (response2 != undefined) {
                         IsSeasonIDFound = true;
                         callback2(null, '1');
