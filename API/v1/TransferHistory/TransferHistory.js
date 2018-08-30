@@ -42,7 +42,7 @@ module.exports = function (app) {//MODIFY
                     });
 
                     function TransferHistoryUUIDExistCheck(callback) {
-                      TransferHistoryTransferHistoryUUID(TransferHistoryUUID, function (response) {
+                      TransferHistoryModel.TransferHistoryTransferHistoryUUID(TransferHistoryUUID, function (response) {
                         console.log(response);
                         if (response != undefined) {
                           TransferHistoryUUIDExist = true;
@@ -103,7 +103,7 @@ module.exports = function (app) {//MODIFY
     let Sort = req.query.Sort;
     Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      TransferHistoryAll(function (response) {
+      TransferHistoryModel.TransferHistoryAll(function (response) {
         if (response != undefined) {
           res.send(beautify(response, null, 2, 100));
         } else {
@@ -175,7 +175,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     }
 
     function UserInfoCheck(callback) {
-      UserInfoUserAccountID(UserAccountID, function (response) {
+      DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
         if (response != undefined) {
           UserInfoExist = true;
           PhoneNumber = response[0].PhoneNumber;
@@ -189,7 +189,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     }
 
     function PlayerCheck(callback) {
-      PlayerUserAccountID(UserAccountID, function (response) {
+      DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
         if (response != undefined) {
           PlayerExist = true;
           Name = response[0].Name;
@@ -203,7 +203,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     }
 
     function GetParentPlayerLookUp(callback) {
-      GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+      DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
         if (response != undefined) {
           PlayerRelationshipResult = response;
           callback(null, '4');
@@ -264,7 +264,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     });
 
     function GetSentTransfer(callback1) {
-      TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID, function (response1) {
+      TransferHistoryModel.TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID, function (response1) {
         if (response1 != undefined) {
           SentTransferResult = response1;
           callback1(null, '1');
@@ -277,7 +277,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     }
 
     function GetReceiverTransfer(callback2) {
-      TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID, function (response) {
+      TransferHistoryModel.TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID, function (response) {
         if (response != undefined) {
           RecievedTransferResult = response;
           callback2(null, '2');
@@ -292,7 +292,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     res.setHeader('Content-Type', 'application/json');
     let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
     if (!isNullOrEmpty(UserAccountIDReceiver)) {
-      TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, function (response) {
+      TransferHistoryModel.TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, function (response) {
         if (response != undefined) {
           res.send(beautify(response, null, 2, 100));
         } else {
@@ -321,7 +321,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     });
 
     function GetSentTransfer(callback1) {
-      TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID, function (response1) {
+      TransferHistoryModel.TransferHistoryUserAccountIDSender(UserAccountSentAndRecievedID, function (response1) {
         if (response1 != undefined) {
           SentTransferResult = response1;
           callback1(null, '1');
@@ -334,7 +334,7 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
     }
 
     function GetReceiverTransfer(callback2) {
-      TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID, function (response) {
+      TransferHistoryModel.TransferHistoryUserAccountIDReceiver(UserAccountSentAndRecievedID, function (response) {
         if (response != undefined) {
           RecievedTransferResult = response;
           callback2(null, '2');

@@ -17,7 +17,7 @@ module.exports = function (app) {//SELECTION
         async.series([UserAccountIDCheck], function (err, response) {
           if (UserAccountIDExist == true) {
             //res.send({UserAccountIDExist:UserAccountIDExist});
-            VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, function (response) {
+            DBCheck.VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, function (response) {
               if (!isNullOrEmpty(response) && response != undefined) {
                 res.send(response);
               } else {
@@ -110,7 +110,7 @@ module.exports = function (app) {//SELECTION
       myFirstFunction
     ], function (err, result) { //final function
       if (UserAccountIDFound == true) {
-        VerifyAccountUserAccountID(UserAccountID, Verify, function (response) {
+        DBCheck.VerifyAccountUserAccountID(UserAccountID, Verify, function (response) {
           if (response != undefined) {
             res.send({});
           } else {
@@ -161,7 +161,7 @@ module.exports = function (app) {//SELECTION
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       //res.send({success:true});
-      AccountTypeFullCheck(UserAccountID, function (response) {
+      DBCheck.AccountTypeFullCheck(UserAccountID, function (response) {
         if (response != undefined) {
           if (!isNullOrEmpty(response) && response.UnSafeDuplicate == false && response.FoundAccount == true) {
             res.send({

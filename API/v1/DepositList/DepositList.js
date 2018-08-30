@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let DepositListModel = require("../DepositList/DepositListModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {
@@ -78,7 +79,7 @@ module.exports = function (app) {
       }
 
       function GetParentPlayerLookUp(callback) {
-        GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerRelationshipResult = response;
             callback(null, '4');
@@ -90,7 +91,7 @@ module.exports = function (app) {
       }
 
       function GetDepositHistory(callback) {
-        DepositHistoryUserAccountID(UserAccountID, function (response) {
+        DepositListModel.DepositHistoryUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             DepositHistoryResult = response;
             DepositHistoryExist = true;
@@ -159,7 +160,7 @@ module.exports = function (app) {
       }
 
       function PlayerCheck(callback) {
-        PlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerExist = true;
             Name = response[0].Name;
@@ -173,7 +174,7 @@ module.exports = function (app) {
       }
 
       function GetParentPlayerLookUp(callback) {
-        GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
+        DBCheck.GetParentRelationshipPlayerUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
             PlayerRelationshipResult = response;
             callback(null, '4');
