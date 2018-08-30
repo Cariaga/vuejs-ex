@@ -1,3 +1,10 @@
+var uuidv4 = require('uuid/v4');
+var passwordValidator = require('password-validator');
+var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
+var async = require("async");
+var moment = require('moment');
+const Collection = require('linqjs');
+
 const mysql = require('mysql2');
 //DEBUGGING mysql
 //if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
