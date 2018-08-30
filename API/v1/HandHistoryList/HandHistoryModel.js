@@ -7,7 +7,16 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.HandHistory = function HandHistory(callback) {
-  Models.HandHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+ /* Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({
     where: {
       HandHistoryID: {
@@ -28,5 +37,5 @@ module.exports.HandHistory = function HandHistory(callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }

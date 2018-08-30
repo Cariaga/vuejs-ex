@@ -6,7 +6,16 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports = function TransferHistoryAll(callback) {
-  Models.TransferHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
       TransferHistoryID: {
@@ -26,7 +35,7 @@ module.exports = function TransferHistoryAll(callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 
 module.exports = function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {

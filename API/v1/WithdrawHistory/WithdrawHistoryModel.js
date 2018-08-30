@@ -23,7 +23,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  var item1 = Models.WithdrawHistory.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.WithdrawHistory.build({
     UserAccountID: UserAccountID,
     Amount: Amount,
     BankNameUsed: BankNameUsed,
@@ -47,7 +56,7 @@ module.exports =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed,
 
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }
 /**
  *
@@ -69,7 +78,16 @@ module.exports =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed,
  * @param {*} callback
  */
 module.exports = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  Models.WithdrawHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.WithdrawHistory.update({
       Amount: Amount,
       BankNameUsed: BankNameUsed,
       SecurityCodeUsed: SecurityCodeUsed,
@@ -94,11 +112,20 @@ module.exports = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
-  Models.WithdrawHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.WithdrawHistory.update({
       ApprovedDATE: ApprovedDATE,
       ApprovedTIME: ApprovedTIME,
       Status: "Approved"
@@ -114,11 +141,20 @@ module.exports = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawH
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
-  Models.WithdrawHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.WithdrawHistory.update({
       ProcessingDATE: ProcessingDATE,
       ProcessingTIME: ProcessingTIME,
       Status: "Processing"
@@ -134,11 +170,20 @@ module.exports = function WithdrawHistoryUpdateProcessing(UserAccountID, Withdra
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
-  Models.WithdrawHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.WithdrawHistory.update({
       RejectedDATE: RejectedDATE,
       RejectedTIME: RejectedTIME,
       Status: "Rejected"
@@ -154,11 +199,20 @@ module.exports = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawH
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function HandHistoryUserAccountID(UserAccountID, callback) {
-  Models.HandHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -177,12 +231,21 @@ module.exports = function HandHistoryUserAccountID(UserAccountID, callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 
 module.exports = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
-  Models.UserInfo.sync( /*{force:true}*/ );
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserInfo.sync(  );
   var item1 = Models.UserInfo.build({
     UserAccountID: UserAccountID,
     Email: Email,
@@ -198,11 +261,20 @@ module.exports = function AddUserInfo(UserAccountID, Email, PhoneNumber, Telepho
 
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
-  Models.WithdrawHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.WithdrawHistory.sync();
   let result = Models.WithdrawHistory.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -221,5 +293,5 @@ module.exports = function WithdrawHistoryUserAccountID(UserAccountID, callback) 
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }

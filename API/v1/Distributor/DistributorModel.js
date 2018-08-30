@@ -14,14 +14,22 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOfficeID, Name, callback) {
-  var item1 = Models.Distributor.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.Distributor.build({
     UserAccountID: UserAccountID,
     HeadOfficeID: HeadOfficeID,
     Name: Name
   });
   Models.Distributor.sync({
     alter: true,
-    /*force:true*/
   }); //force removes rebuilds the table only for non production 
   item1.save()
     .then(Success => {
@@ -36,7 +44,7 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
       console.log("error inserting " + error);
       callback(undefined);
 
-    });
+    });*/
 }
 /**
  *
@@ -47,7 +55,16 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
  * @param {*} callback
  */
 module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, HeadOfficeID, Name, callback) {
-  Models.Distributor.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.Distributor.update({
       UserAccountID: UserAccountID,
       HeadOfficeID: HeadOfficeID,
       Name: Name
@@ -63,5 +80,5 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
       // mhhh, wth!
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }

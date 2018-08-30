@@ -18,7 +18,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
-  Models.Notification.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+ /* Models.Notification.update({
     NotificationType: NotificationType,
     Title: Title,
     Description: Description,
@@ -34,7 +43,7 @@ module.exports = function NotificationUpdate(NotificationID,NotificationType,Tit
   .catch(error => {
     console.log("Error Updating " +error);
     callback(undefined);
-  }); 
+  }); */
 }
 
 /**
@@ -48,14 +57,23 @@ module.exports = function NotificationUpdate(NotificationID,NotificationType,Tit
  * @param {*} callback
  */
 module.exports = function AddNotification(NotificationType,Title,Description,Time,Date,callback){
-  var item1 = Models.Notification.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.Notification.build({
     NotificationType:NotificationType,
     Title:Title,
     Description:Description,
     Time:Time,
     Date:Date
   });
-  Models.Notification.sync({alter : true/*,force:true*/});//force only for non production it recreates the table
+  Models.Notification.sync({alter : true});//force only for non production it recreates the table
   item1.save()
   .then(Success => {
     console.log("----AddNotification Start-----");
@@ -67,6 +85,6 @@ module.exports = function AddNotification(NotificationType,Title,Description,Tim
   .catch(error => {
     console.log("error inserting " +error);
     callback(undefined);
-  });
+  });*/
 }
 

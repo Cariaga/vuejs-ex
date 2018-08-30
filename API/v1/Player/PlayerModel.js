@@ -17,9 +17,18 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   //res.send('test');
   //Setting up the config
-  let item1 = Models.Player.build({
+ /* let item1 = Models.Player.build({
     UserAccountID: UserAccountID,
     ShopID: ShopID,
     ScreenName: ScreenName,
@@ -40,7 +49,7 @@ module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Sur
       // mhhh, wth!
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
   //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
 

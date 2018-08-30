@@ -11,7 +11,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.BlackListAll = function BlackListAll(callback) {
-  Models.BlackList.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.BlackList.sync();
   let result = Models.BlackList.findAll({
     where: {
       BlackListID: {
@@ -33,11 +42,20 @@ module.exports.BlackListAll = function BlackListAll(callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 
 module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAccountID, callback) {
-  Models.BlackList.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+ /* Models.BlackList.sync();
   let result = Models.BlackList.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -54,7 +72,7 @@ module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAcco
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 
 /**
@@ -70,7 +88,16 @@ module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAcco
  * @param {*} callback
  */
 module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, callback) { //FULL Update For Blacklist
-  Models.BlackList.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.BlackList.update({
       UserAccountID: UserAccountID,
       Status: Status,
       Title: Title,
@@ -88,7 +115,7 @@ module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccou
     }).catch(error => {
       console.log("Error Updating BlackList with 8 params");
       callback(undefined);
-    });
+    });*/
 }
 /**
  *

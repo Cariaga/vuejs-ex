@@ -7,6 +7,15 @@ const Collection = require('linqjs');
 
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName, AccessTags, callback) {
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   /*var item1 = Models.AccessControl.build({
     AccessID:AccessID,
     AccessName:AccessName,
@@ -24,11 +33,21 @@ module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName
     console.log("error inserting " +error);
     callback(undefined);
   });*/
+  
 }
 
 
 
 module.exports.AccessControlUpdate = function AccessControlUpdate(AccessID, AccessName, AccessTags, callback) {
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   /*var item1 = Models.AccessControl.build({
     AccessID:AccessID,
     AccessName:AccessName,
@@ -46,5 +65,6 @@ module.exports.AccessControlUpdate = function AccessControlUpdate(AccessID, Acce
     console.log("error inserting " +error);
     callback(undefined);
   });*/
+  
   
 }

@@ -19,7 +19,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
-  var item1 = Models.UserAccount.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,
     UserName: UserName,
@@ -31,7 +40,7 @@ module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Pass
   });
   //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
   Models.UserAccount.sync({
-    alter: true /*,force:true*/
+    alter: true 
   });
   item1.save()
     .then(Success => {
@@ -45,11 +54,20 @@ module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Pass
       // mhhh, wth!
       console.log("error inserting UserAccountID:" + UserAccountID + " \n AccessID:" + AccessID + "\n UserName:" + UserName + "\n Password:" + Password + "\n Verify:" + Verify + "\n ValidKey:" + ValidKey + "\n RegisteredDate:" + RegisteredDate + "\n RegisteredTime:" + RegisteredTime);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function LoginHistoryUserAccountID(UserAccountID, callback) {
-  Models.LoginHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -70,11 +88,20 @@ module.exports = function LoginHistoryUserAccountID(UserAccountID, callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 
 module.exports = function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
-  Models.LoginHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -96,7 +123,7 @@ module.exports = function LoginHistoryUserAccountIDLatest(UserAccountID, callbac
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 /**
  *
@@ -106,7 +133,16 @@ module.exports = function LoginHistoryUserAccountIDLatest(UserAccountID, callbac
  * @param {*} callback
  */
 module.exports = function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
-  Models.UserAccount.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserAccount.update({
       Verify: VerifiedStatus
     }, {
       where: {
@@ -120,7 +156,7 @@ module.exports = function VerifyAccountUserAccountID(UserAccountID, VerifiedStat
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 /**
  *
@@ -138,7 +174,16 @@ module.exports = function VerifyAccountUserAccountID(UserAccountID, VerifiedStat
 
 // ---------------------migrated
 module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
-  var item1 = Models.UserAccount.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,
     UserName: UserName,
@@ -150,7 +195,7 @@ module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Pass
   });
   //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
   Models.UserAccount.sync({
-    alter: true /*,force:true*/
+    alter: true
   });
   item1.save()
     .then(Success => {
@@ -164,5 +209,5 @@ module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Pass
       // mhhh, wth!
       console.log("error inserting UserAccountID:" + UserAccountID + " \n AccessID:" + AccessID + "\n UserName:" + UserName + "\n Password:" + Password + "\n Verify:" + Verify + "\n ValidKey:" + ValidKey + "\n RegisteredDate:" + RegisteredDate + "\n RegisteredTime:" + RegisteredTime);
       callback(undefined);
-    });
+    });*/
 }

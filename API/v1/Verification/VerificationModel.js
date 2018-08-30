@@ -13,7 +13,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function VerifyAccount(UserName, ValidKey, callback) { // Verification with ValidKey // Public only use // Via ValidKey
-  Models.UserAccount.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserAccount.update({
       Verify: true
     }, {
       where: {
@@ -28,7 +37,7 @@ module.exports = function VerifyAccount(UserName, ValidKey, callback) { // Verif
     .catch(error => {
       console.log("Error Updating " + error);
       callback();
-    });
+    });*/
 }
 
 /**

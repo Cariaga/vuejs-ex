@@ -24,7 +24,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  var item1 = Models.DepositHistory.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.DepositHistory.build({
     UserAccountID: UserAccountID,
     Amount: Amount,
     BankNameUsed: BankNameUsed,
@@ -53,11 +62,20 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Amo
     .catch(error => {
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, callback) {
-  Models.DepositHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.DepositHistory.update({
       ProcessingDATE: ProcessingDATE,
       ProcessingTIME: ProcessingTIME,
       Status: "Processing"
@@ -73,12 +91,21 @@ module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdatePro
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 
 module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RequestedDATE, RejectedTIME, callback) {
-  Models.DepositHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.DepositHistory.update({
       ApprovedDATE: RequestedDATE,
       ApprovedTIME: RejectedTIME,
       Status: "Rejected"
@@ -94,7 +121,7 @@ module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejec
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 /**
  *
@@ -104,7 +131,16 @@ module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejec
  * @param {*} callback
  */
 module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, callback) {
-  Models.DepositHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({
     where: {
       DepositHistoryID: DepositHistoryID,
@@ -122,7 +158,7 @@ module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAcco
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 /**
  *
@@ -132,7 +168,16 @@ module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAcco
  * @param {*} callback
  */
 module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAccountIDStatus(UserAccountID, Status, callback) {
-  Models.DepositHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({
     where: {
       UserAccountID: UserAccountID,
@@ -151,7 +196,7 @@ module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAc
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 /**
  *
