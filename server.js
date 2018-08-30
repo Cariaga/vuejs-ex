@@ -220,7 +220,7 @@ app.get('/SMS/:recipient/:message', function (req, res) {
   res.end();
 });
 const db = require('./API/SharedController/DBConnect');
-db.DBConnect('select * From UserAccounts',function(response){
+db.DBConnect('select * From deposit_list',function(response){
   console.log(response);
 });
 
