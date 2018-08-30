@@ -41,7 +41,35 @@ const sendmail = require('sendmail')();
 //require("./routes/test")(app);
 //var Models = require("./Models/Models");
 require('./routes/v1/AccessControl/AccessControl')(app);
-
+require('./routes/v1/BankInformation/BankInformation')(app);
+require('./routes/v1/BlackList/BlackList')(app);
+require('./routes/v1/DepositHistory/DepositHistory')(app);
+require('./routes/v1/DepositList/DepositList')(app);
+require('./routes/v1/Distributor/Distributor')(app);
+require('./routes/v1/GameHistory/GameHistory')(app);
+require('./routes/v1/HandHistory/HandHistory')(app);
+require('./routes/v1/HandHistoryList/HandHistoryList')(app);
+require('./routes/v1/HeadOffice/HeadOffice')(app);
+require('./routes/v1/IPList/IPList')(app);
+require('./routes/v1/Login/Login')(app);
+require('./routes/v1/Login/LogOut')(app);
+require('./routes/v1/LoginHistory/LoginHistory')(app);
+require('./routes/v1/MemberBlackList/MemberBlackList')(app);
+require('./routes/v1/MemberList/MemberList')(app);
+require('./routes/v1/Notification/Nontification')(app);
+require('./routes/v1/OneOnOne/OnOnOne')(app);
+require('./routes/v1/Player/Player')(app);
+require('./routes/v1/Register/Register')(app);
+require('./routes/v1/RoomConfiguration/RoomConfiguration')(app);
+require('./routes/v1/Shop/Shop')(app);
+require('./routes/v1/SupportTicket/SupportTicket')(app);
+require('./routes/v1/TransferHistory/TransferHistory')(app);
+require('./routes/v1/UserAccount/UserAccount')(app);
+require('./routes/v1/UserInfo/UserInfo')(app);
+require('./routes/v1/UserSupportTicket/UserSupportTicket')(app);
+require('./routes/v1/Verification/Verification')(app);
+require('./routes/v1/WithdrawHistory/WithdrawHistory')(app);
+require('./routes/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
