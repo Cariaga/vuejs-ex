@@ -1,4 +1,19 @@
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
+var jwt = require('jsonwebtoken');
+
+var isNullOrEmpty = require('is-null-or-empty');
+const mysql = require('mysql2');
+var beautify = require("json-beautify");
+var uuidv4 = require('uuid/v4');
+var passwordValidator = require('password-validator');
+var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
+var async = require("async");
+var moment = require('moment');
+const Collection = require('linqjs');
+
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+
 module.exports = function (app) {//MODIFY
 
     var auth = function (req, res, next) {
