@@ -28,37 +28,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
-//===========API===========
-require('./API/v1/AccessControl/AccessControl')(app);
-require('./API/v1/BankInformation/BankInformation')(app);
-require('./API/v1/BlackList/BlackList')(app);
-require('./API/v1/DepositHistory/DepositHistory')(app);
-require('./API/v1/DepositList/DepositList')(app);
-require('./API/v1/Distributor/Distributor')(app);
-require('./API/v1/GameHistory/GameHistory')(app);
-require('./API/v1/HandHistory/HandHistory')(app);
-require('./API/v1/HandHistoryList/HandHistoryList')(app);
-require('./API/v1/HeadOffice/HeadOffice')(app);
-require('./API/v1/IPList/IPList')(app);
-require('./API/v1/Login/Login')(app);
-require('./API/v1/Login/LogOut')(app);
-require('./API/v1/LoginHistory/LoginHistory')(app);
-require('./API/v1/MemberBlackList/MemberBlackList')(app);
-require('./API/v1/MemberList/MemberList')(app);
-require('./API/v1/Notification/Nontification')(app);
-require('./API/v1/OneOnOne/OnOnOne')(app);
-require('./API/v1/Player/Player')(app);
-require('./API/v1/Register/Register')(app);
-require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
-require('./API/v1/Shop/Shop')(app);
-require('./API/v1/SupportTicket/SupportTicket')(app);
-require('./API/v1/TransferHistory/TransferHistory')(app);
-require('./API/v1/UserAccount/UserAccount')(app);
-require('./API/v1/UserInfo/UserInfo')(app);
-require('./API/v1/UserSupportTicket/UserSupportTicket')(app);
-require('./API/v1/Verification/Verification')(app);
-require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
-require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
+
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -101,11 +71,39 @@ app.use(function (req, res, next) {
 }));
 */
 
+//===========API===========
+require('./API/v1/AccessControl/AccessControl')(app);
+require('./API/v1/BankInformation/BankInformation')(app);
+require('./API/v1/BlackList/BlackList')(app);
+require('./API/v1/DepositHistory/DepositHistory')(app);
+require('./API/v1/DepositList/DepositList')(app);
+require('./API/v1/Distributor/Distributor')(app);
+require('./API/v1/GameHistory/GameHistory')(app);
+require('./API/v1/HandHistory/HandHistory')(app);
+require('./API/v1/HandHistoryList/HandHistoryList')(app);
+require('./API/v1/HeadOffice/HeadOffice')(app);
+require('./API/v1/IPList/IPList')(app);
+require('./API/v1/Login/Login')(app);
+require('./API/v1/Login/LogOut')(app);
+require('./API/v1/LoginHistory/LoginHistory')(app);
+require('./API/v1/MemberBlackList/MemberBlackList')(app);
+require('./API/v1/MemberList/MemberList')(app);
+require('./API/v1/Notification/Nontification')(app);
+require('./API/v1/OneOnOne/OnOnOne')(app);
+require('./API/v1/Player/Player')(app);
+require('./API/v1/Register/Register')(app);
+require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
+require('./API/v1/Shop/Shop')(app);
+require('./API/v1/SupportTicket/SupportTicket')(app);
+require('./API/v1/TransferHistory/TransferHistory')(app);
+require('./API/v1/UserAccount/UserAccount')(app);
+require('./API/v1/UserInfo/UserInfo')(app);
+require('./API/v1/UserSupportTicket/UserSupportTicket')(app);
+require('./API/v1/Verification/Verification')(app);
+require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
+require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
 
-// Get content endpoint
-app.get('/content', auth, function (req, res) {
-  res.send("You can only see this after you've logged in.");
-});
+
 //--testing for season based authentication END
 
 var nexmo = new Nexmo({

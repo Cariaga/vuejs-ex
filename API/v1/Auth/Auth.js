@@ -1,11 +1,16 @@
-
+let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 module.exports = function (app) {//MODIFY
+
     var auth = function (req, res, next) {
         if (req.session && req.session.UserName === "amy")
           return next();
         else
           return res.sendStatus(401);
       };
+      // Get content endpoint
+        app.get('/content', auth, function (req, res) {
+            res.send("You can only see this after you've logged in.");
+        });
       //--testing for authetication API key START
       app.post('/Api/v1/Content', verifyToken, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
