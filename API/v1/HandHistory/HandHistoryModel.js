@@ -1,3 +1,4 @@
+let DBConnect = require("../../SharedController/DBConnect");
 module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, callback) {
   Models.HandHistory.sync();
   Models.HandHistory.update({

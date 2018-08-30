@@ -1,3 +1,4 @@
+let DBConnect = require("../../SharedController/DBConnect");
 module.exports = function (app) {
   /**
    *

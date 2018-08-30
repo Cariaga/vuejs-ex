@@ -1,7 +1,7 @@
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
     const connection = mysql.createConnection({
       host: '172.30.166.206'||'localhost'||'192.168.254.106',
-      user: 'user',
+      user: 'newuser',
       password: 'user',
       port: process.env.OPENSHIFT_MYSQL_DB_PORT,
       database: 'sampledb'

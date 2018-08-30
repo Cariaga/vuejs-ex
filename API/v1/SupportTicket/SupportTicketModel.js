@@ -1,3 +1,4 @@
+let DBConnect = require("../../SharedController/DBConnect");
 module.exports = function SupportTicketUserAccountID(UserAccountID, callback) {
   Models.SupportTicket.sync();
   let result = Models.SupportTicket.findAll({

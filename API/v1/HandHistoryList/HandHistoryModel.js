@@ -1,5 +1,5 @@
 
-
+let DBConnect = require("../../SharedController/DBConnect");
 module.exports.HandHistory = function HandHistory(callback) {
   Models.HandHistory.sync();
   let result = Models.HandHistory.findAll({

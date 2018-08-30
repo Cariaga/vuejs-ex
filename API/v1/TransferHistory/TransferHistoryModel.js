@@ -1,3 +1,4 @@
+let DBConnect = require("../../SharedController/DBConnect");
 module.exports = function TransferHistoryAll(callback) {
   Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
