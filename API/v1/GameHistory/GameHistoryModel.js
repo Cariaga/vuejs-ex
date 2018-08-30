@@ -21,7 +21,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
-  Models.GameHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.GameHistory.sync();
   var item1 = Models.GameHistory.build({
     UserAccountID: UserAccountID,
     RoundID: RoundID,
@@ -44,7 +53,7 @@ module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, 
 
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }
 /**
  *
@@ -52,7 +61,16 @@ module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, 
  * @param {*} callback
  */
 module.exports.GameHistory = function GameHistory(callback) {
-  Models.GameHistory.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.GameHistory.sync();
   let result = Models.GameHistory.findAll({
     where: {
       GameHistoryID: {
@@ -73,5 +91,5 @@ module.exports.GameHistory = function GameHistory(callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }

@@ -6,7 +6,16 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports = function SupportTicketUserAccountID(UserAccountID, callback) {
-  Models.SupportTicket.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.SupportTicket.sync();
   let result = Models.SupportTicket.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -23,7 +32,7 @@ module.exports = function SupportTicketUserAccountID(UserAccountID, callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 
 /**
@@ -34,7 +43,16 @@ module.exports = function SupportTicketUserAccountID(UserAccountID, callback) {
  * @param {*} callback
  */
 module.exports = function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
-  Models.SupportTicket.sync();
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.SupportTicket.sync();
   let result = Models.SupportTicket.findAll({
     where: {
       UserAccountID: UserAccountID,
@@ -52,7 +70,7 @@ module.exports = function SupportTicketUserAccountIDByStatus(UserAccountID, Stat
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 /**
  *

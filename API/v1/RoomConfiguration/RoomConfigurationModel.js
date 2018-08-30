@@ -15,14 +15,23 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, Speed, callback) {
-  var item1 = Models.RoomConfiguration.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.RoomConfiguration.build({
     SeasonID: SeasonID,
     SmallBlind: SmallBlind,
     BigBlind: BigBlind,
     Speed: Speed
   });
   Models.RoomConfiguration.sync({
-    alter: true /*,force:true*/
+    alter: true
   }); //use force to delete old table non production
   item1.save()
     .then(Success => {
@@ -32,7 +41,7 @@ module.exports = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, S
 
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 

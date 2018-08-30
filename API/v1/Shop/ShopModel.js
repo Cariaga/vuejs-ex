@@ -14,14 +14,22 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function AddShop(UserAccountID, DistributorID, Description, callback) {
-  var item1 = Models.Shop.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.Shop.build({
     UserAccountID: UserAccountID,
     DistributorID: DistributorID,
     Description: Description
   });
   Models.Shop.sync({
-    alter: true,
-    /*force:true*/
+    alter: true
   }); //use force to recreate for non production only
   item1.save()
     .then(Success => {
@@ -34,5 +42,5 @@ module.exports = function AddShop(UserAccountID, DistributorID, Description, cal
       // mhhh, wth!
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }

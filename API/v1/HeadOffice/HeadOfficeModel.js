@@ -32,14 +32,13 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand,
  * @param {*} callback
  */
 module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, callback) {
-  var item1 = Models.HeadOffice.build({
+  /*var item1 = Models.HeadOffice.build({
     UserAccountID: UserAccountID,
     Name: Name,
     Description: Description
   });
   Models.HeadOffice.sync({
-    alter: true,
-    /*force:true*/
+    alter: true
   }); //force true rebuilds table for non production only
   item1.save()
     .then(Success => {
@@ -54,6 +53,8 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
       console.log("error inserting " + error);
       callback(undefined);
     });
+    */
+  
 }
 /**
  *
@@ -64,7 +65,16 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
  * @param {*} callback
  */
 module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
-  Models.HeadOffice.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.HeadOffice.update({
       UserAccountID: UserAccountID,
       Name: Name
     }, {
@@ -80,5 +90,5 @@ module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAc
       // mhhh, wth!
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }

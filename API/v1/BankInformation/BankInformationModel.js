@@ -18,7 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
-  Models.BankInformation.update({
+  /*Models.BankInformation.update({
       UserAccountID: UserAccountID,
       BankName: BankName,
       SecurityCode: SecurityCode,
@@ -36,7 +36,8 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
+    
 }
 /**
  *
@@ -84,7 +85,16 @@ module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, B
  * @param {*} callback
  */
 module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
-  var item1 = Models.BankInformation.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.BankInformation.build({
     UserAccountID: UserAccountID,
     BankName: BankName,
     SecurityCode: SecurityCode,
@@ -94,7 +104,7 @@ module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, B
     Date: Date
   });
   Models.BankInformation.sync({
-    alter: true /*,force:true*/
+    
   }); //force recreates deletes old table
   item1.save().then(Success => {
       callback("Inserted");
@@ -102,5 +112,5 @@ module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, B
     .catch(error => {
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }

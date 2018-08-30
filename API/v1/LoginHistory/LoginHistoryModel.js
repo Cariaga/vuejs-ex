@@ -19,7 +19,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
-  Models.LoginHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.LoginHistory.update({
       IP: IP,
       DeviceName: DeviceName,
       DeviceRam: DeviceRam,
@@ -39,7 +48,7 @@ module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, 
 
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 /**
@@ -55,7 +64,16 @@ module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, 
  * @param {*} callback
  */
 module.exports = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) { //accessed by /Login
-  var item1 = Models.LoginHistory.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.LoginHistory.build({
     UserAccountID: UserAccountID,
     IP: IP,
     DeviceName: DeviceName,
@@ -65,8 +83,7 @@ module.exports = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceR
     Date: Date
   });
   Models.LoginHistory.sync({
-    alter: true,
-    /*force:true*/
+    alter: true
   }); //force recreates deletes old table
   item1.save()
     .then(Success => {
@@ -75,7 +92,7 @@ module.exports = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceR
     .catch(error => {
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 /**
@@ -92,7 +109,16 @@ module.exports = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceR
  * @param {*} callback
  */
 module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
-  Models.LoginHistory.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.LoginHistory.update({
       IP: IP,
       DeviceName: DeviceName,
       DeviceRam: DeviceRam,
@@ -112,5 +138,5 @@ module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, 
 
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }

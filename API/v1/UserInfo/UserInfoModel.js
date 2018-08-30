@@ -15,7 +15,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
-  Models.UserInfo.sync( /*{force:true}*/ );
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserInfo.sync(  );
   Models.UserInfo.update({
       Email: Email,
       PhoneNumber: PhoneNumber,
@@ -33,7 +42,7 @@ module.exports = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, Tele
       // mhhh, wth!
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function UserInfoUserAccountID(UserAccountID, callback) {
