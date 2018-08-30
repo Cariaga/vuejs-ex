@@ -3,7 +3,7 @@ var passwordValidator = require('password-validator');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 var async = require("async");
 var moment = require('moment');
-const Collection2 = require('linqjs');
+const Collection = require('linqjs');
 
 const mysql = require('mysql2');
 //DEBUGGING mysql
