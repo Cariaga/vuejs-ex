@@ -225,7 +225,7 @@ app.get('/SMS/:recipient/:message', function (req, res) {
   res.end();
 });
 const db = require('./API/SharedController/DBConnect');
-db.DBConnect('select * From UserAccount',function(response){
+db.DBConnect('select * From UserAccounts',function(response){
   console.log(response);
 });
 
@@ -253,7 +253,7 @@ function SendMail(To, From, Subject, html) {
 app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   let RawQuery = req.params.RawQuery;
-
+/*
   const connection = mysql.createConnection({
     host: '172.30.166.206',
     user: 'user',
@@ -270,7 +270,7 @@ app.get('/Api/v1/RawQuery/:RawQuery', function (req, res) {
       console.log(fields); // fields contains extra meta data about results, if available
       res.send(beautify(results, null, 2, 100));
     });
-  connection.end();
+  connection.end();*/
 });
 
 //--Login End

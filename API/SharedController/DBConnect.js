@@ -4,8 +4,8 @@ const mysql = require('mysql2');
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
     const connection = mysql.createConnection({
       host: 'localhost',
-      user: 'root',
-      password: 'password',
+      user: 'cariaga',
+      password: 'cariaga',
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb'
     });
@@ -13,9 +13,11 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
     // simple query
     connection.query(RawQuery,
       function (err, results, fields) {
-        console.log(err);
-        /*console.log(results); // results contains rows returned by server
-        console.log(fields); // fields contains extra meta data about results, if available*/
+        if(err!=undefined){ console.log(err); // results contains rows returned by server
+        }
+        if(fields!=undefined){ console.log(fields);// fields contains extra meta data about results, if available
+        }
+        console.log(results);
         callback(results);
         
       });
