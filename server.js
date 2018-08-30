@@ -75,7 +75,7 @@ app.use(bodyParser.json({
   type: 'application/vnd.api+json'
 })); // parse application/vnd.api+json as json
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-  ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || 'localhost' || '0.0.0.0';
+  ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
