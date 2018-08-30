@@ -18,7 +18,7 @@ const sortBy = require('sort-array');
 var app = express(); // create our app w/ express
 app.use(helmet());
 
-var async = require("async");
+
 var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
@@ -28,7 +28,7 @@ var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
-
+var async = require("async");
 var moment = require('moment');
 
 const Collection = require('linqjs');
