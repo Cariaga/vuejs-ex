@@ -1,5 +1,6 @@
 //--Select Start
 var beautify = require("json-beautify");
+var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
     let BlackListID = req.params.BlackListID;

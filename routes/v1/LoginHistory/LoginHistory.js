@@ -1,4 +1,5 @@
 var beautify = require("json-beautify");
+var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFT
   app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
     let LoginHistoryID = req.params.LoginHistoryID;

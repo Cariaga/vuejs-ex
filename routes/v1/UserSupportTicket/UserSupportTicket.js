@@ -1,3 +1,4 @@
+var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function(app){//selection
     app.get('/UserAccount/SupportTicket', function (req, res) {
         // USAGE /UserAccount/SupportTicket?UserAccountID=bddbe7d1-d28b-4bb6-8b51-eb2d9252c9bb

@@ -1,4 +1,5 @@
 var beautify = require("json-beautify");
+var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

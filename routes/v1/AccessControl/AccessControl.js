@@ -1,17 +1,7 @@
 //var beautify = require("json-beautify");
 //let AccessControlModel = require("./AccessControlModel");
-var express = require('express');
-var router = express.Router();
-
-
-/*
-router.get('/eh',function(req,res){
-  res.send('test');
-});*/
-
+var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function(app) {//MODIFY
-
-
   app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {
    
     let AccessControlID = req.params.AccessControlID;

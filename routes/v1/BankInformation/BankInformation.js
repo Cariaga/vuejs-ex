@@ -1,5 +1,6 @@
 //--Select Start
 var beautify = require("json-beautify");
+var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function (req, res) {
     let BankInformationID = req.params.BankInformationID;
