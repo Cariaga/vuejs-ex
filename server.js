@@ -13,12 +13,8 @@ var jwt = require('jsonwebtoken');
 var Combinatorics = require('js-combinatorics');
 const PokerHand = require('poker-hand-evaluator');
 const sortBy = require('sort-array');
-
-
 var app = express(); // create our app w/ express
 app.use(helmet());
-
-
 var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
@@ -30,7 +26,7 @@ var passwordValidator = require('password-validator');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 var async = require("async");
 var moment = require('moment');
-const Collection = require('linqjs');
+const Collections = require('linqjs');
 const sendmail = require('sendmail')();
 require('./API/v1/AccessControl/AccessControl')(app);
 require('./API/v1/BankInformation/BankInformation')(app);
