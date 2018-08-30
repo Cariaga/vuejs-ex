@@ -1,3 +1,4 @@
+let DBConnect = require("../../SharedController/DBConnect");
 module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName, AccessTags, callback) {
   /*var item1 = Models.AccessControl.build({
     AccessID:AccessID,
