@@ -5,11 +5,6 @@ var helmet = require('helmet');
 var express = require('express');
 const routes = require('express').Router();
 var Nexmo = require('nexmo');
-
-var session = require("express-session");
-var cookieParser = require("cookie-parser");
-var jwt = require('jsonwebtoken');
-
 var Combinatorics = require('js-combinatorics');
 const PokerHand = require('poker-hand-evaluator');
 const sortBy = require('sort-array');
