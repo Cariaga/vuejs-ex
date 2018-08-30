@@ -26,7 +26,7 @@ var passwordValidator = require('password-validator');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 var async = require("async");
 var moment = require('moment');
-const Collections = require('linqjs');
+const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 require('./API/v1/AccessControl/AccessControl')(app);
 require('./API/v1/BankInformation/BankInformation')(app);
