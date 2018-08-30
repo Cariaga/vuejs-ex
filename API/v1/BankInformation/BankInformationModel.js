@@ -18,7 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
-  Models.BankInformation.update({
+  /*Models.BankInformation.update({
       UserAccountID: UserAccountID,
       BankName: BankName,
       SecurityCode: SecurityCode,
@@ -36,7 +36,8 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
+    
 }
 /**
  *
