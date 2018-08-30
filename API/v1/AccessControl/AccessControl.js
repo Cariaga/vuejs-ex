@@ -1,5 +1,8 @@
 //var beautify = require("json-beautify");
-let AccessControlModel = require("../");
+let DBConnect = require("../../SharedController/DBConnect");
+let DBConnect = require("../../SharedController/DBCheck");
+let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+
 let AccessControlModel = require("./AccessControlModel");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function(app) {//MODIFY

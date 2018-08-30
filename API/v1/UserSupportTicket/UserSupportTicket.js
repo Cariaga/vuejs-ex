@@ -1,3 +1,6 @@
+let DBConnect = require("../../SharedController/DBConnect");
+let DBConnect = require("../../SharedController/DBCheck");
+let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function(app){//selection
     app.get('/UserAccount/SupportTicket', function (req, res) {

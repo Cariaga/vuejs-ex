@@ -1,3 +1,6 @@
+let DBConnect = require("../../SharedController/DBConnect");
+let DBConnect = require("../../SharedController/DBCheck");
+let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
