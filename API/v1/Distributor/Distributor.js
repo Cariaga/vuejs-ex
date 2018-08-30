@@ -1,7 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
-
+let DistributorModel = require("../Distributor/DistributorModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//SELECTION
@@ -78,7 +78,7 @@ module.exports = function (app) {//SELECTION
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(HeadOfficeID)) {
           if (!isNullOrEmpty(Name)) {
-            DistributorUpdate(UserAccountID, HeadOfficeID, Name, function (response) {
+            DistributorModel.DistributorUpdate(UserAccountID, HeadOfficeID, Name, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -118,7 +118,7 @@ module.exports = function (app) {//SELECTION
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(HeadOfficeID)) {
         if (!isNullOrEmpty(Name)) {
-          AddDistributor(UserAccountID, HeadOfficeID, Name, function (response) {
+          DistributorModel.AddDistributor(UserAccountID, HeadOfficeID, Name, function (response) {
             if (response != undefined) {
               res.send(response);
             } else {
@@ -148,7 +148,7 @@ module.exports = function (app) {//SELECTION
     res.setHeader('Content-Type', 'application/json');
     let DistributorID = req.params.DistributorID;
     if (!isNullOrEmpty(DistributorID)) {
-      ChildShopsFromDistributorID(DistributorID, function (response) {
+      DistributorModel.ChildShopsFromDistributorID(DistributorID, function (response) {
         if (response != undefined) {
           res.send(beautify(response, null, 2, 100));
         } else {

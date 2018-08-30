@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let PlayerModel = require("../Player/PlayerModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -20,7 +21,7 @@ module.exports = function (app) {//MODIFY
                 if (parseInt(Point) != 0) {
                   if (NewPoints >= 0) {
 
-                    PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
+                    PlayerModel.PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
                       if (response != undefined) {
                         res.send(response);
                       } else {
@@ -116,7 +117,7 @@ module.exports = function (app) {//MODIFY
             if (!isNullOrEmpty(Name)) {
               if (!isNullOrEmpty(Surname)) {
                 if (!isNullOrEmpty(CurrentRoomName)) {
-                  PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
+                  PlayerModel.PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
@@ -176,7 +177,7 @@ module.exports = function (app) {//MODIFY
                 if (parseInt(Point) != 0) {
                   if (NewPoints >= 0) {
                     if (UserAccountIDExist == true) {
-                      PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
+                      PlayerModel.PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
                         if (response != undefined) {
                           res.send(response);
                         } else {
@@ -272,7 +273,7 @@ module.exports = function (app) {//MODIFY
         let UserAccountIDExist = false;
         async.series([UserAccountIDCheck], function (error, response) {
           if (UserAccountIDExist == true) {
-            PayerUpdateRoomName(UserAccountID, CurrentRoomName, function (response) {
+            PlayerModel.PayerUpdateRoomName(UserAccountID, CurrentRoomName, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -391,7 +392,7 @@ module.exports = function (app) {//MODIFY
           if (!isNullOrEmpty(Name)) {
             if (!isNullOrEmpty(Surname)) {
               if (!isNullOrEmpty(CurrentRoomName)) {
-                AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
+                PlayerModel.AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
                   if (response != undefined) {
                     res.send(response);
                   } else {

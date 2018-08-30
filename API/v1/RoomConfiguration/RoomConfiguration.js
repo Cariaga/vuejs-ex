@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let RoomConfigurationModel = require("../RoomConfiguration/RoomConfigurationModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -13,7 +14,7 @@ module.exports = function (app) {//MODIFY
         if (!isNullOrEmpty(BigBlind)) {
           let IsSeasonIDFound = false; // for the update SeasonID Must Exist
           async.series([IsSeasonIDExistCheck], function (error, response) {
-            RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigBlind, function (response) {
+            RoomConfigurationModel.RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigBlind, function (response) {
               if (IsSeasonIDFound == true) {
                 res.send(response);
               } else {
@@ -139,7 +140,7 @@ module.exports = function (app) {//MODIFY
     let Sort = req.query.Sort;
     Models.RoomConfiguration.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      RoomConfiguration(function (response) {
+      RoomConfigurationModel.RoomConfiguration(function (response) {
         if (response != undefined) {
           res.send(beautify(response, null, 2, 100));
         } else {

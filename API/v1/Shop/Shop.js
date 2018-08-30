@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let ShopModel = require("../Shop/ShopModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -110,7 +111,7 @@ module.exports = function (app) {//MODIFY
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(DistributorID)) {
         if (!isNullOrEmpty(Description)) {
-          AddShop(UserAccountID, DistributorID, Description, function (response) {
+          ShopModel.AddShop(UserAccountID, DistributorID, Description, function (response) {
             if (response != undefined) {
               res.send(response);
             } else {

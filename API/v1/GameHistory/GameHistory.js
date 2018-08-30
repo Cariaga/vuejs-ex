@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let GameHistoryModel = require("../GameHistory/GameHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -164,7 +165,7 @@ module.exports = function (app) {//MODIFY
     let Sort = req.query.Sort;
     Models.GameHistory.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      GameHistory(function (response) {
+      GameHistoryModel.GameHistory(function (response) {
         if (response != undefined) {
           res.send(res.send(beautify(response, null, 2, 100)));
         } else {
@@ -240,7 +241,7 @@ module.exports = function (app) {//MODIFY
 
                                     if (isUserAccountIDExistFound == true) {
                                       if (isSeasonIDFound == true) {
-                                        AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, function (response) {
+                                        GameHistoryModel.AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, function (response) {
                                           res.send(response);
                                         });
                                       } else {

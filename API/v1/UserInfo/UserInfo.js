@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let UserInfoModel = require("../UserInfo/UserInfoModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -12,7 +13,7 @@ module.exports = function (app) {//MODIFY
       if (!isNullOrEmpty(Email)) {
         async.series([UserAccountCheck], function (error, response) {
           if (UserAccountIDExist == true) {
-            UserInfoUpdateEmail(UserAccountID, Email, function (response) {
+            UserInfoModel.UserInfoUpdateEmail(UserAccountID, Email, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -62,7 +63,7 @@ module.exports = function (app) {//MODIFY
             let UserAccountIDExist = false;
             async.series([UserAccountIDCheck], function (error, response) {
               if (UserAccountIDExist == true) {
-                UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
+                UserInfoModel.UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
                   if (!isNullOrEmpty(response) && response != undefined) {
                     res.send(response);
                   } else {
@@ -136,7 +137,7 @@ module.exports = function (app) {//MODIFY
               if (UserAccountIDExist == true) {
                 if (UserInfoExist == false) { //must not exist already
                   if (isEmailExist == false) { //must Be False
-                    AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
+                    UserInfoModel.AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
                       if (response != undefined) {
                         res.send(response);
                       } else {

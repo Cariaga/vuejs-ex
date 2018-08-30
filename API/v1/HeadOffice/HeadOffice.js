@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let HeadOfficeModel = require("../HeadOffice/HeadOfficeModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//INSERT
@@ -12,7 +13,7 @@ module.exports = function (app) {//INSERT
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Name)) {
         if (!isNullOrEmpty(Description)) {
-          AddHeadOffice(UserAccountID, Name, Description, function (response) {
+          HeadOfficeModel.AddHeadOffice(UserAccountID, Name, Description, function (response) {
             if (response != undefined) {
               res.send(response);
             } else {
@@ -128,7 +129,7 @@ module.exports = function (app) {//INSERT
     if (!isNullOrEmpty(HeadOfficeID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Name)) {
-          HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, function (response) {
+          HeadOfficeModel.HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, function (response) {
             if (response != undefined) {
               res.send(response);
             } else {

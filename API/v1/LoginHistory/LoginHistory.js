@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let LoginHistoryModel = require("../LoginHistory/LoginHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFT
@@ -22,7 +23,7 @@ module.exports = function (app) {//MODIFT
               if (!isNullOrEmpty(DeviceCpu)) {
                 if (!isNullOrEmpty(Time)) {
                   if (!isNullOrEmpty(Date)) {
-                    LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response) {
+                    LoginHistoryModel.LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response) {
                       if (response != undefined) {
                         res.send(response);
                       } else {
@@ -89,7 +90,7 @@ module.exports = function (app) {//MODIFT
             if (!isNullOrEmpty(DeviceCpu)) {
               if (!isNullOrEmpty(Time)) {
                 if (!isNullOrEmpty(Date)) {
-                  AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response) {
+                  LoginHistoryModel.AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {

@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let DepositHistoyModel = require("./DepositHistoyModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {
@@ -13,7 +14,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(ApprovedDATE)) {
           if (!isNullOrEmpty(ApprovedTIME)) {
-            DepositHistoryUpdateApproved(UserAccountID, DepositHistoryID, ApprovedDATE, ApprovedTIME, function (response) {
+            DepositHistoyModel.DepositHistoryUpdateApproved(UserAccountID, DepositHistoryID, ApprovedDATE, ApprovedTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -52,7 +53,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(ProcessingDATE)) {
           if (!isNullOrEmpty(ProcessingTIME)) {
-            DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, function (response) {
+            DepositHistoyModel.DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -91,7 +92,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(RejectedDATE)) {
           if (!isNullOrEmpty(RejectedTIME)) {
-            DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RejectedDATE, RejectedTIME, function (response) {
+            DepositHistoyModel.DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RejectedDATE, RejectedTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -228,7 +229,7 @@ module.exports = function (app) {
                                 }
 
                                 function IsDepositHistoryIDExistCheck(callback) {
-                                  DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, function (response) {
+                                  DepositHistoyModel.DepositHistoyModel.DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, function (response) {
                                     if (response != undefined) {
                                       DepositHistoryIDFound = true;
                                       callback(null, '2');
@@ -363,7 +364,7 @@ module.exports = function (app) {
       let isUserAccountIDFound = false;
       async.series([IsUserAccountIDExistCheck], function (error, response) {
         if (isUserAccountIDFound == true) {
-          DepositHistoryUserAccountIDStatus(UserAccountID, Status, function (response) {
+          DepositHistoyModel.DepositHistoryUserAccountIDStatus(UserAccountID, Status, function (response) {
             if (response != undefined) {
               res.send(beautify(response, null, 2, 100));
             } else {
@@ -447,7 +448,7 @@ module.exports = function (app) {
                                   async.series([IsUserAccountIDExistCheck], function (error, response) {
                                     if (isUserAccountIDFound == true) {
 
-                                      AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, function (response) {
+                                      DepositHistoyModel.AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, function (response) {
                                         res.send(response);
                                       });
 

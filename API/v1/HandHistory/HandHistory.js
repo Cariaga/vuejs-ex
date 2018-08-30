@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let HandHistoryModel = require("../HandHistory/HandHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -14,7 +15,7 @@ module.exports = function (app) {//MODIFY
       if (!isNullOrEmpty(HandHistoryID)) {
         if (!isNullOrEmpty(UserAccountID)) {
           if (!isNullOrEmpty(MoveHand)) {
-            HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, function (response) {
+            HandHistoryModel.HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -62,7 +63,7 @@ module.exports = function (app) {//MODIFY
 
               if (UserAccountIDExist == true) {
                 if (PlayerExist == true) {
-                  AddHandHistory(UserAccountID, MoveHand, RoundID, function (response) {
+                  HandHistoryModel.AddHandHistory(UserAccountID, MoveHand, RoundID, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
@@ -135,7 +136,7 @@ module.exports = function (app) {//MODIFY
   app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     if (!isNullOrEmpty(UserAccountID)) {
-      HandHistoryUserAccountID(UserAccountID, function (response) {
+      HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
         if (response != undefined) {
           res.send(beautify(response, null, 2, 100));
         } else {

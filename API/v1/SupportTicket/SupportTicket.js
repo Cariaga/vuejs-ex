@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let SupportTicketModel = require("../SupportTicket/SupportTicketModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//INSERT
@@ -24,7 +25,7 @@ module.exports = function (app) {//INSERT
                   let UserAccountIDExist = false;
                   async.series([UserAccountIDCheck], function (error, response) {
                     if (UserAccountIDExist == true) {
-                      AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, function (response) {
+                      SupportTicketModel.AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, function (response) {
                         res.send(response);
                       });
                     } else {
@@ -105,7 +106,7 @@ module.exports = function (app) {//INSERT
                 async.series([SupportTicketIDCheck, UserAccountIDCheck], function (error, response) {
                   if (UserAccountIDExist == true) {
                     if (SupportTicketIDExist == true) {
-                      SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, function (response) {
+                      SupportTicketModel.SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, function (response) {
                         if (!isNullOrEmpty(response) && response != undefined) {
                           res.send(response);
                         } else {

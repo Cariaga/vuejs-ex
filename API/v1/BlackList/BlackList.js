@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let BlackListModel = require("./BlackListModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -20,7 +21,7 @@ module.exports = function (app) {//MODIFY
             if (!isNullOrEmpty(Description)) {
               if (!isNullOrEmpty(ReportDate)) {
                 if (!isNullOrEmpty(ReleaseDate)) {
-                  BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, function (response) {
+                  BlackListModel.BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
@@ -80,7 +81,7 @@ module.exports = function (app) {//MODIFY
               if (UserAccountIDExist == true) {
                 if (Status == "Blocked" || Status == "Released") {
                   if (Status != AccountStatus) {
-                    BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
+                    BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
                       console.log("Status Set");
                       if (response != undefined) {
                         res.send(response);
@@ -165,7 +166,7 @@ module.exports = function (app) {//MODIFY
             if (!isNullOrEmpty(Description)) {
               if (!isNullOrEmpty(ReportDate)) {
                 if (!isNullOrEmpty(ReleaseDate)) {
-                  BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, function (response) {
+                  BlackListModel.BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
@@ -226,7 +227,7 @@ module.exports = function (app) {//MODIFY
           if (!isNullOrEmpty(Description)) {
             if (!isNullOrEmpty(ReportDate)) {
               if (!isNullOrEmpty(ReleaseDate)) {
-                AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, function (response) {
+                BlackListModel.AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, function (response) {
                   if (response != undefined) {
                     res.send(response);
                   } else {
@@ -275,7 +276,7 @@ module.exports = function (app) {//MODIFY
     Models.BlackList.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
 
-      BlackListAll(function (response) {
+      BlackListModel.BlackListAll(function (response) {
         res.send(beautify(response, null, 2, 100));
       });
     }

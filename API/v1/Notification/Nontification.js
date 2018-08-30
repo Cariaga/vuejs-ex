@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let NontificationModel = require("../Notification/NontificationModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 //--Select Start
@@ -18,7 +19,7 @@ module.exports = function (app) {//INSERT
         if(!isNullOrEmpty(Description)){
           if(!isNullOrEmpty(Time)){
             if(!isNullOrEmpty(Date)){
-              AddNotification(NotificationType,Title,Description,Time,Date,function(response) {
+              NontificationModel.AddNotification(NotificationType,Title,Description,Time,Date,function(response) {
                 if(response!=undefined){
                  res.send(response);
                 }else{
@@ -60,7 +61,7 @@ module.exports = function (app) {//INSERT
                     if(NotificationIDExist==true){
                       if(response!=undefined){
                       
-                       NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
+                        NontificationModel.NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,function(response){
                           res.send(response);
                         });
                       }else{

@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let TransferHistoryModel = require("../TransferHistory/TransferHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -24,7 +25,7 @@ module.exports = function (app) {//MODIFY
                     let TransferHistoryUUIDExist = false;
                     async.series([TransferHistoryUUIDExistCheck], function (error, response) {
                       if (TransferHistoryUUIDExist == true) {
-                        TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, function (response) {
+                        TransferHistoryModel.TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, function (response) {
                           if (response != undefined) {
                             res.send(response);
                           } else {
@@ -367,7 +368,7 @@ module.exports = function (app) {//INSERT
                   async.series([UserAccountIDReceiverExistCheck, UserAccountIDSenderExistCheck], function (error, response) {
                     if (UserAccountIDReceiverExist == true) {
                       if (UserAccountIDSenderExist == true) {
-                        AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, function (response) {
+                        TransferHistoryModel.AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, function (response) {
                           if (response != undefined) {
                             res.send(response);
                           } else {

@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let BankInformationModel =require('./BankInformationModel');
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {//MODIFY
@@ -20,7 +21,7 @@ module.exports = function (app) {//MODIFY
             if (!isNullOrEmpty(Expiration)) {
               if (!isNullOrEmpty(Time)) {
                 if (!isNullOrEmpty(Date)) {
-                  BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, function (response) {
+                  BankInformationModel.BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
@@ -83,7 +84,7 @@ module.exports = function (app) {//MODIFY
             if (!isNullOrEmpty(Expiration)) {
               if (!isNullOrEmpty(Time)) {
                 if (!isNullOrEmpty(Date)) {
-                  BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, function (response) {
+                  BankInformationModel.BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, function (response) {
                     if (response) {
                       res.send(response);
                     } else {

@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let WithdrawHistoryModel = require("../WithdrawHistory/WithdrawHistoryModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 module.exports = function (app) {//MODIFY
@@ -17,7 +18,7 @@ module.exports = function (app) {//MODIFY
         if (!isNullOrEmpty(ApprovedDATE) && isValidApprovedDATEParsed == true && ApprovedDATEParsed.year() > 1959) {
           if (!isNullOrEmpty(ApprovedTIME)) {
 
-            WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, function (response) {
+            WithdrawHistoryModel.WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -61,7 +62,7 @@ module.exports = function (app) {//MODIFY
         let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
         if (!isNullOrEmpty(ProcessingDATE) && isValidProcessingDATEParsed == true && ProcessingDATEParsed.year() > 1959) {
           if (!isNullOrEmpty(ProcessingTIME)) {
-            WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, function (response) {
+            WithdrawHistoryModel.WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -105,7 +106,7 @@ module.exports = function (app) {//MODIFY
         let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
         if (!isNullOrEmpty(RejectedDATE) && isValidRejectedDATEParsed == true && RejectedDATEParsed.year() > 1959) {
           if (!isNullOrEmpty(RejectedTIME)) {
-            WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, function (response) {
+            WithdrawHistoryModel.WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {

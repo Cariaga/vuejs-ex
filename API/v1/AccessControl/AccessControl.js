@@ -55,7 +55,7 @@ module.exports = function(app) {//MODIFY
     if (!isNullOrEmpty(AccessID)) {
       if (!isNullOrEmpty(AccessName)) {
         if (!isNullOrEmpty(AccessTags)) {
-          AddAccessControl(AccessID, AccessName, AccessTags, function (response) {
+          AccessControlModel.AddAccessControl(AccessID, AccessName, AccessTags, function (response) {
             if (response != undefined) {
               res.send(response);
             } else {
