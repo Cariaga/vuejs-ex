@@ -8,15 +8,17 @@ var uuidv4 = require('uuid/v4');
 module.exports = function (app) {
 
   app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Valid/:Valid/Expiration/:Expiration/', function (req, res) {
-    let UserName = req.params.UserName;
-    let Password = req.params.Password;
-    let Name = req.params.Name;
-    let Email = req.params.Email;
-    let SurName = req.params.SurName;
- 
-    let Valid = req.params.Valid;
-    let Expiration = req.params.Expiration;
-    let PhoneNumber = req.params.Expiration;
+  let AccessID = req.params.AccessID;
+  let UserName = req.params.UserName;
+  let Password = req.params.Password;
+  let Email = req.params.Email;
+  let PhoneNumber = req.params.PhoneNumber;
+  let BankName = req.params.BankName;
+  let AccountNumber = req.params.AccountNumber;
+  let SecurityCode = req.params.SecurityCode;
+  let Valid = req.params.Valid;
+  let Expiration = req.params.Expiration;
+
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
         if (!isNullOrEmpty(Name)) {
