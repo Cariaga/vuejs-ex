@@ -66,8 +66,8 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
     `SET @HeadOfficeID=${HeadOfficeID};` +
     `SET @Name=${Name};` +
     "UPDATE `sampledb`.`distributors` "+
-    "SET UserAccountID = @UserAccountID, HeadOfficeID = @HeadOfficeID ,Name=@Name"+
-    "WHERE DistributorID = @DistributorID;";
+    "SET  HeadOfficeID = @HeadOfficeID , Name=@Name"+
+    "WHERE HeadOfficeID=@HeadOfficeID and UserAccountID = @UserAccountID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
