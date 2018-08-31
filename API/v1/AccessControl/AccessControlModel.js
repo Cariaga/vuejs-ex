@@ -39,7 +39,8 @@ module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName
 
 
 module.exports.AccessControlUpdate = function AccessControlUpdate(AccessID, AccessName, AccessTags, callback) {
-  let query = '';
+  let query = 'asfasf';
+  "SET @AccessID='';SET @AccessName='';SET @AccessTags='';INSERT INTO `sampledb`.`accesscontrol` (`AccessID`, `AccessName`, `AccessTags`) VALUES (@AccessID, @AccessName, @AccessTags);SELECT * FROM `sampledb`.`accesscontrol`;"
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
