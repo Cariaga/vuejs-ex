@@ -28,7 +28,8 @@ module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID,
   `SET @ValidKey=${ValidKey};`+
   `SET @RegisteredDateTime=now();`+
   `SET @OnlineStatus='Offline'`+
-  "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`) VALUES (@UserAccountID, @UserName, @Password, @RegisteredDateTime);"
+  `SET @Verified=false`+
+  "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`) VALUES (@UserAccountID, @UserName, @Password, @RegisteredDateTime,@Verified);"
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
