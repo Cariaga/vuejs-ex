@@ -14,15 +14,17 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Speed
  * @param {*} callback
  */
-module.exports.AddRoomConfiguration = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, Speed, callback) {
+module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID,SeasonID,GameType, SmallBlind, BigBlind, Speed, callback) {
   let query =
+    `SET @RoomID=${RoomID};` +
     `SET @SeasonID=${SeasonID};` +
+    `SET @GameType=${GameType};` +
     `SET @SmallBlind=${SmallBlind};` +
     `SET @BigBlind=${BigBlind};` +
     `SET @Speed=${Speed};` +
-    ""+
-    ""+
-    ""+
+    `SET @CreatedRoomDateTime=now();`+
+    "INSERT INTO `sampledb`.`roomconfigurations` (`RoomID`, `SmallBlind`, `BigBlind`, `Speed`, `GameType`, `CreatedRoomDateTime`) "+
+    "VALUES (@RoomID, @SmallBlind, @BigBlind, @Speed, @GameType, @CreatedRoomDateTime);";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -60,11 +62,14 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(SeasonID, Sm
  * @param {*} BigBlind
  * @param {*} callback
  */
-module.exports.RoomConfigurationSeasonIDUpdateSmallBigBlind = function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigBlind, callback) {
+module.exports.RoomConfigurationSeasonIDUpdateSmallBigBlind = function RoomConfigurationSeasonIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, callback) {
   let query =
-    `SET @SeasonID=${SeasonID};` +
+    `SET @RoomID=${RoomID};` +
     `SET @SmallBlind=${SmallBlind};` +
     `SET @BigBlind=${BigBlind};` +
+    "UPDATE `sampledb`.`roomconfigurations`"+
+    "SmallBlind = @SmallBlind, BigBlind = @BigBlind,"+
+    "WHERE RoomID = @RoomID;";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
