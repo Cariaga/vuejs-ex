@@ -252,7 +252,6 @@ module.exports = function (app) {//SELECTION
                         });
                       }
                     });
-           
             } else {
               res.send({
                 ValidKeyMissing: true
