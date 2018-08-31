@@ -27,31 +27,31 @@ module.exports = function (app) {
                     if(!isNullOrEmpty(PhoneNumber)){
                       res.send({success:true});
                     }else{
-                      
+                      res.send({PhoneNumberMissing});
                     }
                   }else{
-
+                    res.send({Expiration});
                   }
                 }else{
-
+                  res.send({Email});
                 }
               }else{
-
+                res.send({ValidCard});
               }
             }else{
-
+              res.send({Name});
             }
           }else{
-
+            res.send({SurName});
           }
         }else{
-
+          res.send({Name});
         }
       }else{
-
+        res.send({Password});
       }
     }else{
-
+      res.send({UserName});
     }
   });
   app.get('/registerheadoffice', function (req, res) {
