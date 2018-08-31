@@ -28,7 +28,9 @@ module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, 
     `SET @DeviceCpu=${DeviceCpu};` +
     `SET @Time=${Time};` +
     `SET @Date=${Date};` +
-
+    "UPDATE `sampledb`.`loginhistories`"+
+    "SET IP = @IP, UserAccountID = @UserAccountID, DeviceName = @DeviceName, DeviceRam = @DeviceRam, DeviceCpu = @DeviceCpu, LoginDateTime = @LoginDateTime "+
+    "WHERE LoginHistoryID = @LoginHistoryID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
