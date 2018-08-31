@@ -145,7 +145,7 @@ module.exports.PayerUpdateRoomName = function PayerUpdateRoomName(UserAccountID,
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
-    "SET CurrentPoints = @CurrentPoints "+
+    "SET CurrentRoomName = @CurrentRoomName " +
     "WHERE UserAccountID = @UserAccountID";
 
     DBConnect.DBConnect(query, function (response) {
