@@ -18,6 +18,9 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
     `SET @UserAccountID=${UserAccountID};` +
     `SET @HeadOfficeID=${HeadOfficeID};` +
     `SET @Name=${Name};` +
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -63,7 +66,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
     `SET @UserAccountID=${UserAccountID};` +
     `SET @HeadOfficeID=${HeadOfficeID};` +
     `SET @Name=${Name};` +
-
+  
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

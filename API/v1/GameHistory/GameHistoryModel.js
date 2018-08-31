@@ -32,6 +32,9 @@ module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, 
     `SET @Date=${Date};` +
     `SET @BeforePoints=${BeforePoints};` +
     `SET @AfterPoints=${AfterPoints};` +
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

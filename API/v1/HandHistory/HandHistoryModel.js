@@ -11,6 +11,7 @@ module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, Use
     `SET @UserAccountID=${UserAccountID};` +
     `SET @MoveHand=${MoveHand};` +
     `SET @RoundID=${RoundID};` +
+    
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -44,6 +45,9 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand,
     `SET @UserAccountID=${UserAccountID};` +
     `SET @MoveHand=${MoveHand};` +
     `SET @RoundID=${RoundID};` +
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

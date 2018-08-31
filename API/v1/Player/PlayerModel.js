@@ -261,7 +261,8 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
     `SET @Name=${Name};` +
     `SET @Surname=${Surname};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
-
+    "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`, `CurrentPoints`) "+
+    "VALUES (@UserAccountID, @ShopID, @ScreenName, @Name, @Surname, @CurrentRoomName, @CurrentPoints);"
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
