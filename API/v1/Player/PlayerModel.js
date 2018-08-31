@@ -212,7 +212,9 @@ module.exports.PlayerUpdate = function PlayerUpdate(PlayersID, UserAccountID, Sh
     `SET @Name=${Name};` +
     `SET @Surname=${Surname};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
-
+    "UPDATE `sampledb`.`players`"+
+    "SET ShopID = @ShopID, ScreenName = @ScreenName, Name = @Name, Surname = @Surname, CurrentRoomName = @CurrentRoomName, CurrentPoints = @CurrentPoints "+
+    "WHERE PlayersID = @PlayersID and UserAccountID = @UserAccountID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
