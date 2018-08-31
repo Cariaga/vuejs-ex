@@ -74,7 +74,7 @@ module.exports = function (app) {//SELECTION
       }).then(function (result) {
         let Data = result.map(function (item) {
           return item;
-  
+ 
         });
         res.send(beautify(Data, null, 2, 100));
       }).catch(function (result) { //catching any then errors
@@ -229,7 +229,7 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey/:RegisteredDate/:RegisteredTime', function (req, res) {
+  app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey', function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
     let UserAccountID = uuidv4();
