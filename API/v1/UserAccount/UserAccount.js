@@ -237,15 +237,12 @@ module.exports = function (app) {//SELECTION
     let AccessID = req.params.AccessID;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
-    let Verify = req.params.Verify;
-    let ValidKey =  uuidv4();
-
+    let ValidKey = uuidv4();
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(AccessID)) {
         if (!isNullOrEmpty(UserName)) {
           if (!isNullOrEmpty(Password)) {
-            if (!isNullOrEmpty(Verify)) {
-              if (!isNullOrEmpty(ValidKey)) {
+            if (!isNullOrEmpty(ValidKey)) {
                     UserAccountModel.AddUserAccount(UserAccountID, AccessID, UserName, Password, ValidKey, function (response) {
                       if (response != undefined) {
                         res.send(response);
@@ -255,14 +252,10 @@ module.exports = function (app) {//SELECTION
                         });
                       }
                     });
-              } else {
-                res.send({
-                  ValidKeyMissing: true
-                });
-              }
+           
             } else {
               res.send({
-                VerifyMissing: true
+                ValidKeyMissing: true
               });
             }
           } else {
