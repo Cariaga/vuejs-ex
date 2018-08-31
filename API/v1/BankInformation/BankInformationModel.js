@@ -27,6 +27,7 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
 `SET @Expiration=${Expiration};`+
 `SET @Time=${Time};`+
 `SET @Date=${Date};`+
+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

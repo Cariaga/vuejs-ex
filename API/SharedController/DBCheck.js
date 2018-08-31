@@ -10,7 +10,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function UserInfoEmailExist(Email, callback) {
-
+    let query =
+    `SET @Email=${Email};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({
       where: {
@@ -39,7 +50,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isPhoneNumberExist(PhoneNumber, callback) {
-
+    let query =
+    `SET @PhoneNumber=${PhoneNumber};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({
       where: {
@@ -70,7 +92,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserAccountBlocked(UserAccountID, callback) {
-
+    let query =
+    `SET @UserAccountID=${UserAccountID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.BlackList.sync();
     let result = Models.BlackList.findAll({
       where: {
@@ -100,7 +133,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserNameExist(UserName, callback) {
-
+    let query =
+    `SET @UserName=${UserName};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
    /* Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
@@ -128,7 +172,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserAccountIDExist(UserAccountID, callback) {
-
+    let query =
+    `SET @UserAccountID=${UserAccountID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
@@ -157,7 +212,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserAccountVerifiedUserName(UserName, callback) {
-
+    let query =
+    `SET @UserName=${UserName};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
@@ -188,7 +254,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isHeadOfficeAlreadyExist(HeadOfficeID, callback) {
-
+    let query =
+    `SET @HeadOfficeID=${HeadOfficeID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({
       where: {
@@ -217,7 +294,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isDistributorAlreadyExist(DistributorID, callback) {
-
+    let query =
+    `SET @DistributorID=${DistributorID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*
     Models.Distributor.sync();
     let result = Models.Distributor.findAll({
@@ -249,7 +337,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isShopAlreadyExist(ShopID, callback) {
-
+    let query =
+    `SET @ShopID=${ShopID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.Shop.sync();
     let result = Models.Shop.findAll({
       where: {
@@ -280,7 +379,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isPlayerAlreadyExist(PlayersID, callback) {
-
+    let query =
+    `SET @PlayersID=${PlayersID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.Player.sync();
     let result = Models.Player.findAll({
       where: {
@@ -310,7 +420,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isScreenNameExist(ScreenName, callback) {
-
+    let query =
+    `SET @ScreenName=${ScreenName};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.Player.sync();
     let result = Models.Player.findAll({
       where: {
@@ -333,7 +454,18 @@ module.exports = function (app) {
   }
 
   function ChildDistributorsFromHeadOfficeID(HeadOfficeID, callback) { // returns Distributor
-
+    let query =
+    `SET @HeadOfficeID=${HeadOfficeID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.Distributor.sync();
     let result = Models.Distributor.findAll({
       where: {
@@ -362,7 +494,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isSupportTicketIDExist(SupportTicketID, callback) {
-
+    let query =
+    `SET @SupportTicketID=${SupportTicketID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({
       where: {
@@ -391,7 +534,18 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function IsSeasonIDExist(SeasonID, callback) {
-
+    let query =
+    `SET @SeasonID=${SeasonID};`+
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
     /*Models.RoomConfiguration.sync();
     let result = Models.RoomConfiguration.findAll({
       where: {
@@ -422,7 +576,18 @@ module.exports = function (app) {
  * @param {*} callback
  */
 function IsNotificationIDExist(NotificationID, callback) {
+  let query =
+  `SET @NotificationID=${NotificationID};`+
   
+ 
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   /*Models.Notification.sync();
   let result = Models.Notification.findAll({
     where: {
