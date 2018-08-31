@@ -18,7 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} RegisteredTime
  * @param {*} callback
  */
-module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
+module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, callback) {
   let query = 
   `SET @UserAccountID=${UserAccountID};`+
 `SET @AccessID=${AccessID};`+
@@ -26,8 +26,10 @@ module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID,
 `SET @Password=${Password};`+
 `SET @Verify=${Verify};`+
 `SET @ValidKey=${ValidKey};`+
-`SET @RegisteredDate=${RegisteredDate};`+
-`SET @RegisteredTime=${RegisteredTime};`+
+`SET @RegisteredDate=date(now());`+
+`SET @RegisteredTime=time(now());`+
+"INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDate`, `OnlineStatus`) VALUES (@UserAccountID, @UserName, @Password, @RegisteredDate, @OnlineStatus);"
+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -143,7 +145,8 @@ module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccoun
 module.exports.VerifyAccountUserAccountID = function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   let query = 
   `SET @UserAccountID=${UserAccountID};`+
-`SET @VerifiedStatus=${VerifiedStatus};`+
+  `SET @VerifiedStatus=${VerifiedStatus};`+
+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
