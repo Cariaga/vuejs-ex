@@ -18,6 +18,9 @@ module.exports.AddShop = function AddShop(UserAccountID, DistributorID, Descript
     `SET @UserAccountID=${UserAccountID};` +
     `SET @DistributorID=${DistributorID};` +
     `SET @Description=${Description};` +
+    "INSERT INTO `sampledb`.`shops` (`UserAccountID`, `DistributorID`,`Description`) "+
+    "VALUES (@UserAccountID, @DistributorID, @Name, @Description);";
+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
