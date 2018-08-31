@@ -89,16 +89,19 @@ module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAc
  * @param {*} Status
  * @param {*} callback
  */
-module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
+module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason,Answer,DateTime, Status, callback) {
   let query =
     `SET @SupportTicketID=${SupportTicketID};` +
     `SET @UserAccountID=${UserAccountID};` +
     `SET @Title=${Title};` +
     `SET @Description=${Description};` +
     `SET @Reason=${Reason};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
+    `SET @Answer=${Answer};` +
+    `SET @DateTime=${DateTime};` 
     `SET @Status=${Status};` +
+    "UPDATE `sampledb`.`supporttickets` "+
+    "SET Title = @Title, Description = @Description,Reason = @Reason,Answer = @Answer, DateTime = @DateTime, Status = @Status "+
+    "WHERE SupportTicketID = @SupportTicketID and UserAccountID = @UserAccountID;"
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -140,18 +143,17 @@ module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketI
  * @param {*} Status
  * @param {*} callback
  */
-module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
+module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, DateTime, Status, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @Title=${Title};` +
     `SET @Description=${Description};` +
     `SET @Reason=${Reason};` +
     `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
+    `SET @DateTime=${DateTime};` +
     `SET @Status=${Status};` +
-    ""+
-    ""+
-    ""+
+    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `DateTime`, `Status`) "+
+    "VALUES (@UserAccountID, @Title, @Description, @Reason, @DateTime, @Status);";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

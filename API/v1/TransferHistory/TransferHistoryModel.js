@@ -167,7 +167,6 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
 //*not implemented*
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
-// -------------------------- MIGRATED
 module.exports.AddTransferHistory = function AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
   let query =
     DBConnect.DBConnect(query, function (response) {

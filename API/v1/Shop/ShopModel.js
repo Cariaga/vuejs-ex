@@ -50,3 +50,10 @@ module.exports.AddShop = function AddShop(UserAccountID, DistributorID, Descript
       callback(undefined);
     });*/
 }
+
+/*
+  "UPDATE `sampledb`.`shops`"+
+    "SET UserAccountID = @UserAccountID"+
+    "Description = @Description, CurrentPoints = @CurrentPoints"+
+    "WHERE ShopID = @ShopID;";
+     */
