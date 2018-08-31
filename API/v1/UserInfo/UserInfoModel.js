@@ -152,6 +152,9 @@ module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNum
     `SET @Email=${Email};` +
     `SET @PhoneNumber=${PhoneNumber};` +
     `SET @TelephoneNumber=${TelephoneNumber};` +
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
