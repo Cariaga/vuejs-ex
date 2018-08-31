@@ -18,7 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} RegisteredTime
  * @param {*} callback
  */
-module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
+module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -57,7 +57,7 @@ module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Pass
     });*/
 }
 
-module.exports = function LoginHistoryUserAccountID(UserAccountID, callback) {
+module.exports.LoginHistoryUserAccountID = function LoginHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -91,7 +91,7 @@ module.exports = function LoginHistoryUserAccountID(UserAccountID, callback) {
   });*/
 }
 
-module.exports = function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
+module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -132,7 +132,7 @@ module.exports = function LoginHistoryUserAccountIDLatest(UserAccountID, callbac
  * @param {*} VerifiedStatus
  * @param {*} callback
  */
-module.exports = function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
+module.exports.VerifyAccountUserAccountID = function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -171,9 +171,7 @@ module.exports = function VerifyAccountUserAccountID(UserAccountID, VerifiedStat
  * @param {*} RegisteredTime
  * @param {*} callback
  */
-
-// ---------------------migrated
-module.exports = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
+module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){

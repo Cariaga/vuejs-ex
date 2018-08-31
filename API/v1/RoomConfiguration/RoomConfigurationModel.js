@@ -14,7 +14,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Speed
  * @param {*} callback
  */
-module.exports = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, Speed, callback) {
+module.exports.AddRoomConfiguration = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, Speed, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -53,8 +53,8 @@ module.exports = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, S
  * @param {*} BigBlind
  * @param {*} callback
  */
-function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigBlind, callback) {
-  Models.RoomConfiguration.sync( /*{force:true}*/ );
+module.exports.RoomConfigurationSeasonIDUpdateSmallBigBlind = function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigBlind, callback) {
+  /*Models.RoomConfiguration.sync( );
   Models.RoomConfiguration.update({
       SmallBlind: SmallBlind,
       BigBlind: BigBlind
@@ -71,15 +71,15 @@ function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigB
       // mhhh, wth!
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 /**
  *
  *
  * @param {*} callback
  */
-function RoomConfiguration(callback) {
-  Models.RoomConfiguration.sync();
+module.exports.RoomConfiguration = function RoomConfiguration(callback) {
+  /*Models.RoomConfiguration.sync();
   let result = Models.RoomConfiguration.findAll({
     where: {
       RoomConfigurationID: {
@@ -101,5 +101,5 @@ function RoomConfiguration(callback) {
     console.log("Error " + result);
     callback(undefined);
 
-  });
+  });*/
 }

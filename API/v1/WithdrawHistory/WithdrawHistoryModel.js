@@ -22,7 +22,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+module.exports.AddWithdrawHistory =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -77,7 +77,7 @@ module.exports =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed,
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -115,7 +115,7 @@ module.exports = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID
     });*/
 }
 
-module.exports = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
+module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -144,7 +144,7 @@ module.exports = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawH
     });*/
 }
 
-module.exports = function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
+module.exports.WithdrawHistoryUpdateProcessing = function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -173,7 +173,7 @@ module.exports = function WithdrawHistoryUpdateProcessing(UserAccountID, Withdra
     });*/
 }
 
-module.exports = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
+module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -202,7 +202,7 @@ module.exports = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawH
     });*/
 }
 
-module.exports = function HandHistoryUserAccountID(UserAccountID, callback) {
+module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -234,7 +234,7 @@ module.exports = function HandHistoryUserAccountID(UserAccountID, callback) {
   });*/
 }
 
-module.exports = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
+module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
   let query = '';
   DBConnect.DBConnect(query,function(response){
@@ -264,7 +264,7 @@ module.exports = function AddUserInfo(UserAccountID, Email, PhoneNumber, Telepho
     });*/
 }
 
-module.exports = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
+module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){

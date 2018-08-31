@@ -205,7 +205,16 @@ module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAc
  * @param {*} callback
  */
 module.exports.DepositHistoryUserAccountID = function DepositHistoryUserAccountID(UserAccountID, callback) {
-  Models.DepositHistory.sync();
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -222,5 +231,5 @@ module.exports.DepositHistoryUserAccountID = function DepositHistoryUserAccountI
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }

@@ -13,7 +13,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Description
  * @param {*} callback
  */
-module.exports = function AddShop(UserAccountID, DistributorID, Description, callback) {
+module.exports.AddShop = function AddShop(UserAccountID, DistributorID, Description, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){

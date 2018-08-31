@@ -18,7 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Date
  * @param {*} callback
  */
-module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
+module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -63,7 +63,7 @@ module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, 
  * @param {*} Date
  * @param {*} callback
  */
-module.exports = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) { //accessed by /Login
+module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) { //accessed by /Login
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -108,7 +108,7 @@ module.exports = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceR
  * @param {*} Date
  * @param {*} callback
  */
-module.exports = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
+module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){

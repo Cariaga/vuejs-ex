@@ -17,7 +17,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Date
  * @param {*} callback
  */
-module.exports = function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
+module.exports.NotificationUpdate = function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){

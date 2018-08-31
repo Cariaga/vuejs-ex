@@ -126,7 +126,16 @@ module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccou
  * @param {*} callback
  */
 module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
-  Models.BlackList.update({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.BlackList.update({
       Status: Status
     }, {
       where: {
@@ -140,7 +149,7 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
     .catch(error => {
       console.log("Error Updating BlackList param 4");
       callback(undefined);
-    });
+    });*/
 }
 
 /**
@@ -155,7 +164,16 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
  * @param {*} callback
  */
 module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, callback) {
-  var item1 = Models.BlackList.build({
+  let query = '';
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.BlackList.build({
     UserAccountID: UserAccountID,
     Title: Title,
     Status: Status,
@@ -164,7 +182,7 @@ module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status
     ReleaseDate: ReleaseDate
   });
   Models.BlackList.sync({
-    alter: true /*,force:true*/
+    alter: true
   }); //Force true to recreate table
   item1.save()
     .then(Success => {
@@ -173,5 +191,5 @@ module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status
     .catch(error => {
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }

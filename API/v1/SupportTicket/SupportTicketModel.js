@@ -5,7 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports = function SupportTicketUserAccountID(UserAccountID, callback) {
+module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(UserAccountID, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -42,7 +42,7 @@ module.exports = function SupportTicketUserAccountID(UserAccountID, callback) {
  * @param {*} Status
  * @param {*} callback
  */
-module.exports = function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
+module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -85,8 +85,17 @@ module.exports = function SupportTicketUserAccountIDByStatus(UserAccountID, Stat
  * @param {*} Status
  * @param {*} callback
  */
-function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
-  Models.SupportTicket.update({
+module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.SupportTicket.update({
       Title: Title,
       Description: Description,
       Reason: Reason,
@@ -105,7 +114,7 @@ function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description,
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 /**
  *
@@ -119,8 +128,17 @@ function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description,
  * @param {*} Status
  * @param {*} callback
  */
-function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
-  var item1 = Models.SupportTicket.build({
+module.exports.AddSupportTicket= function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*var item1 = Models.SupportTicket.build({
     UserAccountID: UserAccountID,
     Title: Title,
     Description: Description,
@@ -130,7 +148,7 @@ function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date,
     Status: Status
   });
   Models.SupportTicket.sync({
-    alter: true /*,force:true*/
+    alter: true
   }); //force to recreate if non production code
   item1.save()
     .then(Success => {
@@ -143,5 +161,5 @@ function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date,
     .catch(error => {
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }

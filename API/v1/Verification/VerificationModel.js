@@ -12,7 +12,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} ValidKey
  * @param {*} callback
  */
-module.exports = function VerifyAccount(UserName, ValidKey, callback) { // Verification with ValidKey // Public only use // Via ValidKey
+module.exports.VerifyAccount = function VerifyAccount(UserName, ValidKey, callback) { // Verification with ValidKey // Public only use // Via ValidKey
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -47,7 +47,7 @@ module.exports = function VerifyAccount(UserName, ValidKey, callback) { // Verif
  * @param {*} ValidKey
  * @param {*} callback
  */
-module.exports = function Verify(UserName, ValidKey, callback) {
+module.exports.Verify = function Verify(UserName, ValidKey, callback) {
   async.waterfall([
     myFirstFunction,
     mySecondFunction,

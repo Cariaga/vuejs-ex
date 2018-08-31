@@ -16,7 +16,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
-module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -60,7 +60,16 @@ module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Sur
  * @param {*} callback
  */
 module.exports = function PlayerUserAccountID(UserAccountID, callback) {
-  Models.Player.sync();
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+ /* Models.Player.sync();
   let result = Models.Player.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -78,17 +87,26 @@ module.exports = function PlayerUserAccountID(UserAccountID, callback) {
   }).catch(function (result) {
     console.log("Error " + result)
     callback(undefined);
+  });*/
+}
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} CurrentPoints
+ * @param {*} callback
+ */
+module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
   });
-}
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} CurrentPoints
- * @param {*} callback
- */
-module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
-  Models.Player.update({
+  /*Models.Player.update({
       CurrentPoints: CurrentPoints
     }, {
       where: {
@@ -102,7 +120,7 @@ module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callba
       // mhhh, wth!
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 /**
  *
@@ -112,7 +130,16 @@ module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callba
  * @param {*} callback
  */
 module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
-  Models.Player.update({
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.Player.update({
       CurrentPoints: CurrentPoints
     }, {
       where: {
@@ -126,7 +153,7 @@ module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callba
       // mhhh, wth!
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 /**
@@ -137,7 +164,7 @@ module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callba
  * @param {*} callback
  */
 module.exports =function PayerUpdateRoomName(UserAccountID, CurrentRoomName, callback) {
-  Models.Player.update({
+ /* Models.Player.update({
       CurrentRoomName: CurrentRoomName
     }, {
       where: {
@@ -151,11 +178,11 @@ module.exports =function PayerUpdateRoomName(UserAccountID, CurrentRoomName, cal
       // mhhh, wth!
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
 
 module.exports = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
-  Models.Player.update({
+  /*Models.Player.update({
       ShopID: ShopID,
       ScreenName: ScreenName,
       Name: Name,
@@ -174,7 +201,7 @@ module.exports = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenN
       // mhhh, wth!
       console.log("Error Updating " + error);
       res.send(undefined);
-    });
+    });*/
 }
 /**
  *
@@ -190,7 +217,7 @@ module.exports = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenN
 module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   //res.send('test');
   //Setting up the config
-  let item1 = Models.Player.build({
+  /*let item1 = Models.Player.build({
     UserAccountID: UserAccountID,
     ShopID: ShopID,
     ScreenName: ScreenName,
@@ -211,6 +238,6 @@ module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Sur
       // mhhh, wth!
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
   //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }

@@ -14,7 +14,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} TelephoneNumber
  * @param {*} callback
  */
-module.exports = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
+module.exports.UserInfoUpdate = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
   let query = '';
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
@@ -45,8 +45,17 @@ module.exports = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, Tele
     });*/
 }
 
-module.exports = function UserInfoUserAccountID(UserAccountID, callback) {
-  Models.UserInfo.sync();
+module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccountID, callback) {
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserInfo.sync();
   let result = Models.UserInfo.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -63,7 +72,7 @@ module.exports = function UserInfoUserAccountID(UserAccountID, callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 /**
  *
@@ -71,8 +80,17 @@ module.exports = function UserInfoUserAccountID(UserAccountID, callback) {
  * @param {*} UserAccountID
  * @param {*} callback
  */
-module.exports =function UserInfoUserAccountID(UserAccountID, callback) {
-  Models.UserInfo.sync();
+module.exports.UserInfoUserAccountID =function UserInfoUserAccountID(UserAccountID, callback) {
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserInfo.sync();
   let result = Models.UserInfo.findAll({
     where: {
       UserAccountID: UserAccountID
@@ -89,11 +107,20 @@ module.exports =function UserInfoUserAccountID(UserAccountID, callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
 
-module.exports = function UserInfoUpdateEmail(UserAccountID, Email, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
-  Models.UserInfo.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID, Email, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserInfo.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.UserInfo.update({
       Email: Email
     }, {
@@ -108,11 +135,20 @@ module.exports = function UserInfoUpdateEmail(UserAccountID, Email, callback) { 
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });
+    });*/
 }
-module.exports = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
+module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
-  Models.UserInfo.sync( /*{force:true}*/ );
+  let query =
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
+  /*Models.UserInfo.sync( );
   var item1 = Models.UserInfo.build({
     UserAccountID: UserAccountID,
     Email: Email,
@@ -128,5 +164,5 @@ module.exports = function AddUserInfo(UserAccountID, Email, PhoneNumber, Telepho
 
       console.log("error inserting " + error);
       callback(undefined);
-    });
+    });*/
 }
