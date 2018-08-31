@@ -23,7 +23,21 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  let query = '';
+  let query =`SET @UserAccountID=${UserAccountID};`+
+  `SET @Amount=${Amount};`+
+  `SET @BankNameUsed=${BankNameUsed};`+
+  `SET @Status=${Status};`+
+  `SET @RequestedDATE=${RequestedDATE};`+
+  `SET @ApprovedDATE=${ApprovedDATE};`+
+  `SET @RejectedDATE=${RejectedDATE};`+
+  `SET @ProcessingDATE=${ProcessingDATE};`+
+  `SET @RequestedTIME=${RequestedTIME};`+
+  `SET @ApprovedTIME=${ApprovedTIME};`+
+  `SET @RejectedTIME=${RejectedTIME};`+
+  `SET @ProcessingTIME=${ProcessingTIME};`+
+  ""+
+  ""+
+  ""+
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
