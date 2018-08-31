@@ -109,7 +109,7 @@ module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, Cur
     `SET @CurrentPoints=${CurrentPoints};` +
     "UPDATE `sampledb`.`players` "+
     "SET CurrentPoints = @CurrentPoints "+
-    "WHERE UserAccountID = @UserAccountID;"
+    "WHERE UserAccountID = @UserAccountID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -134,42 +134,6 @@ module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, Cur
       callback(undefined);
     });*/
 }
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} CurrentPoints
- * @param {*} callback
- */
-module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
-  let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @CurrentPoints=${CurrentPoints};` +
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-  /*Models.Player.update({
-      CurrentPoints: CurrentPoints
-    }, {
-      where: {
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
-}
-
 /**
  *
  *
