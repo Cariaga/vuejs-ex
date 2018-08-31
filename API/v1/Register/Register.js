@@ -8,7 +8,7 @@ var uuidv4 = require('uuid/v4');
 module.exports = function (app) {
 
   app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Valid/:Valid/Expiration/:Expiration/', function (req, res) {
-  let AccessID = req.params.AccessID;
+ 
   let UserName = req.params.UserName;
   let Password = req.params.Password;
   let Email = req.params.Email;
@@ -31,7 +31,7 @@ module.exports = function (app) {
                    
                       let UserAccountID = uuidv4();
                       let ValidKey = uuidv4();
-
+                      let AccessID = "1";
                       RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration, function (response) {
                         if (response != undefined) {
                           res.send(response);
