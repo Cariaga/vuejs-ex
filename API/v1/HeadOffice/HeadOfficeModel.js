@@ -6,7 +6,18 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
-
+  let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @MoveHand=${MoveHand};`+
+`SET @RoundID=${RoundID};`+
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   /*Models.HandHistory.sync( );
   var item1 = Models.HandHistory.build({
     UserAccountID: UserAccountID,
@@ -34,6 +45,9 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand,
  */
 module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, callback) {
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @Name=${Name};`+
+`SET @Description=${Description};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -75,7 +89,10 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
  * @param {*} callback
  */
 module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
-  let query = '';
+  let query = 
+  `SET @HeadOfficeID=${HeadOfficeID};`+
+`SET @UserAccountID=${UserAccountID};`+
+`SET @Name=${Name};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

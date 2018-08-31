@@ -6,7 +6,8 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(UserAccountID, callback) {
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -43,7 +44,10 @@ module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(
  * @param {*} callback
  */
 module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @Status=${Status};`+
+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -87,6 +91,14 @@ module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAc
  */
 module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
   let query =
+  `SET @SupportTicketID=${SupportTicketID};`+
+`SET @UserAccountID=${UserAccountID};`+
+`SET @Title=${Title};`+
+`SET @Description=${Description};`+
+`SET @Reason=${Reason};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
+`SET @Status=${Status};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -130,6 +142,13 @@ module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketI
  */
 module.exports.AddSupportTicket= function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @Title=${Title};`+
+`SET @Description=${Description};`+
+`SET @Reason=${Reason};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
+`SET @Status=${Status};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

@@ -15,7 +15,11 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.UserInfoUpdate = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @Email=${Email};`+
+`SET @PhoneNumber=${PhoneNumber};`+
+`SET @TelephoneNumber=${TelephoneNumber};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -47,6 +51,7 @@ module.exports.UserInfoUpdate = function UserInfoUpdate(UserAccountID, Email, Ph
 
 module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccountID, callback) {
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -82,6 +87,7 @@ module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccoun
  */
 module.exports.UserInfoUserAccountID =function UserInfoUserAccountID(UserAccountID, callback) {
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -112,6 +118,8 @@ module.exports.UserInfoUserAccountID =function UserInfoUserAccountID(UserAccount
 
 module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID, Email, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @Email=${Email};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -140,6 +148,10 @@ module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID,
 module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @Email=${Email};`+
+`SET @PhoneNumber=${PhoneNumber};`+
+`SET @TelephoneNumber=${TelephoneNumber};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

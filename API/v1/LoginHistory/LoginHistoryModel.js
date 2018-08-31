@@ -19,7 +19,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
-  let query = '';
+  let query = 
+  `SET @LoginHistoryID=${LoginHistoryID};`+
+`SET @UserAccountID=${UserAccountID};`+
+`SET @IP=${IP};`+
+`SET @DeviceName=${DeviceName};`+
+`SET @DeviceRam=${DeviceRam};`+
+`SET @DeviceCpu=${DeviceCpu};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -64,7 +73,14 @@ module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, 
  * @param {*} callback
  */
 module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) { //accessed by /Login
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @IP=${IP};`+
+`SET @DeviceName=${DeviceName};`+
+`SET @DeviceRam=${DeviceRam};`+
+`SET @DeviceCpu=${DeviceCpu};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -109,7 +125,15 @@ module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, Dev
  * @param {*} callback
  */
 module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
-  let query = '';
+  let query = 
+  `SET @LoginHistoryID=${LoginHistoryID};`+
+`SET @UserAccountID=${UserAccountID};`+
+`SET @IP=${IP};`+
+`SET @DeviceName=${DeviceName};`+
+`SET @DeviceRam=${DeviceRam};`+
+`SET @DeviceCpu=${DeviceCpu};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

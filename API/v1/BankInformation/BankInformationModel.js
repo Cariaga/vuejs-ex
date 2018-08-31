@@ -20,6 +20,13 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
   
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @BankInformationID=${BankInformationID};`+
+`SET @BankName=${BankName};`+
+`SET @SecurityCode=${SecurityCode};`+
+`SET @Expiration=${Expiration};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -62,7 +69,14 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
  * @param {*} callback
  */
 module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @BankName=${BankName};`+
+`SET @SecurityCode=${SecurityCode};`+
+`SET @Valid=${Valid};`+
+`SET @Expiration=${Expiration};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -91,46 +105,4 @@ module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, B
       callback(undefined);
     });*/
 
-}
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} BankName
- * @param {*} SecurityCode
- * @param {*} Valid
- * @param {*} Expiration
- * @param {*} Time
- * @param {*} Date
- * @param {*} callback
- */
-module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
-  let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
-  /*var item1 = Models.BankInformation.build({
-    UserAccountID: UserAccountID,
-    BankName: BankName,
-    SecurityCode: SecurityCode,
-    Valid: Valid,
-    Expiration: Expiration,
-    Time: Time,
-    Date: Date
-  });
-  Models.BankInformation.sync({
-    
-  }); //force recreates deletes old table
-  item1.save().then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
 }

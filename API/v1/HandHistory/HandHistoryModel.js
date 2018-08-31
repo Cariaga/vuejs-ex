@@ -6,7 +6,11 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, callback) {
-  let query = '';
+  let query = 
+  `SET @HandHistoryID=${HandHistoryID};`+
+`SET @UserAccountID=${UserAccountID};`+
+`SET @MoveHand=${MoveHand};`+
+`SET @RoundID=${RoundID};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -36,7 +40,10 @@ module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, Use
     });*/
 }
 module.exports.AddHandHistory =function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @MoveHand=${MoveHand};`+
+`SET @RoundID=${RoundID};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

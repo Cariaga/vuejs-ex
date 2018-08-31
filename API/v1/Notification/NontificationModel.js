@@ -18,7 +18,14 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.NotificationUpdate = function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
-  let query = '';
+  let query = 
+  `SET @NotificationID=${NotificationID};`+
+`SET @NotificationType=${NotificationType};`+
+`SET @Title=${Title};`+
+`SET @Description=${Description};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -57,7 +64,12 @@ module.exports.NotificationUpdate = function NotificationUpdate(NotificationID,N
  * @param {*} callback
  */
 module.exports = function AddNotification(NotificationType,Title,Description,Time,Date,callback){
-  let query = '';
+  let query = 
+  `SET @NotificationType=${NotificationType};`+
+`SET @Title=${Title};`+
+`SET @Description=${Description};`+
+`SET @Time=${Time};`+
+`SET @Date=${Date};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

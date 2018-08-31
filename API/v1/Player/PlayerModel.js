@@ -17,7 +17,13 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @ShopID=${ShopID};`+
+`SET @ScreenName=${ScreenName};`+
+`SET @Name=${Name};`+
+`SET @Surname=${Surname};`+
+`SET @CurrentRoomName=${CurrentRoomName};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -59,8 +65,9 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
  * @param {*} UserAccountID
  * @param {*} callback
  */
-module.exports = function PlayerUserAccountID(UserAccountID, callback) {
+module.exports.PlayerUserAccountID = function PlayerUserAccountID(UserAccountID, callback) {
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -96,8 +103,10 @@ module.exports = function PlayerUserAccountID(UserAccountID, callback) {
  * @param {*} CurrentPoints
  * @param {*} callback
  */
-module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
+module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @CurrentPoints=${CurrentPoints};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -129,8 +138,10 @@ module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callba
  * @param {*} CurrentPoints
  * @param {*} callback
  */
-module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
+module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
   let query =
+  `SET @UserAccountID=${UserAccountID};`+
+  `SET @CurrentPoints=${CurrentPoints};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -163,7 +174,18 @@ module.exports = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callba
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
-module.exports =function PayerUpdateRoomName(UserAccountID, CurrentRoomName, callback) {
+module.exports.PayerUpdateRoomName =function PayerUpdateRoomName(UserAccountID, CurrentRoomName, callback) {
+  let query =
+  `SET @UserAccountID=${UserAccountID};`+
+  `SET @CurrentRoomName=${CurrentRoomName};`+
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
  /* Models.Player.update({
       CurrentRoomName: CurrentRoomName
     }, {
@@ -181,7 +203,24 @@ module.exports =function PayerUpdateRoomName(UserAccountID, CurrentRoomName, cal
     });*/
 }
 
-module.exports = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+module.exports.PlayerUpdate = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+  let query =
+  `SET @PlayersID=${PlayersID};`+
+`SET @UserAccountID=${UserAccountID};`+
+`SET @ShopID=${ShopID};`+
+`SET @ScreenName=${ScreenName};`+
+`SET @Name=${Name};`+
+`SET @Surname=${Surname};`+
+`SET @CurrentRoomName=${CurrentRoomName};`+
+
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   /*Models.Player.update({
       ShopID: ShopID,
       ScreenName: ScreenName,
@@ -214,7 +253,23 @@ module.exports = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenN
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
-module.exports = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
+  let query =
+  `SET @UserAccountID=${UserAccountID};`+
+`SET @ShopID=${ShopID};`+
+`SET @ScreenName=${ScreenName};`+
+`SET @Name=${Name};`+
+`SET @Surname=${Surname};`+
+`SET @CurrentRoomName=${CurrentRoomName};`+
+
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   //res.send('test');
   //Setting up the config
   /*let item1 = Models.Player.build({

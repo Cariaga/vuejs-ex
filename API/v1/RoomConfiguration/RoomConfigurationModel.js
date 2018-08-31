@@ -15,7 +15,12 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddRoomConfiguration = function AddRoomConfiguration(SeasonID, SmallBlind, BigBlind, Speed, callback) {
-  let query = '';
+  let query = 
+  `SET @SeasonID=${SeasonID};`+
+`SET @SmallBlind=${SmallBlind};`+
+`SET @BigBlind=${BigBlind};`+
+`SET @Speed=${Speed};`+
+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -54,6 +59,19 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(SeasonID, Sm
  * @param {*} callback
  */
 module.exports.RoomConfigurationSeasonIDUpdateSmallBigBlind = function RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigBlind, callback) {
+  let query = 
+  `SET @SeasonID=${SeasonID};`+
+`SET @SmallBlind=${SmallBlind};`+
+`SET @BigBlind=${BigBlind};`+
+
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   /*Models.RoomConfiguration.sync( );
   Models.RoomConfiguration.update({
       SmallBlind: SmallBlind,
@@ -79,6 +97,16 @@ module.exports.RoomConfigurationSeasonIDUpdateSmallBigBlind = function RoomConfi
  * @param {*} callback
  */
 module.exports.RoomConfiguration = function RoomConfiguration(callback) {
+  let query = '';
+
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(response);
+    }else{
+      callback(undefined);
+    }
+  });
   /*Models.RoomConfiguration.sync();
   let result = Models.RoomConfiguration.findAll({
     where: {

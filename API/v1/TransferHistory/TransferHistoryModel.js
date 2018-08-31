@@ -40,6 +40,7 @@ module.exports.TransferHistoryAll = function TransferHistoryAll(callback) {
 
 module.exports.TransferHistoryUserAccountIDReceiver = function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {
   let query =
+  `SET @UserAccountIDReceiver=${UserAccountIDReceiver};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -71,6 +72,7 @@ module.exports.TransferHistoryUserAccountIDReceiver = function TransferHistoryUs
 
 module.exports.TransferHistoryUserAccountIDSender = function TransferHistoryUserAccountIDSender(UserAccountIDSender, callback) {
   let query =
+  `SET @UserAccountIDSender=${UserAccountIDSender};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
@@ -102,6 +104,7 @@ module.exports.TransferHistoryUserAccountIDSender = function TransferHistoryUser
 
 module.exports.TransferHistoryTransferHistoryUUID = function TransferHistoryTransferHistoryUUID(TransferHistoryUUID, callback) {
   let query =
+  `SET @TransferHistoryUUID=${TransferHistoryUUID};`+
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

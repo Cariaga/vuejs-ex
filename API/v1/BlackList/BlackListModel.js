@@ -46,7 +46,9 @@ module.exports.BlackListAll = function BlackListAll(callback) {
 }
 
 module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAccountID, callback) {
-  let query = '';
+  let query = 
+  `SET @UserAccountID=${UserAccountID};`+
+  
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);
