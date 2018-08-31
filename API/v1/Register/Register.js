@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) {
 
-  app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Valid/:Valid/Expiration/:Expiration/', function (req, res) {
+  app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Valid/:Valid/Expiration/:Expiration/AccountNumber/:AccountNumber', function (req, res) {
   let Name = req.params.Name;
   let SurName = req.params.SurName;
   let UserName = req.params.UserName;
