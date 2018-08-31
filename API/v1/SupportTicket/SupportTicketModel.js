@@ -149,6 +149,9 @@ module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title
     `SET @Time=${Time};` +
     `SET @Date=${Date};` +
     `SET @Status=${Status};` +
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

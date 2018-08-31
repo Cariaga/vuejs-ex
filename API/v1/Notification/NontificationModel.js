@@ -62,13 +62,16 @@ module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, 
  * @param {*} Date
  * @param {*} callback
  */
-module.exports = function AddNotification(NotificationType, Title, Description, Time, Date, callback) {
+module.exports.AddNotification = function AddNotification(NotificationType, Title, Description, Time, Date, callback) {
   let query =
     `SET @NotificationType=${NotificationType};` +
     `SET @Title=${Title};` +
     `SET @Description=${Description};` +
     `SET @Time=${Time};` +
     `SET @Date=${Date};` +
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

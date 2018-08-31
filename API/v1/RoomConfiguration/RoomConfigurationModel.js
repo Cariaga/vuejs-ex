@@ -20,7 +20,9 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(SeasonID, Sm
     `SET @SmallBlind=${SmallBlind};` +
     `SET @BigBlind=${BigBlind};` +
     `SET @Speed=${Speed};` +
-
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

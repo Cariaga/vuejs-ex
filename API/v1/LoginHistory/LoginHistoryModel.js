@@ -81,6 +81,9 @@ module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, Dev
     `SET @DeviceCpu=${DeviceCpu};` +
     `SET @Time=${Time};` +
     `SET @Date=${Date};` +
+    ""+
+    ""+
+    ""+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
