@@ -14,9 +14,10 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       host: 'localhost'||'172.30.166.206',
       user: 'root',
       password: 'password',
+      mutipleStatements: true,// required for multi statement in one query
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
-      mutipleStatements: true// required for multi statement in one query
+  
 
     });
     connection.connect();
