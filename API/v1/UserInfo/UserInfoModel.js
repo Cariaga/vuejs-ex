@@ -122,8 +122,8 @@ module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID,
     `SET @Email=${Email};` +
     "UPDATE `sampledb`.`accesscontrol` "+
     "SET UserAccountID = @UserAccountID, Email = @Email "+
-    "WHERE UserInfoID = @UserInfoID;";
-    
+    "WHERE UserAccountID = @UserAccountID;";
+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
