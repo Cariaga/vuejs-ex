@@ -391,7 +391,7 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function IsSeasonIDExist(SeasonID, callback) {
-    
+
     /*Models.RoomConfiguration.sync();
     let result = Models.RoomConfiguration.findAll({
       where: {
@@ -422,7 +422,8 @@ module.exports = function (app) {
  * @param {*} callback
  */
 function IsNotificationIDExist(NotificationID, callback) {
-  Models.Notification.sync();
+  
+  /*Models.Notification.sync();
   let result = Models.Notification.findAll({
     where: {
       NotificationID: NotificationID
@@ -440,5 +441,5 @@ function IsNotificationIDExist(NotificationID, callback) {
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });
+  });*/
 }
