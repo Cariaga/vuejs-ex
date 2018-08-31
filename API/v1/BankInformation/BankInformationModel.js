@@ -82,7 +82,7 @@ module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, B
     `SET @Expiration=${Expiration};` +
     `SET @DateTime=${DateTime};` +
     "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) "+
-    "VALUES (@UserAccountID, @BankName, @AccountNumber, @SecurityCode, @Valid, @Expiration, @Time, @Date); ";
+    "VALUES (@UserAccountID, @BankName, @AccountNumber, @SecurityCode, @Valid, @Expiration, @DateTime); ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {

@@ -29,8 +29,8 @@ module.exports = function (app) {
                    
                       let UserAccountID = uuidv4();
                       let ValidKey = uuidv4();
-                      
-                      RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, function (response) {
+
+                      RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration, function (response) {
                         if (response != undefined) {
                           res.send(response);
                         } else {
