@@ -99,6 +99,9 @@ module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccou
   `SET @Description=${Description};`+
   `SET @ReportDate=${ReportDate};`+
   `SET @ReleaseDate=${ReleaseDate};`+
+  "UPDATE `sampledb`.`blacklist` "+
+  "SET UserAccountID = @UserAccountID, Status = @Status, Title = @Title, Description = @Description, ReportDate = @ReportDate, ReleaseDate = @ReleaseDate"+
+  "WHERE BlackListID = @BlackListID;";
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -140,10 +143,8 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
   let query = `SET @BlackListID=${BlackListID};`+
   `SET @UserAccountID=${UserAccountID};`+
   `SET @Status=${Status};`+
-  `SET @ReportDate=${ReportDate};`+
-  `SET @ReleaseDate=${ReleaseDate};`+
   "UPDATE `sampledb`.`blacklist` "+
-  "SET UserAccountID = @UserAccountID, Status = @Status, Description = @Description, ReportDate = @ReportDate, ReleaseDate = @ReleaseDate"+
+  "SET UserAccountID = @UserAccountID, Status = @Status"+
   "WHERE BlackListID = @BlackListID;"
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {

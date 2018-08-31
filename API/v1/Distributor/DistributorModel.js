@@ -18,9 +18,8 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
     `SET @UserAccountID=${UserAccountID};` +
     `SET @HeadOfficeID=${HeadOfficeID};` +
     `SET @Name=${Name};` +
-    ""+
-    ""+
-    ""+
+    "INSERT INTO `sampledb`.`distributors` (`UserAccountID`, `HeadOfficeID`, `Name`) "+
+    "VALUES (@UserAccountID, @HeadOfficeID, @Name);";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
