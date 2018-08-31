@@ -120,6 +120,10 @@ module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID,
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @Email=${Email};` +
+    "UPDATE `sampledb`.`accesscontrol` "+
+    "SET UserAccountID = @UserAccountID, Email = @Email "+
+    "WHERE UserInfoID = @UserInfoID;";
+    
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -153,9 +157,8 @@ module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNum
     `SET @Email=${Email};` +
     `SET @PhoneNumber=${PhoneNumber};` +
     `SET @TelephoneNumber=${TelephoneNumber};` +
-    ""+
-    ""+
-    ""+
+    "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
+    "VALUES (@UserAccountID, @Email, @PhoneNumber, @TelephoneNumber);";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
