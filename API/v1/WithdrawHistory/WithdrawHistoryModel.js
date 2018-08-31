@@ -22,13 +22,27 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports.AddWithdrawHistory =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+  let query =`SET @UserAccountID=${UserAccountID};`+
+  `SET @Amount=${Amount};`+
+  `SET @BankNameUsed=${BankNameUsed};`+
+  `SET @Status=${Status};`+
+  `SET @RequestedDATE=${RequestedDATE};`+
+  `SET @ApprovedDATE=${ApprovedDATE};`+
+  `SET @RejectedDATE=${RejectedDATE};`+
+  `SET @ProcessingDATE=${ProcessingDATE};`+
+  `SET @RequestedTIME=${RequestedTIME};`+
+  `SET @ApprovedTIME=${ApprovedTIME};`+
+  `SET @RejectedTIME=${RejectedTIME};`+
+  `SET @ProcessingTIME=${ProcessingTIME};`+
+  ""+
+  ""+
+  ""+
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -79,11 +93,11 @@ module.exports.AddWithdrawHistory =function AddWithdrawHistory(UserAccountID, Am
  */
 module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -117,11 +131,11 @@ module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHi
 
 module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -146,11 +160,11 @@ module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApp
 
 module.exports.WithdrawHistoryUpdateProcessing = function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -175,11 +189,11 @@ module.exports.WithdrawHistoryUpdateProcessing = function WithdrawHistoryUpdateP
 
 module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -204,11 +218,11 @@ module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRej
 
 module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -234,43 +248,15 @@ module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(User
   });*/
 }
 
-module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
-  let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
-  /*Models.UserInfo.sync(  );
-  var item1 = Models.UserInfo.build({
-    UserAccountID: UserAccountID,
-    Email: Email,
-    PhoneNumber: PhoneNumber,
-    TelephoneNumber: TelephoneNumber
-  });
-  Models.UserInfo.sync(); //only use force true if you want to destroy replace table
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
-
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
-}
 
 module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });

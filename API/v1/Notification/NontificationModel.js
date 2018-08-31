@@ -1,4 +1,3 @@
-
 var uuidv4 = require('uuid/v4');
 var passwordValidator = require('password-validator');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
@@ -6,7 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-  /**
+/**
  *
  *
  * @param {*} NotificationID
@@ -17,40 +16,40 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.NotificationUpdate = function NotificationUpdate(NotificationID,NotificationType,Title,Description,Time,Date,callback){
-  let query = 
-  `SET @NotificationID=${NotificationID};`+
-`SET @NotificationType=${NotificationType};`+
-`SET @Title=${Title};`+
-`SET @Description=${Description};`+
-`SET @Time=${Time};`+
-`SET @Date=${Date};`+
+module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, callback) {
+  let query =
+    `SET @NotificationID=${NotificationID};` +
+    `SET @NotificationType=${NotificationType};` +
+    `SET @Title=${Title};` +
+    `SET @Description=${Description};` +
+    `SET @Time=${Time};` +
+    `SET @Date=${Date};` +
 
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
- /* Models.Notification.update({
-    NotificationType: NotificationType,
-    Title: Title,
-    Description: Description,
-    Time: Time,
-    Date: Date
-  },{
-    where: {NotificationID: NotificationID }
-  })
-  .then(Success => {
-    callback("Updated");
-  })
-  
-  .catch(error => {
-    console.log("Error Updating " +error);
-    callback(undefined);
-  }); */
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  /* Models.Notification.update({
+     NotificationType: NotificationType,
+     Title: Title,
+     Description: Description,
+     Time: Time,
+     Date: Date
+   },{
+     where: {NotificationID: NotificationID }
+   })
+   .then(Success => {
+     callback("Updated");
+   })
+   
+   .catch(error => {
+     console.log("Error Updating " +error);
+     callback(undefined);
+   }); */
 }
 
 /**
@@ -63,21 +62,24 @@ module.exports.NotificationUpdate = function NotificationUpdate(NotificationID,N
  * @param {*} Date
  * @param {*} callback
  */
-module.exports = function AddNotification(NotificationType,Title,Description,Time,Date,callback){
-  let query = 
-  `SET @NotificationType=${NotificationType};`+
-`SET @Title=${Title};`+
-`SET @Description=${Description};`+
-`SET @Time=${Time};`+
-`SET @Date=${Date};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+module.exports.AddNotification = function AddNotification(NotificationType, Title, Description, Time, Date, callback) {
+  let query =
+    `SET @NotificationType=${NotificationType};` +
+    `SET @Title=${Title};` +
+    `SET @Description=${Description};` +
+    `SET @Time=${Time};` +
+    `SET @Date=${Date};` +
+    ""+
+    ""+
+    ""+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*var item1 = Models.Notification.build({
     NotificationType:NotificationType,
     Title:Title,
@@ -99,4 +101,3 @@ module.exports = function AddNotification(NotificationType,Title,Description,Tim
     callback(undefined);
   });*/
 }
-

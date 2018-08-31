@@ -129,7 +129,7 @@ module.exports = function (app) {
                         AccountType: AccountType,
                         AccountVerified: AccountVerified,
                         Name: "",
-  
+
                         SurName: "",
                         Email: Email,
                         PhoneNumber: PhoneNumber,
@@ -138,7 +138,7 @@ module.exports = function (app) {
                       }
                       let PlayerExist = false;
                       async.series([PlayerUserAccountIDInternal], function (err, response) {
-  
+
                         if (PlayerExist == true) {
                           res.send(Data);
                         } else {
@@ -146,9 +146,9 @@ module.exports = function (app) {
                             PlayerUserAccountExist: false
                           });
                         }
-  
+
                       });
-  
+
                       function PlayerUserAccountIDInternal(callback6) {
                         DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
                           if (response != undefined) {
@@ -162,15 +162,15 @@ module.exports = function (app) {
                           }
                         });
                       }
-  
-  
+
+
                     } else {
                       res.send({
                         UnknownAccoutType: true
                       });
                     }
                   });
-  
+
                 } else {
                   let Data = {
                     AccountStatus: AccountStatus
@@ -190,7 +190,7 @@ module.exports = function (app) {
               res.send(Data)
             }
           });
-  
+
           function UserNameInternalValidate(callback) { //we retrive the UserAccountID
             console.log('UserNameInternalValidate');
             DBCheck.isUserNameExist(UserName, function (response3) {
@@ -206,7 +206,7 @@ module.exports = function (app) {
               }
             });
           }
-  
+
           function UserAccountInternalValidate(callback2) {
             console.log('UserAccountInternalValidate');
             DBCheck.isUserAccountVerifiedUserName(UserName, function (response3) {
@@ -221,7 +221,7 @@ module.exports = function (app) {
               }
             });
           }
-  
+
           function UserAccountBlockedInternalValidate(callback3) {
             console.log('UserAccountBlockedInternalValidate');
             if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
@@ -230,7 +230,7 @@ module.exports = function (app) {
                 if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
                   AccountStatus = obj[0].Status;
                   console.log('UserAccountBlockedInternalValidate ' + AccountStatus);
-  
+
                   callback3(null, '3');
                 } else {
                   AccountStatus = "";
@@ -242,7 +242,7 @@ module.exports = function (app) {
               callback3(null, '3');
             }
           }
-  
+
           function AccountTypeInternalValidate(callback4) {
             console.log("AccountTypeInternalValidate");
             if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
@@ -252,7 +252,7 @@ module.exports = function (app) {
                   AccountType = response.AccountType;
                   callback4(null, '4');
                 } else if (!isNullOrEmpty(response) && response.UnSafeDuplicate == true && response.FoundAccount == false) {
-  
+
                   AccountType = response.AccountType;
                   console.log("AccountTypeInternalValidate Duplicate UserAccountID AccountType" + AccountType);
                   callback4(null, '4');
@@ -266,12 +266,12 @@ module.exports = function (app) {
               callback4(null, '4');
             }
           }
-  
+
           function GetUserInfoInternalValidate(callback5) {
             console.log("GetUserInfo");
             if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
               UserInfoUserAccountID(UserAccountID, function (response) {
-  
+
                 if (response != undefined) {
                   Email = response[0].Email;
                   PhoneNumber = response[0].PhoneNumber;
@@ -288,7 +288,7 @@ module.exports = function (app) {
             }
           }
           //PlayerUserAccountID
-  
+
         } else {
           res.send({
             PasswordInvalid: true

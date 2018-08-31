@@ -7,11 +7,11 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.TransferHistoryAll = function TransferHistoryAll(callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -40,15 +40,15 @@ module.exports.TransferHistoryAll = function TransferHistoryAll(callback) {
 
 module.exports.TransferHistoryUserAccountIDReceiver = function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {
   let query =
-  `SET @UserAccountIDReceiver=${UserAccountIDReceiver};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountIDReceiver=${UserAccountIDReceiver};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
@@ -72,15 +72,15 @@ module.exports.TransferHistoryUserAccountIDReceiver = function TransferHistoryUs
 
 module.exports.TransferHistoryUserAccountIDSender = function TransferHistoryUserAccountIDSender(UserAccountIDSender, callback) {
   let query =
-  `SET @UserAccountIDSender=${UserAccountIDSender};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountIDSender=${UserAccountIDSender};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /* Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
@@ -104,15 +104,15 @@ module.exports.TransferHistoryUserAccountIDSender = function TransferHistoryUser
 
 module.exports.TransferHistoryTransferHistoryUUID = function TransferHistoryTransferHistoryUUID(TransferHistoryUUID, callback) {
   let query =
-  `SET @TransferHistoryUUID=${TransferHistoryUUID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @TransferHistoryUUID=${TransferHistoryUUID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.TransferHistory.sync();
   let result = Models.TransferHistory.findAll({
     where: {
@@ -136,14 +136,14 @@ module.exports.TransferHistoryTransferHistoryUUID = function TransferHistoryTran
 
 module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
   let query =
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /* Models.TransferHistory.update({
       UserAccountIDReceiver: UserAccountIDReceiver,
       UserAccountIDSender: UserAccountIDSender,
@@ -170,14 +170,14 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
 // -------------------------- MIGRATED
 module.exports.AddTransferHistory = function AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
   let query =
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.TransferHistory.sync({
     alter: true 
   });

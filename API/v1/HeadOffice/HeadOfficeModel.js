@@ -5,36 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
-  let query =
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @MoveHand=${MoveHand};`+
-`SET @RoundID=${RoundID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
-  /*Models.HandHistory.sync( );
-  var item1 = Models.HandHistory.build({
-    UserAccountID: UserAccountID,
-    MoveHand: MoveHand,
-    RoundID: RoundID
-  });
-  Models.HandHistory.sync(); //only use force true if you want to destroy replace table
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
 
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
-}
 /**
  *
  *
@@ -45,17 +16,20 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand,
  */
 module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, callback) {
   let query =
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @Name=${Name};`+
-`SET @Description=${Description};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Name=${Name};` +
+    `SET @Description=${Description};` +
+    ""+
+    ""+
+    ""+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*var item1 = Models.HeadOffice.build({
     UserAccountID: UserAccountID,
     Name: Name,
@@ -78,7 +52,7 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
       callback(undefined);
     });
     */
-  
+
 }
 /**
  *
@@ -89,18 +63,18 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
  * @param {*} callback
  */
 module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
-  let query = 
-  `SET @HeadOfficeID=${HeadOfficeID};`+
-`SET @UserAccountID=${UserAccountID};`+
-`SET @Name=${Name};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @HeadOfficeID=${HeadOfficeID};` +
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Name=${Name};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.HeadOffice.update({
       UserAccountID: UserAccountID,
       Name: Name

@@ -21,25 +21,28 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @RoundID=${RoundID};`+
-`SET @SeasonID=${SeasonID};`+
-`SET @Rank=${Rank};`+
-`SET @Score=${Score};`+
-`SET @Card=${Card};`+
-`SET @Time=${Time};`+
-`SET @Date=${Date};`+
-`SET @BeforePoints=${BeforePoints};`+
-`SET @AfterPoints=${AfterPoints};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @RoundID=${RoundID};` +
+    `SET @SeasonID=${SeasonID};` +
+    `SET @Rank=${Rank};` +
+    `SET @Score=${Score};` +
+    `SET @Card=${Card};` +
+    `SET @Time=${Time};` +
+    `SET @Date=${Date};` +
+    `SET @BeforePoints=${BeforePoints};` +
+    `SET @AfterPoints=${AfterPoints};` +
+    ""+
+    ""+
+    ""+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.GameHistory.sync();
   var item1 = Models.GameHistory.build({
     UserAccountID: UserAccountID,
@@ -72,11 +75,11 @@ module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, 
  */
 module.exports.GameHistory = function GameHistory(callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });

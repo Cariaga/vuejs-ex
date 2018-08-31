@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let LoginHistoryModel = require("../LoginHistory/LoginHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-module.exports = function (app) {//MODIFT
+module.exports = function (app) { //MODIFT
   app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
     let LoginHistoryID = req.params.LoginHistoryID;
     let UserAccountID = req.params.UserAccountID;
@@ -73,7 +73,7 @@ module.exports = function (app) {//MODIFT
       });
     }
   });
-//INSERT
+  //INSERT
   app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
     //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
@@ -153,32 +153,32 @@ module.exports = function (app) {//MODIFT
       }).then(function (result) {
         let Data = result.map(function (item) {
           return item;
-  
+
         });
-  
+
         res.send(beautify(Data, null, 2, 100));
       }).catch(function (result) { //catching any then errors
-  
+
         res.send("Error " + result);
       });
     }
     if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
+
     }
     app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
       res.setHeader('Content-Type', 'application/json');
@@ -273,7 +273,7 @@ module.exports = function (app) {//MODIFT
     }).then(function (result) {
       res.send("Deleted");
     }).catch(function (result) { //catching any then errors
-  
+
       res.send("Error " + result);
     });
   });
@@ -285,4 +285,3 @@ module.exports = function (app) {//MODIFT
     });
   });
 }
-

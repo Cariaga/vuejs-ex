@@ -75,9 +75,9 @@ module.exports = function (app) {
                         });
                       }
                     });
-  
+
                     function InsertUserAccount(callback1) {
-  
+
                       AddUserAccount(UUIDUserAccountID, "AccessID", UserName, Password, false, UUIDKey, CurrentDate, CurrentTime, function (response) {
                         if (response == "Inserted") {
                           console.log("Insert UserAccount");
@@ -89,7 +89,7 @@ module.exports = function (app) {
                         }
                       });
                     }
-  
+
                     function InsertUserInfo(callback2) {
                       AddUserInfo(UUIDUserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
                         if (response == "Inserted") {
@@ -102,7 +102,7 @@ module.exports = function (app) {
                         }
                       });
                     }
-  
+
                     function InsertHeadOffice(callback3) { //headoffice dosn't have a parent ID like Distributor Shop and Player
                       AddHeadOffice(UUIDUserAccountID, Name, Description, function (response) {
                         if (response == "Inserted") {
@@ -115,7 +115,7 @@ module.exports = function (app) {
                         }
                       });
                     }
-  
+
                   } else {
                     res.send({
                       WeekPassword: true
@@ -126,9 +126,9 @@ module.exports = function (app) {
                     EmailInvalid: true
                   });
                 }
-  
+
               });
-  
+
               function myFirstFunction(callback) {
                 DBCheck.isUserNameExist(UserName, function (response3) {
                   let obj = response3;
@@ -141,21 +141,21 @@ module.exports = function (app) {
                   }
                 });
               }
-  
+
               function mySecondFunction(callback2) {
                 DBCheck.UserInfoEmailExist(Email, function (response) {
                   let obj = response;
                   if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].Email == Email) {
                     isEmailAlreadyExist = true;
                     callback2(null, 2);
-  
+
                   } else {
                     isEmailAlreadyExist = false;
                     callback2(null, 2);
                   }
                 });
               }
-  
+
             } else {
               res.send({
                 EmailMissing: true

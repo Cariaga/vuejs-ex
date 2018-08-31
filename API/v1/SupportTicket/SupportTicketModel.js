@@ -6,16 +6,16 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(UserAccountID, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.SupportTicket.sync();
   let result = Models.SupportTicket.findAll({
     where: {
@@ -44,18 +44,18 @@ module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(
  * @param {*} callback
  */
 module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @Status=${Status};`+
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Status=${Status};` +
 
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.SupportTicket.sync();
   let result = Models.SupportTicket.findAll({
     where: {
@@ -91,22 +91,22 @@ module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAc
  */
 module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
   let query =
-  `SET @SupportTicketID=${SupportTicketID};`+
-`SET @UserAccountID=${UserAccountID};`+
-`SET @Title=${Title};`+
-`SET @Description=${Description};`+
-`SET @Reason=${Reason};`+
-`SET @Time=${Time};`+
-`SET @Date=${Date};`+
-`SET @Status=${Status};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @SupportTicketID=${SupportTicketID};` +
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Title=${Title};` +
+    `SET @Description=${Description};` +
+    `SET @Reason=${Reason};` +
+    `SET @Time=${Time};` +
+    `SET @Date=${Date};` +
+    `SET @Status=${Status};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.SupportTicket.update({
       Title: Title,
       Description: Description,
@@ -140,23 +140,26 @@ module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketI
  * @param {*} Status
  * @param {*} callback
  */
-module.exports.AddSupportTicket= function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
+module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, callback) {
   let query =
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @Title=${Title};`+
-`SET @Description=${Description};`+
-`SET @Reason=${Reason};`+
-`SET @Time=${Time};`+
-`SET @Date=${Date};`+
-`SET @Status=${Status};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Title=${Title};` +
+    `SET @Description=${Description};` +
+    `SET @Reason=${Reason};` +
+    `SET @Time=${Time};` +
+    `SET @Date=${Date};` +
+    `SET @Status=${Status};` +
+    ""+
+    ""+
+    ""+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*var item1 = Models.SupportTicket.build({
     UserAccountID: UserAccountID,
     Title: Title,
