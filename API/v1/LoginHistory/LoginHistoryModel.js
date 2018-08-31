@@ -18,7 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) {
+module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, LoginDateTime, callback) {
   let query =
     `SET @LoginHistoryID=${LoginHistoryID};` +
     `SET @UserAccountID=${UserAccountID};` +
@@ -26,8 +26,7 @@ module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, 
     `SET @DeviceName=${DeviceName};` +
     `SET @DeviceRam=${DeviceRam};` +
     `SET @DeviceCpu=${DeviceCpu};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
+    `SET @LoginDateTime=${LoginDateTime};` +
     "UPDATE `sampledb`.`loginhistories`"+
     "SET IP = @IP, UserAccountID = @UserAccountID, DeviceName = @DeviceName, DeviceRam = @DeviceRam, DeviceCpu = @DeviceCpu, LoginDateTime = @LoginDateTime "+
     "WHERE LoginHistoryID = @LoginHistoryID;";
@@ -74,18 +73,16 @@ module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, 
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, callback) { //accessed by /Login
+module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, LoginDateTime, callback) { //accessed by /Login
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @IP=${IP};` +
     `SET @DeviceName=${DeviceName};` +
     `SET @DeviceRam=${DeviceRam};` +
     `SET @DeviceCpu=${DeviceCpu};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
-    ""+
-    ""+
-    ""+
+    `SET @LoginDateTime=${LoginDateTime};` 
+    "INSERT INTO `sampledb`.`loginhistories` (`IP`, `UserAccountID`, `DeviceName`, `DeviceRam`, `DeviceCpu`, `LoginDateTime`) "+
+    "VALUES (@IP, @UserAccountID, @DeviceName, @DeviceRam, @DeviceCpu, @LoginDateTime);";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
