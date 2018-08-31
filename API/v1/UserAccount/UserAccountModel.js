@@ -183,16 +183,16 @@ module.exports.VerifyAccountUserAccountID = function VerifyAccountUserAccountID(
  * @param {*} RegisteredTime
  * @param {*} callback
  */
-module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDateTime, callback) {
+module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, callback) {
   let query = `SET @UserAccountID=${UserAccountID};`+
   `SET @AccessID=${AccessID};`+
   `SET @UserName=${UserName};`+
   `SET @Password=${Password};`+
   `SET @Verify=${Verify};`+
   `SET @ValidKey=${ValidKey};`+
-  `SET @RegisteredDateTime=${RegisteredDateTime};`+
-  "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `AccessID`, `Password`, `RegisteredDateTime`, `OnlineStatus`) "+
-  "VALUES (@UserAccountID, @UserName, @AccessID, @Password, @RegisteredDateTime, @OnlineStatus); ";
+  `SET @RegisteredDateTime=now();`+
+  "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `AccessID`, `Password`, `RegisteredDateTime`) "+
+  "VALUES (@UserAccountID, @UserName, @AccessID, @Password, @RegisteredDateTime); ";
   DBConnect.DBConnect(query,function(response){
     if(response!=undefined){
       console.log(response);

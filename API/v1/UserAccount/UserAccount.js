@@ -229,7 +229,7 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Add/:AccessID/:UserName/:Password/:Verify/:ValidKey', function (req, res) {
+  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/Verify/:Verify', function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
     let UserAccountID = uuidv4();
@@ -238,8 +238,8 @@ module.exports = function (app) {//SELECTION
     let Password = req.params.Password;
     let Verify = req.params.Verify;
     let ValidKey = req.params.ValidKey;
-    let RegisteredDate = req.params.RegisteredDate;
-    let RegisteredTime = req.params.RegisteredTime;
+    // let RegisteredDate = req.params.RegisteredDate;
+    // let RegisteredTime = req.params.RegisteredTime;
 
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(AccessID)) {
@@ -247,8 +247,6 @@ module.exports = function (app) {//SELECTION
           if (!isNullOrEmpty(Password)) {
             if (!isNullOrEmpty(Verify)) {
               if (!isNullOrEmpty(ValidKey)) {
-                if (!isNullOrEmpty(RegisteredDate)) {
-                  if (!isNullOrEmpty(RegisteredTime)) {
                     UserAccountModel.AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, function (response) {
                       if (response != undefined) {
                         res.send(response);
@@ -258,16 +256,6 @@ module.exports = function (app) {//SELECTION
                         });
                       }
                     });
-                  } else {
-                    res.send({
-                      RegisteredTimeMissing: true
-                    });
-                  }
-                } else {
-                  res.send({
-                    RegisteredDateMissing: true
-                  });
-                }
               } else {
                 res.send({
                   ValidKeyMissing: true
