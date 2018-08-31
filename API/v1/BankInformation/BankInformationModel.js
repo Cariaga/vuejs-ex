@@ -17,7 +17,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
+module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, DateTime, callback) {
 
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -25,11 +25,11 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
     `SET @BankName=${BankName};` +
     `SET @SecurityCode=${SecurityCode};` +
     `SET @Expiration=${Expiration};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
-    ""+
-    ""+
-    ""+
+    `SET @DateTime=${DateTime};` +
+    "UPDATE `sampledb`.`bankinformations` "+
+    "SET BankName = @BankName, "+
+    "SecurityCode = @SecurityCode, Expiration = @Expiration, DateTime =@DateTime "+
+    "WHERE BankInformationID = @BankInformationID and UserAccountID=@UserAccountID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -71,18 +71,18 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
+module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, BankName,AccountNumber, SecurityCode, Valid, Expiration, DateTime, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @BankName=${BankName};` +
+    `SET @AccountNumber=${AccountNumber};` +
     `SET @SecurityCode=${SecurityCode};` +
     `SET @Valid=${Valid};` +
     `SET @Expiration=${Expiration};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
-    ""+
-    ""+
-    ""+
+    `SET @DateTime=${DateTime};` +
+    "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) "+
+    "VALUES (@UserAccountID, @BankName, @AccountNumber, @SecurityCode, @Valid, @Expiration, @Time, @Date); ";
+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

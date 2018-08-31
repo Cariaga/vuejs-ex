@@ -12,7 +12,7 @@ module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName
     `SET @AccessName='${AccessName}';` +
     `SET @AccessTags='${AccessTags}';` +
     "INSERT INTO `sampledb`.`accesscontrol` (`AccessID`, `AccessName`, `AccessTags`)" +
-    " VALUES (@AccessID, @AccessName, @AccessTags);"
+    " VALUES (@AccessID, @AccessName, @AccessTags);";
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -49,9 +49,9 @@ module.exports.AccessControlUpdate = function AccessControlUpdate(AccessID, Acce
     `SET @AccessID=${AccessID};` +
     `SET @AccessName=${AccessName};` +
     `SET @AccessTags=${AccessTags};` +
-    ""+
-    ""+
-    ""+
+    "UPDATE `sampledb`.`accesscontrol`"+
+    "SET AccessID = @AccessID, AccessName = @AccessName, AccessTags = @AccessTags "+
+    "WHERE AccessControlID = @AccessControlID; ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {

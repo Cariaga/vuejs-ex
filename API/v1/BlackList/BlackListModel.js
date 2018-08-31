@@ -92,7 +92,14 @@ module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAcco
  * @param {*} callback
  */
 module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, callback) { //FULL Update For Blacklist
-  let query = '';
+  let query = `SET @BlackListID=${BlackListID};`+
+  `SET @UserAccountID=${UserAccountID};`+
+  `SET @Status=${Status};`+
+  `SET @Title=${Title};`+
+  `SET @Description=${Description};`+
+  `SET @ReportDate=${ReportDate};`+
+  `SET @ReleaseDate=${ReleaseDate};`+
+
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -130,7 +137,14 @@ module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccou
  * @param {*} callback
  */
 module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
-  let query = '';
+  let query = `SET @BlackListID=${BlackListID};`+
+  `SET @UserAccountID=${UserAccountID};`+
+  `SET @Status=${Status};`+
+  `SET @ReportDate=${ReportDate};`+
+  `SET @ReleaseDate=${ReleaseDate};`+
+  "UPDATE `sampledb`.`blacklist` "+
+  "SET UserAccountID = @UserAccountID, Status = @Status, Description = @Description, ReportDate = @ReportDate, ReleaseDate = @ReleaseDate"+
+  "WHERE BlackListID = @BlackListID;"
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -168,7 +182,15 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
  * @param {*} callback
  */
 module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, callback) {
-  let query = '';
+  let query = `SET @BlackListID=${BlackListID};`+
+  `SET @UserAccountID=${UserAccountID};`+
+  `SET @Status=${Status};`+
+  `SET @Title=${Title};`+
+  `SET @Description=${Description};`+
+  `SET @ReportDate=${ReportDate};`+
+  `SET @ReleaseDate=${ReleaseDate};`+
+  "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Title`, `Description`, `ReportDate`, `ReleaseDate`) "+
+  "VALUES (@UserAccountID, @Status, @Title, @Description, @ReportDate, @ReleaseDate);";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
