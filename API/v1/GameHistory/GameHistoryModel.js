@@ -20,21 +20,15 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} AfterPoints
  * @param {*} callback
  */
-module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, callback) {
+module.exports.AddGameHistory = function AddGameHistory(UserAccountID, RoundID, SeasonID, GameStartedDateTime, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @RoundID=${RoundID};` +
     `SET @SeasonID=${SeasonID};` +
-    `SET @Rank=${Rank};` +
-    `SET @Score=${Score};` +
-    `SET @Card=${Card};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
-    `SET @BeforePoints=${BeforePoints};` +
-    `SET @AfterPoints=${AfterPoints};` +
-    ""+
-    ""+
-    ""+
+    `SET @GameStartedDateTime=${GameStartedDateTime};`+
+    "INSERT INTO `sampledb`.`gamehistories` (`RoomID`, `SeasonID`, `GameStartedDateTime`) "+
+    "VALUES (@RoomID, @SeasonID, @GameStartedDateTime);";
+ 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
