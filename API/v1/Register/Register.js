@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let RegisterModel = require("../Register/RegisterModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
@@ -25,7 +26,20 @@ module.exports = function (app) {
                 if(!isNullOrEmpty(Email)){
                   if(!isNullOrEmpty(Expiration)){
                     if(!isNullOrEmpty(PhoneNumber)){
-                      res.send({success:true});
+                   
+                      let UserAccountID = uuidv4();
+                      let ValidKey = uuidv4();
+                      
+                      RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, function (response) {
+                        if (response != undefined) {
+                          res.send(response);
+                        } else {
+                          res.send({
+                            AddUserAccountFailed: true
+                          });
+                        }
+                      });
+
                     }else{
                       res.send({PhoneNumberMissing});
                     }
