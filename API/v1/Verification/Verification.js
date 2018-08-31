@@ -3,6 +3,7 @@ let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
+var uuidv4 = require('uuid/v4');
 module.exports = function (app) {
   app.get('/Verify', function (req, res) {
     // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey

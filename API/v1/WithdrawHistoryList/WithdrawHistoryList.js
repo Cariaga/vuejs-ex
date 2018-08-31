@@ -3,6 +3,7 @@ let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var uuidv4 = require('uuid/v4');
 module.exports = function (app) {//SELECTION
 
   app.get('/Api/v1/WithdrawList/', function (req, res) {

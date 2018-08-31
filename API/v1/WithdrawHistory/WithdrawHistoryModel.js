@@ -216,37 +216,7 @@ module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRej
     });*/
 }
 
-module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
-  let query = '';
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-  /*Models.HandHistory.sync();
-  let result = Models.HandHistory.findAll({
-    where: {
-      UserAccountID: UserAccountID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
 
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
-}
 
 
 

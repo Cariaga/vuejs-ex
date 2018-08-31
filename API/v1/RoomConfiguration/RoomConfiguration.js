@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let RoomConfigurationModel = require("../RoomConfiguration/RoomConfigurationModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var uuidv4 = require('uuid/v4');
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/', function (req, res) {
     let SeasonID = req.params.SeasonID;

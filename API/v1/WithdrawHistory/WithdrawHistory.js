@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let WithdrawHistoryModel = require("../WithdrawHistory/WithdrawHistoryModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
+var uuidv4 = require('uuid/v4');
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/', function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
