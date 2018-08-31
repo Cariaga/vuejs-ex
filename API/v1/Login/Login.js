@@ -3,6 +3,7 @@ let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var uuidv4 = require('uuid/v4');
 module.exports = function (app) {
   app.get('/Login', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

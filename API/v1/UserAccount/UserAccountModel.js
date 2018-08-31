@@ -18,13 +18,13 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} RegisteredTime
  * @param {*} callback
  */
-module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, callback) {
+module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, ValidKey, callback) {
   let query = 
   `SET @UserAccountID=${UserAccountID};`+
   `SET @AccessID=${AccessID};`+
   `SET @UserName=${UserName};`+
   `SET @Password=${Password};`+
-  `SET @Verify=${Verify};`+
+  `SET @Verify=false`+
   `SET @ValidKey=${ValidKey};`+
   `SET @RegisteredDateTime=now();`+
   "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`) VALUES (@UserAccountID, @UserName, @Password, @RegisteredDateTime);"

@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let UserAccountModel = require("../UserAccount/UserAccountModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var uuidv4 = require('uuid/v4');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
