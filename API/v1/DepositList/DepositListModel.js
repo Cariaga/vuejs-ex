@@ -18,5 +18,4 @@ module.exports.DepositList = function DepositList(callback) {
         callback(undefined);
       }
     });
-
   }
