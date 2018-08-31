@@ -10,7 +10,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function UserInfoEmailExist(Email, callback) {
-    Models.UserInfo.sync();
+
+    /*Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({
       where: {
         Email: Email //not null
@@ -29,7 +30,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log("Error " + result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -38,7 +39,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isPhoneNumberExist(PhoneNumber, callback) {
-    Models.UserInfo.sync();
+
+    /*Models.UserInfo.sync();
     let result = Models.UserInfo.findAll({
       where: {
         PhoneNumber: PhoneNumber //not null
@@ -59,7 +61,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log("Error " + result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -68,7 +70,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserAccountBlocked(UserAccountID, callback) {
-    Models.BlackList.sync();
+
+    /*Models.BlackList.sync();
     let result = Models.BlackList.findAll({
       where: {
         UserAccountID: UserAccountID, //not null
@@ -88,7 +91,7 @@ module.exports = function (app) {
       console.log(result);
       callback(undefined);
       //callback("Error "+result);
-    });
+    });*/
   }
   /**
    *
@@ -97,7 +100,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserNameExist(UserName, callback) {
-    Models.UserAccount.sync();
+
+   /* Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
         UserName: UserName //not null
@@ -115,7 +119,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       // console.log(result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -124,7 +128,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserAccountIDExist(UserAccountID, callback) {
-    Models.UserAccount.sync();
+
+    /*Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
         UserAccountID: UserAccountID //not null
@@ -143,7 +148,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       // console.log(result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -152,7 +157,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isUserAccountVerifiedUserName(UserName, callback) {
-    Models.UserAccount.sync();
+
+    /*Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
         UserName: UserName,
@@ -173,7 +179,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log(result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -182,7 +188,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isHeadOfficeAlreadyExist(HeadOfficeID, callback) {
-    Models.HeadOffice.sync();
+
+    /*Models.HeadOffice.sync();
     let result = Models.HeadOffice.findAll({
       where: {
         HeadOfficeID: HeadOfficeID,
@@ -200,7 +207,7 @@ module.exports = function (app) {
       // res.send(beautify(Data, null, 2, 100));
     }).catch(function (result) { //catching any then errors
       callback(result);
-    });
+    });*/
   }
 
   /**
@@ -210,6 +217,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isDistributorAlreadyExist(DistributorID, callback) {
+
+    /*
     Models.Distributor.sync();
     let result = Models.Distributor.findAll({
       where: {
@@ -229,7 +238,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log(result);
       callback(undefined);
-    });
+    });*/
   }
 
 
@@ -240,7 +249,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isShopAlreadyExist(ShopID, callback) {
-    Models.Shop.sync();
+
+    /*Models.Shop.sync();
     let result = Models.Shop.findAll({
       where: {
         ShopID: ShopID,
@@ -260,7 +270,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log(result);
       callback(undefined);
-    });
+    });*/
   }
 
   /**
@@ -270,7 +280,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isPlayerAlreadyExist(PlayersID, callback) {
-    Models.Player.sync();
+
+    /*Models.Player.sync();
     let result = Models.Player.findAll({
       where: {
         PlayersID: PlayersID,
@@ -290,7 +301,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log(result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -299,7 +310,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isScreenNameExist(ScreenName, callback) {
-    Models.Player.sync();
+
+    /*Models.Player.sync();
     let result = Models.Player.findAll({
       where: {
         ScreenName: ScreenName,
@@ -317,11 +329,12 @@ module.exports = function (app) {
       // res.send(beautify(Data, null, 2, 100));
     }).catch(function (result) { //catching any then errors
       callback(result);
-    });
+    });*/
   }
 
   function ChildDistributorsFromHeadOfficeID(HeadOfficeID, callback) { // returns Distributor
-    Models.Distributor.sync();
+
+    /*Models.Distributor.sync();
     let result = Models.Distributor.findAll({
       where: {
         HeadOfficeID: HeadOfficeID,
@@ -340,7 +353,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log(result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -349,7 +362,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function isSupportTicketIDExist(SupportTicketID, callback) {
-    Models.SupportTicket.sync();
+
+    /*Models.SupportTicket.sync();
     let result = Models.SupportTicket.findAll({
       where: {
         SupportTicketID: SupportTicketID
@@ -368,7 +382,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log(result);
       callback(undefined);
-    });
+    });*/
   }
   /**
    *
@@ -377,7 +391,8 @@ module.exports = function (app) {
    * @param {*} callback
    */
   function IsSeasonIDExist(SeasonID, callback) {
-    Models.RoomConfiguration.sync();
+    
+    /*Models.RoomConfiguration.sync();
     let result = Models.RoomConfiguration.findAll({
       where: {
         SeasonID: SeasonID
@@ -396,7 +411,7 @@ module.exports = function (app) {
     }).catch(function (result) { //catching any then errors
       console.log("Error " + result);
       callback(undefined);
-    });
+    });*/
   }
 
 }
