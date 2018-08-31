@@ -5,13 +5,17 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, callback) {
+module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, SeasonID, callback) {
   let query =
     `SET @HandHistoryID=${HandHistoryID};` +
     `SET @UserAccountID=${UserAccountID};` +
     `SET @MoveHand=${MoveHand};` +
-    `SET @RoundID=${RoundID};` +
-    
+    `SET @SeasonID=${SeasonID};` +
+    `SET @HandDateTime=` +
+
+    "UPDATE `sampledb`.`handhistory`"+
+    "SET SeasonID = @SeasonID, MoveHand = @MoveHand, HandDateTime = @HandDateTime"+
+    "WHERE HandHistoryID = @HandHistoryID and UserAccountID = @UserAccountID"
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
