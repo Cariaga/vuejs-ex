@@ -24,6 +24,8 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
     `SET @Name=${Name};` +
     `SET @Surname=${Surname};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
+    "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`, `CurrentPoints`) "+
+    "VALUES (@UserAccountID, @ShopID, @ScreenName, @Name, @Surname, @CurrentRoomName, @CurrentPoints)"
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -107,6 +109,9 @@ module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, Cur
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @CurrentPoints=${CurrentPoints};` +
+    "UPDATE `sampledb`.`players` "+
+    "SET CurrentPoints = @CurrentPoints "+
+    "WHERE UserAccountID = @UserAccountID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -131,42 +136,6 @@ module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, Cur
       callback(undefined);
     });*/
 }
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} CurrentPoints
- * @param {*} callback
- */
-module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
-  let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @CurrentPoints=${CurrentPoints};` +
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-  /*Models.Player.update({
-      CurrentPoints: CurrentPoints
-    }, {
-      where: {
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
-}
-
 /**
  *
  *
@@ -178,6 +147,10 @@ module.exports.PayerUpdateRoomName = function PayerUpdateRoomName(UserAccountID,
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
+    "UPDATE `sampledb`.`players`"+
+    "SET CurrentRoomName = @CurrentRoomName "+
+    "WHERE UserAccountID = @UserAccountID;";
+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -212,7 +185,9 @@ module.exports.PlayerUpdate = function PlayerUpdate(PlayersID, UserAccountID, Sh
     `SET @Name=${Name};` +
     `SET @Surname=${Surname};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
-
+    "UPDATE `sampledb`.`players` "+
+    "SET ShopID = @ShopID, ScreenName = @ScreenName, Name = @Name, Surname = @Surname, CurrentRoomName = @CurrentRoomName"+
+    "WHERE PlayersID = @PlayersID and UserAccountID = @UserAccountID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -261,8 +236,8 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
     `SET @Name=${Name};` +
     `SET @Surname=${Surname};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
-    "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`, `CurrentPoints`) "+
-    "VALUES (@UserAccountID, @ShopID, @ScreenName, @Name, @Surname, @CurrentRoomName, @CurrentPoints);"
+    "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`) "+
+    "VALUES (@UserAccountID, @ShopID, @ScreenName, @Name, @Surname, @CurrentRoomName);"
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

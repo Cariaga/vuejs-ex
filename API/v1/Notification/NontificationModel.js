@@ -16,15 +16,16 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, callback) {
+module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, NotificationType, Title, Description, DateTime, callback) {
   let query =
     `SET @NotificationID=${NotificationID};` +
     `SET @NotificationType=${NotificationType};` +
     `SET @Title=${Title};` +
     `SET @Description=${Description};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
-
+    `SET @DateTime=${DateTime};` +
+    "UPDATE `sampledb`.`notifications` "+
+    "SET NotificationType = @NotificationType, Title = @Title, Description = @Description, DateTime = @DateTime "+
+    "WHERE NotificationID = @NotificationID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -62,16 +63,14 @@ module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, 
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.AddNotification = function AddNotification(NotificationType, Title, Description, Time, Date, callback) {
+module.exports.AddNotification = function AddNotification(NotificationType, Title, Description, DateTime, callback) {
   let query =
     `SET @NotificationType=${NotificationType};` +
     `SET @Title=${Title};` +
     `SET @Description=${Description};` +
-    `SET @Time=${Time};` +
-    `SET @Date=${Date};` +
-    ""+
-    ""+
-    ""+
+    `SET @DateTime=${DateTime};` +
+    "INSERT INTO `sampledb`.`notifications` (`NotificationType`, `Title`, `Description`, `DateTime`) "+
+    "VALUES (@NotificationType, @Title, @Description, @DateTime);";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

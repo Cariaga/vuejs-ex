@@ -19,9 +19,8 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
     `SET @UserAccountID=${UserAccountID};` +
     `SET @Name=${Name};` +
     `SET @Description=${Description};` +
-    ""+
-    ""+
-    ""+
+    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) "+
+    "VALUES (@UserAccountID, @Name, @Description, @CurrentPoints);";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -67,6 +66,9 @@ module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAc
     `SET @HeadOfficeID=${HeadOfficeID};` +
     `SET @UserAccountID=${UserAccountID};` +
     `SET @Name=${Name};` +
+    "UPDATE `sampledb`.`headoffices` "+
+    "SET UserAccountID = @UserAccountID, Name = @Name, CurrentPoints = @CurrentPoints"+
+    "WHERE HeadOfficeID = @HeadOfficeID;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

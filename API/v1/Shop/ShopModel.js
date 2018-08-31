@@ -18,6 +18,9 @@ module.exports.AddShop = function AddShop(UserAccountID, DistributorID, Descript
     `SET @UserAccountID=${UserAccountID};` +
     `SET @DistributorID=${DistributorID};` +
     `SET @Description=${Description};` +
+    "INSERT INTO `sampledb`.`shops` (`UserAccountID`, `DistributorID`,`Description`) "+
+    "VALUES (@UserAccountID, @DistributorID, @Name, @Description);";
+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -47,3 +50,10 @@ module.exports.AddShop = function AddShop(UserAccountID, DistributorID, Descript
       callback(undefined);
     });*/
 }
+
+/*
+  "UPDATE `sampledb`.`shops`"+
+    "SET UserAccountID = @UserAccountID"+
+    "Description = @Description, CurrentPoints = @CurrentPoints"+
+    "WHERE ShopID = @ShopID;";
+     */
