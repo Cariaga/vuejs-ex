@@ -5,6 +5,37 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) {
+
+  app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Valid/:Valid/Expiration/:Expiration/', function (req, res) {
+    let UserName = req.params.UserName;
+    let Password = req.params.Password;
+    let Name = req.params.Name;
+    let Email = req.params.Email;
+    let SurName = req.params.SurName;
+ 
+    let Valid = req.params.Valid;
+    let Expiration = req.params.Expiration;
+    let PhoneNumber = req.params.Expiration;
+    if (!isNullOrEmpty(UserName)) {
+      if (!isNullOrEmpty(Password)) {
+        if (!isNullOrEmpty(Name)) {
+          if (!isNullOrEmpty(SurName)) {
+            if (!isNullOrEmpty(Name)) {
+              if(!isNullOrEmpty(Valid)){
+                if(!isNullOrEmpty(Email)){
+                  if(!isNullOrEmpty(Expiration)){
+                    if(!isNullOrEmpty(PhoneNumber)){
+                      res.send({success:true});
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
   app.get('/registerheadoffice', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.query.UserName;
