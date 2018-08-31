@@ -230,7 +230,7 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Add/:AccessID/UserName/:UserName/Password/:Password/', function (req, res) {
+  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
     let UserAccountID = uuidv4();//generated
