@@ -145,6 +145,7 @@ module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID,
       callback(undefined);
     });*/
 }
+
 module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
   let query =
