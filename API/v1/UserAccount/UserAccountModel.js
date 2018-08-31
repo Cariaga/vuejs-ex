@@ -19,23 +19,23 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @AccessID=${AccessID};`+
-`SET @UserName=${UserName};`+
-`SET @Password=${Password};`+
-`SET @Verify=${Verify};`+
-`SET @ValidKey=${ValidKey};`+
-`SET @RegisteredDate=${RegisteredDate};`+
-`SET @RegisteredTime=${RegisteredTime};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @AccessID=${AccessID};` +
+    `SET @UserName=${UserName};` +
+    `SET @Password=${Password};` +
+    `SET @Verify=${Verify};` +
+    `SET @ValidKey=${ValidKey};` +
+    `SET @RegisteredDate=${RegisteredDate};` +
+    `SET @RegisteredTime=${RegisteredTime};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,
@@ -66,15 +66,15 @@ module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID,
 }
 
 module.exports.LoginHistoryUserAccountID = function LoginHistoryUserAccountID(UserAccountID, callback) {
-  let query = `SET @UserAccountID=${UserAccountID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query = `SET @UserAccountID=${UserAccountID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
@@ -100,15 +100,15 @@ module.exports.LoginHistoryUserAccountID = function LoginHistoryUserAccountID(Us
 }
 
 module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
-  let query = `SET @UserAccountID=${UserAccountID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query = `SET @UserAccountID=${UserAccountID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
@@ -141,17 +141,17 @@ module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccoun
  * @param {*} callback
  */
 module.exports.VerifyAccountUserAccountID = function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @VerifiedStatus=${VerifiedStatus};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @VerifiedStatus=${VerifiedStatus};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.UserAccount.update({
       Verify: VerifiedStatus
     }, {
@@ -182,22 +182,22 @@ module.exports.VerifyAccountUserAccountID = function VerifyAccountUserAccountID(
  * @param {*} callback
  */
 module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, RegisteredDate, RegisteredTime, callback) {
-  let query = `SET @UserAccountID=${UserAccountID};`+
-  `SET @AccessID=${AccessID};`+
-  `SET @UserName=${UserName};`+
-  `SET @Password=${Password};`+
-  `SET @Verify=${Verify};`+
-  `SET @ValidKey=${ValidKey};`+
-  `SET @RegisteredDate=${RegisteredDate};`+
-  `SET @RegisteredTime=${RegisteredTime};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query = `SET @UserAccountID=${UserAccountID};` +
+    `SET @AccessID=${AccessID};` +
+    `SET @UserName=${UserName};` +
+    `SET @Password=${Password};` +
+    `SET @Verify=${Verify};` +
+    `SET @ValidKey=${ValidKey};` +
+    `SET @RegisteredDate=${RegisteredDate};` +
+    `SET @RegisteredTime=${RegisteredTime};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,

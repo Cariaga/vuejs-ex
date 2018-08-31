@@ -13,18 +13,18 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.VerifyAccount = function VerifyAccount(UserName, ValidKey, callback) { // Verification with ValidKey // Public only use // Via ValidKey
-  let query = 
-  `SET @UserName=${UserName};`+
-`SET @ValidKey=${ValidKey};`+
+  let query =
+    `SET @UserName=${UserName};` +
+    `SET @ValidKey=${ValidKey};` +
 
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.UserAccount.update({
       Verify: true
     }, {
@@ -51,17 +51,17 @@ module.exports.VerifyAccount = function VerifyAccount(UserName, ValidKey, callba
  * @param {*} callback
  */
 module.exports.Verify = function Verify(UserName, ValidKey, callback) {
-  let query = 
-  `SET @UserName=${UserName};`+
-`SET @ValidKey=${ValidKey};`+
-  async.waterfall([
-    myFirstFunction,
-    mySecondFunction,
-  ], function (err, result) { //final function
-    // result now equals 'done'
-    // console.log('5');
-    callback(result);
-  });
+  let query =
+    `SET @UserName=${UserName};` +
+    `SET @ValidKey=${ValidKey};` +
+    async.waterfall([
+      myFirstFunction,
+      mySecondFunction,
+    ], function (err, result) { //final function
+      // result now equals 'done'
+      // console.log('5');
+      callback(result);
+    });
 
   function myFirstFunction(callback2) {
     console.log('1');

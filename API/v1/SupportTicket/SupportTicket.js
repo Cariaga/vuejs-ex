@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let SupportTicketModel = require("../SupportTicket/SupportTicketModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-module.exports = function (app) {//INSERT
+module.exports = function (app) { //INSERT
   app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Time/:Time/Date/:Date/Status/:Status', function (req, res) {
     ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
     let UserAccountID = req.params.UserAccountID;
@@ -34,7 +34,7 @@ module.exports = function (app) {//INSERT
                       });
                     }
                   });
-  
+
                   function UserAccountIDCheck(callback) {
                     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                       let obj = response;
@@ -94,7 +94,7 @@ module.exports = function (app) {//INSERT
     let Time = req.params.Time;
     let Date = req.params.Date;
     let Status = req.params.Status;
-  
+
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Description)) {
@@ -126,7 +126,7 @@ module.exports = function (app) {//INSERT
                     });
                   }
                 });
-  
+
                 function SupportTicketIDCheck(callback) {
                   DBCheck.isSupportTicketIDExist(SupportTicketID, function (response) {
                     console.log('1');
@@ -140,7 +140,7 @@ module.exports = function (app) {//INSERT
                     }
                   });
                 }
-  
+
                 function UserAccountIDCheck(callback2) {
                   DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                     console.log('2');
@@ -184,7 +184,7 @@ module.exports = function (app) {//INSERT
         UserAccountIDMissing: true
       });
     }
-  });  
+  });
   //SELECTION
   app.get('/Api/v1/SupportTicket/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -203,32 +203,32 @@ module.exports = function (app) {//INSERT
       }).then(function (result) {
         let Data = result.map(function (item) {
           return item;
-  
+
         });
-  
+
         res.send(beautify(Data, null, 2, 100));
       }).catch(function (result) { //catching any then errors
-  
+
         res.send("Error " + result);
       });
     }
     if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
+
     }
     //res.send("SupportTicket "+Offset+" "+ Limit+" "+Sort);
   });
@@ -268,7 +268,7 @@ module.exports = function (app) {//INSERT
       res.send(beautify(result, null, 2, 100));
     });
   });
-  
+
   app.get('/Api/v1/SupportTicket/Clear', function (req, res) {
     Models.SupportTicket.destroy({
         where: {},
@@ -287,7 +287,7 @@ module.exports = function (app) {//INSERT
     }).then(function (result) {
       res.send("Deleted");
     }).catch(function (result) { //catching any then errors
-  
+
       res.send("Error " + result);
     });
   });

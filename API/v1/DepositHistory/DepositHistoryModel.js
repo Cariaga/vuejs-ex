@@ -25,11 +25,11 @@ let DBConnect = require("../../SharedController/DBConnect");
  */
 module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -67,11 +67,11 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Amo
 
 module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -97,11 +97,11 @@ module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdatePro
 
 module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RequestedDATE, RejectedTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -132,11 +132,11 @@ module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejec
  */
 module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -169,11 +169,11 @@ module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAcco
  */
 module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAccountIDStatus(UserAccountID, Status, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -206,14 +206,14 @@ module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAc
  */
 module.exports.DepositHistoryUserAccountID = function DepositHistoryUserAccountID(UserAccountID, callback) {
   let query =
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.DepositHistory.sync();
   let result = Models.DepositHistory.findAll({
     where: {

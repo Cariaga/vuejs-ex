@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-module.exports = function (app) {//SELECTION
+module.exports = function (app) { //SELECTION
   app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;

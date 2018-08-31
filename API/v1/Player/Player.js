@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let PlayerModel = require("../Player/PlayerModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-module.exports = function (app) {//MODIFY
+module.exports = function (app) { //MODIFY
   app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Point = req.params.Point;
@@ -515,13 +515,13 @@ module.exports = function (app) {//MODIFY
       });
   });
   app.get('/Api/v1/Player/Delete', function (req, res) {
-  
+
     Models.Player.sync({
       force: true
     }).then(function (result) {
       res.send("Deleted");
     }).catch(function (result) { //catching any then errors
-  
+
       res.send("Error " + result);
     });
   });

@@ -22,13 +22,13 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports.AddWithdrawHistory =function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -79,11 +79,11 @@ module.exports.AddWithdrawHistory =function AddWithdrawHistory(UserAccountID, Am
  */
 module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -117,11 +117,11 @@ module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHi
 
 module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -146,11 +146,11 @@ module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApp
 
 module.exports.WithdrawHistoryUpdateProcessing = function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -175,11 +175,11 @@ module.exports.WithdrawHistoryUpdateProcessing = function WithdrawHistoryUpdateP
 
 module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -204,11 +204,11 @@ module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRej
 
 module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -237,11 +237,11 @@ module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(User
 module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -266,11 +266,11 @@ module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNum
 
 module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });

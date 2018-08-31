@@ -14,18 +14,18 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOfficeID, Name, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-  `SET @HeadOfficeID=${HeadOfficeID};`+
-  `SET @Name=${Name};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @HeadOfficeID=${HeadOfficeID};` +
+    `SET @Name=${Name};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
 
   /*var item1 = Models.Distributor.build({
     UserAccountID: UserAccountID,
@@ -59,19 +59,19 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
  * @param {*} callback
  */
 module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, HeadOfficeID, Name, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @HeadOfficeID=${HeadOfficeID};`+
-`SET @Name=${Name};`+
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @HeadOfficeID=${HeadOfficeID};` +
+    `SET @Name=${Name};` +
 
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.Distributor.update({
       UserAccountID: UserAccountID,
       HeadOfficeID: HeadOfficeID,

@@ -12,11 +12,11 @@ let DBConnect = require("../../SharedController/DBConnect");
  */
 module.exports.BlackListAll = function BlackListAll(callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -46,35 +46,35 @@ module.exports.BlackListAll = function BlackListAll(callback) {
 }
 
 module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAccountID, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-  
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
- /* Models.BlackList.sync();
-  let result = Models.BlackList.findAll({
-    where: {
-      UserAccountID: UserAccountID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
     });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
+  /* Models.BlackList.sync();
+   let result = Models.BlackList.findAll({
+     where: {
+       UserAccountID: UserAccountID
+     }
+   }).then(function (result) {
+     let Data = result.map(function (item) {
+       return item;
+     });
+     if (Data.length > 0) {
+       callback(Data);
+     } else {
+       callback(undefined);
+     }
+   }).catch(function (result) { //catching any then errors
+     console.log("Error " + result);
+     callback(undefined);
+   });*/
 }
 
 /**
@@ -91,11 +91,11 @@ module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAcco
  */
 module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, callback) { //FULL Update For Blacklist
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -129,11 +129,11 @@ module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccou
  */
 module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });
@@ -167,11 +167,11 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
  */
 module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, callback) {
   let query = '';
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
       console.log(response);
       callback(response);
-    }else{
+    } else {
       callback(undefined);
     }
   });

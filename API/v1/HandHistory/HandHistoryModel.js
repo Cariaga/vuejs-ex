@@ -6,19 +6,19 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, callback) {
-  let query = 
-  `SET @HandHistoryID=${HandHistoryID};`+
-`SET @UserAccountID=${UserAccountID};`+
-`SET @MoveHand=${MoveHand};`+
-`SET @RoundID=${RoundID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @HandHistoryID=${HandHistoryID};` +
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @MoveHand=${MoveHand};` +
+    `SET @RoundID=${RoundID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.HandHistory.sync();
   Models.HandHistory.update({
       MoveHand: MoveHand,
@@ -39,19 +39,19 @@ module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, Use
       callback(undefined);
     });*/
 }
-module.exports.AddHandHistory =function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @MoveHand=${MoveHand};`+
-`SET @RoundID=${RoundID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+module.exports.AddHandHistory = function AddHandHistory(UserAccountID, MoveHand, RoundID, callback) {
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @MoveHand=${MoveHand};` +
+    `SET @RoundID=${RoundID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.HandHistory.sync();
   var item1 = Models.HandHistory.build({
     UserAccountID: UserAccountID,

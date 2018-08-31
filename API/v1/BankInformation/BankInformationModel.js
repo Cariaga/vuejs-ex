@@ -18,24 +18,24 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, Time, Date, callback) {
-  
-  let query =
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @BankInformationID=${BankInformationID};`+
-`SET @BankName=${BankName};`+
-`SET @SecurityCode=${SecurityCode};`+
-`SET @Expiration=${Expiration};`+
-`SET @Time=${Time};`+
-`SET @Date=${Date};`+
 
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @BankInformationID=${BankInformationID};` +
+    `SET @BankName=${BankName};` +
+    `SET @SecurityCode=${SecurityCode};` +
+    `SET @Expiration=${Expiration};` +
+    `SET @Time=${Time};` +
+    `SET @Date=${Date};` +
+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.BankInformation.update({
       UserAccountID: UserAccountID,
       BankName: BankName,
@@ -55,7 +55,7 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
       console.log("Error Updating " + error);
       callback(undefined);
     });*/
-    
+
 }
 /**
  *
@@ -70,22 +70,22 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
  * @param {*} callback
  */
 module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, BankName, SecurityCode, Valid, Expiration, Time, Date, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @BankName=${BankName};`+
-`SET @SecurityCode=${SecurityCode};`+
-`SET @Valid=${Valid};`+
-`SET @Expiration=${Expiration};`+
-`SET @Time=${Time};`+
-`SET @Date=${Date};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @BankName=${BankName};` +
+    `SET @SecurityCode=${SecurityCode};` +
+    `SET @Valid=${Valid};` +
+    `SET @Expiration=${Expiration};` +
+    `SET @Time=${Time};` +
+    `SET @Date=${Date};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*var item1 = Models.BankInformation.build({
     UserAccountID: UserAccountID,
     BankName: BankName,

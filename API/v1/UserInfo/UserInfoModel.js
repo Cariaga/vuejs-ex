@@ -15,19 +15,19 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.UserInfoUpdate = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
-  let query = 
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @Email=${Email};`+
-`SET @PhoneNumber=${PhoneNumber};`+
-`SET @TelephoneNumber=${TelephoneNumber};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+  let query =
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Email=${Email};` +
+    `SET @PhoneNumber=${PhoneNumber};` +
+    `SET @TelephoneNumber=${TelephoneNumber};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.UserInfo.sync(  );
   Models.UserInfo.update({
       Email: Email,
@@ -51,15 +51,15 @@ module.exports.UserInfoUpdate = function UserInfoUpdate(UserAccountID, Email, Ph
 
 module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccountID, callback) {
   let query =
-  `SET @UserAccountID=${UserAccountID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountID=${UserAccountID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.UserInfo.sync();
   let result = Models.UserInfo.findAll({
     where: {
@@ -85,17 +85,17 @@ module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccoun
  * @param {*} UserAccountID
  * @param {*} callback
  */
-module.exports.UserInfoUserAccountID =function UserInfoUserAccountID(UserAccountID, callback) {
+module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccountID, callback) {
   let query =
-  `SET @UserAccountID=${UserAccountID};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountID=${UserAccountID};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.UserInfo.sync();
   let result = Models.UserInfo.findAll({
     where: {
@@ -118,16 +118,16 @@ module.exports.UserInfoUserAccountID =function UserInfoUserAccountID(UserAccount
 
 module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID, Email, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   let query =
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @Email=${Email};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Email=${Email};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.UserInfo.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
   Models.UserInfo.update({
       Email: Email
@@ -148,18 +148,18 @@ module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID,
 module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
   let query =
-  `SET @UserAccountID=${UserAccountID};`+
-`SET @Email=${Email};`+
-`SET @PhoneNumber=${PhoneNumber};`+
-`SET @TelephoneNumber=${TelephoneNumber};`+
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      console.log(response);
-      callback(response);
-    }else{
-      callback(undefined);
-    }
-  });
+    `SET @UserAccountID=${UserAccountID};` +
+    `SET @Email=${Email};` +
+    `SET @PhoneNumber=${PhoneNumber};` +
+    `SET @TelephoneNumber=${TelephoneNumber};` +
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   /*Models.UserInfo.sync( );
   var item1 = Models.UserInfo.build({
     UserAccountID: UserAccountID,

@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let RoomConfigurationModel = require("../RoomConfiguration/RoomConfigurationModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-module.exports = function (app) {//MODIFY
+module.exports = function (app) { //MODIFY
   app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/', function (req, res) {
     let SeasonID = req.params.SeasonID;
     let SmallBlind = req.params.SmallBlind;
@@ -149,7 +149,7 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-  
+
   app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.RoomConfiguration.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
