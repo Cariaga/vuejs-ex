@@ -24,6 +24,8 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
     `SET @Name=${Name};` +
     `SET @Surname=${Surname};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
+    "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`, `CurrentPoints`) "+
+    "VALUES (@UserAccountID, @ShopID, @ScreenName, @Name, @Surname, @CurrentRoomName, @CurrentPoints)"
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -145,8 +147,9 @@ module.exports.PayerUpdateRoomName = function PayerUpdateRoomName(UserAccountID,
   let query =
     `SET @UserAccountID=${UserAccountID};` +
     `SET @CurrentRoomName=${CurrentRoomName};` +
-    "SET CurrentRoomName = @CurrentRoomName " +
-    "WHERE UserAccountID = @UserAccountID";
+    "UPDATE `sampledb`.`players`"+
+    "SET CurrentRoomName = @CurrentRoomName "+
+    "WHERE UserAccountID = @UserAccountID;";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
