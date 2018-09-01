@@ -17,7 +17,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       mutipleStatements: true,// required for multi statement in one query
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
-  
+
 
     });
     connection.connect();
@@ -38,4 +38,33 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
         
       });
       connection.end();
+}
+module.exports.DBConnectInsert = function DBConnectInsert(RawQuery,params,callback){
+  
+  const connection = mysql.createConnection({
+    host: 'localhost'||'172.30.166.206',
+    user: 'root',
+    password: 'password',
+    mutipleStatements: true,// required for multi statement in one query
+    port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
+    database: 'sampledb'
+  });
+  connection.connect();
+  // simple query
+  connection.query(RawQuery,params,
+    function (err, results, fields) {
+      if(err!=undefined){
+         console.log(err); // results contains rows returned by server
+      }
+      /*if(fields!=undefined){
+         console.log(fields);// fields contains extra meta data about results, if available
+      }*/
+      if(results!=undefined){
+        console.log(results);
+      }
+      
+      callback(results);
+      
+    });
+    connection.end();
 }

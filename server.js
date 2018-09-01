@@ -97,7 +97,19 @@ require('./API/v1/UserSupportTicket/UserSupportTicket')(app);
 require('./API/v1/Verification/Verification')(app);
 require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
 require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
+let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
 
+var params  = {UserAccountID: 'Hello MySQL'};
+let query = "INSERT INTO `sampledb`.`useraccounts` "+
+"SET ?;";
+console.log(query);
+DBConnect.DBConnectInsert(query,params,function(response){
+  if(response!=undefined){
+    console.log(response);
+  }else{
+    console.log(undefined);
+  }
+});
 
 //--testing for season based authentication END
 

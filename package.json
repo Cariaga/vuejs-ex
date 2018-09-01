@@ -25,6 +25,7 @@
     "request": "^2.88.0",
     "sendmail": "^1.4.1",
     "sort-array": "^2.0.0",
+    "sqlstring": "^2.3.1",
     "uuid": "^3.3.2",
     "validator": "^10.7.0"
   },
