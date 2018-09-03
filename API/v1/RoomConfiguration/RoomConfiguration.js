@@ -57,7 +57,7 @@ module.exports = function (app) { //MODIFY
     } 
   });
   //INSERT
-  app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
+  app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/GameType/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
     //USAGE /Api/v1/RoomConfiguration/Add/RoomID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
     let RoomID = req.params.RoomID;
     let SmallBlind = req.params.SmallBlind;
