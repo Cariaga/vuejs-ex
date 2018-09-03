@@ -535,7 +535,7 @@ const mysql = require('mysql2');
     let _RoomID = RoomID;
     let query =
     "SELECT * FROM sampledb.roomconfigurations "+
-    "WHERE RoomID = '"+_RoomID+"'";
+    "WHERE RoomID = "+_RoomID+"";
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
