@@ -104,6 +104,9 @@ function test(){
     console.log("OK");
   });
 }
+
+require('./API/v1/Register/RegisterModel').RegisterAccount('1','1','1','1','1','1','1','1','1','1','1','1');
+console.log('asdssss');
 //--testing for season based authentication END
 
 var nexmo = new Nexmo({
