@@ -74,7 +74,10 @@ module.exports = function (app) { //MODIFY
                 if (validator.isNumeric(Speed)) {
 
                   RoomConfigurationModel.AddRoomConfiguration(RoomID,GameType,SmallBlind,BigBlind,Speed,function(response){
-                    res.send(response);
+                    if(response!=undefined){
+                      res.send(response);
+                    }
+                   
                    });
 
 
