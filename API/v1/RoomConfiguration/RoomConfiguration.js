@@ -72,22 +72,9 @@ module.exports = function (app) { //MODIFY
               if (validator.isNumeric(BigBlind)) {
                 if (validator.isNumeric(Speed)) {
 
-                  if (IsRoomIDFound == false) { //must be false to be valid
-                    
-                    RoomConfigurationModel.AddRoomConfiguration('RID88', 'Holdem', '11', '22', 'Fast', function (response) {
-                      console.log("done");
-                    });
-                     
-                    res.send({
-                      Success: true
-                    });
-                  } else {
-                    res.send({
-                      RoomIDAlreadyExist: true
-                    });
-                  }
-
-               
+                  RoomConfigurationModel.AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+                    res.send(response);
+                   });
 
 
                 } else {
