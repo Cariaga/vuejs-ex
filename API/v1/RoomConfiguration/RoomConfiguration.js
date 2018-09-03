@@ -90,7 +90,7 @@ module.exports = function (app) { //MODIFY
 
                   });
 
-                  function IsRoomIDExistCheck(callback2) {
+                  /*function IsRoomIDExistCheck(callback2) {
                     DBCheck.IsRoomIDExist(RoomID, function (response2) {
                       if (response2.length>0) {
                         IsRoomIDFound = true;
@@ -100,7 +100,7 @@ module.exports = function (app) { //MODIFY
                         callback2(null, '1');
                       }
                     });
-                  }
+                  }*/
 
 
                 } else {
