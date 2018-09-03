@@ -14,25 +14,24 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Speed
  * @param {*} callback
  */
-module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID,SeasonID,GameType, SmallBlind, BigBlind, Speed, callback) {
+module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, GameType, SmallBlind, BigBlind, Speed, callback) {
+  let _RoomID = RoomID;
+  let _GameType = GameType;
+  let _SmallBlind = SmallBlind;
+  let _BigBlind = BigBlind;
+  let _Speed = Speed;
   let query =
-    `SET @RoomID=${RoomID};` +
-    `SET @SeasonID=${SeasonID};` +
-    `SET @GameType=${GameType};` +
-    `SET @SmallBlind=${SmallBlind};` +
-    `SET @BigBlind=${BigBlind};` +
-    `SET @Speed=${Speed};` +
-    `SET @CreatedRoomDateTime=now();`+
-    "INSERT INTO `sampledb`.`roomconfigurations` (`RoomID`, `SmallBlind`, `BigBlind`, `Speed`, `GameType`, `CreatedRoomDateTime`) "+
-    "VALUES (@RoomID, @SmallBlind, @BigBlind, @Speed, @GameType, @CreatedRoomDateTime);";
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
+    "INSERT INTO `sampledb`.`roomconfigurations` (`RoomID`, `SmallBlind`, `BigBlind`, `Speed`, `GameType`, `CreatedRoomDateTime`) " +
+    "VALUES ('" + _RoomID + "', '" + _SmallBlind + "', '" + _BigBlind + "', '" + _Speed + "', '" + _GameType + "', now());";
+
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
   /*var item1 = Models.RoomConfiguration.build({
     SeasonID: SeasonID,
     SmallBlind: SmallBlind,
@@ -63,22 +62,22 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID,Seaso
  * @param {*} callback
  */
 module.exports.RoomConfigurationSeasonIDUpdateSmallBigBlind = function RoomConfigurationSeasonIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, callback) {
+  let RoomID = RoomID;
+  let SmallBlind = SmallBlind;
+  let BigBlind = BigBlind;
   let query =
-    `SET @RoomID=${RoomID};` +
-    `SET @SmallBlind=${SmallBlind};` +
-    `SET @BigBlind=${BigBlind};` +
-    "UPDATE `sampledb`.`roomconfigurations`"+
-    "SmallBlind = @SmallBlind, BigBlind = @BigBlind,"+
-    "WHERE RoomID = @RoomID;";
+    "UPDATE `sampledb`.`roomconfigurations`" +
+    "SET SmallBlind = " + _SmallBlind + ", BigBlind = " + _BigBlind + "," +
+    "WHERE RoomID = " + _RoomID + "";
 
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
   /*Models.RoomConfiguration.sync( );
   Models.RoomConfiguration.update({
       SmallBlind: SmallBlind,
@@ -137,4 +136,22 @@ module.exports.RoomConfiguration = function RoomConfiguration(callback) {
     callback(undefined);
 
   });*/
+}
+
+module.exports.RoomConfigurationRoomNotice = function RoomConfigurationRoomNotice(RoomID, RoomNotice, callback) {
+  let _RoomID = RoomID;
+  let _RoomNotice = RoomNotice;
+  let query =
+    "UPDATE `sampledb`.`roomconfigurations`" +
+    "SET RoomNotice = " + _RoomNotice + "" +
+    "WHERE RoomID = " + _RoomID + "";
+
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
 }
