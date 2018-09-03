@@ -64,13 +64,15 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, Game
  * @param {*} BigBlind
  * @param {*} callback
  */
-module.exports.RoomConfigurationRoomIDUpdateSmallBigBlind = function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, callback) {
+module.exports.RoomConfigurationRoomIDUpdateSmallBigBlind = function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, GameType, SmallBlind, BigBlind, Speed, callback) {
   let _RoomID = RoomID;
+  let _GameType = GameType;
   let _SmallBlind = SmallBlind;
   let _BigBlind = BigBlind;
+  let _Speed = Speed; 
   let query =
-    "UPDATE `sampledb`.`roomconfigurations`" +
-    "SET SmallBlind = " + _SmallBlind + ", BigBlind = " + _BigBlind + "," +
+    "UPDATE `sampledb`.`roomconfigurations` " +
+    "SET SmallBlind = " + _SmallBlind + ", BigBlind = " + _BigBlind + ", Speed = " + _Speed + ", GameType = " + _GameType + "," +
     "WHERE RoomID = " + _RoomID + "";
 
   DBConnect.DBConnect(query, function (response) {
