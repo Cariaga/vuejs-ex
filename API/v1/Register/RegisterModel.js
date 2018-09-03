@@ -7,25 +7,25 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, callback) {
-  let UserAccountID = UserAccountID;
-  let AccessID = AccessID;
-  let UserName = UserName;
-  let Password = Password;
-  let ValidKey = ValidKey;
-  let Email = Email;
-  let PhoneNumber = PhoneNumber;
-  let BankName = BankName;
-  let AccountNumber = AccountNumber;
-  let SecurityCode = SecurityCode;
-  let Valid = Valid;
-  let Expiration = Expiration;
+  let _UserAccountID = UserAccountID;
+  let _AccessID = AccessID;
+  let _UserName = UserName;
+  let _Password = Password;
+  let _ValidKey = ValidKey;
+  let _Email = Email;
+  let _PhoneNumber = PhoneNumber;
+  let _BankName = BankName;
+  let _AccountNumber = AccountNumber;
+  let _SecurityCode = SecurityCode;
+  let _Valid = Valid;
+  let _Expiration = Expiration;
   let query =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`) " +
-    "VALUES ('" + UserAccountID + "','" + UserName + "','" + Password + "','" + RegisteredDateTime + "','" + Verified + "');" +
+    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "','" + _RegisteredDateTime + "','" + _Verified + "');" +
     "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`)" +
-    "VALUES ('" + UserAccountID + "','" + Email + "','" + PhoneNumber + "');" +
+    "VALUES ('" + _UserAccountID + "','" + _Email + "','" + _PhoneNumber + "');" +
     "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) " +
-    "VALUES ('" + UserAccountID + "','" + BankName + "','" + AccountNumber + "','" + SecurityCode + "','" + Valid + "','" + Expiration + "','" + DateTime + "'); ";
+    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "','" + _DateTime + "'); ";
   console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
