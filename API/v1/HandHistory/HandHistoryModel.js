@@ -46,12 +46,13 @@ module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, Use
     });*/
 }
 module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, MoveHand, callback) {
+    let _UserAccountID = UserAccountID;
+    let _SeasonID = SeasonID;
+    let _MoveHand = MoveHand;
+
   let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @MoveHand=${MoveHand};` +
-    `SET @SeasonID=${SeasonID};` +
     "INSERT INTO `sampledb`.`handhistory` (`UserAccountID`, `SeasonID`, `MoveHand`, `HandDateTime`) "+
-    "VALUES (@UserAccountID, @SeasonID, @MoveHand, @HandDateTime);";
+    "VALUES ('"+_UserAccountID+"','"+_SeasonID+"','"+_MoveHand+"', now());";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

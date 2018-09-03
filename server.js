@@ -104,7 +104,6 @@ function test(){
     console.log("OK");
   });
 }
-
 //--testing for season based authentication END
 
 var nexmo = new Nexmo({
