@@ -4,6 +4,7 @@ var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,cre
 var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
+var uuidv4 = require('uuid/v4');
 let DBConnect = require("../../SharedController/DBConnect");
 /**
  *
@@ -56,15 +57,15 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, Game
 /**
  *
  *
- * @param {*} SeasonID
+ * @param {*} RoomID
  * @param {*} SmallBlind
  * @param {*} BigBlind
  * @param {*} callback
  */
-module.exports.RoomConfigurationSeasonIDUpdateSmallBigBlind = function RoomConfigurationSeasonIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, callback) {
-  let RoomID = RoomID;
-  let SmallBlind = SmallBlind;
-  let BigBlind = BigBlind;
+module.exports.RoomConfigurationRoomIDUpdateSmallBigBlind = function RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, callback) {
+  let _RoomID = RoomID;
+  let _SmallBlind = SmallBlind;
+  let _BigBlind = BigBlind;
   let query =
     "UPDATE `sampledb`.`roomconfigurations`" +
     "SET SmallBlind = " + _SmallBlind + ", BigBlind = " + _BigBlind + "," +

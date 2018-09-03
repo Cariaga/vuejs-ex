@@ -6,17 +6,19 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/RoomConfiguration/Update/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/', function (req, res) {
-    let SeasonID = req.params.SeasonID;
+  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/', function (req, res) {
+    let RoomID = req.params.RoomID;
     let SmallBlind = req.params.SmallBlind;
     let BigBlind = req.params.BigBlind;
-    if (!isNullOrEmpty(SeasonID)) {
+
+    if (!isNullOrEmpty(RoomID)) {
       if (!isNullOrEmpty(SmallBlind)) {
         if (!isNullOrEmpty(BigBlind)) {
-          let IsSeasonIDFound = false; // for the update SeasonID Must Exist
-          async.series([IsSeasonIDExistCheck], function (error, response) {
-            RoomConfigurationModel.RoomConfigurationSeasonIDUpdateSmallBigBlind(SeasonID, SmallBlind, BigBlind, function (response) {
-              if (IsSeasonIDFound == true) {
+          let IsRoomIDFound = false; // for the update RoomID Must Exist
+          async.series([IsRoomIDExistCheck], function (error, response) {
+            
+            RoomConfigurationModel.RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, function (response) {
+              if (IsRoomIDFound == true) {
                 res.send(response);
               } else {
                 res.send({});
@@ -24,17 +26,18 @@ module.exports = function (app) { //MODIFY
             });
           });
 
-          function IsSeasonIDExistCheck(callback) {
-            DBCheck.IsSeasonIDExist(SeasonID, function (response) {
+          function IsRoomIDExistCheck(callback) {
+            DBCheck.IsRoomIDExist(SeasonID, function (response) {
               if (response != undefined) {
-                IsSeasonIDFound = true;
+                IsRoomIDFound = true;
                 callback(null, '1');
               } else {
-                IsSeasonIDFound = false;
+                IsRoomIDFound = false;
                 callback(null, '1');
               }
             });
           }
+
         } else {
           res.send({
             BigBlindMissing: true
@@ -47,18 +50,19 @@ module.exports = function (app) { //MODIFY
       }
     } else {
       res.send({
-        SeasonIDMissing: true
+        RoomIDMissing: true
       });
-    }
+    } 
   });
   //INSERT
-  app.get('/Api/v1/RoomConfiguration/Add/SeasonID/:SeasonID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
-    //USAGE /Api/v1/RoomConfiguration/Add/SeasonID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
-    let SeasonID = req.params.SeasonID;
+  app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
+    //USAGE /Api/v1/RoomConfiguration/Add/RoomID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
+    let RoomID = req.params.RoomID;
     let SmallBlind = req.params.SmallBlind;
     let BigBlind = req.params.BigBlind;
     let Speed = req.params.Speed;
-    if (!isNullOrEmpty(SeasonID)) {
+
+    if (!isNullOrEmpty(RoomID)) {
       if (!isNullOrEmpty(SmallBlind)) {
         if (!isNullOrEmpty(BigBlind)) {
           if (!isNullOrEmpty(Speed)) {
@@ -66,11 +70,11 @@ module.exports = function (app) { //MODIFY
               if (validator.isNumeric(BigBlind)) {
                 if (validator.isNumeric(Speed)) {
 
-                  let IsSeasonIDFound = false; //false is the result we want
-                  async.series([IsSeasonIDExistCheck], function (error, response) {
-                    if (IsSeasonIDFound == false) { //must be false to be valid
+                  let IsRoomIDFound = false; //false is the result we want
+                  async.series([IsRoomIDExistCheck], function (error, response) {
+                    if (IsRoomIDFound == false) { //must be false to be valid
                       //Not Done
-                      /* AddRoomConfiguration(SeasonID,SmallBlind,BigBlind,Speed,function(response){
+                      /* AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
                         res.send(response);
                        });*/
                       res.send({
@@ -78,19 +82,19 @@ module.exports = function (app) { //MODIFY
                       });
                     } else {
                       res.send({
-                        SeasonIDAlreadyExist: true
+                        RoomIDAlreadyExist: true
                       });
                     }
 
                   });
 
-                  function IsSeasonIDExistCheck(callback2) {
-                    DBCheck.IsSeasonIDExist(SeasonID, function (response2) {
+                  function IsRoomIDExistCheck(callback2) {
+                    DBCheck.IsRoomIDExist(SeasonID, function (response2) {
                       if (response2 != undefined) {
-                        IsSeasonIDFound = true;
+                        IsRoomIDFound = true;
                         callback2(null, '1');
                       } else {
-                        IsSeasonIDFound = false;
+                        IsRoomIDFound = false;
                         callback2(null, '1');
                       }
                     });
@@ -99,7 +103,7 @@ module.exports = function (app) { //MODIFY
 
                 } else {
                   res.send({
-                    SppedInvalidValue: true
+                    SpeedInvalidValue: true
                   });
                 }
               } else {
@@ -129,7 +133,7 @@ module.exports = function (app) { //MODIFY
       }
     } else {
       res.send({
-        SeasonIDMissing: true
+        RoomIDMissing: true
       });
     }
   });

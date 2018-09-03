@@ -533,9 +533,13 @@ module.exports = function (app) {
    * @param {*} SeasonID
    * @param {*} callback
    */
-  function IsSeasonIDExist(SeasonID, callback) {
+  module.exports.IsRoomIDExist = function IsRoomIDExist(RoomID, callback) {
+    let _RoomID = RoomID;
     let query =
-    `SET @SeasonID=${SeasonID};`+
+    "SELECT * FROM sampledb.roomconfigurations"+
+    "WHERE RoomID = "+_RoomID+"";
+
+
     
    
     DBConnect.DBConnect(query,function(response){
