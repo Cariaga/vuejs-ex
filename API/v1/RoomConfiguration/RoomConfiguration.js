@@ -8,18 +8,23 @@ var uuidv4 = require('uuid/v4');
 var async = require("async");
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/', function (req, res) {
+  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed/GameType/:GameType', function (req, res) {
     let RoomID = req.params.RoomID;
     let SmallBlind = req.params.SmallBlind;
     let BigBlind = req.params.BigBlind;
+    let Speed = req.params.BigBlind;
+    let GameType = req.params.BigBlind;
 
     if (!isNullOrEmpty(RoomID)) {
       if (!isNullOrEmpty(SmallBlind)) {
         if (!isNullOrEmpty(BigBlind)) {
-          let IsRoomIDFound = false; // for the update RoomID Must Exist
+
+          if (!isNullOrEmpty(Speed)) {
+            if (!isNullOrEmpty(GameType)) {
+              let IsRoomIDFound = false; // for the update RoomID Must Exist
           async.series([IsRoomIDExistCheck], function (error, response) {
             
-            RoomConfigurationModel.RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, function (response) {
+            RoomConfigurationModel.RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind,Speed,GameType, function (response) {
               if (IsRoomIDFound == true) {
                 res.send(response);
               } else {
@@ -39,7 +44,16 @@ module.exports = function (app) { //MODIFY
               }
             });
           }
-
+            }else{
+              res.send({
+                GameTypeMissing: true
+              });
+            }
+          }else{
+            res.send({
+              SpeedInvalidValue: true
+            });
+          }
         } else {
           res.send({
             BigBlindMissing: true
