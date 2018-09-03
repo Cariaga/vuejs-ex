@@ -211,16 +211,14 @@ module.exports = function (app) {//MODIFY
     }
   });
 //INSERT
-app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/', function (req, res) {
+app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/', function (req, res) {
   //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
   let UserAccountID = req.params.UserAccountID;
   let Title = req.params.Title;
-  let Status = req.params.Status;
   let Description = req.params.Description;
 
   if (!isNullOrEmpty(UserAccountID)) {
     if (!isNullOrEmpty(Title)) {
-      if (!isNullOrEmpty(Status)) {
         if (!isNullOrEmpty(Description)) {
               BlackListModel.AddBlackListAutoDate(UserAccountID, Title, Description, function (response) {
                 if (response != undefined) {
@@ -236,11 +234,6 @@ app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/
             DescriptionMissing: true
           });
         }
-      } else {
-        res.send({
-          StatusMissing: true
-        });
-      }
     } else {
       res.send({
         TitleMissing: true
