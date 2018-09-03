@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let HandHistoryModel = require("../HandHistory/HandHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var async = require("async");
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
     let RoundID = req.params.RoundID;
@@ -59,7 +60,7 @@ module.exports = function (app) {//MODIFY
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
             let UserAccountIDExist = false;
             let PlayerExist = false;
-            async.series([UserAccountIDCheck, PlayerCheck], function (error, response) {
+            async.series([/*UserAccountIDCheck, PlayerCheck*/], function (error, response) {
 
               if (UserAccountIDExist == true) {
                 if (PlayerExist == true) {
