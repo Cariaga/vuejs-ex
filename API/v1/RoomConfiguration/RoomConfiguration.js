@@ -75,7 +75,9 @@ module.exports = function (app) { //MODIFY
 
                   RoomConfigurationModel.AddRoomConfiguration(RoomID,GameType,SmallBlind,BigBlind,Speed,function(response){
                     if(response!=undefined){
-                      res.send(response);
+                      res.send("Sucess");
+                    }else{
+                      res.send({AddRoomConfigurationFailed:true});
                     }
                    
                    });
