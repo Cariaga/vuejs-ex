@@ -60,6 +60,7 @@ module.exports = function (app) { //MODIFY
   app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
     //USAGE /Api/v1/RoomConfiguration/Add/RoomID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
     let RoomID = req.params.RoomID;
+    let GameType = req.params.GameType;
     let SmallBlind = req.params.SmallBlind;
     let BigBlind = req.params.BigBlind;
     let Speed = req.params.Speed;
