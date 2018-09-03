@@ -21,11 +21,11 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
   let _Expiration = Expiration;
   let query =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`) " +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'" + _Verified + "');" +
+    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false');" +
       "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`)" +
       "VALUES ('" + _UserAccountID + "','" + _Email + "','" + _PhoneNumber + "');" +
       "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) " +
-      "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "','" + _DateTime + "'); ";
+      "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "',now() ); ";
   console.log(query);
   let query2 =
     "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`) " +
