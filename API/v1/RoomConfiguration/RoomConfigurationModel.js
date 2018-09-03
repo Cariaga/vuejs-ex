@@ -5,6 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 var uuidv4 = require('uuid/v4');
+var async = require("async");
 let DBConnect = require("../../SharedController/DBConnect");
 
 /**
