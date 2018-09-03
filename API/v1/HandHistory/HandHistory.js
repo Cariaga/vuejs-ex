@@ -47,7 +47,7 @@ module.exports = function (app) {//MODIFY
 
   });
   //INSERT
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let RoundID = req.params.RoundID;
@@ -63,7 +63,7 @@ module.exports = function (app) {//MODIFY
 
               if (UserAccountIDExist == true) {
                 if (PlayerExist == true) {
-                  HandHistoryModel.AddHandHistory(UserAccountID, MoveHand, RoundID, function (response) {
+                  HandHistoryModel.AddHandHistory(UserAccountID,SeasonID, MoveHand, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
