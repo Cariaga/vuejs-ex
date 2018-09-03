@@ -98,8 +98,13 @@ require('./API/v1/Verification/Verification')(app);
 require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
 require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
 let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
+function test(){
+ let RegisterModel= require('./API/v1/Register/RegisterModel');
+ RegisterModel.RegisterAccount('UserAccountID'+Math.random(),'AccessID','UserName','Password','ValidKey','Email','PhoneNumber','BankName','AccountNumber','SecurityCode','Valid','Expiration',function(response){
+    console.log("OK");
+  });
+}
 
-require('./API/v1/Register/RegisterModel').RegisterAccount('1','1','1','1','1','1','1','1','1','1','1','1');
 
 //--testing for season based authentication END
 

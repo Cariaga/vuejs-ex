@@ -6,11 +6,13 @@ var moment = require('moment');
 const Collection = require('linqjs');
 
 function getCurrentDate(callback){
+
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth(); 
     let yyyy = today.getFullYear();
     let FormatedDate = yyyy+'/'+mm+'/'+dd;
+ 
     callback(FormatedDate);
   }
   //** Returns Current Time String*/
@@ -28,4 +30,3 @@ function getCurrentDate(callback){
     let FormatedTime =Hours+":"+Minutes+":"+Seconds;
     callback(FormatedTime);
   }
-  
