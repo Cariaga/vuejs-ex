@@ -546,7 +546,7 @@ const mysql = require('mysql2');
       }
     });
   }
-}
+
 /**
  *
  *
@@ -585,3 +585,4 @@ function IsNotificationIDExist(NotificationID, callback) {
     console.log("Error " + result);
     callback(undefined);
   });*/
+}
