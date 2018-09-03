@@ -48,7 +48,7 @@ module.exports = function (app) {//MODIFY
 
   });
   //INSERT
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/', function (req, res) {
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/', function (req, res) {//ok
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
@@ -58,8 +58,8 @@ module.exports = function (app) {//MODIFY
         if (!isNullOrEmpty(MoveHand)) {
 
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
-            let UserAccountIDExist = false;
-            let PlayerExist = false;
+            let UserAccountIDExist = true;//default is false
+            let PlayerExist = true;//default is false
             async.series([/*UserAccountIDCheck, PlayerCheck*/], function (error, response) {
 
               if (UserAccountIDExist == true) {
