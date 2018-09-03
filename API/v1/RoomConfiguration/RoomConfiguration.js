@@ -89,7 +89,7 @@ module.exports = function (app) { //MODIFY
                   });
 
                   function IsRoomIDExistCheck(callback2) {
-                    DBCheck.IsRoomIDExist(SeasonID, function (response2) {
+                    DBCheck.IsRoomIDExist(RoomID, function (response2) {
                       if (response2 != undefined) {
                         IsRoomIDFound = true;
                         callback2(null, '1');
