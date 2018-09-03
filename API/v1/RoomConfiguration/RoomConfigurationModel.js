@@ -32,7 +32,7 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, Game
       console.log(response);
       callback(response);
     } else {
-      callback(undefined);
+      callback([]);
     }
   });
   /*var item1 = Models.RoomConfiguration.build({
