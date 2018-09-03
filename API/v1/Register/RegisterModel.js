@@ -35,7 +35,6 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
     let Q2OK=false;
     let Q3OK=false;
     async.waterfall([Q1,Q2,Q3], function (err, response) {
-    
       if(response!=undefined){
         console.log(response);
         callback(response);
@@ -47,6 +46,7 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
+       
           callback(null,response);
         } else {
          // callback(undefined);
@@ -58,6 +58,7 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
       DBConnect.DBConnect(query2, function (response) {
         if (response != undefined) {
           console.log(response);
+
           callback(error,response);
         } else {
           //callback(undefined);
