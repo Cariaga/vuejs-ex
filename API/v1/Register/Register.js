@@ -20,6 +20,15 @@ module.exports = function (app) {
   let Valid = req.params.Valid;
   let Expiration = req.params.Expiration;
 
+  if(!isNullOrEmpty(BankName)){
+    if(!isNullOrEmpty(AccountNumber)){
+    if(!isNullOrEmpty(SecurityCode)){
+    if(!isNullOrEmpty(Valid)){
+    if(!isNullOrEmpty(Expiration)){
+    if(!isNullOrEmpty(DateTime)){
+    
+    }else{res.send(BankName)}}else{res.send(AccountNumber)}}else{res.send(SecurityCode)}}else{res.send(Valid)}}else{res.send(Expiration)}}else{res.send(DateTime)}
+
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
         if (!isNullOrEmpty(Name)) {
