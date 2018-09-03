@@ -72,7 +72,7 @@ module.exports = function (app) { //MODIFY
               if (validator.isNumeric(BigBlind)) {
                 if (validator.isNumeric(Speed)) {
 
-                  RoomConfigurationModel.AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
+                  RoomConfigurationModel.AddRoomConfiguration(RoomID,GameType,SmallBlind,BigBlind,Speed,function(response){
                     res.send(response);
                    });
 
