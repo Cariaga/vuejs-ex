@@ -105,12 +105,8 @@ function test(){
   });
 }
 
-<<<<<<< HEAD
 require('./API/v1/Register/RegisterModel').RegisterAccount('1','1','1','1','1','1','1','1','1','1','1','1');
 console.log('asdssss');
-=======
-
->>>>>>> 376e15b28da8ee354c1163d2b3f84653f2206d6c
 //--testing for season based authentication END
 
 var nexmo = new Nexmo({
