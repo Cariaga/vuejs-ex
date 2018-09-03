@@ -42,7 +42,6 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
       });
     });
     function Q1(callback) {
-     
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
