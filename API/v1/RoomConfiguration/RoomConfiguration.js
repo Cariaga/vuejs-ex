@@ -72,35 +72,22 @@ module.exports = function (app) { //MODIFY
               if (validator.isNumeric(BigBlind)) {
                 if (validator.isNumeric(Speed)) {
 
-                  let IsRoomIDFound = false; //false is the result we want
-                  async.series([IsRoomIDExistCheck], function (error, response) {
-                    if (IsRoomIDFound == false) { //must be false to be valid
+                  if (IsRoomIDFound == false) { //must be false to be valid
                     
-                      RoomConfigurationModel.AddRoomConfiguration(RoomID,SmallBlind,BigBlind,Speed,function(response){
-                        res.send(response);
-                       });
-                      res.send({
-                        Success: true
-                      });
-                    } else {
-                      res.send({
-                        RoomIDAlreadyExist: true
-                      });
-                    }
-                  });
-
-                  function IsRoomIDExistCheck(callback2) {
-                    callback2(null,'1');
-                   /* DBCheck.IsRoomIDExist(RoomID, function (response2) {
-                      if (response2.length>0) {
-                        IsRoomIDFound = true;
-                        callback2(null, '1');
-                      } else {
-                        IsRoomIDFound = false;
-                        callback2(null, '1');
-                      }
-                    });*/
+                    RoomConfigurationModel.AddRoomConfiguration('RID88', 'Holdem', '11', '22', 'Fast', function (response) {
+                      console.log("done");
+                    });
+                     
+                    res.send({
+                      Success: true
+                    });
+                  } else {
+                    res.send({
+                      RoomIDAlreadyExist: true
+                    });
                   }
+
+               
 
 
                 } else {
