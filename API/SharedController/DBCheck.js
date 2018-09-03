@@ -534,8 +534,8 @@ const mysql = require('mysql2');
   module.exports.IsRoomIDExist = function IsRoomIDExist(RoomID, callback) {
     let _RoomID = RoomID;
     let query =
-    "SELECT * FROM sampledb.roomconfigurations"+
-    "WHERE RoomID = "+_RoomID;
+    "SELECT * FROM sampledb.roomconfigurations "+
+    "WHERE RoomID = "+_RoomID+"";
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
