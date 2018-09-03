@@ -14,7 +14,6 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       host: 'localhost'||'172.30.166.206',
       user: 'root',
       password: 'password',
-      mutipleStatements: true,// required for multi statement in one query
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
 
@@ -30,11 +29,15 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
         /*if(fields!=undefined){
            console.log(fields);// fields contains extra meta data about results, if available
         }*/
-        if(results!=undefined){
+        if(results!=undefined&&results.length>0){
           console.log(results);
+          callback(results);
+        }else{
+          console.log("Empty");
+          callback(undefined);
         }
         
-        callback(results);
+       
         
       });
       connection.end();
@@ -61,9 +64,12 @@ module.exports.DBConnectInsert = function DBConnectInsert(RawQuery,params,callba
       }*/
       if(results!=undefined){
         console.log(results);
+        callback(results);
+      }else{
+        callback(undefined);
       }
       
-      callback(results);
+     
       
     });
     connection.end();

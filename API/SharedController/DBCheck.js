@@ -1,8 +1,6 @@
 
 let DBConnect = require("../SharedController/DBConnect");
 const mysql = require('mysql2');
-module.exports = function (app) {
-
   /**
    *
    *
@@ -533,42 +531,21 @@ module.exports = function (app) {
    * @param {*} SeasonID
    * @param {*} callback
    */
-  function IsSeasonIDExist(SeasonID, callback) {
+  module.exports.IsRoomIDExist = function IsRoomIDExist(RoomID, callback) {
+    let _RoomID = RoomID;
     let query =
-    `SET @SeasonID=${SeasonID};`+
-    
+    "SELECT * FROM sampledb.roomconfigurations "+
+    "WHERE RoomID = '"+_RoomID+"'";
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
-        console.log(response);
         callback(response);
       }else{
         callback(undefined);
       }
     });
-    /*Models.RoomConfiguration.sync();
-    let result = Models.RoomConfiguration.findAll({
-      where: {
-        SeasonID: SeasonID
-      }
-    }).then(function (result) {
-      let Data = result.map(function (item) {
-        return item;
-
-      });
-      if (Data.length > 0) {
-        callback(Data);
-      } else {
-        callback(undefined);
-      }
-
-    }).catch(function (result) { //catching any then errors
-      console.log("Error " + result);
-      callback(undefined);
-    });*/
   }
 
-}
 /**
  *
  *

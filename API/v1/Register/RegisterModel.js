@@ -22,17 +22,50 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
   let query =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`) " +
     "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "','" + _RegisteredDateTime + "','" + _Verified + "');" +
-    "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`)" +
-    "VALUES ('" + _UserAccountID + "','" + _Email + "','" + _PhoneNumber + "');" +
-    "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) " +
-    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "','" + _DateTime + "'); ";
+      "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`)" +
+      "VALUES ('" + _UserAccountID + "','" + _Email + "','" + _PhoneNumber + "');" +
+      "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) " +
+      "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "','" + _DateTime + "'); ";
   console.log(query);
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
+  let query2 =
+    "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`) " +
+    "VALUES ('" + _UserAccountID + "','" + _Email + "','" + _PhoneNumber + "');";
+    console.log(query2);
+  let query3 =
+    "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) " +
+    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "',now()); ";
+    console.log(query3);
+    async.waterfall([Q1,Q2], function (err, response) {
+      DBConnect.DBConnect(query3, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          //callback(undefined);
+        }
+      });
+    });
+    function Q1(callback) {
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+       
+          callback(null,response);
+        } else {
+         // callback(undefined);
+        }
+      });
     }
-  });
+    function Q2(error,callback) {
+  
+      DBConnect.DBConnect(query2, function (response) {
+        if (response != undefined) {
+          console.log(response);
+
+          callback(error,response);
+        } else {
+          //callback(undefined);
+        }
+      });
+    }
 }
