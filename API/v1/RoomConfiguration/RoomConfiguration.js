@@ -87,11 +87,11 @@ module.exports = function (app) { //MODIFY
                         RoomIDAlreadyExist: true
                       });
                     }
-
                   });
 
-                  /*function IsRoomIDExistCheck(callback2) {
-                    DBCheck.IsRoomIDExist(RoomID, function (response2) {
+                  function IsRoomIDExistCheck(callback2) {
+                    callback2(null,'1');
+                   /* DBCheck.IsRoomIDExist(RoomID, function (response2) {
                       if (response2.length>0) {
                         IsRoomIDFound = true;
                         callback2(null, '1');
@@ -99,8 +99,8 @@ module.exports = function (app) { //MODIFY
                         IsRoomIDFound = false;
                         callback2(null, '1');
                       }
-                    });
-                  }*/
+                    });*/
+                  }
 
 
                 } else {

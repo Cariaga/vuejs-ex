@@ -32,10 +32,10 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
     "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "',now()); ";
     console.log(query3);
     async.waterfall([Q1,Q2], function (err, response) {
-      DBConnect.DBConnect(query3, function (response) {
-        if (response != undefined) {
-          console.log(response);
-          callback(response);
+      DBConnect.DBConnect(query3, function (response2) {
+        if (response2 != undefined) {
+          console.log(response2);
+          callback(response2);
         } else {
           //callback(undefined);
         }
