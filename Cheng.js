@@ -4,6 +4,7 @@ RoomConfigurationModel.AddRoomConfiguration('RID88', 'Holdem', '11', '22', 'Fast
 });
 
 let DBCheck = require('./API/SharedController/DBCheck');
-DBCheck.IsRoomIDExist('RID2',function(response){
-  console.log("done" + response[0].RoomID);
+DBCheck.IsRoomIDExist('RID5',function(response){
+  console.log("Done");
+  console.log(response==undefined);
 });
