@@ -99,7 +99,9 @@ require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
 require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
 let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
 
-require('./API/v1/Register/RegisterModel').RegisterAccount('1','1','1','1','1','1','1','1','1','1','1','1');
+require('./API/v1/Register/RegisterModel').RegisterAccount('UserAccountID'+Math.random(),'AccessID','UserName','Password','ValidKey','Email','PhoneNumber','BankName','AccountNumber','SecurityCode','Valid','Expiration',function(response){
+  console.log("OK");
+});
 
 //--testing for season based authentication END
 
