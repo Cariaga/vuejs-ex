@@ -5,6 +5,7 @@ let RoomConfigurationModel = require("../RoomConfiguration/RoomConfigurationMode
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
+var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/', function (req, res) {
     let RoomID = req.params.RoomID;
