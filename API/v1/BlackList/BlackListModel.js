@@ -172,34 +172,6 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
     });*/
 }
 
-
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} Title
- * @param {*} Status
- * @param {*} Description
- * @param {*} callback
- */
-module.exports.AddBlackListAutoDate = function AddBlackList(UserAccountID, Title, Description, callback) {
-  let _UserAccountID = UserAccountID;
-let _Title = Title;
-let _Status = "Blocked";
-let _Description = Description;
-  let query = 
-  "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Title`, `Description`, `ReportDate`) "+
-  "VALUES ('"+UserAccountID+"','"+Title+"','"+Status+"','"+Description+"', now());";
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-}
-
 /**
  *
  *
@@ -212,15 +184,15 @@ let _Description = Description;
  * @param {*} callback
  */
 module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, callback) {
-  let query = `SET @BlackListID=${BlackListID};`+
-  `SET @UserAccountID=${UserAccountID};`+
-  `SET @Status=${Status};`+
-  `SET @Title=${Title};`+
-  `SET @Description=${Description};`+
-  `SET @ReportDate=${ReportDate};`+
-  `SET @ReleaseDate=${ReleaseDate};`+
+  let _UserAccountID = UserAccountID;
+let _Title = Title;
+let _Status = Status;
+let _Description = Description;
+let _ReportDate = ReportDate;
+let _ReleaseDate = ReleaseDate;
+  let query =
   "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Title`, `Description`, `ReportDate`, `ReleaseDate`) "+
-  "VALUES (@UserAccountID, @Status, @Title, @Description, @ReportDate, @ReleaseDate);";
+  "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Status+"','"+_Description+"','"+_ReportDate+"','"+_ReleaseDate+"');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
