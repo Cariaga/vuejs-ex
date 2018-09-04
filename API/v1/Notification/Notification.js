@@ -16,7 +16,6 @@ module.exports = function (app) { //INSERT
     if (!isNullOrEmpty(NotificationType)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Description)) {
-          if (!isNullOrEmpty(DateTime)) {
             if (!isNullOrEmpty(Status)) {
               NotificationModel.AddNotification(NotificationType, Title, Description, Status, function (response) {
                 if (response != undefined) {
@@ -32,11 +31,6 @@ module.exports = function (app) { //INSERT
                 StatusMissing: true
               });
             }
-          } else {
-            res.send({
-              DateTimeMissing: true
-            });
-          }
         } else {
           res.send({
             DescriptionMissing: true
