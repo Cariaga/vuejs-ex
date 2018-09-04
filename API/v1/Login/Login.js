@@ -25,10 +25,16 @@ module.exports = function (app) {
                 if (!isNullOrEmpty(DeviceName)) {
                   if (!isNullOrEmpty(DeviceRam)) {
                     if (!isNullOrEmpty(DeviceCpu)) {
-                    
+                      
                       LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
-                       res.send(response);
+                      
+                        if(response[0].Status!="Blocked"){
+                          res.send(response);
+                        }else{
+                          res.send({AccountBlocked});
+                        }
                       });
+
                       
                        /* LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
                           res.send(response3);
