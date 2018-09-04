@@ -22,22 +22,19 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserAccountID, Amount, BankNameUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  let query =`SET @UserAccountID=${UserAccountID};`+
-  `SET @Amount=${Amount};`+
-  `SET @BankNameUsed=${BankNameUsed};`+
-  `SET @Status=${Status};`+
-  `SET @RequestedDATE=${RequestedDATE};`+
-  `SET @ApprovedDATE=${ApprovedDATE};`+
-  `SET @RejectedDATE=${RejectedDATE};`+
-  `SET @ProcessingDATE=${ProcessingDATE};`+
-  `SET @RequestedTIME=${RequestedTIME};`+
-  `SET @ApprovedTIME=${ApprovedTIME};`+
-  `SET @RejectedTIME=${RejectedTIME};`+
-  `SET @ProcessingTIME=${ProcessingTIME};`+
-  ""+
-  ""+
-  ""+
+module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionID, UserName, ContactNumber, BankName, AccountNumber, ApplicationAmount, ExistingAmount, RemainingAmount, callback) {
+  let _UserTransactionID = UserTransactionID;
+  let _UserName = UserName;
+  let _ContactNumber = ContactNumber;
+  let _BankName = BankName;
+  let _AccountNumber = AccountNumber;
+  let _ApplicationAmount = ApplicationAmount;
+  let _ExistingAmount = ExistingAmount;
+  let _RemainingAmount = RemainingAmount;
+  let query =
+  "INSERT INTO `sampledb`.`withdraw` (`WithdrawID`, `UserTransactionID`, `UserName`, `ContactNumber`, `BankName`, `AccountNumber`, `ApplicationAmount`, `ExistingAmount`, `RemainingAmount`) "+
+  "VALUES ('"+_UserTransactionID+"','"+_UserName+"','"+_ContactNumber+"','"+_BankName+"','"+_AccountNumber+"','"+_ApplicationAmount+"','"+_ExistingAmount+"','"+_RemainingAmount+"')";
+  
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
