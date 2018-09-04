@@ -17,8 +17,14 @@ NotificationModel.AddNotification('Notif', 'NotificationSample', 'Nothing', 'Sta
   console.log("done");
 });
 
+// http://192.168.254.106:8080/Api/v1/SupportTicket/Add/UserAccountID/Account6/Title/Buggy/Description/Bug/Reason/Deposit%20Error/Answer/no%20money/Status/Pending
 let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
 SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error', 'no money', 'Pending', function (response) {
+  console.log("done");
+});
+
+let WithdrawHistoryModel = require('./API/v1/WithdrawHistory/WithdrawHistoryModel');
+WithdrawHistoryModel.AddWithdrawHistory('Transaction2', 'asd', '11', 'bdo', '1512', '0', '1', '2', function (response) {
   console.log("done");
 });
 

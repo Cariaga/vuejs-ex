@@ -6,7 +6,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) {//MODIFY
-  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/', function (req, res) {
+  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let ApprovedDATE = req.params.ApprovedDATE;
@@ -51,89 +51,71 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/', function (req, res) {
-    let WithdrawHistoryID = req.params.WithdrawHistoryID;
+  app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/UserName/:UserName/UserName/:UserName/UserName/:UserName/UserName/:UserName/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
-    let ProcessingDATE = req.params.ProcessingDATE;
-    let ProcessingTIME = req.params.ProcessingTIME;
-    if (!isNullOrEmpty(WithdrawHistoryID)) {
-      if (!isNullOrEmpty(UserAccountID)) {
+    let UserName = req.params.UserName;
+    let ContactNo = req.params.ContactNo;
+    let BankName = req.params.BankName;
+    let AccountNumber = req.params.AccountNumber;
+    let ApplicationAmount = req.params.ApplicationAmount;
+    let RemainingAmount = req.params.RemainingAmount;
+    let ExistingAmount = req.params.ExistingAmount;
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(UserName)) {
+        if (!isNullOrEmpty(ContactNo)) {
+          if (!isNullOrEmpty(BankName)) {
+            if (!isNullOrEmpty(AccountNumber)) {
+              if (!isNullOrEmpty(ApplicationAmount)) {
+                if (!isNullOrEmpty(RemainingAmount)) {
+                  if (!isNullOrEmpty(ExistingAmount)) {
 
-        let ProcessingDATEParsed = moment(ProcessingDATE, "YYYY-MM-DD");
-        let isValidProcessingDATEParsed = ProcessingDATEParsed.isValid();
-        if (!isNullOrEmpty(ProcessingDATE) && isValidProcessingDATEParsed == true && ProcessingDATEParsed.year() > 1959) {
-          if (!isNullOrEmpty(ProcessingTIME)) {
-            WithdrawHistoryModel.WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, function (response) {
-              if (response != undefined) {
-                res.send(response);
+                        WithdrawHistoryModel.AddWithdrawHistory(UserTransactionID, UserName, ContactNumber, BankName, AccountNumber, ApplicationAmount, ExistingAmount, RemainingAmount, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          } else {
+                            res.send({
+                              AddWithdrawHistoryFailed: true
+                            });
+                          }
+                        });
+                  } else {
+                    res.send({
+                      ExistingAmountMissing: true
+                    });
+                  }
+                } else {
+                  res.send({
+                    RemainingAmountMissing: true
+                  });
+                }
               } else {
                 res.send({
-                  WithdrawHistoryUpdateProcessingFailed: true
+                  ApplicationAmountMissing: true
                 });
               }
-            });
+            } else {
+              res.send({
+                AccountNumberMissing: true
+              });
+            }
           } else {
             res.send({
-              ProcessingTIMEMissing: true
+              BankNameMissing: true
             });
           }
         } else {
           res.send({
-            ProcessingDATEMissing: true
-          });
-
-        }
-      } else {
-        res.send({
-          UserAccountIDMissing: true
-        });
-      }
-    } else {
-      res.send({
-        WithdrawHistoryIDMissing: true
-      });
-    }
-  });
-  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/', function (req, res) {
-    let WithdrawHistoryID = req.params.WithdrawHistoryID;
-    let UserAccountID = req.params.UserAccountID;
-
-    let RejectedDATE = req.params.RejectedDATE;
-    let RejectedTIME = req.params.RejectedTIME;
-    if (!isNullOrEmpty(WithdrawHistoryID)) {
-      if (!isNullOrEmpty(UserAccountID)) {
-
-        let RejectedDATEParsed = moment(RejectedDATE, "YYYY-MM-DD");
-        let isValidRejectedDATEParsed = RejectedDATEParsed.isValid();
-        if (!isNullOrEmpty(RejectedDATE) && isValidRejectedDATEParsed == true && RejectedDATEParsed.year() > 1959) {
-          if (!isNullOrEmpty(RejectedTIME)) {
-            WithdrawHistoryModel.WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                res.send({
-                  WithdrawHistoryUpdateRejectedFailed: true
-                });
-              }
-            });
-          } else {
-            res.send({
-              RejectedTIMEMissing: true
-            });
-          }
-        } else {
-          res.send({
-            RejectedDATEMissing: true
+            ContactNoMissing: true
           });
         }
       } else {
         res.send({
-          UserAccountIDMissing: true
+          UserNameMissing: true
         });
       }
     } else {
       res.send({
-        WithdrawHistoryIDMissing: true
+        UserAccountIDMissing: true
       });
     }
   });
