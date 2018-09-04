@@ -6,7 +6,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var LoginHistoryModel = require('./LoginHistoryModel');
 module.exports = function (app) {
-    app.get('/Api/v1/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/:DateTime', function (req, res) {
+    app.get('/Api/v1/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', function (req, res) {
           res.setHeader('Content-Type', 'application/json');
           // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
           let UserName = req.params.UserName;
@@ -18,7 +18,7 @@ module.exports = function (app) {
           let DeviceCpu = req.params.DeviceCpu;
           let OperatingSystem = req.params.OperatingSystem;
           let GraphicsDevice = req.params.GraphicsDevice;
-          let DateTime = req.query.DateTime; //2018-06-27 01:57:17
+  
           if (!isNullOrEmpty(UserName)) {
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(IP)) {
@@ -26,7 +26,7 @@ module.exports = function (app) {
                   if (!isNullOrEmpty(DeviceRam)) {
                     if (!isNullOrEmpty(DeviceCpu)) {
                       if (!isNullOrEmpty(DateTime)) {
-                        LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, DateTime, Date, function (response3) {
+                        LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
                           res.send(response3);
                         });
                       } else {
@@ -45,9 +45,25 @@ module.exports = function (app) {
                     })
                   }
 
+                }else{
+                  res.send({
+                    DeviceNameMissing: true
+                  })
                 }
+              }else{
+                res.send({
+                  IPMissing: true
+                })
               }
+            }else{
+              res.send({
+                PasswordMissing: true
+              })
             }
+          }else{
+            res.send({
+              UserNameMissing: true
+            })
           }
         });
                   
