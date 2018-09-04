@@ -12,7 +12,6 @@ module.exports.AddLoginHistory = function(UserAccountID, IP, DeviceName, DeviceR
     let _DeviceName = DeviceName;
     let _DeviceRam = DeviceRam;
     let _DeviceCpu = DeviceCpu;
-    let _DateTime = DateTime;
     let query =
     "INSERT INTO `sampledb`.`loginhistories` (`IP`, `UserAccountID`, `DeviceName`, `DeviceRam`, `DeviceCpu`, `LoginDateTime`) "+
     "VALUES ('"+_UserAccountID+"','"+_IP+"','"+_DeviceName+"','"+_DeviceRam+"','"+_DeviceCpu+"',now());"
