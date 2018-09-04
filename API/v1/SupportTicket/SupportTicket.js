@@ -22,8 +22,8 @@ module.exports = function (app) { //INSERT
           if (!isNullOrEmpty(Reason)) {
             if (!isNullOrEmpty(Answer)) {
                 if (!isNullOrEmpty(Status)) {
-                  let UserAccountIDExist = false;
-                  async.series([UserAccountIDCheck], function (error, response) {
+                  let UserAccountIDExist = true;
+                  async.series([/*UserAccountIDCheck*/], function (error, response) {
                     if (UserAccountIDExist == true) {
                       SupportTicketModel.AddSupportTicket(UserAccountID, Title, Description, Reason, Answer, Status, function (response) {
                         res.send(response);
