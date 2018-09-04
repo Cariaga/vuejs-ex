@@ -552,17 +552,9 @@ module.exports = function (app) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
    
     async.series([], function (error, response) {
-      if (isUserAccountIDFound == true) {
-
-        DepositHistoryModel.AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, function (response) {
+        DepositHistoryModel.AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, function (response) {
           res.send(response);
         });
-
-      } else {
-        res.send({
-          IsUserAccountIDExist: false
-        });
-      }
     });
    
     /* let UserAccountID = req.params.UserAccountID;
