@@ -204,7 +204,6 @@ module.exports = function (app) { //MODIFY
     let SeasonID = req.params.SeasonID;
       if (!isNullOrEmpty(RoomID)) {
         if (!isNullOrEmpty(SeasonID)) {
-          if (!isNullOrEmpty(GameStartedDateTime)) {
             async.series([ /*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/ ], function (error, response) {
 
               if (isUserAccountIDExistFound == true) {
@@ -223,11 +222,6 @@ module.exports = function (app) { //MODIFY
                 });
               }
             });
-          } else {
-            res.send({
-              UserAccountIDMissing: true
-            })
-          }
         } else {
           res.send({
             RoundIDMissing: true
