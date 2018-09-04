@@ -29,11 +29,17 @@ module.exports = function (app) {
                       LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
                         let firstRow = response[0];
                         if(firstRow.Status!="Blocked"){
-                          res.send({
-                            UserAccountID:firstRow.UserAccountID,
-                            OnlineStatus:firstRow.OnlineStatus,
-                            Email:firstRow.Email,
-                            PhoneNumber:firstRow.PhoneNumber});
+                          if(firstRow.Verified=="true"){
+                            res.send({
+                              UserAccountID:firstRow.UserAccountID,
+                              OnlineStatus:firstRow.OnlineStatus,
+                              Email:firstRow.Email,
+                              PhoneNumber:firstRow.PhoneNumber});
+                          }else{
+                            res.send({AccountUnverified:true});
+                          }
+                          
+
                         }else{
                           res.send({AccountBlocked:true});
                         }
