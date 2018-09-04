@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let SupportTicketModel = require("../SupportTicket/SupportTicketModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var async = require("async");
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) { //INSERT
   app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Answer/:Answer/Status/:Status', function (req, res) {
