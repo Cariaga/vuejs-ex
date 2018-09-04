@@ -244,7 +244,7 @@ module.exports = function (app) {//MODIFY
 
                                     if (isUserAccountIDExistFound == true) {
                                       if (isSeasonIDFound == true) {
-                                        GameHistoryModel.AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, function (response) {
+                                        GameHistoryModel.AddGameHistory(UserAccountID, RoundID, SeasonID, function (response) {
                                           res.send(response);
                                         });
                                       } else {
