@@ -29,7 +29,7 @@ module.exports = function (app) {
                         LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
                           res.send(response3);
                         });
-                  
+                        
                     } else {
                       res.send({
                         DeviceCpuMissing: true

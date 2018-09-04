@@ -23,3 +23,12 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
 });
 
 // http://localhost:8080/Api/v1/HandHistory/Add/UserAccountID/Account1/MoveHand/Call/SeasonID/S2/
+
+//http://localhost:8080/Api/v1/Login/UserName/U8/Password/U8/IP/IP/DeviceName/DeviceName/DeviceRam/DeviceRam/DeviceCpu/DeviceCpu/
+
+
+
+let LoginHistoryModel = require ('./API/v1/Login/LoginHistoryModel');
+LoginHistoryModel.LoginAccount('u6', '', function (response) {
+  console.log("done");
+});
