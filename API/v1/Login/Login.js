@@ -29,7 +29,10 @@ module.exports = function (app) {
                       LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
                         let firstRow = response[0];
                         if(firstRow.Status!="Blocked"){
-                          res.send([firstRow.UserAccountID,firstRow.OnlineStatus,firstRow.Email]);
+                          res.send(
+                            UserAccountID:firstRow.UserAccountID,
+                            OnlineStatus:firstRow.OnlineStatus,
+                            Email:firstRow.Email);
                         }else{
                           res.send({AccountBlocked});
                         }
