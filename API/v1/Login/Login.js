@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
+var LoginHistoryModel= require('./LoginHistoryModel');
 module.exports = function (app) {
   app.get('/Login', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -17,8 +18,8 @@ module.exports = function (app) {
     let DeviceCpu = req.query.DeviceCpu;
     let OperatingSystem = req.query.OperatingSystem;
     let GraphicsDevice = req.query.GraphicsDevice;
-    let Time = req.query.Time; //01:57:17
-    let Date = req.query.Date; //2018-06-27
+  
+    let DateTime = req.query.DateTime; //2018-06-27 01:57:17
     if (!isNullOrEmpty(DeviceUUID) &&
       !isNullOrEmpty(IP) &&
       !isNullOrEmpty(DeviceName) &&
@@ -54,7 +55,7 @@ module.exports = function (app) {
                   console.log('3');
                   Models.UserAccount.sync( /*{force:true}*/ ); //makes sure table exist and syncs it
                   console.log('4');
-                  AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response3) {
+                  LoginHistoryModel.AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response3) {
                     console.log('5');
                     console.log(response3);
                     if (AccountType == "HeadOffice") {

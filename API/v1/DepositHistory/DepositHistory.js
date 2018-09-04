@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let DepositHistoryModel = require("./DepositHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var async = require("async");
 module.exports = function (app) {
   app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/', function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
@@ -552,7 +553,7 @@ module.exports = function (app) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/
    
     async.series([], function (error, response) {
-        DepositHistoryModel.AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, function (response) {
+        DepositHistoryModel.AddDepositHistoryRequest(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, function (response) {
           res.send(response);
         });
     });
