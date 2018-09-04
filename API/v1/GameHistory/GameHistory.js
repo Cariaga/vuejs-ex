@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let GameHistoryModel = require("../GameHistory/GameHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
 
