@@ -16,7 +16,6 @@ module.exports.AddLoginHistory = function(UserName,Password, IP, DeviceName, Dev
     let _DeviceCpu = DeviceCpu;
     let query =
     "SELECT UserAccountID,Verified,RegisteredDateTime FROM sampledb.useraccounts where UserName='"+_UserName+"'and Password='"+_Password+"';"
- 
     async.waterfall([Q1], function (err, response) {
       let query2 =
       "INSERT INTO `sampledb`.`loginhistories` (`IP`, `UserAccountID`, `DeviceName`, `DeviceRam`, `DeviceCpu`, `LoginDateTime`) "+

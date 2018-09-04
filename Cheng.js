@@ -30,9 +30,10 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
 
 
 let LoginHistoryModel = require ('./API/v1/Login/LoginHistoryModel');
-LoginHistoryModel.LoginAccount('U6', '', function (response) {
+LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
   console.log("done");
 });
+
 let WithdrawHistoryModel = require('./API/v1/WithdrawHistory/WithdrawHistoryModel');
 WithdrawHistoryModel.AddWithdrawHistory('Transaction3', 'asd', '11', 'bdo', '1512', '0', '1', '2', function (response) {
   console.log("done");
