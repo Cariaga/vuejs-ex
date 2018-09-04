@@ -10,7 +10,6 @@ module.exports = function (app) { //INSERT
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
-    let DateTime = req.params.DateTime;
     let Status = req.params.Status;
     //USAGE Api/v1/Notification/Add/NotificationType/Title/Description/01:57:17/2018-06-27
 
@@ -19,7 +18,7 @@ module.exports = function (app) { //INSERT
         if (!isNullOrEmpty(Description)) {
           if (!isNullOrEmpty(DateTime)) {
             if (!isNullOrEmpty(Status)) {
-              NotificationModel.AddNotification(NotificationType, Title, Description, DateTime, Status, function (response) {
+              NotificationModel.AddNotification(NotificationType, Title, Description, Status, function (response) {
                 if (response != undefined) {
                   res.send(response);
                 } else {
