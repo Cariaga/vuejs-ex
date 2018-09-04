@@ -5,6 +5,7 @@ let GameHistoryModel = require("../GameHistory/GameHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
+var async = require("async");
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
 
@@ -224,8 +225,9 @@ module.exports = function (app) {//MODIFY
                           if (validator.isNumeric(AfterPoints)) {
                             if (validator.isNumeric(Score)) {
                               let countedCards = Card.split(","); //card counting validate that we have 5 cards
-                              let countedStringLength = Card.length; //Must be 14 including commas in count
-                              if (countedCards.length == 5 && countedStringLength == 14) {
+                              let countedStringLength = Card.length; //Must be 26 including commas in count
+                        
+                              if (countedCards.length == 5 && countedStringLength == 26) {
                                 if (Rank == "HIGH_CARD" ||
                                   Rank == "ONE_PAIR" ||
                                   Rank == "TWO_PAIRS" ||
