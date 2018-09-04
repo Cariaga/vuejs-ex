@@ -16,4 +16,9 @@ NotificationModel.AddNotification('Notif', 'NotificationSample', 'Nothing', 'Sta
   console.log("done");
 });
 
+let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
+SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error', 'no money', 'Pending', function (response) {
+  console.log("done");
+});
+
 //http://localhost:8080/Api/v1/HandHistory/Add/UserAccountID/Account1/MoveHand/Call/SeasonID/S2/

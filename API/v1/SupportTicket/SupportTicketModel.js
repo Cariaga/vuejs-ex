@@ -143,17 +143,17 @@ module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketI
  * @param {*} Status
  * @param {*} callback
  */
-module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title, Description, Reason, Time, DateTime, Status, callback) {
+module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title, Description, Reason, Answer, Status, callback) {
+  let _UserAccountID = UserAccountID;
+  let _Title = Title;
+  let _Description = Description;
+  let _Reason = Reason;
+  let _Answer = Answer;
+  let _Status = Status;
   let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @Title=${Title};` +
-    `SET @Description=${Description};` +
-    `SET @Reason=${Reason};` +
-    `SET @Time=${Time};` +
-    `SET @DateTime=${DateTime};` +
-    `SET @Status=${Status};` +
-    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `DateTime`, `Status`) "+
-    "VALUES (@UserAccountID, @Title, @Description, @Reason, @DateTime, @Status);";
+    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `Answer`, `DateTime`, `Status`) "+
+    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Description+"','"+_Reason+"','"+_Answer+"', now(),'"+_Status+"',);";
+    
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

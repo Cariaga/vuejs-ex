@@ -12,21 +12,20 @@ module.exports = function (app) { //INSERT
     let Title = req.params.Title;
     let Description = req.params.Description;
     let Reason = req.params.Reason;
-    let Time = req.params.Time;
-    let Date = req.params.Date;
+    let Answer = req.params.Time;
+    let DateTime = req.params.Date;
     let Status = req.params.Status;
     Models.SupportTicket.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Description)) {
           if (!isNullOrEmpty(Reason)) {
-            if (!isNullOrEmpty(Time)) {
-              if (!isNullOrEmpty(Date)) {
+            if (!isNullOrEmpty(Answer)) {
                 if (!isNullOrEmpty(Status)) {
                   let UserAccountIDExist = false;
                   async.series([UserAccountIDCheck], function (error, response) {
                     if (UserAccountIDExist == true) {
-                      SupportTicketModel.AddSupportTicket(UserAccountID, Title, Description, Reason, Time, Date, Status, function (response) {
+                      SupportTicketModel.AddSupportTicket(UserAccountID, Title, Description, Reason, Answer, Status, function (response) {
                         res.send(response);
                       });
                     } else {
@@ -53,14 +52,9 @@ module.exports = function (app) { //INSERT
                     StatusMissing: true
                   });
                 }
-              } else {
-                res.send({
-                  DateMissing: true
-                });
-              }
             } else {
               res.send({
-                TimeMissing: true
+                AnswerMissing: true
               });
             }
           } else {
