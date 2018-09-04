@@ -6,7 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 //--Select Start
 module.exports = function (app) { //INSERT
-  app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/DateTime/:DateTime/Status/:Status', function (req, res) {
+  app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
