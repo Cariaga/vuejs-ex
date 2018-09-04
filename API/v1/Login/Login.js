@@ -25,7 +25,7 @@ module.exports = function (app) {
                 if (!isNullOrEmpty(DeviceName)) {
                   if (!isNullOrEmpty(DeviceRam)) {
                     if (!isNullOrEmpty(DeviceCpu)) {
-                      let LoginHistoryModel = require ('./LoginHistoryModel');
+                    
                       LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
                        res.send(response);
                       });
