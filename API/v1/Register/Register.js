@@ -6,7 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) {
-
+//http://localhost:8080/Api/v1/Register/Add/UserName/1UserName/Password/1Password/Name/1Name/SurName/1SurName/Email/1Email/PhoneNumber/1PhoneNumber/BankName/1BankName/SecurityCode/1SecurityCode/Valid/1Valid/Expiration/1Expiration/AccountNumber/1AccountNumber
   app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Valid/:Valid/Expiration/:Expiration/AccountNumber/:AccountNumber', function (req, res) {
   let Name = req.params.Name;
   let SurName = req.params.SurName;
