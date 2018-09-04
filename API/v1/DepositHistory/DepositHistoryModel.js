@@ -14,6 +14,28 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} BankNameUsed
  * @param {*} SecurityCodeUsed
  * @param {*} Status
+ * @param {*} callback
+ */
+module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, callback) {
+  let query = '';
+  
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} Amount
+ * @param {*} BankNameUsed
+ * @param {*} SecurityCodeUsed
+ * @param {*} Status
  * @param {*} RequestedDATE
  * @param {*} ApprovedDATE
  * @param {*} RejectedDATE
