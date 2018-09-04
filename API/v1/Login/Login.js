@@ -20,6 +20,11 @@ module.exports = function (app) {
     let GraphicsDevice = req.query.GraphicsDevice;
   
     let DateTime = req.query.DateTime; //2018-06-27 01:57:17
+
+    LoginHistoryModel.AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response3) {
+      
+    });
+
    /* if (!isNullOrEmpty(DeviceUUID) &&
       !isNullOrEmpty(IP) &&
       !isNullOrEmpty(DeviceName) &&
