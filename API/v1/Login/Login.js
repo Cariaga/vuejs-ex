@@ -26,7 +26,7 @@ module.exports = function (app) {
                   if (!isNullOrEmpty(DeviceRam)) {
                     if (!isNullOrEmpty(DeviceCpu)) {
                       if (!isNullOrEmpty(DateTime)) {
-                        LoginHistoryModel.AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, DateTime, Date, function (response3) {
+                        LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, DateTime, Date, function (response3) {
                           res.send(response3);
                         });
                       } else {
