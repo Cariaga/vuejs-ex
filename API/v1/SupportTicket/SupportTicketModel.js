@@ -152,8 +152,8 @@ module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title
   let _Status = Status;
   let query =
     "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `Answer`, `DateTime`, `Status`) "+
-    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Description+"','"+_Reason+"','"+_Answer+"', now(),'"+_Status+"',);";
-    
+    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Description+"','"+_Reason+"','"+_Answer+"', now(),'"+_Status+"');";
+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
