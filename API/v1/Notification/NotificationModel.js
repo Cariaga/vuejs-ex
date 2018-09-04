@@ -64,14 +64,14 @@ module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, 
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.AddNotification = function AddNotification(NotificationType, Title, Description, DateTime, callback) {
+module.exports.AddNotification = function AddNotification(NotificationType, Title, Description, Status, callback) {
+  let _NotificationType = NotificationType;
+  let _Title = Title;
+  let _Description = Description;
+  let _Status = Status;
   let query =
-    `SET @NotificationType=${NotificationType};` +
-    `SET @Title=${Title};` +
-    `SET @Description=${Description};` +
-    `SET @DateTime=${DateTime};` +
-    "INSERT INTO `sampledb`.`notifications` (`NotificationType`, `Title`, `Description`, `DateTime`) "+
-    "VALUES (@NotificationType, @Title, @Description, @DateTime);";
+    "INSERT INTO `sampledb`.`notifications` (`NotificationType`, `Title`, `Description`, `DateTime`, `Status`) "+
+    "VALUES ('"+_NotificationType+"', '"+_Title+"', '"+_Description+"', now(),'"+_Status+"');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

@@ -1,25 +1,25 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
-let NontificationModel = require("../Notification/NontificationModel");
+let NotificationModel = require("../Notification/NotificationModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 //--Select Start
 module.exports = function (app) { //INSERT
-  app.get('/Api/v1/Notification/Add/:NotificationType/:Title/:Description/:Time/:Date', function (req, res) {
+  app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/DateTime/:DateTime/Status/:Status', function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
-    let Time = req.params.Time;
-    let Date = req.params.Date;
+    let DateTime = req.params.DateTime;
+    let Status = req.params.Status;
     //USAGE Api/v1/Notification/Add/NotificationType/Title/Description/01:57:17/2018-06-27
 
     if (!isNullOrEmpty(NotificationType)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Description)) {
-          if (!isNullOrEmpty(Time)) {
-            if (!isNullOrEmpty(Date)) {
-              NontificationModel.AddNotification(NotificationType, Title, Description, Time, Date, function (response) {
+          if (!isNullOrEmpty(DateTime)) {
+            if (!isNullOrEmpty(Status)) {
+              NotificationModel.AddNotification(NotificationType, Title, Description, DateTime, Status, function (response) {
                 if (response != undefined) {
                   res.send(response);
                 } else {
@@ -30,12 +30,12 @@ module.exports = function (app) { //INSERT
               });
             } else {
               res.send({
-                DateMissing: true
+                StatusMissing: true
               });
             }
           } else {
             res.send({
-              TimeMissing: true
+              DateTimeMissing: true
             });
           }
         } else {
@@ -73,7 +73,7 @@ module.exports = function (app) { //INSERT
                   if (NotificationIDExist == true) {
                     if (response != undefined) {
 
-                      NontificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, function (response) {
+                      NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, function (response) {
                         res.send(response);
                       });
                     } else {
