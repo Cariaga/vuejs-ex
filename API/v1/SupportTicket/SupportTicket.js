@@ -12,9 +12,9 @@ module.exports = function (app) { //INSERT
     let Title = req.params.Title;
     let Description = req.params.Description;
     let Reason = req.params.Reason;
-    let Answer = req.params.Time;
+    let Answer = req.params.Answer;
     let Status = req.params.Status;
-    
+
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Description)) {
