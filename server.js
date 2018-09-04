@@ -83,7 +83,7 @@ require('./API/v1/Login/LogOut')(app);
 require('./API/v1/LoginHistory/LoginHistory')(app);
 require('./API/v1/MemberBlackList/MemberBlackList')(app);
 require('./API/v1/MemberList/MemberList')(app);
-require('./API/v1/Notification/Nontification')(app);
+require('./API/v1/Notification/Notification')(app);
 require('./API/v1/OneOnOne/OnOnOne')(app);
 require('./API/v1/Player/Player')(app);
 require('./API/v1/Register/Register')(app);
