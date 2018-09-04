@@ -4,6 +4,8 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let GameHistoryModel = require("../GameHistory/GameHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
+var async = require("async");
 module.exports = function (app) {//MODIFY
   app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
 
@@ -199,17 +201,31 @@ module.exports = function (app) {//MODIFY
     //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
-    let RoundID = req.params.RoundID;
+    let RoomID = req.params.RoomID;
     let SeasonID = req.params.SeasonID;
-    let Rank = req.params.Rank;
-    let Score = req.params.Score;
-    let Card = req.params.Card;
-    let Time = req.params.Time;
-    let Date = req.params.Date;
-    let BeforePoints = req.params.BeforePoints;
-    let AfterPoints = req.params.AfterPoints;
 
-    if (!isNullOrEmpty(UserAccountID)) {
+
+    async.series([/*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/], function (error, response) {
+
+      if (isUserAccountIDExistFound == true) {
+        if (isSeasonIDFound == true) {
+          GameHistoryModel.AddGameHistory(UserAccountID, RoomID, SeasonID, function (response) {
+            res.send(response);
+          });
+        } else {
+          res.send({
+            SeasonIDInvalid: false
+          });
+        }
+      } else {
+        res.send({
+          UserAccountIDInvalid: false
+        });
+      }
+    });
+
+
+    /*if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(RoundID)) {
         if (!isNullOrEmpty(SeasonID)) {
           if (!isNullOrEmpty(Rank)) {
@@ -223,8 +239,9 @@ module.exports = function (app) {//MODIFY
                           if (validator.isNumeric(AfterPoints)) {
                             if (validator.isNumeric(Score)) {
                               let countedCards = Card.split(","); //card counting validate that we have 5 cards
-                              let countedStringLength = Card.length; //Must be 14 including commas in count
-                              if (countedCards.length == 5 && countedStringLength == 14) {
+                              let countedStringLength = Card.length; //Must be 26 including commas in count
+                        
+                              if (countedCards.length == 5 && countedStringLength == 26) {
                                 if (Rank == "HIGH_CARD" ||
                                   Rank == "ONE_PAIR" ||
                                   Rank == "TWO_PAIRS" ||
@@ -237,26 +254,9 @@ module.exports = function (app) {//MODIFY
                                   Rank == "ROYAL_FLUSH") {
                                   let isUserAccountIDExistFound = true;//default false but no longer used
                                   let isSeasonIDFound = true;//default false but no longer used
-                                  async.series([/*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/], function (error, response) {
+                                  
 
-                                    if (isUserAccountIDExistFound == true) {
-                                      if (isSeasonIDFound == true) {
-                                        GameHistoryModel.AddGameHistory(UserAccountID, RoundID, SeasonID, Rank, Score, Card, Time, Date, BeforePoints, AfterPoints, function (response) {
-                                          res.send(response);
-                                        });
-                                      } else {
-                                        res.send({
-                                          SeasonIDInvalid: false
-                                        });
-                                      }
-                                    } else {
-                                      res.send({
-                                        UserAccountIDInvalid: false
-                                      });
-                                    }
-                                  });
-
-                                  function IsUserAccountIDExistCheck(callback) {
+                                  /*function IsUserAccountIDExistCheck(callback) {
                                     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                                       if (response != undefined) {
                                         isUserAccountIDExistFound = true;
@@ -278,7 +278,7 @@ module.exports = function (app) {//MODIFY
                                         callback(null, '2');
                                       }
                                     });
-                                  }
+                                  }*/
                                 } else {
                                   res.send({
                                     CardInvalid: true
@@ -358,7 +358,7 @@ module.exports = function (app) {//MODIFY
       res.send({
         UserAccountIDMissing: true
       });
-    }
+    }*/
 
   });
 //STRUCTURE
