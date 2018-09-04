@@ -210,7 +210,7 @@ module.exports = function (app) { //MODIFY
 
               if (isUserAccountIDExistFound == true) {
                 if (isSeasonIDFound == true) {
-                  GameHistoryModel.AddGameHistory(UserAccountID, RoomID, SeasonID, function (response) {
+                  GameHistoryModel.AddGameHistory(RoomID, SeasonID, function (response) {
                     res.send(response);
                   });
                 } else {
