@@ -235,9 +235,9 @@ module.exports = function (app) {//MODIFY
                                   Rank == "FOUR_OF_A_KIND" ||
                                   Rank == "STRAIGHT_FLUSH" ||
                                   Rank == "ROYAL_FLUSH") {
-                                  let isUserAccountIDExistFound = false;
-                                  let isSeasonIDFound = false;
-                                  async.series([IsUserAccountIDExistCheck, IsSeasonIDExistCheck], function (error, response) {
+                                  let isUserAccountIDExistFound = true;//default false but no longer used
+                                  let isSeasonIDFound = true;//default false but no longer used
+                                  async.series([/*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/], function (error, response) {
 
                                     if (isUserAccountIDExistFound == true) {
                                       if (isSeasonIDFound == true) {
