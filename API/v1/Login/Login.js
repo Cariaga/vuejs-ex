@@ -20,7 +20,7 @@ module.exports = function (app) {
     let GraphicsDevice = req.params.GraphicsDevice;
 
     let DateTime = req.query.DateTime; //2018-06-27 01:57:17
-    if (!isNullOrEmpty(UserAccountID)) {
+    if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(IP)) {
         if (!isNullOrEmpty(DeviceName)) {
           if (!isNullOrEmpty(DeviceRam)) {
