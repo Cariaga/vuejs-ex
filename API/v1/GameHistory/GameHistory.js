@@ -6,7 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 var async = require("async");
-module.exports = function (app) {//MODIFY
+module.exports = function (app) { //MODIFY
   app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
 
     let GameHistoryID = req.params.GameHistoryID;
@@ -159,7 +159,7 @@ module.exports = function (app) {//MODIFY
         
       }*/
   });
-//SELECTION
+  //SELECTION
   app.get('/Api/v1/GameHistory', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -197,32 +197,56 @@ module.exports = function (app) {//MODIFY
     //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
   });
   //INSERT
-  app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/RoundID/:RoundID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
+  app.get('/Api/v1/GameHistory/Add/UserAccountID/:UserAccountID/RoomID/:RoomID/SeasonID/:SeasonID', function (req, res) {
     //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let RoomID = req.params.RoomID;
     let SeasonID = req.params.SeasonID;
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(RoundID)) {
+        if (!isNullOrEmpty(SeasonID)) {
+          if (!isNullOrEmpty(GameStartedDateTime)) {
+            async.series([ /*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/ ], function (error, response) {
 
-
-    async.series([/*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/], function (error, response) {
-
-      if (isUserAccountIDExistFound == true) {
-        if (isSeasonIDFound == true) {
-          GameHistoryModel.AddGameHistory(UserAccountID, RoomID, SeasonID, function (response) {
-            res.send(response);
-          });
+              if (isUserAccountIDExistFound == true) {
+                if (isSeasonIDFound == true) {
+                  GameHistoryModel.AddGameHistory(UserAccountID, RoomID, SeasonID, function (response) {
+                    res.send(response);
+                  });
+                } else {
+                  res.send({
+                    SeasonIDInvalid: false
+                  });
+                }
+              } else {
+                res.send({
+                  UserAccountIDInvalid: false
+                });
+              }
+            });
+          } else {
+            res.send({
+              UserAccountIDMissing: true
+            })
+          }
         } else {
           res.send({
-            SeasonIDInvalid: false
-          });
+            RoundIDMissing: true
+          })
         }
       } else {
         res.send({
-          UserAccountIDInvalid: false
-        });
+          SeasonIDMissing: true
+        })
       }
-    });
+    } else {
+      res.send({
+        GameStartedDateTimeMissing: true
+      })
+    }
+
+    
 
 
     /*if (!isNullOrEmpty(UserAccountID)) {
@@ -279,7 +303,7 @@ module.exports = function (app) {//MODIFY
                                       }
                                     });
                                   }*/
-                                } else {
+    /*  } else {
                                   res.send({
                                     CardInvalid: true
                                   });
@@ -361,7 +385,7 @@ module.exports = function (app) {//MODIFY
     }*/
 
   });
-//STRUCTURE
+  //STRUCTURE
   app.get('/Api/v1/GameHistory/Clear', function (req, res) {
     Models.GameHistory.destroy({
         where: {},
@@ -380,7 +404,7 @@ module.exports = function (app) {//MODIFY
     }).then(function (result) {
       res.send("Deleted");
     }).catch(function (result) { //catching any then errors
-  
+
       res.send("Error " + result);
     });
   });
