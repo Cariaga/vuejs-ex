@@ -14,7 +14,7 @@ module.exports = function (app) { //INSERT
     let Reason = req.params.Reason;
     let Answer = req.params.Time;
     let Status = req.params.Status;
-    Models.SupportTicket.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Description)) {
