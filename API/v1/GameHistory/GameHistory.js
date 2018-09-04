@@ -202,7 +202,6 @@ module.exports = function (app) { //MODIFY
     res.setHeader('Content-Type', 'application/json');
     let RoomID = req.params.RoomID;
     let SeasonID = req.params.SeasonID;
-    if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(RoundID)) {
         if (!isNullOrEmpty(SeasonID)) {
           if (!isNullOrEmpty(GameStartedDateTime)) {
@@ -239,11 +238,7 @@ module.exports = function (app) { //MODIFY
           SeasonIDMissing: true
         })
       }
-    } else {
-      res.send({
-        GameStartedDateTimeMissing: true
-      })
-    }
+ 
 
     
 
