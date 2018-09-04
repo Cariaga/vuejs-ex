@@ -29,6 +29,7 @@ module.exports = function (app) {
                       LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
                         console.log("done");
                       });
+                      
                        /* LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
                           res.send(response3);
                         });*/
