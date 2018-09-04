@@ -18,7 +18,6 @@ module.exports = function (app) { //MODIFY
     if (!isNullOrEmpty(RoomID)) {
       if (!isNullOrEmpty(SmallBlind)) {
         if (!isNullOrEmpty(BigBlind)) {
-
           if (!isNullOrEmpty(Speed)) {
             if (!isNullOrEmpty(GameType)) {
               let IsRoomIDFound = false; // for the update RoomID Must Exist
