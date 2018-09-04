@@ -6,7 +6,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
-module.exports.AddLoginHistory = function(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, DateTime,callback){
+module.exports.AddLoginHistory = function(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu,callback){
     let _UserAccountID = UserAccountID;
     let _IP = IP;
     let _DeviceName = DeviceName;
@@ -15,7 +15,7 @@ module.exports.AddLoginHistory = function(UserAccountID, IP, DeviceName, DeviceR
     let _DateTime = DateTime;
     let query =
     "INSERT INTO `sampledb`.`loginhistories` (`IP`, `UserAccountID`, `DeviceName`, `DeviceRam`, `DeviceCpu`, `LoginDateTime`) "+
-    "VALUES ('"+_UserAccountID+"','"+_IP+"','"+_DeviceName+"','"+_DeviceRam+"','"+_DeviceCpu+"','"+_DateTime+"');"
+    "VALUES ('"+_UserAccountID+"','"+_IP+"','"+_DeviceName+"','"+_DeviceRam+"','"+_DeviceCpu+"',now());"
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
