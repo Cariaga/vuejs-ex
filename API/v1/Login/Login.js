@@ -25,9 +25,9 @@ module.exports = function (app) {
                 if (!isNullOrEmpty(DeviceName)) {
                   if (!isNullOrEmpty(DeviceRam)) {
                     if (!isNullOrEmpty(DeviceCpu)) {
-                      let LoginHistoryModel = require ('./API/v1/Login/LoginHistoryModel');
+                      let LoginHistoryModel = require ('./LoginHistoryModel');
                       LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
-                        console.log("done");
+                       res.send(response);
                       });
                       
                        /* LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
