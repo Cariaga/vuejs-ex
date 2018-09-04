@@ -20,7 +20,7 @@ module.exports = function (app) {
     let GraphicsDevice = req.query.GraphicsDevice;
   
     let DateTime = req.query.DateTime; //2018-06-27 01:57:17
-    if (!isNullOrEmpty(DeviceUUID) &&
+   /* if (!isNullOrEmpty(DeviceUUID) &&
       !isNullOrEmpty(IP) &&
       !isNullOrEmpty(DeviceName) &&
       !isNullOrEmpty(DeviceRam) &&
@@ -53,7 +53,7 @@ module.exports = function (app) {
                   console.log('done');
                   // result now equals 'done'
                   console.log('3');
-                  Models.UserAccount.sync( /*{force:true}*/ ); //makes sure table exist and syncs it
+                  Models.UserAccount.sync(); //makes sure table exist and syncs it
                   console.log('4');
                   LoginHistoryModel.AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response3) {
                     console.log('5');
@@ -305,7 +305,7 @@ module.exports = function (app) {
       res.send({
         DeviceInformationsMissing: true
       });
-    }
+    }*/
   });
 
   app.get('/Api/v1/Login/:UserName/:Password/', function (req, res) {
