@@ -553,7 +553,7 @@ module.exports = function (app) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/
    
     async.series([], function (error, response) {
-        DepositHistoryModel.AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, function (response) {
+        DepositHistoryModel.AddDepositHistoryRequest(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, function (response) {
           res.send(response);
         });
     });
