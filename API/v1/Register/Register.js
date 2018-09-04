@@ -5,6 +5,7 @@ let RegisterModel = require("../Register/RegisterModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
+var http = require('http');
 module.exports = function (app) {
 //http://localhost:8080/Api/v1/Register/Add/UserName/1UserName/Password/1Password/Name/1Name/SurName/1SurName/Email/1Email/PhoneNumber/1PhoneNumber/BankName/1BankName/SecurityCode/1SecurityCode/Valid/1Valid/Expiration/1Expiration/AccountNumber/1AccountNumber
   app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Valid/:Valid/Expiration/:Expiration/AccountNumber/:AccountNumber', function (req, res) {
@@ -36,7 +37,9 @@ module.exports = function (app) {
                       let AccessID = "1";
                       RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration, function (response) {
                         if (response != undefined) {
-                          res.send(response);
+                         // res.send(response);
+                          var status = 200;
+                          res.status(status).end(http.STATUS_CODES[status]);
                         } else {
                           res.send({
                             AddUserAccountFailed: true
