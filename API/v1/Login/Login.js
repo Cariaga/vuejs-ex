@@ -6,18 +6,18 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var LoginHistoryModel = require('./LoginHistoryModel');
 module.exports = function (app) {
-  app.get('/Login', function (req, res) {
+  app.get('/Api/v1/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/:DateTime', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
-    let UserName = req.query.UserName;
-    let Password = req.query.Password;
-    let DeviceUUID = req.query.DeviceUUID;
-    let IP = req.query.IP;
-    let DeviceName = req.query.DeviceName;
-    let DeviceRam = req.query.DeviceRam;
-    let DeviceCpu = req.query.DeviceCpu;
-    let OperatingSystem = req.query.OperatingSystem;
-    let GraphicsDevice = req.query.GraphicsDevice;
+    let UserName = req.params.UserName;
+    let Password = req.params.Password;
+    let DeviceUUID = req.params.DeviceUUID;
+    let IP = req.params.IP;
+    let DeviceName = req.params.DeviceName;
+    let DeviceRam = req.params.DeviceRam;
+    let DeviceCpu = req.params.DeviceCpu;
+    let OperatingSystem = req.params.OperatingSystem;
+    let GraphicsDevice = req.params.GraphicsDevice;
 
     let DateTime = req.query.DateTime; //2018-06-27 01:57:17
     if (!isNullOrEmpty(UserAccountID)) {
