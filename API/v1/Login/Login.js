@@ -45,9 +45,25 @@ module.exports = function (app) {
                     })
                   }
 
+                }else{
+                  res.send({
+                    DeviceNameMissing: true
+                  })
                 }
+              }else{
+                res.send({
+                  IPMissing: true
+                })
               }
+            }else{
+              res.send({
+                PasswordMissing: true
+              })
             }
+          }else{
+            res.send({
+              UserNameMissing: true
+            })
           }
         });
                   
