@@ -169,11 +169,11 @@ const mysql = require('mysql2');
    * @param {*} UserAccountID
    * @param {*} callback
    */
-  function isUserAccountIDExist(UserAccountID, callback) {
-    let query =
-    `SET @UserAccountID=${UserAccountID};`+
+  module.exports.isUserAccountIDExist = function isUserAccountIDExist(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID
+    let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID ='" + _UserAccountID+"'";
     
-   
+   console.log(query)
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
@@ -182,6 +182,7 @@ const mysql = require('mysql2');
         callback(undefined);
       }
     });
+
     /*Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
