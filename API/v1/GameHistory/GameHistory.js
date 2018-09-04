@@ -202,7 +202,7 @@ module.exports = function (app) { //MODIFY
     res.setHeader('Content-Type', 'application/json');
     let RoomID = req.params.RoomID;
     let SeasonID = req.params.SeasonID;
-      if (!isNullOrEmpty(RoundID)) {
+      if (!isNullOrEmpty(RoomID)) {
         if (!isNullOrEmpty(SeasonID)) {
           if (!isNullOrEmpty(GameStartedDateTime)) {
             async.series([ /*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/ ], function (error, response) {
