@@ -6,7 +6,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, callback) {
+module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Expiration, callback) {
   let _UserAccountID = UserAccountID;
   let _AccessID = AccessID;
   let _UserName = UserName;
@@ -17,7 +17,7 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
   let _BankName = BankName;
   let _AccountNumber = AccountNumber;
   let _SecurityCode = SecurityCode;
-  let _Valid = Valid;
+  // let _Valid = Valid;
   let _Expiration = Expiration;
   let query =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`) " +
@@ -29,7 +29,7 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
     console.log(query2);
   let query3 =
     "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) " +
-    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','" + _Valid + "','" + _Expiration + "',now()); ";
+    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','false','" + _Expiration + "',now()); ";
     console.log(query3);
     async.waterfall([Q1,Q2], function (err, response) {
       DBConnect.DBConnect(query3, function (response2) {
