@@ -6,7 +6,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Expiration, callback) {
+module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, callback) {
   let _UserAccountID = UserAccountID;
   let _AccessID = AccessID;
   let _UserName = UserName;
@@ -17,7 +17,7 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
   let _BankName = BankName;
   let _AccountNumber = AccountNumber;
   let _SecurityCode = SecurityCode;
-  // let _Valid = Valid;
+  let _Valid = Valid;
   let _Expiration = Expiration;
   let query =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`) " +
