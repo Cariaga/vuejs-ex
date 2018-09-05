@@ -55,3 +55,9 @@ let PlayerModel  = require('./API/v1/Player/PlayerModel');
 PlayerModel.PlayerInformation('Account8',function(response){
   console.log(response);
 });
+
+http://localhost:8080/Api/v1/IPList/
+let IPListModel = require("./API/v1/IPList/IPListModel");
+IPListModel.IPList(undefined,undefined, function (response) {
+  console.log(response);
+});
