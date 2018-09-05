@@ -155,11 +155,9 @@ module.exports = function (app) {//SELECTION
   app.get('/Api/v1/IPList/', function (req, res) {
     IPListModel.IPList(undefined,undefined, function (response) {
       if (response != undefined) {
-        LoginHistoryResult = response;
-        callback(null, '5');
+        res.send(response);
       } else {
-        LoginHistoryResult = undefined;
-        callback(null, '5');
+        callback([]);
       }
     });
   });
