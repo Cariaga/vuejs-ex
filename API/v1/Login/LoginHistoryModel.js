@@ -70,7 +70,8 @@ module.exports.LoginAccount = function(UserName,Password,callback){
 
     function QueryAccountType() {
       let Query = 
-     "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Description,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate FROM sampledb.useraccounts as UA LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID where UA.UserName ='U8' and UA.Password= '"+_UserName+"' order by BL.ReportDate desc limit 1; ";
+     "SELECT FAT.UserAccountID,IFNULL(FAT.AccountType, 'NoType') as AccountType,UA.UserName FROM sampledb.fullaccounttypes as FAT "
+     "Inner Join UserAccounts as UA on UA.UserAccountID = FAT.UserAccountID where UA.UserName='U6'; ";
        return new Promise(resolve => {
          DBConnect.DBConnect(Query, function (response) {
            if (response != undefined) {
