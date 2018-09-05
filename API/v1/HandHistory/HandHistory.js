@@ -139,7 +139,7 @@ module.exports = function (app) { //MODIFY
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      let HandHistoryModel = require("./HandHistoryModel");
+     
       HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
         res.send(response);
       });
@@ -149,7 +149,7 @@ module.exports = function (app) { //MODIFY
     res.setHeader('Content-Type', 'application/json');
     let SeasonID = req.params.SeasonID;
     if (!isNullOrEmpty(SeasonID)) {
-      let HandHistoryModel = require("./HandHistoryModel");
+    
       HandHistoryModel.HandHistorySeasonID(SeasonID, function (response) {
         res.send(response);
       });
