@@ -57,6 +57,12 @@ PlayerModel.PlayerInformation('Account8',function(response){
   console.log(response);
 });
 
+let TransactionHistoryModel = require('./API/v1/TransactionHistory/TransactionHistoryModel');
+TransactionHistoryModel.UpdateTransactionStatus('Transaction2', 'pending',function(response){
+  console.log(response);
+});
+
+
 http://localhost:8080/Api/v1/IPList/
 let IPListModel = require("./API/v1/IPList/IPListModel");
 IPListModel.IPList(undefined,undefined, function (response) {
@@ -65,5 +71,3 @@ IPListModel.IPList(undefined,undefined, function (response) {
 
 let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
 GameLogListModel.GameLogList(undefined,undefined, function (response) {
-  console.log(response);
-});
