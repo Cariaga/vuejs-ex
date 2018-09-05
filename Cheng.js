@@ -62,3 +62,8 @@ let IPListModel = require("./API/v1/IPList/IPListModel");
 IPListModel.IPList(undefined,undefined, function (response) {
   console.log(response);
 });
+
+let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
+GameLogListModel.GameLogList(undefined,undefined, function (response) {
+  console.log(response);
+});
