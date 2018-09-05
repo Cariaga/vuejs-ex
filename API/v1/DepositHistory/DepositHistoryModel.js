@@ -55,8 +55,13 @@ module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccount
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  let query = '';
+module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, UserTransactionID, Amount, callback) {
+  let _UserAccountID = UserAccountID;
+  let _UserTransactionID = UserTransactionID;
+  let _Amount = Amount;
+  
+  let query = 'INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)'+
+              "VALUES ('"+_UserAccountID+"','"+_UserTransactionID+"','"+_Amount+"','deposit');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
