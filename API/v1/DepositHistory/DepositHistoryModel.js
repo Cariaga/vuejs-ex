@@ -16,8 +16,17 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Status
  * @param {*} callback
  */
-module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, callback) {
-  let query = '';
+module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccountID, UserTransactionID, Amount, callback) {
+  let _UserAccountID = UserAccountID;
+  let _UserTransactionID = UserTransactionID;
+  let _Amount = Amount;
+  
+  let query =
+    "INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)" +
+    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false');";
+
+
+  console.log(query);
   
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
