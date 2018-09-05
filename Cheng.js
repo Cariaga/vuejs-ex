@@ -70,4 +70,4 @@ IPListModel.IPList(undefined,undefined, function (response) {
 });
 
 let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
-GameLogListModel.GameLogList(undefined,undefined, function (response) {
+GameLogListModel.GameLogList(undefined,undefined, function (response) {});
