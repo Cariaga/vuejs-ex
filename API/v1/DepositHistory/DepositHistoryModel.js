@@ -24,19 +24,43 @@ module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccount
   
   let query =
     "INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)" +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false');";
+    "VALUES ('" + _UserAccountID + "','" + _UserTransactionID + "','" + _Amount + "',now(),'false');";
 
+  let query2 =
+    "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`)" +
+    "VALUES ('"+ _UserTransactionID + "',now());";
 
-  console.log(query);
-  
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
+    
+    function Q1(callback) {
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
     }
-  });
+    
+    function Q2(callback) {
+      DBConnect.DBConnect(query2, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
+    }
+    
+    Promise.all([Q1, Q2]).then(function(values) {
+      console.log(values);
+      console.log('deposit successful');
+    });
+    
+
+
+
 }
 /**
  *
@@ -63,14 +87,41 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   
   let query = 'INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)'+
               "VALUES ('"+_UserAccountID+"','"+_UserTransactionID+"','"+_Amount+"','deposit');";
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
+
+  let query2 = 'INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`)'+
+              "VALUES ('"+_UserTransactionID+"',now());";
+
+
+  var promise = new Promise(function(resolve, reject) {
+   DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        resolve();
+      } else {
+        reject();
+      }
+     })
   });
+
+  var promise2 = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(query2, function (response) {
+       if (response != undefined) {
+         resolve();
+       } else {
+         reject();
+       }
+      })
+   });
+  
+  Promise.all([promise,promise2]).then(function() {
+    console.log('deposit successful');
+    callback(true);
+    }, function(){ //if promise or promise2 fail
+    console.log('something went wrong')
+    callback(undefined);
+  });
+
+              
+              
   /*var item1 = Models.DepositHistory.build({
     UserAccountID: UserAccountID,
     Amount: Amount,

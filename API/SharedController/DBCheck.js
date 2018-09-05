@@ -179,6 +179,7 @@ const mysql = require('mysql2');
         callback(response);
       }else{
         callback(undefined);
+        console.log('UserAccountID does not exist');
       }
     });
 

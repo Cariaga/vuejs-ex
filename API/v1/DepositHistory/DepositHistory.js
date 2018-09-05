@@ -421,8 +421,7 @@ module.exports = function (app) {
                 let UserTransactionID = uuidv4();
 
                 DepositHistoryModel.AddDepositHistory(UserAccountID, UserTransactionID, Amount,  function (response) {
-                  if (response != undefined) {
-                    console.log(response);
+                  if (response) {
                      var status = 200;
                      res.status(status).end(http.STATUS_CODES[status]);
                    } else {
