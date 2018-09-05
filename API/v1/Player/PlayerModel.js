@@ -272,3 +272,15 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
     });*/
   //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
+
+module.exports.PlayerInformation = function PlayerInformation(UserAccountID, callback) {
+  let query ="SELECT UserAccountID,ScreenName,Name,Surname,CurrentRoomName,CurrentPoints FROM sampledb.players where UserAccountID='"+UserAccountID+"';";
+  
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+};

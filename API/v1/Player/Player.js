@@ -379,7 +379,17 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-
+  app.get('/Api/v1/Player/UserAccountID/:UserAccountID', function (req, res) {//ok
+    res.setHeader('Content-Type', 'application/json');
+    Models.Player.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    if (isNullOrEmpty(UserAccountID)) {
+    
+      PlayerModel.PlayerInformation('Account8',function(response){
+        console.log(response);
+      });
+    }
+   
+  });
   app.get('/Api/v1/Player/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
