@@ -97,6 +97,7 @@ require('./API/v1/UserSupportTicket/UserSupportTicket')(app);
 require('./API/v1/Verification/Verification')(app);
 require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
 require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
+require('./API/v1/TransactionHistory/TransactionHistory')(app);
 let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
 function test(){
  let RegisterModel= require('./API/v1/Register/RegisterModel');

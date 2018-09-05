@@ -55,3 +55,8 @@ let PlayerModel  = require('./API/v1/Player/PlayerModel');
 PlayerModel.PlayerInformation('Account8',function(response){
   console.log(response);
 });
+
+let TransactionHistoryModel = require('./API/v1/TransactionHistory/TransactionHistoryModel');
+TransactionHistoryModel.UpdateTransactionStatus('Transaction2', 'pending',function(response){
+  console.log(response);
+});
