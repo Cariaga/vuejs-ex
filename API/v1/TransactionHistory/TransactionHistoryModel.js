@@ -7,8 +7,8 @@ module.exports.UpdateTransactionStatus = function (UserTransactionID, Transactio
     let query =
         "UPDATE `sampledb`.`transactions` " +
         "SET TransactionStatus = '"+_TransactionStatus+"' " +
-        "WHERE UserAccountID = '" + _UserTransactionID + "' ";
-        console.log(query);
+        "WHERE UserTransactionID = '" + _UserTransactionID + "' ";
+        
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
