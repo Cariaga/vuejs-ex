@@ -29,8 +29,9 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
 
 
 let LoginHistoryModel = require ('./API/v1/Login/LoginHistoryModel');
-LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
-  console.log("done");
+LoginHistoryModel.LoginAccount('U8', 'U8', function (response) {
+
+  console.log(response);
 });
 
 let WithdrawHistoryModel = require('./API/v1/WithdrawHistory/WithdrawHistoryModel');
@@ -39,3 +40,21 @@ WithdrawHistoryModel.AddWithdrawHistory('Transaction3', 'asd', '11', 'bdo', '151
 });
 
 // http://localhost:8080/Api/v1/HandHistory/Add/UserAccountID/Account1/MoveHand/Call/SeasonID/S2/
+
+
+
+function resolveAfter2Seconds() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, 2000);
+  });
+}
+
+async function asyncCall() {
+  console.log('calling');
+  var result = await resolveAfter2Seconds();
+  console.log(result);
+  // expected output: 'resolved'
+}
+asyncCall();

@@ -15,7 +15,8 @@ module.exports.AddLoginHistory = function(UserName,Password, IP, DeviceName, Dev
     let _DeviceRam = DeviceRam;
     let _DeviceCpu = DeviceCpu;
     let query =
-    "SELECT UserAccountID,Verified,RegisteredDateTime FROM sampledb.useraccounts where UserName='"+_UserName+"'and Password='"+_Password+"';"
+    "SELECT UserAccountID,Verified,RegisteredDateTime FROM sampledb.useraccounts where UserName='"+_UserName+"'and Password='"+_Password+"';";
+
     async.waterfall([Q1], function (err, response) {
       let query2 =
       "INSERT INTO `sampledb`.`loginhistories` (`IP`, `UserAccountID`, `DeviceName`, `DeviceRam`, `DeviceCpu`, `LoginDateTime`) "+
@@ -46,21 +47,48 @@ module.exports.AddLoginHistory = function(UserName,Password, IP, DeviceName, Dev
 }
 module.exports.LoginAccount = function(UserName,Password,callback){
   let _UserName =UserName;
-  let _Password =Password;
-  let query = 
-  "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Description,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate "+
-  "FROM sampledb.useraccounts as UA "+
-  "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
-  "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
-  "where UA.UserName ='"+_UserName+"' and UA.Password= '"+_Password+"' "+
-  "order by BL.ReportDate desc limit 1; ";
-  console.log(query);
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        //callback(undefined);
-      }
-  });
+  let _Password =Password;  
+    function QueryLoginAccount() {
+     let Query = 
+    "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Description,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate "+
+    "FROM sampledb.useraccounts as UA "+
+    "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
+    "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
+    "where UA.UserName ='"+_UserName+"' and UA.Password= '"+_Password+"' "+
+    "order by BL.ReportDate desc limit 1; ";
+      console.log(Query);
+      return new Promise(resolve => {
+        DBConnect.DBConnect(Query, function (response) {
+          if (response != undefined) {
+              resolve(response);
+            } else {
+              //callback(undefined);
+            }
+        });
+      });
+    }
+
+    function QueryAccountType() {
+      let Query = 
+     "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Description,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate FROM sampledb.useraccounts as UA LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID where UA.UserName ='U8' and UA.Password= '"+_UserName+"' order by BL.ReportDate desc limit 1; ";
+       return new Promise(resolve => {
+         DBConnect.DBConnect(Query, function (response) {
+           if (response != undefined) {
+               resolve(response);
+             } else {
+               //callback(undefined);
+             }
+         });
+       });
+     }
+
+    async function RunAsync() {
+      console.log('calling');
+      var result = await QueryLoginAccount();
+      var result2 = await QueryAccountType();
+      console.log(result);
+      console.log(result2);
+      callback('done');
+    }
+    RunAsync();
 }

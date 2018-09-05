@@ -28,27 +28,31 @@ module.exports = function (app) {
                       
                       LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
                         let firstRow = response[0];
-                        if(firstRow.Status!="Blocked"){
-                          if(firstRow.Verified=="true"){
+                        console.log(firstRow.Verified);
+                        if(firstRow.Verified=="true"){
+                          if(firstRow.Status!="Blocked"){
+                            
+                            LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
+                              res.send(response3);
+                            });
                             res.send({
                               UserAccountID:firstRow.UserAccountID,
                               OnlineStatus:firstRow.OnlineStatus,
                               Email:firstRow.Email,
                               PhoneNumber:firstRow.PhoneNumber});
+                            
+  
                           }else{
-                            res.send({AccountUnverified:true});
+                            res.send({AccountBlocked:true});
                           }
-                          
-
                         }else{
-                          res.send({AccountBlocked:true});
+                          res.send({AccountUnverified:true});
                         }
+                        
                       });
 
                       
-                       /* LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
-                          res.send(response3);
-                        });*/
+                      
                         
                     } else {
                       res.send({
