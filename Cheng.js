@@ -43,32 +43,14 @@ WithdrawHistoryModel.AddWithdrawHistory('Transaction3', 'asd', '11', 'bdo', '151
 
 
 
-let LogOutModel = require("./LogOutModel");
-
-LogOutModel.LogOutUserAccount(UserAccountID,function(response){
+let LogOutModel = require("./API/v1/Login/LogOutModel");
+LogOutModel.LogOutUserAccount('Account8',function(response){
   let status = 200;
   res.status(status).end(http.STATUS_CODES[status]);
 });
 
 
-function resolveAfter2Seconds() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve('resolved');
-    }, 2000);
-  });
-}
-
-async function asyncCall() {
-  console.log('calling');
-  var result = await resolveAfter2Seconds();
-  console.log(result);
-  // expected output: 'resolved'
-}
-asyncCall();
-
-
-//
+//http://localhost:8080/Api/v1/Player/UserAccountID/Account8
 let PlayerModel  = require('./API/v1/Player/PlayerModel');
 PlayerModel.PlayerInformation('Account8',function(response){
   console.log(response);

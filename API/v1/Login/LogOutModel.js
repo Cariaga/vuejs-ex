@@ -18,5 +18,5 @@ module.exports.LogOutUserAccount = function (UserAccountID, OnlineStatus, callba
         } else {
             callback(undefined);
         }
-    });
+      });
 }

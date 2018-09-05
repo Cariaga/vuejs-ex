@@ -4,6 +4,7 @@ let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var IPListModel = require('./IPListModel');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -136,7 +137,26 @@ module.exports = function (app) {//SELECTION
           }
         });
       }
-
     }
+  });
+  app.get('/Api/v1/IPList/Min/:Min/Max/:Max', function (req, res) {//OK
+    let Min =req.params.Min;
+    let Max = req.params.Max;
+    IPListModel.IPList(Min,Max, function (response) {
+      if (response != undefined) {
+        res.send(response);
+      } else {
+        callback([]);
+      }
+    });
+  });
+  app.get('/Api/v1/IPList/', function (req, res) {
+    IPListModel.IPList(undefined,undefined, function (response) {
+      if (response != undefined) {
+        res.send(response);
+      } else {
+        callback([]);
+      }
+    });
   });
 }

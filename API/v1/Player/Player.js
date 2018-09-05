@@ -382,11 +382,19 @@ module.exports = function (app) { //MODIFY
   app.get('/Api/v1/Player/UserAccountID/:UserAccountID', function (req, res) {//ok
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
-    Models.Player.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if (isNullOrEmpty(UserAccountID)) {
+   
+    if (!isNullOrEmpty(UserAccountID)) {
       PlayerModel.PlayerInformation(UserAccountID,function(response){
         console.log(response);
+        if(response!=undefined){
+          res.send(response);
+        }else{
+          let status = 500;
+          res.status(status).end(http.STATUS_CODES[status]);
+        }
       });
+    }else{
+      res.send({UserAccountIDMissing:true});
     }
    
   });
