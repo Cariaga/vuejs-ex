@@ -81,3 +81,8 @@ let HandHistoryModel = require("./API/v1/HandHistory/HandHistoryModel");
 HandHistoryModel.HandHistorySeasonID(SeasonID, function (response) {
   console.log(response);
 });
+
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.UserAccountOnline(function (response) {
+  console.log(response);
+});
