@@ -80,7 +80,8 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
     });*/
 }
 module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, callback) {
-  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+SeasonID+"';";
+  let _SeasonID = SeasonID;
+  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+_SeasonID+"';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
