@@ -379,7 +379,25 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-
+  app.get('/Api/v1/Player/UserAccountID/:UserAccountID', function (req, res) {//ok
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
+   
+    if (!isNullOrEmpty(UserAccountID)) {
+      PlayerModel.PlayerInformation(UserAccountID,function(response){
+        console.log(response);
+        if(response!=undefined){
+          res.send(response);
+        }else{
+          let status = 500;
+          res.status(status).end(http.STATUS_CODES[status]);
+        }
+      });
+    }else{
+      res.send({UserAccountIDMissing:true});
+    }
+   
+  });
   app.get('/Api/v1/Player/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;

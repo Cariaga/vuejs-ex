@@ -5,7 +5,7 @@ let HandHistoryModel = require("../HandHistory/HandHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
-module.exports = function (app) {//MODIFY
+module.exports = function (app) { //MODIFY
   app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
     let RoundID = req.params.RoundID;
     let HandHistoryID = req.params.HandHistoryID;
@@ -48,7 +48,7 @@ module.exports = function (app) {//MODIFY
 
   });
   //INSERT
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/', function (req, res) {//ok
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/', function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
@@ -58,13 +58,13 @@ module.exports = function (app) {//MODIFY
         if (!isNullOrEmpty(MoveHand)) {
 
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
-            let UserAccountIDExist = true;//default is false
-            let PlayerExist = true;//default is false
-            async.series([/*UserAccountIDCheck, PlayerCheck*/], function (error, response) {
+            let UserAccountIDExist = true; //default is false
+            let PlayerExist = true; //default is false
+            async.series([ /*UserAccountIDCheck, PlayerCheck*/ ], function (error, response) {
 
               if (UserAccountIDExist == true) {
                 if (PlayerExist == true) {
-                  HandHistoryModel.AddHandHistory(UserAccountID,SeasonID, MoveHand, function (response) {
+                  HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
@@ -133,22 +133,27 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-//SELECTION
-  app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
+  //SELECTION
+  app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
+    let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
-        if (response != undefined) {
-          res.send(beautify(response, null, 2, 100));
-        } else {
-          res.send({
-            HandHistoryFailed: true
-          });
-        }
+        res.send(response);
       });
     }
   });
-//STRUCTURE
+  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let SeasonID = req.params.SeasonID;
+    if (!isNullOrEmpty(SeasonID)) {
+      HandHistoryModel.HandHistorySeasonID(SeasonID, function (response) {
+        res.send(response);
+      });
+    }
+  });
+
+  //STRUCTURE
   app.get('/Api/v1/HandHistory/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.HandHistory.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
@@ -157,5 +162,3 @@ module.exports = function (app) {//MODIFY
     });
   });
 }
-
-

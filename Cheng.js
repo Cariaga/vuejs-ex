@@ -43,18 +43,46 @@ WithdrawHistoryModel.AddWithdrawHistory('Transaction3', 'asd', '11', 'bdo', '151
 
 
 
-function resolveAfter2Seconds() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve('resolved');
-    }, 2000);
-  });
-}
+let LogOutModel = require("./API/v1/Login/LogOutModel");
+LogOutModel.LogOutUserAccount('Account8',function(response){
+  let status = 200;
+  //res.status(status).end(http.STATUS_CODES[status]);
+  console.log(response);
+});
 
-async function asyncCall() {
-  console.log('calling');
-  var result = await resolveAfter2Seconds();
-  console.log(result);
-  // expected output: 'resolved'
-}
-asyncCall();
+
+//http://localhost:8080/Api/v1/Player/UserAccountID/Account8
+let PlayerModel  = require('./API/v1/Player/PlayerModel');
+PlayerModel.PlayerInformation('Account8',function(response){
+  console.log(response);
+});
+
+// http://192.168.254.106:8080/Api/v1/TransactionHistory/UserTransactionID/Transaction2/TransactionStatus/OnGoing/
+let TransactionHistoryModel = require('./API/v1/TransactionHistory/TransactionHistoryModel');
+TransactionHistoryModel.UpdateTransactionStatus('Transaction2', 'pending',function(response){
+  console.log(response);
+});
+
+
+//http://localhost:8080/Api/v1/IPList/
+let IPListModel = require("./API/v1/IPList/IPListModel");
+IPListModel.IPList(undefined,undefined, function (response) {
+  console.log(response);
+});
+//http://localhost:8080/Api/v1/GameLogList/
+let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
+GameLogListModel.GameLogList(undefined,undefined, function (response) {console.log(response)});
+//http://localhost:8080/Api/v1/HandHistory/UserAccountID/Account8/
+let HandHistoryModel = require("./API/v1/HandHistory/HandHistoryModel");
+HandHistoryModel.HandHistoryUserAccountID('Account8', function (response) {console.log(response)});
+
+//http://localhost:8080/Api/v1/HandHistory/SeasonID/S1/
+let HandHistoryModel = require("./API/v1/HandHistory/HandHistoryModel");
+HandHistoryModel.HandHistorySeasonID(SeasonID, function (response) {
+  console.log(response);
+});
+
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.UserAccountOnline(function (response) {
+  console.log(response);
+});

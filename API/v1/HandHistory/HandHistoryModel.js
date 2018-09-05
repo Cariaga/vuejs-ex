@@ -6,6 +6,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
+
 module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, SeasonID, callback) {
   let query =
     `SET @HandHistoryID=${HandHistoryID};` +
@@ -78,8 +79,9 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
       callback(undefined);
     });*/
 }
-module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
-  let query = '';
+module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, callback) {
+  let _SeasonID = SeasonID;
+  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+_SeasonID+"';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -88,24 +90,16 @@ module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(User
       callback(undefined);
     }
   });
-  /*Models.HandHistory.sync();
-  let result = Models.HandHistory.findAll({
-    where: {
-      UserAccountID: UserAccountID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
+}
+module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
+  let _UserAccountID = UserAccountID;
+  let query = "SELECT * FROM sampledb.handhistory where UserAccountID='"+_UserAccountID+"';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
     } else {
       callback(undefined);
     }
-
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
+  });
 }

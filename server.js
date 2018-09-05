@@ -74,6 +74,7 @@ require('./API/v1/DepositHistory/DepositHistory')(app);
 require('./API/v1/DepositList/DepositList')(app);
 require('./API/v1/Distributor/Distributor')(app);
 require('./API/v1/GameHistory/GameHistory')(app);
+require('./API/v1/GameLogList/GameLogList')(app);
 require('./API/v1/HandHistory/HandHistory')(app);
 require('./API/v1/HandHistoryList/HandHistoryList')(app);
 require('./API/v1/HeadOffice/HeadOffice')(app);
@@ -97,6 +98,7 @@ require('./API/v1/UserSupportTicket/UserSupportTicket')(app);
 require('./API/v1/Verification/Verification')(app);
 require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
 require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
+require('./API/v1/TransactionHistory/TransactionHistory')(app);
 let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
 function test(){
  let RegisterModel= require('./API/v1/Register/RegisterModel');
