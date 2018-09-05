@@ -66,3 +66,10 @@ async function asyncCall() {
   // expected output: 'resolved'
 }
 asyncCall();
+
+
+//
+let PlayerModel  = require('./API/v1/Player/PlayerModel');
+PlayerModel.PlayerInformation('Account8',function(response){
+  console.log(response);
+});
