@@ -39,7 +39,8 @@ module.exports = function (app) {
                               UserAccountID:firstRow.UserAccountID,
                               OnlineStatus:firstRow.OnlineStatus,
                               Email:firstRow.Email,
-                              PhoneNumber:firstRow.PhoneNumber});
+                              PhoneNumber:firstRow.PhoneNumber,
+                              Status:firstRow.Status});
                             
   
                           }else{

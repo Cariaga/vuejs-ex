@@ -92,6 +92,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
       finalresult[0].Verified = result[0].Verified;
       finalresult[0].Email = result[0].Email;
       finalresult[0].Description = result[0].Description;
+      finalresult[0].Online = result[0].OnlineStatus;
       finalresult[0].Status = result[0].Status;
       finalresult[0].Title = result[0].Title;
       finalresult[0].ReportDate = result[0].ReportDate;
