@@ -4,6 +4,7 @@ let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var IPListModel = require('./IPListModel');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -141,7 +142,7 @@ module.exports = function (app) {//SELECTION
   app.get('/Api/v1/IPList/Min/:Min/Max/:Max', function (req, res) {//OK
     let Min =req.params.Min;
     let Max = req.params.Max;
-    IPList.LoginHistoryUserAccountID(UserAccountID,Min,Max, function (response) {
+    IPListModel.IPList(Min,Max, function (response) {
       if (response != undefined) {
         LoginHistoryResult = response;
         callback(null, '5');
@@ -152,7 +153,7 @@ module.exports = function (app) {//SELECTION
     });
   });
   app.get('/Api/v1/IPList/', function (req, res) {
-    IPList.LoginHistoryUserAccountID(UserAccountID,undefined,undefined, function (response) {
+    IPListModel.IPList(undefined,undefined, function (response) {
       if (response != undefined) {
         LoginHistoryResult = response;
         callback(null, '5');
