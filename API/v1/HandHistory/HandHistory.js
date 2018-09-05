@@ -135,7 +135,9 @@ module.exports = function (app) {//MODIFY
   });
 //SELECTION
   app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID', function (req, res) {
+    
     res.setHeader('Content-Type', 'application/json');
+    let UserAccountID= req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
         if (response != undefined) {
