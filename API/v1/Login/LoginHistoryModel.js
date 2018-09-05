@@ -62,7 +62,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
           if (response != undefined) {
               resolve(response);
             } else {
-              //callback(undefined);
+              callback(undefined);
             }
         });
       });
@@ -70,14 +70,14 @@ module.exports.LoginAccount = function(UserName,Password,callback){
 
     function QueryAccountType() {
       let Query = 
-     "SELECT FAT.UserAccountID,IFNULL(FAT.AccountType, 'NoType') as AccountType,UA.UserName FROM sampledb.fullaccounttypes as FAT "
-     "Inner Join UserAccounts as UA on UA.UserAccountID = FAT.UserAccountID where UA.UserName='U8'; ";
+     "SELECT `UA`.`UserName`,FAT.UserAccountID,IFNULL(FAT.AccountType, 'NoType') as AccountType FROM sampledb.fullaccounttypes as FAT "+
+     "Inner Join sampledb.UserAccounts as UA on UA.UserAccountID = FAT.UserAccountID where `UA`.`UserName`='"+_UserName+"'; ";
        return new Promise(resolve => {
          DBConnect.DBConnect(Query, function (response) {
            if (response != undefined) {
                resolve(response);
              } else {
-               //callback(undefined);
+               callback(undefined);
              }
          });
        });
@@ -86,6 +86,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     async function RunAsync() {
       console.log('calling');
       var result = await QueryLoginAccount();
+
       var result2 = await QueryAccountType();
       console.log(result);
       console.log(result2);
