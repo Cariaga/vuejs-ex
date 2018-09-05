@@ -78,15 +78,3 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
       callback(undefined);
     });*/
 }
-module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
-  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+UserAccountID+"';";
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-
-}
