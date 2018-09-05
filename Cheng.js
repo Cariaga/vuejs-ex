@@ -64,11 +64,14 @@ TransactionHistoryModel.UpdateTransactionStatus('Transaction2', 'pending',functi
 });
 
 
-http://localhost:8080/Api/v1/IPList/
+//http://localhost:8080/Api/v1/IPList/
 let IPListModel = require("./API/v1/IPList/IPListModel");
 IPListModel.IPList(undefined,undefined, function (response) {
   console.log(response);
 });
-
+//http://localhost:8080/Api/v1/GameLogList/
 let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
-GameLogListModel.GameLogList(undefined,undefined, function (response) {});
+GameLogListModel.GameLogList(undefined,undefined, function (response) {console.log(response)});
+
+let HandHistoryModel = require("./API/v1/HandHistory/HandHistoryModel");
+HandHistoryModel.GameLogList('Account8', function (response) {console.log(response)});
