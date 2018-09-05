@@ -79,7 +79,7 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
     });*/
 }
 module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
-  let query = '';
+  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+UserAccountID+"';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
