@@ -46,7 +46,8 @@ WithdrawHistoryModel.AddWithdrawHistory('Transaction3', 'asd', '11', 'bdo', '151
 let LogOutModel = require("./API/v1/Login/LogOutModel");
 LogOutModel.LogOutUserAccount('Account8',function(response){
   let status = 200;
-  res.status(status).end(http.STATUS_CODES[status]);
+  //res.status(status).end(http.STATUS_CODES[status]);
+  console.log(response);
 });
 
 
