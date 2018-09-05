@@ -68,7 +68,7 @@ async function asyncCall() {
 asyncCall();
 
 
-//
+//http://localhost:8080/Api/v1/Player/UserAccountID/Account8
 let PlayerModel  = require('./API/v1/Player/PlayerModel');
 PlayerModel.PlayerInformation('Account8',function(response){
   console.log(response);
