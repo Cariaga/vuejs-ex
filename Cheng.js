@@ -75,3 +75,9 @@ GameLogListModel.GameLogList(undefined,undefined, function (response) {console.l
 //http://localhost:8080/Api/v1/HandHistory/UserAccountID/Account8/
 let HandHistoryModel = require("./API/v1/HandHistory/HandHistoryModel");
 HandHistoryModel.HandHistoryUserAccountID('Account8', function (response) {console.log(response)});
+
+//http://localhost:8080/Api/v1/HandHistory/SeasonID/S1/
+let HandHistoryModel = require("./API/v1/HandHistory/HandHistoryModel");
+HandHistoryModel.HandHistorySeasonID(SeasonID, function (response) {
+  console.log(response);
+});

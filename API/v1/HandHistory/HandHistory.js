@@ -135,11 +135,9 @@ module.exports = function (app) { //MODIFY
   });
   //SELECTION
   app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID/', function (req, res) {
-
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-     
       HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
         res.send(response);
       });
@@ -149,7 +147,6 @@ module.exports = function (app) { //MODIFY
     res.setHeader('Content-Type', 'application/json');
     let SeasonID = req.params.SeasonID;
     if (!isNullOrEmpty(SeasonID)) {
-    
       HandHistoryModel.HandHistorySeasonID(SeasonID, function (response) {
         res.send(response);
       });
