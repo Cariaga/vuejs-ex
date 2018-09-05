@@ -26,7 +26,7 @@ module.exports = function (app) {
                   if (!isNullOrEmpty(DeviceRam)) {
                     if (!isNullOrEmpty(DeviceCpu)) {
                       
-                      LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
+                      LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
                         let firstRow = response[0];
                         console.log(firstRow.Verified);
                         if(firstRow.Verified=="true"){
