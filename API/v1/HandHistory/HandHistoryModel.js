@@ -78,3 +78,25 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
       callback(undefined);
     });*/
 }
+module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, callback) {
+  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+SeasonID+"';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
+  let query = "SELECT * FROM sampledb.handhistory where UserAccountID='"+UserAccountID+"';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
