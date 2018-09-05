@@ -145,6 +145,18 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
+  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', function (req, res) {
+
+    res.setHeader('Content-Type', 'application/json');
+    let SeasonID = req.params.SeasonID;
+    if (!isNullOrEmpty(SeasonID)) {
+      let HandHistoryModel = require("./HandHistoryModel");
+      HandHistoryModel.HandHistoryUserSeasonID(SeasonID, function (response) {
+        res.send(response);
+      });
+    }
+  });
+  
   //STRUCTURE
   app.get('/Api/v1/HandHistory/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
