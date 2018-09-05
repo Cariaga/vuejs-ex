@@ -136,7 +136,9 @@ module.exports = function (app) {//SELECTION
           }
         });
       }
-
     }
+  });
+  app.get('/Api/v1/IPList/Min/:Max', function (req, res) {
+
   });
 }

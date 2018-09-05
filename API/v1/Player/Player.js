@@ -383,7 +383,7 @@ module.exports = function (app) { //MODIFY
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
    
-    if (isNullOrEmpty(UserAccountID)) {
+    if (!isNullOrEmpty(UserAccountID)) {
       PlayerModel.PlayerInformation(UserAccountID,function(response){
         console.log(response);
         if(response!=undefined){
@@ -393,6 +393,8 @@ module.exports = function (app) { //MODIFY
           res.status(status).end(http.STATUS_CODES[status]);
         }
       });
+    }else{
+      res.send({UserAccountIDMissing:true});
     }
    
   });
