@@ -144,11 +144,9 @@ module.exports = function (app) {//SELECTION
     let Max = req.params.Max;
     IPListModel.IPList(Min,Max, function (response) {
       if (response != undefined) {
-        LoginHistoryResult = response;
-        callback(null, '5');
+        res.send(response);
       } else {
-        LoginHistoryResult = undefined;
-        callback(null, '5');
+        callback([]);
       }
     });
   });
