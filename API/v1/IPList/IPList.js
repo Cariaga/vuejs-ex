@@ -138,7 +138,28 @@ module.exports = function (app) {//SELECTION
       }
     }
   });
-  app.get('/Api/v1/IPList/Min/:Max', function (req, res) {
-
+  app.get('/Api/v1/IPList/Min/:Min/Max/:Max', function (req, res) {//OK
+    let Min =req.params.Min;
+    let Max = req.params.Max;
+    IPList.LoginHistoryUserAccountID(UserAccountID,Min,Max, function (response) {
+      if (response != undefined) {
+        LoginHistoryResult = response;
+        callback(null, '5');
+      } else {
+        LoginHistoryResult = undefined;
+        callback(null, '5');
+      }
+    });
+  });
+  app.get('/Api/v1/IPList/', function (req, res) {
+    IPList.LoginHistoryUserAccountID(UserAccountID,undefined,undefined, function (response) {
+      if (response != undefined) {
+        LoginHistoryResult = response;
+        callback(null, '5');
+      } else {
+        LoginHistoryResult = undefined;
+        callback(null, '5');
+      }
+    });
   });
 }
