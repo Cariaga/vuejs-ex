@@ -1,7 +1,7 @@
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) { 
-    app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', function (req, res) {
+    app.get('/Api/v1/Dashboard/OnlineStatuses/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         let SeasonID = req.params.SeasonID;
         if (!isNullOrEmpty(SeasonID)) {
