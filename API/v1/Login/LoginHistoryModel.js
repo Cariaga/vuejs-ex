@@ -85,12 +85,12 @@ module.exports.LoginAccount = function(UserName,Password,callback){
 
     async function RunAsync() {
       console.log('calling');
-      var result = await QueryLoginAccount();
-
-      var result2 = await QueryAccountType();
+      let result = await QueryLoginAccount();
+      let result2 = await QueryAccountType();
+      
       console.log(result);
       console.log(result2);
-      callback('done');
+    
     }
     RunAsync();
 }
