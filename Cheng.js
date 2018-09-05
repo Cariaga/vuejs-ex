@@ -57,6 +57,7 @@ PlayerModel.PlayerInformation('Account8',function(response){
   console.log(response);
 });
 
+// http://192.168.254.106:8080/Api/v1/TransactionHistory/UserTransactionID/Transaction2/TransactionStatus/OnGoing/
 let TransactionHistoryModel = require('./API/v1/TransactionHistory/TransactionHistoryModel');
 TransactionHistoryModel.UpdateTransactionStatus('Transaction2', 'pending',function(response){
   console.log(response);
