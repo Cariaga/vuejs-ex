@@ -62,7 +62,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
           if (response != undefined) {
               resolve(response);
             } else {
-              callback(undefined);
+              resolve(undefined);
             }
         });
       });
@@ -77,7 +77,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
            if (response != undefined) {
                resolve(response);
              } else {
-               callback(undefined);
+              resolve(undefined);
              }
          });
        });
@@ -85,12 +85,20 @@ module.exports.LoginAccount = function(UserName,Password,callback){
 
     async function RunAsync() {
       console.log('calling');
+      let finalresult = [{}];
       let result = await QueryLoginAccount();
       let result2 = await QueryAccountType();
+      finalresult[0].UserAccountID = result[0].UserAccountID;
+      finalresult[0].Verified = result[0].Verified;
+      finalresult[0].Email = result[0].Email;
+      finalresult[0].Description = result[0].Description;
+      finalresult[0].Status = result[0].Status;
+      finalresult[0].Title = result[0].Title;
+      finalresult[0].ReportDate = result[0].ReportDate;
+      finalresult[0].AccountType = result2[0].AccountType;
+      //console.log(finalresult);
+      callback(finalresult);
       
-      console.log(result);
-      console.log(result2);
-    
     }
     RunAsync();
 }

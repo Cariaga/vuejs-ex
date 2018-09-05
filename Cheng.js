@@ -29,7 +29,7 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
 
 
 let LoginHistoryModel = require ('./API/v1/Login/LoginHistoryModel');
-LoginHistoryModel.LoginAccount('U8', 'U8', function (response) {
+LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
 
   console.log(response);
 });
