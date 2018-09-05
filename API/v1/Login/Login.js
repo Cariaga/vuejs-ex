@@ -33,14 +33,21 @@ module.exports = function (app) {
                           if(firstRow.Status!="Blocked"){
                             
                             LoginHistoryModel.AddLoginHistory(UserName,Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
-                              res.send(response3);
+
+                              if(response3!=undefined){
+                                res.send({
+                                  UserAccountID:firstRow.UserAccountID,
+                                  OnlineStatus:firstRow.OnlineStatus,
+                                  Email:firstRow.Email,
+                                  PhoneNumber:firstRow.PhoneNumber,
+                                  Status:firstRow.Status});
+                              }else{
+                                let status = 500;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                              }
+
                             });
-                            res.send({
-                              UserAccountID:firstRow.UserAccountID,
-                              OnlineStatus:firstRow.OnlineStatus,
-                              Email:firstRow.Email,
-                              PhoneNumber:firstRow.PhoneNumber,
-                              Status:firstRow.Status});
+                            
                             
   
                           }else{

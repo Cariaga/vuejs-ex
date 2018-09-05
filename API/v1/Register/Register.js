@@ -38,7 +38,7 @@ module.exports = function (app) {
                       RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration, function (response) {
                         if (response != undefined) {
                          // res.send(response);
-                          var status = 200;
+                          let status = 200;
                           res.status(status).end(http.STATUS_CODES[status]);
                         } else {
                           res.send({
