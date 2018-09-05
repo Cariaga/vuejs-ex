@@ -6,7 +6,6 @@ var uuidv4 = require('uuid/v4');
 
 module.exports.LogOutUserAccount = function(UserAccountID, OnlineStatus, callback){
     let _UserAccountID = UserAccountID;
-<<<<<<< HEAD
     let _OnlineStatus = OnlineStatus;
     let query =
     
@@ -22,6 +21,4 @@ module.exports.LogOutUserAccount = function(UserAccountID, OnlineStatus, callbac
           callback(undefined);
         }
       });
-=======
->>>>>>> 87e81be59a72fa148e99272cb39f28891b5691e5
 }
