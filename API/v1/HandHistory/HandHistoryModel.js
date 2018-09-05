@@ -90,7 +90,8 @@ module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, call
   });
 }
 module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
-  let query = "SELECT * FROM sampledb.handhistory where UserAccountID='"+UserAccountID+"';";
+  let _UserAccountID = UserAccountID;
+  let query = "SELECT * FROM sampledb.handhistory where UserAccountID='"+_UserAccountID+"';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
