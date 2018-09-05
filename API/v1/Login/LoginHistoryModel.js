@@ -71,7 +71,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     function QueryAccountType() {
       let Query = 
      "SELECT FAT.UserAccountID,IFNULL(FAT.AccountType, 'NoType') as AccountType,UA.UserName FROM sampledb.fullaccounttypes as FAT "
-     "Inner Join UserAccounts as UA on UA.UserAccountID = FAT.UserAccountID where UA.UserName='U6'; ";
+     "Inner Join UserAccounts as UA on UA.UserAccountID = FAT.UserAccountID where UA.UserName='U8'; ";
        return new Promise(resolve => {
          DBConnect.DBConnect(Query, function (response) {
            if (response != undefined) {
