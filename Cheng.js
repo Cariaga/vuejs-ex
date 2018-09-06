@@ -11,8 +11,8 @@ DBCheck.IsRoomIDExist('RID88',function(response){
   console.log(response);
 });
 let DBCheck = require('./API/SharedController/DBCheck');
-DBCheck.TryMinusCurrentPoints('Account8', 50, function(response){
-  console.log("Done");
+DBCheck.TryMinusCurrentPoints('Account8',20, function(response){
+  console.log(response);
 });
 
 // http://192.168.254.106:8080/Api/v1/Notification/Add/NotificationType/Sample/Title/ChipsAhoy/Description/FreeChips/Status/Pending
