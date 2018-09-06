@@ -77,5 +77,16 @@ IPListModel.IPList(undefined,undefined, function (response) {
   console.log(response);
 });
 
+<<<<<<< HEAD
 let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
 GameLogListModel.GameLogList(undefined,undefined, function (response) {});
+=======
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.UserAccountOnline(function (response) {
+  console.log(response);
+});
+//http://localhost:8080/Api/v1/Dashboard/NewUsers/
+DashBoardModel.UserAccountRecentRegistered(function (response) {
+  res.send(response);
+});
+>>>>>>> 320e0189ccdac21aa0a03fc56cc020e5b1a1bac1

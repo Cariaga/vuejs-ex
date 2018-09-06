@@ -173,13 +173,13 @@ const mysql = require('mysql2');
     let _UserAccountID = UserAccountID
     let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID ='" + _UserAccountID+"'";
     
-   console.log(query)
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
-        console.log(response);
+        console.log('UserAccountID exist');
         callback(response);
       }else{
         callback(undefined);
+        console.log('UserAccountID does not exist');
       }
     });
 
