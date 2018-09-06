@@ -143,12 +143,9 @@ TransferHistoryModel.TransferHistoryStatusUpdate('0d88c08f-b1a3-11e8-86b8-0a0027
 });
 //http://localhost:8080/Api/v1/BlackList/Update/BlackListID/2/UserAccountID/Account6/Status/Released/
 let BlackListModel = require("./API/v1/BlackList/BlackListModel");
-BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
+BlackListModel.BlackListStatusUpdate('2', 'Account6', 'Released', function (response) {
   console.log("Status Set");
   if (response != undefined) {
-    res.send(response);
-  } else {
-    res.send({
-      BlackListStatusUpdateFailed: true
-    });
+    console.log(response);
   }
+  });
