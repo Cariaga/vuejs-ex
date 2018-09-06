@@ -89,19 +89,15 @@ module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAc
  * @param {*} Status
  * @param {*} callback
  */
-module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketID, UserAccountID, Title, Description, Reason,Answer,DateTime, Status, callback) {
+module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketID, Answer, Status, callback) {
+  let _SupportTicketID = SupportTicketID;
+  let _Answer = Answer;
+  let _Status = Status;
   let query =
-    `SET @SupportTicketID=${SupportTicketID};` +
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @Title=${Title};` +
-    `SET @Description=${Description};` +
-    `SET @Reason=${Reason};` +
-    `SET @Answer=${Answer};` +
-    `SET @DateTime=${DateTime};` 
-    `SET @Status=${Status};` +
     "UPDATE `sampledb`.`supporttickets` "+
-    "SET Title = @Title, Description = @Description,Reason = @Reason,Answer = @Answer, DateTime = @DateTime, Status = @Status "+
-    "WHERE SupportTicketID = @SupportTicketID and UserAccountID = @UserAccountID;"
+    "SET Answer = '"+_Answer+"', Status = '"+_Status+"' "+
+    "WHERE SupportTicketID = '"+_SupportTicketID+"' ";
+    
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
