@@ -166,8 +166,9 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
 }
 module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdate(TransferHistoryUUID, Status, callback) {
   let _TransferHistoryUUID = TransferHistoryUUID;
+  let _Status = Status;
   let query = 
-  "UPDATE `sampledb`.`transferhistories` SET `Status` = 'Approved' WHERE (`TransferHistoryID` = '"+_TransferHistoryUUID+"');";
+  "UPDATE `sampledb`.`transferhistories` SET `Status` = '"+_Status+"' WHERE (`TransferHistoryUUID` = '"+_TransferHistoryUUID+"');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
