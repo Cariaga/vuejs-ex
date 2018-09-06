@@ -21,4 +21,10 @@ module.exports = function (app) {
             res.send(response);
           });
       });
+      app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', function (req, res) {
+        res.setHeader('Content-Type', 'application/json');
+        DashBoardModel.TotalWithdrawDepositProfit(function (response) {
+            res.send(response);
+          });
+      });
 }

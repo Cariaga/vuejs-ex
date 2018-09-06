@@ -25,7 +25,7 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
 
 // http://192.168.254.106:8080/Api/v1/SupportTicket/Update/SupportTicketID/3/Answer/with%20money/Status/Done
 let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
-SupportTicketModel.SupportTicketUpdate('6','no money','Pending', function(response){
+SupportTicketModel.SupportTicketUpdate('1','no money','Pending', function(response){
   console.log("done");
 });
 
@@ -96,10 +96,12 @@ DashBoardModel.UserAccountRecentRegistered(function (response) {
 
   console.log(response);
 });
+//http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
 });
+//http://localhost:8080/Api/v1/Dashboard/TotalDepositWithdrawProfit/
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
