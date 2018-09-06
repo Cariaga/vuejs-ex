@@ -117,6 +117,7 @@ module.exports = function (app) { //INSERT
           });
         }
       });
+    }
 
   //MODIFY
   app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/Answer/:Answer/Status/:Status', function (req, res) {
@@ -298,4 +299,3 @@ module.exports = function (app) { //INSERT
     });
   });
   }
-}
