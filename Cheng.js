@@ -24,7 +24,7 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
 });
 
 let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
-SupportTicketModel.SupportTicketUpdate('6','no money','Pending', function(response){
+SupportTicketModel.SupportTicketUpdate('1','no money','Pending', function(response){
   console.log("done");
 });
 
