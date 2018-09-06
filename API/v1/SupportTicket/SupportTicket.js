@@ -85,8 +85,8 @@ module.exports = function (app) { //INSERT
     let Answer = req.params.Answer;
     let Status = req.params.Status;
 
-    if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(Title)) {
+    if (!isNullOrEmpty(Answer)) {
+      if (!isNullOrEmpty(Status)) {
         // let UserAccountIDExist = false;
         // let SupportTicketIDExist = false;
         // async.series([SupportTicketIDCheck, UserAccountIDCheck], function (error, response) {
