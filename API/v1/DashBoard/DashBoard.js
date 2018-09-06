@@ -27,4 +27,11 @@ module.exports = function (app) {
             res.send(response);
           });
       });
+
+      app.get('/Api/v1/Dashboard/TransactionRecent/', function (req, res) {
+        res.setHeader('Content-Type', 'application/json');
+        DashBoardModel.TransactionRecent(function (response) {
+            res.send(response);
+          });
+      });
 }

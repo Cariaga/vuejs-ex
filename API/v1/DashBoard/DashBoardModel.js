@@ -48,3 +48,15 @@ module.exports.TotalWithdrawDepositProfit = function TotalWithdrawDepositProfit(
       }
     });
 }
+module.exports.TransactionRecent = function TransactionRecent(callback) {
+  let query =
+    "SELECT * FROM sampledb.transactions_today;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
