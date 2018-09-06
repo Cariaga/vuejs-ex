@@ -59,4 +59,18 @@ module.exports.TransactionRecent = function TransactionRecent(callback) {
         callback(undefined);
       }
     });
+    
+}
+module.exports.TotalTransactionRecent = function TotalTransactionRecent(callback) {
+  let query =
+    "SELECT * FROM sampledb.total_transactions_today;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+    
 }

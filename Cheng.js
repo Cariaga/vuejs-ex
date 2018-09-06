@@ -111,3 +111,9 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TransactionRecent(function (response) {
   console.log(response);
 });
+
+
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.TotalTransactionRecent(function (response) {
+  console.log(response);
+});
