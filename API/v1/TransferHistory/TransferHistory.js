@@ -99,7 +99,7 @@ module.exports = function (app) { //MODIFY
   //INSERT
   app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    let UserAccountIDReceiver = req.params.UserAccaountIDReceiver;
+    let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
     let UserAccountIDSender = req.params.UserAccountIDSender;
     let Amount = req.params.Amount;
     let Reason = req.params.Reason;
@@ -107,8 +107,8 @@ module.exports = function (app) { //MODIFY
       if (!isNullOrEmpty(UserAccountIDSender)) {
         if (!isNullOrEmpty(Amount)) {
           if (!isNullOrEmpty(Reason)) {
-            res.send("test");
-           /* TransferHistoryModel.RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason, function (response) {
+        
+            TransferHistoryModel.RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason, function (response) {
               if (response != undefined) {
                 res.send(response);
               } else {
@@ -116,7 +116,7 @@ module.exports = function (app) { //MODIFY
                   TransferHistoryUpdateFailed: true
                 }]);
               }
-            });*/
+            });
           } else {
             res.send({
               UserAccountIDSenderMissing: true
@@ -136,39 +136,7 @@ module.exports = function (app) { //MODIFY
   });
   //SELECTION
   app.get('/Api/v1/TransferHistory/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset = req.query.Offset;
-    let Limit = req.query.Limit;
-    let Sort = req.query.Sort;
-    Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      TransferHistoryModel.TransferHistoryAll(function (response) {
-        if (response != undefined) {
-          res.send(beautify(response, null, 2, 100));
-        } else {
-          res.send([]);
-        }
-      });
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
+      
   });
 
   //Transaction list of a player not to be confued with TransferHistory between players
