@@ -82,7 +82,7 @@ module.exports = function (app) { //INSERT
 
   //INSERT w/out Answer & Status
   module.exports = function (app) {
-      app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason', function (req, res) {
+      app.get('/Api/v1/SupportTicket/Req/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason', function (req, res) {
         ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
         let UserAccountID = req.params.UserAccountID;
         let Title = req.params.Title;
