@@ -174,11 +174,6 @@ BlackListModel.BlackListStatusUpdate('2', 'Account6', 'Released', function (resp
 
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
-module.exports = function (app) { 
-    app.get('/Api/v1/ConnectingUsers/', function (req, res) {
         ConnectingUsersModel.ConnectingUsers(function(response){
-            res.send(response);
+           console.log(response);
         });
-    });
-       
-}
