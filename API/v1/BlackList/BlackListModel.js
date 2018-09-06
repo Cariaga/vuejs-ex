@@ -141,12 +141,14 @@ module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccou
  * @param {*} callback
  */
 module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
-  let query = `SET @BlackListID=${BlackListID};`+
-  `SET @UserAccountID=${UserAccountID};`+
-  `SET @Status=${Status};`+
+  let _BlackListID = BlackListID;
+  let _UserAccountID =UserAccountID;
+  let _Status= Status;
+  let query = 
   "UPDATE `sampledb`.`blacklist` "+
-  "SET UserAccountID = @UserAccountID, Status = @Status"+
-  "WHERE BlackListID = @BlackListID;"
+  "SET Status = '"+_Status+"'"+
+  "WHERE BlackListID = "+_BlackListID+" and UserAccountID='"+_UserAccountID+"';"
+
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);

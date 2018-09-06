@@ -75,21 +75,24 @@ module.exports = function (app) {//MODIFY
           let AccountStatus = undefined; //status retrived
           let UserAccountIDExist = false;
           let FoundBlackListID = undefined; //used to check if it matches the BlackListID params
-          async.series([UserAccountIDCheck, IsAccountBlockedCheck], function (err, response) {
+
+          BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
+            console.log("Status Set");
+            if (response != undefined) {
+              res.send(response);
+            } else {
+              res.send({
+                BlackListStatusUpdateFailed: true
+              });
+            }
+          });
+          
+         /* async.series([UserAccountIDCheck, IsAccountBlockedCheck], function (err, response) {
             if (FoundBlackListID == BlackListID) { //it must match the id of the given params // for aditional validation besides UserAccountID
               if (UserAccountIDExist == true) {
                 if (Status == "Blocked" || Status == "Released") {
                   if (Status != AccountStatus) {
-                    BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
-                      console.log("Status Set");
-                      if (response != undefined) {
-                        res.send(response);
-                      } else {
-                        res.send({
-                          BlackListStatusUpdateFailed: true
-                        });
-                      }
-                    });
+                    
                   } else {
                     res.send({
                       StatusAlready: AccountStatus
@@ -110,7 +113,7 @@ module.exports = function (app) {//MODIFY
                 InvalidBlackListID: true
               });
             }
-          });
+          });*/
 
           function UserAccountIDCheck(callback) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
