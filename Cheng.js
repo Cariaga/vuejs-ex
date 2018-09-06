@@ -29,6 +29,7 @@ SupportTicketModel.SupportTicketUpdate('1','no money','Pending', function(respon
   console.log("done");
 });
 
+// 192.168.254.106:8080/Api/v1/SupportTicket/Request/UserAccountID/Account8/Title/Title/Description/Description/Reason/Reason
 let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
 SupportTicketModel.RequestSupportTicket('Account6','Lag','Slowing of game','new room', function(response){
   console.log("done");
