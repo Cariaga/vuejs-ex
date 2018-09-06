@@ -164,21 +164,16 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
       callback(undefined);
     });*/
 }
-//*not implemented*
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
-module.exports.AddTransferHistory = function AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
-  
-  let _TransferHistoryUUID = TransferHistoryUUID;
+module.exports.RequestTransferHistory = function RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason,callback) {
   let _UserAccountIDReceiver = UserAccountIDReceiver;
   let _UserAccountIDSender = UserAccountIDSender;
   let _Amount = Amount;
-  let _Status = Status;
   let _Reason = Reason;
-  let _TransferedDateTime = TransferedDateTime;
   let query = 
   "INSERT INTO `sampledb`.`transferhistories` (`TransferHistoryUUID`, `UserAccountIDReceiver`, `UserAccountIDSender`, `Amount`, `Status`, `Reason`, `TransferedDateTime`) "+
-  "VALUES ('"+TransferHistoryUUID+"','"+UserAccountIDReceiver+"','"+UserAccountIDSender+"','"+Amount+"','"+Status+"','"+Reason+"',now()) ";
+  "VALUES (UUID(),'"+_UserAccountIDReceiver+"','"+_UserAccountIDSender+"','"+_Amount+"','pending','"+_Reason+"',now()) ";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -187,31 +182,4 @@ module.exports.AddTransferHistory = function AddTransferHistory(TransferHistoryU
         callback(undefined);
       }
     });
-  /*Models.TransferHistory.sync({
-    alter: true 
-  });
-  var item1 = Models.TransferHistory.build({
-    TransferHistoryUUID: TransferHistoryUUID,
-    UserAccountIDReceiver: UserAccountIDReceiver,
-    UserAccountIDSender: UserAccountIDSender,
-    Amount: Amount,
-    Status: Status,
-    Reason: Reason,
-    TransferedDATE: TransferedDATE
-  });
-  //force:true deletes the old table Don't DO THIS ON PRODUCTION CODE
-  Models.TransferHistory.sync({ });
-  item1.save()
-    .then(Success => {
-
-      console.log("----AddTransferHistory Start-----");
-      console.log(Success);
-      console.log("----AddTransferHistory End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log();
-      callback(undefined);
-    });*/
 }
