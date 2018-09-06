@@ -297,4 +297,5 @@ module.exports = function (app) { //INSERT
       res.send("Error " + result);
     });
   });
+  }
 }
