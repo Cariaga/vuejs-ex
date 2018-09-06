@@ -4,6 +4,6 @@ module.exports = function (app) {
         ConnectingUsersModel.ConnectingUsers(function(response){
             res.send(response);
         });
-    }
+    });
        
 }
