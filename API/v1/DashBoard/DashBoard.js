@@ -18,7 +18,7 @@ module.exports = function (app) {
     app.get('/Api/v1/Dashboard/TotalRegisteredUser/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalRegisteredUsers(function (response) {
-            res.send(response);
+            res.send(response[0]);
           });
       });
       app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', function (req, res) {
