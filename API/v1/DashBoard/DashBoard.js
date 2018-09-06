@@ -23,7 +23,7 @@ module.exports = function (app) {
       });
       app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
-        DashBoardModel.TotalRegisteredUsers(function (response) {
+        DashBoardModel.TotalWithdrawDepositProfit(function (response) {
             res.send(response);
           });
       });

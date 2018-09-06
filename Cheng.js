@@ -90,10 +90,12 @@ DashBoardModel.UserAccountRecentRegistered(function (response) {
 
   console.log(response);
 });
+//http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
 });
+//http://localhost:8080/Api/v1/Dashboard/TotalDepositWithdrawProfit/
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
