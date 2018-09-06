@@ -14,4 +14,11 @@ module.exports = function (app) {
             res.send(response);
           });
       });
+
+    app.get('/Api/v1/Dashboard/TotalRegisteredUser/', function (req, res) {
+        res.setHeader('Content-Type', 'application/json');
+        DashBoardModel.TotalRegisteredUsers(function (response) {
+            res.send(response);
+          });
+      });
 }

@@ -77,13 +77,29 @@ IPListModel.IPList(undefined,undefined, function (response) {
   console.log(response);
 });
 
+<<<<<<< HEAD
 let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
 GameLogListModel.GameLogList(undefined,undefined, function (response) {});
+=======
+
+let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
+GameLogListModel.GameLogList(undefined,undefined, function (response) {});
+
+>>>>>>> be08b3db057a05a9357738dac2f26bf3258509f5
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.UserAccountOnline(function (response) {
   console.log(response);
 });
 //http://localhost:8080/Api/v1/Dashboard/NewUsers/
 DashBoardModel.UserAccountRecentRegistered(function (response) {
-  res.send(response);
+
+  console.log(response);
+});
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.TotalRegisteredUsers(function (response) {
+  console.log(response);
+});
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.TotalRegisteredUsers(function (response) {
+  console.log(response);
 });
