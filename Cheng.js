@@ -10,6 +10,10 @@ DBCheck.IsRoomIDExist('RID88',function(response){
   console.log("Done");
   console.log(response);
 });
+let DBCheck = require('./API/SharedController/DBCheck');
+DBCheck.TryMinusCurrentPoints('Account8', 50, function(response){
+  console.log("Done");
+});
 
 // http://192.168.254.106:8080/Api/v1/Notification/Add/NotificationType/Sample/Title/ChipsAhoy/Description/FreeChips/Status/Pending
 let NotificationModel = require ('./API/v1/Notification/NotificationModel');
@@ -39,8 +43,6 @@ SupportTicketModel.RequestSupportTicket('Account6','Lag','Slowing of game','new 
 // http://localhost:8080/Api/v1/HandHistory/Add/UserAccountID/Account1/MoveHand/Call/SeasonID/S2/
 
 //http://localhost:8080/Api/v1/Login/UserName/U8/Password/U8/IP/IP/DeviceName/DeviceName/DeviceRam/DeviceRam/DeviceCpu/DeviceCpu/
-
-
 let LoginHistoryModel = require ('./API/v1/Login/LoginHistoryModel');
 LoginHistoryModel.LoginAccount('U6', 'U6', function (response) {
 
