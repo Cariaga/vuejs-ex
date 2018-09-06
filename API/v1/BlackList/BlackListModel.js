@@ -6,46 +6,6 @@ var moment = require('moment');
 const Collection = require('linqjs');
 var uuidv4 = require('uuid/v4');
 let DBConnect = require("../../SharedController/DBConnect");
-/**
- *
- *
- * @param {*} callback
- */
-module.exports.BlackListAll = function BlackListAll(callback) {
-  let query = '';
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-  /*Models.BlackList.sync();
-  let result = Models.BlackList.findAll({
-    where: {
-      BlackListID: {
-        ne: null //not null
-      }
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-
-
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
-}
-
 module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAccountID, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -78,59 +38,6 @@ module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAcco
      console.log("Error " + result);
      callback(undefined);
    });*/
-}
-
-/**
- *
- *
- * @param {*} BlackListID
- * @param {*} UserAccountID
- * @param {*} Status
- * @param {*} Title
- * @param {*} Description
- * @param {*} ReportDate
- * @param {*} ReleaseDate
- * @param {*} callback
- */
-module.exports.BlackListUpdate = function BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, callback) { //FULL Update For Blacklist
-  let query = `SET @BlackListID=${BlackListID};`+
-  `SET @UserAccountID=${UserAccountID};`+
-  `SET @Status=${Status};`+
-  `SET @Title=${Title};`+
-  `SET @Description=${Description};`+
-  `SET @ReportDate=${ReportDate};`+
-  `SET @ReleaseDate=${ReleaseDate};`+
-  "UPDATE `sampledb`.`blacklist` "+
-  "SET UserAccountID = @UserAccountID, Status = @Status, Title = @Title, Description = @Description, ReportDate = @ReportDate, ReleaseDate = @ReleaseDate"+
-  "WHERE BlackListID = @BlackListID;";
-
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-  /*Models.BlackList.update({
-      UserAccountID: UserAccountID,
-      Status: Status,
-      Title: Title,
-      Description: Description,
-      ReportDate: ReportDate,
-      ReleaseDate: ReleaseDate
-    }, {
-      where: {
-        BlackListID: BlackListID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    }).catch(error => {
-      console.log("Error Updating BlackList with 8 params");
-      callback(undefined);
-    });*/
 }
 /**
  *
