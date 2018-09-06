@@ -77,17 +77,17 @@ IPListModel.IPList(undefined,undefined, function (response) {
   console.log(response);
 });
 
-<<<<<<< HEAD
+
 let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
 GameLogListModel.GameLogList(undefined,undefined, function (response) {});
-=======
+
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.UserAccountOnline(function (response) {
   console.log(response);
 });
 //http://localhost:8080/Api/v1/Dashboard/NewUsers/
 DashBoardModel.UserAccountRecentRegistered(function (response) {
-<<<<<<< HEAD
+
   console.log(response);
 });
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
@@ -98,8 +98,3 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
 });
-=======
-  res.send(response);
-});
->>>>>>> 320e0189ccdac21aa0a03fc56cc020e5b1a1bac1
->>>>>>> ebe1d10ec56a97aa9e95cd92b3ad7dd6d40f171e
