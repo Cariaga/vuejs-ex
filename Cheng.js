@@ -112,7 +112,7 @@ DashBoardModel.TransactionRecent(function (response) {
   console.log(response);
 });
 
-
+//http://localhost:8080/Api/v1/Dashboard/TotalTransactionRecent/
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalTransactionRecent(function (response) {
   console.log(response);
