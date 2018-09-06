@@ -547,6 +547,22 @@ const mysql = require('mysql2');
     });
   }
 
+  module.exports.TryMinusCurrentPoints = function CheckCurrentPoints(UserAccountID, MinusPoints, callback){
+    let _UserAccountID = UserAccountID;
+    let _MinusPoints = MinusPoints;
+    let query = 
+    "SELECT CurrentPoints - '"+_MinusPoints+"' AS 'NewPoints' FROM `sampledb`.`players` " +
+    "WHERE UserAccountID = '"+_UserAccountID+"' ";
+
+    DBConnect.DBConnect(query,function(response){
+      if(response[0].NewPoints>0){
+        callback(true);
+      }else{
+        callback(false);
+      }
+    });
+  }
+
 /**
  *
  *
