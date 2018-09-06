@@ -23,8 +23,14 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
   console.log("done");
 });
 
+// http://192.168.254.106:8080/Api/v1/SupportTicket/Update/SupportTicketID/3/Answer/with%20money/Status/Done
 let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
 SupportTicketModel.SupportTicketUpdate('6','no money','Pending', function(response){
+  console.log("done");
+});
+
+let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
+SupportTicketModel.RequestSupportTicket('Account6','Lag','Slowing of game','new room', function(response){
   console.log("done");
 });
 
@@ -77,15 +83,10 @@ IPListModel.IPList(undefined,undefined, function (response) {
   console.log(response);
 });
 
-<<<<<<< HEAD
-let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
-GameLogListModel.GameLogList(undefined,undefined, function (response) {});
-=======
 
 let GameLogListModel = require("./API/v1/GameLogList/GameLogListModel");
 GameLogListModel.GameLogList(undefined,undefined, function (response) {});
 
->>>>>>> be08b3db057a05a9357738dac2f26bf3258509f5
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.UserAccountOnline(function (response) {
   console.log(response);
