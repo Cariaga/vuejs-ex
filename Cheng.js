@@ -106,3 +106,8 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
 });
+
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.TransactionRecent(function (response) {
+  console.log(response);
+});
