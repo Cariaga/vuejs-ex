@@ -365,9 +365,9 @@ module.exports = function (app) { //MODIFY
               } else {
                 res.send([{
                   TransferHistoryUpdateFailed: true
-                }]);*/
+                }]);
               }
-            });
+            });*/
           } else {
             res.send({
               UserAccountIDSenderMissing: true
