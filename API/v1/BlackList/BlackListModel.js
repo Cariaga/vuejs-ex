@@ -146,7 +146,7 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
   let _Status= Status;
   let query = 
   "UPDATE `sampledb`.`blacklist` "+
-  "SET Status = '"+_Status+"'"+
+  "SET Status = '"+_Status+"', ReleaseDate=now()"+
   "WHERE BlackListID = "+_BlackListID+" and UserAccountID='"+_UserAccountID+"';"
 
   DBConnect.DBConnect(query, function (response) {
