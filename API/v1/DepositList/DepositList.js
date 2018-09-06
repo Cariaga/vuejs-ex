@@ -11,11 +11,11 @@ module.exports = function (app) {
       res.send(response);
     });
   });
-  app.get('/Api/v1/DepositList/limit/:limit/Offset/:Offset', function (req, res) {
+  app.get('/Api/v1/DepositList/limit/:limit/offset/:offset', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.limit;
-    let Offset = req.params.Offset;
-    DepositListModel.DepositList(limit,Offset,function(response){
+    let offset = req.params.offset;
+    DepositListModel.DepositList(limit,offset,function(response){
       res.send(response);
     });
   });
