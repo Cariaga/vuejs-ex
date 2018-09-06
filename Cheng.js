@@ -131,3 +131,13 @@ TransferHistoryModel.RequestTransferHistory('Account6', 'Account5', 0, "reason",
     }]);
   }
 });
+let TransferHistoryModel = require('./API/v1/TransferHistory/TransferHistoryModel');
+TransferHistoryModel.TransferHistoryStatusUpdate('Account6','0d88c08f-b1a3-11e8-86b8-0a0027000004', function (response) {
+  if (response != undefined) {
+    console.log(response);
+  } else {
+    res.send([{
+      TransferHistoryUpdateFailed: true
+    }]);
+  }
+});

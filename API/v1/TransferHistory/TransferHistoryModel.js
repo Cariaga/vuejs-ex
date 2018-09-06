@@ -164,7 +164,7 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
       callback(undefined);
     });*/
 }
-module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHistoryUUID, Status, callback) {
+module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdate(TransferHistoryUUID, Status, callback) {
   let _TransferHistoryUUID = TransferHistoryUUID;
   let query = 
   "UPDATE `sampledb`.`transferhistories` SET `Status` = 'Approved' WHERE (`TransferHistoryID` = '"+_TransferHistoryUUID+"');";
