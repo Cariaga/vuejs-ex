@@ -23,4 +23,16 @@ module.exports.UserAccountRecentRegistered = function UserAccountRecentRegistere
           callback(undefined);
         }
       });
-  }
+}
+module.exports.TotalRegisteredUsers = function TotalRegisteredUsers(callback) {
+  let query =
+    "SELECT * FROM sampledb.total_registered_users;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}

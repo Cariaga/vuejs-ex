@@ -88,5 +88,13 @@ DashBoardModel.UserAccountOnline(function (response) {
 });
 //http://localhost:8080/Api/v1/Dashboard/NewUsers/
 DashBoardModel.UserAccountRecentRegistered(function (response) {
-  res.send(response);
+  console.log(response);
+});
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.TotalRegisteredUsers(function (response) {
+  console.log(response);
+});
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.TotalRegisteredUsers(function (response) {
+  console.log(response);
 });
