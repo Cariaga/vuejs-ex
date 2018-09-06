@@ -116,3 +116,14 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalTransactionRecent(function (response) {
   console.log(response);
 });
+//http://localhost:8080/Api/v1/TransferHistory/Add/UserAccountIDReceiver/Account6/UserAccountIDSender/Account5/Amount/0/Reason/0/
+let TransferHistoryModel = require('./API/v1/TransferHistory/TransferHistoryModel');
+TransferHistoryModel.RequestTransferHistory('Account6', 'Account5', 0, "reason", function (response) {
+  if (response != undefined) {
+    console.log(response);
+  } else {
+    res.send([{
+      TransferHistoryUpdateFailed: true
+    }]);
+  }
+});

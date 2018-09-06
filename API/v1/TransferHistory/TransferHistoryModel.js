@@ -164,6 +164,38 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
       callback(undefined);
     });*/
 }
+module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHistoryUUID, Status, callback) {
+  let _TransferHistoryUUID = TransferHistoryUUID;
+  let query = 
+  "UPDATE `sampledb`.`transferhistories` SET `Status` = 'Approved' WHERE (`TransferHistoryID` = '"+_TransferHistoryUUID+"');";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  /* Models.TransferHistory.update({
+      UserAccountIDReceiver: UserAccountIDReceiver,
+      UserAccountIDSender: UserAccountIDSender,
+      Amount: Amount,
+      Status: Status,
+      Reason: Reason,
+      TransferedDATE: TransferedDATE,
+    }, {
+      where: {
+        TransferHistoryUUID: TransferHistoryUUID
+      }
+    })
+    .then(Success => {
+      callback("Updated");
+    })
+    .catch(error => {
+      console.log("Error Updating " + error);
+      callback(undefined);
+    });*/
+}
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
 module.exports.RequestTransferHistory = function RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason,callback) {
