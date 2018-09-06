@@ -1,7 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports.ConnectingUsers = function ConnectingUsers(callback) {
-  let query =
+    let query =
     "SELECT * FROM sampledb.lastloginhistory;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -11,4 +11,4 @@ module.exports.ConnectingUsers = function ConnectingUsers(callback) {
         callback(undefined);
       }
     });
-}
+  }
