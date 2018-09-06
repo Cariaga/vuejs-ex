@@ -348,16 +348,34 @@ app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, 
   });
 }
 module.exports = function (app) {//INSERT
-  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Status/:Status/Reason/:Reason/TransferedDATE/:TransferedDATE/', function (req, res) {
+  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    let TransferHistoryUUID = uuidv4();
-    let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
+    let UserAccountIDReceiver = req.params.UserAccaountIDReceiver;
     let UserAccountIDSender = req.params.UserAccountIDSender;
     let Amount = req.params.Amount;
-    let Status = req.params.Status;
     let Reason = req.params.Reason;
-    let TransferedDATE = req.params.TransferedDATE;
-    if (!isNullOrEmpty(UserAccountIDReceiver)) {
+    if(!isNullOrEmpty(UserAccountIDReceiver)){
+      if(!isNullOrEmpty(UserAccountIDSender)){
+      if(!isNullOrEmpty(Amount)){
+      if(!isNullOrEmpty(Reason)){
+      
+      }else{res.send({UserAccountIDSenderMissing:true})}
+      }else{res.send({AmountMissing:true})}
+      }else{res.send({ReasonMissing:true})}
+    }
+
+    TransferHistoryModel.RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason, function (response) {
+      if (response != undefined) {
+        res.send(response);
+      } else {
+        res.send([{
+          TransferHistoryUpdateFailed: true
+        }]);
+      }
+    });
+
+  });
+   /* if (!isNullOrEmpty(UserAccountIDReceiver)) {
       if (!isNullOrEmpty(UserAccountIDSender)) {
         if (!isNullOrEmpty(Amount)) {
           if (!isNullOrEmpty(Status)) {
@@ -369,7 +387,7 @@ module.exports = function (app) {//INSERT
                   async.series([UserAccountIDReceiverExistCheck, UserAccountIDSenderExistCheck], function (error, response) {
                     if (UserAccountIDReceiverExist == true) {
                       if (UserAccountIDSenderExist == true) {
-                        TransferHistoryModel.AddTransferHistory(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, function (response) {
+                        TransferHistoryModel.RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason, function (response) {
                           if (response != undefined) {
                             res.send(response);
                           } else {
@@ -449,15 +467,16 @@ module.exports = function (app) {//INSERT
       res.send({
         UserAccountIDReceiverMissing: true
       });
-    }
-  });
+    
+  });*/
+
   //STRUCTURE
-  app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
+ /* app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    Models.TransferHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.TransferHistory.describe().then(result => {
+    Models.TransferHistory.sync(  ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  /*  Models.TransferHistory.describe().then(result => {
       res.send(beautify(result, null, 2, 100));
     });
-  });
+  });*/
 }
 
