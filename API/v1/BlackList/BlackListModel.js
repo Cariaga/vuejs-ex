@@ -64,21 +64,6 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
       callback(undefined);
     }
   });
-  /*Models.BlackList.update({
-      Status: Status
-    }, {
-      where: {
-        BlackListID: BlackListID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating BlackList param 4");
-      callback(undefined);
-    });*/
 }
 
 /**
@@ -110,23 +95,4 @@ let _ReleaseDate = ReleaseDate;
       callback(undefined);
     }
   });
-  /*var item1 = Models.BlackList.build({
-    UserAccountID: UserAccountID,
-    Title: Title,
-    Status: Status,
-    Description: Description,
-    ReportDate: ReportDate,
-    ReleaseDate: ReleaseDate
-  });
-  Models.BlackList.sync({
-    alter: true
-  }); //Force true to recreate table
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
 }
