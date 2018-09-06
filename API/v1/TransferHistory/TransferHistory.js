@@ -96,6 +96,44 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
+  //INSERT
+  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserAccountIDReceiver = req.params.UserAccaountIDReceiver;
+    let UserAccountIDSender = req.params.UserAccountIDSender;
+    let Amount = req.params.Amount;
+    let Reason = req.params.Reason;
+    if (!isNullOrEmpty(UserAccountIDReceiver)) {
+      if (!isNullOrEmpty(UserAccountIDSender)) {
+        if (!isNullOrEmpty(Amount)) {
+          if (!isNullOrEmpty(Reason)) {
+            res.send("test");
+           /* TransferHistoryModel.RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason, function (response) {
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                res.send([{
+                  TransferHistoryUpdateFailed: true
+                }]);
+              }
+            });*/
+          } else {
+            res.send({
+              UserAccountIDSenderMissing: true
+            })
+          }
+        } else {
+          res.send({
+            AmountMissing: true
+          })
+        }
+      } else {
+        res.send({
+          ReasonMissing: true
+        })
+      }
+    }
+  });
   //SELECTION
   app.get('/Api/v1/TransferHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -347,44 +385,7 @@ module.exports = function (app) { //MODIFY
     }
   });
 
-//INSERT
-  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let UserAccountIDReceiver = req.params.UserAccaountIDReceiver;
-    let UserAccountIDSender = req.params.UserAccountIDSender;
-    let Amount = req.params.Amount;
-    let Reason = req.params.Reason;
-    if (!isNullOrEmpty(UserAccountIDReceiver)) {
-      if (!isNullOrEmpty(UserAccountIDSender)) {
-        if (!isNullOrEmpty(Amount)) {
-          if (!isNullOrEmpty(Reason)) {
-            res.send("test");
-           /* TransferHistoryModel.RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                res.send([{
-                  TransferHistoryUpdateFailed: true
-                }]);
-              }
-            });*/
-          } else {
-            res.send({
-              UserAccountIDSenderMissing: true
-            })
-          }
-        } else {
-          res.send({
-            AmountMissing: true
-          })
-        }
-      } else {
-        res.send({
-          ReasonMissing: true
-        })
-      }
-    }
-  });
+
 
   //STRUCTURE
   /* app.get('/Api/v1/TransferHistory/Describe', function (req, res) {
