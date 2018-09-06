@@ -1,18 +1,40 @@
-// http://localhost:8080/Api/v1/RoomConfiguration/Add/RoomID/RID6/GameType/Holdem/SmallBlind/50/BigBlind/100/Speed/50
-// http://localhost:8080/Api/v1/GameHistory/Add/RoomID/RID2/SeasonID/S5/
-let RoomConfigurationModel = require('./API/v1/RoomConfiguration/RoomConfigurationModel');
-RoomConfigurationModel.AddRoomConfiguration('RID88', 'Holdem', '11', '22', 'Fast', function (response) {
-  console.log("done");
-});
-
 let DBCheck = require('./API/SharedController/DBCheck');
 DBCheck.IsRoomIDExist('RID88',function(response){
   console.log("Done");
   console.log(response);
 });
+
 let DBCheck = require('./API/SharedController/DBCheck');
 DBCheck.TryMinusCurrentPoints('Account8',20, function(response){
   console.log(response);
+});
+//
+let DBCheck = require('./API/SharedController/DBCheck');
+DBCheck.isSupportTicketIDExist('1', function(response){
+  console.log(response);
+});
+
+let DBCheck = require('./API/SharedController/DBCheck');
+DBCheck.isScreenNameExist('sc1', function(response){
+  console.log(response);
+});
+
+let DBCheck = require('./API/SharedController/DBCheck');
+DBCheck.isUserAccountVerifiedUserName('U1', function(response){
+  console.log(response);
+});
+
+let DBCheck = require('./API/SharedController/DBCheck');
+DBCheck.isUserAccountBlocked('Account1', function(response){
+  console.log(response);
+});
+
+
+// http://localhost:8080/Api/v1/RoomConfiguration/Add/RoomID/RID6/GameType/Holdem/SmallBlind/50/BigBlind/100/Speed/50
+// http://localhost:8080/Api/v1/GameHistory/Add/RoomID/RID2/SeasonID/S5/
+let RoomConfigurationModel = require('./API/v1/RoomConfiguration/RoomConfigurationModel');
+RoomConfigurationModel.AddRoomConfiguration('RID88', 'Holdem', '11', '22', 'Fast', function (response) {
+  console.log("done");
 });
 
 // http://192.168.254.106:8080/Api/v1/Notification/Add/NotificationType/Sample/Title/ChipsAhoy/Description/FreeChips/Status/Pending
