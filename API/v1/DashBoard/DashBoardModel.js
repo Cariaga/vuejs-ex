@@ -36,9 +36,9 @@ module.exports.TotalRegisteredUsers = function TotalRegisteredUsers(callback) {
       }
     });
 }
-module.exports.TotalRegisteredUsers = function TotalRegisteredUsers(callback) {
+module.exports.TotalWithdrawDepositProfit = function TotalWithdrawDepositProfit(callback) {
   let query =
-    "SELECT * FROM sampledb.total_registered_users;";
+    "SELECT * FROM sampledb.withdraw_deposit_porfit_total;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
