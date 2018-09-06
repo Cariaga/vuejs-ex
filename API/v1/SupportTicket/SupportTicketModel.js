@@ -97,7 +97,7 @@ module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketI
     "UPDATE `sampledb`.`supporttickets` "+
     "SET Answer = '"+_Answer+"', Status = '"+_Status+"' "+
     "WHERE SupportTicketID = '"+_SupportTicketID+"' ";
-    
+
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -149,6 +149,49 @@ module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title
   let query =
     "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `Answer`, `DateTime`, `Status`) "+
     "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Description+"','"+_Reason+"','"+_Answer+"', now(),'"+_Status+"');";
+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  /*var item1 = Models.SupportTicket.build({
+    UserAccountID: UserAccountID,
+    Title: Title,
+    Description: Description,
+    Reason: Reason,
+    Time: Time,
+    Date: Date,
+    Status: Status
+  });
+  Models.SupportTicket.sync({
+    alter: true
+  }); //force to recreate if non production code
+  item1.save()
+    .then(Success => {
+
+      console.log("----AddSupportTicket Start-----");
+      console.log(Success);
+      console.log("----AddSupportTicket End-----");
+      callback("Inserted");
+    })
+    .catch(error => {
+      console.log("error inserting " + error);
+      callback(undefined);
+    });*/
+}
+
+module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountID, Title, Description, Reason, callback) {
+  let _UserAccountID = UserAccountID;
+  let _Title = Title;
+  let _Description = Description;
+  let _Reason = Reason;
+  let query =
+    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `DateTime` ) "+
+    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Description+"','"+_Reason+"', now()); ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {

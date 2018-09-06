@@ -23,8 +23,14 @@ SupportTicketModel.AddSupportTicket('Account6', 'Buggy', 'Bug', 'Deposit Error',
   console.log("done");
 });
 
+// http://192.168.254.106:8080/Api/v1/SupportTicket/Update/SupportTicketID/3/Answer/with%20money/Status/Done
 let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
 SupportTicketModel.SupportTicketUpdate('1','no money','Pending', function(response){
+  console.log("done");
+});
+
+let SupportTicketModel = require ('./API/v1/SupportTicket/SupportTicketModel');
+SupportTicketModel.RequestSupportTicket('Account6','Lag','Slowing of game','new room', function(response){
   console.log("done");
 });
 

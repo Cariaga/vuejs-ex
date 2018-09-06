@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
 var uuidv4 = require('uuid/v4');
+
 module.exports = function (app) { //INSERT
   app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Answer/:Answer/Status/:Status', function (req, res) {
     ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
@@ -78,6 +79,45 @@ module.exports = function (app) { //INSERT
       });
     }
   });
+
+  //INSERT w/out Answer & Status
+  module.exports = function (app) {
+      app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/', function (req, res) {
+        ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
+        let UserAccountID = req.params.UserAccountID;
+        let Title = req.params.Title;
+        let Description = req.params.Description;
+        let Reason = req.params.Reason;
+
+        if (!isNullOrEmpty(UserAccountID)) {
+          if (!isNullOrEmpty(Title)) {
+            if (!isNullOrEmpty(Description)) {
+              if (!isNullOrEmpty(Reason)) {
+                SupportTicketModel.RequestSupportTicket(UserAccountID, Title, Description, Reason, function (response) {
+                  res.send(response);
+                });
+              } else {
+                res.send({
+                  ReasonMissing: true
+                });
+              }
+            } else {
+              res.send({
+                DescriptionMissing: true
+              });
+            }
+          } else {
+            res.send({
+              TitleMissing: true
+            });
+          }
+        } else {
+          res.send({
+            UserAccountIDMissing: true
+          });
+        }
+      });
+
   //MODIFY
   app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/Answer/:Answer/Status/:Status', function (req, res) {
     // USAGE /Api/v1/SupportTicket/Update/SupportTicketID/1/UserAccountID/89a5b95d-8d5d-455b-8139-8e8317fdd392/Title/Title/Description/Description/Reason/Reason2/Time/12:34:56/Date/2009-05-31/Status/Status
