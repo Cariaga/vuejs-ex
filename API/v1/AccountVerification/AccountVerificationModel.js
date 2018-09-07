@@ -1,53 +1,37 @@
-  //MODIFY
-  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Key/:Key', function (req, res) { 
-    let UserAccountIDFound = false;
-    let UserAccountID = req.params.UserAccountID;
-    let Verify = req.params.Verify;
-    async.waterfall([
-      myFirstFunction
-    ], function (err, result) { //final function
-      if (UserAccountIDFound == true) {
-        DBCheck.VerifyAccountUserAccountID(UserAccountID, Verify, function (response) {
-          if (response != undefined) {
-            res.send({});
-          } else {
-            res.send({
-              VerifyAccountUserAccountIDFailed: true
-            });
-          }
-        });
-      } else {
-        res.send({
-          UserAccountIDInvalid: true
-        });
-      }
-      callback(result);
-    });
 
-    function myFirstFunction(callback2) {
-      console.log('1');
-      Models.UserAccount.sync( /*{force:true}*/ ); //makes sure table exist and syncs it
-      let result = Models.UserAccount.findAll({
+/**
+ *
+ *
+ * @param {*} UserAccountID
+ * @param {*} VerifiedStatus
+ * @param {*} callback
+ */
+module.exports.VerifyAccountUserAccountID = function VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
+    let query = 
+    `SET @UserAccountID=${UserAccountID};`+
+    `SET @VerifiedStatus=${VerifiedStatus};`+
+  
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(undefined);
+      }
+    });
+    /*Models.UserAccount.update({
+        Verify: VerifiedStatus
+      }, {
         where: {
-          UserName: UserName //not null
-            ,
-          ValidKey: ValidKey //not null
+          UserAccountID: UserAccountID
         }
-      }).then(function (result) {
-        let Data = result.map(function (item) {
-          return item;
-        });
-        //  console.log('2');
-        if (Data.length > 0) {
-          UserAccountIDFound = true;
-        } else {
-          UserAccountIDFound = false;
-        }
-        callback2(null, Data);
-      }).catch(function (result2) {
-        console.log("Verify Error : " + result2);
-        //  console.log('2');
-        callback2(null, result2);
-      });
-    }
-  });
+      })
+      .then(Success => {
+        callback("Updated");
+      })
+  
+      .catch(error => {
+        console.log("Error Updating " + error);
+        callback(undefined);
+      });*/
+  }

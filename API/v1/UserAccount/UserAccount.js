@@ -6,58 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) {//SELECTION
-  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Status/:VerifiedStatus', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let UserAccountID = req.params.UserAccountID;
-    let VerifiedStatus = req.params.VerifiedStatus; // only true or false state no other value type
-    console.log(UserAccountID + " " + VerifiedStatus);
-    if (!isNullOrEmpty(UserAccountID) && !isNullOrEmpty(VerifiedStatus)) {
-      if (VerifiedStatus == "true" || VerifiedStatus == "false") { //must be validated like a string because 
-        Models.UserAccount.sync();
-        let UserAccountIDExist = false;
-        async.series([UserAccountIDCheck], function (err, response) {
-          if (UserAccountIDExist == true) {
-            //res.send({UserAccountIDExist:UserAccountIDExist});
-            DBCheck.VerifyAccountUserAccountID(UserAccountID, VerifiedStatus, function (response) {
-              if (!isNullOrEmpty(response) && response != undefined) {
-                res.send(response);
-              } else {
-                res.send({
-                  VerifyAccountUserAccountIDFailed: true
-                });
-              }
-            });
-          } else {
-            res.send({
-              UserAccountIDExist: UserAccountIDExist
-            });
-          }
-        });
 
-        function UserAccountIDCheck(callback) {
-          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-            let obj = response;
-            if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-              UserAccountIDExist = true;
-              callback(null, '1');
-            } else {
-              UserAccountIDExist = false;
-              callback(null, '1');
-            }
-          });
-        }
-      } else {
-        res.send({
-          VerfiedStatusInvalidValue: true
-        });
-      }
-    } else {
-      res.send({
-        MissingParameters: true
-      });
-    }
-    //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
-  });
   app.get('/Api/v1/UserAccount/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
