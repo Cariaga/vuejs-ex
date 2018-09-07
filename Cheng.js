@@ -31,6 +31,7 @@ DBCheck.isUserAccountBlocked('Account1', function(response){
 
 
 // http://localhost:8080/Api/v1/RoomConfiguration/Add/RoomID/RID6/GameType/Holdem/SmallBlind/50/BigBlind/100/Speed/50
+
 // http://localhost:8080/Api/v1/GameHistory/Add/RoomID/RID2/SeasonID/S5/
 let RoomConfigurationModel = require('./API/v1/RoomConfiguration/RoomConfigurationModel');
 RoomConfigurationModel.AddRoomConfiguration('RID88', 'Holdem', '11', '22', 'Fast', function (response) {
@@ -63,6 +64,7 @@ SupportTicketModel.RequestSupportTicket('Account6','Lag','Slowing of game','new 
 
 
 // http://localhost:8080/Api/v1/HandHistory/Add/UserAccountID/Account1/MoveHand/Call/SeasonID/S2/
+
 
 //http://localhost:8080/Api/v1/Login/UserName/U8/Password/U8/IP/IP/DeviceName/DeviceName/DeviceRam/DeviceRam/DeviceCpu/DeviceCpu/
 let LoginHistoryModel = require ('./API/v1/Login/LoginHistoryModel');
@@ -181,14 +183,12 @@ BlackListModel.BlackListStatusUpdate('2', 'Account6', 'Released', function (resp
 
   //front-end done end
   
-<<<<<<< HEAD
-=======
   //http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
->>>>>>> 313edda499a745f52bda17934b733911a15f9cdf
+
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
         ConnectingUsersModel.ConnectingUsers(function(response){
