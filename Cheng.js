@@ -225,3 +225,9 @@ HandHistoryListModel.HandHistorySeasonID(SeasonID, function (response) {
     });
   }
 });
+
+//http://localhost:8080/Api/v1/Pagination/
+let PaginationModel = require('./API/v1/Pagination');
+PaginationModel.PaginationCount(function(response){
+    console.log(response);
+});
