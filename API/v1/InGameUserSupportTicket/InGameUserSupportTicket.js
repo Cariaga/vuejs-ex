@@ -12,8 +12,7 @@ let InGameUserSupportTicketModel = require('./InGameUserSupportTicketModel');
 module.exports = function(app){//selection
     app.get('/UserAccount/SupportTicket/UserAccountID/:UserAccountID', function (req, res) {
       DBConnect.InGameUserSupportTicketModel(function(response){
-
+        res.send(response);
       });
     });
-    
 }
