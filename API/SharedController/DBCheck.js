@@ -222,7 +222,7 @@ module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccoun
     "WHERE UserAccountID = '" + _UserAccountID + "' AND `Key` = '"+ _Key + "' ";
 
   DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
+    if (response[0].UserAccountID==_UserAccountID && Key==_Key) {
       console.log(response);
       callback(true);
     } else {
