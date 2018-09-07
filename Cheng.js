@@ -30,7 +30,7 @@ DBCheck.isUserAccountBlocked('Account1', function(response){
 });
 
 let DBCheck = require('./API/SharedController/DBCheck');
-DBCheck.CheckUserAccountIDKey('Account1', 1, function(response){
+DBCheck.CheckUserAccountIDKey('Account1', 2, function(response){
   console.log(response);
 });
 
