@@ -14,7 +14,7 @@ module.exports = function (app) {
     });
     app.get('/Api/v1/GameLogList/Limit/:Limit/Max/:Offset', function (req, res) {
         let Limit = req.params.Limit;
-        let Limit = req.params.Offset;
+        let Offset = req.params.Offset;
         if (!isNullOrEmpty(Min)) {
             if (!isNullOrEmpty(Max)) {
                 GameLogListModel.GameLogList(Limit, Offset, function (response) {
