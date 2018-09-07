@@ -168,7 +168,6 @@ BlackListModel.BlackListStatusUpdate('2', 'Account6', 'Released', function (resp
   }
   });
 
-<<<<<<< HEAD
   //front-end done
   
   //http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
@@ -176,10 +175,8 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
 });
-=======
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
         ConnectingUsersModel.ConnectingUsers(function(response){
            console.log(response);
           });
->>>>>>> 8c672e9916b2b05a0c3143786d1a889271224fb5
