@@ -6,16 +6,13 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let HandHistoryListModel = require('./HandHistoryListModel');
 module.exports = function (app) {//SELECTION
-  app.get('/Api/v1/HandHistory/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-  });
   app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let SeasonID = req.params.SeasonID;
     if (!isNullOrEmpty(UserAccountID)) {
       if(!isNullOrEmpty(SeasonID)){
-        HandHistoryListModel.HandHistoryUserAccountID(UserAccountID, function (response) {
+        HandHistoryListModel.HandHistoryUserAccountID(UserAccountID,SeasonID, function (response) {
           if (response != undefined) {
             res.send(beautify(response, null, 2, 100));
           } else {

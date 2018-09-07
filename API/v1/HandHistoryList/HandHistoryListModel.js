@@ -6,8 +6,11 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
-module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(callback) {
-  let query = '';
+module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID,SeasonID,callback) {
+  let _UserAccountID = UserAccountID;
+  let _SeasonID = SeasonID;
+
+  let query = "SELECT * FROM sampledb.handhistory where UserAccountID='"+_UserAccountID+"' and SeasonID='"+_SeasonID+"';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
