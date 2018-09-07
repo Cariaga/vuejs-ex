@@ -4,23 +4,24 @@ let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+let HandHistoryListModel = require('./HandHistoryListModel');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/HandHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    HandHistoryModel.HandHistory(function (response) {
+    /*HandHistoryModel.HandHistory(function (response) {
       if (response != undefined) {
         res.send(beautify(response, null, 2, 100));
       } else {
         res.send([]);
       }
-    });
+    });*/
   });
   app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      
-      HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
+
+      HandHistoryListModel.HandHistoryUserAccountID(UserAccountID, function (response) {
         if (response != undefined) {
           res.send(beautify(response, null, 2, 100));
         } else {
@@ -62,20 +63,5 @@ module.exports = function (app) {//SELECTION
         });
       }*/
     }
-  });
-  //INSERT
- 
-  //STRUCTURE
-  app.get('/Api/v1/HandHistory/Clear', function (req, res) {
-    Models.HandHistory.destroy({
-        where: {},
-        truncate: true
-      })
-      .then(Success => {
-        res.send("Cleared");
-      })
-      .catch(err => {
-        res.send("Truncate " + err);
-      });
   });
 }
