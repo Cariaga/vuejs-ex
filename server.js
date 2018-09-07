@@ -96,7 +96,7 @@ require('./API/v1/SupportTicket/SupportTicket')(app);
 require('./API/v1/TransferHistory/TransferHistory')(app);
 require('./API/v1/UserAccount/UserAccount')(app);
 require('./API/v1/UserInfo/UserInfo')(app);
-require('./API/v1/UserSupportTicket/UserSupportTicket')(app);
+require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicket')(app);
 require('./API/v1/Verification/Verification')(app);
 require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
 require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
