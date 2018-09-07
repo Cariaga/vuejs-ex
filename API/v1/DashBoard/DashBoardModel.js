@@ -24,7 +24,7 @@ module.exports.UserAccountRecentRegistered = function UserAccountRecentRegistere
         }
       });
 }
-module.exports.TotalRegisteredUsers = function TotalRegisteredUsers(callback) {
+module.exports.TotalRegisteredUsersToday = function TotalRegisteredUsers(callback) {
   let query =
     "SELECT * FROM sampledb.total_registered_users;";
     DBConnect.DBConnect(query, function (response) {
