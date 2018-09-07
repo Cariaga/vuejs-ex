@@ -235,7 +235,7 @@ module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccoun
   let _Key = Key;
   let query =
     "SELECT * FROM `sampledb`.`useraccounts` " +
-    "WHERE UserAccountID = '" + _UserAccountID + "' AND Key = '" + _Key + "' ";
+    "WHERE UserAccountID = '" + _UserAccountID + "' AND `Key` = '"+ _Key + "' ";
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
