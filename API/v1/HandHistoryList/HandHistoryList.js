@@ -12,17 +12,21 @@ module.exports = function (app) {//SELECTION
   app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
+    let SeasonID = req.params.SeasonID;
     if (!isNullOrEmpty(UserAccountID)) {
-
-      HandHistoryListModel.HandHistoryUserAccountID(UserAccountID, function (response) {
-        if (response != undefined) {
-          res.send(beautify(response, null, 2, 100));
-        } else {
-          res.send({
-            HandHistoryFailed: true
-          });
-        }
-      });
+      if(!isNullOrEmpty(SeasonID)){
+        HandHistoryListModel.HandHistoryUserAccountID(UserAccountID, function (response) {
+          if (response != undefined) {
+            res.send(beautify(response, null, 2, 100));
+          } else {
+            res.send({
+              HandHistoryFailed: true
+            });
+          }
+        });
+      }
+      
+     
 
      /* let UserAccountIDExist = false;
       async.series([UserAccountIDCheck], function (error, response) {
