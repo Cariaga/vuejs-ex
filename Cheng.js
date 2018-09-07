@@ -118,9 +118,11 @@ DashBoardModel.UserAccountOnline(function (response) {
 });
 
 //http://localhost:8080/Api/v1/Dashboard/NewUsers/
-DashBoardModel.UserAccountRecentRegistered(function (response) {
+/*DashBoardModel.UserAccountRecentRegistered(function (response) {
   console.log(response);
 });
+*/
+
 
 //http://localhost:8080/Api/v1/Dashboard/TotalDepositWithdrawProfit/
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
