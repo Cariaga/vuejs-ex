@@ -12,7 +12,7 @@ module.exports.UserAccountOnline = function UserAccountOnline(callback) {
       }
     });
 }
-module.exports.UserAccountRecentRegistered = function UserAccountRecentRegistered(callback) {
+/*module.exports.UserAccountRecentRegistered = function UserAccountRecentRegistered(callback) {
     let query =
       "SELECT * FROM sampledb.useraccount_recent_registered;";
       DBConnect.DBConnect(query, function (response) {
@@ -23,7 +23,7 @@ module.exports.UserAccountRecentRegistered = function UserAccountRecentRegistere
           callback(undefined);
         }
       });
-}
+}*/
 module.exports.TotalRegisteredUsersToday = function TotalRegisteredUsers(callback) {
   let query =
     "SELECT * FROM sampledb.total_recent_registered;";

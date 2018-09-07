@@ -120,10 +120,11 @@ DashBoardModel.UserAccountOnline(function (response) {
 });
 
 //http://localhost:8080/Api/v1/Dashboard/NewUsers/
-DashBoardModel.UserAccountRecentRegistered(function (response) {
-
+/*DashBoardModel.UserAccountRecentRegistered(function (response) {
   console.log(response);
 });
+*/
+
 
 //http://localhost:8080/Api/v1/Dashboard/TotalDepositWithdrawProfit/
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
@@ -188,9 +189,21 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 657d191f6edd5ed9c333093c03c4a23b9fb4b85a
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
         ConnectingUsersModel.ConnectingUsers(function(response){
            console.log(response);
           });
+
+
+
+
+        //Ingame only
+//http://localhost:8080/Api/v1/UserAccount/SupportTicket/UserAccountID/Account6/Status/Pending
+require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicketModel').SupportTicketUserAccountID('Account6',function(response){
+  console.log(response);
+});

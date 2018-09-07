@@ -80,24 +80,4 @@ module.exports.AddNotification = function AddNotification(NotificationType, Titl
         callback(undefined);
       }
     });
-  /*var item1 = Models.Notification.build({
-    NotificationType:NotificationType,
-    Title:Title,
-    Description:Description,
-    Time:Time,
-    Date:Date
-  });
-  Models.Notification.sync({alter : true});//force only for non production it recreates the table
-  item1.save()
-  .then(Success => {
-    console.log("----AddNotification Start-----");
-    console.log(Success);
-    console.log("----AddNotification End-----");
-    callback("Inserted");
-  })
-  
-  .catch(error => {
-    console.log("error inserting " +error);
-    callback(undefined);
-  });*/
 }
