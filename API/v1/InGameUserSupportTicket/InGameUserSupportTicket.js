@@ -14,6 +14,6 @@ module.exports = function(app){//selection
       DBConnect.InGameUserSupportTicketModel(function(response){
 
       });
-    }
+    });
     
 }
