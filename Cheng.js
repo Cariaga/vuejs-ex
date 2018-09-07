@@ -192,3 +192,12 @@ DashBoardModel.TotalRegisteredUsersToday(function (response) {
         ConnectingUsersModel.ConnectingUsers(function(response){
            console.log(response);
           });
+
+
+
+
+        //Ingame only
+//http://localhost:8080/Api/v1/UserAccount/SupportTicket/UserAccountID/Account6
+require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicketModel').SupportTicketUserAccountID('Account6',function(response){
+  console.log(response);
+});

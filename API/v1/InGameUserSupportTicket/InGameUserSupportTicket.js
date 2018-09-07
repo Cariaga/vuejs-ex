@@ -10,7 +10,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 let InGameUserSupportTicketModel = require('./InGameUserSupportTicketModel');
 module.exports = function(app){//selection
-    app.get('/UserAccount/SupportTicket/UserAccountID/:UserAccountID', function (req, res) {
+    app.get('/Api/v1/UserAccount/SupportTicket/UserAccountID/:UserAccountID', function (req, res) {
       let UserAccountID= req.params.UserAccountID;
       InGameUserSupportTicketModel.SupportTicketUserAccountID(UserAccountID,function(response){
         res.send(response);
