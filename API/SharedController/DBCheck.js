@@ -92,7 +92,7 @@ const mysql = require('mysql2');
   module.exports.isUserAccountBlocked = function isUserAccountBlocked(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
-    "SELECT * FROM `sampledb.useraccounts` " +
+    "SELECT * FROM `sampledb`.`useraccounts` " +
     "WHERE UserAccountID = '"+_UserAccountID+"' ";
     
    
@@ -202,7 +202,7 @@ const mysql = require('mysql2');
   module.exports.isUserAccountVerifiedUserName = function isUserAccountVerifiedUserName(UserName, callback) {
     let _UserName = UserName;
     let query =
-    "SELECT * FROM `sampledb.useraccounts` " +
+    "SELECT * FROM `sampledb`.`useraccounts` " +
     "WHERE UserName = '"+_UserName+"' ";
     
    
@@ -412,7 +412,7 @@ const mysql = require('mysql2');
   module.exports.isScreenNameExist = function isScreenNameExist(ScreenName, callback) {
     let _ScreenName = ScreenName;
     let query =
-    "SELECT * FROM `sampledb.players` " +
+    "SELECT * FROM `sampledb`.`players` " +
     "WHERE ScreenName = '"+_ScreenName+"' ";
     
    
@@ -488,7 +488,7 @@ const mysql = require('mysql2');
   module.exports.isSupportTicketIDExist = function isSupportTicketIDExist(SupportTicketID, callback) {
     let _SupportTicketID = SupportTicketID;
     let query =
-    "SELECT * FROM `sampledb.supporttickets` " +
+    "SELECT * FROM `sampledb`.`supporttickets` " +
     "WHERE SupportTicketID = '"+_SupportTicketID+"' ";
    
     DBConnect.DBConnect(query,function(response){

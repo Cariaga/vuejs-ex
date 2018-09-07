@@ -176,3 +176,11 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsers(function (response) {
   console.log(response);
 });
+<<<<<<< HEAD
+=======
+//http://localhost:8080/Api/v1/ConnectingUsers/
+  let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
+        ConnectingUsersModel.ConnectingUsers(function(response){
+           console.log(response);
+          });
+>>>>>>> 6ae9c0035859457446278731686def25b86caa2d
