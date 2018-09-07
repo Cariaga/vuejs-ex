@@ -12,12 +12,12 @@ module.exports = function (app) {
         });
 
     });
-    app.get('/Api/v1/GameLogList/Min/:Min/Max/:Max', function (req, res) {
-        let Min = req.params.Min;
-        let Max = req.params.Max;
+    app.get('/Api/v1/GameLogList/Limit/:Limit/Max/:Offset', function (req, res) {
+        let Limit = req.params.Limit;
+        let Limit = req.params.Offset;
         if (!isNullOrEmpty(Min)) {
             if (!isNullOrEmpty(Max)) {
-                GameLogListModel.GameLogList(Min, Max, function (response) {
+                GameLogListModel.GameLogList(Limit, Offset, function (response) {
                     if (response != undefined) {
                         res.send(response);
                     } else {
