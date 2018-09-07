@@ -89,17 +89,19 @@ const mysql = require('mysql2');
    * @param {*} UserAccountID
    * @param {*} callback
    */
-  function isUserAccountBlocked(UserAccountID, callback) {
+  module.exports.isUserAccountBlocked = function isUserAccountBlocked(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID;
     let query =
-    `SET @UserAccountID=${UserAccountID};`+
+    "SELECT * FROM `sampledb.useraccounts` " +
+    "WHERE UserAccountID = '"+_UserAccountID+"' ";
     
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
-        callback(response);
+        callback(true);
       }else{
-        callback(undefined);
+        callback(false);
       }
     });
     /*Models.BlackList.sync();
@@ -130,19 +132,6 @@ const mysql = require('mysql2');
    * @param {*} UserName
    * @param {*} callback
    */
-  function isUserNameExist(UserName, callback) {
-    let query =
-    `SET @UserName=${UserName};`+
-    
-   
-    DBConnect.DBConnect(query,function(response){
-      if(response!=undefined){
-        console.log(response);
-        callback(response);
-      }else{
-        callback(undefined);
-      }
-    });
    /* Models.UserAccount.sync();
     let result = Models.UserAccount.findAll({
       where: {
@@ -162,7 +151,7 @@ const mysql = require('mysql2');
       // console.log(result);
       callback(undefined);
     });*/
-  }
+  
   /**
    *
    *
@@ -210,17 +199,19 @@ const mysql = require('mysql2');
    * @param {*} UserName
    * @param {*} callback
    */
-  function isUserAccountVerifiedUserName(UserName, callback) {
+  module.exports.isUserAccountVerifiedUserName = function isUserAccountVerifiedUserName(UserName, callback) {
+    let _UserName = UserName;
     let query =
-    `SET @UserName=${UserName};`+
+    "SELECT * FROM `sampledb.useraccounts` " +
+    "WHERE UserName = '"+_UserName+"' ";
     
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
-        callback(response);
+        callback(true);
       }else{
-        callback(undefined);
+        callback(false);
       }
     });
     /*Models.UserAccount.sync();
@@ -418,17 +409,19 @@ const mysql = require('mysql2');
    * @param {*} ScreenName
    * @param {*} callback
    */
-  function isScreenNameExist(ScreenName, callback) {
+  module.exports.isScreenNameExist = function isScreenNameExist(ScreenName, callback) {
+    let _ScreenName = ScreenName;
     let query =
-    `SET @ScreenName=${ScreenName};`+
+    "SELECT * FROM `sampledb.players` " +
+    "WHERE ScreenName = '"+_ScreenName+"' ";
     
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
-        callback(response);
+        callback(true);
       }else{
-        callback(undefined);
+        callback(false);
       }
     });
     /*Models.Player.sync();
@@ -492,17 +485,18 @@ const mysql = require('mysql2');
    * @param {*} SupportTicketID
    * @param {*} callback
    */
-  function isSupportTicketIDExist(SupportTicketID, callback) {
+  module.exports.isSupportTicketIDExist = function isSupportTicketIDExist(SupportTicketID, callback) {
+    let _SupportTicketID = SupportTicketID;
     let query =
-    `SET @SupportTicketID=${SupportTicketID};`+
-    
+    "SELECT * FROM `sampledb.supporttickets` " +
+    "WHERE SupportTicketID = '"+_SupportTicketID+"' ";
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
-        callback(response);
+        callback(true);
       }else{
-        callback(undefined);
+        callback(false);
       }
     });
     /*Models.SupportTicket.sync();
@@ -542,12 +536,12 @@ const mysql = require('mysql2');
       if(response.length>0){
         callback(response);
       }else{
-        callback([]);
+        callback(undefined);
       }
     });
   }
 
-  module.exports.TryMinusCurrentPoints = function CheckCurrentPoints(UserAccountID, MinusPoints, callback){
+  module.exports.TryMinusCurrentPoints = function TryMinusCurrentPoints(UserAccountID, MinusPoints, callback){
     let _UserAccountID = UserAccountID;
     let _MinusPoints = MinusPoints;
     let query = 

@@ -70,6 +70,7 @@ app.use(function (req, res, next) {
 require('./API/v1/AccessControl/AccessControl')(app);
 require('./API/v1/BankInformation/BankInformation')(app);
 require('./API/v1/BlackList/BlackList')(app);
+require('./API/v1/ConnectingUsers/ConnectingUsers')(app);
 require('./API/v1/DashBoard/DashBoard')(app);
 require('./API/v1/DepositHistory/DepositHistory')(app);
 require('./API/v1/DepositList/DepositList')(app);
