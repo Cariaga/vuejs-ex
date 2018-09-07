@@ -8,16 +8,16 @@ module.exports = function (app) {
             res.send(response);
           });
       });
-    app.get('/Api/v1/Dashboard/NewUsers/', function (req, res) {
+    /*app.get('/Api/v1/Dashboard/NewUsers/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.UserAccountRecentRegistered(function (response) {
             res.send(response);
           });
-      });
+      });*/
 
     app.get('/Api/v1/Dashboard/TotalRegisteredUser/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
-        DashBoardModel.TotalRegisteredUsers(function (response) {
+        DashBoardModel.TotalRegisteredUsersToday(function (response) {
             res.send(response[0]);
           });
       });

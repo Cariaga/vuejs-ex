@@ -116,15 +116,17 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.UserAccountOnline(function (response) {
   console.log(response);
 });
-//http://localhost:8080/Api/v1/Dashboard/NewUsers/
-DashBoardModel.UserAccountRecentRegistered(function (response) {
 
+//http://localhost:8080/Api/v1/Dashboard/NewUsers/
+/*DashBoardModel.UserAccountRecentRegistered(function (response) {
   console.log(response);
 });
+*/
+
 
 //http://localhost:8080/Api/v1/Dashboard/TotalDepositWithdrawProfit/
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
-DashBoardModel.TotalRegisteredUsers(function (response) {
+DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
 
@@ -133,11 +135,7 @@ DashBoardModel.TransactionRecent(function (response) {
   console.log(response);
 });
 
-//http://localhost:8080/Api/v1/Dashboard/TotalTransactionRecent/
-let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
-DashBoardModel.TotalTransactionRecent(function (response) {
-  console.log(response);
-});
+
 //http://localhost:8080/Api/v1/TransferHistory/Add/UserAccountIDReceiver/Account6/UserAccountIDSender/Account5/Amount/0/Reason/0/
 let TransferHistoryModel = require('./API/v1/TransferHistory/TransferHistoryModel');
 TransferHistoryModel.RequestTransferHistory('Account6', 'Account5', 0, "reason", function (response) {
@@ -169,10 +167,24 @@ BlackListModel.BlackListStatusUpdate('2', 'Account6', 'Released', function (resp
   });
 
   //front-end done
+
+      //http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
+    let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+    DashBoardModel.TotalRegisteredUsers(function (response) {
+      console.log(response);
+    });
+
+    //http://localhost:8080/Api/v1/Dashboard/TotalTransactionRecent/
+    let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+    DashBoardModel.TotalTransactionRecent(function (response) {
+      console.log(response);
+    });
+
+  //front-end done end
   
   //http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
-DashBoardModel.TotalRegisteredUsers(function (response) {
+DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
 //http://localhost:8080/Api/v1/ConnectingUsers/
