@@ -1,6 +1,21 @@
 
 let DBConnect = require("../SharedController/DBConnect");
 const mysql = require('mysql2');
+
+
+module.exports.PaginationCount = function PaginationCount(callback) {
+  let query ="SELECT * FROM sampledb.paginationcount";
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      console.log(response);
+      callback(true);
+    }else{
+      callback(false);
+    }
+  });
+}
+
+
   /**
    *
    *
@@ -23,6 +38,7 @@ const mysql = require('mysql2');
       }
     });
   }
+
 
   module.exports.isPhoneNumberExist = function isPhoneNumberExist(PhoneNumber, callback) {
     let _PhoneNumber = PhoneNumber
