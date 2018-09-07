@@ -197,7 +197,7 @@ DashBoardModel.TotalRegisteredUsersToday(function (response) {
 
 
         //Ingame only
-//http://localhost:8080/Api/v1/UserAccount/SupportTicket/UserAccountID/Account6
+//http://localhost:8080/Api/v1/UserAccount/SupportTicket/UserAccountID/Account6/Status/Pending
 require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicketModel').SupportTicketUserAccountID('Account6',function(response){
   console.log(response);
 });
