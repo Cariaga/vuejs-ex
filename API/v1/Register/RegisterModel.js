@@ -20,8 +20,8 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
   let _Valid = Valid;
   let _Expiration = Expiration;
   let query =
-    "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`) " +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false');";
+    "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`) " +
+    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false','"+_ValidKey+"');";
   console.log(query);
   
   let query2 =
