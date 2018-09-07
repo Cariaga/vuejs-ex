@@ -81,3 +81,17 @@ module.exports.AddNotification = function AddNotification(NotificationType, Titl
       }
     });
 }
+module.exports.NotificationSearch = function NotificationSearch(Column, Value, callback) {
+  let _Column = Column;
+  let _Value = Value;
+  let query = 
+  "SELECT * FROM sampledb.notifications where "+_Column+" like '%"+_Value+"%';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}

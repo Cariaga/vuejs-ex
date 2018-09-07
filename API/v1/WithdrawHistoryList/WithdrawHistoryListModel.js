@@ -5,3 +5,20 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+
+
+//SELECT * FROM sampledb.withdraw_list where UserAccountID like '%%';
+module.exports.WithdrawSearch = function WithdrawSearch(Column, Value, callback) {
+    let _Column = Column;
+    let _Value = Value;
+    let query = 
+    "SELECT * FROM sampledb.withdraw_list where "+_Column+" like '%"+_Value+"%';";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  }

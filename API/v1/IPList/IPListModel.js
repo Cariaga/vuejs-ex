@@ -33,3 +33,18 @@ module.exports.IPList = function IPList(limit, offset, callback) {
         })
     }
 }
+module.exports.IPListSearch = function IPListSearch(Column, Value, callback) {
+    let _Column = Column;
+    let _Value = Value;
+    let query = 
+    "SELECT * FROM sampledb.player_iplist where "+_Column+" like '%"+_Value+"%';";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  }
+
