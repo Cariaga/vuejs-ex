@@ -4,10 +4,14 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
+let OneOnOneModel = require ('../OneOnOne/OneOnOneModel')
+
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID', function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
+  app.get('/Api/v1/OneOnOne/', function (req, res) {
     
+    OneOnOneModel.SelectAllOneOnOne(function (response){
+      res.send(response);
+    });
 
     /*if (!isNullOrEmpty(UserAccountID)) {
       async.series([UserAccountCheck, PlayerCheck, GetParentPlayerLookUp, GetSupportTicketUserAccountID], function (error, response) {
