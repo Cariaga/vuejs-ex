@@ -7,17 +7,9 @@ var uuidv4 = require('uuid/v4');
 module.exports = function (app) { //SELECTION
   app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
-    let UserAccountIDExist = false;
-    let RegisteredDate = undefined
-    let RegisteredTime = undefined;
-    let SupportTicketExist = false;
-    let Status = undefined;
+    
 
-    let ScreenName = undefined;
-    let PlayerExist = undefined;
-    let PlayerRelationshipResult = undefined;
-
-    if (!isNullOrEmpty(UserAccountID)) {
+    /*if (!isNullOrEmpty(UserAccountID)) {
       async.series([UserAccountCheck, PlayerCheck, GetParentPlayerLookUp, GetSupportTicketUserAccountID], function (error, response) {
         if (UserAccountIDExist == true) {
           if (PlayerExist == true) {
@@ -96,6 +88,6 @@ module.exports = function (app) { //SELECTION
           }
         });
       }
-    }
+    }*/
   });
 }
