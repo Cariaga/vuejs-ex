@@ -61,11 +61,6 @@ module.exports = function (app) { //SELECTION
           });
         }
 
-        // let MembersBlackListItem =undefined;
-        // MembersBlackListItem.UserAccountID = UserAccountID;
-        // MembersBlackListItem.RegisteredDate = RegisteredDate;
-        //  res.send(MembersBlackListItem);
-        // res.send(beautify(PlayerRelationshipResult, null, 2, 100));
       });
 
       function UserAccountCheck(callback) {
