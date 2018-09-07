@@ -26,7 +26,7 @@ module.exports.UserAccountRecentRegistered = function UserAccountRecentRegistere
 }
 module.exports.TotalRegisteredUsersToday = function TotalRegisteredUsers(callback) {
   let query =
-    "SELECT * FROM sampledb.total_registered_users;";
+    "SELECT * FROM sampledb.total_recent_registered;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
