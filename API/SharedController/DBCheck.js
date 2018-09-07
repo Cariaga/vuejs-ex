@@ -65,7 +65,7 @@ module.exports.PaginationCount = function PaginationCount(callback) {
     
    
     DBConnect.DBConnect(query,function(response){
-      if(response!=undefined){
+      if(response[0].UserAccountID==_UserAccountID){
         console.log(response);
         callback(true);
       }else{
@@ -97,7 +97,7 @@ module.exports.PaginationCount = function PaginationCount(callback) {
     
    
     DBConnect.DBConnect(query,function(response){
-      if(response!=undefined){
+      if(response[0].UserName==_UserName){
         console.log(response);
         callback(true);
       }else{
@@ -144,7 +144,7 @@ module.exports.PaginationCount = function PaginationCount(callback) {
     
    
     DBConnect.DBConnect(query,function(response){
-      if(response!=undefined){
+      if(response[0].ScreenName==_ScreenName){
         console.log(response);
         callback(true);
       }else{
