@@ -1,5 +1,5 @@
   //MODIFY
-  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Verify/:Verify', function (req, res) { 
+  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Key/:Key', function (req, res) { 
     let UserAccountIDFound = false;
     let UserAccountID = req.params.UserAccountID;
     let Verify = req.params.Verify;
