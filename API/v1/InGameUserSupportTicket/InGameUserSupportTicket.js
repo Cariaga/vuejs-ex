@@ -11,7 +11,8 @@ var isNullOrEmpty = require('is-null-or-empty');
 let InGameUserSupportTicketModel = require('./InGameUserSupportTicketModel');
 module.exports = function(app){//selection
     app.get('/UserAccount/SupportTicket/UserAccountID/:UserAccountID', function (req, res) {
-      DBConnect.InGameUserSupportTicketModel(function(response){
+      let UserAccountID= req.params.UserAccountID;
+      InGameUserSupportTicketModel.SupportTicketUserAccountID(UserAccountID,function(response){
         res.send(response);
       });
     });
