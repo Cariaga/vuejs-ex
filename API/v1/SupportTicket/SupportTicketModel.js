@@ -16,65 +16,6 @@ module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(
         callback(undefined);
       }
     });
-  /*Models.SupportTicket.sync();
-  let result = Models.SupportTicket.findAll({
-    where: {
-      UserAccountID: UserAccountID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
-}
-
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} Status
- * @param {*} callback
- */
-module.exports.SupportTicketUserAccountIDByStatus = function SupportTicketUserAccountIDByStatus(UserAccountID, Status, callback) {
-  let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @Status=${Status};` +
-
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-  /*Models.SupportTicket.sync();
-  let result = Models.SupportTicket.findAll({
-    where: {
-      UserAccountID: UserAccountID,
-      Status: Status
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
 }
 /**
  *
