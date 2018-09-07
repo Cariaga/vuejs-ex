@@ -119,7 +119,6 @@ DashBoardModel.UserAccountOnline(function (response) {
 
 //http://localhost:8080/Api/v1/Dashboard/NewUsers/
 DashBoardModel.UserAccountRecentRegistered(function (response) {
-
   console.log(response);
 });
 
