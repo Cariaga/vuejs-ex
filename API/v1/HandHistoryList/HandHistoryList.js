@@ -19,7 +19,18 @@ module.exports = function (app) {//SELECTION
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      let UserAccountIDExist = false;
+      
+      HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
+        if (response != undefined) {
+          res.send(beautify(response, null, 2, 100));
+        } else {
+          res.send({
+            HandHistoryFailed: true
+          });
+        }
+      });
+
+     /* let UserAccountIDExist = false;
       async.series([UserAccountIDCheck], function (error, response) {
         if (UserAccountIDExist == true) {
           HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
@@ -49,7 +60,7 @@ module.exports = function (app) {//SELECTION
             callback(null, '1');
           }
         });
-      }
+      }*/
     }
   });
   //INSERT

@@ -86,34 +86,7 @@ module.exports = function (app) {//MODIFY
               });
             }
           });
-          
-         /* async.series([UserAccountIDCheck, IsAccountBlockedCheck], function (err, response) {
-            if (FoundBlackListID == BlackListID) { //it must match the id of the given params // for aditional validation besides UserAccountID
-              if (UserAccountIDExist == true) {
-                if (Status == "Blocked" || Status == "Released") {
-                  if (Status != AccountStatus) {
-                    
-                  } else {
-                    res.send({
-                      StatusAlready: AccountStatus
-                    }); //Account Aleady Set To This status
-                  }
-                } else {
-                  res.send({
-                    InvalidStatusType: true
-                  }); //Status is Invalid
-                }
-              } else {
-                res.send({
-                  UserAccountIDExist: UserAccountIDExist
-                }); //Exist in the UserAccount Table
-              }
-            } else {
-              res.send({
-                InvalidBlackListID: true
-              });
-            }
-          });*/
+
 
           function UserAccountIDCheck(callback) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
