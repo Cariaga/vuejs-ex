@@ -5,7 +5,7 @@ module.exports.PaginationCount = function PaginationCount(callback) {
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
-        callback(true);
+        callback(response);
       }else{
         callback(false);
       }
