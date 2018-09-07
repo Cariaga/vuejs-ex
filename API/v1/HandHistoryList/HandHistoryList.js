@@ -6,7 +6,24 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let HandHistoryListModel = require('./HandHistoryListModel');
 module.exports = function (app) {//SELECTION
-  app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', function (req, res) {// by user Account
+
+  app.get('/Api/v1/HandHistoryList/SeasonID/:SeasonID/', function (req, res) {// by season
+    res.setHeader('Content-Type', 'application/json');
+    let SeasonID = req.params.SeasonID;
+      if(!isNullOrEmpty(SeasonID)){
+        HandHistoryListModel.HandHistorySeasonID(SeasonID, function (response) {
+          if (response != undefined) {
+            res.send(beautify(response, null, 2, 100));
+          } else {
+            res.send({
+              HandHistoryFailed: true
+            });
+          }
+        });
+    }
+  });
+
+  app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', function (req, res) {// by user Account with season
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let SeasonID = req.params.SeasonID;
@@ -23,24 +40,7 @@ module.exports = function (app) {//SELECTION
         });
       }
 
-      app.get('/Api/v1/HandHistoryList/SeasonID/:SeasonID/', function (req, res) {// by season
-        res.setHeader('Content-Type', 'application/json');
-        let UserAccountID = req.params.UserAccountID;
-        let SeasonID = req.params.SeasonID;
-        if (!isNullOrEmpty(UserAccountID)) {
-          if(!isNullOrEmpty(SeasonID)){
-            HandHistoryListModel.HandHistorySeasonID(SeasonID, function (response) {
-              if (response != undefined) {
-                res.send(beautify(response, null, 2, 100));
-              } else {
-                res.send({
-                  HandHistoryFailed: true
-                });
-              }
-            });
-          }
-        }
-      });
+     
      
 
      /* let UserAccountIDExist = false;
