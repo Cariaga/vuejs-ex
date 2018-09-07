@@ -9,7 +9,7 @@ module.exports = function (app) {//SELECTION
   app.get('/Api/v1/HandHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
   });
-  app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID', function (req, res) {
+  app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
