@@ -133,11 +133,7 @@ DashBoardModel.TransactionRecent(function (response) {
   console.log(response);
 });
 
-//http://localhost:8080/Api/v1/Dashboard/TotalTransactionRecent/
-let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
-DashBoardModel.TotalTransactionRecent(function (response) {
-  console.log(response);
-});
+
 //http://localhost:8080/Api/v1/TransferHistory/Add/UserAccountIDReceiver/Account6/UserAccountIDSender/Account5/Amount/0/Reason/0/
 let TransferHistoryModel = require('./API/v1/TransferHistory/TransferHistoryModel');
 TransferHistoryModel.RequestTransferHistory('Account6', 'Account5', 0, "reason", function (response) {
@@ -169,12 +165,29 @@ BlackListModel.BlackListStatusUpdate('2', 'Account6', 'Released', function (resp
   });
 
   //front-end done
+
+      //http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
+    let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+    DashBoardModel.TotalRegisteredUsers(function (response) {
+      console.log(response);
+    });
+
+    //http://localhost:8080/Api/v1/Dashboard/TotalTransactionRecent/
+    let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+    DashBoardModel.TotalTransactionRecent(function (response) {
+      console.log(response);
+    });
+
+  //front-end done end
   
+<<<<<<< HEAD
+=======
   //http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
+>>>>>>> 313edda499a745f52bda17934b733911a15f9cdf
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
         ConnectingUsersModel.ConnectingUsers(function(response){
