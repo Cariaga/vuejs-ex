@@ -116,6 +116,7 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.UserAccountOnline(function (response) {
   console.log(response);
 });
+
 //http://localhost:8080/Api/v1/Dashboard/NewUsers/
 DashBoardModel.UserAccountRecentRegistered(function (response) {
 
@@ -175,8 +176,11 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
+<<<<<<< HEAD
+=======
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
         ConnectingUsersModel.ConnectingUsers(function(response){
            console.log(response);
           });
+>>>>>>> 6ae9c0035859457446278731686def25b86caa2d
