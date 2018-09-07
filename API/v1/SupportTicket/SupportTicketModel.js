@@ -47,26 +47,6 @@ module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketI
         callback(undefined);
       }
     });
-  /*Models.SupportTicket.update({
-      Title: Title,
-      Description: Description,
-      Reason: Reason,
-      Time: Time,
-      Date: Date,
-      Status: Status
-    }, {
-      where: {
-        SupportTicketID: SupportTicketID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 /**
  *
@@ -99,30 +79,6 @@ module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title
         callback(undefined);
       }
     });
-  /*var item1 = Models.SupportTicket.build({
-    UserAccountID: UserAccountID,
-    Title: Title,
-    Description: Description,
-    Reason: Reason,
-    Time: Time,
-    Date: Date,
-    Status: Status
-  });
-  Models.SupportTicket.sync({
-    alter: true
-  }); //force to recreate if non production code
-  item1.save()
-    .then(Success => {
-
-      console.log("----AddSupportTicket Start-----");
-      console.log(Success);
-      console.log("----AddSupportTicket End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
 }
 
 module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountID, Title, Description, Reason, callback) {
@@ -142,28 +98,4 @@ module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountI
         callback(undefined);
       }
     });
-  /*var item1 = Models.SupportTicket.build({
-    UserAccountID: UserAccountID,
-    Title: Title,
-    Description: Description,
-    Reason: Reason,
-    Time: Time,
-    Date: Date,
-    Status: Status
-  });
-  Models.SupportTicket.sync({
-    alter: true
-  }); //force to recreate if non production code
-  item1.save()
-    .then(Success => {
-
-      console.log("----AddSupportTicket Start-----");
-      console.log(Success);
-      console.log("----AddSupportTicket End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
 }
