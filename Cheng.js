@@ -125,7 +125,7 @@ DashBoardModel.UserAccountRecentRegistered(function (response) {
 
 //http://localhost:8080/Api/v1/Dashboard/TotalDepositWithdrawProfit/
 let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
-DashBoardModel.TotalRegisteredUsers(function (response) {
+DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
 
@@ -181,6 +181,14 @@ BlackListModel.BlackListStatusUpdate('2', 'Account6', 'Released', function (resp
 
   //front-end done end
   
+<<<<<<< HEAD
+=======
+  //http://localhost:8080/Api/v1/Dashboard/TotalRegisteredUser
+let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+DashBoardModel.TotalRegisteredUsersToday(function (response) {
+  console.log(response);
+});
+>>>>>>> 313edda499a745f52bda17934b733911a15f9cdf
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
         ConnectingUsersModel.ConnectingUsers(function(response){

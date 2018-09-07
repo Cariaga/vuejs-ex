@@ -17,7 +17,7 @@ module.exports = function (app) {
 
     app.get('/Api/v1/Dashboard/TotalRegisteredUser/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
-        DashBoardModel.TotalRegisteredUsers(function (response) {
+        DashBoardModel.TotalRegisteredUsersToday(function (response) {
             res.send(response[0]);
           });
       });
