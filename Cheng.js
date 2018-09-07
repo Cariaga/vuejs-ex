@@ -207,4 +207,5 @@ require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicketModel').Support
 
 //With Season and UserAccountID
 //http://localhost:8080/Api/v1/HandHistoryList/UserAccountID/Account1/SeasonID/S1/
+//hand History
 //http://localhost:8080/Api/v1/HandHistoryList/SeasonID/S1/
