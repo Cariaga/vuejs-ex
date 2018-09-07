@@ -159,7 +159,7 @@ const mysql = require('mysql2');
     "WHERE SupportTicketID = '"+_SupportTicketID+"' ";
    
     DBConnect.DBConnect(query,function(response){
-      if(response!=undefined){
+      if(response[0].SupportTicketID==_SupportTicketID){
         console.log(response);
         callback(true);
       }else{
