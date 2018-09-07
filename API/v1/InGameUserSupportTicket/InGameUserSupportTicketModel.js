@@ -1,8 +1,7 @@
 
-
+let DBConnect = require("../../SharedController/DBConnect");
 module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(UserAccountID, callback) {
-    let query =
-      `SET @UserAccountID=${UserAccountID};` +
+    let query ="";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
