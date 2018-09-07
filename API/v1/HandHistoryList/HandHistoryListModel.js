@@ -6,7 +6,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
-module.exports.HandHistory = function HandHistory(callback) {
+module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
