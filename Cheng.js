@@ -29,6 +29,11 @@ DBCheck.isUserAccountBlocked('Account1', function(response){
   console.log(response);
 });
 
+let DBCheck = require('./API/SharedController/DBCheck');
+DBCheck.CheckUserAccountIDKey('Account1', 1, function(response){
+  console.log(response);
+});
+
 
 // http://localhost:8080/Api/v1/RoomConfiguration/Add/RoomID/RID6/GameType/Holdem/SmallBlind/50/BigBlind/100/Speed/50
 

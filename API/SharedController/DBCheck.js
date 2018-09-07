@@ -183,17 +183,17 @@ const mysql = require('mysql2');
     });
   }
 
-  module.exports.TryMinusCurrentPoints = function TryMinusCurrentPoints(UserAccountID, MinusPoints, callback){
+  module.exports.TryMinusCurrentPoints = function TryMinusCurrentPoints(UserAccountID, MinusPoints, callback) {
     let _UserAccountID = UserAccountID;
     let _MinusPoints = MinusPoints;
-    let query = 
-    "SELECT CurrentPoints - '"+_MinusPoints+"' AS 'NewPoints' FROM `sampledb`.`players` " +
-    "WHERE UserAccountID = '"+_UserAccountID+"' ";
+    let query =
+      "SELECT CurrentPoints - '" + _MinusPoints + "' AS 'NewPoints' FROM `sampledb`.`players` " +
+      "WHERE UserAccountID = '" + _UserAccountID + "' ";
 
-    DBConnect.DBConnect(query,function(response){
-      if(response[0].NewPoints>0){
+    DBConnect.DBConnect(query, function (response) {
+      if (response[0].NewPoints > 0) {
         callback(true);
-      }else{
+      } else {
         callback(false);
       }
     });
@@ -210,6 +210,23 @@ function IsNotificationIDExist(NotificationID, callback) {
       callback(response);
     }else{
       callback([]);
+    }
+  });
+}
+
+module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccountID, Key, callback) {
+  let _UserAccountID = UserAccountID;
+  let _Key = Key;
+  let query =
+    "SELECT * FROM `sampledb`.`useraccounts` " +
+    "WHERE UserAccountID = '" + _UserAccountID + "' AND Key = '" + _Key + "' ";
+
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(true);
+    } else {
+      callback(false);
     }
   });
 }
