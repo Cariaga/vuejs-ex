@@ -189,10 +189,7 @@ let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> 657d191f6edd5ed9c333093c03c4a23b9fb4b85a
 //http://localhost:8080/Api/v1/ConnectingUsers/
   let ConnectingUsersModel = require('./API/v1/ConnectingUsers/ConnectingUsersModel');
         ConnectingUsersModel.ConnectingUsers(function(response){
@@ -207,3 +204,7 @@ DashBoardModel.TotalRegisteredUsersToday(function (response) {
 require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicketModel').SupportTicketUserAccountID('Account6',function(response){
   console.log(response);
 });
+
+//With Season and UserAccountID
+http://localhost:8080/Api/v1/HandHistoryList/UserAccountID/Account1/SeasonID/S1/
+http://localhost:8080/Api/v1/HandHistoryList/SeasonID/S1/

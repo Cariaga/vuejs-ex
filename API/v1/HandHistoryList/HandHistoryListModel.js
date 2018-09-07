@@ -20,3 +20,16 @@ module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(User
     }
   });
 }
+module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID,callback) {
+  let _SeasonID = SeasonID;
+
+  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+_SeasonID+"';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
