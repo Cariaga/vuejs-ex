@@ -152,13 +152,4 @@ module.exports = function (app) {//SELECTION
       }
     });
   });
-  app.get('/Api/v1/IPList/', function (req, res) {
-    IPListModel.IPList(undefined,undefined, function (response) {
-      if (response != undefined) {
-        res.send(response);
-      } else {
-        callback([]);
-      }
-    });
-  });
 }
