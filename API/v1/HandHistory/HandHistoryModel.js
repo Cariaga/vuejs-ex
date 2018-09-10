@@ -7,6 +7,8 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
+// hand history dosn't need update
+/*
 module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, SeasonID, callback) {
   let query =
     `SET @HandHistoryID=${HandHistoryID};` +
@@ -26,7 +28,8 @@ module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, Use
         callback(undefined);
       }
     });
-}
+}*/
+
 module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, MoveHand, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
