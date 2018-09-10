@@ -238,4 +238,6 @@ PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '199
 
 //http://192.168.254.102:8080/Api/v1/OneOnOne/Search/Column/UserName/Value/U8 - One on One
 
+//http://192.168.254.102:8080/Api/v1/GameLogList/Search/Column/SeasonID/Value/S1 - Game Log
+
 //
