@@ -30,28 +30,7 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
         callback(undefined);
       }
     });
-  /*var item1 = Models.HeadOffice.build({
-    UserAccountID: UserAccountID,
-    Name: Name,
-    Description: Description
-  });
-  Models.HeadOffice.sync({
-    alter: true
-  }); //force true rebuilds table for non production only
-  item1.save()
-    .then(Success => {
 
-      console.log("----AddHeadOffice Start-----");
-      console.log(Success);
-      console.log("----AddHeadOffice End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting " + error);
-      callback(undefined);
-    });
-    */
 
 }
 /**
