@@ -7,11 +7,11 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
-module.exports.MemberListSearch = function MemberListSearch(Column, Value, callback) {
-    let _Column = Column;
-    let _Value = Value;
+module.exports.MemberList = function MemberList(Limit, Offset, callback) {
+    let _Limit = Limit;
+    let _Offset = Offset;
     let query = 
-    "SELECT * FROM sampledb.member_list where "+_Column+" like '%"+_Value+"%';";
+    "SELECT * FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -21,11 +21,12 @@ module.exports.MemberListSearch = function MemberListSearch(Column, Value, callb
       }
     });
   }
-module.exports.MemberListSearch = function MemberListSearch(Limit, Offset, callback) {
-    let _Limit = Limit;
-    let _Offset = Offset;
+
+module.exports.MemberListSearch = function MemberListSearch(Column, Value, callback) {
+    let _Column = Column;
+    let _Value = Value;
     let query = 
-    "SELECT * FROM sampledb.member_list";
+    "SELECT * FROM sampledb.member_list where "+_Column+" like '%"+_Value+"%';";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
