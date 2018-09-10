@@ -72,9 +72,9 @@ module.exports = function (app) {//MODIFY
     if (!isNullOrEmpty(BlackListID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Status)) {
-          let AccountStatus = undefined; //status retrived
+          /*let AccountStatus = undefined; //status retrived
           let UserAccountIDExist = false;
-          let FoundBlackListID = undefined; //used to check if it matches the BlackListID params
+          let FoundBlackListID = undefined; //used to check if it matches the BlackListID params*/
 
           BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
             console.log("Status Set");
@@ -88,7 +88,7 @@ module.exports = function (app) {//MODIFY
           });
 
 
-          function UserAccountIDCheck(callback) {
+        /*  function UserAccountIDCheck(callback) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
               let obj = response;
               if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
@@ -114,7 +114,8 @@ module.exports = function (app) {//MODIFY
                 callback(null, '1');
               }
             });
-          }
+          }*/
+
         } else {
           res.send("Missing Status " + Status);
         }
