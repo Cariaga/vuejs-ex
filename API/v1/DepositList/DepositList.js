@@ -13,8 +13,8 @@ module.exports = function (app) {
   });
   app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    let limit = req.params.limit;
-    let offset = req.params.offset;
+    let limit = req.params.Limit;
+    let offset = req.params.Offset;
     DepositListModel.DepositList(limit,offset,function(response){
       res.send(response);
     });
