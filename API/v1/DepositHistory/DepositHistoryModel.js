@@ -325,17 +325,3 @@ module.exports.DepositHistoryUserAccountID = function DepositHistoryUserAccountI
 
 //SELECT * FROM sampledb.deposit_list where UserAccountID like '%%';
 
-module.exports.DepositSearch = function DepositSearch(Column, Value, callback) {
-  let _Column = Column;
-  let _Value = Value;
-  let query = 
-  "SELECT * FROM sampledb.deposit_list where "+_Column+" like '%"+_Value+"%';";
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-}

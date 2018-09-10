@@ -17,10 +17,18 @@ module.exports = function (app) {
 
     app.get('/Api/v1/Dashboard/TotalRegisteredUser/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
-        DashBoardModel.TotalRegisteredUsersToday(function (response) {
+        DashBoardModel.TotalRegisteredUsers(function (response) {
             res.send(response[0]);
           });
       });
+
+    app.get('/Api/v1/Dashboard/TotalRegisteredUsersToday/', function (req, res) {
+        res.setHeader('Content-Type', 'application/json');
+        DashBoardModel.TotalRegisteredUsersToday(function (response) {
+            res.send(response[0]);
+            });
+        });
+
       app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalWithdrawDepositProfit(function (response) {

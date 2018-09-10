@@ -4,7 +4,32 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let BlackListModel = require("./BlackListModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-module.exports = function (app) {//MODIFY
+module.exports = function (app) {
+  //SELECTION
+  app.get('/Api/v1/BlackList/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    BlackListModel.BlackList(undefined, undefined, function (response) {
+      res.send(response);
+    });
+  });
+  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
+      BlackListModel.BlackList(Limit, Offset, function (response) {
+        res.send(response);
+      });
+    } else if (isNullOrEmpty(Limit) && isNullOrEmpty(Offset)) {
+      BlackListModel.BlackList(undefined, undefined, function (response) {
+        res.send(response);
+      });
+    }
+  });
+ 
+
+
+  //MODIFY
   app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
     let BlackListID = req.params.BlackListID;
     let UserAccountID = req.params.UserAccountID;
@@ -72,10 +97,6 @@ module.exports = function (app) {//MODIFY
     if (!isNullOrEmpty(BlackListID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Status)) {
-          let AccountStatus = undefined; //status retrived
-          let UserAccountIDExist = false;
-          let FoundBlackListID = undefined; //used to check if it matches the BlackListID params
-
           BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
             console.log("Status Set");
             if (response != undefined) {
@@ -86,35 +107,6 @@ module.exports = function (app) {//MODIFY
               });
             }
           });
-
-
-          function UserAccountIDCheck(callback) {
-            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-              let obj = response;
-              if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-                UserAccountIDExist = true;
-                callback(null, '1');
-              } else {
-                UserAccountIDExist = false;
-                callback(null, '1');
-              }
-            });
-          }
-
-          function IsAccountBlockedCheck(callback) {
-            DBCheck.isUserAccountBlocked(UserAccountID, function (response) {
-              let obj = response;
-              if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-                console.log('IsAccountBlockedCheck');
-                FoundBlackListID = obj[0].BlackListID; //matching Blacklist ID
-                AccountStatus = obj[0].Status;
-                callback(null, '1');
-              } else {
-                AccountStatus = undefined;
-                callback(null, '1');
-              }
-            });
-          }
         } else {
           res.send("Missing Status " + Status);
         }
@@ -125,7 +117,8 @@ module.exports = function (app) {//MODIFY
       res.send("Missing BlackListID " + BlackListID);
     }
   });
-  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
+
+  /*app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
     let BlackListID = req.params.BlackListID;
     let UserAccountID = req.params.UserAccountID;
     let Status = req.params.Status;
@@ -185,9 +178,9 @@ module.exports = function (app) {//MODIFY
         BlackListIDMissing: true
       });
     }
-  });
-//INSERT
-  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {//OK
+  });*/
+  //INSERT
+  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) { //OK
     //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
@@ -242,68 +235,5 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
-//SELECTION
-  app.get('/Api/v1/BlackList/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset = req.query.Offset;
-    let Limit = req.query.Limit;
-    let Sort = req.query.Sort;
-    Models.BlackList.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
 
-      BlackListModel.BlackListAll(function (response) {
-        res.send(beautify(response, null, 2, 100));
-      });
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    // res.send("BlackList "+Offset+" "+ Limit+" "+Sort);
-  });
-//STRUCTURE
-  app.get('/Api/v1/BlackList/Clear', function (req, res) {
-    Models.BlackList.destroy({
-        where: {},
-        truncate: true
-      })
-      .then(Success => {
-        res.send("Cleared");
-      })
-      .catch(err => {
-        res.send("Truncate " + err);
-      });
-  });
-  app.get('/Api/v1/BlackList/Delete', function (req, res) {
-    Models.BlackList.sync({
-      force: true
-    }).then(function (result) {
-      res.send("Deleted");
-    }).catch(function (result) { //catching any then errors
-  
-      res.send("Error " + result);
-    });
-  });
-  
-  app.get('/Api/v1/BlackList/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.BlackList.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.BlackList.describe().then(result => {
-      res.send(beautify(result, null, 2, 100));
-    });
-  });
 }

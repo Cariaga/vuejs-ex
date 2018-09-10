@@ -6,12 +6,12 @@ var moment = require('moment');
 const Collection = require('linqjs');
 var uuidv4 = require('uuid/v4');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAccountID, callback) {
-  let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    ""+
-    ""+
-    ""+
+module.exports.BlackList = function BlackList(limit , offset, callback) {
+  let _limit = limit;
+  let _offset = offset;
+  if(limit!=undefined&&_offset!=undefined){
+    let query =
+    "SELECT * FROM sampledb.useraccount_blacklist limit "+_limit+" offset "+_offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -20,25 +20,22 @@ module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAcco
         callback(undefined);
       }
     });
-  /* Models.BlackList.sync();
-   let result = Models.BlackList.findAll({
-     where: {
-       UserAccountID: UserAccountID
-     }
-   }).then(function (result) {
-     let Data = result.map(function (item) {
-       return item;
-     });
-     if (Data.length > 0) {
-       callback(Data);
-     } else {
-       callback(undefined);
-     }
-   }).catch(function (result) { //catching any then errors
-     console.log("Error " + result);
-     callback(undefined);
-   });*/
+  }
+  else if(limit!=undefined&&_offset!=undefined){
+    let query =
+    "SELECT * FROM sampledb.useraccount_blacklist";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  }
+  
 }
+
 /**
  *
  *
