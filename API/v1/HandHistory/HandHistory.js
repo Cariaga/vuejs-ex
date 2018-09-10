@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
 module.exports = function (app) { //MODIFY
+/* hand dosn't need update
   app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
     let RoundID = req.params.RoundID;
     let HandHistoryID = req.params.HandHistoryID;
@@ -46,7 +47,7 @@ module.exports = function (app) { //MODIFY
       });
     }
 
-  });
+  });*/
   //INSERT
   app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/', function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
@@ -154,11 +155,11 @@ module.exports = function (app) { //MODIFY
   });
 
   //STRUCTURE
-  app.get('/Api/v1/HandHistory/Describe', function (req, res) {
+  /*app.get('/Api/v1/HandHistory/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.HandHistory.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     Models.HandHistory.describe().then(result => {
       res.send(beautify(result, null, 2, 100));
     });
-  });
+  });*/
 }
