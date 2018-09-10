@@ -6,9 +6,10 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.TransferHistory = function TransferHistory(Limit,Offset,callback) {
-
+  let _Limit = Limit;
+  let _Offset =Offset;
   if(Limit!=undefined&&Offset!=undefined){
-    let query = "SELECT * FROM sampledb.transferhistories limit 10 offset 0";
+    let query = "SELECT * FROM sampledb.transferhistories limit "+_Limit+" offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
