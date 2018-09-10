@@ -5,7 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.TransferHistoryAll = function TransferHistoryAll(callback) {
+module.exports.TransferHistory = function TransferHistory(callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -15,27 +15,6 @@ module.exports.TransferHistoryAll = function TransferHistoryAll(callback) {
       callback(undefined);
     }
   });
-  /*Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({
-    where: {
-      TransferHistoryID: {
-        ne: null //not null
-      }
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
 }
 
 module.exports.TransferHistoryUserAccountIDReceiver = function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {
@@ -49,25 +28,7 @@ module.exports.TransferHistoryUserAccountIDReceiver = function TransferHistoryUs
         callback(undefined);
       }
     });
-  /*Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({
-    where: {
-      UserAccountIDReceiver: UserAccountIDReceiver
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
 
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
 }
 
 module.exports.TransferHistoryUserAccountIDSender = function TransferHistoryUserAccountIDSender(UserAccountIDSender, callback) {
@@ -81,25 +42,6 @@ module.exports.TransferHistoryUserAccountIDSender = function TransferHistoryUser
         callback(undefined);
       }
     });
-  /* Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({
-    where: {
-      UserAccountIDSender: UserAccountIDSender
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
 }
 
 module.exports.TransferHistoryTransferHistoryUUID = function TransferHistoryTransferHistoryUUID(TransferHistoryUUID, callback) {
