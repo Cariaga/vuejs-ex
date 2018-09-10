@@ -17,9 +17,9 @@ module.exports.TransferHistory = function TransferHistory(callback) {
   });
 }
 
-module.exports.TransferHistorySearch = function(Column,Value,callback){
+module.exports.TransferHistorySearch = function TransferHistorySearch(Column,Value,callback){
   let query = "SELECT * FROM sampledb.transferhistories "+
-  "WHERE '"+Column+"' = '"+Value+"';";
+  "WHERE "+Column+" = '"+Value+"';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
