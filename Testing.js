@@ -235,3 +235,7 @@ let PlayerFinalCardModel = require("./API/v1/PlayerFinalCard/PlayerFinalCardMode
 PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '1996-05-31 00:00:00', '200', '0', '0',function(response){
  // console.log(response);
 });
+
+//http://192.168.254.102:8080/Api/v1/OneOnOne/Search/Column/UserName/Value/U8 - One on One
+
+//
