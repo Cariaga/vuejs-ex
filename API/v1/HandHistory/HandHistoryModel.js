@@ -26,25 +26,6 @@ module.exports.HandHistoryUpdate = function HandHistoryUpdate(HandHistoryID, Use
         callback(undefined);
       }
     });
-  /*Models.HandHistory.sync();
-  Models.HandHistory.update({
-      MoveHand: MoveHand,
-      RoundID: RoundID
-    }, {
-      where: {
-        HandHistoryID: HandHistoryID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      console.log("Updated");
-      callback("Updated");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, MoveHand, callback) {
     let _UserAccountID = UserAccountID;
@@ -62,22 +43,6 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
         callback(undefined);
       }
     });
-  /*Models.HandHistory.sync();
-  var item1 = Models.HandHistory.build({
-    UserAccountID: UserAccountID,
-    MoveHand: MoveHand,
-    RoundID: RoundID
-  });
-  Models.HandHistory.sync(); //only use force true if you want to destroy replace table
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
-
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
 }
 module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, callback) {
   let _SeasonID = SeasonID;
