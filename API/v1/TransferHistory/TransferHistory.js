@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 module.exports = function (app) { //MODIFY
 
-  app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/Status/:Status', function (req, res) {
+  app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/Status/:Status/', function (req, res) {
     let TransferHistoryUUID = req.params.TransferHistoryUUID;
     let Status = req.params.Status;
     if(!isNullOrEmpty(TransferHistoryUUID)){
@@ -153,11 +153,6 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-  app.get('/Api/v1/TransferHistory/', function (req, res) {
-      
-  });
-
-
    app.get('/Api/v1/TransferHistory/Search/Column/:Column/Value/:Value', function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
