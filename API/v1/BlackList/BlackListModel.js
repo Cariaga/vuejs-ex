@@ -9,7 +9,8 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.BlackList = function BlackList(limit , offset, callback) {
   let _limit = limit;
   let _offset = offset;
-  let query =
+  if(limit!=undefined&&_offset!=undefined){
+    let query =
     "SELECT * FROM sampledb.useraccount_blacklist limit "+_limit+" offset "+_offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -19,6 +20,20 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
         callback(undefined);
       }
     });
+  }
+  else if(limit!=undefined&&_offset!=undefined){
+    let query =
+    "SELECT * FROM sampledb.useraccount_blacklist";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  }
+  
 }
 
 /**
