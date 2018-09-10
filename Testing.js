@@ -249,3 +249,5 @@ PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '199
 //http://192.168.254.102:8080/Api/v1/IPList/Search/Column/PlayerUserAccountID/Value/Account8 - IP List
 
 //http://192.168.254.102:8080/Api/v1/Transferhistory/Search/Column/Amount/Value/0 - Transfer Log
+
+//http://192.168.254.102:8080/Api/v1/MemberList/Search/Column/UserName/Value/U8 - Member List
