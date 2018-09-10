@@ -27,3 +27,20 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
         }
       });
 }
+module.exports.UpdatePlayerFinalCard = function UpdatePlayerFinalCard(UserAccountID, SeasonID, DateTime, BeforePoints, AfterPoints, WinPoints, callback) {
+    let _UserAccountID = UserAccountID;
+    let _SeasonID = SeasonID;
+    let _DateTime = DateTime;
+    let _BeforePoints = BeforePoints;
+    let _AfterPoints = AfterPoints;
+    let _WinPoints = WinPoints;
+    let query ="UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '"+_BeforePoints+"', `AfterPoints` = '"+_AfterPoints+"', `WinPoints` = '"+_WinPoints+"' WHERE (`UserAccountID` = '"+_UserAccountID+"' and `SeasonID`='"+_SeasonID+"');";
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
+}
