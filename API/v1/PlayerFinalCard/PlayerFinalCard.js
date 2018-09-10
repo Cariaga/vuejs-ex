@@ -27,7 +27,9 @@ module.exports = function (app) {
                                 if (!isNullOrEmpty(BeforePoints)) {
                                     if (!isNullOrEmpty(AfterPoints)) {
                                         if (!isNullOrEmpty(WinPoints)) {
-
+                                            PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '1996-05-31 00:00:00', '200', '0', '0',function(response){
+                                                res.send(response);
+                                            });
                                         } else {
                                             res.send({
                                                 SeasonIDMissing: true
