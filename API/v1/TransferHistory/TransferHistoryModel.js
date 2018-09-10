@@ -55,25 +55,6 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
         callback(undefined);
       }
     });
-  /* Models.TransferHistory.update({
-      UserAccountIDReceiver: UserAccountIDReceiver,
-      UserAccountIDSender: UserAccountIDSender,
-      Amount: Amount,
-      Status: Status,
-      Reason: Reason,
-      TransferedDATE: TransferedDATE,
-    }, {
-      where: {
-        TransferHistoryUUID: TransferHistoryUUID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdate(TransferHistoryUUID, Status, callback) {
   let _TransferHistoryUUID = TransferHistoryUUID;
