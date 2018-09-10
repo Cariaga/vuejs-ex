@@ -240,4 +240,10 @@ PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '199
 
 //http://192.168.254.102:8080/Api/v1/GameLogList/Search/Column/SeasonID/Value/S1 - Game Log
 
-//
+//http://192.168.254.102:8080/Api/v1/DepositList/Search/Column/Name/Value/n1 - Deposit List
+
+//http://192.168.254.102:8080/Api/v1/WithdrawHistoryList/Search/Column/ShopID/Value/1 - WithdrawHistoryList
+
+//http://192.168.254.102:8080/Api/v1/Notification/Search/Column/Title/Value/None - Notification
+
+//http://192.168.254.102:8080/Api/v1/IPList/Search/Column/PlayerUserAccountID/Value/Account8 - IP List
