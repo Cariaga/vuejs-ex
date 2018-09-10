@@ -6,9 +6,10 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.TransferHistory = function TransferHistory(Limit,Offset,callback) {
-
+  let _Limit = Limit;
+  let _Offset =Offset;
   if(Limit!=undefined&&Offset!=undefined){
-    let query = "SELECT * FROM sampledb.transferhistories limit 10 offset 0";
+    let query = "SELECT * FROM sampledb.transferhistories limit "+_Limit+" offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -29,7 +30,6 @@ module.exports.TransferHistory = function TransferHistory(Limit,Offset,callback)
       }
     });
   }
- 
 }
 
 module.exports.TransferHistorySearch = function TransferHistorySearch(Column,Value,callback){
@@ -55,25 +55,6 @@ module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHi
         callback(undefined);
       }
     });
-  /* Models.TransferHistory.update({
-      UserAccountIDReceiver: UserAccountIDReceiver,
-      UserAccountIDSender: UserAccountIDSender,
-      Amount: Amount,
-      Status: Status,
-      Reason: Reason,
-      TransferedDATE: TransferedDATE,
-    }, {
-      where: {
-        TransferHistoryUUID: TransferHistoryUUID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdate(TransferHistoryUUID, Status, callback) {
   let _TransferHistoryUUID = TransferHistoryUUID;
