@@ -6,12 +6,6 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {
   //SELECTION
-  app.get('/Api/v1/BlackList/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    BlackListModel.BlackList(undefined, undefined, function (response) {
-      res.send(response);
-    });
-  });
   app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.params.Limit;
