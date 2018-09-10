@@ -57,21 +57,4 @@ module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAc
         callback(undefined);
       }
     });
-  /*Models.HeadOffice.update({
-      UserAccountID: UserAccountID,
-      Name: Name
-    }, {
-      where: {
-        HeadOfficeID: HeadOfficeID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
