@@ -4,7 +4,13 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID', function (req, res) {
+
+  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', function (req, res) {
+
+  });
+
+
+  /*app.get('/Api/v1/MembersList/UserAccount/UserAccountID/:UserAccountID', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserAccountIDExist = false;
     let RegisteredDate = undefined;
@@ -133,5 +139,5 @@ module.exports = function (app) { //SELECTION
         UserAccountIDMissing: true
       });
     }
-  });
+  });*/
 }
