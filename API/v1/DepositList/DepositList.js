@@ -12,12 +12,7 @@ module.exports = function (app) {
       res.send(response);
     });
   });
-<<<<<<< HEAD
-  
-  app.get('/Api/v1/DepositList/limit/:limit/offset/:offset/', function (req, res) {
-=======
   app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', function (req, res) {
->>>>>>> a1d906c1098def130b5618581bdbe33e534b1c2b
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;
     let offset = req.params.Offset;
