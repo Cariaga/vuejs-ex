@@ -11,7 +11,9 @@ module.exports = function (app) { //SELECTION
     let Offset = req.params.Offset;
     if(!isNullOrEmpty(Limit)){
       if(!isNullOrEmpty(Offset)){
-        
+        MemberListModel.MemberList(Limit,Offset,function(response){
+          res.send(response);
+        });
       }
     }
   });
