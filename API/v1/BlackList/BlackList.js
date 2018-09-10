@@ -108,68 +108,6 @@ module.exports = function (app) {
       res.send("Missing BlackListID " + BlackListID);
     }
   });
-
-  /*app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
-    let BlackListID = req.params.BlackListID;
-    let UserAccountID = req.params.UserAccountID;
-    let Status = req.params.Status;
-    let Title = req.params.Title;
-    let Description = req.params.Description;
-    let ReportDate = req.params.ReportDate;
-    let ReleaseDate = req.params.ReleaseDate;
-
-    if (!isNullOrEmpty(BlackListID)) {
-      if (!isNullOrEmpty(UserAccountID)) {
-        if (!isNullOrEmpty(Status)) {
-          if (!isNullOrEmpty(Title)) {
-            if (!isNullOrEmpty(Description)) {
-              if (!isNullOrEmpty(ReportDate)) {
-                if (!isNullOrEmpty(ReleaseDate)) {
-                  BlackListModel.BlackListUpdate(BlackListID, UserAccountID, Status, Title, Description, ReportDate, ReleaseDate, function (response) {
-                    if (response != undefined) {
-                      res.send(response);
-                    } else {
-                      res.send({
-                        BlackListUpdateFailed: true
-                      });
-                    }
-                  });
-                } else {
-                  res.send({
-                    ReleaseDateMissing: true
-                  });
-                }
-              } else {
-                res.send({
-                  ReportDateMissing: true
-                });
-              }
-            } else {
-              res.send({
-                DescriptionMissing: true
-              });
-            }
-          } else {
-            res.send({
-              TitleMissing: true
-            });
-          }
-        } else {
-          res.send({
-            StatusMissing: true
-          });
-        }
-      } else {
-        res.send({
-          UserAccountIDMissing: true
-        });
-      }
-    } else {
-      res.send({
-        BlackListIDMissing: true
-      });
-    }
-  });*/
   //INSERT
   app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) { //OK
     //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
