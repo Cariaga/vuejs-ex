@@ -5,7 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.TransferHistoryAll = function TransferHistoryAll(callback) {
+module.exports.TransferHistory = function TransferHistory(callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -15,123 +15,19 @@ module.exports.TransferHistoryAll = function TransferHistoryAll(callback) {
       callback(undefined);
     }
   });
-  /*Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({
-    where: {
-      TransferHistoryID: {
-        ne: null //not null
-      }
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
 }
 
-module.exports.TransferHistoryUserAccountIDReceiver = function TransferHistoryUserAccountIDReceiver(UserAccountIDReceiver, callback) {
-  let query =
-    `SET @UserAccountIDReceiver=${UserAccountIDReceiver};` +
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-  /*Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({
-    where: {
-      UserAccountIDReceiver: UserAccountIDReceiver
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
+module.exports.TransferHistorySearch = function(Column,Value,callback){
+  let query = "SELECT * FROM sampledb.transferhistories "+
+  "WHERE '"+Column+"' = '"+Value+"';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
     } else {
       callback(undefined);
     }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
-}
-
-module.exports.TransferHistoryUserAccountIDSender = function TransferHistoryUserAccountIDSender(UserAccountIDSender, callback) {
-  let query =
-    `SET @UserAccountIDSender=${UserAccountIDSender};` +
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-  /* Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({
-    where: {
-      UserAccountIDSender: UserAccountIDSender
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
-}
-
-module.exports.TransferHistoryTransferHistoryUUID = function TransferHistoryTransferHistoryUUID(TransferHistoryUUID, callback) {
-  let query =
-    `SET @TransferHistoryUUID=${TransferHistoryUUID};` +
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-  /*Models.TransferHistory.sync();
-  let result = Models.TransferHistory.findAll({
-    where: {
-      TransferHistoryUUID: TransferHistoryUUID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
+  });
 }
 
 module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
