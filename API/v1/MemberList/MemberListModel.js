@@ -21,7 +21,6 @@ module.exports.MemberList = function MemberList(Limit, Offset, callback) {
       }
     });
   }
-
 module.exports.MemberListSearch = function MemberListSearch(Column, Value, callback) {
     let _Column = Column;
     let _Value = Value;
