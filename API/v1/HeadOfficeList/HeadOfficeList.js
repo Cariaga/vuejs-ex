@@ -29,3 +29,28 @@ app.get('/Api/v1/HeadOfficeList/Search/Column/:Column/Value/:Value', function (r
         });
     }
 });
+
+app.get('/Api/v1/HeadOfficeList/Limit/:Limit/Offset/:Offset', function (req, res) {
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    if (!isNullOrEmpty(Limit)) {
+        if (!isNullOrEmpty(Offset)) {
+            HeadOfficeListModel.HeadOfficeList(Limit, Offset, function (response) {
+                if (response != undefined) {
+                    res.send(response);
+                } else {
+                    res.send({});
+                }
+            });
+        } else {
+            res.send({
+                OffsetMissing: true
+            });
+        }
+    } else {
+        res.send({
+            LimitMissing: true
+        });
+    }
+
+});
