@@ -8,15 +8,15 @@ var uuidv4 = require('uuid/v4');
 var http = require('http');
 module.exports = function (app) {
     app.get('/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/DateTime/:DateTime/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/WinPoints/:WinPoints/', function (req, res) {
-        let = req.params.UserAccountID
-        let = req.params.SeasonID
-        let = req.params.Rank
-        let = req.params.Score
-        let = req.params.Card
-        let = req.params.DateTime
-        let = req.params.BeforePoints
-        let = req.params.AfterPoints
-        let = req.params.WinPoints
+        let UserAccountID  = req.params.UserAccountID;
+        let SeasonID = req.params.SeasonID;
+        let Rank = req.params.Rank;
+        let Score = req.params.Score;
+        let Card = req.params.Card;
+        let DateTime = req.params.DateTime;
+        let BeforePoints = req.params.BeforePoints;
+        let AfterPoints = req.params.AfterPoints;
+        let WinPoints = req.params.WinPoints;
 
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(SeasonID)) {
