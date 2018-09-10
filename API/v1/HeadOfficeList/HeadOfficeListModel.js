@@ -10,15 +10,29 @@ var uuidv4 = require('uuid/v4');
 module.exports.HeadOfficeList = function HeadOfficeList(Limit,Offset,callback) {
     let _Limit = Limit;
     let _Offset = Offset;
-  
-    let query = 
-    "SELECT * FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
+    if(Limit!=undefined&&Offset!=undefined){
+        let query = 
+        "SELECT * FROM sampledb.headoffice_list limit "+_Limit+" Offset "+_Offset;
+        DBConnect.DBConnect(query, function (response) {
+          if (response != undefined) {
+            console.log(response);
+            callback(response);
+          } else {
+            callback(undefined);
+          }
+        });
+    }
+    else if(Limit==undefined&&Offset==undefined){
+        let query = 
+        "SELECT * FROM sampledb.headoffice_list ";
+        DBConnect.DBConnect(query, function (response) {
+          if (response != undefined) {
+            console.log(response);
+            callback(response);
+          } else {
+            callback(undefined);
+          }
+        });
+    }
+   
   }
