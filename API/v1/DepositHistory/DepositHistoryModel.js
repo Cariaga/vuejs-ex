@@ -120,38 +120,7 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     callback(undefined);
   });
 
-              
-              
-  /*var item1 = Models.DepositHistory.build({
-    UserAccountID: UserAccountID,
-    Amount: Amount,
-    BankNameUsed: BankNameUsed,
-    SecurityCodeUsed: SecurityCodeUsed,
-    Status: Status,
-    RequestedDATE: RequestedDATE,
-    ApprovedDATE: ApprovedDATE,
-    RejectedDATE: RejectedDATE,
-    ProcessingDATE: ProcessingDATE,
-    RequestedTIME: RequestedTIME,
-    ApprovedTIME: ApprovedTIME,
-    RejectedTIME: RejectedTIME,
-    ProcessingTIME: ProcessingTIME,
-  });
-  Models.DepositHistory.sync({
-    alter: true
-  });
-  item1.save()
-    .then(Success => {
-      console.log("----AddDepositHistory Start-----");
-      console.log(Success);
-
-      console.log("----AddDepositHistory End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
+            
 }
 
 module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, callback) {
@@ -266,76 +235,6 @@ module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAc
       callback(undefined);
     }
   });
-  /*Models.DepositHistory.sync();
-  let result = Models.DepositHistory.findAll({
-    where: {
-      UserAccountID: UserAccountID,
-      Status: Status
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
 }
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} callback
- */
-module.exports.DepositHistoryUserAccountID = function DepositHistoryUserAccountID(UserAccountID, callback) {
-  let query =
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-  /*Models.DepositHistory.sync();
-  let result = Models.DepositHistory.findAll({
-    where: {
-      UserAccountID: UserAccountID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
-}
-
 //SELECT * FROM sampledb.deposit_list where UserAccountID like '%%';
 
-module.exports.DepositSearch = function DepositSearch(Column, Value, callback) {
-  let _Column = Column;
-  let _Value = Value;
-  let query = 
-  "SELECT * FROM sampledb.deposit_list where "+_Column+" like '%"+_Value+"%';";
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-}
