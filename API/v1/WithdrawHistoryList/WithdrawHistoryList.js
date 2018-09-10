@@ -9,8 +9,6 @@ module.exports = function (app) {//SELECTION
 
   app.get('/Api/v1/WithdrawList/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    
-    
   });
   app.get('/Api/v1/WithdrawList/UserAccountID/:UserAccountID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
