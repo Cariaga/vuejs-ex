@@ -6,9 +6,11 @@ var moment = require('moment');
 const Collection = require('linqjs');
 var uuidv4 = require('uuid/v4');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.BlackList = function BlackList(UserAccountID, callback) {
+module.exports.BlackList = function BlackList(limit , offset, callback) {
+  let _limit = limit;
+  let _offset = offset;
   let query =
-    "";
+    "SELECT * FROM sampledb.useraccount_blacklist limit "+_limit+" offset "+_offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
