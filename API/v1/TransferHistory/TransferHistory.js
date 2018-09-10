@@ -141,7 +141,7 @@ module.exports = function (app) { //MODIFY
 
   //Transaction list of a player not to be confued with TransferHistory between players
   //NOT A TRASFER HISTORY but a transactions performed on and by the PLAYER to SELF Account
-  app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, res) { //A combination of Deposit and Withdraw List in one request but for the player its self
+  /*app.get('/Api/v1/TransactionList/UserAccountID/:UserAccountID/', function (req, res) { //A combination of Deposit and Withdraw List in one request but for the player its self
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let PhoneNumber = req.param.PhoneNumber;
@@ -253,9 +253,9 @@ module.exports = function (app) { //MODIFY
         UserAccountIDMissing: true
       });
     }
-  });
+  });*/
 
-  app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/', function (req, res) {
+ /* app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
     let SentTransferResult = undefined;
@@ -311,8 +311,8 @@ module.exports = function (app) { //MODIFY
         UserAccountIDMissing: true
       });
     }
-  });
-  app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/', function (req, res) {
+  });*/
+  /*app.get('/Api/v1/TransferHistory/UserAccountSentAndRecievedID/:UserAccountSentAndRecievedID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountSentAndRecievedID = req.params.UserAccountSentAndRecievedID;
     let SentTransferResult = undefined;
@@ -351,7 +351,7 @@ module.exports = function (app) { //MODIFY
         }
       });
     }
-  });
+  });*/
 
 
 
