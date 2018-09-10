@@ -80,6 +80,7 @@ require('./API/v1/GameLogList/GameLogList')(app);
 require('./API/v1/HandHistory/HandHistory')(app);
 require('./API/v1/HandHistoryList/HandHistoryList')(app);
 require('./API/v1/HeadOffice/HeadOffice')(app);
+require('./API/v1/HeadOfficeList/HeadOfficeList')(app);
 require('./API/v1/IPList/IPList')(app);
 require('./API/v1/Login/Login')(app);
 require('./API/v1/Login/LogOut')(app);
