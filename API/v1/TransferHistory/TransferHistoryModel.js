@@ -30,7 +30,6 @@ module.exports.TransferHistory = function TransferHistory(Limit,Offset,callback)
       }
     });
   }
- 
 }
 
 module.exports.TransferHistorySearch = function TransferHistorySearch(Column,Value,callback){
