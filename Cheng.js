@@ -231,3 +231,7 @@ let PaginationModel = require('./API/v1/Pagination');
 PaginationModel.PaginationCount(function(response){
     console.log(response);
 });
+let PlayerFinalCardModel = require("./API/v1/PlayerFinalCard/PlayerFinalCardModel");
+PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '1996-05-31 00:00:00', '200', '0', '0',function(response){
+ // console.log(response);
+});

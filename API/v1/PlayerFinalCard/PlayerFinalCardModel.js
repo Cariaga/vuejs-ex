@@ -26,5 +26,4 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
           callback(undefined);
         }
       });
-
 }
