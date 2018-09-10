@@ -24,6 +24,19 @@ module.exports.UserAccountOnline = function UserAccountOnline(callback) {
         }
       });
 }*/
+module.exports.TotalRegisteredUsers = function TotalRegisteredUsers(callback) {
+  let query =
+    "SELECT * FROM sampledb.total_registered_users;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
 module.exports.TotalRegisteredUsersToday = function TotalRegisteredUsers(callback) {
   let query =
     "SELECT * FROM sampledb.total_recent_registered;";
@@ -36,6 +49,7 @@ module.exports.TotalRegisteredUsersToday = function TotalRegisteredUsers(callbac
       }
     });
 }
+
 module.exports.TotalWithdrawDepositProfit = function TotalWithdrawDepositProfit(callback) {
   let query =
     "SELECT * FROM sampledb.withdraw_deposit_porfit_total;";
