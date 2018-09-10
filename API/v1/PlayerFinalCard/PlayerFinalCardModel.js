@@ -34,7 +34,7 @@ module.exports.UpdatePlayerFinalCard = function UpdatePlayerFinalCard(UserAccoun
     let _BeforePoints = BeforePoints;
     let _AfterPoints = AfterPoints;
     let _WinPoints = WinPoints;
-    let query ="";
+    let query ="UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '"+_BeforePoints+"', `AfterPoints` = '"+_AfterPoints+"', `WinPoints` = '"+_WinPoints+"' WHERE (`UserAccountID` = '"+_UserAccountID+"' and `SeasonID`='"+_SeasonID+"');";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
