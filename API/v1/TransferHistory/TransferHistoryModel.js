@@ -69,25 +69,6 @@ module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdat
         callback(undefined);
       }
     });
-  /* Models.TransferHistory.update({
-      UserAccountIDReceiver: UserAccountIDReceiver,
-      UserAccountIDSender: UserAccountIDSender,
-      Amount: Amount,
-      Status: Status,
-      Reason: Reason,
-      TransferedDATE: TransferedDATE,
-    }, {
-      where: {
-        TransferHistoryUUID: TransferHistoryUUID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
