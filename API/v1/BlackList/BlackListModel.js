@@ -6,12 +6,9 @@ var moment = require('moment');
 const Collection = require('linqjs');
 var uuidv4 = require('uuid/v4');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAccountID, callback) {
+module.exports.BlackList = function BlackList(UserAccountID, callback) {
   let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    ""+
-    ""+
-    ""+
+    "";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -21,6 +18,7 @@ module.exports.BlackListUserAccountID = function BlackListUserAccountID(UserAcco
       }
     });
 }
+
 /**
  *
  *
