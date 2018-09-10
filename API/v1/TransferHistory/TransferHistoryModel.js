@@ -44,18 +44,6 @@ module.exports.TransferHistorySearch = function TransferHistorySearch(Column,Val
     }
   });
 }
-
-module.exports.TransferHistoryUpdate = function TransferHistoryUpdate(TransferHistoryUUID, UserAccountIDReceiver, UserAccountIDSender, Amount, Status, Reason, TransferedDATE, callback) {
-  let query =
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-}
 module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdate(TransferHistoryUUID, Status, callback) {
   let _TransferHistoryUUID = TransferHistoryUUID;
   let _Status = Status;
