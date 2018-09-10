@@ -11,7 +11,8 @@ module.exports.HeadOfficeList = function HeadOfficeList(Limit,Offset,callback) {
     let _Limit = Limit;
     let _Offset = Offset;
   
-    let query = "";
+    let query = 
+    "SELECT * FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
