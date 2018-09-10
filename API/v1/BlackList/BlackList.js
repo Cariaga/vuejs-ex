@@ -6,7 +6,13 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {
   //SELECTION
-  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset', function (req, res) {
+  app.get('/Api/v1/BlackList/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    BlackListModel.BlackList(undefined, undefined, function (response) {
+      res.send(response);
+    });
+  });
+  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
@@ -20,6 +26,8 @@ module.exports = function (app) {
       });
     }
   });
+ 
+
 
   //MODIFY
   app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
