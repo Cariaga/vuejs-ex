@@ -125,11 +125,6 @@ module.exports = function (app) { //INSERT
 
     if (!isNullOrEmpty(Answer)) {
       if (!isNullOrEmpty(Status)) {
-        // let UserAccountIDExist = false;
-        // let SupportTicketIDExist = false;
-        // async.series([SupportTicketIDCheck, UserAccountIDCheck], function (error, response) {
-        //   if (UserAccountIDExist == true) {
-        //     if (SupportTicketIDExist == true) {
         SupportTicketModel.SupportTicketUpdate(SupportTicketID, Answer, Status, function (response) {
           if (!isNullOrEmpty(response) && response != undefined) {
             res.send(response);
@@ -139,45 +134,6 @@ module.exports = function (app) { //INSERT
             });
           }
         });
-        //     } else {
-        //       res.send({
-        //         SupportTicketIDExist: false
-        //       });
-        //     }
-        //   } else {
-        //     res.send({
-        //       UserAccountIDExist: false
-        //     });
-        //   }
-        // });
-
-        // function SupportTicketIDCheck(callback) {
-        //   DBCheck.isSupportTicketIDExist(SupportTicketID, function (response) {
-        //     console.log('1');
-        //     let obj = response;
-        //     if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].SupportTicketID == SupportTicketID) {
-        //       SupportTicketIDExist = true;
-        //       callback(null, '1');
-        //     } else {
-        //       SupportTicketIDExist = false;
-        //       callback(null, '1');
-        //     }
-        //   });
-        // }
-
-        // function UserAccountIDCheck(callback2) {
-        //   DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-        //     console.log('2');
-        //     let obj = response;
-        //     if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-        //       UserAccountIDExist = true;
-        //       callback2(null, '2');
-        //     } else {
-        //       UserAccountIDExist = false;
-        //       callback2(null, '2');
-        //     }
-        //   });
-        // }
       } else {
         res.send({
           StatusMissing: true
