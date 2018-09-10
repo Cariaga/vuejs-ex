@@ -6,13 +6,21 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {
   //SELECTION
-  app.get('/Api/v1/BlackList/', function (req, res) {
+  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    BlackListModel.BlackList(function (response) {
-      res.send(response);
-    });
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
+      BlackListModel.BlackList(Limit, Offset, function (response) {
+        res.send(response);
+      });
+    } else if (isNullOrEmpty(Limit) && isNullOrEmpty(Offset)) {
+      BlackListModel.BlackList(undefined, undefined, function (response) {
+        res.send(response);
+      });
+    }
   });
-  
+
   //MODIFY
   app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
     let BlackListID = req.params.BlackListID;
@@ -101,7 +109,7 @@ module.exports = function (app) {
       res.send("Missing BlackListID " + BlackListID);
     }
   });
-  
+
   /*app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/Title/:Title/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {
     let BlackListID = req.params.BlackListID;
     let UserAccountID = req.params.UserAccountID;
@@ -163,8 +171,8 @@ module.exports = function (app) {
       });
     }
   });*/
-//INSERT
-  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) {//OK
+  //INSERT
+  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) { //OK
     //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
