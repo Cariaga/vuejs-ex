@@ -141,10 +141,10 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  app.get('/Api/v1/IPList/Min/:Min/Max/:Max', function (req, res) {//OK
-    let Min =req.params.Min;
-    let Max = req.params.Max;
-    IPListModel.IPList(Min,Max, function (response) {
+  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset', function (req, res) {//OK
+    let Limit =req.params.Limit;
+    let Offset = req.params.Offset;
+    IPListModel.IPList(Limit,Offset, function (response) {
       if (response != undefined) {
         res.send(response);
       } else {
