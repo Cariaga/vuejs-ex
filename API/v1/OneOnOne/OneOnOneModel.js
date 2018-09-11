@@ -32,7 +32,7 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     }
     
 }
-module.exports.WriteSupportTicketID = function WriteSupport(SupportTicketID,UserAccountID,callback){
+module.exports.WriteSupportTicketID = function WriteSupportTicketID(SupportTicketID,UserAccountID,callback){
     let query = "";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

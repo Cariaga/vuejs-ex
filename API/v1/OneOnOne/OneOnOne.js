@@ -43,13 +43,38 @@ module.exports = function (app) { //SELECTION
        });
      }
    });
-   app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
-    let Column = req.params.Column;
-    let Value = req.params.Value;
 
-    if (!isNullOrEmpty(Column)) {
-      if (!isNullOrEmpty(Value)) {
-        OneOnOneModel.SupportSearch(Column, Value, function (response) {
+   app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let Answer = req.params.Answer;
+
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(Answer)) {
+        OneOnOneModel.WriteSupportAnswerUpdate(UserAccountID, Answer, function (response) {
+          if (response != undefined) {
+            res.send(response);
+          } else {
+            res.send(undefined);
+          }
+        });
+      } else {
+        res.send({
+          InvalidValue: true
+        });
+      }
+    } else {
+      res.send({
+        InvalidColumn: true
+      });
+    }
+  });
+  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/SupportTicketID/:SupportTicketID/', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let SupportTicketID = req.params.SupportTicketID;
+
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(SupportTicketID)) {
+        OneOnOneModel.WriteSupportTicketID(UserAccountID, SupportTicketID, function (response) {
           if (response != undefined) {
             res.send(response);
           } else {
