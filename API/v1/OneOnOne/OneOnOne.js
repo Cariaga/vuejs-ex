@@ -4,13 +4,13 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
-let OneOnOneModel = require ('../OneOnOne/OneOnOneModel')
+let OneOnOneModel = require('../OneOnOne/OneOnOneModel')
 
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', function (req, res) {//OK
-    let Limit =req.params.Limit;
+  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', function (req, res) { //OK
+    let Limit = req.params.Limit;
     let Offset = req.params.Offset;
-    OneOnOneModel.OneOnOne(Limit,Offset, function (response) {
+    OneOnOneModel.OneOnOne(Limit, Offset, function (response) {
       if (response != undefined) {
         res.send(response);
       } else {
@@ -19,9 +19,9 @@ module.exports = function (app) { //SELECTION
     });
   });
 
-   app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value', function (req, res) {
-     let Column = req.params.Column;
-     let Value = req.params.Value;
+  app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value', function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
 
      if (!isNullOrEmpty(Column)) {
        if (!isNullOrEmpty(Value)) {
@@ -89,6 +89,38 @@ module.exports = function (app) { //SELECTION
     } else {
       res.send({
         InvalidColumn: true
+      });
+    }
+  });
+
+  app.get('/Api/v1/OneOnOne/WriteSupportAnswer/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
+    let SupportTicketID = req.params.SupportTicketID;
+    let UserAccountID = req.params.UserAccountID;
+    let Answer = req.params.Answer;
+
+    if (!isNullOrEmpty(SupportTicketID)) {
+      if (!isNullOrEmpty(UserAccountID)) {
+        if (!isNullOrEmpty(Answer)) {
+          OneOnOneModel.WriteSupportAnswerUpdate(SupportTicketID, UserAccountID, Answer, function (response) {
+            if (response != undefined) {
+              res.send(response);
+            } else {
+              res.send(undefined);
+            }
+          });
+        } else {
+          res.send({
+            InvalidAnswer: true
+          });
+        }
+      } else {
+        res.send({
+          InvalidUserAccountID: true
+        });
+      }
+    } else {
+      res.send({
+        InvalidSupportTicketID: true
       });
     }
   });

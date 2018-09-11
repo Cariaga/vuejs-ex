@@ -45,7 +45,11 @@ module.exports.WriteSupportTicketID = function WriteSupportTicketID(SupportTicke
      
 }
 module.exports.WriteSupportAnswerUpdate = function WriteSupportAnswerUpdate(SupportTicketID,UserAccountID,Answer,callback){
-    let query = "";
+    let _Answer = Answer;
+    let query = 
+    "UPDATE `sampledb`.`supporttickets` " +
+    "SET Answer = '"+_Answer+"', `DateTime` = now(),`Status` = 'Done' " +
+    "WHERE SupportTicketID = SupportTicketID AND UserAccountID = UserAccountID; ";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
