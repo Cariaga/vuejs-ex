@@ -13,7 +13,9 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.VerifyAccount = function VerifyAccount(UserName, Key, callback) { // Verification with ValidKey // Public only use // Via ValidKey
-  let query ="";
+  let _UserName = UserName;
+  let _Key = Key;
+  let query ="UPDATE `sampledb`.`useraccounts` SET `Verified` = 'true' WHERE (`UserAccountID` = '"+_Key+"' and `Key`='"+_UserName+"' and `Verified`='false');";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
