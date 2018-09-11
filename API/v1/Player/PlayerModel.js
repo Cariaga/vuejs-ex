@@ -246,31 +246,6 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
         callback(undefined);
       }
     });
-  //res.send('test');
-  //Setting up the config
-  /*let item1 = Models.Player.build({
-    UserAccountID: UserAccountID,
-    ShopID: ShopID,
-    ScreenName: ScreenName,
-    Name: Name,
-    Surname: Surname,
-    CurrentRoomName: CurrentRoomName
-  });
-  Models.Player.sync(); //use force to clear/delete old table non production only
-  item1.save()
-    .then(Success => {
-
-      console.log("----AddPlayer Start-----");
-      console.log(Success);
-      console.log("----AddPlayer End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
-  //res.send("Player "+UserAccountID+" "+ ShopID+" "+ScreenName);
 }
 
 module.exports.PlayerInformation = function PlayerInformation(UserAccountID, callback) {
