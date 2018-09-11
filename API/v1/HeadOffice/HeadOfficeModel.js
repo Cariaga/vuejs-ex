@@ -7,17 +7,19 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
-module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,UserAccountID,Name,PhoneNumber,Password,Commission,callback){
-  let _HeadOfficeID = HeadOfficeID;
+// front end use
+module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,callback){
   let _UserAccountID = UserAccountID;
   let _Name = Name;
   let _PhoneNumber = PhoneNumber;
+  let _UserName = UserName;
   let _Password = Password;
   let _Commission = Commission;
   
+  
   function Q1(){
     let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
-    " VALUES ('Account14', 'U14', 'U14', '2018-09-06 18:03:55', 'Offline', 'false', '14');";
+    " VALUES ('"+_UserAccountID+"', '"+_UserName+"', '"+_Password+"', now(), 'Offline', 'true', null);";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -31,7 +33,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Use
   }
   function Q2(){
     let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
-    "VALUES ('Account14', 'Email', 'PhoneNumber', 'TelephoneNumber');";
+    "VALUES ('"+_UserAccountID+"', null, '"+_PhoneNumber+"', null);";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -44,7 +46,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Use
     });
   }
   function Q3(){
-    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) VALUES ('Account2', 'U2', 'xzv', '0');";
+    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`,`Name`,`Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Commission+"');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -68,7 +70,8 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Use
   RunAsync();
   
 }
-module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {// not front end use
+// not front end use
+module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {
   let _UserAccountID = UserAccountID;
   let _Name = Name;
   let _Description = Description;
