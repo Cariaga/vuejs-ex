@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let HeadOfficeModel = require("../HeadOffice/HeadOfficeModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-module.exports = function (app) {//INSERT
+module.exports = function (app) { //INSERT
   app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', function (req, res) {
     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
     let UserAccountID = req.params.UserAccountID;
@@ -56,103 +56,51 @@ module.exports = function (app) {//INSERT
       res.send("Missing params");
     }
   });
-  //STRUCTURE
-  app.get('/Api/v1/HeadOffice/Clear', function (req, res) {
-    Models.HeadOffice.destroy({
-        where: {},
-        truncate: true
-      })
-      .then(Success => {
-        res.send("Cleared");
-      })
-      .catch(err => {
-        res.send("Truncate " + err);
-      });
-  });
-  app.get('/Api/v1/HeadOffice/Delete', function (req, res) {
-    Models.HeadOffice.sync({
-      force: true
-    }).then(function (result) {
-      res.send("Deleted");
-    }).catch(function (result) { //catching any then errors
-  
-      res.send("Error " + result);
-    });
-  });
-  app.get('/Api/v1/HeadOffice/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.HeadOffice.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.HeadOffice.describe().then(result => {
-      res.send(beautify(result, null, 2, 100));
-    });
-  });
-  //SELECTION
-  app.get('/Api/v1/HeadOffice/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset = req.query.Offset;
-    let Limit = req.query.Limit;
-    let Sort = req.query.Sort;
-    Models.HeadOffice.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      let result = Models.HeadOffice.findAll({
-        where: {
-          HeadOfficeID: {
-            ne: null //not null
-          }
-        }
-      }).then(function (result) {
-        let Data = result.map(function (item) {
-          return item;
-  
-        });
-  
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function (result) { //catching any then errors
-  
-        res.send("Error " + result);
-      });
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
-    // res.send("HeadOffice "+Offset+" "+ Limit+" "+Sort);
-  });
-  //MODIFY
-  app.get('/Api/v1/HeadOffice/Update/:HeadOfficeID/:UserAccountID/:Name/:Name/', function (req, res) {
+  app.get('/Api/v1/HeadOffice/Add/HeadOfficeID/:HeadOfficeID/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/Password/:Password/Commission/:Commission/', function (req, res) {
     let HeadOfficeID = req.params.HeadOfficeID;
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
-  
+    let PhoneNumber = req.params.PhoneNumber;
+    let Password = req.params.Password;
+    let Commission = req.params.Commission;
     if (!isNullOrEmpty(HeadOfficeID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Name)) {
-          HeadOfficeModel.HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, function (response) {
-            if (response != undefined) {
-              res.send(response);
+          if (!isNullOrEmpty(PhoneNumber)) {
+            if (!isNullOrEmpty(Password)) {
+              if (!isNullOrEmpty(Commission)) {
+                
+              } else {
+                res.send({
+                  UserAccountIDMissing: true
+                })
+              }
             } else {
               res.send({
-                HeadOfficeUpdateFailed: true
-              });
+                NameMissing: true
+              })
             }
-          });
+          } else {
+            res.send({
+              PhoneNumberMissing: true
+            })
+          }
         } else {
           res.send({
-            NameMissing: true
-          });
+            PasswordMissing: true
+          })
         }
       } else {
         res.send({
-          UserAccountIDMissing: true
-        });
+          CommissionMissing: true
+        })
       }
-    } else {
-      res.send({
-        HeadOfficeIDMissing: true
-      });
     }
-  });
-}
 
+    HeadOfficeModel.RegisterHeadOffice('', '', '', '', '', '', function (response) {
+      res.send(response);
+    });
+  });
+  //STRUCTURE
+  //SELECTION
+}

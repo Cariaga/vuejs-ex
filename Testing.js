@@ -254,4 +254,11 @@ PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '199
 
 //http://192.168.254.102:8080/Api/v1/HeadOfficeList/Search/Column/Name/Value/U1 - Head Office List
 
+<<<<<<< HEAD
 //http://192.168.254.102:8080/Api/v1/Notification/Update/NotificationID/1/NotificationType/N1/Title/Nope/Description/Nope/Status/Pending/ - Notice update
+=======
+let HeadOfficeModel = require('./API/v1/HeadOffice/HeadOfficeModel');
+HeadOfficeModel.RegisterHeadOffice('HeadOfficeID','UserAccountID','Name','PhoneNumber','Password','Commission',function(response){
+  console.log(response);
+});
+>>>>>>> 951eed0fe073b30baa19afee24050bba645e777d
