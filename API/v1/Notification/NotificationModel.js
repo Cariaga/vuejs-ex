@@ -17,8 +17,15 @@ var uuidv4 = require('uuid/v4');
  * @param {*} Date
  * @param {*} callback
  */
-module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, NotificationType, Title, Description, DateTime, callback) {
-  let query ="";
+module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, NotificationType, Title, Description, Status, callback) {
+  let _Title = Title;
+  let _Description = Description;
+  let _Status = Status;
+
+  let query =
+  "UPDATE `sampledb`.`notifications` " +
+  "SET Title = '"+_Title+"', `Description` = '"+_Description+"', `DateTime` = now(), `Status` = '"+_Status+"'" +
+  "WHERE NotificationID = NotificationID";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -69,4 +76,6 @@ module.exports.NotificationSearch = function NotificationSearch(Column, Value, c
       callback(undefined);
     }
   });
+
+
 }
