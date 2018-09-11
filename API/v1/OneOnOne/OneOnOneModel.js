@@ -57,7 +57,6 @@ module.exports.WriteSupportTicketID = function WriteSupportTicketID(SupportTicke
             callback(undefined);
         }
     });
-     
 }
 module.exports.WriteSupportAnswerUpdate = function WriteSupportAnswerUpdate(SupportTicketID,UserAccountID,Answer,callback){
     let _Answer = Answer;
