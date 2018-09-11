@@ -56,6 +56,14 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Nam
       });
     });
   }
+  async function RunAsync() {
+    console.log('calling');
+    let finalresult = [{}];
+    let result = await Q1();
+    let result2 = await Q2();
+    let result2 = await Q3();
+  }
+  RunAsync();
   
 }
 module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {// not front end use
