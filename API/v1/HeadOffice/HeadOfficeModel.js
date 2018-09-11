@@ -7,6 +7,7 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
+// front end use
 module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,callback){
   let _UserAccountID = UserAccountID;
   let _Name = Name;
@@ -69,7 +70,8 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
   RunAsync();
   
 }
-module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {// not front end use
+// not front end use
+module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {
   let _UserAccountID = UserAccountID;
   let _Name = Name;
   let _Description = Description;

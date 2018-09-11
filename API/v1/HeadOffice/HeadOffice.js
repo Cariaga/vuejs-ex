@@ -112,8 +112,6 @@ module.exports = function (app) { //INSERT
           CommissionMissing: true
         })
       }
-    
-
   });
   //STRUCTURE
   //SELECTION
