@@ -8,7 +8,13 @@ let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
 module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Name,PhoneNumber,Password,Commission,callback){
-  
+  let _HeadOfficeID = HeadOfficeID;
+  let _UserAccountID = UserAccountID;
+  let _Name = Name;
+  let _PhoneNumber = PhoneNumber;
+  let _Password = Password;
+  let _Commission = Commission;
+  let query = "";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
