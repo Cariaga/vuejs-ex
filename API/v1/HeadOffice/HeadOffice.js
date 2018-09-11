@@ -63,7 +63,7 @@ module.exports = function (app) { //INSERT
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Commission = req.params.Commission;
-    if (!isNullOrEmpty(HeadOfficeID)) {
+
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Name)) {
           if (!isNullOrEmpty(PhoneNumber)) {
@@ -112,7 +112,7 @@ module.exports = function (app) { //INSERT
           CommissionMissing: true
         })
       }
-    }
+    
 
   });
   //STRUCTURE
