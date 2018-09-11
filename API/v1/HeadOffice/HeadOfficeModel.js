@@ -16,12 +16,9 @@ var uuidv4 = require('uuid/v4');
  * @param {*} callback
  */
 module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, callback) {
+  let _UserAccountID = UserAccountID
   let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @Name=${Name};` +
-    `SET @Description=${Description};` +
-    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) "+
-    "VALUES (@UserAccountID, @Name, @Description, @CurrentPoints);";
+    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`, `Commission`) VALUES ('Account2', 'U2', 'xzv', '0', '0');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -30,8 +27,6 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
         callback(undefined);
       }
     });
-
-
 }
 /**
  *
