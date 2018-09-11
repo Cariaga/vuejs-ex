@@ -14,44 +14,49 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Nam
   let _PhoneNumber = PhoneNumber;
   let _Password = Password;
   let _Commission = Commission;
+  
   function Q1(){
     let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
     " VALUES ('Account14', 'U14', 'U14', '2018-09-06 18:03:55', 'Offline', 'false', '14');";
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
+    return new Promise(resolve => {
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
     });
   }
   function Q2(){
     let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
     "VALUES ('Account14', 'Email', 'PhoneNumber', 'TelephoneNumber');";
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
+    return new Promise(resolve => {
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
     });
   }
   function Q3(){
     let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) VALUES ('Account2', 'U2', 'xzv', '0');";
     return new Promise(resolve => {
-      
-    });
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
     });
   }
+  
 }
 module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {// not front end use
   let _UserAccountID = UserAccountID;
