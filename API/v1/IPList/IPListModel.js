@@ -21,6 +21,7 @@ module.exports.IPList = function IPList(limit, offset, callback) {
                 callback(undefined);
             }
         });
+        
     } else if (limit == undefined && offset == undefined) {
         let query = "SELECT PlayerUserAccountID, RegisteredDateTime, ScreenName, PlayerCurrentPoints, ShopID, DistributorID, HeadOfficeID, IP FROM sampledb.player_iplist";
         DBConnect.DBConnect(query, function (response) {
