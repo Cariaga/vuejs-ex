@@ -68,6 +68,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
+  //write notice 
   app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/SupportTicketID/:SupportTicketID/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let SupportTicketID = req.params.SupportTicketID;
@@ -92,6 +93,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
+  //write notice 
   app.get('/Api/v1/OneOnOne/WriteSupportAnswer/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
     let UserAccountID = req.params.UserAccountID;
