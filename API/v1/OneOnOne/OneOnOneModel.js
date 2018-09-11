@@ -5,7 +5,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 
-module.exports.SelectAllOneOnOne = function SelectAllOneOnOne(callback) {
+module.exports.OneOnOne = function OneOnOne(callback) {
     let query = "SELECT * FROM sampledb.player_supportlist ";
 
     DBConnect.DBConnect(query, function (response) {
