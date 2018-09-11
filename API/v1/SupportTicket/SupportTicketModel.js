@@ -99,7 +99,7 @@ module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountI
       }
     });
 }
-module.exports.WriteNoticeSearchUserAccountID = function WriteNoticeSearchUserAccountID(SupportTicketID, UserAccountID,callback) {
+module.exports.WriteNoticeSearchSupportTicketUserAccountID = function WriteNoticeSearchSupportTicketUserAccountID(SupportTicketID, UserAccountID,callback) {
   let _SupportTicketID = SupportTicketID;
   let _UserAccountID = UserAccountID;
   let query =
