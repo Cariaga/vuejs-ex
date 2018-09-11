@@ -15,6 +15,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
   let _Password = Password;
   let _Commission = Commission;
   
+  
   function Q1(){
     let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
     " VALUES ('"+_UserAccountID+"', '"+_UserName+"', '"+_Password+"', now(), 'Offline', 'true', null);";
