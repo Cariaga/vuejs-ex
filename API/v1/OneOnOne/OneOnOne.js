@@ -7,12 +7,6 @@ var uuidv4 = require('uuid/v4');
 let OneOnOneModel = require ('../OneOnOne/OneOnOneModel')
 
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/OneOnOne/', function (req, res) {
-    
-    OneOnOneModel.OneOnOne(function (response){
-      res.send(response);
-    });
-  });
 
    app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value', function (req, res) {
      let Column = req.params.Column;
