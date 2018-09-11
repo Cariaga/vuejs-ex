@@ -141,14 +141,14 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset', function (req, res) {//OK
+  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', function (req, res) {//OK
     let Limit =req.params.Limit;
     let Offset = req.params.Offset;
     IPListModel.IPList(Limit,Offset, function (response) {
       if (response != undefined) {
         res.send(response);
       } else {
-        callback([]);
+        res.send([]);
       }
     });
   });
