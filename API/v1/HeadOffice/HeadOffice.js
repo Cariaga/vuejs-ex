@@ -56,28 +56,30 @@ module.exports = function (app) { //INSERT
       res.send("Missing params");
     }
   });
-  app.get('/Api/v1/HeadOffice/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/', function (req, res) {
+  app.get('/Api/v1/HeadOffice/Add/HeadOfficeID/:HeadOfficeID/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/', function (req, res) {
+    let HeadOfficeID = req.params.HeadOfficeID;
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Commission = req.params.Commission;
-    if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(Name)) {
-        if (!isNullOrEmpty(PhoneNumber)) {
-          if (!isNullOrEmpty(UserName)) {
-            if (!isNullOrEmpty(Password)) {
-              if (!isNullOrEmpty(Commission)) {
-                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                  if (response[0].UserAccountID != UserAccountID) {
-                    HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, function (response) {
+    if (!isNullOrEmpty(HeadOfficeID)) {
+      if (!isNullOrEmpty(UserAccountID)) {
+        if (!isNullOrEmpty(Name)) {
+          if (!isNullOrEmpty(PhoneNumber)) {
+            if (!isNullOrEmpty(UserName)) {
+              if (!isNullOrEmpty(Password)) {
+                if (!isNullOrEmpty(Commission)) {
+                    HeadOfficeModel.RegisterHeadOffice(HeadOfficeID, UserAccountID, Name, PhoneNumber, UserName, Password, Commission, function (response) {
                       res.send(response);
                     });
-                  }
-                });
-
-
+                  
+                } else {
+                  res.send({
+                    UserAccountIDMissing: true
+                  })
+                }
               } else {
                 res.send({
                   NameMissing: true
@@ -104,6 +106,7 @@ module.exports = function (app) { //INSERT
         })
       }
     }
+
   });
   //STRUCTURE
   //SELECTION
