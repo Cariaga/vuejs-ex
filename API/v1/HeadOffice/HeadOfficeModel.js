@@ -7,14 +7,6 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} Name
- * @param {*} Description
- * @param {*} callback
- */
 module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {
   let _UserAccountID = UserAccountID;
   let _Name = Name;
@@ -22,7 +14,7 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
   let _Commission = Commission;
 
   let query =
-    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Description+"','"+_Commission+"');";
+    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Description+"',"+_Commission+");";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
