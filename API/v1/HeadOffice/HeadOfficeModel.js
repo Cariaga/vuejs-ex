@@ -7,7 +7,18 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
-module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {
+module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Name,PhoneNumber,Password,Commission,callback){
+  
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {// not front end use
   let _UserAccountID = UserAccountID;
   let _Name = Name;
   let _Description = Description;
