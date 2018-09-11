@@ -19,6 +19,7 @@ var uuidv4 = require('uuid/v4');
  * @param {*} Date
  * @param {*} callback
  */
+/*
 module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, LoginDateTime, callback) {
   let query =
     `SET @LoginHistoryID=${LoginHistoryID};` +
@@ -39,28 +40,7 @@ module.exports.LoginHistoryUpdate = function LoginHistoryUpdate(LoginHistoryID, 
         callback(undefined);
       }
     });
-  /*Models.LoginHistory.update({
-      IP: IP,
-      DeviceName: DeviceName,
-      DeviceRam: DeviceRam,
-      DeviceCpu: DeviceCpu,
-      Time: Time,
-      Date: Date
-    }, {
-      where: {
-        LoginHistoryID: LoginHistoryID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
-}
+}*/
 
 /**
  *

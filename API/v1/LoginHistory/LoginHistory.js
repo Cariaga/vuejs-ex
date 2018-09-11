@@ -162,24 +162,6 @@ module.exports = function (app) { //MODIFT
         res.send("Error " + result);
       });
     }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
     app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
       res.setHeader('Content-Type', 'application/json');
       let UserAccountID = req.params.UserAccountID;
