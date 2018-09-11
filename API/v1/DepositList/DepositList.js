@@ -5,13 +5,6 @@ let DepositListModel = require("../DepositList/DepositListModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {
-
-  app.get('/Api/v1/DepositList/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    DepositListModel.DepositList(undefined,undefined,function(response){
-      res.send(response);
-    });
-  });
   app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;

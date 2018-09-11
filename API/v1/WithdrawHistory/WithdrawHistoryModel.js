@@ -43,31 +43,6 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
       callback(undefined);
     }
   });
-  /*var item1 = Models.WithdrawHistory.build({
-    UserAccountID: UserAccountID,
-    Amount: Amount,
-    BankNameUsed: BankNameUsed,
-    Status: Status,
-    RequestedDATE: RequestedDATE,
-    ApprovedDATE: ApprovedDATE,
-    RejectedDATE: RejectedDATE,
-    ProcessingDATE: ProcessingDATE,
-    RequestedTIME: RequestedTIME,
-    ApprovedTIME: ApprovedTIME,
-    RejectedTIME: RejectedTIME,
-    ProcessingTIME: ProcessingTIME,
-  });
-  Models.WithdrawHistory.sync();
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-
-    .catch(error => {
-
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
 }
 /**
  *
@@ -98,32 +73,6 @@ module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHi
       callback(undefined);
     }
   });
-  /*Models.WithdrawHistory.update({
-      Amount: Amount,
-      BankNameUsed: BankNameUsed,
-      SecurityCodeUsed: SecurityCodeUsed,
-      Status: Status,
-      RequestedDATE: RequestedDATE,
-      ApprovedDATE: ApprovedDATE,
-      RejectedDATE: RejectedDATE,
-      ProcessingDATE: ProcessingDATE,
-      RequestedTIME: RequestedTIME,
-      ApprovedTIME: ApprovedTIME,
-      RejectedTIME: RejectedTIME,
-      ProcessingTIME: ProcessingTIME
-    }, {
-      where: {
-        WithdrawHistoryID: WithdrawHistoryID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 
 module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, callback) {
@@ -136,23 +85,6 @@ module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApp
       callback(undefined);
     }
   });
-  /*Models.WithdrawHistory.update({
-      ApprovedDATE: ApprovedDATE,
-      ApprovedTIME: ApprovedTIME,
-      Status: "Approved"
-    }, {
-      where: {
-        WithdrawHistoryID: WithdrawHistoryID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 
 module.exports.WithdrawHistoryUpdateProcessing = function WithdrawHistoryUpdateProcessing(UserAccountID, WithdrawHistoryID, ProcessingDATE, ProcessingTIME, callback) {
@@ -165,23 +97,6 @@ module.exports.WithdrawHistoryUpdateProcessing = function WithdrawHistoryUpdateP
       callback(undefined);
     }
   });
-  /*Models.WithdrawHistory.update({
-      ProcessingDATE: ProcessingDATE,
-      ProcessingTIME: ProcessingTIME,
-      Status: "Processing"
-    }, {
-      where: {
-        UserAccountID: UserAccountID,
-        WithdrawHistoryID: WithdrawHistoryID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 
 module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRejected(UserAccountID, WithdrawHistoryID, RejectedDATE, RejectedTIME, callback) {
@@ -194,23 +109,6 @@ module.exports.WithdrawHistoryUpdateRejected = function WithdrawHistoryUpdateRej
       callback(undefined);
     }
   });
-  /*Models.WithdrawHistory.update({
-      RejectedDATE: RejectedDATE,
-      RejectedTIME: RejectedTIME,
-      Status: "Rejected"
-    }, {
-      where: {
-        UserAccountID: UserAccountID,
-        WithdrawHistoryID: WithdrawHistoryID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 
 
@@ -227,24 +125,4 @@ module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccoun
       callback(undefined);
     }
   });
-  /*Models.WithdrawHistory.sync();
-  let result = Models.WithdrawHistory.findAll({
-    where: {
-      UserAccountID: UserAccountID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
 }
