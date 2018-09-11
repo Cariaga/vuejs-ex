@@ -48,7 +48,7 @@ module.exports = function (app) { //INSERT
     }
   });
   //MODIFY
-  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Time/:Time/Date/:Date', function (req, res) {
+  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/DateTime', function (req, res) {
     let NotificationID = req.params.NotificationID;
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;

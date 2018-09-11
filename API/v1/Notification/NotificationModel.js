@@ -18,15 +18,7 @@ var uuidv4 = require('uuid/v4');
  * @param {*} callback
  */
 module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, NotificationType, Title, Description, DateTime, callback) {
-  let query =
-    `SET @NotificationID=${NotificationID};` +
-    `SET @NotificationType=${NotificationType};` +
-    `SET @Title=${Title};` +
-    `SET @Description=${Description};` +
-    `SET @DateTime=${DateTime};` +
-    "UPDATE `sampledb`.`notifications` "+
-    "SET NotificationType = @NotificationType, Title = @Title, Description = @Description, DateTime = @DateTime "+
-    "WHERE NotificationID = @NotificationID;";
+  let query ="";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
