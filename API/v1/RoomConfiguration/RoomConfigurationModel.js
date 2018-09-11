@@ -83,24 +83,6 @@ module.exports.RoomConfigurationRoomIDUpdateSmallBigBlind = function RoomConfigu
       callback(undefined);
     }
   });
-  /*Models.RoomConfiguration.sync( );
-  Models.RoomConfiguration.update({
-      SmallBlind: SmallBlind,
-      BigBlind: BigBlind
-    }, {
-      where: {
-        SeasonID: SeasonID
-      }
-    })
-    .then(Success => {
-      console.log("Updated");
-      callback("Updated");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 /**
  *
@@ -118,29 +100,6 @@ module.exports.RoomConfiguration = function RoomConfiguration(callback) {
       callback(undefined);
     }
   });
-  /*Models.RoomConfiguration.sync();
-  let result = Models.RoomConfiguration.findAll({
-    where: {
-      RoomConfigurationID: {
-        ne: null //not null
-      }
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-
-  });*/
 }
 
 module.exports.RoomConfigurationRoomNotice = function RoomConfigurationRoomNotice(RoomID, RoomNotice, callback) {
