@@ -48,52 +48,15 @@ module.exports = function (app) { //INSERT
     }
   });
   //MODIFY
-  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/DateTime', function (req, res) {
+  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/DateTime/:DateTime', function (req, res) {
     let NotificationID = req.params.NotificationID;
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
-    let Time = req.params.Time;
-    let Date = req.params.Date;
-    if (!isNullOrEmpty(NotificationID)) {
-      if (!isNullOrEmpty(NotificationType)) {
-        if (!isNullOrEmpty(Title)) {
-          if (!isNullOrEmpty(Description)) {
-            if (!isNullOrEmpty(Time)) {
-              if (!isNullOrEmpty(Date)) {
-                NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, function (response) {
-                  res.send(response);
-                });
-              } else {
-                res.send({
-                  DateMissing: true
-                });
-              }
-            } else {
-              res.send({
-                TimeMissing: true
-              });
-            }
-          } else {
-            res.send({
-              DescriptionMissing: true
-            });
-          }
-        } else {
-          res.send({
-            TitleMissing: true
-          });
-        }
-      } else {
-        res.send({
-          NotificationTypeMissing: true
-        });
-      }
-    } else {
-      res.send({
-        NotifiactionIDMissing: true
-      });
-    }
+    let DateTime = req.params.DateTime;
+    NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, DateTime, function (response) {
+      res.send(response);
+    });
   });
   //SELECTION
   app.get('/Api/v1/Notification', function (req, res) {
