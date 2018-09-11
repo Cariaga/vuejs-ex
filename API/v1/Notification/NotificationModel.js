@@ -13,8 +13,7 @@ var uuidv4 = require('uuid/v4');
  * @param {*} NotificationType
  * @param {*} Title
  * @param {*} Description
- * @param {*} Time
- * @param {*} Date
+ * @param {*} DateTime
  * @param {*} callback
  */
 module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, NotificationType, Title, Description, Status, callback) {
