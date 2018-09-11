@@ -7,10 +7,15 @@ var uuidv4 = require('uuid/v4');
 let OneOnOneModel = require ('../OneOnOne/OneOnOneModel')
 
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/OneOnOne/', function (req, res) {
-    
-    OneOnOneModel.OneOnOne(function (response){
-      res.send(response);
+  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', function (req, res) {//OK
+    let Limit =req.params.Limit;
+    let Offset = req.params.Offset;
+    OneOnOneModel.OneOnOne(Limit,Offset, function (response) {
+      if (response != undefined) {
+        res.send(response);
+      } else {
+        res.send([]);
+      }
     });
   });
 
