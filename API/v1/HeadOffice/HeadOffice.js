@@ -75,7 +75,7 @@ module.exports = function (app) { //INSERT
               res.send(response);
             });
           }
-        })
+        });
        
 
       }else{res.send({NameMissing:true})}
