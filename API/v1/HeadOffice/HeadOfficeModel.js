@@ -14,7 +14,13 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Nam
   let _PhoneNumber = PhoneNumber;
   let _Password = Password;
   let _Commission = Commission;
-  let query = "";
+  
+  let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
+  " VALUES ('Account14', 'U14', 'U14', '2018-09-06 18:03:55', 'Offline', 'false', '14');";
+  
+  let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
+   "VALUES ('Account14', 'Email', 'PhoneNumber', 'TelephoneNumber');";
+  
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
