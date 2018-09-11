@@ -21,7 +21,7 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     } 
     else if(Limit==undefined&&Offset==undefined){
         let query = "SELECT * FROM sampledb.player_supportlist ";
-    DBConnect.DBConnect(query, function (response) {
+        DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
             callback(response);
