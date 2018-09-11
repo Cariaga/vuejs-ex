@@ -56,8 +56,7 @@ module.exports = function (app) { //INSERT
       res.send("Missing params");
     }
   });
-  app.get('/Api/v1/HeadOffice/Add/HeadOfficeID/:HeadOfficeID/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/', function (req, res) {
-    let HeadOfficeID = req.params.HeadOfficeID;
+  app.get('/Api/v1/HeadOffice/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
@@ -76,6 +75,10 @@ module.exports = function (app) { //INSERT
                       HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, function (response) {
                         res.send(response);
                       });
+                    }else{
+                      res.send({
+                        UserAccountIDMissing: true
+                      })
                     }
                   });
                   
