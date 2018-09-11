@@ -7,7 +7,7 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
-module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Name,PhoneNumber,Password,Commission,callback){
+module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,callback){
   let _UserAccountID = UserAccountID;
   let _Name = Name;
   let _PhoneNumber = PhoneNumber;
