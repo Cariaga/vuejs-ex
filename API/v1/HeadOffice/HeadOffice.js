@@ -63,26 +63,47 @@ module.exports = function (app) { //INSERT
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Commission = req.params.Commission;
-    if(!isNullOrEmpty(UserAccountID)){
-      if(!isNullOrEmpty(Name)){
-      if(!isNullOrEmpty(PhoneNumber)){
-      if(!isNullOrEmpty(UserName)){
-      if(!isNullOrEmpty(Password)){
-      if(!isNullOrEmpty(Commission)){
-        DBCheck.isUserAccountIDExist(UserAccountID,function(response){
-          if(response[0].UserAccountID!=UserAccountID){
-            HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, function (response) {
-              res.send(response);
-            });
-          }
-        });
-       
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(Name)) {
+        if (!isNullOrEmpty(PhoneNumber)) {
+          if (!isNullOrEmpty(UserName)) {
+            if (!isNullOrEmpty(Password)) {
+              if (!isNullOrEmpty(Commission)) {
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response[0].UserAccountID != UserAccountID) {
+                    HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, function (response) {
+                      res.send(response);
+                    });
+                  }
+                });
 
-      }else{res.send({NameMissing:true})}
-      }else{res.send({PhoneNumberMissing:true})}
-      }else{res.send({UserNameMissing:true})}
-      }else{res.send({PasswordMissing:true})}
-      }else{res.send({CommissionMissing:true})}}
+
+              } else {
+                res.send({
+                  NameMissing: true
+                })
+              }
+            } else {
+              res.send({
+                PhoneNumberMissing: true
+              })
+            }
+          } else {
+            res.send({
+              UserNameMissing: true
+            })
+          }
+        } else {
+          res.send({
+            PasswordMissing: true
+          })
+        }
+      } else {
+        res.send({
+          CommissionMissing: true
+        })
+      }
+    }
   });
   //STRUCTURE
   //SELECTION
