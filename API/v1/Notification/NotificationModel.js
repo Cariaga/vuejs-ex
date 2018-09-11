@@ -35,23 +35,6 @@ module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, 
         callback(undefined);
       }
     });
-  /* Models.Notification.update({
-     NotificationType: NotificationType,
-     Title: Title,
-     Description: Description,
-     Time: Time,
-     Date: Date
-   },{
-     where: {NotificationID: NotificationID }
-   })
-   .then(Success => {
-     callback("Updated");
-   })
-   
-   .catch(error => {
-     console.log("Error Updating " +error);
-     callback(undefined);
-   }); */
 }
 
 /**

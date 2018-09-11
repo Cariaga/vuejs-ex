@@ -32,6 +32,14 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     }
     
 }
+module.exports.WriteSupportTicketID = function WriteSupport(SupportTicketID,UserAccountID,callback){
+    
+}
+module.exports.WriteSupportAnswer = function WriteSupportAnswer(SupportTicketID,UserAccountID,Answer,callback){
+
+}
+
+
 //SELECT * FROM sampledb.player_supportlist where PlayerUserAccountID like '%%';
 module.exports.SupportSearch = function SupportSearch(Column, Value, callback) {
     let _Column = Column;
