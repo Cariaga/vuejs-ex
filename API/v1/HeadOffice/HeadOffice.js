@@ -77,7 +77,7 @@ module.exports = function (app) { //INSERT
                       });
                     }else{
                       res.send({
-                        UserAccountIDMissing: true
+                        UserAccountIDExist: true
                       })
                     }
                   });
