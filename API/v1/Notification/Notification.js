@@ -48,13 +48,13 @@ module.exports = function (app) { //INSERT
     }
   });
   //MODIFY
-  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/DateTime/:DateTime', function (req, res) {
+  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status/', function (req, res) {
     let NotificationID = req.params.NotificationID;
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
-    let DateTime = req.params.DateTime;
-    NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, DateTime, function (response) {
+    let Status = req.params.Status;
+    NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, function (response) {
       res.send(response);
     });
   });
