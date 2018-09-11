@@ -33,10 +33,27 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     
 }
 module.exports.WriteSupportTicketID = function WriteSupport(SupportTicketID,UserAccountID,callback){
-    
+    let query = "";
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+            console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
+     
 }
-module.exports.WriteSupportAnswer = function WriteSupportAnswer(SupportTicketID,UserAccountID,Answer,callback){
-
+module.exports.WriteSupportAnswerUpdate = function WriteSupportAnswerUpdate(SupportTicketID,UserAccountID,Answer,callback){
+    let query = "";
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+            console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
 }
 
 
