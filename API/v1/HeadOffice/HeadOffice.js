@@ -57,7 +57,7 @@ module.exports = function (app) {//INSERT
     }
   });
   app.get('/Api/v1/HeadOffice/Add/HeadOfficeTest/', function (req, res) {
-   HeadOfficeModel.RegisterHeadOffice('','','','','',function(response){
+   HeadOfficeModel.RegisterHeadOffice('','','','','','',function(response){
      res.send(response);
    });
   });
