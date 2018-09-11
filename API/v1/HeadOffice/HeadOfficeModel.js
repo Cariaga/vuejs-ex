@@ -17,7 +17,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Use
   
   function Q1(){
     let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
-    " VALUES ('Account14', 'U14', 'U14', '2018-09-06 18:03:55', 'Offline', 'false', '14');";
+    " VALUES ('Account145', 'U145', 'U145', '2018-09-06 18:03:55', 'Offline', 'false', '14');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -31,7 +31,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Use
   }
   function Q2(){
     let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
-    "VALUES ('Account14', 'Email', 'PhoneNumber', 'TelephoneNumber');";
+    "VALUES ('Account145', 'Email', 'PhoneNumber', 'TelephoneNumber');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -44,7 +44,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Use
     });
   }
   function Q3(){
-    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) VALUES ('Account2', 'U2', 'xzv', '0');";
+    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) VALUES ('Account145', 'U2', 'xzv', '0');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
