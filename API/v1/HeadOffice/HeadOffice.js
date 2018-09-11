@@ -69,7 +69,7 @@ module.exports = function (app) { //INSERT
           if (!isNullOrEmpty(PhoneNumber)) {
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(Commission)) {
-                HeadOfficeModel.RegisterHeadOffice('HeadOfficeID','UserAccountID','Name','PhoneNumber','Password','Commission',function(response){
+                HeadOfficeModel.RegisterHeadOffice(HeadOfficeID,UserAccountID,Name,PhoneNumber,Password,Commission,function(response){
                 res.send(response);
                 });
               } else {
