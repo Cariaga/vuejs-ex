@@ -9,7 +9,7 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     let _Limit = Limit;
     let _Offset = Offset;
     if(Limit!=undefined&&Offset!=undefined){
-    let query = "SELECT * FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset;
+    let query = "SELECT player_supportlist.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, Title, RegisteredDateTime, DateTime, SupportTicketID FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
@@ -47,8 +47,12 @@ module.exports.SupportSearchSupportTicketUserAccountID = function SupportSearchS
         }
       });
   }
-module.exports.WriteSupportTicketID = function WriteSupportTicketID(SupportTicketID,UserAccountID,callback){
-    let query = "";
+
+module.exports.WriteSupportTicketID = function WriteSupportTicketID(UserAccountID,SupportTicketID,callback){
+    let _SupportTicketID = SupportTicketID;
+    let _UserAccountID = UserAccountID;
+    let query = "SELECT * FROM sampledb.player_writesupport where SupportTicketID='"+_SupportTicketID+"' and UserAccountID='"+_UserAccountID+"';";
+  console.log(query);
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
