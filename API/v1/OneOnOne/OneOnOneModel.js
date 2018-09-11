@@ -32,7 +32,7 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     }
     
 }
-module.exports.WriteNoticeSearchSupportTicketUserAccountID = function WriteNoticeSearchSupportTicketUserAccountID(SupportTicketID, UserAccountID,callback) {
+module.exports.SupportSearchSupportTicketUserAccountID = function SupportSearchSupportTicketUserAccountID(SupportTicketID, UserAccountID,callback) {
     let _SupportTicketID = SupportTicketID;
     let _UserAccountID = UserAccountID;
     let query =
