@@ -92,7 +92,6 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
-
   app.get('/Api/v1/OneOnOne/WriteSupportAnswer/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
     let UserAccountID = req.params.UserAccountID;
