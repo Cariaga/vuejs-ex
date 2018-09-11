@@ -61,7 +61,6 @@ module.exports = function (app) { //INSERT
           if (!isNullOrEmpty(Description)) {
             if (!isNullOrEmpty(Time)) {
               if (!isNullOrEmpty(Date)) {
-                let NotificationIDExist = undefined;
                 NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, function (response) {
                   res.send(response);
                 });
