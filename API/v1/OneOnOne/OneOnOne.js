@@ -23,11 +23,6 @@ module.exports = function (app) { //SELECTION
     let Column = req.params.Column;
     let Value = req.params.Value;
 
-<<<<<<< HEAD
-    if (!isNullOrEmpty(Column)) {
-      if (!isNullOrEmpty(Value)) {
-        OneOnOneModel.SupportSearch(Column, Value, function (response) {
-=======
      if (!isNullOrEmpty(Column)) {
        if (!isNullOrEmpty(Value)) {
          OneOnOneModel.SupportSearch(Column, Value, function (response) {
@@ -56,7 +51,6 @@ module.exports = function (app) { //SELECTION
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Answer)) {
         OneOnOneModel.WriteSupportAnswerUpdate(UserAccountID, Answer, function (response) {
->>>>>>> 5620b2d81217192d48dbdded9f08453625039baa
           if (response != undefined) {
             res.send(response);
           } else {
