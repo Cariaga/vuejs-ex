@@ -9,10 +9,10 @@ let DBConnect = require("../../SharedController/DBConnect");
  *
  *
  * @param {*} UserName
- * @param {*} ValidKey
+ * @param {*} Key
  * @param {*} callback
  */
-module.exports.VerifyAccount = function VerifyAccount(UserName, ValidKey, callback) { // Verification with ValidKey // Public only use // Via ValidKey
+module.exports.VerifyAccount = function VerifyAccount(UserName, Key, callback) { // Verification with ValidKey // Public only use // Via ValidKey
   let query ="";
 
     DBConnect.DBConnect(query, function (response) {
