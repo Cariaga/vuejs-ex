@@ -62,46 +62,9 @@ module.exports = function (app) { //INSERT
             if (!isNullOrEmpty(Time)) {
               if (!isNullOrEmpty(Date)) {
                 let NotificationIDExist = undefined;
-                async.series([IsNotificationIDExistCheck], function (error, response) {
-                  if (NotificationIDExist == true) {
-                    if (response != undefined) {
-
-                      NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, function (response) {
-                        res.send(response);
-                      });
-                    } else {
-                      res.send({
-                        NotificationUpdateFailed: true
-                      });
-                    }
-                  } else {
-                    res.send({
-                      NotificationIDExist: false
-                    });
-                  }
+                NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, Time, Date, function (response) {
+                  res.send(response);
                 });
-
-                function IsNotificationIDExistCheck(callback) {
-                  // console.log("IsNotificationIDExistCheck 1");
-                  DBCheck.IsNotificationIDExist(NotificationID, function (response) {
-                    //  console.log("IsNotificationIDExistCheck 2");
-                    if (response != undefined) {
-                      // console.log("IsNotificationIDExistCheck 3");
-                      if (response[0].NotificationID == NotificationID) {
-                        NotificationIDExist = true;
-                        callback(null, '1');
-                      } else {
-                        NotificationIDExist = undefined;
-                        callback(null, '1');
-                      }
-
-                    } else {
-                      NotificationIDExist = undefined;
-                      callback(null, '1');
-                    }
-                  });
-                }
-
               } else {
                 res.send({
                   DateMissing: true
