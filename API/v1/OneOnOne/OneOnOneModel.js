@@ -5,9 +5,11 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 
-module.exports.OneOnOne = function OneOnOne(callback) {
-    let query = "SELECT * FROM sampledb.player_supportlist ";
-
+module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
+    let _Limit = Limit;
+    let _Offset = Offset;
+    if(Limit!=undefined&&Offset!=undefined){
+    let query = "SELECT * FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
@@ -16,6 +18,19 @@ module.exports.OneOnOne = function OneOnOne(callback) {
             callback(undefined);
         }
     });
+    } 
+    else if(Limit==undefined&&Offset==undefined){
+        let query = "SELECT * FROM sampledb.player_supportlist ";
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+            console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
+    }
+    
 }
 //SELECT * FROM sampledb.player_supportlist where PlayerUserAccountID like '%%';
 module.exports.SupportSearch = function SupportSearch(Column, Value, callback) {
