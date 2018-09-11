@@ -63,6 +63,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Nam
     let result2 = await Q2();
     let result3 = await Q3();
     console.log('Done');
+    callback('done');
   }
   RunAsync();
   
