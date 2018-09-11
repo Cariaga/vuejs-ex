@@ -30,4 +30,29 @@ module.exports = function (app) {//SELECTION
       });
     }
   });
+
+  app.get('/Api/v1/WithdrawHistoryList/Limit/:Limit/Offset/:Offset', function (req, res) {
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+
+    if (!isNullOrEmpty(Limit)) {
+      if (!isNullOrEmpty(Offset)) {
+        WithdrawHistoryListModel.WithdrawSearch(Limit, Offset, function (response) {
+          if (response != undefined) {
+            res.send(response);
+          } else {
+            res.send(undefined);
+          }
+        });
+      } else {
+        res.send({
+          InvalidValue: true
+        });
+      }
+    } else {
+      res.send({
+        InvalidColumn: true
+      });
+    }
+  });
 }
