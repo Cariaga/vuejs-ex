@@ -20,7 +20,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Nam
 
   let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
    "VALUES ('Account14', 'Email', 'PhoneNumber', 'TelephoneNumber');";
-   
+
   let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) VALUES ('Account2', 'U2', 'xzv', '0');";
   
   DBConnect.DBConnect(query, function (response) {
@@ -58,13 +58,7 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
  * @param {*} callback
  */
 module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
-  let query =
-    `SET @HeadOfficeID=${HeadOfficeID};` +
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @Name=${Name};` +
-    "UPDATE `sampledb`.`headoffices` "+
-    "SET UserAccountID = @UserAccountID, Name = @Name, CurrentPoints = @CurrentPoints"+
-    "WHERE HeadOfficeID = @HeadOfficeID;";
+  let query ="";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
