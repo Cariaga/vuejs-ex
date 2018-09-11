@@ -44,7 +44,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
     });
   }
   function Q3(){
-    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`,`Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '', '"+_Commission+"');";
+    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`,`Name`,`Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Commission+"');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
