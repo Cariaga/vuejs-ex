@@ -99,3 +99,18 @@ module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountI
       }
     });
 }
+module.exports.WriteNoticeSearchUserAccountID = function WriteNoticeSearchUserAccountID(SupportTicketID, UserAccountID,callback) {
+  let _SupportTicketID = SupportTicketID;
+  let _UserAccountID = UserAccountID;
+  let query =
+    "SELECT * FROM sampledb.player_writesupport where SupportTicketID="+_SupportTicketID+" and UserAccountID='"+_UserAccountID+"';";
+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
