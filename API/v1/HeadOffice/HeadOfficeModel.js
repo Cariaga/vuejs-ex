@@ -40,6 +40,9 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(HeadOfficeID,Nam
   }
   function Q3(){
     let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`) VALUES ('Account2', 'U2', 'xzv', '0');";
+    return new Promise(resolve => {
+      
+    });
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
