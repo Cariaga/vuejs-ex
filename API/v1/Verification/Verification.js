@@ -4,75 +4,17 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
+let VerificationModel = require("./VerificationModel");
 module.exports = function (app) {
-  app.get('/Verify', function (req, res) {
-    // Usage /Verify?UserName=UserName&VerifyKey=VerifyKey
-    res.setHeader('Content-Type', 'application/json');
-    let UserName = req.query.UserName;
-    let ValidKey = req.query.VerifyKey;
-    if (!isNullOrEmpty(UserName)) {
-      if (!isNullOrEmpty(ValidKey)) {
-        DBCheck.isUserNameExist(UserName, function (response3) {
-          console.log("Verify response : " + response3);
-          let obj = response3;
-          if (!isNullOrEmpty(obj) && obj != undefined) {
-            if (obj[0].UserName == UserName) {
-  
-              Verify(UserName, ValidKey, function (response) {
-                if (response.Verified == false) {
-                  VerifyAccount(UserName, ValidKey, function (response2) {
-  
-                    let Data = {
-                      validUserName: true,
-                      validUserKey: true,
-                      isAlreadyRegistered: false,
-                      isUserNameExist: true,
-                      ResponseCode: 1
-                    };
-                    res.send(beautify(Data, null, 2, 100));
-                  });
-                } else {
-                  let Data = {
-                    validUserName: true,
-                    validUserKey: true,
-                    isAlreadyRegistered: true,
-                    isUserNameExist: true,
-                    ResponseCode: 2
-                  };
-                  res.send(beautify(Data, null, 2, 100));
-                }
-              });
-            }
-          } else {
-            let Data = {
-              validUserName: true,
-              validUserKey: true,
-              isAlreadyRegistered: false,
-              isUserNameExist: false,
-              ResponseCode: 3
-            };
-            res.send(beautify(Data, null, 2, 100));
-          }
+  app.get('/Verify/UserName/:UserName/Key/:Key', function (req, res) {
+    let UserName = req.params.UserName;
+    let Key = req.params.Key;
+    if(!isNullOrEmpty(UserName)){
+      if(!isNullOrEmpty(Key)){
+        VerificationModel.VerifyAccount(UserName,Key,function(response){
+          res.send("verified");
         });
-      } else {
-        let Data = {
-          validUserName: true,
-          validUserKey: false,
-          isAlreadyRegistered: false,
-          isUserNameExist: false,
-          ResponseCode: 4
-        };
-        res.send(beautify(Data, null, 2, 100));
       }
-    } else {
-      let Data = {
-        validUserName: false,
-        validUserKey: false,
-        isAlreadyRegistered: false,
-        isUserNameExist: false,
-        ResponseCode: 5
-      };
-      res.send(beautify(Data, null, 2, 100));
     }
   });
 }
