@@ -44,26 +44,7 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
     }
   });
 }
-/**
- *
- *
- * @param {*} WithdrawHistoryID
- * @param {*} UserAccountID
- * @param {*} Amount
- * @param {*} BankNameUsed
- * @param {*} SecurityCodeUsed
- * @param {*} Status
- * @param {*} RequestedDATE
- * @param {*} ApprovedDATE
- * @param {*} RejectedDATE
- * @param {*} ProcessingDATE
- * @param {*} RequestedTIME
- * @param {*} ApprovedTIME
- * @param {*} RejectedTIME
- * @param {*} ProcessingTIME
- * @param {*} callback
- */
-module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
+/*module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -73,8 +54,8 @@ module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHi
       callback(undefined);
     }
   });
-}
-module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
+}*/
+/*module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -83,5 +64,5 @@ module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccoun
     } else {
       callback(undefined);
     }
-  });
+  });*/
 }
