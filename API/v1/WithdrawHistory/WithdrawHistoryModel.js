@@ -44,25 +44,3 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
     }
   });
 }
-/*module.exports.WithdrawHistoryUpdate = function WithdrawHistoryUpdate(WithdrawHistoryID, UserAccountID, Amount, BankNameUsed, SecurityCodeUsed, Status, RequestedDATE, ApprovedDATE, RejectedDATE, ProcessingDATE, RequestedTIME, ApprovedTIME, RejectedTIME, ProcessingTIME, callback) {
-  let query = '';
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
-}*/
-/*module.exports.WithdrawHistoryUserAccountID = function WithdrawHistoryUserAccountID(UserAccountID, callback) {
-  let query = '';
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });*/
-}
