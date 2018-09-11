@@ -15,10 +15,14 @@ var uuidv4 = require('uuid/v4');
  * @param {*} Description
  * @param {*} callback
  */
-module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, callback) {
-  let _UserAccountID = UserAccountID
+module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Description, Commission, callback) {
+  let _UserAccountID = UserAccountID;
+  let _Name = Name;
+  let _Description = Description;
+  let _Commission = Commission;
+
   let query =
-    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `CurrentPoints`, `Commission`) VALUES ('Account2', 'U2', 'xzv', '0', '0');";
+    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Description+"','"+_Commission+"');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
