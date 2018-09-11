@@ -121,55 +121,6 @@ module.exports = function (app) { //INSERT
         res.send("Error " + result);
       });
     }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    // res.send("Notification "+Offset+" "+ Limit+" "+Sort);
-  });
-  //STRUCTURE
-  app.get('/Api/v1/Notification/Clear', function (req, res) {
-    Models.Notification.destroy({
-        where: {},
-        truncate: true
-      })
-      .then(Success => {
-        res.send("Cleared");
-      })
-      .catch(err => {
-        res.send("Truncate " + err);
-      });
-  });
-  app.get('/Api/v1/Notification/Delete', function (req, res) {
-    Models.Notification.sync({
-      force: true
-    }).then(function (result) {
-      res.send("Deleted");
-    }).catch(function (result) { //catching any then errors
-
-      res.send("Error " + result);
-    });
-  });
-  app.get('/Api/v1/Notification/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.Notification.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.Notification.describe().then(result => {
-      res.send(beautify(result, null, 2, 100));
-    });
   });
 
   app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value', function (req, res) {
