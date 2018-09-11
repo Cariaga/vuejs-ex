@@ -54,7 +54,7 @@ module.exports = function (app) { //INSERT
     let Title = req.params.Title;
     let Description = req.params.Description;
     let Status = req.params.Status;
-    NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, function (response) {
+    NotificationModel.NotificationUpdate(NotificationID, NotificationType, Title, Description, Status, function (response) {
       res.send(response);
     });
   });
