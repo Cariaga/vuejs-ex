@@ -110,7 +110,6 @@ module.exports = function (app) {
   });
   //INSERT
   app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Reason/:Reason/', function (req, res) { //OK
-    //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
     let Status = req.params.Status;
