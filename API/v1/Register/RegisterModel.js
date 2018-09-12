@@ -9,9 +9,10 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 
 
-module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration,AccountHolder,ShopID, callback) {
+module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, AccessID, UserName, Password,ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration,AccountHolder,ShopID, callback) {
   let _UserAccountID = UserAccountID;
-  let _AccessID = AccessID;
+  let _ScreenName = ScreenName;
+  let _ShopID = ShopID;
   let _UserName = UserName;
   let _Password = Password;
   let _ValidKey = ValidKey;
@@ -26,7 +27,7 @@ module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, Acces
   let _ShopID = ShopID;
   let query =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`) " +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false','"+_ValidKey+"');";
+    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'true','"+_ValidKey+"');";
   console.log(query);
   
   let query2 =
@@ -35,10 +36,10 @@ module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, Acces
     console.log(query2);
   let query3 =
     "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`,`AccountHolder`) " +
-    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','false','" + _Expiration + "',now(),'"+_AccountHolder+"'); ";
+    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','true','" + _Expiration + "',now(),'"+_AccountHolder+"'); ";
   let query4 =
     "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`, `CurrentPoints`) "+
-    "VALUES ('"+_UserAccountID+"', '"+_ShopID+"', '"+ScreenName+"', '', '', '', ''";
+    "VALUES ('"+_UserAccountID+"', '"+_ShopID+"', '"+_ScreenName+"', '', '', '', ''";
 
     console.log(query3);
    
