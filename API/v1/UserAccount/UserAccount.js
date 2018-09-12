@@ -129,7 +129,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/CheckUserName/UserName/:UserName/', (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', (req, res) => {
     let UserName = req.params.UserName;
 
     if (!isNullOrEmpty(UserName)) {
@@ -148,7 +148,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   
-  app.get('/Api/v1/UserAccount/CheckUserAccountID/UserAccountID/:UserAccountID/', (req, res) => {
+  app.get('/Api/v1/UserAccount/CheckUser/UserAccountID/:UserAccountID/', (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {
