@@ -24,7 +24,6 @@ module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, Acces
   let _Valid = Valid;
   let _Expiration = Expiration;
   let _AccountHolder = AccountHolder;
-  let _ShopID = ShopID;
   let UserAccountQuery =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`) " +
     "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'true','" + _ValidKey + "');";
