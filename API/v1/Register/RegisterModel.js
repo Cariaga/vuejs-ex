@@ -6,6 +6,8 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
+
+//based on website standard approch 
 module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, callback) {
   let _UserAccountID = UserAccountID;
   let _AccessID = AccessID;
