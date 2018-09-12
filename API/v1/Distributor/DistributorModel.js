@@ -15,12 +15,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} callback
  */
 module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOfficeID, Name, callback) {
-  let query =
-    `SET @UserAccountID=${UserAccountID};` +
-    `SET @HeadOfficeID=${HeadOfficeID};` +
-    `SET @Name=${Name};` +
-    "INSERT INTO `sampledb`.`distributors` (`UserAccountID`, `HeadOfficeID`, `Name`) "+
-    "VALUES (@UserAccountID, @HeadOfficeID, @Name);";
+  let query ="";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

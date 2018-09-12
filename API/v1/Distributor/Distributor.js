@@ -65,7 +65,6 @@ module.exports.RegisterDistributor = function RegisterHeadOffice(UserAccountID,N
     callback('done');
   }
   RunAsync();
-  
 }
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/Distributor/', function (req, res) {
