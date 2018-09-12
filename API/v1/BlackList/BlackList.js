@@ -109,22 +109,17 @@ module.exports = function (app) {
     }
   });
   //INSERT
-  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Description/:Description/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) { //OK
+  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Reason/:Reason/', function (req, res) { //OK
     //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
     let Status = req.params.Status;
-    let Description = req.params.Description;
-    let ReportDate = req.params.ReportDate;
-    let ReleaseDate = req.params.ReleaseDate;
-
+    let Reason = req.params.Reason;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Status)) {
-          if (!isNullOrEmpty(Description)) {
-            if (!isNullOrEmpty(ReportDate)) {
-              if (!isNullOrEmpty(ReleaseDate)) {
-                BlackListModel.AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, function (response) {
+          if (!isNullOrEmpty(Reason)) {
+                BlackListModel.AddBlackList(UserAccountID, Title, Status, Reason, function (response) {
                   if (response != undefined) {
                     res.send(response);
                   } else {
@@ -133,16 +128,6 @@ module.exports = function (app) {
                     });
                   }
                 });
-              } else {
-                res.send({
-                  ReleaseDateMissing: true
-                });
-              }
-            } else {
-              res.send({
-                ReportDateMissing: true
-              });
-            }
           } else {
             res.send({
               DescriptionMissing: true

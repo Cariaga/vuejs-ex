@@ -35,53 +35,6 @@ module.exports = function (app) { //MODIFY
         });
     }
   });
-  //SELECTION
-  app.get('/Api/v1/Shop/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset = req.query.Offset;
-    let Limit = req.query.Limit;
-    let Sort = req.query.Sort;
-    Models.Shop.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      let result = Models.Shop.findAll({
-        where: {
-          ShopID: {
-            ne: null //not null
-          }
-        }
-      }).then(function (result) {
-        let Data = result.map(function (item) {
-          return item;
-
-        });
-
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function (result) { //catching any then errors
-
-        res.send("Error " + result);
-      });
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    //  res.send("Shop "+Offset+" "+ Limit+" "+Sort);
-  });
   app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) { //check for validation only
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     res.setHeader('Content-Type', 'application/json');
@@ -104,6 +57,67 @@ module.exports = function (app) { //MODIFY
     }
   });
   //INSERT
+  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorID/:DistributorID/', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let Name = req.params.Name;
+    let PhoneNumber = req.params.PhoneNumber;
+    let UserName = req.params.UserName;
+    let Password = req.params.Password;
+    let Commission = req.params.Commission;
+    let DistributorID = req.params.DistributorID;
+
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(Name)) {
+        if (!isNullOrEmpty(PhoneNumber)) {
+          if (!isNullOrEmpty(UserName)) {
+            if (!isNullOrEmpty(Password)) {
+              if (!isNullOrEmpty(Commission)) {
+                if (!isNullOrEmpty(DistributorID)) {
+                  ShopModel.RegisterShop(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,DistributorID, function (response) {
+                    if (response != undefined) {
+                      res.send(response);
+                    } else {
+                      res.send({
+                        RegisterShopFailed: true
+                      });
+                    }
+                  });
+                } else {
+                  res.send({
+                    HeadOfficeIDMissing: true
+                  });
+                }
+              } else {
+                res.send({
+                  CommissionMissing: true
+                });
+              }
+            } else {
+              res.send({
+                PasswordMissing: true
+              });
+            }
+          } else {
+            res.send({
+              UserNameMissing: true
+            });
+          }
+        } else {
+          res.send({
+            PhoneNumberMissing: true
+          });
+        }
+      } else {
+        res.send({
+          NameMissing: true
+        });
+      }
+    } else {
+      res.send({
+        UserAccountIDMissing: true
+      });
+    }
+  });
   app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
