@@ -7,8 +7,8 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
 
-// to be tested after distributor
-module.exports.RegisterShop = function RegisterShop(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,DistributorID,callback){
+
+module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorID, callback) {
   let _UserAccountID = UserAccountID;
   let _Name = Name;
   let _PhoneNumber = PhoneNumber;
@@ -17,9 +17,9 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID,Name,PhoneNumb
   let _Commission = Commission;
   let _DistributorID = DistributorID;
 
-  function Q1(){
-    let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
-    " VALUES ('"+_UserAccountID+"', '"+_UserName+"', '"+_Password+"', now(), 'Offline', 'true', null);";
+  function Q1() {
+    let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) " +
+      " VALUES ('" + _UserAccountID + "', '" + _UserName + "', '" + _Password + "', now(), 'Offline', 'true', null);";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -31,9 +31,10 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID,Name,PhoneNumb
       });
     });
   }
-  function Q2(){
-    let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
-    "VALUES ('"+_UserAccountID+"', null, '"+_PhoneNumber+"', null);";
+
+  function Q2() {
+    let query = "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) " +
+      "VALUES ('" + _UserAccountID + "', null, '" + _PhoneNumber + "', null);";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -45,8 +46,9 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID,Name,PhoneNumb
       });
     });
   }
-  function Q3(){
-    let query = "INSERT INTO `sampledb`.`Shop` (`UserAccountID`,`Name`,`Commission`,`DistributorID`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Commission+"','"+_DistributorID+"');";
+
+  function Q3() {
+    let query = "INSERT INTO `sampledb`.`Shop` (`UserAccountID`,`Name`,`Commission`,`HeadOfficeID`) VALUES ('" + _UserAccountID + "', '" + _Name + "', " + _Commission + ",'" + _DistributorID + "');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
