@@ -1,3 +1,5 @@
+//is not a function possibly brakets nested another module.export or missing parameters
+
 let DBCheck = require('./API/SharedController/DBCheck');
 DBCheck.IsRoomIDExist('RID88',function(response){
   console.log("Done");
@@ -265,12 +267,8 @@ HeadOfficeModel.RegisterHeadOffice('HeadOfficeID','UserAccountID','Name','PhoneN
 });
 
 let DistributorModel = require("./API/v1/Distributor/DistributorModel");
-DistributorModel.RegisterDistributor(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,HeadOfficeID, function (response) {
+DistributorModel.RegisterDistributor('UserAccountID','Name','PhoneNumber','UserName','Password','Commission','HeadOfficeID', function (response) {
   if (response != undefined) {
-    res.send(response);
-  } else {
-    res.send({
-      RegisterDistributorFailed: true
-    });
+   console.log(response);
   }
 });

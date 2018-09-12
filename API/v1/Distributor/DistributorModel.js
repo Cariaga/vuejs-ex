@@ -89,7 +89,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
       console.log("Error Updating " + error);
       callback(undefined);
     });*/
-
+  }
   module.exports.RegisterDistributor = function RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, callback) {
     let _UserAccountID = UserAccountID;
     let _Name = Name;
@@ -153,4 +153,3 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
     }
     RunAsync();
   }
-}
