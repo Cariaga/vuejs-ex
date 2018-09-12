@@ -119,7 +119,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Status)) {
           if (!isNullOrEmpty(Reason)) {
-                BlackListModel.AddBlackList(UserAccountID, Title, Status, Reason, ReportDate, ReleaseDate, function (response) {
+                BlackListModel.AddBlackList(UserAccountID, Title, Status, Reason, function (response) {
                   if (response != undefined) {
                     res.send(response);
                   } else {
