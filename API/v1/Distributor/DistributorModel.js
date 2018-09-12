@@ -89,4 +89,66 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
       console.log("Error Updating " + error);
       callback(undefined);
     });*/
+
+    module.exports.RegisterDistributor = function RegisterDistributor(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,HeadOfficeID,callback){
+      let _UserAccountID = UserAccountID;
+      let _Name = Name;
+      let _PhoneNumber = PhoneNumber;
+      let _UserName = UserName;
+      let _Password = Password;
+      let _Commission = Commission;
+      let _HeadOfficeID = HeadOfficeID;
+    
+      function Q1(){
+        let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
+        " VALUES ('"+_UserAccountID+"', '"+_UserName+"', '"+_Password+"', now(), 'Offline', 'true', null);";
+        return new Promise(resolve => {
+          DBConnect.DBConnect(query, function (response) {
+            if (response != undefined) {
+              console.log(response);
+              resolve(response);
+            } else {
+              resolve(undefined);
+            }
+          });
+        });
+      }
+      function Q2(){
+        let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
+        "VALUES ('"+_UserAccountID+"', null, '"+_PhoneNumber+"', null);";
+        return new Promise(resolve => {
+          DBConnect.DBConnect(query, function (response) {
+            if (response != undefined) {
+              console.log(response);
+              resolve(response);
+            } else {
+              resolve(undefined);
+            }
+          });
+        });
+      }
+      function Q3(){
+        let query = "INSERT INTO `sampledb`.`distributors` (`UserAccountID`,`Name`,`Commission`,`HeadOfficeID`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Commission+"','"+_HeadOfficeID+"');";
+        return new Promise(resolve => {
+          DBConnect.DBConnect(query, function (response) {
+            if (response != undefined) {
+              console.log(response);
+              resolve(response);
+            } else {
+              resolve(undefined);
+            }
+          });
+        });
+      }
+      async function RunAsync() {
+        console.log('calling');
+        let finalresult = [{}];
+        let result = await Q1();
+        let result2 = await Q2();
+        let result3 = await Q3();
+        console.log('Done');
+        callback('done');
+      }
+      RunAsync();
+    }
 }
