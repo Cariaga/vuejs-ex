@@ -135,9 +135,28 @@ module.exports = function (app) { //SELECTION
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
         if (response==true) {
-          res.send("Username exist");
+          res.send({UserNameExist:true});
         } else {
-          res.send("Username dosn't exist");
+          res.send({UserNameExist:false});
+        }
+      });
+
+    } else {
+      res.send({
+        UserNameExist: true
+      });
+    }
+  });
+  
+  app.get('/Api/v1/UserAccount/CheckUserAccountID/UserAccountID/:UserAccountID/', (req, res) => {
+    let UserAccountID = req.params.UserAccountID;
+
+    if (!isNullOrEmpty(UserAccountID)) {
+      DBCheck.isUserAccountIDExist(UserName, function (response) {
+        if (response==true) {
+          res.send({UserAccountExist:true});
+        } else {
+          res.send({UserAccountExist:false});
         }
       });
 
