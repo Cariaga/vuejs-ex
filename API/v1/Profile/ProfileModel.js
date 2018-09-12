@@ -9,7 +9,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.Profile = function Profile(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query ="";
-    DBConnect.DBConnect(query, function (response2) {
+    DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
           callback(response);
