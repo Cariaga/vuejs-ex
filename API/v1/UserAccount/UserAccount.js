@@ -129,15 +129,15 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/CheckUserName/UserName/:UserName', (req, res) => {
+  app.get('/Api/v1/UserAccount/CheckUserName/UserName/:UserName/', (req, res) => {
     let UserName = req.params.UserName;
 
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
-        if (response != undefined) {
-          res.send("Username valid");
-        } else {
+        if (response==true) {
           res.send("Username exist");
+        } else {
+          res.send("Username dosn't exist");
         }
       });
 

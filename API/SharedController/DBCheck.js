@@ -85,8 +85,8 @@ const mysql = require('mysql2');
     
    
     DBConnect.DBConnect(query,function(response){
-      if(response.UserName==_UserName){
-        console.log(response);
+      console.log(response);
+      if(response.length>0){
         callback(true);
       }else{
         callback(false);
