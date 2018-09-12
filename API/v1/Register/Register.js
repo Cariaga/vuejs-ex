@@ -8,7 +8,8 @@ var uuidv4 = require('uuid/v4');
 var http = require('http');
 module.exports = function (app) {
   
-  app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:Bankname/SecurityCode/:SecurityCode/AccountNumber/:AccountNumber/AccountHolder/:AccountHolder/ShopID/:ShopID/', function (req, res) {
+  app.get('/Api/v1/Register/Add/ScreenName/:ScreenName/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:Bankname/SecurityCode/:SecurityCode/AccountNumber/:AccountNumber/AccountHolder/:AccountHolder/ShopID/:ShopID/', function (req, res) {
+    let ScreenName = req.params.ScreenName;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Email = req.params.Email;
@@ -25,7 +26,7 @@ module.exports = function (app) {
     let Valid = '';
     let Expiration ='';
     //newer version
-    RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration,AccountHolder,ShopID, function (response) {
+    RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName,Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, '1', function (response) {
       if (response != undefined) {
         // res.send(response);
         let status = 200;

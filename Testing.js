@@ -275,8 +275,9 @@ DistributorModel.RegisterDistributor('Account31','Name','PhoneNumber','UserName'
    console.log(response);
   }
 });
+
 let DBConnect = require("./API/v1/Register/RegisterModel");
-DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName', 'Password', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration','AccountHolder','1', function (response) {
+DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', 'ScreenName', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', 'AccountHolder', '1', function (response) {
   if (response != undefined) {
     // res.send(response);
     console.log('Done');
