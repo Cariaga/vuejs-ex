@@ -24,29 +24,6 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
       callback(undefined);
     }
   });
-
-  /*var item1 = Models.Distributor.build({
-    UserAccountID: UserAccountID,
-    HeadOfficeID: HeadOfficeID,
-    Name: Name
-  });
-  Models.Distributor.sync({
-    alter: true,
-  }); //force removes rebuilds the table only for non production 
-  item1.save()
-    .then(Success => {
-
-      console.log("----AddDistributor Start-----");
-      console.log(Success);
-      console.log("----AddDistributor End-----");
-      callback("Inserted");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("error inserting " + error);
-      callback(undefined);
-
-    });*/
 }
 /**
  *
@@ -72,23 +49,6 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
       callback(undefined);
     }
   });
-  /*Models.Distributor.update({
-      UserAccountID: UserAccountID,
-      HeadOfficeID: HeadOfficeID,
-      Name: Name
-    }, {
-      where: {
-        DistributorID: DistributorID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      // mhhh, wth!
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
   }
   module.exports.RegisterDistributor = function RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, callback) {
     let _UserAccountID = UserAccountID;
