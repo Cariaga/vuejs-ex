@@ -57,14 +57,14 @@ module.exports = function (app) { //MODIFY
     }
   });
   //INSERT
-  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorID/:DistributorID', function (req, res) {
+  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorID/:DistributorID/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Commission = req.params.Commission;
-    let ShopID = req.params.ShopID;
+    let DistributorID = req.params.DistributorID;
 
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Name)) {
@@ -72,8 +72,8 @@ module.exports = function (app) { //MODIFY
           if (!isNullOrEmpty(UserName)) {
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(Commission)) {
-                if (!isNullOrEmpty(ShopID)) {
-                  ShopModel.RegisterShop(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,ShopID, function (response) {
+                if (!isNullOrEmpty(DistributorID)) {
+                  ShopModel.RegisterShop(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,DistributorID, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
