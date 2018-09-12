@@ -79,11 +79,9 @@ module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status
 let _Title = Title;
 let _Status = Status;
 let _Reason = Reason;
-let _ReportDate = ReportDate;
-let _ReleaseDate = ReleaseDate;
   let query =
   "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Title`, `Reason`, `ReportDate`) "+
-  "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Status+"','"+Reason+"',now());";
+  "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Status+"','"+_Reason+"',now());";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
