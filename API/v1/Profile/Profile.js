@@ -9,6 +9,6 @@ var http = require('http');
 
 module.exports = function (app) {
     app.get('/Api/v1/Profile/UserAccountID/:UserAccountID/', function (req, res) {
-
+        let UserAccountID = req.params.UserAccountID;
     });
 }

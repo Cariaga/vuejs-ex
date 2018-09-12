@@ -5,3 +5,15 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+
+module.exports.Profile = function Profile(UserAccountID, callback) {
+    let query ="";
+    DBConnect.DBConnect(query, function (response2) {
+        if (response2 != undefined) {
+          console.log(response2);
+          callback(response2);
+        } else {
+          //callback(undefined);
+        }
+      });
+}
