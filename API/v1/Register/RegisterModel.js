@@ -35,7 +35,7 @@ module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, Acces
 
   let PlayerQuery =
     "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`, `CurrentPoints`) " +
-    "VALUES ('" + _UserAccountID + "', '" + _ShopID + "', '" + _ScreenName + "', '', '', '', ''";
+    "VALUES ('" + _UserAccountID + "', '" + _ShopID + "', '" + _ScreenName + "', '', '', '', 0)";
   console.log(PlayerQuery);
 
   let BankInfosQuery =
