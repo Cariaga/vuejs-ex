@@ -7,11 +7,12 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.Profile = function Profile(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID;
     let query ="";
     DBConnect.DBConnect(query, function (response2) {
-        if (response2 != undefined) {
-          console.log(response2);
-          callback(response2);
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
         } else {
           //callback(undefined);
         }
