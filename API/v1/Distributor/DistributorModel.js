@@ -90,7 +90,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
     }
 
     function Q3() {
-      let query = "INSERT INTO `sampledb`.`distributors` (`UserAccountID`,`Name`,`Commission`,`HeadOfficeID`) VALUES ('" + _UserAccountID + "', '" + _Name + "', '" + _Commission + "','" + _HeadOfficeID + "');";
+      let query = "INSERT INTO `sampledb`.`distributors` (`UserAccountID`,`Name`,`Commission`,`HeadOfficeID`) VALUES ('" + _UserAccountID + "', '" + _Name + "', " + _Commission + ",'" + _HeadOfficeID + "');";
       return new Promise(resolve => {
         DBConnect.DBConnect(query, function (response) {
           if (response != undefined) {

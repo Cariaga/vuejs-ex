@@ -137,35 +137,4 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  //STRUCTURE
-  app.get('/Api/v1/Shop/Clear', function (req, res) {
-    Models.Shop.destroy({
-        where: {
-          UserID: 1
-        },
-        truncate: true
-      }).then(Success => {
-        res.send("Cleared");
-      })
-      .catch(err => {
-        res.send("Truncate " + err);
-      });
-  });
-  app.get('/Api/v1/Shop/Delete', function (req, res) {
-    Models.Shop.sync({
-      force: true
-    }).then(function (result) {
-      res.send("Deleted");
-    }).catch(function (result) { //catching any then errors
-
-      res.send("Error " + result);
-    });
-  });
-  app.get('/Api/v1/Shop/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.Shop.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.Shop.describe().then(result => {
-      res.send(beautify(result, null, 2, 100));
-    });
-  });
 }

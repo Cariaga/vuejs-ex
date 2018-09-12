@@ -276,7 +276,7 @@ DistributorModel.RegisterDistributor('Account31','Name','PhoneNumber','UserName'
   }
 });
 
-//192.168.254.102:8080/Api/v1/Register/Add/ScreenName/ScreenName/UserName/UserName/Password/Password/Name/Name/SurName/SurName/Email/Email/PhoneNumber/PhoneNumber/BankName/BankName/SecurityCode/SecurityCode/AccountNumber/AccountNumber/AccountHolder/AccountHolder/ShopID/ShopID
+//http://192.168.254.102:8080/Api/v1/Register/Add/ScreenName/ScreenName/UserName/UserName/Password/Password/Name/Name/SurName/SurName/Email/Email/PhoneNumber/PhoneNumber/BankName/BankName/SecurityCode/SecurityCode/AccountNumber/AccountNumber/AccountHolder/AccountHolder/ShopID/ShopID -- Register Player
 let DBConnect = require("./API/v1/Register/RegisterModel");
 DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', 'ScreenName', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', 'AccountHolder', '1', function (response) {
   if (response != undefined) {
@@ -286,3 +286,6 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
     console.log('AddUserAccountFailed');
   }
 });
+
+
+
