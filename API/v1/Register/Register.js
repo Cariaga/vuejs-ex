@@ -24,6 +24,7 @@ module.exports = function (app) {
     let AccessID = "1";
     let Valid = '';
     let Expiration ='';
+    //newer version
     RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration,AccountHolder,ShopID, function (response) {
       if (response != undefined) {
         // res.send(response);

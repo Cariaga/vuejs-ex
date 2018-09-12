@@ -8,7 +8,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 
 
-
+//newer version
 module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, callback) {
   let _UserAccountID = UserAccountID;
   let _ScreenName = ScreenName;

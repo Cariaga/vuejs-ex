@@ -266,8 +266,9 @@ HeadOfficeModel.RegisterHeadOffice('HeadOfficeID','UserAccountID','Name','PhoneN
   console.log(response);
 });
 
+
 let DistributorModel = require("./API/v1/Distributor/DistributorModel");
-DistributorModel.RegisterDistributor('UserAccountID','Name','PhoneNumber','UserName','Password','Commission','HeadOfficeID', function (response) {
+DistributorModel.RegisterDistributor('Account31','Name','PhoneNumber','UserName','Password','50','1', function (response) {
   if (response != undefined) {
    console.log(response);
   }
