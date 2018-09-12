@@ -109,21 +109,16 @@ module.exports = function (app) {
     }
   });
   //INSERT
-  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Reason/:Reason/ReportDate/:ReportDate/ReleaseDate/:ReleaseDate/', function (req, res) { //OK
+  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Reason/:Reason/', function (req, res) { //OK
     //USAGE /Api/v1/BlackList/Add/UserAccountID/Title/:Status/Description/2018-06-27/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
     let Status = req.params.Status;
     let Reason = req.params.Reason;
-    let ReportDate = req.params.ReportDate;
-    let ReleaseDate = req.params.ReleaseDate;
-
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Status)) {
           if (!isNullOrEmpty(Reason)) {
-            if (!isNullOrEmpty(ReportDate)) {
-              if (!isNullOrEmpty(ReleaseDate)) {
                 BlackListModel.AddBlackList(UserAccountID, Title, Status, Reason, ReportDate, ReleaseDate, function (response) {
                   if (response != undefined) {
                     res.send(response);
@@ -133,16 +128,6 @@ module.exports = function (app) {
                     });
                   }
                 });
-              } else {
-                res.send({
-                  ReleaseDateMissing: true
-                });
-              }
-            } else {
-              res.send({
-                ReportDateMissing: true
-              });
-            }
           } else {
             res.send({
               DescriptionMissing: true
