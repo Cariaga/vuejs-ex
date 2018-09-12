@@ -36,6 +36,7 @@ DBCheck.CheckUserAccountIDKey('Account1', 2, function(response){
   console.log(response);
 });
 
+//http://192.168.254.102:8080/Api/v1/BlackList/Add/UserAccountID/Account1/Title/Title/Status/Status/Reason/Reason/ - blacklist add
 
 // http://localhost:8080/Api/v1/RoomConfiguration/Add/RoomID/RID6/GameType/Holdem/SmallBlind/50/BigBlind/100/Speed/50
 
@@ -259,6 +260,7 @@ PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '199
 //http://192.168.254.102:8080/Api/v1/Notification/Update/NotificationID/1/NotificationType/N1/Title/Nope/Description/Nope/Status/Pending/ - Notice update
 
 //http://192.168.254.102:8080/Api/v1/Distributor/RegisterDistributor/UserAccountID/Account31/Name/Cheng/PhoneNumber/123/UserName/rascal/Password/cheng/Commission/50/HeadOfficeID/1 - register distributor
+
 
 
 //add head office
