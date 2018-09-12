@@ -5,7 +5,7 @@ let DistributorModel = require("../Distributor/DistributorModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 
-module.exports = function (app) {//SELECTION
+module.exports = function (app) { //SELECTION
   app.get('/Api/v1/Distributor/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -69,7 +69,7 @@ module.exports = function (app) {//SELECTION
       res.send("Missing params");
     }
   });
-//MODIFY
+  //MODIFY
   app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', function (req, res) {
     let DistributorID = req.params.DistributorID;
     let UserAccountID = req.params.UserAccountID;
@@ -109,7 +109,7 @@ module.exports = function (app) {//SELECTION
       });
     }
   });
-//INSERT
+  //INSERT
   app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', function (req, res) {
     //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
     let UserAccountID = req.params.UserAccountID;
@@ -192,4 +192,68 @@ module.exports = function (app) {//SELECTION
       res.send(beautify(result, null, 2, 100));
     });
   });
+
+  app.get('/Api/v1/Distributor/RegisterDistributor/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeID/:HeadOfficeID', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let Name = req.params.Name;
+    let PhoneNumber = req.params.PhoneNumber;
+    let UserName = req.params.UserName;
+    let Password = req.params.Password;
+    let Commission = req.params.Commission;
+    let HeadOfficeID = req.params.HeadOfficeID;
+
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(Name)) {
+        if (!isNullOrEmpty(PhoneNumber)) {
+          if (!isNullOrEmpty(UserName)) {
+            if (!isNullOrEmpty(Password)) {
+              if (!isNullOrEmpty(Commission)) {
+                if (!isNullOrEmpty(HeadOfficeID)) {
+                  DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
+                    if (response != undefined) {
+                      res.send(response);
+                    } else {
+                      res.send({
+                        RegisterDistributorFailed: true
+                      });
+                    }
+                  });
+                } else {
+                  res.send({
+                    HeadOfficeIDMissing: true
+                  });
+                }
+              } else {
+                res.send({
+                  CommissionMissing: true
+                });
+              }
+            } else {
+              res.send({
+                PasswordMissing: true
+              });
+            }
+          } else {
+            res.send({
+              UserNameMissing: true
+            });
+          }
+        } else {
+          res.send({
+            PhoneNumberMissing: true
+          });
+        }
+      } else {
+        res.send({
+          NameMissing: true
+        });
+      }
+    } else {
+      res.send({
+        UserAccountIDMissing: true
+      });
+    }
+
+  });
+
 }
