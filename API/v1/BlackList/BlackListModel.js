@@ -70,8 +70,6 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
  * @param {*} Title
  * @param {*} Status
  * @param {*} Reason
- * @param {*} ReportDate
- * @param {*} ReleaseDate
  * @param {*} callback
  */
 module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Reason, callback) {
