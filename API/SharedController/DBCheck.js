@@ -85,7 +85,7 @@ const mysql = require('mysql2');
     
    
     DBConnect.DBConnect(query,function(response){
-      if(response[0].UserName==_UserName){
+      if(response.UserName==_UserName){
         console.log(response);
         callback(true);
       }else{
