@@ -69,21 +69,21 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
  * @param {*} UserAccountID
  * @param {*} Title
  * @param {*} Status
- * @param {*} Description
+ * @param {*} Reason
  * @param {*} ReportDate
  * @param {*} ReleaseDate
  * @param {*} callback
  */
-module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Description, ReportDate, ReleaseDate, callback) {
+module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Reason, ReportDate, ReleaseDate, callback) {
   let _UserAccountID = UserAccountID;
 let _Title = Title;
 let _Status = Status;
-let _Description = Description;
+let _Reason = Reason;
 let _ReportDate = ReportDate;
 let _ReleaseDate = ReleaseDate;
   let query =
-  "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Title`, `Description`, `ReportDate`, `ReleaseDate`) "+
-  "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Status+"','"+_Description+"','"+_ReportDate+"','"+_ReleaseDate+"');";
+  "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Title`, `Reason`, `ReportDate`, `ReleaseDate`) "+
+  "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Status+"','"+Reason+"','"+_ReportDate+"','"+_ReleaseDate+"');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
