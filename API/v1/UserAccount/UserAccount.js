@@ -148,7 +148,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   
-  app.get('/Api/v1/UserAccount/CheckUser/UserAccountID/:UserAccountID/', (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {
