@@ -6,3 +6,9 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
+
+module.exports = function (app) {
+    app.get('/Api/v1/Profile/UserAccountID/:UserAccountID/', function (req, res) {
+
+    });
+}
