@@ -193,7 +193,7 @@ module.exports = function (app) { //SELECTION
     });
   });
 
-  app.get('/Api/v1/Distributor/RegisterDistributor/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeID/:HeadOfficeID', function (req, res) {
+  app.get('/Api/v1/Distributor/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeID/:HeadOfficeID', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;

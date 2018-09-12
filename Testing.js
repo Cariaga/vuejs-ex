@@ -268,7 +268,7 @@ HeadOfficeModel.RegisterHeadOffice('HeadOfficeID','UserAccountID','Name','PhoneN
   console.log(response);
 });
 
-
+//192.168.254.102:8080/Api/v1/Distributor/Add/UserAccountID/Account31/Name/Cheng/PhoneNumber/123/UserName/rascal/Password/cheng/Commission/50/HeadOfficeID/1
 let DistributorModel = require("./API/v1/Distributor/DistributorModel");
 DistributorModel.RegisterDistributor('Account31','Name','PhoneNumber','UserName','Password','50','1', function (response) {
   if (response != undefined) {
