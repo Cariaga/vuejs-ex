@@ -275,6 +275,8 @@ DistributorModel.RegisterDistributor('Account31','Name','PhoneNumber','UserName'
    console.log(response);
   }
 });
+//http://localhost:8080/Api/v1/Shop/Add/UserAccountID/UserAccountID/Name/Name/PhoneNumber/PhoneNumber/UserName/UserName/Password/Password/Commission/0/DistributorID/1/
+
 
 //http://192.168.254.102:8080/Api/v1/Register/Add/ScreenName/ScreenName/UserName/UserName/Password/Password/Name/Name/SurName/SurName/Email/Email/PhoneNumber/PhoneNumber/BankName/BankName/SecurityCode/SecurityCode/AccountNumber/AccountNumber/AccountHolder/AccountHolder/ShopID/ShopID -- Register Player
 let DBConnect = require("./API/v1/Register/RegisterModel");
