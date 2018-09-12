@@ -154,9 +154,9 @@ module.exports = function (app) { //SELECTION
     if (!isNullOrEmpty(UserAccountID)) {
       DBCheck.isUserAccountIDExist(UserName, function (response) {
         if (response==true) {
-          res.send("Username exist");
+          res.send({UserAccountExist:true});
         } else {
-          res.send("Username dosn't exist");
+          res.send({UserAccountExist:false});
         }
       });
 
