@@ -209,7 +209,7 @@ module.exports = function (app) { //SELECTION
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(Commission)) {
                 if (!isNullOrEmpty(HeadOfficeID)) {
-                  DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
+                  DistributorModel.RegisterDistributor(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,HeadOfficeID, function (response) {
                     if (response != undefined) {
                       res.send(response);
                     } else {
