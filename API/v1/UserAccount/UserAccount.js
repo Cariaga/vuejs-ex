@@ -5,7 +5,7 @@ let UserAccountModel = require("../UserAccount/UserAccountModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
-module.exports = function (app) {//SELECTION
+module.exports = function (app) { //SELECTION
 
   app.get('/Api/v1/UserAccount/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -24,7 +24,7 @@ module.exports = function (app) {//SELECTION
       }).then(function (result) {
         let Data = result.map(function (item) {
           return item;
- 
+
         });
         res.send(beautify(Data, null, 2, 100));
       }).catch(function (result) { //catching any then errors
@@ -32,22 +32,22 @@ module.exports = function (app) {//SELECTION
       });
     }
     if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-  
+
     }
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-  
+
     }
     //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
   });
@@ -83,7 +83,7 @@ module.exports = function (app) {//SELECTION
   app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
-    let UserAccountID = uuidv4();//generated
+    let UserAccountID = uuidv4(); //generated
     let AccessID = req.params.AccessID;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
@@ -93,15 +93,15 @@ module.exports = function (app) {//SELECTION
         if (!isNullOrEmpty(UserName)) {
           if (!isNullOrEmpty(Password)) {
             if (!isNullOrEmpty(ValidKey)) {
-                    UserAccountModel.AddUserAccount(UserAccountID, AccessID, UserName, Password, ValidKey, function (response) {
-                      if (response != undefined) {
-                        res.send(response);
-                      } else {
-                        res.send({
-                          AddUserAccountFailed: true
-                        });
-                      }
-                    });
+              UserAccountModel.AddUserAccount(UserAccountID, AccessID, UserName, Password, ValidKey, function (response) {
+                if (response != undefined) {
+                  res.send(response);
+                } else {
+                  res.send({
+                    AddUserAccountFailed: true
+                  });
+                }
+              });
             } else {
               res.send({
                 ValidKeyMissing: true
@@ -128,6 +128,24 @@ module.exports = function (app) {//SELECTION
       });
     }
   });
+
+  app.get('/Api/v1/UserAccount/CheckUserName/UserName/:UserName', (req, res) => {
+    let UserName = req.params.UserName;
+
+    if (!isNullOrEmpty(UserName)) {
+      DBCheck.isUserNameExist(UserName, function (response) {
+        if (response != undefined) {
+          res.send("Username exist");
+        } else {
+          res.send("username valid");
+        }
+      });
+
+    } else {
+      res.send({
+        UserNameExist: true
+      });
+    }
+  });
+
 }
-
-

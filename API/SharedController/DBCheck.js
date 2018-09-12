@@ -77,7 +77,7 @@ const mysql = require('mysql2');
     });
   }
 
-  module.exports.isUserAccountVerifiedUserName = function isUserAccountVerifiedUserName(UserName, callback) {
+  module.exports.isUserNameExist = function isUserNameExist(UserName, callback) {
     let _UserName = UserName;
     let query =
     "SELECT * FROM `sampledb`.`useraccounts` " +
