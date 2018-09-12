@@ -135,9 +135,9 @@ module.exports = function (app) { //SELECTION
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
         if (response != undefined) {
-          res.send("Username exist");
+          res.send("Username valid");
         } else {
-          res.send("username valid");
+          res.send("Username exist");
         }
       });
 
