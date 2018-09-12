@@ -8,7 +8,6 @@ var LoginHistoryModel = require('./LoginHistoryModel');
 module.exports = function (app) {
   app.get('/Api/v1/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    // Usage /Login?UserName=Username21441&Password=awAF12441124&DeviceUUID=DeviceUUID&IP=IP&DeviceName=DeviceName&DeviceRam=DeviceRam&DeviceCpu=DeviceCpu&OperatingSystem=OperatingSystem&GraphicsDevice=GraphicsDevice&Time=Time&Date=Date
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let DeviceUUID = req.params.DeviceUUID;
