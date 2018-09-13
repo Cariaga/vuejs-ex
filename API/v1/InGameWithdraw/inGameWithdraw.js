@@ -1,7 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
-let WithdrawHistoryModel = require("../WithdrawHistory/WithdrawHistoryModel");
+let InGameWithdrawModel = require("./InGameWithdrawModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
@@ -14,7 +14,7 @@ module.exports = function (app) {
     let Name = req.params.Name
     let WithdrawPassword = req.params.WithdrawPassword
     let ContactNumber = req.params.ContactNumber
-    WithdrawHistoryModel.RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, function (response) {
+    InGameWithdrawModel.RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, function (response) {
       res.send(response);
     })
   });
