@@ -49,7 +49,7 @@ const mysql = require('mysql2');
     let _UserAccountID = UserAccountID;
     let query =
     "SELECT * FROM `sampledb`.`player_black_list` " +
-    "WHERE UserAccountID = '"+_UserAccountID+"' ";
+    "WHERE UserAccountID = '"+_UserAccountID+"' and Status='Blocked'";
     
    
     DBConnect.DBConnect(query,function(response){

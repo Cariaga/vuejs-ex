@@ -175,7 +175,7 @@ module.exports = function (app) {
   });
   app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
-    let Value = req.params.Value;
+    let UserName = req.params.UserName;
 
     if (!isNullOrEmpty(UserAccountID)) {
         DBCheck.isUserAccountBlocked(UserAccountID, function (response) {
