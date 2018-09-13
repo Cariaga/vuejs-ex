@@ -84,7 +84,7 @@ module.exports.SupportSearch = function SupportSearch(Column, Value, callback) {
     let _Column = Column;
     let _Value = Value;
     let query = 
-    "SELECT * FROM sampledb.player_supportlist where "+_Column+" like '%"+_Value+"%';";
+    "SELECT * FROM sampledb.player_supportlist where player_supportlist."+_Column+" like '%"+_Value+"%';";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
