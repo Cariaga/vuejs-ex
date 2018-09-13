@@ -12,7 +12,7 @@ let InGameTransferHistoryModel = require('./InGameTransferHistoryModel');
 module.exports = function(app){//selection
     app.get('/Api/v1/UserAccount/SupportTicket/UserAccountID/:UserAccountID/Status/Pending', function (req, res) {
       let UserAccountID= req.params.UserAccountID;
-      InGameTransferHistoryModel.InGameTransferHistoryByUseraccountID(UserAccountID,function(response){
+      InGameTransferHistoryModel.InGameTransferHistoryByUserAccountID(UserAccountID,function(response){
         res.send(response);
       });
     });
