@@ -1,7 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(UserAccountID, callback) {
+module.exports.InGameTransferHistoryByUseraccountID = function InGameTransferHistoryByUseraccountID(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
-    let query ="SELECT * FROM sampledb.supporttickets as ST where ST.UserAccountID = '"+_UserAccountID+"' and ST.Status='Pending';";
+    let query ="call sampledb.TransfersHistoryByUserAccountID('"+_UserAccountID+"');";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
