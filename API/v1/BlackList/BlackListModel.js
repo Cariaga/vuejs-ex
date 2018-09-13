@@ -11,7 +11,7 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
   let _offset = offset;
   if(limit!=undefined&&_offset!=undefined){
     let query =
-    "SELECT * FROM sampledb.player_Black_list limit "+_limit+" offset "+_offset;
+    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason FROM sampledb.player_Black_list limit "+_limit+" offset "+_offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -23,7 +23,7 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
   }
   else if(limit!=undefined&&_offset!=undefined){
     let query =
-    "SELECT * FROM sampledb.player_Black_list";
+    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason FROM sampledb.player_Black_list";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
