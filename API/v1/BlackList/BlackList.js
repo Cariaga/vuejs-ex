@@ -178,7 +178,7 @@ module.exports = function (app) {
     let UserName = req.params.UserName;
 
     if (!isNullOrEmpty(UserAccountID)) {
-        DBCheck.isUserAccountBlocked(UserAccountID, function (response) {
+        DBCheck.isUserAccountIDUserNameBlocked(UserAccountID,UserName, function (response) {
           if (response != undefined) {
             res.send(response);
           } else {

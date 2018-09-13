@@ -44,7 +44,8 @@ const mysql = require('mysql2');
       }
     });
   }
-  module.exports.isUserAccountIDUserNameBlocked = function isUserAccountIDUserNameBlocked(UserAccountID,UserName, callback) {//used by inquire
+  //used by inquire
+  module.exports.isUserAccountIDUserNameBlocked = function isUserAccountIDUserNameBlocked(UserAccountID,UserName, callback) {
     let _UserAccountID = UserAccountID;
     let _UserName = UserName;
     let query =
