@@ -81,14 +81,13 @@ module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title
     });
 }
 
-module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountID, Title, Description, Reason, callback) {
+module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountID, Title, Reason, callback) {
   let _UserAccountID = UserAccountID;
   let _Title = Title;
-  let _Description = Description;
   let _Reason = Reason;
   let query =
     "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `DateTime` ) "+
-    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Description+"','"+_Reason+"', now()); ";
+    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Reason+"', now()); ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
