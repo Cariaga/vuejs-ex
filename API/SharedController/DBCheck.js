@@ -50,8 +50,6 @@ const mysql = require('mysql2');
     let query =
     "SELECT * FROM `sampledb`.`player_black_list` " +
     "WHERE UserAccountID = '"+_UserAccountID+"' and Status='Blocked'";
-    
-   
     DBConnect.DBConnect(query,function(response){
       if(response[0].UserAccountID==_UserAccountID){
         console.log(response);
