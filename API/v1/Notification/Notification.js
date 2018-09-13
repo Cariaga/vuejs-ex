@@ -4,7 +4,6 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let NotificationModel = require("../Notification/NotificationModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-//--Select Start
 module.exports = function (app) { //INSERT
   app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', function (req, res) {
     let NotificationType = req.params.NotificationType;
@@ -58,34 +57,6 @@ module.exports = function (app) { //INSERT
       res.send(response);
     });
   });
-  //SELECTION
-  app.get('/Api/v1/Notification', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Offset = req.query.Offset;
-    let Limit = req.query.Limit;
-    let Sort = req.query.Sort;
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-      Models.Notification.sync();
-      let result = Models.Notification.findAll({
-        where: {
-          NotificationID: {
-            ne: null //not null
-          }
-        }
-      }).then(function (result) {
-        let Data = result.map(function (item) {
-          return item;
-
-        });
-
-        res.send(beautify(Data, null, 2, 100));
-      }).catch(function (result) { //catching any then errors
-
-        res.send("Error " + result);
-      });
-    }
-  });
-
   app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value', function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
