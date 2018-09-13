@@ -304,3 +304,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://localhost:8080/Api/v1/InGameNotice/  -In Game  Notice
 
 //http://localhost:8080/Api/v1/InGameAdminSupport/ - In game Admin Support
+
+//http://localhost:8080/Api/v1/InGameTransferHistory/UserAccountID/Account6/ - InGameTransferHistory
