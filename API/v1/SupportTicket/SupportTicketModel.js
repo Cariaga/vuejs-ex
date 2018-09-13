@@ -86,7 +86,7 @@ module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountI
   let _Title = Title;
   let _Reason = Reason;
   let query =
-    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `DateTime` ) "+
+    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Reason`, `DateTime` ) "+
     "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Reason+"', now()); ";
 
     DBConnect.DBConnect(query, function (response) {
