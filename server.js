@@ -92,6 +92,8 @@ require('./API/v1/Notification/Notification')(app);
 require('./API/v1/OneOnOne/OneOnOne')(app);
 require('./API/v1/Pagination/Pagination')(app);
 require('./API/v1/Player/Player')(app);
+require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app);
+require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
 require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
 require('./API/v1/Shop/Shop')(app);

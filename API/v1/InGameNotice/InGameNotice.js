@@ -7,6 +7,8 @@ var isNullOrEmpty = require('is-null-or-empty');
 
 module.exports = function (app) {
     app.get('/Api/v1/InGameNotice/', function (req, res) {
-        
+        InGameNoticeModel.InGameNotice(function(response){
+            res.send(response);
+        });
     });
 }
