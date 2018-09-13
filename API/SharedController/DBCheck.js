@@ -48,7 +48,7 @@ const mysql = require('mysql2');
   module.exports.isUserAccountBlocked = function isUserAccountBlocked(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
-    "SELECT * FROM `sampledb`.`useraccounts` " +
+    "SELECT * FROM `sampledb`.`player_black_list` " +
     "WHERE UserAccountID = '"+_UserAccountID+"' ";
     
    
