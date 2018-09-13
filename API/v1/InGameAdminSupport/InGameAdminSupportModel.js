@@ -6,7 +6,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.InGameNotice = function InGameNotice(callback) {
+module.exports.InGameAdminSupport = function InGameAdminSupport(callback) {
     let query = 
     "SELECT * FROM sampledb.in_game_notice;";
     DBConnect.DBConnect(query, function (response) {
