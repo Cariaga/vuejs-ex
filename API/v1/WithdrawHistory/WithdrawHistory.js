@@ -51,6 +51,11 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
+
+  app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', function (req, res) {
+    WithdrawHistoryModel.RequestWithdraw(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber)
+  });
+
   app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/UserName/:UserName/UserName/:UserName/UserName/:UserName/UserName/:UserName/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
