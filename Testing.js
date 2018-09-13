@@ -295,4 +295,4 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 });
 
 
-
+//http://localhost:8080/Api/v1/Profile/UserAccountID/Account8/ - in gmae route profile
