@@ -9,8 +9,6 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 
 module.exports.InGameNotice = function InGameNotice(callback) {
-    let _Column = Column;
-    let _Value = Value;
     let query = 
     "SELECT * FROM sampledb.in_game_notice;";
     DBConnect.DBConnect(query, function (response) {
