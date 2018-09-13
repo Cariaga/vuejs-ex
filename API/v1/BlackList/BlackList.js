@@ -173,7 +173,7 @@ module.exports = function (app) {
       });
     }
   });
-  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID', function (req, res) {
+  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Value = req.params.Value;
 
