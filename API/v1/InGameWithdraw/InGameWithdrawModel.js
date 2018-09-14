@@ -20,7 +20,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       return new Promise(resolve => {
         let query =
       "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) "+
-      " VALUES ('"+_UserTransactionID+"', '"+_Amount+"', '0', 'pending', 'withdraw'); ";
+      " VALUES ('"+_UserTransactionID+"','"+_UserAccountID+"', '"+_Amount+"', 'pending', 'withdraw'); ";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
