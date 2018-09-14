@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 
 module.exports = function (app) {
     app.get('/Api/v1/InGameDeposit/Request/UserAccountID/:UserAccountID/Name/:Name/Amount/:Amount/', function (req, res) {
-        InGameDepositModel.InGameDeposit(function(response){
+        InGameDepositModel.InGameDeposit(UserAccountID,Name,Amount,function(response){
             res.send(response);
         });
     });
