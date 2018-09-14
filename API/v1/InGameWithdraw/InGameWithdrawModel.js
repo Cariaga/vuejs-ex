@@ -61,5 +61,14 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       });
       });
     }
+    async function RunAsync() {
+      console.log('calling');
+      let result = await TransactionsInsert();
+      let result2 = await TransactionInfosInsert();
+      let result3 = await WithdrawInsert();
+      let finalresult = [result,result2,result3];
+      callback(finalresult);
+    }
+    RunAsync();
 
   }
