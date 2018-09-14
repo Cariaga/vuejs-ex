@@ -8,7 +8,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.InGameAdminSupport = function InGameAdminSupport(callback) {
     let query = 
-    "SELECT * FROM sampledb.in_game_notice;";
+    "SELECT * FROM sampledb.ingame_admin_contactsupport;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

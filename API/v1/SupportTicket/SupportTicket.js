@@ -110,6 +110,35 @@ module.exports = function (app) { //INSERT
           });
         }
       });
+      app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', function (req, res) {
+        let UserAccountID = req.params.UserAccountID;
+        let Title = req.params.Title;
+        let Description = req.params.Description;
+        let Reason = req.params.Reason;
+
+        if (!isNullOrEmpty(UserAccountID)) {
+          if (!isNullOrEmpty(Title)) {
+
+              if (!isNullOrEmpty(Reason)) {
+                SupportTicketModel.RequestSupportTicket(UserAccountID, Title, Reason, function (response) {
+                  res.send(response);
+                });
+              } else {
+                res.send({
+                  ReasonMissing: true
+                });
+              }
+          } else {
+            res.send({
+              TitleMissing: true
+            });
+          }
+        } else {
+          res.send({
+            UserAccountIDMissing: true
+          });
+        }
+      });
   //MODIFY
   app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/Answer/:Answer/Status/:Status', function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;

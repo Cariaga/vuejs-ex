@@ -173,5 +173,22 @@ module.exports = function (app) {
       });
     }
   });
+  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let UserName = req.params.UserName;
 
+    if (!isNullOrEmpty(UserAccountID)) {
+        DBCheck.isUserAccountIDUserNameBlocked(UserAccountID,UserName, function (response) {
+          if (response != undefined) {
+            res.send(response);
+          } else {
+            res.send(undefined);
+          }
+        });
+    } else {
+      res.send({
+        InvalidColumn: true
+      });
+    }
+  });
 }

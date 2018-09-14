@@ -5,7 +5,7 @@ let WithdrawHistoryModel = require("../WithdrawHistory/WithdrawHistoryModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
-module.exports = function (app) {//MODIFY
+module.exports = function (app) { //MODIFY
   app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
     let UserAccountID = req.params.UserAccountID;
@@ -51,6 +51,9 @@ module.exports = function (app) {//MODIFY
       });
     }
   });
+
+
+
   app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/UserName/:UserName/UserName/:UserName/UserName/:UserName/UserName/:UserName/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
@@ -69,15 +72,15 @@ module.exports = function (app) {//MODIFY
                 if (!isNullOrEmpty(RemainingAmount)) {
                   if (!isNullOrEmpty(ExistingAmount)) {
 
-                        WithdrawHistoryModel.AddWithdrawHistory(UserTransactionID, UserName, ContactNumber, BankName, AccountNumber, ApplicationAmount, ExistingAmount, RemainingAmount, function (response) {
-                          if (response != undefined) {
-                            res.send(response);
-                          } else {
-                            res.send({
-                              AddWithdrawHistoryFailed: true
-                            });
-                          }
+                    WithdrawHistoryModel.AddWithdrawHistory(UserTransactionID, UserName, ContactNumber, BankName, AccountNumber, ApplicationAmount, ExistingAmount, RemainingAmount, function (response) {
+                      if (response != undefined) {
+                        res.send(response);
+                      } else {
+                        res.send({
+                          AddWithdrawHistoryFailed: true
                         });
+                      }
+                    });
                   } else {
                     res.send({
                       ExistingAmountMissing: true

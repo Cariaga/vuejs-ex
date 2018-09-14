@@ -38,6 +38,7 @@ DBCheck.CheckUserAccountIDKey('Account1', 2, function(response){
 
 //http://192.168.254.102:8080/Api/v1/UserAccount/Check/UserName/U2 - Username check
 //http://192.168.254.102:8080/Api/v1/UserAccount/Check/UserAccountID/U2 - Username check
+http://localhost:8080/Api/v1/BlackList/Check/Blocked/UserAccountID/Account8/UserName/U8/ - inquire check blacklist
 
 //http://192.168.254.102:8080/Api/v1/BlackList/Add/UserAccountID/Account1/Title/Title/Status/Status/Reason/Reason/ - blacklist add
 
@@ -304,3 +305,7 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://localhost:8080/Api/v1/InGameNotice/  -In Game  Notice
 
 //http://localhost:8080/Api/v1/InGameAdminSupport/ - In game Admin Support
+
+//http://localhost:8080/Api/v1/InGameTransferHistory/UserAccountID/Account6/ - InGameTransferHistory
+
+//http://192.168.254.102:8080/Api/v1/InGameDeposit/Request/UserAccountID/Account6/Name/DepositName/Amount/0/ - InGameDeposit

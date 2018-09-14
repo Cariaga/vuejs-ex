@@ -44,14 +44,26 @@ const mysql = require('mysql2');
       }
     });
   }
-
+  //used by inquire
+  module.exports.isUserAccountIDUserNameBlocked = function isUserAccountIDUserNameBlocked(UserAccountID,UserName, callback) {
+    let _UserAccountID = UserAccountID;
+    let _UserName = UserName;
+    let query =
+    "SELECT * FROM `sampledb`.`player_black_list` WHERE UserAccountID = '"+_UserAccountID+"' and UserName='"+_UserName+"' and Status='Blocked'";
+    DBConnect.DBConnect(query,function(response){
+      if(response[0].UserAccountID==_UserAccountID){
+        console.log(response);
+        callback(true);
+      }else{
+        callback(false);
+      }
+    });
+  }
   module.exports.isUserAccountBlocked = function isUserAccountBlocked(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
-    "SELECT * FROM `sampledb`.`useraccounts` " +
-    "WHERE UserAccountID = '"+_UserAccountID+"' ";
-    
-   
+    "SELECT * FROM `sampledb`.`player_black_list` " +
+    "WHERE UserAccountID = '"+_UserAccountID+"' and Status='Blocked'";
     DBConnect.DBConnect(query,function(response){
       if(response[0].UserAccountID==_UserAccountID){
         console.log(response);
