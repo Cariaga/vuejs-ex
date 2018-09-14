@@ -44,11 +44,10 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID,Name,Amount,
     async function RunAsync() {
       console.log('calling');
       let finalresult = [{}];
-      let result = await QueryLoginAccount();
-      let result2 = await QueryAccountType();
+      let result = await Transactions();
+      let result2 = await TransactionInfos();
       //console.log(finalresult);
       callback(finalresult);
-      
     }
     RunAsync();
 
