@@ -24,9 +24,9 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
-          callback(response);
+          resolve(response);
         } else {
-          callback(undefined);
+          resolve(undefined);
         }
       });
       });
@@ -39,9 +39,9 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
-          callback(response);
+          resolve(response);
         } else {
-          callback(undefined);
+          resolve(undefined);
         }
       });
       });
@@ -54,9 +54,9 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
-          callback(response);
+          resolve(response);
         } else {
-          callback(undefined);
+          resolve(undefined);
         }
       });
       });
