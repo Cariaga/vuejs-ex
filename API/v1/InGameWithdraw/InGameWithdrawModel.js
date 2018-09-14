@@ -15,15 +15,21 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
     let _WithdrawPassword = WithdrawPassword;
     let _ContactNumber = ContactNumber;
     let _UserTransactionID= uuidv4();
-    let query =
-    "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`, `ApplicationAmount`) "+
-    " VALUES ('"+_UserTransactionID+"', '"+_ContactNumber+"', '"+_Bank+"', '"+_AccountNumber+"', '"+_Amount+"');";
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
+    function WithdrawInsert(){
+      return new Promise(resolve => {
+        let query =
+      "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
+      " VALUES ('"+_UserTransactionID+"', '"+_ContactNumber+"', '"+_Bank+"', '"+_AccountNumber+"');";
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
+      });
+      
+    }
+   
   }
