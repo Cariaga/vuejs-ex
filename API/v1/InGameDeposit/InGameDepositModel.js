@@ -43,10 +43,10 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID,Name,Amount,
     }
     async function RunAsync() {
       console.log('calling');
-      let finalresult = [{}];
+  
       let result = await Transactions();
       let result2 = await TransactionInfos();
-      //console.log(finalresult);
+      let finalresult = [result,result2];
       callback(finalresult);
     }
     RunAsync();
