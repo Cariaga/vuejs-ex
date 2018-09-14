@@ -12,15 +12,35 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID,Name,Amount,
   let _Amount=Amount;
   let _UserTransactionID = uuidv4();
 
-    
-    let query = 
-    "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES ('"+_UserTransactionID+"', '"+_UserAccountID+"', '"+_Amount+"', 'pending', 'deposit');";
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
+    function Transactions(){
+      let query = 
+      "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES ('"+_UserTransactionID+"', '"+_UserAccountID+"', '"+_Amount+"', 'pending', 'deposit');";
+      return new Promise(resolve => {
+        DBConnect.DBConnect(query, function (response) {
+          if (response != undefined) {
+            console.log(response);
+            resolve(response);
+          } else {
+            resolve(undefined);
+          }
+        });
+      });
+    }
+    function TransactionInfos(){
+      let query = 
+      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`) VALUES ('"+_UserTransactionID+"', now());";
+      return new Promise(resolve => {
+        DBConnect.DBConnect(query, function (response) {
+          if (response != undefined) {
+            console.log(response);
+            resolve(response);
+          } else {
+            resolve(undefined);
+          }
+        });
+      });
+     
+    }
+
+   
   }
