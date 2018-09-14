@@ -80,16 +80,16 @@ module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccount
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, UserTransactionID, Amount, callback) {
+module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, UserTransactionID, Amount, AccountHolder, callback) {
   let _UserAccountID = UserAccountID;
   let _UserTransactionID = UserTransactionID;
   let _Amount = Amount;
-  
+  let _AccountHolder = AccountHolder;
   let query = 'INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)'+
               "VALUES ('"+_UserAccountID+"','"+_UserTransactionID+"','"+_Amount+"','deposit');";
 
-  let query2 = 'INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`)'+
-              "VALUES ('"+_UserTransactionID+"',now());";
+  let query2 = 'INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`,`AccountHolder`, `RequestedDateTime`)'+
+              "VALUES ('"+_UserTransactionID+"','"+_AccountHolder+"',now());";
 
 
   var promise = new Promise(function(resolve, reject) {

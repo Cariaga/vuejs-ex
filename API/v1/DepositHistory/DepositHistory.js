@@ -384,55 +384,61 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/AccountHolder/:AccountHolder', function (req, res) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
     //       /Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     let UserAccountID = req.params.UserAccountID;
     let Amount = req.params.Amount;
-
+    let AccountHolder = req.params.AccountHolder;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Amount)) {
-        if (Amount > 0) {
+        if(!isNullOrEmpty(AccountHolder)){
+          if (Amount > 0) {
 
-            let isUserAccountIDFound = false;
-            
-            async.series([IsUserAccountIDExistCheck], function (error, response) {
-              if (isUserAccountIDFound == true) {
+              let isUserAccountIDFound = false;
+              
+              async.series([IsUserAccountIDExistCheck], function (error, response) {
+                if (isUserAccountIDFound == true) {
 
-                let UserTransactionID = uuidv4();
+                  let UserTransactionID = uuidv4();
 
-                DepositHistoryModel.AddDepositHistory(UserAccountID, UserTransactionID, Amount,  function (response) {
-                  if (response) {
-                     var status = 200;
-                     res.status(status).end(http.STATUS_CODES[status]);
-                   } else {
-                     res.send({
-                       AddDepositFailed: true
-                     });
-                   }
-                });
+                  DepositHistoryModel.AddDepositHistory(UserAccountID, UserTransactionID, Amount, AccountHolder, function (response) {
+                    if (response) {
+                      var status = 200;
+                      res.status(status).end(http.STATUS_CODES[status]);
+                    } else {
+                      res.send({
+                        AddDepositFailed: true
+                      });
+                    }
+                  });
 
-              } else {
-                res.send({
-                  IsUserAccountIDExist: false
-                });
-              }
-            });
-
-            function IsUserAccountIDExistCheck(callback) {
-              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                if (response != undefined) {
-                  isUserAccountIDFound = true;
-                  callback(null, '1');
                 } else {
-                  isUserAccountIDFound = false;
-                  callback(null, '1');
+                  res.send({
+                    IsUserAccountIDExist: false
+                  });
                 }
               });
-            }
-        } else {
+
+              function IsUserAccountIDExistCheck(callback) {
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response != undefined) {
+                    isUserAccountIDFound = true;
+                    callback(null, '1');
+                  } else {
+                    isUserAccountIDFound = false;
+                    callback(null, '1');
+                  }
+                });
+              }
+          } else {
+            res.send({
+              AmountInvalidValue: true
+            });
+          }
+        }else {
           res.send({
-            AmountInvalidValue: true
+            AccountHolderMissing: true
           });
         }
       } else {
