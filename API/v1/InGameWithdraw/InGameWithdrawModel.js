@@ -15,11 +15,27 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
     let _WithdrawPassword = WithdrawPassword;
     let _ContactNumber = ContactNumber;
     let _UserTransactionID= uuidv4();
-    function WithdrawInsert(){
+
+    function TransactionsInsert(){
       return new Promise(resolve => {
         let query =
-      "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
-      " VALUES ('"+_UserTransactionID+"', '"+_ContactNumber+"', '"+_Bank+"', '"+_AccountNumber+"');";
+      "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) "+
+      " VALUES ('"+_UserTransactionID+"', '"+_Amount+"', '0', 'pending', 'withdraw'); ";
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
+      });
+    }
+    function TransactionInfosInsert(){
+      return new Promise(resolve => {
+        let query =
+      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `AccountHolder`, `RequestedDateTime`) "+
+      "VALUES ('"+_UserTransactionID+"', '"+_Name+"', now())";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -45,4 +61,5 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       });
       });
     }
+
   }
