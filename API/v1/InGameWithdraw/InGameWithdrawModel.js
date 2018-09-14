@@ -29,7 +29,20 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
         }
       });
       });
-      
     }
-   
+    function WithdrawInsert(){
+      return new Promise(resolve => {
+        let query =
+      "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
+      " VALUES ('"+_UserTransactionID+"', '"+_ContactNumber+"', '"+_Bank+"', '"+_AccountNumber+"');";
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
+      });
+    }
   }
