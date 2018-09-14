@@ -307,3 +307,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://localhost:8080/Api/v1/InGameAdminSupport/ - In game Admin Support
 
 //http://localhost:8080/Api/v1/InGameTransferHistory/UserAccountID/Account6/ - InGameTransferHistory
+
+//http://192.168.254.102:8080/Api/v1/InGameDeposit/Request/UserAccountID/Account6/Name/DepositName/Amount/0/ - InGameDeposit
