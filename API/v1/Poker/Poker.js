@@ -1,4 +1,4 @@
-var Combinatorics = require('js-combinatorics');
+const Combinatorics = require('js-combinatorics');
 const PokerHand = require('poker-hand-evaluator');
 const sortBy = require('sort-array');
 module.exports = function (app) {
@@ -6,8 +6,8 @@ module.exports = function (app) {
     app.get('/Api/v1/Poker/:Hand/', (req, res) => {
         let PlayerHand = req.params.Hand;
         let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
-        res.send(ArrayHand);
-        let cmb = Combinatorics.combination(ArrayHand, 7); //5 for holdem 7 for omha
+       // res.send(ArrayHand);
+        let cmb = Combinatorics.combination(ArrayHand, 5); //5 for holdem 7 for omha
         let AllCombinations = [];
         let a;
         while (a = cmb.next()) {
@@ -19,7 +19,6 @@ module.exports = function (app) {
         }
         let bestScore = sortBy(EvaluatedHand, 'score');
         res.send(bestScore);
-
       });
 
       app.get('/Api/v1/Omaha/:Hand/', (req, res) => {
