@@ -8,6 +8,16 @@ var uuidv4 = require('uuid/v4');
 var async = require("async");
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 module.exports = function (app) { //MODIFY
+  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/RoomNotice/:RoomNotice', function (req, res) {
+    let RoomID = req.params.RoomID;
+    let RoomNotice = req.params.RoomNotice;
+    if (!isNullOrEmpty(RoomID)) {
+      if (!isNullOrEmpty(RoomNotice)) {
+   
+      }
+    }
+
+  });
   app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed/GameType/:GameType', function (req, res) {
     let RoomID = req.params.RoomID;
     let SmallBlind = req.params.SmallBlind;
@@ -148,36 +158,5 @@ module.exports = function (app) { //MODIFY
         }
       });
     }
-  });
-
-  app.get('/Api/v1/RoomConfiguration/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.RoomConfiguration.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.RoomConfiguration.describe().then(result => {
-      res.send(beautify(result, null, 2, 100));
-    });
-  });
-  app.get('/Api/v1/RoomConfiguration/Clear', function (req, res) {
-
-    Models.RoomConfiguration.destroy({
-      where: {},
-      truncate: true
-    }).then(function (result) {
-      sequelize.queryInterface.removeConstraint('GameHistory', 'SeasonID');
-      res.send("Cleared");
-    }).catch(function (result) { //catching any then errors
-
-      res.send("Error " + result);
-    });
-  });
-  app.get('/Api/v1/RoomConfiguration/Delete', function (req, res) {
-    res.send("UnImplemented");
-    /* Models.RoomConfiguration.sync();
-    sequelize.query('DROP TABLE RoomConfigurations', { model: Models.RoomConfiguration }).then(RoomConfiguration => {
-      // Each record will now be a instance of Project
-      res.send(RoomConfiguration);
-    }).catch(error=>{
-      res.send(error);
-    });*/
   });
 }

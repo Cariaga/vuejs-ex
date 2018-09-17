@@ -35,24 +35,6 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, Game
       callback(undefined);
     }
   });
-  /*var item1 = Models.RoomConfiguration.build({
-    SeasonID: SeasonID,
-    SmallBlind: SmallBlind,
-    BigBlind: BigBlind,
-    Speed: Speed
-  });
-  Models.RoomConfiguration.sync({
-    alter: true
-  }); //use force to delete old table non production
-  item1.save()
-    .then(Success => {
-      callback("Inserted");
-    })
-    .catch(error => {
-
-      console.log("error inserting " + error);
-      callback(undefined);
-    });*/
 }
 
 

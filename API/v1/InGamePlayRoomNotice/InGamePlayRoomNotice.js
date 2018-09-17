@@ -6,7 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 
 module.exports = function (app) {
-    app.get('/Api/v1/InGameNoticeRoomNotice/RoomID/:RoomID', function (req, res) {
+    app.get('/Api/v1/InGameNoticeRoomNotice/RoomID/:RoomID/', function (req, res) {
         let RoomID=req.params.RoomID;
         InGamePlayRoomNoticeModel.InGamePlayRoomNotice(RoomID,function(response){
             res.send(response);
