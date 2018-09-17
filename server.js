@@ -194,40 +194,7 @@ app.get('/Api/v1', function (req, res) {
   res.send('Api v1 version');
 });
 //---POKER ROUTING START
-app.get('/Api/v1/Poker/:Hand/', (req, res) => {
-  let PlayerHand = req.params.Hand;
-  let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
 
-  let cmb = Combinatorics.combination(ArrayHand, 7); //5 for holdem 7 for omha
-  let AllCombinations = [];
-  let a;
-  while (a = cmb.next()) {
-    AllCombinations.push(a);
-  }
-  let EvaluatedHand = [];
-  for (let i = 0; i < AllCombinations.length; ++i) {
-    EvaluatedHand.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
-  }
-  let bestScore = sortBy(EvaluatedHand, 'score');
-  res.send(bestScore);
-});
-app.get('/Api/v1/Omaha/:Hand/', (req, res) => {
-  let PlayerHand = req.params.Hand;
-  let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
-
-  let cmb = Combinatorics.combination(ArrayHand, 7); //5 for holdem 7 for omha
-  let AllCombinations = [];
-  let a;
-  while (a = cmb.next()) {
-    AllCombinations.push(a);
-  }
-  let EvaluatedHand = [];
-  for (let i = 0; i < AllCombinations.length; ++i) {
-    EvaluatedHand.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
-  }
-  let bestScore = sortBy(EvaluatedHand, 'score');
-  res.send(bestScore);
-});
 
 // listen (start app with node server.js) ======================================
 app.listen(port, ip);
