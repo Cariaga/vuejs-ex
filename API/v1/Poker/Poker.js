@@ -12,11 +12,27 @@ module.exports = function (app) {
         let PlayerHand6 = req.params.Hand6;
         let PlayerHand7 = req.params.Hand7;
         let PlayerHand8 = req.params.Hand8;
-        let PlayerHand9 = req.params.Hand8;
-      //  let TotalCards  = 5;
+
+        for (var propName in req.params) {
+          if (req.query.hasOwnProperty(propName)) {
+              console.log(propName, req.query[propName]);
+          }
+        }
+
+       /* let AllPlayers = [];
+        AllPlayers.push(PlayerHand0);
+        AllPlayers.push(PlayerHand1);
+
+        let TotalCards  = 5;
       //  let bestScore = PokerModel.PokerHandCompute(PlayerHand, TotalCards);
-      
-        res.send({PlayerHand0,PlayerHand1,PlayerHand2,PlayerHand3,PlayerHand4,PlayerHand5,PlayerHand6,PlayerHand7,PlayerHand8,PlayerHand9});
+      let BestPlayerScores=[];
+      let length = AllPlayers.length;
+      for (let i = 0; i < length; ++i) {
+        let bestScore = PokerModel.PokerHandCompute(AllPlayers[i], TotalCards);
+        BestPlayerScores.push(bestScore);
+        }*/
+       
+        res.send(BestPlayerScores);
       });
       
 
