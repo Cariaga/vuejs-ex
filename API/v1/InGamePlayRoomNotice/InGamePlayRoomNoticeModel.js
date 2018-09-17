@@ -8,9 +8,10 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 
 
-module.exports.InGameNotice = function InGameNotice(callback) {
+module.exports.InGamePlayRoomNotice = function InGamePlayRoomNotice(RoomID,callback) {
+    let _RoomID=RoomID;
     let query = 
-    "SELECT * FROM sampledb.in_game_notice;";
+    "SELECT RoomNotice FROM sampledb.roomconfigurations where RoomID='"+_RoomID+"';";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
