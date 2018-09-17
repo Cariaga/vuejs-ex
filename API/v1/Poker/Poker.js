@@ -8,6 +8,7 @@ module.exports = function (app) {
         let bestScore = PokerModel.PokerHandCompute(PlayerHand, TotalCards);
         res.send(bestScore);
       });
+      
       app.get('/Api/v1/Omaha/:Hand/', (req, res) => {
         let PlayerHand = req.params.Hand;
         let TotalCards  = 7;
