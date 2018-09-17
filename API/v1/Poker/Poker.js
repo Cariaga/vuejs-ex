@@ -6,6 +6,7 @@ module.exports = function (app) {
     app.get('/Api/v1/Poker/:Hand/', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         let PlayerHand = req.params.Hand;
+        
         let ArrayHand = JSON.parse("[" + PlayerHand + "]"); // to array
         let cmb = Combinatorics.combination(ArrayHand, 5); //5 for holdem 7 for omha
         let AllCombinations = [];
