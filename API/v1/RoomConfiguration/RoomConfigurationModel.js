@@ -36,7 +36,20 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, Game
     }
   });
 }
-
+module.exports.RoomConfigurationRoomIDUpdateNotice = function RoomConfigurationRoomIDUpdateNotice(RoomID,RoomNotice, callback) {
+  let _RoomID = RoomID;
+  let _RoomNotice = RoomNotice;
+  let query =
+    "UPDATE `sampledb`.`roomconfigurations` SET `RoomNotice` = '"+_RoomNotice+"' WHERE (`RoomID` = '"+_RoomID+"');";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
 
 /**
  *
