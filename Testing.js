@@ -311,3 +311,4 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://192.168.254.102:8080/Api/v1/InGameDeposit/Request/UserAccountID/Account6/Name/DepositName/Amount/0/ - InGameDeposit
 
 //http://localhost:8080/Api/v1/RoomConfiguration/Update/RoomID/RID1/RoomNotice/RoomNotice2/ - RoomNotice Update
+//http://localhost:8080/Api/v1/InGameNoticeRoomNotice/RoomID/RID1/
