@@ -13,10 +13,11 @@ module.exports = function (app) { //MODIFY
     let RoomNotice = req.params.RoomNotice;
     if (!isNullOrEmpty(RoomID)) {
       if (!isNullOrEmpty(RoomNotice)) {
-   
+        RoomConfigurationModel.RoomConfigurationRoomIDUpdateNotice(RoomID, RoomNotice, function (response) {
+          res.send(response);
+        });
       }
     }
-
   });
   app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed/GameType/:GameType', function (req, res) {
     let RoomID = req.params.RoomID;
