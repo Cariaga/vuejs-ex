@@ -131,7 +131,6 @@ module.exports = function (app) { //SELECTION
 
   app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', (req, res) => {
     let UserName = req.params.UserName;
-
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
         if (response==true) {
@@ -140,7 +139,6 @@ module.exports = function (app) { //SELECTION
           res.send({UserNameExist:false});
         }
       });
-
     } else {
       res.send({
         UserNameExist: true
