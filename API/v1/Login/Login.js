@@ -26,7 +26,8 @@ module.exports = function (app) {
               if (!isNullOrEmpty(DeviceCpu)) {
 
                 LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
-                  let firstRow = response[0];
+                  if(response!=undefined){
+                    let firstRow = response[0];
                   console.log(firstRow.Verified);
                   if (firstRow.Verified == "true") {
                     if (firstRow.Status != "Blocked") {
@@ -60,6 +61,12 @@ module.exports = function (app) {
                       AccountUnverified: true
                     });
                   }
+                  }else{
+                    res.send({
+                      AccountNotFound:true 
+                    });
+                  }
+                  
 
                 });
 

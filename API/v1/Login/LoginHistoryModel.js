@@ -56,9 +56,10 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
     "where UA.UserName ='"+_UserName+"' and UA.Password= '"+_Password+"' "+
     "order by BL.ReportDate desc limit 1; ";
-      console.log(Query);
+      //console.log(Query);
       return new Promise(resolve => {
         DBConnect.DBConnect(Query, function (response) {
+          console.log(response);
           if (response != undefined) {
               resolve(response);
             } else {
@@ -87,18 +88,25 @@ module.exports.LoginAccount = function(UserName,Password,callback){
       console.log('calling');
       let finalresult = [{}];
       let result = await QueryLoginAccount();
-      let result2 = await QueryAccountType();
-      finalresult[0].UserAccountID = result[0].UserAccountID;
-      finalresult[0].Verified = result[0].Verified;
-      finalresult[0].Email = result[0].Email;
-      finalresult[0].Description = result[0].Description;
-      finalresult[0].Online = result[0].OnlineStatus;
-      finalresult[0].Status = result[0].Status;
-      finalresult[0].Title = result[0].Title;
-      finalresult[0].ReportDate = result[0].ReportDate;
-      finalresult[0].AccountType = result2[0].AccountType;
+      if(result!=undefined){
+        let result2 = await QueryAccountType();
+        finalresult[0].UserAccountID = result[0].UserAccountID;
+        finalresult[0].Verified = result[0].Verified;
+        finalresult[0].Email = result[0].Email;
+        finalresult[0].Description = result[0].Description;
+        finalresult[0].Online = result[0].OnlineStatus;
+        finalresult[0].Status = result[0].Status;
+        finalresult[0].Title = result[0].Title;
+        finalresult[0].ReportDate = result[0].ReportDate;
+        finalresult[0].AccountType = result2[0].AccountType;
+        callback(finalresult);
+      }else{
+        callback(undefined);
+      }
+     
+      
       //console.log(finalresult);
-      callback(finalresult);
+   
       
     }
     RunAsync();

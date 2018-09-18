@@ -29,11 +29,11 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
         /*if(fields!=undefined){
            console.log(fields);// fields contains extra meta data about results, if available
         }*/
-        if(results!=undefined){
+        if(results!=undefined&&results.length>0){
           //console.log(results);
           callback(results);
         }else{
-          console.log("Empty");
+        //  console.log("Empty");
           callback(undefined);
         }
       });
