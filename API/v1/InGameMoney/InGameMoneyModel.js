@@ -10,7 +10,6 @@ module.exports.Money = function Money(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
         "";
-
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
