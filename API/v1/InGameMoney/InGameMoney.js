@@ -11,8 +11,11 @@ var isNullOrEmpty = require('is-null-or-empty');
 module.exports = function (app) {
     app.get('/Api/v1/InGameMoney/UserAccountID/:UserAccountID/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
+        if(!isNullOrEmpty(UserAccountID)){
+            let UserAccountID = req.params.UserAccountID;
         InGameMoneyModel.Money(UserAccountID, function (response) {
             res.send(response);
         });
+        }
     });
 }
