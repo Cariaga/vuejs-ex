@@ -79,6 +79,7 @@ require('./API/v1/GameHistory/GameHistory')(app);
 require('./API/v1/GameLogList/GameLogList')(app);
 require('./API/v1/HandHistory/HandHistory')(app);
 require('./API/v1/HandHistoryList/HandHistoryList')(app);
+require('./API/v1/InGameMoney/InGameMoney')(app);
 require('./API/v1/HeadOffice/HeadOffice')(app);
 require('./API/v1/HeadOfficeList/HeadOfficeList')(app);
 require('./API/v1/InGameAdminSupport/InGameAdminSupport')(app);

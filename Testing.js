@@ -318,3 +318,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://localhost:8080/Api/v1/InGameNoticeRoomNotice/RoomID/RID1/ - RoomNotice
 
 //http://192.168.254.106:8080/Api/v1/InGameScore/UserAccountID/Account8 - Win Rate
+
+//http://localhost:8080/api/v1/InGameMoney/UserAccountID/Account8/ - Money
