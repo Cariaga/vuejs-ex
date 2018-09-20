@@ -1,5 +1,44 @@
 let DBConnect = require("../../SharedController/DBConnect");
 
+module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback) {
+  let query =
+    "SELECT * FROM sampledb.headoffice_daily_betting;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
+module.exports.HeadOfficeBettingMonthly = function HeadOfficeBettingMonthly(callback) {
+  let query =
+    "SELECT * FROM sampledb.headoffice_monthly_betting;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
+module.exports.HeadOfficeBettingYearly = function HeadOfficeBettingYearly(callback) {
+  let query =
+    "SELECT * FROM sampledb.headoffice_yearly_betting;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
 module.exports.UserAccountOnline = function UserAccountOnline(callback) {
   let query =
     "SELECT * FROM sampledb.useraccount_onlinecountlist;";
