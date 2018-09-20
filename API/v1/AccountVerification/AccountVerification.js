@@ -1,4 +1,5 @@
 var AccountVerificationModel = require('./AccountVerificationModel');
+let http = require('http');
 module.exports = function (app) {
       //MODIFY
   app.get('/Api/v1/AccountVerification/Update/UserAccountID/:UserAccountID/Key/:Key', function (req, res) { 

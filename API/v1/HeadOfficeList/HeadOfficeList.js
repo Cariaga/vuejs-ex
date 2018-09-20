@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let HeadOfficeListModel = require("../HeadOfficeList/HeadOfficeListModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-
+let http = require('http');
 module.exports = function (app) {
     app.get('/Api/v1/HeadOfficeList/Search/Column/:Column/Value/:Value', function (req, res) {
         let Column = req.params.Column;

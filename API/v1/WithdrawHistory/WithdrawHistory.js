@@ -5,6 +5,7 @@ let WithdrawHistoryModel = require("../WithdrawHistory/WithdrawHistoryModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
+let http = require('http');
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;

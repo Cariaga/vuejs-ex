@@ -5,6 +5,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let HandHistoryListModel = require('./HandHistoryListModel');
+let http = require('http');
 module.exports = function (app) {//SELECTION
 
   app.get('/Api/v1/HandHistoryList/SeasonID/:SeasonID/', function (req, res) {// by season

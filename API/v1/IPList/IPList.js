@@ -5,7 +5,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var IPListModel = require('./IPListModel');
-
+let http = require('http');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

@@ -1,5 +1,5 @@
 
-
+let http = require('http');
 module.exports = function (app) { 
     app.get('/Api/v1/InGamePlayProfile/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', function (req, res) {
         /*should return the points for that current season of a player*/

@@ -4,7 +4,8 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
-let WithdrawHistoryListModel = require ('../WithdrawHistoryList/WithdrawHistoryListModel')
+let WithdrawHistoryListModel = require ('../WithdrawHistoryList/WithdrawHistoryListModel');
+let http = require('http');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/WithdrawHistoryList/Search/Column/:Column/Value/:Value', function (req, res) {
     let Column = req.params.Column;

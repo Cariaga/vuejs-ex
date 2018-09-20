@@ -5,6 +5,7 @@ let HandHistoryModel = require("../HandHistory/HandHistoryModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
+let http = require('http');
 module.exports = function (app) { //MODIFY
 /* hand dosn't need update
   app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
