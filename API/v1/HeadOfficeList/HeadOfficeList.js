@@ -16,7 +16,8 @@ module.exports = function (app) {
                     if (response != undefined) {
                         res.send(response);
                     } else {
-                        res.send(undefined);
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
                     }
                 });
             } else {
@@ -40,7 +41,8 @@ module.exports = function (app) {
                     if (response != undefined) {
                         res.send(response);
                     } else {
-                        res.send({});
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
                     }
                 });
             } else {

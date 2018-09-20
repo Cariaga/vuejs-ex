@@ -12,7 +12,12 @@ module.exports = function (app) { //SELECTION
     if(!isNullOrEmpty(Limit)){
       if(!isNullOrEmpty(Offset)){
         MemberListModel.MemberList(Limit,Offset,function(response){
-          res.send(response);
+          if (response != undefined) {
+            res.send(response);
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
         });
       }
     }
@@ -28,7 +33,8 @@ module.exports = function (app) { //SELECTION
           if (response != undefined) {
             res.send(response);
           } else {
-            res.send(undefined);
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
       } else {

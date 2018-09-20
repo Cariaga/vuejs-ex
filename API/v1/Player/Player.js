@@ -389,7 +389,7 @@ module.exports = function (app) { //MODIFY
         if(response!=undefined){
           res.send(response);
         }else{
-          let status = 500;
+          let status = 404;
           res.status(status).end(http.STATUS_CODES[status]);
         }
       });

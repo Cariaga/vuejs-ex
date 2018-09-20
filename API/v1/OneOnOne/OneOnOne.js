@@ -27,9 +27,11 @@ module.exports = function (app) { //SELECTION
        if (!isNullOrEmpty(Value)) {
          OneOnOneModel.SupportSearch(Column, Value, function (response) {
            if (response != undefined) {
+             console.log("Found");
              res.send(response);
            } else {
-             res.send(undefined);
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
            }
          });
        } else {
@@ -54,7 +56,8 @@ module.exports = function (app) { //SELECTION
           if (response != undefined) {
             res.send(response);
           } else {
-            res.send(undefined);
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
       } else {
@@ -106,7 +109,8 @@ module.exports = function (app) { //SELECTION
             if (response != undefined) {
               res.send(response);
             } else {
-              res.send(undefined);
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
             }
           });
         } else {
