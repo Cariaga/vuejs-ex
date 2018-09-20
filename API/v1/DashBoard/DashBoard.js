@@ -18,9 +18,9 @@ module.exports = function (app) {
       });
     app.get('/Api/v1/Dashboard/HeadOffice/Betting/Yearly/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
-        /*DashBoardModel.UserAccountOnline(function (response) {
+        DashBoardModel.HeadOfficeBettingYearly(function (response) {
             res.send(response);
-          });*/
+          });
       });
     app.get('/Api/v1/Dashboard/HeadOffice/Deposit/Daily/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
@@ -30,9 +30,9 @@ module.exports = function (app) {
       });
     app.get('/Api/v1/Dashboard/HeadOffice/Withdraw/Daily/', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
-        /*DashBoardModel.UserAccountOnline(function (response) {
+        DashBoardModel.HeadOfficeWithdrawDaily(function (response) {
             res.send(response);
-          });*/
+          });
       });
 
     app.get('/Api/v1/Dashboard/OnlineStatuses/', function (req, res) {
