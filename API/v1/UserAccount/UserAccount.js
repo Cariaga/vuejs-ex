@@ -5,6 +5,7 @@ let UserAccountModel = require("../UserAccount/UserAccountModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
+let http = require('http');
 module.exports = function (app) { //SELECTION
 
   app.get('/Api/v1/UserAccount/', function (req, res) {
@@ -31,25 +32,6 @@ module.exports = function (app) { //SELECTION
         res.send("Error " + result);
       });
     }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    //res.send("UserAccount "+Offset+" "+ Limit+" "+Sort);
   });
 
 

@@ -1,6 +1,6 @@
 var GameLogListModel = require('./GameLogListModel');
 var isNullOrEmpty = require('is-null-or-empty');
-
+let http = require('http');
 module.exports = function (app) {
     app.get('/Api/v1/GameLogList/', function (req, res) {
         GameLogListModel.GameLogList(undefined, undefined, function (response) {

@@ -5,7 +5,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let OneOnOneModel = require('../OneOnOne/OneOnOneModel')
-
+let http = require('http');
 module.exports = function (app) { //SELECTION
   app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', function (req, res) { //OK
     let Limit = req.params.Limit;
@@ -14,7 +14,8 @@ module.exports = function (app) { //SELECTION
       if (response != undefined) {
         res.send(response);
       } else {
-        res.send([]);
+        let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
       }
     });
   });

@@ -4,7 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let InGamePlayRoomNoticeModel = require("./InGamePlayRoomNoticeModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
-
+let http = require('http');
 module.exports = function (app) {
     app.get('/Api/v1/InGameNoticeRoomNotice/RoomID/:RoomID/', function (req, res) {
         let RoomID=req.params.RoomID;

@@ -5,6 +5,7 @@ let InGameWithdrawModel = require("./InGameWithdrawModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
+let http = require('http');
 module.exports = function (app) { 
   app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', function (req, res) {
     let UserAccountID = req.params.UserAccountID

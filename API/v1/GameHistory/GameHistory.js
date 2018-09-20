@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 var async = require("async");
+let http = require('http');
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', function (req, res) {
 
@@ -176,25 +177,6 @@ module.exports = function (app) { //MODIFY
 
       });
     }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {
-
-    }
-    if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
-
-    }
-    //res.send("GameHistory "+Offset+" "+ Limit+" "+Sort);
   });
   //INSERT
   app.get('/Api/v1/GameHistory/Add/RoomID/:RoomID/SeasonID/:SeasonID/', function (req, res) {//OK
@@ -219,175 +201,5 @@ module.exports = function (app) { //MODIFY
           SeasonIDMissing: true
         })
       }
- 
-
-    
-
-
-    /*if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(RoundID)) {
-        if (!isNullOrEmpty(SeasonID)) {
-          if (!isNullOrEmpty(Rank)) {
-            if (!isNullOrEmpty(Score)) {
-              if (!isNullOrEmpty(Card)) {
-                if (!isNullOrEmpty(Time)) {
-                  if (!isNullOrEmpty(Date)) {
-                    if (!isNullOrEmpty(BeforePoints)) {
-                      if (!isNullOrEmpty(AfterPoints)) {
-                        if (validator.isNumeric(BeforePoints)) {
-                          if (validator.isNumeric(AfterPoints)) {
-                            if (validator.isNumeric(Score)) {
-                              let countedCards = Card.split(","); //card counting validate that we have 5 cards
-                              let countedStringLength = Card.length; //Must be 26 including commas in count
-                        
-                              if (countedCards.length == 5 && countedStringLength == 26) {
-                                if (Rank == "HIGH_CARD" ||
-                                  Rank == "ONE_PAIR" ||
-                                  Rank == "TWO_PAIRS" ||
-                                  Rank == "THREE_OF_A_KIND" ||
-                                  Rank == "STRAIGHT" ||
-                                  Rank == "FLUSH" ||
-                                  Rank == "FULL_HOUSE" ||
-                                  Rank == "FOUR_OF_A_KIND" ||
-                                  Rank == "STRAIGHT_FLUSH" ||
-                                  Rank == "ROYAL_FLUSH") {
-                                  let isUserAccountIDExistFound = true;//default false but no longer used
-                                  let isSeasonIDFound = true;//default false but no longer used
-                                  
-
-                                  /*function IsUserAccountIDExistCheck(callback) {
-                                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                                      if (response != undefined) {
-                                        isUserAccountIDExistFound = true;
-                                        callback(null, '1');
-                                      } else {
-                                        isUserAccountIDExistFound = false;
-                                        callback(null, '1');
-                                      }
-                                    });
-                                  }
-
-                                  function IsSeasonIDExistCheck(callback) {
-                                    DBCheck.IsSeasonIDExist(SeasonID, function (response) {
-                                      if (response != undefined) {
-                                        isSeasonIDFound = true;
-                                        callback(null, '2');
-                                      } else {
-                                        isSeasonIDFound = false;
-                                        callback(null, '2');
-                                      }
-                                    });
-                                  }*/
-    /*  } else {
-                                  res.send({
-                                    CardInvalid: true
-                                  });
-                                }
-
-                              } else {
-                                res.send({
-                                  RequiresCards: 5
-                                });
-                              }
-                            } else {
-                              res.send({
-                                ScoreInvalidValue: true
-                              });
-                            }
-                          } else {
-                            res.send({
-                              AfterPointsInvalidValue: true
-                            });
-                          }
-                        } else {
-                          res.send({
-                            BeforePointsInvalidValue: true
-                          });
-                        }
-
-
-
-
-                      } else {
-                        res.send({
-                          AfterPoints: true
-                        });
-                      }
-                    } else {
-                      res.send({
-                        BeforePoints: true
-                      });
-                    }
-                  } else {
-                    res.send({
-                      DateMissing: true
-                    });
-                  }
-                } else {
-                  res.send({
-                    TimeMissing: true
-                  });
-                }
-              } else {
-                res.send({
-                  CardMissing: true
-                });
-              }
-            } else {
-              res.send({
-                ScoreMissing: true
-              });
-            }
-          } else {
-            res.send({
-              RankMissing: true
-            });
-          }
-        } else {
-          res.send({
-            SeasonIDMissing: true
-          });
-        }
-      } else {
-        res.send({
-          RoundIDMissing: true
-        });
-      }
-    } else {
-      res.send({
-        UserAccountIDMissing: true
-      });
-    }*/
-
-  });
-  //STRUCTURE
-  app.get('/Api/v1/GameHistory/Clear', function (req, res) {
-    Models.GameHistory.destroy({
-        where: {},
-        truncate: true
-      })
-      .then(Success => {
-        res.send("Cleared");
-      })
-      .catch(err => {
-        res.send("Truncate " + err);
-      });
-  });
-  app.get('/Api/v1/GameHistory/Delete', function (req, res) {
-    Models.GameHistory.sync({
-      force: true
-    }).then(function (result) {
-      res.send("Deleted");
-    }).catch(function (result) { //catching any then errors
-
-      res.send("Error " + result);
-    });
-  });
-  app.get('/Api/v1/GameHistory/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.GameHistory.sync(); //Never call Alter or Force during a Database table Alter process before knowing that it can query select all first
-    Models.GameHistory.describe().then(result => {
-      res.send(beautify(result, null, 2, 100));
-    });
   });
 }

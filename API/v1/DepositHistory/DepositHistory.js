@@ -6,7 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
 var uuidv4 = require('uuid/v4');
-var http = require('http');
+let http = require('http');
 
 module.exports = function (app) {
   app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/', function (req, res) {
@@ -744,34 +744,4 @@ app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/
     });
   }
 });
-  app.get('/Api/v1/DepositHistory/Clear', function (req, res) {
-    Models.DepositHistory.destroy({
-        where: {},
-        truncate: true
-      })
-      .then(Success => {
-        res.send("Cleared");
-      })
-      .catch(err => {
-        res.send("Truncate " + err);
-      });
-  });
-  app.get('/Api/v1/DepositHistory/Delete', function (req, res) {
-    Models.DepositHistory.sync({
-      force: true
-    }).then(function (result) {
-      res.send("Deleted");
-    }).catch(function (result) { //catching any then errors
-  
-      res.send("Error " + result);
-    });
-  });
-  
-  app.get('/Api/v1/DepositHistory/Describe', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    Models.DepositHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.DepositHistory.describe().then(result => {
-      res.send(beautify(result, null, 2, 100));
-    });
-  });
 }

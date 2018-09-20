@@ -4,6 +4,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let DepositListModel = require("../DepositList/DepositListModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+let http = require('http');
 module.exports = function (app) {
   app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

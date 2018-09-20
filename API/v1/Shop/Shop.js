@@ -5,6 +5,7 @@ let ShopModel = require("../Shop/ShopModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
+let http = require('http');
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
     let ShopID = req.params.ShopID;
