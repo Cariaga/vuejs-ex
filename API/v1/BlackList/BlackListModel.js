@@ -92,7 +92,7 @@ let _Reason = Reason;
 module.exports.BlacklistSearch = function BlacklistSearch(Column, Value, callback) {
   let _Column = Column;
   let _Value = Value;
-  let query = "SELECT * FROM sampledb.blacklist where "+_Column+" like '%"+_Value+"%';";
+  let query = "SELECT * FROM sampledb.player_Black_list where "+_Column+" like '%"+_Value+"%';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
