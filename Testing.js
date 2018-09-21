@@ -337,3 +337,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 ///Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/Speed/:Speed/ -- add Room
 
 //http://192.168.254.106:8080/Api/v1/TransferHistory/Search/Column/Status/Value/Approve/StartDate/2018-09-06%2015:04:03/EndDate/2018-09-06%2015:04:03
+
+//http://localhost:8080/Api/v1/InGameSeason/Request/ - Generate UUID
