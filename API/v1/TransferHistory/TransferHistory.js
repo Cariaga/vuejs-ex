@@ -63,20 +63,34 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-   app.get('/Api/v1/TransferHistory/Search/Column/:Column/Value/:Value', function (req, res) {
+  app.get('/Api/v1/TransferHistory/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
+    let StartDate = req.params.StartDate;
+    let EndDate = req.params.EndDate;
 
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
-        TransferHistoryModel.TransferHistorySearch(Column, Value, function (response) {
-          if (response != undefined) {
-            res.send(response);
+        if (!isNullOrEmpty(StartDate)) {
+          if (!isNullOrEmpty(EndDate)) {
+            TransferHistoryModel.TransferSearch(Column, Value, StartDate, EndDate, function (response) {
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
+              }
+            });
           } else {
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
+            res.send({
+              EndDate: true
+            });
           }
-        });
+        } else {
+          res.send({
+            StartDate: true
+          });
+        }
       } else {
         res.send({
           InvalidValue: true

@@ -32,9 +32,13 @@ module.exports.TransferHistory = function TransferHistory(Limit,Offset,callback)
   }
 }
 
-module.exports.TransferHistorySearch = function TransferHistorySearch(Column,Value,callback){
-  let query = "SELECT * FROM sampledb.transferhistories "+
-  "WHERE "+Column+" = '"+Value+"';";
+module.exports.TransferSearch = function TransferSearch(Column, Value, StartDate, EndDate, callback) {
+  let _Column = Column;
+  let _Value = Value;
+  let _StartDate = StartDate;
+  let _EndDate = EndDate;
+  let query =
+    "SELECT * FROM sampledb.transferhistories; TH where " + _Column + " like '%" + _Value + "%' and (TH.TransferedDateTime BETWEEN '" + _StartDate + "' AND '" + _EndDate + "');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
