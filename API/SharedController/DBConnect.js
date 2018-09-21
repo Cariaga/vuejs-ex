@@ -23,13 +23,13 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
     // simple query
     connection.query(RawQuery,
       function (err, results, fields) {
-        console.log(err);
+       // console.log(err);//remove this to see real error
         if(err!=undefined){
-          if(err.sqlState='23000'){
-           // console.log(err);
+          if(err.sqlState=='23000'){
+            console.log("Key Duplicate");
             callback(undefined);
           }
-          else if(err.sqlState='02000'){
+          else if(err.sqlState=='02000'){
             console.log("Key Already Used In Another Table");
             callback(undefined);
           }
