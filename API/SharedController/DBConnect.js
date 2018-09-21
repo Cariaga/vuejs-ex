@@ -25,14 +25,16 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       function (err, results, fields) {
         if(err!=undefined){
            console.log(err); // results contains rows returned by server
+           callback(undefined);
         }
-        /*if(fields!=undefined){
-           console.log(fields);// fields contains extra meta data about results, if available
-        }*/
-        if(results!=undefined&&results.length>0){
-          //console.log(results);
+        console.log(results);
+        if(results!=undefined&&results.length>0){//select
           callback(results);
-        }else{
+        }
+        else if(results!=undefined&&results.affectedRows>0){//updated
+          callback(results);
+        }
+        else{
         //  console.log("Empty");
           callback(undefined);
         }

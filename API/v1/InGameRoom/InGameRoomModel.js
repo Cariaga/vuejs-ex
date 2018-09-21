@@ -9,10 +9,12 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.InGameRoomPlayerCurrentRoom = function InGameRoomPlayerCurrentRoom(UserAccountID,CurrentRoomName, callback) {
     let _UserAccountID = UserAccountID;
     let _CurrentRoomName = CurrentRoomName;
-    let query ="UPDATE `sampledb`.`players` SET `"+_CurrentRoomName+"` = 'ctx' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+    let query ="UPDATE `sampledb`.`players` SET `CurrentRoomName` = '"+_CurrentRoomName+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+    console.log(query);
     DBConnect.DBConnect(query, function (response) {
+      //console.log(response);
         if (response != undefined) {
-          console.log(response);
+        
           callback(response);
         } else {
           callback(undefined);
