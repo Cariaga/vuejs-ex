@@ -23,12 +23,23 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
     // simple query
     connection.query(RawQuery,
       function (err, results, fields) {
+        console.log(err);
         if(err!=undefined){
-           console.log(err); // results contains rows returned by server
-           callback(undefined);
+          if(err.sqlState='23000'){
+           // console.log(err);
+            callback(undefined);
+          }
+          else if(err.sqlState='02000'){
+            console.log("Key Already Used In Another Table");
+            callback(undefined);
+          }
+          else{
+            console.log("Somthing Bad Happend :" );
+           // console.log(err);
+            callback(undefined);
+          }
         }
-        console.log(results);
-        if(results!=undefined&&results.length>0){//select
+        else if(results!=undefined&&results.length>0){//select
           callback(results);
         }
         else if(results!=undefined&&results.affectedRows>0){//updated

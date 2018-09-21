@@ -332,3 +332,6 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://192.168.254.106:8080/Api/v1/DepositList/Search/Column/name/Value/n2/StartDate/2018-09-14%2015:18:19/EndDate/2018-09-14%2015:18:19
 
 //http://localhost:8080/Api/v1/InGameRoom/Update/UserAccountID/Account8/CurrentRoomName/ctgkx/ -- current Room
+
+
+///Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/Speed/:Speed/ -- add Room
