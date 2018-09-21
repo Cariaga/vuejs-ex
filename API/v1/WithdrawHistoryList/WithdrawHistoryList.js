@@ -14,7 +14,6 @@ module.exports = function (app) {//SELECTION
     let EndDate = req.params.EndDate;
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
-
         if(!isNullOrEmpty(StartDate)){
           if(!isNullOrEmpty(EndDate)){
             WithdrawHistoryListModel.WithdrawSearch(Column, Value,StartDate,EndDate, function (response) {
