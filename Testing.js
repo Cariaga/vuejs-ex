@@ -255,7 +255,7 @@ PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '199
 
 //http://192.168.254.102:8080/Api/v1/WithdrawHistoryList/Search/Column/ShopID/Value/1 - WithdrawHistoryList
 
-//http://192.168.254.102:8080/Api/v1/Notification/Search/Column/Title/Value/None - Notification
+//http://192.168.254.102:8080/Api/v1/Notification/Search/Column/Title/Value/None - Notification *
 
 //http://192.168.254.102:8080/Api/v1/IPList/Search/Column/PlayerUserAccountID/Value/Account8 - IP List
 
@@ -325,4 +325,4 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 
 //http://192.168.254.106:8080/Api/v1/Dashboard/HeadOffice/Betting/Monthly/ - monthly betting
 
-//
+//http://192.168.254.106:8080/Api/v1/Dashboard/HeadOffice/Betting/Yearly/ - yearly betting

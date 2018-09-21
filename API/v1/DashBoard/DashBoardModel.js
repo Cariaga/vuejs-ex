@@ -52,6 +52,19 @@ module.exports.HeadOfficeWithdrawDaily = function HeadOfficeWithdrawDaily(callba
     });
 }
 
+module.exports.HeadOfficeDepositDaily = function HeadOfficeDepositDaily(callback) {
+  let query =
+    "SELECT * FROM sampledb.headoffice_daily_deposit;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
 module.exports.UserAccountOnline = function UserAccountOnline(callback) {
   let query =
     "SELECT * FROM sampledb.useraccount_onlinecountlist;";
