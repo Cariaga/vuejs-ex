@@ -29,7 +29,7 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, Game
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
-      console.log(response);
+      //console.log(response);
       callback(response);
     } else {
       callback(undefined);
@@ -43,7 +43,7 @@ module.exports.RoomConfigurationRoomIDUpdateNotice = function RoomConfigurationR
     "UPDATE `sampledb`.`roomconfigurations` SET `RoomNotice` = '"+_RoomNotice+"' WHERE (`RoomID` = '"+_RoomID+"');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
-      console.log(response);
+     // console.log(response);
       callback(response);
     } else {
       callback(undefined);

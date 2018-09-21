@@ -329,3 +329,6 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 
 
 //http://localhost:8080/Api/v1/InGameRoom/Update/UserAccountID/Account8/CurrentRoomName/ctgkx/ -- current Room
+
+
+///Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/Speed/:Speed/ -- add Room

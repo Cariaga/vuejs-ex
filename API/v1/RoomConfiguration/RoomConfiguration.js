@@ -82,42 +82,33 @@ module.exports = function (app) { //MODIFY
     } 
   });
   //INSERT
-  app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed', function (req, res) {
+  app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/Speed/:Speed/', function (req, res) {
     //USAGE /Api/v1/RoomConfiguration/Add/RoomID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
     let RoomID = req.params.RoomID;
     let GameType = req.params.GameType;
     let SmallBlind = req.params.SmallBlind;
-    let BigBlind = req.params.BigBlind;
+    let BigBlind = parseInt(SmallBlind)*2;
     let Speed = req.params.Speed;
-
     if (!isNullOrEmpty(RoomID)) {
       if (!isNullOrEmpty(SmallBlind)) {
-        if (!isNullOrEmpty(BigBlind)) {
           if (!isNullOrEmpty(Speed)) {
             if (validator.isNumeric(SmallBlind)) {
-              if (validator.isNumeric(BigBlind)) {
                 if (validator.isNumeric(Speed)) {
 
                   RoomConfigurationModel.AddRoomConfiguration(RoomID,GameType,SmallBlind,BigBlind,Speed,function(response){
                     if(response!=undefined){
-                      res.send("Sucess");
+                      let status = 200;
+                      res.status(status).end(http.STATUS_CODES[status]);
                     }else{
                       res.send({AddRoomConfigurationFailed:true});
                     }
-                   
                    });
-
-
                 } else {
                   res.send({
                     SpeedInvalidValue: true
                   });
                 }
-              } else {
-                res.send({
-                  BigBlindInvalidValue: true
-                });
-              }
+              
             } else {
               res.send({
                 SmallBlindInvalidValue: true
@@ -128,11 +119,6 @@ module.exports = function (app) { //MODIFY
               SpeedMissing: true
             });
           }
-        } else {
-          res.send({
-            BigBlindMissing: true
-          });
-        }
       } else {
         res.send({
           SmallBlindMissing: true
