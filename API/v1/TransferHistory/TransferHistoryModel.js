@@ -38,7 +38,7 @@ module.exports.TransferSearch = function TransferSearch(Column, Value, StartDate
   let _StartDate = StartDate;
   let _EndDate = EndDate;
   let query =
-    "SELECT * FROM sampledb.transferhistories TH where " + _Column + " like '%" + _Value + "%' and (TH.TransferedDateTime BETWEEN '" + _StartDate + "' AND '" + _EndDate + "');";
+    "SELECT * FROM sampledb.transferhistories as TH where " + _Column + " like '%" + _Value + "%' and (TH.TransferedDateTime BETWEEN '" + _StartDate + "' AND '" + _EndDate + "');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
