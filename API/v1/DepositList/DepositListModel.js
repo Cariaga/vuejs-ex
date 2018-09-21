@@ -21,11 +21,13 @@ module.exports.DepositList = function DepositList(limit,Offset,callback) {
       }
     });
   }
-  module.exports.DepositSearch = function DepositSearch(Column, Value, callback) {
+  module.exports.DepositSearch = function DepositSearch(Column, Value, StartDate, EndDate, callback) {
     let _Column = Column;
     let _Value = Value;
+    let _StartDate = StartDate;
+    let _EndDate = EndDate;
     let query = 
-    "SELECT * FROM sampledb.deposit_list where "+_Column+" like '%"+_Value+"%';";
+    "SELECT * FROM sampledb.deposit_list DL where "+_Column+" like '%"+_Value+"%' and (DL.requesteddatetime BETWEEN '" + _StartDate + "' AND '" + _EndDate + "');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
