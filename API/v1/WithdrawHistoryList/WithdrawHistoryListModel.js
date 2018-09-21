@@ -22,11 +22,13 @@ module.exports.Withdraw = function Withdraw(Limit, Offset, callback) {
 }
 
 //SELECT * FROM sampledb.withdraw_list where UserAccountID like '%%';
-module.exports.WithdrawSearch = function WithdrawSearch(Column, Value, callback) {
+module.exports.WithdrawSearch = function WithdrawSearch(Column, Value,StartDate,EndDate, callback) {
     let _Column = Column;
     let _Value = Value;
+    let _StartDate = StartDate;
+    let _EndDate = EndDate;
     let query = 
-    "SELECT * FROM sampledb.withdraw_list where "+_Column+" like '%"+_Value+"%';";
+    "SELECT * FROM sampledb.withdraw_list where "+_Column+" like '%"+_Value+"%' and (WD.RequestedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

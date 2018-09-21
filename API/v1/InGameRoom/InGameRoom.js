@@ -6,8 +6,9 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameRoom/Update/UserAccountID/:UserAccountID/RoomName/:RoomName', function (req, res) {
+    app.get('/Api/v1/InGameRoom/Update/UserAccountID/:UserAccountID/RoomName/:RoomName/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
+        let UserAccountID = req.params.RoomName;
         InGameScoreModel.WinRate(UserAccountID, function (response) {
             res.send(response);
         });
