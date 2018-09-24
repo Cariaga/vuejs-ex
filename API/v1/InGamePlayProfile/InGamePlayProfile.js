@@ -14,15 +14,30 @@ module.exports = function (app) {
                     res.send(response);
                 });
             }else{
-                res.send({InvalidUserAccountID:true});
+                res.send({InvalidSeasonID:true});
             }
         }else{
-            res.send({InvalidSeasonID:true});
+            res.send({InvalidUserAccountID:true});
         }
      
     });
 
     app.get('/Api/v1/InGamePlayProfile/Update/Update/UserAccountID/:UserAccountID/SeasonID/:SeasonID/CurrentSeasonPoints/:CurrentSeasonPoints', function (req, res) {
-        
+        let UserAccountID = req.params.UserAccountID;
+        let SeasonID = req.params.SeasonID;
+        let CurrentSeasonPoints = req.params.CurrentSeasonPoints;
+        if(!isNullOrEmpty(UserAccountID)){
+            if(!isNullOrEmpty(SeasonID)){
+               if(!isNullOrEmpty(SeasonID)){
+                InGamePlayProfileModel.InGamePlayProfileUpdatePoints(UserAccountID,SeasonID,CurrentSeasonPoints,function(response){
+                    res.send(response);
+                });
+               }
+            }else{
+                res.send({InvalidSeasonID:true});
+            }
+        }else{
+            res.send({InvalidUserAccountID:true});
+        }
     });
 }
