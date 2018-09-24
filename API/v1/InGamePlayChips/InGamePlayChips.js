@@ -14,13 +14,15 @@ module.exports = function (app) {
             if(!isNullOrEmpty(UserAccountID)){
                 if(!isNullOrEmpty(Chips)){
                     InGamePlayChipsModel.PlayerPoints(UserAccountID,function(response){
-                        if(response[0].CurrentPoints>0){
-                           
-                            InGamePlayChipsModel.AddChipsInSeason(UserAccountID,SeasonID,Points, function (response) {
-                                res.send(response);
-                                });
-                                
-
+                        let currentPlayerPoints = response[0].CurrentPoints;//points in lobby
+                        if(currentPlayerPoints>0){
+                            PlayerSeasonChips(UserAccountID,SeasonID,function(response){
+                                let SeasonCurrentPoints = response[0].CurrentPoints; //Current Season Points
+                                let NewPoints = currentPlayerPoints+SeasonCurrentPoints;
+                                InGamePlayChipsModel.PlayerNewPointsInSeason(UserAccountID,SeasonID,NewPoints, function (response) {
+                                    res.send(response);
+                                    });
+                            });
                         }else{
                             res.send({NoMorePoints:true});
                         }

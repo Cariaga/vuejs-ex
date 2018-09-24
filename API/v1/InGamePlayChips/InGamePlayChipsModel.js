@@ -33,3 +33,17 @@ module.exports.PlayerSeasonChips = function PlayerSeasonChips(UserAccountID,Seas
         }
     });
 }
+module.exports.PlayerNewPointsInSeason = function PlayerNewPointsInSeason(UserAccountID,SeasonID,Points, callback) {
+    let _UserAccountID = UserAccountID;
+    let _SeasonID = SeasonID;
+    let _Points = Points;
+    let query = "";
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+           // console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
+}
