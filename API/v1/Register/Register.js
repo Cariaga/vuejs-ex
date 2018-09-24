@@ -19,14 +19,16 @@ module.exports = function (app) {
     let SecurityCode = req.params.SecurityCode;
   
     let AccountHolder = req.params.AccountHolder;
-    let ShopID = req.params.ShopID;
+   // let ShopID = req.params.ShopID;// recomended same
     let UserAccountID = uuidv4();
     let ValidKey = uuidv4();
     let AccessID = "1";
     let Valid = '';
     let Expiration ='';
+    let Recommended = req.params.ShopID;
     //newer version
-    RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName,Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, '1', function (response) {
+    
+    RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName,Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, Recommended, function (response) {
       if (response != undefined) {
         // res.send(response);
         let status = 200;
@@ -38,7 +40,6 @@ module.exports = function (app) {
       }
     });
 
-  
   });
 
 
@@ -56,7 +57,7 @@ module.exports = function (app) {
     let SecurityCode = req.params.SecurityCode;
     let Valid = req.params.Valid;
     let Expiration = req.params.Expiration;
-
+    let Recommended = req.params.Recommended;
 
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
@@ -71,7 +72,7 @@ module.exports = function (app) {
                       let UserAccountID = uuidv4();
                       let ValidKey = uuidv4();
                       let AccessID = "1";
-                      RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, function (response) {
+                      RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration,Recommended, function (response) {
                         if (response != undefined) {
                           // res.send(response);
                           let status = 200;

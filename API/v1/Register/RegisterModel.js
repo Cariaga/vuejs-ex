@@ -12,7 +12,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, callback) {
   let _UserAccountID = UserAccountID;
   let _ScreenName = ScreenName;
-  let _ShopID = ShopID;
+  let _ShopID = ShopID;//recomended by
   let _UserName = UserName;
   let _Password = Password;
   let _ValidKey = ValidKey;
@@ -25,8 +25,8 @@ module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, Acces
   let _Expiration = Expiration;
   let _AccountHolder = AccountHolder;
   let UserAccountQuery =
-    "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`) " +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'true','" + _ValidKey + "');";
+    "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`,`Recommended`) " +
+    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'true','" + _ValidKey + "','"+_ShopID+"');";
   console.log(UserAccountQuery);
   let UserInfoQuery =
     "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`) " +
@@ -43,62 +43,70 @@ module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, Acces
     "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','true','" + _Expiration + "',now(),'" + _AccountHolder + "'); ";
   console.log(BankInfosQuery);
 
-
-
-
-  async.waterfall([Q1, Q2, Q3], function (err, response) {
-    DBConnect.DBConnect(BankInfosQuery, function (response2) {
-      if (response2 != undefined) {
-        console.log(response2);
-        callback(response2);
-      } else {
-        //callback(undefined);
-      }
-    });
-  });
-
-  function Q1(callback) {
-    DBConnect.DBConnect(UserAccountQuery, function (response) {
-      if (response != undefined) {
-        console.log(response);
-
-        callback(null, response);
-      } else {
-        // callback(undefined);
-      }
+  function Q1(){
+    return new Promise(resolve => {
+      DBConnect.DBConnect(UserAccountQuery, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
     });
   }
-
-  function Q2(error, callback) {
-
-    DBConnect.DBConnect(UserInfoQuery, function (response) {
-      if (response != undefined) {
-        console.log(response);
-
-        callback(error, response);
-      } else {
-        //callback(undefined);
-      }
+  function Q2(){
+    return new Promise(resolve => {
+      DBConnect.DBConnect(UserInfoQuery, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
     });
   }
-
-  function Q3(error, callback) {
-
-    DBConnect.DBConnect(PlayerQuery, function (response) {
-      if (response != undefined) {
-        console.log(response);
-
-        callback(error, response);
-      } else {
-        //callback(undefined);
-      }
+  function Q3(){
+    return new Promise(resolve => {
+      DBConnect.DBConnect(BankInfosQuery, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
     });
   }
+  function Q4(){
+    return new Promise(resolve => {
+      DBConnect.DBConnect(PlayerQuery, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
+    });
+  }
+  async function RunAsync() {
+    console.log('calling');
+    let finalresult = [{}];
+    let result = await Q1();
+    let result2 = await Q2();
+    let result3 = await Q3();
+    let result4 = await Q4();
+    console.log('Done');
+    callback('done');
+  }
+  RunAsync();
 }
 
 
 //
-module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, callback) {
+module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration,Recommended, callback) {
   let _UserAccountID = UserAccountID;
   let _AccessID = AccessID;
   let _UserName = UserName;
@@ -111,9 +119,10 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
   let _SecurityCode = SecurityCode;
   let _Valid = Valid;
   let _Expiration = Expiration;
+  let _Recommended = Recommended;
   let query =
-    "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`) " +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false','" + _ValidKey + "');";
+    "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`,`Recommended`) " +
+    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false','" + _ValidKey + "','"+_Recommended+"');";
   console.log(query);
 
   let query2 =
