@@ -23,7 +23,7 @@ module.exports.PlayerSeasonChips = function PlayerSeasonChips(UserAccountID,Seas
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let query =
-        "";
+        "SELECT UserAccountID,CurrentPoints FROM sampledb.playerfinalcard where UserAccountID='"+_UserAccountID+"' and SeasonID='"+_SeasonID+"';";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);
