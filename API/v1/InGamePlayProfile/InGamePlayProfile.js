@@ -19,7 +19,6 @@ module.exports = function (app) {
         }else{
             res.send({InvalidUserAccountID:true});
         }
-     
     });
 
     app.get('/Api/v1/InGamePlayProfile/Update/Update/UserAccountID/:UserAccountID/SeasonID/:SeasonID/CurrentSeasonPoints/:CurrentSeasonPoints', function (req, res) {
