@@ -123,25 +123,48 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
       callback(undefined);
     });
   }
-  module.exports.PlayerUpdateMoney = function PlayerUpdateMoney(UserAccountID,Money,callback){
-    let _UserAccountID = UserAccountID;
-    let _Money = Money;
-    let query = "UPDATE `sampledb`.`players` SET `Money` = '20000' WHERE (`UserAccountID` = '"+_Money+"');";
+
+  module.exports.ComputedNewMoney = function ComputedNewMoney(UserTransactionID, callback) {
+    let _UserTransactionID = UserTransactionID;
+    let query ="select (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"') as UserAccountID,(SELECT Amount FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')+(SELECT Money FROM sampledb.players where UserAccountID = (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')) as Amount;";
+    console.log(query)
     var promise = new Promise(function(resolve, reject) {
-      DBConnect.DBConnect(query, function (response) {
-         if (response != undefined) {
-           resolve(response);
-         } else {
-           reject();
-         }
-        })
-     });
-     Promise.all([promise]).then(function(response) {
+     DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          resolve(response);
+        } else {
+          reject();
+        }
+       })
+    });
+    Promise.all([promise]).then(function(response) {
       callback(response);
-      }, function(){ //if promise fail
+      }, function(){ //if promise or promise2 fail
       console.log('something went wrong')
       callback(undefined);
+    });        
+  }
+
+  module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID,NewMoney, callback) {
+    let _NewMoney = NewMoney;
+    let _UserAccountID = UserAccountID;
+    let query ="UPDATE `sampledb`.`players` SET `Money` = '"+_NewMoney+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+    console.log(query)
+    var promise = new Promise(function(resolve, reject) {
+     DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          resolve(response);
+        } else {
+          reject();
+        }
+       })
     });
+    Promise.all([promise]).then(function(response) {
+      callback(response);
+      }, function(){ //if promise or promise2 fail
+      console.log('something went wrong')
+      callback(undefined);
+    });        
   }
 
   // DepositHistoryUpdateArchived(delete)

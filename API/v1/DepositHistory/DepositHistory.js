@@ -14,18 +14,14 @@ module.exports = function (app) {
     let UserTransactionID = req.params.UserTransactionID;
     if (!isNullOrEmpty(UserTransactionID)) {
 
-      DepositHistoryModel.DepositHistoryUserTransactionID(UserTransactionID,function(response){
-        if(response!=undefined){
-          console.log(response);
-           let UserAccountID = response[0].UserAccountID;
-           let Amount = response[0].Amount;//deposit amount
-
-           DBCheck.PlayerMoney(UserAccountID,function(response){
-             let CurrentPlayerMoney = response[0].Money;
-            let NewPlayerMoney = parseInt(CurrentPlayerMoney)+parseInt(Amount);
-            DepositHistoryModel.PlayerUpdateMoney(UserAccountID,Money,function(response){
+        DepositHistoryModel.ComputedNewMoney(UserTransactionID,function(response){//transaction + current player money 
+          
+          if(response!=undefined){
+            let NewMoney = response[0].Amount;
+            let UserAccountID = response[0].UserAccountID;
+            DepositHistoryModel.UpdatePlayerMoney(UserAccountID,NewMoney,function(response){
               if(response!=undefined){
-                DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {
+               /* DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {//approve transaction
                   if (response != undefined) {
                     res.send(response);
                   } else {
@@ -33,17 +29,20 @@ module.exports = function (app) {
                       DepositHistoryUpdateApprovedFailed: true
                     });
                   }
-                });
+                });*/
               }else{
                 res.send({
-                  DepositHistoryUpdatePlayerMoneyFailed: true
+                  DepositHistoryPlayerMoneyFailed: true
                 });
               }
+              
             });
             
-           });
-        }
-      });
+          }
+          
+        });
+       
+      
     } else {
       res.send({
         UserTransactionIDMissing: true
