@@ -8,46 +8,27 @@ var async = require("async");
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 
+//approved deposit
 module.exports = function (app) {
-  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Approved/ApprovedDATE/:ApprovedDATE/ApprovedTIME/:ApprovedTIME/', function (req, res) {
-    let DepositHistoryID = req.params.DepositHistoryID;
-    let UserAccountID = req.params.UserAccountID;
-    let ApprovedDATE = req.params.ApprovedDATE;
-    let ApprovedTIME = req.params.ApprovedTIME;
-    if (!isNullOrEmpty(DepositHistoryID)) {
-      if (!isNullOrEmpty(UserAccountID)) {
-        if (!isNullOrEmpty(ApprovedDATE)) {
-          if (!isNullOrEmpty(ApprovedTIME)) {
-            DepositHistoryModel.DepositHistoryUpdateApproved(UserAccountID, DepositHistoryID, ApprovedDATE, ApprovedTIME, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                res.send({
-                  DepositHistoryUpdateApprovedFailed: true
-                });
-              }
-            });
-          } else {
-            res.send({
-              ApprovedTIMEMissing: true
-            });
-          }
+  app.get('/Api/v1/DepositHistory/Update/UserTransactionID/:UserTransactionID', function (req, res) {
+    let UserTransactionID = req.params.UserTransactionID;
+    if (!isNullOrEmpty(UserTransactionID)) {
+      DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {
+        if (response != undefined) {
+          res.send(response);
         } else {
           res.send({
-            ApprovedDATEMissing: true
+            DepositHistoryUpdateApprovedFailed: true
           });
         }
-      } else {
-        res.send({
-          UserAccountIDMissing: true
-        });
-      }
+      });
     } else {
       res.send({
-        DepositHistoryIDMissing: true
+        UserTransactionIDMissing: true
       });
     }
   });
+
   app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/', function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;

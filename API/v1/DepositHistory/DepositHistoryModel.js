@@ -122,6 +122,52 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
 
             
 }
+// DepositHistoryUpdateApproved
+module.exports.DepositHistoryUpdateApproved = function DepositHistoryUpdateApproved(UserTransactionID, callback) {
+  let _UserTransactionID = UserTransactionID;
+  let query = 'UPDATE `sampledb`.`transactions` SET `TransactionStatus` = \'approved\' '+
+              " WHERE (UserTransactionID = '"+_UserTransactionID+"' AND TransactionType = 'deposit');";
+
+  let query2 = 'UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()'+
+              " WHERE (UserTransactionID = '"+_UserTransactionID+"');";
+
+  console.log(query)
+  console.log(query2)
+  var promise = new Promise(function(resolve, reject) {
+   DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        resolve();
+      } else {
+        reject();
+      }
+     })
+  });
+
+  var promise2 = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(query2, function (response) {
+       if (response != undefined) {
+         resolve();
+       } else {
+         reject();
+       }
+      })
+   });
+  
+  Promise.all([promise,promise2]).then(function() {
+    console.log('approved deposit successful');
+    callback(true);
+    }, function(){ //if promise or promise2 fail
+    console.log('something went wrong')
+    callback(undefined);
+  });
+
+            
+}
+
+
+
+
+
 
 module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   let query = '';
