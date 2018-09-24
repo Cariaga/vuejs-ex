@@ -39,6 +39,7 @@ module.exports = function (app) {
 
                         DBCheck.isUserNameExist(UserName,function (response) {
                           if(response != undefined){
+                        
                         RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
                           if (response != undefined) {
                             // res.send(response);
