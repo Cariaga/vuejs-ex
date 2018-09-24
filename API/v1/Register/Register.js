@@ -37,25 +37,26 @@ module.exports = function (app) {
                     if (!isNullOrEmpty(AccountHolder)) {
                       if (!isNullOrEmpty(ShopID)) {
 
-                        DBCheck.isUserNameExist(UserName,function (response) {
-                          if(response != undefined){
-                        
-                        RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
-                          if (response != undefined) {
-                            // res.send(response);
-                            let status = 200;
-                            res.status(status).end(http.STATUS_CODES[status]);
-                          } else {
+                        DBCheck.isUserNameExist(UserName, function (response) {
+                          if (response == false) {
+                            RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
+                              if (response != undefined) {
+                                // res.send(response);
+                                let status = 200;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                              } else {
+                                res.send({
+                                  AddUserAccountFailed: true
+                                });
+                              }
+                            });
+                          } else 
+                          {
                             res.send({
-                              AddUserAccountFailed: true
+                              UserNameExist: true
                             });
                           }
                         });
-                      } else
-                      {
-                        
-                      }
-                      });
 
                       } else {
                         res.send({
