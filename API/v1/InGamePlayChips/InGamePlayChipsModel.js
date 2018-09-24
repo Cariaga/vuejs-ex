@@ -6,6 +6,22 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
+
+module.exports.PlayerPoints = function PlayerPoints(UserAccountID,SeasonID, callback) {
+    let _UserAccountID = UserAccountID;
+    let _SeasonID = SeasonID;
+    let query =
+        "SELECT CurrentPoints FROM sampledb.players where UserAccountID='"+_UserAccountID+"' and SeasonID='"+_SeasonID+"' and SeasonEnded is null";
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+           // console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
+}
+
 module.exports.PlayerPoints = function PlayerPoints(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
