@@ -14,10 +14,16 @@ module.exports = function (app) {
             if(!isNullOrEmpty(UserAccountID)){
                 if(!isNullOrEmpty(Chips)){
                     InGamePlayChipsModel.PlayerPoints(UserAccountID,function(response){
+                        if(response[0].CurrentPoints>0){
+                           
+                            InGamePlayChipsModel.AddChipsInSeason(UserAccountID,SeasonID,Points, function (response) {
+                                res.send(response);
+                                });
+                                
+                        }else{
+                            res.send({NoMorePoints:true});
+                        }
                         
-                        InGamePlayChipsModel.AddChipsInSeason(UserAccountID,SeasonID,Points, function (response) {
-                            res.send(response);
-                            });
                     });
                     
                 }
