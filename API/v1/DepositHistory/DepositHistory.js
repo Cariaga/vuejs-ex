@@ -21,28 +21,28 @@ module.exports = function (app) {
             let UserAccountID = response[0].UserAccountID;
             DepositHistoryModel.UpdatePlayerMoney(UserAccountID,NewMoney,function(response){
               if(response!=undefined){
-               /* DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {//approve transaction
-                  if (response != undefined) {
-                    res.send(response);
+               DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {//approve transaction
+                  if (response==true) {
+                    let status = 200;
+                    res.status(status).end(http.STATUS_CODES[status]);
                   } else {
                     res.send({
                       DepositHistoryUpdateApprovedFailed: true
                     });
                   }
-                });*/
+                });
               }else{
                 res.send({
                   DepositHistoryPlayerMoneyFailed: true
                 });
-              }
-              
+              } 
             });
-            
+          }else{
+            res.send({
+              DoesNotExist: true
+            });
           }
-          
         });
-       
-      
     } else {
       res.send({
         UserTransactionIDMissing: true

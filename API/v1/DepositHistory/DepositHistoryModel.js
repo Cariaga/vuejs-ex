@@ -126,12 +126,12 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
 
   module.exports.ComputedNewMoney = function ComputedNewMoney(UserTransactionID, callback) {
     let _UserTransactionID = UserTransactionID;
-    let query ="select (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"') as UserAccountID,(SELECT Amount FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')+(SELECT Money FROM sampledb.players where UserAccountID = (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')) as Amount;";
+    let query ="select (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"') as UserAccountID,(SELECT Amount FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')+(SELECT Money FROM sampledb.players where UserAccountID = (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')) as Amount from sampledb.transactions where UserTransactionID='"+_UserTransactionID+"' and TransactionStatus='pending';";
     console.log(query)
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-          resolve(response);
+          resolve(response[0]);
         } else {
           reject();
         }
@@ -139,8 +139,8 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     });
     Promise.all([promise]).then(function(response) {
       callback(response);
-      }, function(){ //if promise or promise2 fail
-      console.log('something went wrong')
+      }, function(){ 
+        
       callback(undefined);
     });        
   }
