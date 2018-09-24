@@ -23,16 +23,24 @@ module.exports = function (app) {
            DBCheck.PlayerMoney(UserAccountID,function(response){
              let CurrentPlayerMoney = response[0].Money;
             let NewPlayerMoney = parseInt(CurrentPlayerMoney)+parseInt(Amount);
-            
-            DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
+            DepositHistoryModel.PlayerUpdateMoney(UserAccountID,Money,function(response){
+              if(response!=undefined){
+                DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      DepositHistoryUpdateApprovedFailed: true
+                    });
+                  }
+                });
+              }else{
                 res.send({
-                  DepositHistoryUpdateApprovedFailed: true
+                  DepositHistoryUpdatePlayerMoneyFailed: true
                 });
               }
             });
+            
            });
         }
       });
