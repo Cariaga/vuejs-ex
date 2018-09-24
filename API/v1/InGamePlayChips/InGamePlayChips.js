@@ -20,6 +20,7 @@ module.exports = function (app) {
                                 res.send(response);
                                 });
                                 
+
                         }else{
                             res.send({NoMorePoints:true});
                         }
