@@ -10,20 +10,19 @@ module.exports = function (app) {
         let SeasonID = req.params.SeasonID;
         if(!isNullOrEmpty(UserAccountID)){
             if(!isNullOrEmpty(SeasonID)){
-
+                InGamePlayProfileModel.InGamePlayProfile(UserAccountID,SeasonID,function(response){
+                    res.send(response);
+                });
             }else{
                 res.send({InvalidUserAccountID:true});
             }
         }else{
             res.send({InvalidSeasonID:true});
         }
-        InGamePlayProfileModel.InGamePlayProfile(UserAccountID,SeasonID,function(response){
-            res.send(response);
-        });
+     
     });
 
     app.get('/Api/v1/InGamePlayProfile/Update/Update/UserAccountID/:UserAccountID/SeasonID/:SeasonID/CurrentSeasonPoints/:CurrentSeasonPoints', function (req, res) {
-
         
     });
 }
