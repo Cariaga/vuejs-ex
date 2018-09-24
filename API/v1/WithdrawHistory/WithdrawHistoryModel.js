@@ -35,10 +35,6 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
   "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `UserName`, `ContactNumber`, `BankName`, `AccountNumber`, `ApplicationAmount`, `ExistingAmount`, `RemainingAmount`) "+
   "VALUES ('"+_UserTransactionID+"','"+_UserName+"','"+_ContactNumber+"','"+_BankName+"','"+_AccountNumber+"','"+_ApplicationAmount+"','"+_ExistingAmount+"','"+_RemainingAmount+"')";
 
-
-
-
-  
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
