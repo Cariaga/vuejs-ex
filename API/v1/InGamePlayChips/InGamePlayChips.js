@@ -10,10 +10,10 @@ module.exports = function (app) {
         let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
         let Chips = req.params.Chips;
-
         if(!isNullOrEmpty(UserAccountID)){
             if(!isNullOrEmpty(UserAccountID)){
                 if(!isNullOrEmpty(Chips)){
+                    
                     InGamePlayChipsModel.AddChipsInSeason(UserAccountID,SeasonID,Points, function (response) {
                         res.send(response);
                         });
