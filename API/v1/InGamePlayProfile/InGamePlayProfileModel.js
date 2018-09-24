@@ -6,27 +6,32 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.InGamePlayProfile = function InGamePlayProfile(UserAccountID,SeasonID, callback) {
+module.exports.InGamePlayProfile = function InGamePlayProfile(UserAccountID, SeasonID, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let query =
-        "SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where UserAccountID = '"+_UserAccountID+"' and SeasonID = '"+_SeasonID+"';";
+        "SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where UserAccountID = '" + _UserAccountID + "' and SeasonID = '" + _SeasonID + "';";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-           // console.log(response);
+            // console.log(response);
             callback(response);
         } else {
             callback(undefined);
         }
     });
 }
-module.exports.InGamePlayProfileUpdatePoints = function InGamePlayProfileUpdatePoints(UserAccountID,SeasonID, callback) {
+module.exports.InGamePlayProfileUpdatePoints = function InGamePlayProfileUpdatePoints(UserAccountID, SeasonID, CurrentPoints, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
-    let query ="";
+    let _CurrentPoints = CurrentPoints;
+    let query =
+        "UPDATE `sampledb`.`playerfinalcard` " +
+        "SET CurrentPoints = '" + _CurrentPoints + "' " +
+        "WHERE UserAccountID = '" + _UserAccountID + "' AND SeasonID = '" + _SeasonID + "' ";
+
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-           // console.log(response);
+            // console.log(response);
             callback(response);
         } else {
             callback(undefined);
