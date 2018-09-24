@@ -27,28 +27,76 @@ module.exports = function (app) {
     let Expiration = '';
     //newer version
     if (!isNullOrEmpty(ScreenName)) {
-      if (!isNullOrEmpty(ScreenName)) {
-        if (!isNullOrEmpty(ScreenName)) {
-          if (!isNullOrEmpty(ScreenName)) {
-            if (!isNullOrEmpty(ScreenName)) {
-              RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
-                if (response != undefined) {
-                  // res.send(response);
-                  let status = 200;
-                  res.status(status).end(http.STATUS_CODES[status]);
+      if (!isNullOrEmpty(UserName)) {
+        if (!isNullOrEmpty(Password)) {
+          if (!isNullOrEmpty(Email)) {
+            if (!isNullOrEmpty(PhoneNumber)) {
+              if (!isNullOrEmpty(BankName)) {
+                if (!isNullOrEmpty(AccountNumber)) {
+                  if (!isNullOrEmpty(SecurityCode)) {
+                    if (!isNullOrEmpty(AccountHolder)) {
+                      if (!isNullOrEmpty(ShopID)) {
+                        RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
+                          if (response != undefined) {
+                            // res.send(response);
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                          } else {
+                            res.send({
+                              AddUserAccountFailed: true
+                            });
+                          }
+                        });
+                      } else {
+                        res.send({
+                          InvalidShopID: true
+                        });
+                      }
+                    } else {
+                      res.send({
+                        InvalidAccountHolder: true
+                      });
+                    }
+                  } else {
+                    res.send({
+                      InvalidSecurityCode: true
+                    });
+                  }
                 } else {
                   res.send({
-                    AddUserAccountFailed: true
+                    InvalidAccountNumber: true
                   });
                 }
+              } else {
+                res.send({
+                  InvalidBankName: true
+                });
+              }
+            } else {
+              res.send({
+                InvalidPhoneNumber: true
               });
             }
+          } else {
+            res.send({
+              InvalidEmail: true
+            });
           }
+        } else {
+          res.send({
+            InvalidPassword: true
+          });
         }
+      } else {
+        res.send({
+          InvalidUserName: true
+        });
       }
+    } else {
+      res.send({
+        InvalidScreenName: true
+      });
     }
-
-
   });
 
 
