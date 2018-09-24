@@ -62,24 +62,6 @@ module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccount
 
 
 }
-/**
- *
- *
- * @param {*} UserAccountID
- * @param {*} Amount
- * @param {*} BankNameUsed
- * @param {*} SecurityCodeUsed
- * @param {*} Status
- * @param {*} RequestedDATE
- * @param {*} ApprovedDATE
- * @param {*} RejectedDATE
- * @param {*} ProcessingDATE
- * @param {*} RequestedTIME
- * @param {*} ApprovedTIME
- * @param {*} RejectedTIME
- * @param {*} ProcessingTIME
- * @param {*} callback
- */
 module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, UserTransactionID, Amount, AccountHolder, callback) {
   let _UserAccountID = UserAccountID;
   let _UserTransactionID = UserTransactionID;
@@ -122,6 +104,29 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     
     
   }
+  module.exports.DepositHistoryUserTransactionID(UserTransactionID,callback){
+    let _UserTransactionID = UserTransactionID;
+    
+    let query = "SELECT UserTransactionID,Amount FROM sampledb.transactions WHERE UserTransactionID ='"+_UserTransactionID+"'";
+
+    var promise = new Promise(function(resolve, reject) {
+      DBConnect.DBConnect(query, function (response) {
+         if (response != undefined) {
+           resolve();
+         } else {
+           reject();
+         }
+        })
+     });
+     Promise.all([promise]).then(function() {
+      console.log('approved deposit successful');
+      callback(true);
+      }, function(){ //if promise or promise2 fail
+      console.log('something went wrong')
+      callback(undefined);
+    });
+  }
+//    let query3 = "UPDATE `sampledb`.`players` SET `Money` = '30000' WHERE (`UserAccountID` = 'Account8');";
 
   // DepositHistoryUpdateArchived(delete)
   module.exports.DepositHistoryUpdateApproved = function DepositHistoryUpdateApproved(UserTransactionID, callback) {
@@ -131,9 +136,9 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   
     let query2 = 'UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()'+
                 " WHERE (UserTransactionID = '"+_UserTransactionID+"');";
-  
     console.log(query)
     console.log(query2)
+   
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -215,23 +220,6 @@ module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdatePro
       callback(undefined);
     }
   });
-  /*Models.DepositHistory.update({
-      ProcessingDATE: ProcessingDATE,
-      ProcessingTIME: ProcessingTIME,
-      Status: "Processing"
-    }, {
-      where: {
-        DepositHistoryID: DepositHistoryID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 
 
@@ -245,23 +233,6 @@ module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejec
       callback(undefined);
     }
   });
-  /*Models.DepositHistory.update({
-      ApprovedDATE: RequestedDATE,
-      ApprovedTIME: RejectedTIME,
-      Status: "Rejected"
-    }, {
-      where: {
-        DepositHistoryID: DepositHistoryID,
-        UserAccountID: UserAccountID
-      }
-    })
-    .then(Success => {
-      callback("Updated");
-    })
-    .catch(error => {
-      console.log("Error Updating " + error);
-      callback(undefined);
-    });*/
 }
 /**
  *
@@ -280,25 +251,7 @@ module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAcco
       callback(undefined);
     }
   });
-  /*Models.DepositHistory.sync();
-  let result = Models.DepositHistory.findAll({
-    where: {
-      DepositHistoryID: DepositHistoryID,
-      UserAccountID: UserAccountID
-    }
-  }).then(function (result) {
-    let Data = result.map(function (item) {
-      return item;
-    });
-    if (Data.length > 0) {
-      callback(Data);
-    } else {
-      callback(undefined);
-    }
-  }).catch(function (result) { //catching any then errors
-    console.log("Error " + result);
-    callback(undefined);
-  });*/
+
 }
 /**
  *
