@@ -339,3 +339,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://192.168.254.106:8080/Api/v1/TransferHistory/Search/Column/Status/Value/Approve/StartDate/2018-09-06%2015:04:03/EndDate/2018-09-06%2015:04:03
 
 //http://localhost:8080/Api/v1/InGameSeason/Request/ - Generate UUID
+
+//http://localhost:8080/Api/v1/InGamePlayChips/Add/UserAccountID/Account8/SeasonID/S1/Chips/20/ - in game Add Chips

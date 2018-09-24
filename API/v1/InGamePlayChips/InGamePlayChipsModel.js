@@ -35,6 +35,20 @@ module.exports.PlayerPoints = function PlayerPoints(UserAccountID, callback) {
         }
     });
 }
+module.exports.PlayerPointsUpdate = function PlayerPointsUpdate(UserAccountID,NewPlayerPoints,callback) {
+    let _UserAccountID = UserAccountID;
+    let _NewPlayerPoints = NewPlayerPoints;
+    let query =
+        "UPDATE `sampledb`.`players` SET `CurrentPoints` = '"+_NewPlayerPoints+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+           // console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
+}
 module.exports.PlayerSeasonChips = function PlayerSeasonChips(UserAccountID,SeasonID, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;

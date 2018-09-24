@@ -17,16 +17,21 @@ module.exports = function (app) {
                         if(response==false){
                             InGamePlayChipsModel.PlayerPoints(UserAccountID,function(response){
                                 let currentPlayerPoints = response[0].CurrentPoints;//points in lobby
-                                if(currentPlayerPoints-Chips>0){
+                                console.log(currentPlayerPoints);
+                                if(parseInt(currentPlayerPoints)-parseInt(Chips)>=0){
 
                                     InGamePlayChipsModel.PlayerSeasonChips(UserAccountID,SeasonID,function(response){
                                         let SeasonCurrentPoints = response[0].CurrentPoints; //Current Season Points
-                                        let NewPoints = Chips+SeasonCurrentPoints;
+                                        let NewSeasonPoints = parseInt(Chips)+parseInt(SeasonCurrentPoints);
                                         
-
-                                        InGamePlayChipsModel.PlayerNewPointsInSeason(UserAccountID,SeasonID,NewPoints, function (response) {
-                                            res.send(response);
-                                            });
+                                        let NewPlayerPoints = parseInt(currentPlayerPoints)-parseInt(Chips);
+                                        InGamePlayChipsModel.PlayerPointsUpdate(UserAccountID,NewPlayerPoints,function(response){
+                                            if(response!=undefined){
+                                                InGamePlayChipsModel.PlayerNewPointsInSeason(UserAccountID,SeasonID,NewSeasonPoints, function (response) {// new season Points
+                                                    res.send(response);
+                                                    });
+                                            }
+                                        });
                                     });
                                 }else{
                                     res.send({NoMorePoints:true});
