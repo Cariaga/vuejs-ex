@@ -7,17 +7,17 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
 
-module.exports.PlayerPoints = function PlayerPoints(UserAccountID,SeasonID, callback) {
+module.exports.isSeasonEnded = function isSeasonEnded(UserAccountID,SeasonID, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let query =
-        "SELECT CurrentPoints FROM sampledb.players where UserAccountID='"+_UserAccountID+"' and SeasonID='"+_SeasonID+"' and SeasonEnded is null";
+        "SELECT * FROM sampledb.playerfinalcard where SeasonID='"+_SeasonID+"' and UserAccountID='"+_UserAccountID+"' and SeasonEnded is null;";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);
-            callback(response);
+            callback(false);
         } else {
-            callback(undefined);
+            callback(true);
         }
     });
 }

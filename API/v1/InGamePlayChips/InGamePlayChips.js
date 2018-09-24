@@ -13,23 +13,22 @@ module.exports = function (app) {
         if(!isNullOrEmpty(UserAccountID)){
             if(!isNullOrEmpty(UserAccountID)){
                 if(!isNullOrEmpty(Chips)){
-                    
-                    InGamePlayChipsModel.PlayerPoints(UserAccountID,function(response){
-                        let currentPlayerPoints = response[0].CurrentPoints;//points in lobby
-                        if(currentPlayerPoints>0){
-                            InGamePlayChipsModel.PlayerSeasonChips(UserAccountID,SeasonID,function(response){
-                                let SeasonCurrentPoints = response[0].CurrentPoints; //Current Season Points
-                                let NewPoints = currentPlayerPoints+SeasonCurrentPoints;
-                                InGamePlayChipsModel.PlayerNewPointsInSeason(UserAccountID,SeasonID,NewPoints, function (response) {
-                                    res.send(response);
-                                    });
-                            });
-                        }else{
-                            res.send({NoMorePoints:true});
-                        }
-                        
+                    InGamePlayChipsModel.isSeasonEnded(UserAccountID,SeasonID,function(response){
+                        InGamePlayChipsModel.PlayerPoints(UserAccountID,function(response){
+                            let currentPlayerPoints = response[0].CurrentPoints;//points in lobby
+                            if(currentPlayerPoints>0){
+                                InGamePlayChipsModel.PlayerSeasonChips(UserAccountID,SeasonID,function(response){
+                                    let SeasonCurrentPoints = response[0].CurrentPoints; //Current Season Points
+                                    let NewPoints = currentPlayerPoints+SeasonCurrentPoints;
+                                    InGamePlayChipsModel.PlayerNewPointsInSeason(UserAccountID,SeasonID,NewPoints, function (response) {
+                                        res.send(response);
+                                        });
+                                });
+                            }else{
+                                res.send({NoMorePoints:true});
+                            }
+                        });
                     });
-                    
                 }
             }
         }
