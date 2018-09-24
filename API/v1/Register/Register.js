@@ -36,6 +36,8 @@ module.exports = function (app) {
                   if (!isNullOrEmpty(SecurityCode)) {
                     if (!isNullOrEmpty(AccountHolder)) {
                       if (!isNullOrEmpty(ShopID)) {
+
+                        
                         RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
                           if (response != undefined) {
                             // res.send(response);
@@ -47,6 +49,7 @@ module.exports = function (app) {
                             });
                           }
                         });
+
                       } else {
                         res.send({
                           InvalidShopID: true
