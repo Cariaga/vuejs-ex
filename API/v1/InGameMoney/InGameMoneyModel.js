@@ -12,7 +12,7 @@ module.exports.Money = function Money(UserAccountID, callback) {
         "SELECT Money FROM sampledb.player_profile where UserAccountID='"+_UserAccountID+"'";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-            console.log(response);
+           // console.log(response);
             callback(response);
         } else {
             callback(undefined);
