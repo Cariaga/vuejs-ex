@@ -27,6 +27,7 @@ module.exports = function (app) {
           if (!isNullOrEmpty(EndDate)) {
             DepositListModel.DepositSearch(Column, Value, StartDate, EndDate, function (response) {
               if (response != undefined) {
+                
                 res.send(response);
               } else {
                 let status = 404;

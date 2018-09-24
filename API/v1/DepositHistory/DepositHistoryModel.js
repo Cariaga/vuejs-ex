@@ -104,24 +104,21 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     
     
   }
-  module.exports.DepositHistoryUserTransactionID(UserTransactionID,callback){
+  module.exports.DepositHistoryUserTransactionID = function DepositHistoryUserTransactionID(UserTransactionID,callback){
     let _UserTransactionID = UserTransactionID;
-    
-    let query = "SELECT UserTransactionID,Amount FROM sampledb.transactions WHERE UserTransactionID ='"+_UserTransactionID+"'";
-
+    let query = "SELECT UserAccountID,UserTransactionID,Amount FROM sampledb.transactions WHERE UserTransactionID ='"+_UserTransactionID+"'";
     var promise = new Promise(function(resolve, reject) {
       DBConnect.DBConnect(query, function (response) {
          if (response != undefined) {
-           resolve();
+           resolve(response);
          } else {
            reject();
          }
         })
      });
-     Promise.all([promise]).then(function() {
-      console.log('approved deposit successful');
-      callback(true);
-      }, function(){ //if promise or promise2 fail
+     Promise.all([promise]).then(function(response) {
+      callback(response);
+      }, function(){ //if promise fail
       console.log('something went wrong')
       callback(undefined);
     });

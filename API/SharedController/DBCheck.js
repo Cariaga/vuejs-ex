@@ -26,6 +26,21 @@ const mysql = require('mysql2');
       }
     });
   }
+  module.exports.PlayerMoney = function PlayerMoney(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID
+    let query =
+    "SELECT Money FROM `sampledb`.`players` where UserAccountID='"+_UserAccountID+"'";
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(true);
+      }else{
+        callback(false);
+      }
+    });
+  }
 
 
   module.exports.isPhoneNumberExist = function isPhoneNumberExist(PhoneNumber, callback) {
