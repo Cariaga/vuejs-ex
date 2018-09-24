@@ -17,17 +17,21 @@ module.exports = function (app) {
     let BankName = req.params.BankName;
     let AccountNumber = req.params.AccountNumber;
     let SecurityCode = req.params.SecurityCode;
+  
     let AccountHolder = req.params.AccountHolder;
-   // let ShopID = req.params.ShopID;// recomended same
+    let ShopID = req.params.ShopID;
     let UserAccountID = uuidv4();
     let ValidKey = uuidv4();
     let AccessID = "1";
     let Valid = '';
     let Expiration ='';
-
-    let Recommended = req.params.ShopID;
     //newer version
-    RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName,Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, Recommended, function (response) {
+    if (!isNullOrEmpty(ScreenName)){
+      if (!isNullOrEmpty(ScreenName)){
+        if (!isNullOrEmpty(ScreenName)){
+          if (!isNullOrEmpty(ScreenName)){
+            if (!isNullOrEmpty(ScreenName)){
+    RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName,Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, '1', function (response) {
       if (response != undefined) {
         // res.send(response);
         let status = 200;
@@ -38,14 +42,20 @@ module.exports = function (app) {
         });
       }
     });
+  }
+}
+        }
+      }
+    }
 
+  
   });
 
 
 
 
   app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Expiration/:Expiration/AccountNumber/:AccountNumber/', function (req, res) {
- /*   let Name = req.params.Name;
+    let Name = req.params.Name;
     let SurName = req.params.SurName;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
@@ -56,7 +66,7 @@ module.exports = function (app) {
     let SecurityCode = req.params.SecurityCode;
     let Valid = req.params.Valid;
     let Expiration = req.params.Expiration;
-    let Recommended = req.params.Recommended;
+
 
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
@@ -71,7 +81,7 @@ module.exports = function (app) {
                       let UserAccountID = uuidv4();
                       let ValidKey = uuidv4();
                       let AccessID = "1";
-                      RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration,Recommended, function (response) {
+                      RegisterModel.RegisterAccount(UserAccountID, AccessID, UserName, Password, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, function (response) {
                         if (response != undefined) {
                           // res.send(response);
                           let status = 200;
@@ -127,6 +137,6 @@ module.exports = function (app) {
       res.send({
         UserName
       });
-    }*/
+    }
   });
 }
