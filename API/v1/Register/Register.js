@@ -17,7 +17,6 @@ module.exports = function (app) {
     let BankName = req.params.BankName;
     let AccountNumber = req.params.AccountNumber;
     let SecurityCode = req.params.SecurityCode;
-  
     let AccountHolder = req.params.AccountHolder;
    // let ShopID = req.params.ShopID;// recomended same
     let UserAccountID = uuidv4();
@@ -25,9 +24,9 @@ module.exports = function (app) {
     let AccessID = "1";
     let Valid = '';
     let Expiration ='';
+
     let Recommended = req.params.ShopID;
     //newer version
-    
     RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName,Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, Recommended, function (response) {
       if (response != undefined) {
         // res.send(response);
