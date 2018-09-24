@@ -8,9 +8,9 @@ var async = require("async");
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 
-//approved deposit
 module.exports = function (app) {
-  app.get('/Api/v1/DepositHistory/Update/UserTransactionID/:UserTransactionID', function (req, res) {
+  //approved deposit
+  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID', function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     if (!isNullOrEmpty(UserTransactionID)) {
       DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {
@@ -19,6 +19,26 @@ module.exports = function (app) {
         } else {
           res.send({
             DepositHistoryUpdateApprovedFailed: true
+          });
+        }
+      });
+    } else {
+      res.send({
+        UserTransactionIDMissing: true
+      });
+    }
+  });
+
+  //archived deposit
+  app.get('/Api/v1/DepositHistory/Archived/UserTransactionID/:UserTransactionID', function (req, res) {
+    let UserTransactionID = req.params.UserTransactionID;
+    if (!isNullOrEmpty(UserTransactionID)) {
+      DepositHistoryModel.DepositHistoryUpdateArchived(UserTransactionID, function (response) {
+        if (response != undefined) {
+          res.send(response);
+        } else {
+          res.send({
+            DepositHistoryUpdateArchivedFailed: true
           });
         }
       });
