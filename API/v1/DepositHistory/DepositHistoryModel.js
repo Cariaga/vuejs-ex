@@ -123,6 +123,25 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
       callback(undefined);
     });
   }
+  module.exports.DepositHistoryUserTransactionID = function DepositHistoryUserTransactionID(UserTransactionID,callback){
+    let _UserTransactionID = UserTransactionID;
+    let query = "SELECT UserAccountID,UserTransactionID,Amount FROM sampledb.transactions WHERE UserTransactionID ='"+_UserTransactionID+"'";
+    var promise = new Promise(function(resolve, reject) {
+      DBConnect.DBConnect(query, function (response) {
+         if (response != undefined) {
+           resolve(response);
+         } else {
+           reject();
+         }
+        })
+     });
+     Promise.all([promise]).then(function(response) {
+      callback(response);
+      }, function(){ //if promise fail
+      console.log('something went wrong')
+      callback(undefined);
+    });
+  }
 //    let query3 = "UPDATE `sampledb`.`players` SET `Money` = '30000' WHERE (`UserAccountID` = 'Account8');";
 
   // DepositHistoryUpdateArchived(delete)
