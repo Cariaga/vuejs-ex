@@ -5,11 +5,31 @@ let InGameScoreModel = require("./InGameScoreModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
+
 module.exports = function (app) {
     app.get('/Api/v1/InGameScore/UserAccountID/:UserAccountID/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
-        InGameScoreModel.WinRate(UserAccountID, function (response) {
-            res.send(response);
-        });
+        if (!isNullOrEmpty(UserAccountID)) {
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                if (response == true) {
+                    InGameScoreModel.WinRate(UserAccountID, function (response) {
+                        if (response != undefined) {
+                            res.send(response);
+                        } else {
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }
+                    });
+                } else {
+                    res.send({
+                        UserAccountIDNotExist: true
+                    });
+                }
+            });
+        } else {
+            res.send({
+                InvalidUserAccountID: true
+            });
+        }
     });
 }
