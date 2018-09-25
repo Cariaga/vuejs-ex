@@ -15,10 +15,9 @@ module.exports = function (app) { //MODIFY
     let SeasonID = req.params.SeasonID;
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
-
         if (!isNullOrEmpty(MoveHand)) {
-
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
+            
             HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
               if (response != undefined) {
                 res.send(response);
