@@ -50,7 +50,9 @@ module.exports = function (app) {
                     if (response != undefined) {
                         resolve();
                     } else {
-                        reject({FailedUpdatePlayerSender:true});
+                        reject({
+                            FailedUpdatePlayerSender: true
+                        });
                     }
                 });
 
@@ -60,18 +62,34 @@ module.exports = function (app) {
                     if (response != undefined) {
                         resolve();
                     } else {
-                        reject({FailedUpdatePlayerReciever:true});
+                        reject({
+                            FailedUpdatePlayerReciever: true
+                        });
                     }
                 });
-                resolve();
+
             });
 
             Promise.all([promise3, promise4]).then(function (response) {
-                InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReciver, Amount, Reason, function (response) {
-                    res.send(response);
-                });
+                if(response!=undefined){
+                    InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReciver, Amount, Reason, function (response) {
+                        if(response!=undefined){
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }else{
+                            res.send({FailedRequestTransferHistory:true})
+                        }
+                        
+                     
+                    });
+                }else{
+                    
+                }
+               
+            }, function (error) {
+                res.send(error);
             });
-            res.send(response);
+
         }, function (error) {
             res.send(error);
         });

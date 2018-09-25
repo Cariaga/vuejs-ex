@@ -56,7 +56,7 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
          
-          callback(response[0]);
+          callback(response);
         } else {
           callback(undefined);
         }
