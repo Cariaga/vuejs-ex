@@ -26,6 +26,22 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
     }
   });
 }
+module.exports.AddPlayerFinalCard2 = function AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, callback) {
+  let _UserAccountID = UserAccountID;
+  let _SeasonID = SeasonID;
+  let _Rank = Rank;
+  let _Score = Score;
+  let _Card = Card;
+  let query = "";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
 module.exports.UpdatePlayerFinalCard = function UpdatePlayerFinalCard(UserAccountID, SeasonID, BeforePoints, AfterPoints, WinPoints, callback) {
   let _UserAccountID = UserAccountID;
   let _SeasonID = SeasonID;

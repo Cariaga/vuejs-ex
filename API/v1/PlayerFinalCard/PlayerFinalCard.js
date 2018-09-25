@@ -7,6 +7,67 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 module.exports = function (app) {
+
+    app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/', function (req, res) {
+        let UserAccountID = req.params.UserAccountID;
+        let SeasonID = req.params.SeasonID;
+        let Rank = req.params.Rank;
+        let Score = req.params.Score;
+        let Card = req.params.Card;
+        PlayerFinalCardModel.AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, BeforePoints, AfterPoints, WinPoints, function (response) {
+            res.send(response);
+        });
+
+        if (!isNullOrEmpty(UserAccountID)) {
+            if (!isNullOrEmpty(SeasonID)) {
+                if (!isNullOrEmpty(Rank)) {
+                    if (!isNullOrEmpty(Score)) {
+                        if (!isNullOrEmpty(Card)) {
+                            if (!isNullOrEmpty(BeforePoints)) {
+                                if (!isNullOrEmpty(AfterPoints)) {
+                                    if (!isNullOrEmpty(WinPoints)) {
+                                       
+                                    } else {
+                                        res.send({
+                                            SeasonIDMissing: true
+                                        })
+                                    }
+                                } else {
+                                    res.send({
+                                        RankMissing: true
+                                    })
+                                }
+                            } else {
+                                res.send({
+                                    ScoreMissing: true
+                                })
+                            }
+                        } else {
+                            res.send({
+                                CardMissing: true
+                            })
+                        }
+                    } else {
+                        res.send({
+                            BeforePointsMissing: true
+                        })
+                    }
+                } else {
+                    res.send({
+                        AfterPointsMissing: true
+                    })
+                }
+            } else {
+                res.send({
+                    WinPointsMissing: true
+                })
+            }
+        }
+    });
+
+
+
+/*
     app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/WinPoints/:WinPoints/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
@@ -63,5 +124,5 @@ module.exports = function (app) {
                 })
             }
         }
-    });
+    });*/
 }
