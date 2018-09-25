@@ -10,35 +10,46 @@ module.exports = function (app) {
         let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
         let Chips = req.params.Chips;
-        if(!isNullOrEmpty(UserAccountID)){
-            if(!isNullOrEmpty(UserAccountID)){
-                if(!isNullOrEmpty(Chips)){
-                    InGamePlayChipsModel.isSeasonEnded(UserAccountID,SeasonID,function(response){
-                        if(response==false){
-                            InGamePlayChipsModel.PlayerPoints(UserAccountID,function(response){
-                                let currentPlayerPoints = response[0].CurrentPoints;//points in lobby
+        if (!isNullOrEmpty(UserAccountID)) {
+            if (!isNullOrEmpty(UserAccountID)) {
+                if (!isNullOrEmpty(Chips)) {
+                    InGamePlayChipsModel.isSeasonEnded(UserAccountID, SeasonID, function (response) {
+                        if (response == false) {
+                            InGamePlayChipsModel.PlayerPoints(UserAccountID, function (response) {
+                                let currentPlayerPoints = response[0].CurrentPoints; //points in lobby
                                 console.log(currentPlayerPoints);
-                                if(parseInt(currentPlayerPoints)-parseInt(Chips)>=0){
-
-                                    InGamePlayChipsModel.PlayerSeasonChips(UserAccountID,SeasonID,function(response){
+                                if (parseInt(currentPlayerPoints) - parseInt(Chips) >= 0) {
+                                    InGamePlayChipsModel.PlayerSeasonChips(UserAccountID, SeasonID, function (response) {
                                         let SeasonCurrentPoints = response[0].CurrentPoints; //Current Season Points
-                                        let NewSeasonPoints = parseInt(Chips)+parseInt(SeasonCurrentPoints);
-                                        
-                                        let NewPlayerPoints = parseInt(currentPlayerPoints)-parseInt(Chips);
-                                        InGamePlayChipsModel.PlayerPointsUpdate(UserAccountID,NewPlayerPoints,function(response){
-                                            if(response!=undefined){
-                                                InGamePlayChipsModel.PlayerNewPointsInSeason(UserAccountID,SeasonID,NewSeasonPoints, function (response) {// new season Points
-                                                    res.send(response);
-                                                    });
+                                        let NewSeasonPoints = parseInt(Chips) + parseInt(SeasonCurrentPoints);
+
+                                        let NewPlayerPoints = parseInt(currentPlayerPoints) - parseInt(Chips);
+                                        InGamePlayChipsModel.PlayerPointsUpdate(UserAccountID, NewPlayerPoints, function (response) {
+                                            if (response != undefined) {
+                                                InGamePlayChipsModel.PlayerNewPointsInSeason(UserAccountID, SeasonID, NewSeasonPoints, function (response) { // new season Points
+                                                    if (response != undefined) {
+                                                        res.send(response);
+                                                    } else {
+                                                        res.send({
+                                                            FailedPlayerNewPointsInSeason: true
+                                                        });
+                                                    }
+                                                });
                                             }
                                         });
                                     });
-                                }else{
-                                    res.send({NoMorePoints:true});
+
+                                } else {
+                                    res.send({
+                                        NoMorePoints: true
+                                    });
                                 }
                             });
-                        }else{
-                            res.send({SeasonEnded:true});
+                        } else {
+                            //a season end will indicate both invalid account or season actually ended
+                            res.send({
+                                SeasonEnded: true
+                            });
                         }
                     });
                 }
