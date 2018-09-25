@@ -17,68 +17,64 @@ module.exports = function (app) {
         let Amount = req.params.Amount;
 
         var promise = new Promise(function (resolve, reject) {
-            InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,Amount,function(response){
-                if(response!=undefined){
+            InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender, Amount, function (response) {
+                if (response != undefined) {
                     //console.log("Valid Value "+response.NewMoney>=0);
-                    if(response.NewMoney>=0){
+                    if (response.NewMoney >= 0) {
                         resolve(response);
-                    }else{
-                        reject({NotEnoughSenderPoints:true});
+                    } else {
+                        reject({
+                            NotEnoughSenderPoints: true
+                        });
                     }
-                }else{
+                } else {
                     reject();
                 }
             });
         });
         var promise2 = new Promise(function (resolve, reject) {
-            InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReciver,Amount,function(response){
-                if(response!=undefined){
+            InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReciver, Amount, function (response) {
+                if (response != undefined) {
                     resolve(response);
-                }else{
+                } else {
                     reject();
                 }
             });
         });
-     
-
-
-        Promise.all([promise,promise2]).then(function (response) {
+        Promise.all([promise, promise2]).then(function (response) {
             let NewMoneyOfSender = response[0].NewMoney;
             let NewMoneyOfReciever = response[1].NewMoney;
 
             var promise3 = new Promise(function (resolve, reject) {
-                InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDSender,NewMoneyOfSender,function(response){
-                    if(response!=undefined){
+                InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDSender, NewMoneyOfSender, function (response) { //sender
+                    if (response != undefined) {
                         resolve();
-                    }else{
-
+                    } else {
+                        reject({FailedUpdatePlayerSender:true});
                     }
                 });
-              
+
             });
             var promise4 = new Promise(function (resolve, reject) {
-                 InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDReciver,NewMoneyOfReciever,function(response){
-                    if(response!=undefined){
+                InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDReciver, NewMoneyOfReciever, function (response) { //reciever
+                    if (response != undefined) {
                         resolve();
-                    }else{
-                        
+                    } else {
+                        reject({FailedUpdatePlayerReciever:true});
                     }
                 });
-
                 resolve();
             });
 
-            Promise.all([promise3,promise4]).then(function (response) {
-                
+            Promise.all([promise3, promise4]).then(function (response) {
+                InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReciver, Amount, Reason, function (response) {
+                    res.send(response);
+                });
             });
             res.send(response);
         }, function (error) {
             res.send(error);
         });
 
-/*
-        InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReciver, Amount, Reason, function (response) {
-            res.send(response);
-        });*/
     });
 }
