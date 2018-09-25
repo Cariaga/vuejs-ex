@@ -15,7 +15,7 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
   let _BeforePoints = BeforePoints;
   let _AfterPoints = AfterPoints;
   let _WinPoints = WinPoints;
-  let query = "INSERT INTO `sampledb`.`playerfinalcard` (`UserAccountID`, `SeasonID`, `Rank`, `Score`, `Card`, `BeforePoints`, `AfterPoints`, `WinPoints`) " +
+  let query = "INSERT INTO `sampledb`.`playerfinalcard` (`UserAccountID`, `SeasonID`, `Rank`, `Score`, `Card`,`DateTime`, `BeforePoints`, `AfterPoints`, `WinPoints`) " +
     "VALUES ('" + _UserAccountID + "', '" + _SeasonID + "', '" + _Rank + "', '" + _Score + "', '" + _Card + "', now(), '" + _BeforePoints + "', '" + _AfterPoints + "', '" + _WinPoints + "');"
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
