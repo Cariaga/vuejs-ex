@@ -341,3 +341,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://localhost:8080/Api/v1/InGameSeason/Request/ - Generate UUID
 
 //http://localhost:8080/Api/v1/InGamePlayChips/Add/UserAccountID/Account8/SeasonID/S1/Chips/20/ - in game Add Chips
+
+//http://localhost:8080/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/Account6/UserAccountIDReciver/Account11/Amount/0/Reason/transfer/ - Player Transfer Request

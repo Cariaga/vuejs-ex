@@ -23,10 +23,10 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
     let _SubtractAmount = SubtractAmount;
     let query = 
     "select (SELECT Money FROM sampledb.players where UserAccountID='"+_UserAccountIDReceiver+"') - "+_SubtractAmount+" as NewMoney";
+    console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-          console.log(response);
-          callback(response);
+          callback(response[0]);
         } else {
           callback(undefined);
         }
@@ -36,11 +36,12 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
     let _UserAccountID = UserAccountID;
     let _AddAmount = AddAmount;
     let query = 
-    "select (SELECT Money FROM sampledb.players where UserAccountID='"+_UserAccountID+"') - "+_AddAmount+" as NewMoney";
+    "select (SELECT Money FROM sampledb.players where UserAccountID='"+_UserAccountID+"') + "+_AddAmount+" as NewMoney";
+    console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-          console.log(response);
-          callback(response);
+         
+          callback(response[0]);
         } else {
           callback(undefined);
         }

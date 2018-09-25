@@ -19,7 +19,12 @@ module.exports = function (app) {
         var promise = new Promise(function (resolve, reject) {
             InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,Amount,function(response){
                 if(response!=undefined){
-                    resolve();
+                    console.log("Valid Value "+response.NewMoney>=0);
+                    if(response.NewMoney>=0){
+                        resolve(response);
+                    }else{
+                        reject({NotEnoughSenderPoints:true});
+                    }
                 }else{
                     reject();
                 }
@@ -28,7 +33,7 @@ module.exports = function (app) {
         var promise2 = new Promise(function (resolve, reject) {
             InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReciver,Amount,function(response){
                 if(response!=undefined){
-                    resolve();
+                    resolve(response);
                 }else{
                     reject();
                 }
@@ -43,15 +48,15 @@ module.exports = function (app) {
 
 
         Promise.all([promise,promise2,promise3,promise4]).then(function (response) {
-            re.send(response);
-        }, function () {
-            console.log('something went wrong')
-            callback(undefined);
+            let New
+            res.send(response);
+        }, function (error) {
+            res.send(error);
         });
 
-
+/*
         InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReciver, Amount, Reason, function (response) {
             res.send(response);
-        });
+        });*/
     });
 }
