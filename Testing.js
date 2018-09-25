@@ -345,3 +345,4 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://192.168.254.107:8080/Api/v1/InGameScore/UserAccountID/Account8/ - in game score
 //http://localhost:8080/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/Account6/UserAccountIDReciver/Account11/Amount/0/Reason/transfer/ - Player Transfer Request
 
+//http://192.168.254.107:8080/Api/v1/UserAccountID/Account8/SeasonID/S1/Rank/RK1/Score/0/Card/C2/BeforePoints/1/AfterPoints/1/WinPoints/1/ - player final card insert
