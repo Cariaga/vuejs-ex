@@ -17,23 +17,31 @@ module.exports = function (app) { //MODIFY
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
-            
-            HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
+            DBCheck.isUserAccountIDExist(UserAccountID,function(response){
+              if(response==true){
+                HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      AddHandHistoryFailed: true
+                    });
+                  }
+                });
+              }else{
                 res.send({
-                  AddHandHistoryFailed: true
+                  UserAccountNotExist: true
                 });
               }
+              
+
             });
+            
           } else {
             res.send({
               MoveHandInvalidValue: true
             });
           }
-
-
         } else {
           res.send({
             MoveHandMissing: true
