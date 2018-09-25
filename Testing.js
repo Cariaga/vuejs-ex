@@ -342,4 +342,8 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 
 //http://localhost:8080/Api/v1/InGamePlayChips/Add/UserAccountID/Account8/SeasonID/S1/Chips/20/ - in game Add Chips
 
+<<<<<<< HEAD
 //http://192.168.254.107:8080/Api/v1/InGameScore/UserAccountID/Account8/ - in game score
+=======
+//http://localhost:8080/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/Account6/UserAccountIDReciver/Account11/Amount/0/Reason/transfer/ - Player Transfer Request
+>>>>>>> ea8d31d214245c48862b4571c1f8dd29f3d6ba37

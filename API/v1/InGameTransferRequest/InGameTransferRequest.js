@@ -19,7 +19,12 @@ module.exports = function (app) {
         var promise = new Promise(function (resolve, reject) {
             InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,Amount,function(response){
                 if(response!=undefined){
-                    resolve();
+                    //console.log("Valid Value "+response.NewMoney>=0);
+                    if(response.NewMoney>=0){
+                        resolve(response);
+                    }else{
+                        reject({NotEnoughSenderPoints:true});
+                    }
                 }else{
                     reject();
                 }
@@ -28,30 +33,52 @@ module.exports = function (app) {
         var promise2 = new Promise(function (resolve, reject) {
             InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReciver,Amount,function(response){
                 if(response!=undefined){
-                    resolve();
+                    resolve(response);
                 }else{
                     reject();
                 }
             });
         });
-        var promise3 = new Promise(function (resolve, reject) {
-            resolve();
+     
+
+
+        Promise.all([promise,promise2]).then(function (response) {
+            let NewMoneyOfSender = response[0].NewMoney;
+            let NewMoneyOfReciever = response[1].NewMoney;
+
+            var promise3 = new Promise(function (resolve, reject) {
+                InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDSender,NewMoneyOfSender,function(response){
+                    if(response!=undefined){
+                        resolve();
+                    }else{
+
+                    }
+                });
+              
+            });
+            var promise4 = new Promise(function (resolve, reject) {
+                 InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDReciver,NewMoneyOfReciever,function(response){
+                    if(response!=undefined){
+                        resolve();
+                    }else{
+                        
+                    }
+                });
+
+                resolve();
+            });
+
+            Promise.all([promise3,promise4]).then(function (response) {
+                
+            });
+            res.send(response);
+        }, function (error) {
+            res.send(error);
         });
-        var promise4 = new Promise(function (resolve, reject) {
-            resolve();
-        });
 
-
-        Promise.all([promise,promise2,promise3,promise4]).then(function (response) {
-            re.send(response);
-        }, function () {
-            console.log('something went wrong')
-            callback(undefined);
-        });
-
-
+/*
         InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReciver, Amount, Reason, function (response) {
             res.send(response);
-        });
+        });*/
     });
 }
