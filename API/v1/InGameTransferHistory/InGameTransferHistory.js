@@ -14,7 +14,12 @@ module.exports = function(app){//selection
     app.get('/Api/v1/InGameTransferHistory/UserAccountID/:UserAccountID/', function (req, res) {
       let UserAccountID= req.params.UserAccountID;
       InGameTransferHistoryModel.InGameTransferHistoryByUserAccountID(UserAccountID,function(response){
-        res.send(response);
+        if(response!=undefined){
+          res.send(response);
+        }else{
+          
+        }
+        
       });
     });
 }
