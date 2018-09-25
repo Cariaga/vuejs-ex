@@ -7,52 +7,44 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 module.exports = function (app) {
-    app.get('/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/DateTime/:DateTime/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/WinPoints/:WinPoints/', function (req, res) {
-        let UserAccountID  = req.params.UserAccountID;
+    app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/WinPoints/:WinPoints/', function (req, res) {
+        let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
         let Rank = req.params.Rank;
         let Score = req.params.Score;
         let Card = req.params.Card;
-        let DateTime = req.params.DateTime;
         let BeforePoints = req.params.BeforePoints;
         let AfterPoints = req.params.AfterPoints;
         let WinPoints = req.params.WinPoints;
-
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(SeasonID)) {
                 if (!isNullOrEmpty(Rank)) {
                     if (!isNullOrEmpty(Score)) {
                         if (!isNullOrEmpty(Card)) {
-                            if (!isNullOrEmpty(DateTime)) {
-                                if (!isNullOrEmpty(BeforePoints)) {
-                                    if (!isNullOrEmpty(AfterPoints)) {
-                                        if (!isNullOrEmpty(WinPoints)) {
-                                            PlayerFinalCardModel.AddPlayerFinalCard('Account8', 'S2', 'RK2', '0', 'C3', '1996-05-31 00:00:00', '200', '0', '0',function(response){
-                                                res.send(response);
-                                            });
-                                        } else {
-                                            res.send({
-                                                SeasonIDMissing: true
-                                            })
-                                        }
+                            if (!isNullOrEmpty(BeforePoints)) {
+                                if (!isNullOrEmpty(AfterPoints)) {
+                                    if (!isNullOrEmpty(WinPoints)) {
+                                        PlayerFinalCardModel.AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card, BeforePoints, AfterPoints, WinPoints, function (response) {
+                                            res.send(response);
+                                        });
                                     } else {
                                         res.send({
-                                            RankMissing: true
+                                            SeasonIDMissing: true
                                         })
                                     }
                                 } else {
                                     res.send({
-                                        ScoreMissing: true
+                                        RankMissing: true
                                     })
                                 }
                             } else {
                                 res.send({
-                                    CardMissing: true
+                                    ScoreMissing: true
                                 })
                             }
                         } else {
                             res.send({
-                                DateTimeMissing: true
+                                CardMissing: true
                             })
                         }
                     } else {

@@ -14,7 +14,7 @@ module.exports.Profile = function Profile(UserAccountID, callback) {
           console.log(response);
           callback(response);
         } else {
-          //callback(undefined);
+          callback(undefined);
         }
       });
 }
