@@ -7,48 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
 let http = require('http');
 module.exports = function (app) { //MODIFY
-/* hand dosn't need update
-  app.get('/Api/v1/HandHistory/Update/HandHistoryID/:HandHistoryID/UserAccountID/:UserAccountID/MoveHand/:MoveHand/RoundID/:RoundID/', function (req, res) {
-    let RoundID = req.params.RoundID;
-    let HandHistoryID = req.params.HandHistoryID;
-    let UserAccountID = req.params.UserAccountID;
-    let MoveHand = req.params.UserAccountID;
 
-    if (!isNullOrEmpty(RoundID)) {
-      if (!isNullOrEmpty(HandHistoryID)) {
-        if (!isNullOrEmpty(UserAccountID)) {
-          if (!isNullOrEmpty(MoveHand)) {
-            HandHistoryModel.HandHistoryUpdate(HandHistoryID, UserAccountID, MoveHand, RoundID, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                res.send({
-                  HandHistoryUpdateFailed: true
-                });
-              }
-            });
-          } else {
-            res.send({
-              MoveHandMissing: true
-            });
-          }
-        } else {
-          res.send({
-            UserAccountIDMissing: true
-          });
-        }
-      } else {
-        res.send({
-          HandHistoryIDMissing: true
-        });
-      }
-    } else {
-      res.send({
-        RoundIDMissing: true
-      });
-    }
-
-  });*/
   //INSERT
   app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/', function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
@@ -56,69 +15,31 @@ module.exports = function (app) { //MODIFY
     let SeasonID = req.params.SeasonID;
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
-
         if (!isNullOrEmpty(MoveHand)) {
-
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
-            let UserAccountIDExist = true; //default is false
-            let PlayerExist = true; //default is false
-            async.series([ /*UserAccountIDCheck, PlayerCheck*/ ], function (error, response) {
-
-              if (UserAccountIDExist == true) {
-                if (PlayerExist == true) {
-                  HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
-                    if (response != undefined) {
-                      res.send(response);
-                    } else {
-                      res.send({
-                        AddHandHistoryFailed: true
-                      });
-                    }
-                  });
-                } else {
-                  res.send({
-                    PlayerExist: false
-                  });
-                }
-              } else {
+            DBCheck.isUserAccountIDExist(UserAccountID,function(response){
+              if(response==true){
+                HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      AddHandHistoryFailed: true
+                    });
+                  }
+                });
+              }else{
                 res.send({
-                  UserAccountIDExist: false
+                  UserAccountNotExist: true
                 });
               }
             });
-
-            function UserAccountIDCheck(callback) {
-              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                let obj = response;
-                if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
-                  UserAccountIDExist = true;
-                  callback(null, '1');
-                } else {
-                  UserAccountIDExist = false;
-                  callback(null, '1');
-                }
-              });
-            }
-
-            function PlayerCheck(callback) {
-              DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
-
-                if (response != undefined) {
-                  PlayerExist = true;
-                  callback(null, '1');
-                } else {
-                  PlayerExist = false;
-                  callback(null, '1');
-                }
-              });
-            }
+            
           } else {
             res.send({
               MoveHandInvalidValue: true
             });
           }
-
-
         } else {
           res.send({
             MoveHandMissing: true

@@ -22,27 +22,65 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} ProcessingTIME
  * @param {*} callback
  */
-module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionID, UserName, ContactNumber, BankName, AccountNumber, ApplicationAmount, ExistingAmount, RemainingAmount, callback) {
+//doing
+module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionID, UserAccountID, UserName, ContactNo, BankName, AccountNumber, ApplicationAmount, callback) {
   let _UserTransactionID = UserTransactionID;
+  let _UserAccountID = UserAccountID;
   let _UserName = UserName;
-  let _ContactNumber = ContactNumber;
+  let _ContactNumber = ContactNo;
   let _BankName = BankName;
   let _AccountNumber = AccountNumber;
   let _ApplicationAmount = ApplicationAmount;
-  let _ExistingAmount = ExistingAmount;
-  let _RemainingAmount = RemainingAmount;
-  let query =
-  "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `UserName`, `ContactNumber`, `BankName`, `AccountNumber`, `ApplicationAmount`, `ExistingAmount`, `RemainingAmount`) "+
-  "VALUES ('"+_UserTransactionID+"','"+_UserName+"','"+_ContactNumber+"','"+_BankName+"','"+_AccountNumber+"','"+_ApplicationAmount+"','"+_ExistingAmount+"','"+_RemainingAmount+"')";
 
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
+  let query =
+  "INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)"+
+  "VALUES ('"+_UserAccountID+"','"+_UserTransactionID+"', "+_ApplicationAmount+", 'withdraw');";
+
+  let query2 =
+  "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`,`AccountHolder`, `RequestedDateTime`)"+
+  "VALUES ('"+_UserTransactionID+"','"+_UserName+"', now());";
+
+  let query3 =
+  "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID` ,`ContactNumber`, `BankName`, `AccountNumber`,`RemainingAmount`,`ExistingAmount`) "+
+  " VALUES ('"+_UserTransactionID+"', '"+_ContactNumber+"','"+_BankName+"', '"+_AccountNumber+"', 0 , 0);";
+
+  var promise = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(query, function (response) {
+       if (response != undefined) {
+         resolve();
+        } else {
+          reject();
+        }
+      })
+    });
+    
+    var promise2 = new Promise(function(resolve, reject) {
+      DBConnect.DBConnect(query2, function (response) {
+        if (response != undefined) {
+          resolve();
+        } else {
+          reject();
+        }
+      })
+    });
+    
+    var promise3 = new Promise(function(resolve, reject) {
+      DBConnect.DBConnect(query3, function (response) {
+        if (response != undefined) {
+          resolve();
+        } else {
+          reject();
+        }
+       })
+    });
+   
+   Promise.all([promise,promise2, promise3]).then(function() {
+     console.log('insert withdraw successful');
+     callback(true);
+     }, function(){ //if promise or promise2 fail
+     console.log('something went wrong')
+     callback(undefined);
+   });  
 }
 
 //SELECT *,P.Money-(select Amount from sampledb.transactions as T2 where T2.UserTransactionID='Transaction2' and  T.TransactionStatus='pending' and T.TransactionType='withdraw') as NewMoney FROM sampledb.transactions as T Join withdraw as W on W.UserTransactionID = T.UserTransactionID Join players as P on P.UserAccountID=T.UserAccountID where T.TransactionType='withdraw' and T.UserTransactionID='Transaction2' and T.TransactionStatus='pending';
