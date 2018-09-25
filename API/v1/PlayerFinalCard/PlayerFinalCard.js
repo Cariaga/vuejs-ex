@@ -7,7 +7,6 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 module.exports = function (app) {
-
     app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
@@ -20,16 +19,14 @@ module.exports = function (app) {
                     if (!isNullOrEmpty(Score)) {
                         if (!isNullOrEmpty(Card)) {
                             DBCheck.isUserAccountInSeasonIDExist(UserAccountID,SeasonID,function(response){
-                                if(response==true){
+                                if(response==false){
                                     PlayerFinalCardModel.AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, function (response) {
                                         res.send(response);
                                     });
                                 }else{
-                                    res.send({AccountNotFound:true});
+                                    res.send({AccountAlreadyInSeason:true});
                                 }
-                               
                             });
-                            
                         } else {
                             res.send({
                                 SeasonIDMissing: true
