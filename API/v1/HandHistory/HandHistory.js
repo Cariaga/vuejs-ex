@@ -33,8 +33,6 @@ module.exports = function (app) { //MODIFY
                   UserAccountNotExist: true
                 });
               }
-              
-
             });
             
           } else {
