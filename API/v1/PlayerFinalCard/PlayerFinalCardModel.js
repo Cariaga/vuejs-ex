@@ -32,7 +32,8 @@ module.exports.AddPlayerFinalCard2 = function AddPlayerFinalCard2(UserAccountID,
   let _Rank = Rank;
   let _Score = Score;
   let _Card = Card;
-  let query = "";
+  let query = "INSERT INTO `sampledb`.`playerfinalcard` " +
+  "SET UserAccountID = '" + _UserAccountID + "', SeasonID = '" + _SeasonID + "', `Rank` = '" + _Rank + "', Score = '" + _Score + "', Card = '" + _Card + "';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);

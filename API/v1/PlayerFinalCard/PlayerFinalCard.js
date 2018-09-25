@@ -14,7 +14,7 @@ module.exports = function (app) {
         let Rank = req.params.Rank;
         let Score = req.params.Score;
         let Card = req.params.Card;
-        
+
         PlayerFinalCardModel.AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, function (response) {
             res.send(response);
         });
