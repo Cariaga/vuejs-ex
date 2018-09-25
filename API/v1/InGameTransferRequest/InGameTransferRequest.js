@@ -15,6 +15,7 @@ module.exports = function(app){
       let UserAccountIDReciver = req.params.UserAccountIDReciver;
       let Reason = req.params.Reason;
       let Amount = req.params.Amount;
+      
       InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender,UserAccountIDReciver,Amount,Reason,function(response){
           res.send(response);
       });
