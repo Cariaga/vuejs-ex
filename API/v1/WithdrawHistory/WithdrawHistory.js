@@ -5,7 +5,9 @@ let WithdrawHistoryModel = require("../WithdrawHistory/WithdrawHistoryModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var beautify = require("json-beautify");
 var uuidv4 = require('uuid/v4');
+var async = require("async");
 let http = require('http');
+
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
@@ -53,45 +55,58 @@ module.exports = function (app) { //MODIFY
   });
 
 
-
-  app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/UserName/:UserName/UserName/:UserName/UserName/:UserName/UserName/:UserName/', function (req, res) {
+  //doing
+  app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/AccountNumber/:AccountNumber/ApplicationAmount/:ApplicationAmount/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
     let ContactNo = req.params.ContactNo;
     let BankName = req.params.BankName;
     let AccountNumber = req.params.AccountNumber;
     let ApplicationAmount = req.params.ApplicationAmount;
-    let RemainingAmount = req.params.RemainingAmount;
-    let ExistingAmount = req.params.ExistingAmount;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(UserName)) {
         if (!isNullOrEmpty(ContactNo)) {
           if (!isNullOrEmpty(BankName)) {
             if (!isNullOrEmpty(AccountNumber)) {
               if (!isNullOrEmpty(ApplicationAmount)) {
-                if (!isNullOrEmpty(RemainingAmount)) {
-                  if (!isNullOrEmpty(ExistingAmount)) {
+                
+                async.series([IsUserAccountIDExistCheck], function (error, response) {
+                  if (isUserAccountIDFound == true) {
 
-                    WithdrawHistoryModel.AddWithdrawHistory(UserTransactionID, UserName, ContactNumber, BankName, AccountNumber, ApplicationAmount, ExistingAmount, RemainingAmount, function (response) {
-                      if (response != undefined) {
-                        res.send(response);
+                    let UserTransactionID = uuidv4();
+                    
+                    WithdrawHistoryModel.AddWithdrawHistory(UserTransactionID, UserAccountID, UserName, ContactNo, BankName, AccountNumber, ApplicationAmount, function (response) {
+                      if (response) {
+                        var status = 200;
+                        res.status(status).end(http.STATUS_CODES[status]);
                       } else {
                         res.send({
-                          AddWithdrawHistoryFailed: true
+                          AddDepositFailed: true
                         });
                       }
                     });
+
+
                   } else {
                     res.send({
-                      ExistingAmountMissing: true
+                      IsUserAccountIDExist: false
                     });
                   }
-                } else {
-                  res.send({
-                    RemainingAmountMissing: true
+                });
+
+                function IsUserAccountIDExistCheck(callback) {
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    if (response != undefined) {
+                      isUserAccountIDFound = true;
+                      callback(null, '1');
+                    } else {
+                      isUserAccountIDFound = false;
+                      callback(null, '1');
+                    }
                   });
                 }
-              } else {
+              }
+               else {
                 res.send({
                   ApplicationAmountMissing: true
                 });
