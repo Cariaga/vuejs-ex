@@ -259,5 +259,22 @@ module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccoun
     } else {
       callback(false);
     }
+  }); 
+}
+
+module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDExist(UserAccountID, SeasonID, callback) {
+  let _UserAccountID = UserAccountID;
+  let _SeasonID = SeasonID;
+  let query =
+  "SELECT UserAccountID, SeasonID FROM `sampledb`.`playerfinalcard` " +
+  "WHERE UserAccountID = '"+_UserAccountID+"' AND SeasonID = '"+_SeasonID+"' ";
+ 
+  DBConnect.DBConnect(query,function(response){
+    if(response[0].UserAccountID==_UserAccountID && response[0].SeasonID == _SeasonID){
+      console.log(response);
+      callback(true);
+    }else{
+      callback(false);
+    }
   });
 }
