@@ -96,9 +96,9 @@ const mysql = require('mysql2');
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log('UserAccountID exist');
-        callback(response);
+        callback(true);
       }else{
-        callback(undefined);
+        callback(false);
         console.log('UserAccountID does not exist');
       }
     });
