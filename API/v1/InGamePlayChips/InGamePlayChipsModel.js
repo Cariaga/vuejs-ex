@@ -67,7 +67,8 @@ module.exports.PlayerNewPointsInSeason = function PlayerNewPointsInSeason(UserAc
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let _Points = Points;
-    let query = "UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '"+_Points+"' WHERE (`UserAccountID` = '"+_UserAccountID+"' and SeasonID='"+_SeasonID+"');";
+    let query = "UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = "+_Points+" WHERE (`UserAccountID` = '"+_UserAccountID+"' and SeasonID='"+_SeasonID+"');";
+    console.log(query);
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);
