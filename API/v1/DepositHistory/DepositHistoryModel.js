@@ -175,8 +175,6 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   
     let query2 = 'UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()'+
                 " WHERE (UserTransactionID = '"+_UserTransactionID+"');";
-    console.log(query)
-    console.log(query2)
    
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
