@@ -9,26 +9,49 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 let InGameTransferRequestModel = require('./InGameTransferRequestModel');
 let http = require('http');
-module.exports = function(app){
+module.exports = function (app) {
     app.get('/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/:UserAccountIDSender/UserAccountIDReciver/:UserAccountIDReciver/Amount/:Amount/Reason/:Reason/', function (req, res) {
-      let UserAccountIDSender = req.params.UserAccountIDSender;
-      let UserAccountIDReciver = req.params.UserAccountIDReciver;
-      let Reason = req.params.Reason;
-      let Amount = req.params.Amount;
- 
-      var promise = new Promise(function(resolve, reject) {
-        
-       });
-       Promise.all([promise]).then(function(response) {
-        callback(response);
-        }, function(){ //if promise fail
-        console.log('something went wrong')
-        callback(undefined);
-      });
+        let UserAccountIDSender = req.params.UserAccountIDSender;
+        let UserAccountIDReciver = req.params.UserAccountIDReciver;
+        let Reason = req.params.Reason;
+        let Amount = req.params.Amount;
+
+        var promise = new Promise(function (resolve, reject) {
+            InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,Amount,function(response){
+                if(response!=undefined){
+                    resolve();
+                }else{
+                    reject();
+                }
+            });
+        });
+        var promise2 = new Promise(function (resolve, reject) {
+            InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReciver,Amount,function(response){
+                if(response!=undefined){
+                    resolve();
+                }else{
+                    reject();
+                }
+            });
+        });
+        var promise3 = new Promise(function (resolve, reject) {
+            resolve();
+        });
+        var promise4 = new Promise(function (resolve, reject) {
+            resolve();
+        });
 
 
-      InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender,UserAccountIDReciver,Amount,Reason,function(response){
-          res.send(response);
-      });
+        Promise.all([promise,promise2,promise3,promise4]).then(function (response) {
+            re.send(response);
+        }, function () {
+            console.log('something went wrong')
+            callback(undefined);
+        });
+
+
+        InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReciver, Amount, Reason, function (response) {
+            res.send(response);
+        });
     });
 }
