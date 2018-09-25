@@ -17,7 +17,8 @@ module.exports = function(app){//selection
         if(response!=undefined){
           res.send(response);
         }else{
-          
+          let status = 404;
+          res.status(status).end(http.STATUS_CODES[status]);
         }
         
       });
