@@ -47,3 +47,18 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
         }
       });
   }
+  module.exports.UpdatePlayerMoney = function PlayerNewMoneyAdd(UserAccountID, NewAmount,callback) {
+    let _UserAccountID = UserAccountID;
+    let _NewAmount = NewAmount;
+    let query = 
+    "UPDATE `sampledb`.`players` SET `Money` = '"+_NewAmount+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+    console.log(query);
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+         
+          callback(response[0]);
+        } else {
+          callback(undefined);
+        }
+      });
+  }

@@ -19,7 +19,7 @@ module.exports = function (app) {
         var promise = new Promise(function (resolve, reject) {
             InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,Amount,function(response){
                 if(response!=undefined){
-                    console.log("Valid Value "+response.NewMoney>=0);
+                    //console.log("Valid Value "+response.NewMoney>=0);
                     if(response.NewMoney>=0){
                         resolve(response);
                     }else{
@@ -39,16 +39,26 @@ module.exports = function (app) {
                 }
             });
         });
-        var promise3 = new Promise(function (resolve, reject) {
-            resolve();
-        });
-        var promise4 = new Promise(function (resolve, reject) {
-            resolve();
-        });
+     
 
 
-        Promise.all([promise,promise2,promise3,promise4]).then(function (response) {
-            let New
+        Promise.all([promise,promise2]).then(function (response) {
+            let NewMoneyOfSender = response[0].NewMoney;
+            let NewMoneyOfReciever = response[1].NewMoney;
+
+            var promise3 = new Promise(function (resolve, reject) {
+                resolve();
+            });
+            var promise4 = new Promise(function (resolve, reject) {
+                resolve();
+            });
+
+            Promise.all([promise3,promise4]).then(function (response) {
+                
+            });
+
+
+           
             res.send(response);
         }, function (error) {
             res.send(error);
