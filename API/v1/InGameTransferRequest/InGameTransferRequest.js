@@ -47,19 +47,30 @@ module.exports = function (app) {
             let NewMoneyOfReciever = response[1].NewMoney;
 
             var promise3 = new Promise(function (resolve, reject) {
-                resolve();
+                InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDSender,NewMoneyOfSender,function(response){
+                    if(response!=undefined){
+                        resolve();
+                    }else{
+
+                    }
+                });
+              
             });
             var promise4 = new Promise(function (resolve, reject) {
-                
+                 InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDReciver,NewMoneyOfReciever,function(response){
+                    if(response!=undefined){
+                        resolve();
+                    }else{
+                        
+                    }
+                });
+
                 resolve();
             });
 
             Promise.all([promise3,promise4]).then(function (response) {
                 
             });
-
-
-           
             res.send(response);
         }, function (error) {
             res.send(error);
