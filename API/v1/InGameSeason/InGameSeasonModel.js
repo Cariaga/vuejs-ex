@@ -5,3 +5,17 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+
+module.exports.InGameSeasonClear = function InGameSeasonClear(SeasonID, callback) {
+    let _SeasonID = SeasonID;
+    let query ="UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '0' WHERE (`SeasonID` = '"+_SeasonID+"')";
+    console.log(query);
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
+  }
