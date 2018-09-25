@@ -20,9 +20,14 @@ module.exports = function (app) {
                     if (!isNullOrEmpty(Score)) {
                         if (!isNullOrEmpty(Card)) {
                             DBCheck.isUserAccountInSeasonIDExist(UserAccountID,SeasonID,function(response){
-                                PlayerFinalCardModel.AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, function (response) {
-                                    res.send(response);
-                                });
+                                if(response==true){
+                                    PlayerFinalCardModel.AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, function (response) {
+                                        res.send(response);
+                                    });
+                                }else{
+                                    res.send({AccountNotFound:true});
+                                }
+                               
                             });
                             
                         } else {
