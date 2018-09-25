@@ -13,7 +13,12 @@ module.exports = function (app) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
                     InGameScoreModel.WinRate(UserAccountID, function (response) {
-                        res.send(response);
+                        if (response != undefined) {
+                            res.send(response);
+                        } else {
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }
                     });
                 } else {
                     res.send({
