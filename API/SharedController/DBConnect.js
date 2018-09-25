@@ -24,9 +24,11 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
     connection.query(RawQuery,
       function (err, results, fields) {
        // console.log(err);//remove this to see real error
+     
         if(err!=undefined){
+          console.log(err.sqlState);
           if(err.sqlState=='23000'){
-            console.log("Key Duplicate");
+            console.log("Foreign Key Error or Duplicate");
             callback(undefined);
           }
           else if(err.sqlState=='02000'){
