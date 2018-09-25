@@ -44,3 +44,5 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
     }
   });
 }
+
+//SELECT *,P.Money-(select Amount from sampledb.transactions as T2 where T2.UserTransactionID='Transaction2' and  T.TransactionStatus='pending' and T.TransactionType='withdraw') as NewMoney FROM sampledb.transactions as T Join withdraw as W on W.UserTransactionID = T.UserTransactionID Join players as P on P.UserAccountID=T.UserAccountID where T.TransactionType='withdraw' and T.UserTransactionID='Transaction2' and T.TransactionStatus='pending';

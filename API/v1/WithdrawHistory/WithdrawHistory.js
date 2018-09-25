@@ -14,7 +14,6 @@ module.exports = function (app) { //MODIFY
     let ApprovedTIME = req.params.ApprovedTIME;
     if (!isNullOrEmpty(WithdrawHistoryID)) {
       if (!isNullOrEmpty(UserAccountID)) {
-
         let ApprovedDATEParsed = moment(ApprovedDATE, "YYYY-MM-DD");
         let isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
         if (!isNullOrEmpty(ApprovedDATE) && isValidApprovedDATEParsed == true && ApprovedDATEParsed.year() > 1959) {

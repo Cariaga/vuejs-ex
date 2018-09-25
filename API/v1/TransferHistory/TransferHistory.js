@@ -35,7 +35,6 @@ module.exports = function (app) { //MODIFY
       if (!isNullOrEmpty(UserAccountIDSender)) {
         if (!isNullOrEmpty(Amount)) {
           if (!isNullOrEmpty(Reason)) {
-        
             TransferHistoryModel.RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason, function (response) {
               if (response != undefined) {
                 res.send(response);
