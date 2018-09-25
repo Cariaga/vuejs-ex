@@ -19,9 +19,12 @@ module.exports = function (app) {
                 if (!isNullOrEmpty(Rank)) {
                     if (!isNullOrEmpty(Score)) {
                         if (!isNullOrEmpty(Card)) {
-                            PlayerFinalCardModel.AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, function (response) {
-                                res.send(response);
+                            DBCheck.isUserAccountInSeasonIDExist(UserAccountID,SeasonID,function(response){
+                                PlayerFinalCardModel.AddPlayerFinalCard2(UserAccountID, SeasonID, Rank, Score, Card, function (response) {
+                                    res.send(response);
+                                });
                             });
+                            
                         } else {
                             res.send({
                                 SeasonIDMissing: true
