@@ -13,6 +13,7 @@ module.exports = function (app) {
         let UserAccountID = req.params.UserAccountID;
         if(!isNullOrEmpty(UserAccountID)){
             let UserAccountID = req.params.UserAccountID;
+            
         InGameMoneyModel.Money(UserAccountID, function (response) {
             res.send(response);
         });
