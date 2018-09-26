@@ -6,42 +6,49 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
-module.exports = function (app) {//MODIFY
+module.exports = function (app) { //MODIFY
   app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Email = req.params.Email;
     let UserAccountIDExist = false;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Email)) {
-        async.series([UserAccountCheck], function (error, response) {
-          if (UserAccountIDExist == true) {
-            UserInfoModel.UserInfoUpdateEmail(UserAccountID, Email, function (response) {
-              if (response != undefined) {
-                res.send(response);
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+          if (response == true) {
+            async.series([UserAccountCheck], function (error, response) {
+              if (UserAccountIDExist == true) {
+                UserInfoModel.UserInfoUpdateEmail(UserAccountID, Email, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      UserAccountIDUpdateEmailFailed: true
+                    });
+                  }
+                });
               } else {
                 res.send({
-                  UserAccountIDUpdateEmailFailed: true
+                  UserAccountIDExist: false
                 });
               }
             });
+
+            function UserAccountCheck(callback) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                if (response != undefined) {
+                  UserAccountIDExist = true;
+                  callback(null, '1');
+                } else {
+                  UserAccountIDExist = false;
+                  callback(null, '1');
+                }
+              });
+            }
           } else {
-            res.send({
-              UserAccountIDExist: false
-            });
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
-
-        function UserAccountCheck(callback) {
-          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-            if (response != undefined) {
-              UserAccountIDExist = true;
-              callback(null, '1');
-            } else {
-              UserAccountIDExist = false;
-              callback(null, '1');
-            }
-          });
-        }
       } else {
         res.send({
           EmailMissing: true
@@ -62,38 +69,44 @@ module.exports = function (app) {//MODIFY
       if (!isNullOrEmpty(Email)) {
         if (!isNullOrEmpty(PhoneNumber)) {
           if (!isNullOrEmpty(TelephoneNumber)) {
-            let UserAccountIDExist = false;
-            async.series([UserAccountIDCheck], function (error, response) {
-              if (UserAccountIDExist == true) {
-                UserInfoModel.UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
-                  if (!isNullOrEmpty(response) && response != undefined) {
-                    res.send(response);
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+              if (response == true) {
+                let UserAccountIDExist = false;
+                async.series([UserAccountIDCheck], function (error, response) {
+                  if (UserAccountIDExist == true) {
+                    UserInfoModel.UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
+                      if (!isNullOrEmpty(response) && response != undefined) {
+                        res.send(response);
+                      } else {
+                        res.send({
+                          UserInfoUpdateFailed: true
+                        });
+                      }
+                    });
                   } else {
                     res.send({
-                      UserInfoUpdateFailed: true
+                      UserAccountIDExist: false
                     });
                   }
                 });
+
+                function UserAccountIDCheck(callback) {
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    let obj = response;
+                    if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
+                      UserAccountIDExist = true;
+                      callback(null, '1');
+                    } else {
+                      UserAccountIDExist = false;
+                      callback(null, '1');
+                    }
+                  });
+                }
               } else {
-                res.send({
-                  UserAccountIDExist: false
-                });
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             });
-
-            function UserAccountIDCheck(callback) {
-              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                let obj = response;
-                if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
-                  UserAccountIDExist = true;
-                  callback(null, '1');
-                } else {
-                  UserAccountIDExist = false;
-                  callback(null, '1');
-                }
-              });
-            }
-
           } else {
             res.send({
               TelephoneNumberExist: false
@@ -131,79 +144,86 @@ module.exports = function (app) {//MODIFY
       if (!isNullOrEmpty(Email)) {
         if (!isNullOrEmpty(PhoneNumber)) {
           if (!isNullOrEmpty(TelephoneNumber)) {
-            let UserAccountIDExist = false;
-            let UserInfoExist = false;
-            let isEmailExist = false;
-            async.series([UserAccountIDCheck, UserInfoCheck, UserInfoEmailExistCheck], function (error, response) {
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+              if (response == true) {
+                let UserAccountIDExist = false;
+                let UserInfoExist = false;
+                let isEmailExist = false;
+                async.series([UserAccountIDCheck, UserInfoCheck, UserInfoEmailExistCheck], function (error, response) {
 
-              if (UserAccountIDExist == true) {
-                if (UserInfoExist == false) { //must not exist already
-                  if (isEmailExist == false) { //must Be False
-                    UserInfoModel.AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
-                      if (response != undefined) {
-                        res.send(response);
+                  if (UserAccountIDExist == true) {
+                    if (UserInfoExist == false) { //must not exist already
+                      if (isEmailExist == false) { //must Be False
+                        UserInfoModel.AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          } else {
+                            res.send({
+                              AddUserInfoFailed: true
+                            });
+                          }
+                        });
                       } else {
                         res.send({
-                          AddUserInfoFailed: true
+                          UserInfoExist: true
                         });
                       }
-                    });
+
+                    } else {
+                      res.send({
+                        UserInfoExist: true
+                      });
+                    }
                   } else {
                     res.send({
-                      UserInfoExist: true
+                      UserAccountIDExist: true
                     });
                   }
+                });
 
-                } else {
-                  res.send({
-                    UserInfoExist: true
+                function UserAccountIDCheck(callback) {
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    let obj = response;
+                    if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
+                      UserAccountIDExist = true;
+                      callback(null, '1');
+                    } else {
+                      UserAccountIDExist = false;
+                      callback(null, '1');
+                    }
+                  });
+                }
+
+                function UserInfoCheck(callback) {
+                  DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
+                    if (response != undefined) {
+                      UserInfoExist = true;
+                      callback(null, '3');
+                    } else {
+                      UserInfoExist = false;
+                      callback(null, '3');
+                    }
+                  });
+                }
+
+                function UserInfoEmailExistCheck(callback) {
+                  DBCheck.UserInfoEmailExist(Email, function (response) {
+                    let obj = response;
+                    if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].Email == Email) {
+                      isEmailExist = true;
+                      callback(null, 2);
+
+                    } else {
+                      isEmailExist = false;
+                      callback(null, 2);
+                    }
                   });
                 }
               } else {
-                res.send({
-                  UserAccountIDExist: true
-                });
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             });
-
-            function UserAccountIDCheck(callback) {
-              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                let obj = response;
-                if (!isNullOrEmpty(obj) && obj != undefined && obj[0].UserAccountID == UserAccountID) {
-                  UserAccountIDExist = true;
-                  callback(null, '1');
-                } else {
-                  UserAccountIDExist = false;
-                  callback(null, '1');
-                }
-              });
-            }
-
-            function UserInfoCheck(callback) {
-              DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
-                if (response != undefined) {
-                  UserInfoExist = true;
-                  callback(null, '3');
-                } else {
-                  UserInfoExist = false;
-                  callback(null, '3');
-                }
-              });
-            }
-
-            function UserInfoEmailExistCheck(callback) {
-              DBCheck.UserInfoEmailExist(Email, function (response) {
-                let obj = response;
-                if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].Email == Email) {
-                  isEmailExist = true;
-                  callback(null, 2);
-
-                } else {
-                  isEmailExist = false;
-                  callback(null, 2);
-                }
-              });
-            }
           } else {
             res.send({
               TelephoneNumberMissing: true
@@ -267,6 +287,3 @@ module.exports = function (app) {//MODIFY
     });
   });
 }
-
-
-

@@ -15,7 +15,7 @@ module.exports = function (app) { //SELECTION
         res.send(response);
       } else {
         let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
+        res.status(status).end(http.STATUS_CODES[status]);
       }
     });
   });
@@ -24,38 +24,45 @@ module.exports = function (app) { //SELECTION
     let Column = req.params.Column;
     let Value = req.params.Value;
 
-     if (!isNullOrEmpty(Column)) {
-       if (!isNullOrEmpty(Value)) {
-         OneOnOneModel.SupportSearch(Column, Value, function (response) {
-           if (response != undefined) {
-             console.log("Found");
-             res.send(response);
-           } else {
+    if (!isNullOrEmpty(Column)) {
+      if (!isNullOrEmpty(Value)) {
+        OneOnOneModel.SupportSearch(Column, Value, function (response) {
+          if (response != undefined) {
+            console.log("Found");
+            res.send(response);
+          } else {
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
-           }
-         });
-       } else {
-         res.send({
-           InvalidValue: true
-         });
-       }
-     } else {
-       res.send({
-         InvalidColumn: true
-       });
-     }
-   });
+          }
+        });
+      } else {
+        res.send({
+          InvalidValue: true
+        });
+      }
+    } else {
+      res.send({
+        InvalidColumn: true
+      });
+    }
+  });
 
-   app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
+  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Answer = req.params.Answer;
 
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Answer)) {
-        OneOnOneModel.WriteSupportAnswerUpdate(UserAccountID, Answer, function (response) {
-          if (response != undefined) {
-            res.send(response);
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+          if (response == true) {
+            OneOnOneModel.WriteSupportAnswerUpdate(UserAccountID, Answer, function (response) {
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
+              }
+            });
           } else {
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
@@ -79,11 +86,18 @@ module.exports = function (app) { //SELECTION
 
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(SupportTicketID)) {
-        OneOnOneModel.WriteSupportTicketID(UserAccountID, SupportTicketID, function (response) {
-          if (response != undefined) {
-            res.send(response);
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+          if (response == true) {
+            OneOnOneModel.WriteSupportTicketID(UserAccountID, SupportTicketID, function (response) {
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                res.send(undefined);
+              }
+            });
           } else {
-            res.send(undefined);
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
       } else {
@@ -106,9 +120,16 @@ module.exports = function (app) { //SELECTION
     if (!isNullOrEmpty(SupportTicketID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Answer)) {
-          OneOnOneModel.WriteSupportAnswerUpdate(SupportTicketID, UserAccountID, Answer, function (response) {
-            if (response != undefined) {
-              res.send(response);
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+              OneOnOneModel.WriteSupportAnswerUpdate(SupportTicketID, UserAccountID, Answer, function (response) {
+                if (response != undefined) {
+                  res.send(response);
+                } else {
+                  let status = 404;
+                  res.status(status).end(http.STATUS_CODES[status]);
+                }
+              });
             } else {
               let status = 404;
               res.status(status).end(http.STATUS_CODES[status]);

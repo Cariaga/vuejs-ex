@@ -11,9 +11,16 @@ module.exports = function (app) {
     app.get('/Api/v1/Profile/UserAccountID/:UserAccountID/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
 
-        ProfileModel.Profile(UserAccountID, function (response) {
-            if (response != undefined) {
-                res.send(response);
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+                ProfileModel.Profile(UserAccountID, function (response) {
+                    if (response != undefined) {
+                        res.send(response);
+                    } else {
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                    }
+                });
             } else {
                 let status = 404;
                 res.status(status).end(http.STATUS_CODES[status]);

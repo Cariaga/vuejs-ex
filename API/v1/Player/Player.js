@@ -13,80 +13,87 @@ module.exports = function (app) { //MODIFY
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Point)) {
         if (validator.isInt(Point) == true) {
-          let UserAccountIDExist = false;
-          let CurrentPoints = undefined;
-          async.series([UserAccountIDCheck, PlayerCurrentPointsCheck], function (error, response) {
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+              let UserAccountIDExist = false;
+              let CurrentPoints = undefined;
+              async.series([UserAccountIDCheck, PlayerCurrentPointsCheck], function (error, response) {
 
-            if (UserAccountIDExist == true) {
-              let NewPoints = parseInt(CurrentPoints) + parseInt(Point);
-              if (!(parseInt(Point) < 0)) {
-                if (parseInt(Point) != 0) {
-                  if (NewPoints >= 0) {
+                if (UserAccountIDExist == true) {
+                  let NewPoints = parseInt(CurrentPoints) + parseInt(Point);
+                  if (!(parseInt(Point) < 0)) {
+                    if (parseInt(Point) != 0) {
+                      if (NewPoints >= 0) {
 
-                    PlayerModel.PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
-                      if (response != undefined) {
-                        res.send(response);
-                      } else {
-                        res.send({
-                          PlayerUpdatePointFailed: true
+                        PlayerModel.PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          } else {
+                            res.send({
+                              PlayerUpdatePointFailed: true
+                            });
+                          }
                         });
                       }
+                    } else {
+                      res.send({
+                        NothingToAdd: true
+                      });
+                    }
+                  } else {
+                    res.send({
+                      IsPointNegativeValue: true
                     });
                   }
+
                 } else {
                   res.send({
-                    NothingToAdd: true
+                    UserAccountIDExist: false
                   });
                 }
-              } else {
-                res.send({
-                  IsPointNegativeValue: true
-                });
+
+
+              });
+
+              function UserAccountIDCheck(callback) {
+                if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
+                  DBCheck.DBCheckisUserAccountIDExist(UserAccountID, function (response) {
+                    let obj = response;
+                    if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
+                      UserAccountIDExist = true;
+                      callback(null, '1');
+                    } else {
+                      UserAccountIDExist = false;
+                      callback(null, '1');
+                    }
+                  });
+                } else {
+
+                  callback(null, '1');
+                }
               }
 
+              function PlayerCurrentPointsCheck(callback) {
+                if (UserAccountIDExist != undefined) {
+                  DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
+                    let obj = response;
+                    if (obj != undefined && obj[0].CurrentPoints != undefined) {
+                      CurrentPoints = obj[0].CurrentPoints;
+                      callback(null, '1');
+                    } else {
+                      CurrentPoints = undefined;
+                      callback(null, '1');
+                    }
+                  });
+                } else {
+                  callback(null, '1');
+                }
+              }
             } else {
-              res.send({
-                UserAccountIDExist: false
-              });
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
             }
-
-
           });
-
-          function UserAccountIDCheck(callback) {
-            if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
-              DBCheck.DBCheckisUserAccountIDExist(UserAccountID, function (response) {
-                let obj = response;
-                if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-                  UserAccountIDExist = true;
-                  callback(null, '1');
-                } else {
-                  UserAccountIDExist = false;
-                  callback(null, '1');
-                }
-              });
-            } else {
-
-              callback(null, '1');
-            }
-          }
-
-          function PlayerCurrentPointsCheck(callback) {
-            if (UserAccountIDExist != undefined) {
-              DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
-                let obj = response;
-                if (obj != undefined && obj[0].CurrentPoints != undefined) {
-                  CurrentPoints = obj[0].CurrentPoints;
-                  callback(null, '1');
-                } else {
-                  CurrentPoints = undefined;
-                  callback(null, '1');
-                }
-              });
-            } else {
-              callback(null, '1');
-            }
-          }
         } else {
           res.send({
             PointInvalidValue: true
@@ -108,38 +115,45 @@ module.exports = function (app) { //MODIFY
     let CurrentRoomName = req.params.CurrentRoomName;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(CurrentRoomName)) {
-        let UserAccountIDExist = false;
-        async.series([UserAccountIDCheck], function (error, response) {
-          if (UserAccountIDExist == true) {
-            PlayerModel.PayerUpdateRoomName(UserAccountID, CurrentRoomName, function (response) {
-              if (response != undefined) {
-                res.send(response);
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+          if (response == true) {
+            let UserAccountIDExist = false;
+            async.series([UserAccountIDCheck], function (error, response) {
+              if (UserAccountIDExist == true) {
+                PlayerModel.PayerUpdateRoomName(UserAccountID, CurrentRoomName, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      PayerUpdateRoomNameUpdateFailed: true
+                    });
+                  }
+                });
               } else {
                 res.send({
-                  PayerUpdateRoomNameUpdateFailed: true
+                  UserAccountIDExist: false
                 });
               }
             });
+
+            function UserAccountIDCheck(callback) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                let obj = response;
+                if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
+                  UserAccountIDExist = true;
+                  callback(null, '1');
+                } else {
+                  UserAccountIDExist = false;
+                  callback(null, '1');
+                }
+              });
+            }
+
           } else {
-            res.send({
-              UserAccountIDExist: false
-            });
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
-
-        function UserAccountIDCheck(callback) {
-          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-            let obj = response;
-            if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-              UserAccountIDExist = true;
-              callback(null, '1');
-            } else {
-              UserAccountIDExist = false;
-              callback(null, '1');
-            }
-          });
-        }
-
       } else {
         res.send({
           CurrentRoomNameEmpty: true
@@ -167,13 +181,20 @@ module.exports = function (app) { //MODIFY
             if (!isNullOrEmpty(Name)) {
               if (!isNullOrEmpty(Surname)) {
                 if (!isNullOrEmpty(CurrentRoomName)) {
-                  PlayerModel.PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
-                    if (response != undefined) {
-                      res.send(response);
-                    } else {
-                      res.send({
-                        PlayerUpdateFailed: true
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    if (response == true) {
+                      PlayerModel.PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
+                        if (response != undefined) {
+                          res.send(response);
+                        } else {
+                          res.send({
+                            PlayerUpdateFailed: true
+                          });
+                        }
                       });
+                    } else {
+                      let status = 404;
+                      res.status(status).end(http.STATUS_CODES[status]);
                     }
                   });
                 } else {
@@ -218,87 +239,95 @@ module.exports = function (app) { //MODIFY
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Point)) {
         if (validator.isInt(Point) == true) {
-          let UserAccountIDExist = false;
-          let CurrentPoints = undefined;
-          async.series([UserAccountIDCheck, PlayerCurrentPointsCheck], function (error, response) {
-            if (UserAccountIDExist == true) {
-              let NewPoints = parseInt(CurrentPoints) - parseInt(Point);
-              if (!(parseInt(Point) < 0)) {
-                if (parseInt(Point) != 0) {
-                  if (NewPoints >= 0) {
-                    if (UserAccountIDExist == true) {
-                      PlayerModel.PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
-                        if (response != undefined) {
-                          res.send(response);
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+              let UserAccountIDExist = false;
+              let CurrentPoints = undefined;
+              async.series([UserAccountIDCheck, PlayerCurrentPointsCheck], function (error, response) {
+                if (UserAccountIDExist == true) {
+                  let NewPoints = parseInt(CurrentPoints) - parseInt(Point);
+                  if (!(parseInt(Point) < 0)) {
+                    if (parseInt(Point) != 0) {
+                      if (NewPoints >= 0) {
+                        if (UserAccountIDExist == true) {
+                          PlayerModel.PlayerUpdatePoint(UserAccountID, NewPoints, function (response) {
+                            if (response != undefined) {
+                              res.send(response);
+                            } else {
+                              res.send({
+                                PlayerUpdatePointFailed: true
+                              });
+                            }
+                          });
                         } else {
                           res.send({
-                            PlayerUpdatePointFailed: true
+                            UserAccountIDExist: false
                           });
                         }
-                      });
+                      } else {
+                        res.send({
+                          NotEnoughPoints: true
+                        });
+                      }
                     } else {
                       res.send({
-                        UserAccountIDExist: false
+                        NothingToSubtract: true
                       });
                     }
                   } else {
                     res.send({
-                      NotEnoughPoints: true
+                      IsPointNegativeValue: true
                     });
                   }
                 } else {
                   res.send({
-                    NothingToSubtract: true
+                    UserAccountIDEmpty: true
                   });
                 }
-              } else {
-                res.send({
-                  IsPointNegativeValue: true
-                });
+
+
+              });
+
+              function UserAccountIDCheck(callback) {
+                if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    let obj = response;
+                    if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
+                      UserAccountIDExist = true;
+                      callback(null, '1');
+                    } else {
+                      UserAccountIDExist = false;
+                      callback(null, '1');
+                    }
+                  });
+                } else {
+
+                  callback(null, '1');
+                }
               }
+
+              function PlayerCurrentPointsCheck(callback) {
+                if (UserAccountIDExist != undefined) {
+                  DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
+                    let obj = response;
+                    if (obj != undefined && obj[0].CurrentPoints != undefined) {
+                      CurrentPoints = obj[0].CurrentPoints;
+                      callback(null, '1');
+                    } else {
+                      CurrentPoints = undefined;
+                      callback(null, '1');
+                    }
+                  });
+                } else {
+                  callback(null, '1');
+                }
+              }
+
             } else {
-              res.send({
-                UserAccountIDEmpty: true
-              });
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
             }
-
-
           });
-
-          function UserAccountIDCheck(callback) {
-            if (!isNullOrEmpty(UserAccountID) && UserAccountID != undefined) {
-              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                let obj = response;
-                if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-                  UserAccountIDExist = true;
-                  callback(null, '1');
-                } else {
-                  UserAccountIDExist = false;
-                  callback(null, '1');
-                }
-              });
-            } else {
-
-              callback(null, '1');
-            }
-          }
-
-          function PlayerCurrentPointsCheck(callback) {
-            if (UserAccountIDExist != undefined) {
-              DBCheck.PlayerUserAccountID(UserAccountID, function (response) {
-                let obj = response;
-                if (obj != undefined && obj[0].CurrentPoints != undefined) {
-                  CurrentPoints = obj[0].CurrentPoints;
-                  callback(null, '1');
-                } else {
-                  CurrentPoints = undefined;
-                  callback(null, '1');
-                }
-              });
-            } else {
-              callback(null, '1');
-            }
-          }
         } else {
           res.send({
             PointInvalidValue: true
@@ -320,38 +349,46 @@ module.exports = function (app) { //MODIFY
     let CurrentRoomName = req.params.CurrentRoomName;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(CurrentRoomName)) {
-        let UserAccountIDExist = false;
-        async.series([UserAccountIDCheck], function (error, response) {
-          if (UserAccountIDExist == true) {
-            PlayerModel.PayerUpdateRoomName(UserAccountID, CurrentRoomName, function (response) {
-              if (response != undefined) {
-                res.send(response);
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+          if (response == true) {
+            let UserAccountIDExist = false;
+            async.series([UserAccountIDCheck], function (error, response) {
+              if (UserAccountIDExist == true) {
+                PlayerModel.PayerUpdateRoomName(UserAccountID, CurrentRoomName, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      PayerUpdateRoomNameUpdateFailed: true
+                    });
+                  }
+                });
               } else {
                 res.send({
-                  PayerUpdateRoomNameUpdateFailed: true
+                  UserAccountIDExist: false
                 });
               }
             });
+
+            function UserAccountIDCheck(callback) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                let obj = response;
+                if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
+                  UserAccountIDExist = true;
+                  callback(null, '1');
+                } else {
+                  UserAccountIDExist = false;
+                  callback(null, '1');
+                }
+              });
+            }
+
           } else {
-            res.send({
-              UserAccountIDExist: false
-            });
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
-
-        function UserAccountIDCheck(callback) {
-          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-            let obj = response;
-            if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-              UserAccountIDExist = true;
-              callback(null, '1');
-            } else {
-              UserAccountIDExist = false;
-              callback(null, '1');
-            }
-          });
-        }
-
+        1
       } else {
         res.send({
           CurrentRoomNameEmpty: true
@@ -380,24 +417,33 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Player/UserAccountID/:UserAccountID', function (req, res) {//ok
+  app.get('/Api/v1/Player/UserAccountID/:UserAccountID', function (req, res) { //ok
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
-   
+
     if (!isNullOrEmpty(UserAccountID)) {
-      PlayerModel.PlayerInformation(UserAccountID,function(response){
-        console.log(response);
-        if(response!=undefined){
-          res.send(response);
-        }else{
+      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+        if (response == true) {
+          PlayerModel.PlayerInformation(UserAccountID, function (response) {
+            console.log(response);
+            if (response != undefined) {
+              res.send(response);
+            } else {
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
+            }
+          });
+        } else {
           let status = 404;
           res.status(status).end(http.STATUS_CODES[status]);
         }
       });
-    }else{
-      res.send({UserAccountIDMissing:true});
+    } else {
+      res.send({
+        UserAccountIDMissing: true
+      });
     }
-   
+
   });
   app.get('/Api/v1/Player/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -460,13 +506,20 @@ module.exports = function (app) { //MODIFY
           if (!isNullOrEmpty(Name)) {
             if (!isNullOrEmpty(Surname)) {
               if (!isNullOrEmpty(CurrentRoomName)) {
-                PlayerModel.AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
-                  if (response != undefined) {
-                    res.send(response);
-                  } else {
-                    res.send({
-                      AddPlayerFailed: true
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response == true) {
+                    PlayerModel.AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, function (response) {
+                      if (response != undefined) {
+                        res.send(response);
+                      } else {
+                        res.send({
+                          AddPlayerFailed: true
+                        });
+                      }
                     });
+                  } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
                   }
                 });
               } else {
