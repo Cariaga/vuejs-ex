@@ -10,17 +10,24 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 let InGameTransferHistoryModel = require('./InGameTransferHistoryModel');
 let http = require('http');
-module.exports = function(app){//selection
-    app.get('/Api/v1/InGameTransferHistory/UserAccountID/:UserAccountID/', function (req, res) {
-      let UserAccountID= req.params.UserAccountID;
-      InGameTransferHistoryModel.InGameTransferHistoryByUserAccountID(UserAccountID,function(response){
-        if(response!=undefined){
-          res.send(response);
-        }else{
-          let status = 404;
-          res.status(status).end(http.STATUS_CODES[status]);
-        }
-        
-      });
+module.exports = function (app) { //selection
+  app.get('/Api/v1/InGameTransferHistory/UserAccountID/:UserAccountID/', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+      if (response == true) {
+        InGameTransferHistoryModel.InGameTransferHistoryByUserAccountID(UserAccountID, function (response) {
+          if (response != undefined) {
+            res.send(response);
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+
+        });
+      } else {
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
     });
+  });
 }

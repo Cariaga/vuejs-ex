@@ -10,11 +10,18 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 let InGameUserSupportTicketModel = require('./InGameUserSupportTicketModel');
 let http = require('http');
-module.exports = function(app){//selection
-    app.get('/Api/v1/UserAccount/SupportTicket/UserAccountID/:UserAccountID/Status/Pending', function (req, res) {
-      let UserAccountID= req.params.UserAccountID;
-      InGameUserSupportTicketModel.SupportTicketUserAccountID(UserAccountID,function(response){
-        res.send(response);
-      });
+module.exports = function (app) { //selection
+  app.get('/Api/v1/UserAccount/SupportTicket/UserAccountID/:UserAccountID/Status/Pending', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+      if (response == true) {
+        InGameUserSupportTicketModel.SupportTicketUserAccountID(UserAccountID, function (response) {
+          res.send(response);
+        });
+      } else {
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
     });
+  });
 }
