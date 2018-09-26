@@ -54,7 +54,7 @@ module.exports = function (app) {//SELECTION
 
     if (!isNullOrEmpty(Limit)) {
       if (!isNullOrEmpty(Offset)) {
-        WithdrawHistoryListModel.WithdrawSearch(Limit, Offset, function (response) {
+        WithdrawHistoryListModel.Withdraw(Limit, Offset, function (response) {
           if (response != undefined) {
             res.send(response);
           } else {
