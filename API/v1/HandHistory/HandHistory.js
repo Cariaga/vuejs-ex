@@ -17,8 +17,8 @@ module.exports = function (app) { //MODIFY
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
-            DBCheck.isUserAccountIDExist(UserAccountID,function(response){
-              if(response==true){
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+              if (response == true) {
                 HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
                   if (response != undefined) {
                     res.send(response);
@@ -28,13 +28,13 @@ module.exports = function (app) { //MODIFY
                     });
                   }
                 });
-              }else{
+              } else {
                 res.send({
                   UserAccountNotExist: true
                 });
               }
             });
-            
+
           } else {
             res.send({
               MoveHandInvalidValue: true
@@ -61,8 +61,15 @@ module.exports = function (app) { //MODIFY
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
-      HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
-        res.send(response);
+      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+        if (response == true) {
+          HandHistoryModel.HandHistoryUserAccountID(UserAccountID, function (response) {
+            res.send(response);
+          });
+        } else {
+          let status = 404;
+          res.status(status).end(http.STATUS_CODES[status]);
+        }
       });
     }
   });
