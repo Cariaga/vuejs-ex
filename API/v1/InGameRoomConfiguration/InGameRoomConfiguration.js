@@ -8,7 +8,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
-let InGameSeasonModel = require('./InGameSeasonModel');
+let InGameRoomConfigurationModel = require('./InGameRoomConfigurationModel');
 let http = require('http');
 let UUID = require('uuid');
 
