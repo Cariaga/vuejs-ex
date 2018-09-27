@@ -348,3 +348,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://192.168.254.107:8080/Api/v1/UserAccountID/Account8/SeasonID/S1/Rank/RK1/Score/0/Card/C2/BeforePoints/1/AfterPoints/1/WinPoints/1/ - player final card insert
 
 //http://localhost:8080/Api/v1/InGameSeason/Clear/SeasonID/S2/ - in game clear points season
+
+//http://192.168.254.107:8080/Api/v1/InGameRoomConfiguration/Request/UserAccountID/Account6 - in game room config
