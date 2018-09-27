@@ -66,13 +66,20 @@ module.exports = function (app) {
       if (!isNullOrEmpty(Title)) {
         if (!isNullOrEmpty(Status)) {
           if (!isNullOrEmpty(Reason)) {
-            BlackListModel.AddBlackList(UserAccountID, Title, Status, Reason, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                res.send({
-                  AddBlackListFailed: true
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+              if (response == true) {
+                BlackListModel.AddBlackList(UserAccountID, Title, Status, Reason, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      AddBlackListFailed: true
+                    });
+                  }
                 });
+              } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             });
           } else {
@@ -128,9 +135,16 @@ module.exports = function (app) {
     let UserName = req.params.UserName;
 
     if (!isNullOrEmpty(UserAccountID)) {
-      DBCheck.isUserAccountIDUserNameBlocked(UserAccountID, UserName, function (response) {
-        if (response != undefined) {
-          res.send(response);
+      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+        if (response == true) {
+          DBCheck.isUserAccountIDUserNameBlocked(UserAccountID, UserName, function (response) {
+            if (response != undefined) {
+              res.send(response);
+            } else {
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
+            }
+          });
         } else {
           let status = 404;
           res.status(status).end(http.STATUS_CODES[status]);

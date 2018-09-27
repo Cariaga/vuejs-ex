@@ -79,13 +79,21 @@ module.exports = function (app) { //SELECTION
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(HeadOfficeID)) {
           if (!isNullOrEmpty(Name)) {
-            DistributorModel.DistributorUpdate(UserAccountID, HeadOfficeID, Name, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                res.send({
-                  DistributorUpdateFailed: true
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+              if (response == true) {
+                DistributorModel.DistributorUpdate(UserAccountID, HeadOfficeID, Name, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    res.send({
+                      DistributorUpdateFailed: true
+                    });
+                  }
                 });
+
+              } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             });
           } else {
@@ -119,13 +127,20 @@ module.exports = function (app) { //SELECTION
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(HeadOfficeID)) {
         if (!isNullOrEmpty(Name)) {
-          DistributorModel.AddDistributor(UserAccountID, HeadOfficeID, Name, function (response) {
-            if (response != undefined) {
-              res.send(response);
-            } else {
-              res.send({
-                AddDistributorFailed: true
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+              DistributorModel.AddDistributor(UserAccountID, HeadOfficeID, Name, function (response) {
+                if (response != undefined) {
+                  res.send(response);
+                } else {
+                  res.send({
+                    AddDistributorFailed: true
+                  });
+                }
               });
+            } else {
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
             }
           });
         } else {
@@ -179,13 +194,20 @@ module.exports = function (app) { //SELECTION
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(Commission)) {
                 if (!isNullOrEmpty(HeadOfficeID)) {
-                  DistributorModel.RegisterDistributor(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,HeadOfficeID, function (response) {
-                    if (response != undefined) {
-                      res.send(response);
-                    } else {
-                      res.send({
-                        RegisterDistributorFailed: true
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    if (response == true) {
+                      DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
+                        if (response != undefined) {
+                          res.send(response);
+                        } else {
+                          res.send({
+                            RegisterDistributorFailed: true
+                          });
+                        }
                       });
+                    } else {
+                      let status = 404;
+                      res.status(status).end(http.STATUS_CODES[status]);
                     }
                   });
                 } else {

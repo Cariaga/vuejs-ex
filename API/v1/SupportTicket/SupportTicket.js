@@ -22,37 +22,44 @@ module.exports = function (app) { //INSERT
         if (!isNullOrEmpty(Description)) {
           if (!isNullOrEmpty(Reason)) {
             if (!isNullOrEmpty(Answer)) {
-                if (!isNullOrEmpty(Status)) {
-                  let UserAccountIDExist = true;
-                  async.series([/*UserAccountIDCheck*/], function (error, response) {
-                    if (UserAccountIDExist == true) {
-                      SupportTicketModel.AddSupportTicket(UserAccountID, Title, Description, Reason, Answer, Status, function (response) {
-                        res.send(response);
-                      });
-                    } else {
-                      res.send({
-                        UserAccountIDExist: false
-                      });
-                    }
-                  });
-
-                  function UserAccountIDCheck(callback) {
-                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                      let obj = response;
-                      if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
-                        UserAccountIDExist = true;
-                        callback(null, '1');
+              if (!isNullOrEmpty(Status)) {
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response == true) {
+                    let UserAccountIDExist = true;
+                    async.series([ /*UserAccountIDCheck*/ ], function (error, response) {
+                      if (UserAccountIDExist == true) {
+                        SupportTicketModel.AddSupportTicket(UserAccountID, Title, Description, Reason, Answer, Status, function (response) {
+                          res.send(response);
+                        });
                       } else {
-                        UserAccountIDExist = false;
-                        callback(null, '1');
+                        res.send({
+                          UserAccountIDExist: false
+                        });
                       }
                     });
+
+                    function UserAccountIDCheck(callback) {
+                      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                        let obj = response;
+                        if (!isNullOrEmpty(obj) && obj != undefined && obj.length > 0 && obj[0].UserAccountID == UserAccountID) {
+                          UserAccountIDExist = true;
+                          callback(null, '1');
+                        } else {
+                          UserAccountIDExist = false;
+                          callback(null, '1');
+                        }
+                      });
+                    }
+                  } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
                   }
-                } else {
-                  res.send({
-                    StatusMissing: true
-                  });
-                }
+                });
+              } else {
+                res.send({
+                  StatusMissing: true
+                });
+              }
             } else {
               res.send({
                 AnswerMissing: true
@@ -81,64 +88,76 @@ module.exports = function (app) { //INSERT
   });
 
   //INSERT w/out Answer & Status
-      app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', function (req, res) {
-        let UserAccountID = req.params.UserAccountID;
-        let Title = req.params.Title;
-        let Description = req.params.Description;
-        let Reason = req.params.Reason;
+  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let Title = req.params.Title;
+    let Description = req.params.Description;
+    let Reason = req.params.Reason;
 
-        if (!isNullOrEmpty(UserAccountID)) {
-          if (!isNullOrEmpty(Title)) {
-
-              if (!isNullOrEmpty(Reason)) {
-                SupportTicketModel.RequestSupportTicket(UserAccountID, Title, Reason, function (response) {
-                  res.send(response);
-                });
-              } else {
-                res.send({
-                  ReasonMissing: true
-                });
-              }
-          } else {
-            res.send({
-              TitleMissing: true
-            });
-          }
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(Title)) {
+        if (!isNullOrEmpty(Reason)) {
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+              SupportTicketModel.RequestSupportTicket(UserAccountID, Title, Reason, function (response) {
+                res.send(response);
+              });
+            } else {
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
+            }
+          });
         } else {
           res.send({
-            UserAccountIDMissing: true
+            ReasonMissing: true
           });
         }
+      } else {
+        res.send({
+          TitleMissing: true
+        });
+      }
+    } else {
+      res.send({
+        UserAccountIDMissing: true
       });
-      app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', function (req, res) {
-        let UserAccountID = req.params.UserAccountID;
-        let Title = req.params.Title;
-        let Description = req.params.Description;
-        let Reason = req.params.Reason;
+    }
+  });
+  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let Title = req.params.Title;
+    let Description = req.params.Description;
+    let Reason = req.params.Reason;
 
-        if (!isNullOrEmpty(UserAccountID)) {
-          if (!isNullOrEmpty(Title)) {
-
-              if (!isNullOrEmpty(Reason)) {
-                SupportTicketModel.RequestSupportTicket(UserAccountID, Title, Reason, function (response) {
-                  res.send(response);
-                });
-              } else {
-                res.send({
-                  ReasonMissing: true
-                });
-              }
-          } else {
-            res.send({
-              TitleMissing: true
-            });
-          }
+    if (!isNullOrEmpty(UserAccountID)) {
+      if (!isNullOrEmpty(Title)) {
+        if (!isNullOrEmpty(Reason)) {
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+              SupportTicketModel.RequestSupportTicket(UserAccountID, Title, Reason, function (response) {
+                res.send(response);
+              });
+            } else {
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
+            }
+          });
         } else {
           res.send({
-            UserAccountIDMissing: true
+            ReasonMissing: true
           });
         }
+      } else {
+        res.send({
+          TitleMissing: true
+        });
+      }
+    } else {
+      res.send({
+        UserAccountIDMissing: true
       });
+    }
+  });
   //MODIFY
   app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/Answer/:Answer/Status/:Status', function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
@@ -173,13 +192,20 @@ module.exports = function (app) { //INSERT
     let Status = req.params.Status;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Status)) {
-        SupportTicketModel.SupportTicketUserAccountIDByStatus(UserAccountID, Status, function (response) {
-          if (response != undefined) {
-            res.send(beautify(response, null, 2, 100));
-          } else {
-            res.send({
-              SupportTicketUserAccountIDByStatusFailed: true
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+          if (response == true) {
+            SupportTicketModel.SupportTicketUserAccountIDByStatus(UserAccountID, Status, function (response) {
+              if (response != undefined) {
+                res.send(beautify(response, null, 2, 100));
+              } else {
+                res.send({
+                  SupportTicketUserAccountIDByStatusFailed: true
+                });
+              }
             });
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
       } else {
@@ -193,4 +219,4 @@ module.exports = function (app) { //INSERT
       });
     }
   });
-  }
+}

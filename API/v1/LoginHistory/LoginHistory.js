@@ -91,13 +91,20 @@ module.exports = function (app) { //MODIFT
             if (!isNullOrEmpty(DeviceCpu)) {
               if (!isNullOrEmpty(Time)) {
                 if (!isNullOrEmpty(Date)) {
-                  LoginHistoryModel.AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response) {
-                    if (response != undefined) {
-                      res.send(response);
-                    } else {
-                      res.send({
-                        AddLoginHistoryFailed: true
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    if (response == true) {
+                      LoginHistoryModel.AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, Time, Date, function (response) {
+                        if (response != undefined) {
+                          res.send(response);
+                        } else {
+                          res.send({
+                            AddLoginHistoryFailed: true
+                          });
+                        }
                       });
+                    } else {
+                      let status = 404;
+                      res.status(status).end(http.STATUS_CODES[status]);
                     }
                   });
                 } else {
@@ -166,13 +173,20 @@ module.exports = function (app) { //MODIFT
     app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', function (req, res) {
       res.setHeader('Content-Type', 'application/json');
       let UserAccountID = req.params.UserAccountID;
-      LoginHistoryModel.LoginHistoryUserAccountID(UserAccountID, function (response) {
-        if (response != undefined) {
-          res.send(beautify(response, null, 2, 100));
-        } else {
-          res.send({
-            LoginHistoryUserAccountIDFound: false
+      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+        if (response == true) {
+          LoginHistoryModel.LoginHistoryUserAccountID(UserAccountID, function (response) {
+            if (response != undefined) {
+              res.send(beautify(response, null, 2, 100));
+            } else {
+              res.send({
+                LoginHistoryUserAccountIDFound: false
+              });
+            }
           });
+        } else {
+          let status = 404;
+          res.status(status).end(http.STATUS_CODES[status]);
         }
       });
     });
@@ -181,13 +195,20 @@ module.exports = function (app) { //MODIFT
   app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
-    LoginHistoryUserAccountIDLatest(UserAccountID, function (response) {
-      if (response != undefined) {
-        res.send(beautify(response, null, 2, 100));
-      } else {
-        res.send({
-          LoginHistoryUserAccountIDFound: false
+    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+      if (response == true) {
+        LoginHistoryUserAccountIDLatest(UserAccountID, function (response) {
+          if (response != undefined) {
+            res.send(beautify(response, null, 2, 100));
+          } else {
+            res.send({
+              LoginHistoryUserAccountIDFound: false
+            });
+          }
         });
+      } else {
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]);
       }
     });
   });

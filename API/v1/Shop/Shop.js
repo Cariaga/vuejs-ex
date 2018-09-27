@@ -74,13 +74,20 @@ module.exports = function (app) { //MODIFY
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(Commission)) {
                 if (!isNullOrEmpty(DistributorID)) {
-                  ShopModel.RegisterShop(UserAccountID,Name,PhoneNumber,UserName,Password,Commission,DistributorID, function (response) {
-                    if (response != undefined) {
-                      res.send(response);
-                    } else {
-                      res.send({
-                        RegisterShopFailed: true
+                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    if (response == true) {
+                      ShopModel.RegisterShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorID, function (response) {
+                        if (response != undefined) {
+                          res.send(response);
+                        } else {
+                          res.send({
+                            RegisterShopFailed: true
+                          });
+                        }
                       });
+                    } else {
+                      let status = 404;
+                      res.status(status).end(http.STATUS_CODES[status]);
                     }
                   });
                 } else {

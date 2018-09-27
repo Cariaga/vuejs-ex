@@ -79,6 +79,8 @@ module.exports = function (app) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(ProcessingDATE)) {
           if (!isNullOrEmpty(ProcessingTIME)) {
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+              if (response == true) {
             DepositHistoryModel.DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
@@ -88,6 +90,11 @@ module.exports = function (app) {
                 });
               }
             });
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+        });
           } else {
             res.send({
               ProcessingTIMEMissing: true
@@ -118,6 +125,8 @@ module.exports = function (app) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(RejectedDATE)) {
           if (!isNullOrEmpty(RejectedTIME)) {
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+              if (response == true) {
             DepositHistoryModel.DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RejectedDATE, RejectedTIME, function (response) {
               if (response != undefined) {
                 res.send(response);
@@ -127,6 +136,11 @@ module.exports = function (app) {
                 });
               }
             });
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+        });
           } else {
             res.send({
               RejectedTIMEMissing: true

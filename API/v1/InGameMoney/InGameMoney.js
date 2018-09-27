@@ -11,12 +11,17 @@ let http = require('http');
 module.exports = function (app) {
     app.get('/Api/v1/InGameMoney/UserAccountID/:UserAccountID/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
-        if(!isNullOrEmpty(UserAccountID)){
-            let UserAccountID = req.params.UserAccountID;
-            
-        InGameMoneyModel.Money(UserAccountID, function (response) {
-            res.send(response);
-        });
+        if (!isNullOrEmpty(UserAccountID)) {
+            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                if (response == true) {
+                    InGameMoneyModel.Money(UserAccountID, function (response) {
+                        res.send(response);
+                    });
+                } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                }
+            });
         }
     });
 }

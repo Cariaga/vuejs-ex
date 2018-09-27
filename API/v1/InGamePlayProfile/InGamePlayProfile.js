@@ -10,8 +10,15 @@ module.exports = function (app) {
         let SeasonID = req.params.SeasonID;
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(SeasonID)) {
-                InGamePlayProfileModel.InGamePlayProfile(UserAccountID, SeasonID, function (response) {
-                    res.send(response);
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    if (response == true) {
+                        InGamePlayProfileModel.InGamePlayProfile(UserAccountID, SeasonID, function (response) {
+                            res.send(response);
+                        });
+                    } else {
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                    }
                 });
             } else {
                 res.send({
@@ -32,8 +39,15 @@ module.exports = function (app) {
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(SeasonID)) {
                 if (!isNullOrEmpty(CurrentPoints)) {
-                    InGamePlayProfileModel.InGamePlayProfileUpdatePoints(UserAccountID, SeasonID, CurrentPoints, function (response) {
-                        res.send(response);
+                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                        if (response == true) {
+                            InGamePlayProfileModel.InGamePlayProfileUpdatePoints(UserAccountID, SeasonID, CurrentPoints, function (response) {
+                                res.send(response);
+                            });
+                        } else {
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }
                     });
                 } else {
                     res.send({
