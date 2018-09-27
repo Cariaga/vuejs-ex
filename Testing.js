@@ -38,13 +38,13 @@ DBCheck.CheckUserAccountIDKey('Account1', 2, function(response){
 
 //http://192.168.254.102:8080/Api/v1/UserAccount/Check/UserName/U2 - Username check
 //http://192.168.254.102:8080/Api/v1/UserAccount/Check/UserAccountID/U2 - Username check
-http://localhost:8080/Api/v1/BlackList/Check/Blocked/UserAccountID/Account8/UserName/U8/ - inquire check blacklist
-
+//http://localhost:8080/Api/v1/BlackList/Check/Blocked/UserAccountID/Account8/UserName/U8/ - inquire check blacklist
 //http://192.168.254.102:8080/Api/v1/BlackList/Add/UserAccountID/Account1/Title/Title/Status/Status/Reason/Reason/ - blacklist add
-
 // http://localhost:8080/Api/v1/RoomConfiguration/Add/RoomID/RID6/GameType/Holdem/SmallBlind/50/BigBlind/100/Speed/50
-
 // http://localhost:8080/Api/v1/GameHistory/Add/RoomID/RID2/SeasonID/S5/
+
+
+
 let RoomConfigurationModel = require('./API/v1/RoomConfiguration/RoomConfigurationModel');
 RoomConfigurationModel.AddRoomConfiguration('RID88', 'Holdem', '11', '22', 'Fast', function (response) {
   console.log("done");

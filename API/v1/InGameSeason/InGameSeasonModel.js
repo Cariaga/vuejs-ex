@@ -19,3 +19,19 @@ module.exports.InGameSeasonClear = function InGameSeasonClear(SeasonID, callback
         }
       });
   }
+module.exports.AddGameHistory = function AddGameHistory( RoomID, SeasonID, callback) {
+    let _RoomID = RoomID;
+    let _SeasonID = SeasonID;
+    let query =
+      "INSERT INTO `sampledb`.`gamehistories` (`RoomID`, `SeasonID`, `GameStartedDateTime`) "+
+      "VALUES ('"+_RoomID+"','"+_SeasonID+"',now());";
+   
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          callback(response);
+        } else {
+          callback(undefined);
+        }
+      });
+}

@@ -13,17 +13,21 @@ let http = require('http');
 let UUID = require('uuid');
 /*the FinalCard Current Points is the points to the current season only ones someone won it returns to zero */
 module.exports = function (app) { //selection
-    app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID', function (req, res) {
+    app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
+        let RoomID = req.params.RoomID;
         if (!isNullOrEmpty(UserAccountID)) {
-            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                if (response == true) {
-                    res.send(UUID());
-                }
-            });
-        } else {
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
+            if (!isNullOrEmpty(RoomID)) {
+                let SeasonID = UUID();
+                InGameSeasonModel.AddGameHistory(RoomID, SeasonID, function (response) {
+                    if(response!=undefined){
+                        res.send(SeasonID);
+                    }else{
+                        
+                    }
+                });
+            }
+
         }
     });
 
@@ -46,4 +50,6 @@ module.exports = function (app) { //selection
             res.status(status).end(http.STATUS_CODES[status]);
         }
     });
+
+    
 }
