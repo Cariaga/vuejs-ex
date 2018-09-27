@@ -13,6 +13,23 @@ let http = require('http');
 let UUID = require('uuid');
 /*the FinalCard Current Points is the points to the current season only ones someone won it returns to zero */
 module.exports = function (app) { //selection
+<<<<<<< HEAD
+    app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/', function (req, res) {
+        let UserAccountID = req.params.UserAccountID;
+        let RoomID = req.params.RoomID;
+        if (!isNullOrEmpty(UserAccountID)) {
+            if (!isNullOrEmpty(RoomID)) {
+                let SeasonID = UUID();
+                InGameSeasonModel.AddGameHistory(RoomID, SeasonID, function (response) {
+                    if(response!=undefined){
+                        res.send(SeasonID);
+                    }else{
+                        
+                    }
+                });
+            }
+
+=======
     app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
@@ -24,6 +41,7 @@ module.exports = function (app) { //selection
         } else {
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
+>>>>>>> ed5d725b3ec9c5042a7f1049cdccec6ccbb0fe54
         }
     });
 

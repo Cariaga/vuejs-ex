@@ -178,28 +178,4 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  //INSERT
-  app.get('/Api/v1/GameHistory/Add/RoomID/:RoomID/SeasonID/:SeasonID/', function (req, res) {//OK
-    //USAGE /Api/v1/GameHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/SeasonID/qwertyui/RoundID/someRound/Rank/STRAIGHT/Score/1608/Card/["6D","5S","4C","3H","2D"]/Time/01:57:17/Date/2018-06-27/BeforePoints/0/AfterPoints/0/
-    res.setHeader('Content-Type', 'application/json');
-    let RoomID = req.params.RoomID;
-    let SeasonID = req.params.SeasonID;
-      if (!isNullOrEmpty(RoomID)) {
-        if (!isNullOrEmpty(SeasonID)) {
-            async.series([ /*IsUserAccountIDExistCheck, IsSeasonIDExistCheck*/ ], function (error, response) {
-                  GameHistoryModel.AddGameHistory(RoomID, SeasonID, function (response) {
-                    res.send(response);
-                  });
-            });
-        } else {
-          res.send({
-            RoundIDMissing: true
-          })
-        }
-      } else {
-        res.send({
-          SeasonIDMissing: true
-        })
-      }
-  });
 }
