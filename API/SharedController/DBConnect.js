@@ -26,7 +26,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
        // console.log(err);//remove this to see real error
      
         if(err!=undefined){
-          console.log(err.sqlState);
+          console.log(err);
           if(err.sqlState=='23000'){
             console.log("Foreign Key Error or Duplicate");
             callback(undefined);
@@ -37,8 +37,6 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
           }
           else{
             console.log("Somthing Bad Happend :" );
-           // console.log(err);
-            callback(err);
           }
         }
         else if(results!=undefined&&results.length>0){//select
