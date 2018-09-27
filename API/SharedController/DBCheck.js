@@ -64,11 +64,15 @@ const mysql = require('mysql2');
     let _UserAccountID = UserAccountID;
     let _UserName = UserName;
     let query =
-    "SELECT * FROM `sampledb`.`player_black_list` WHERE UserAccountID = '"+_UserAccountID+"' and UserName='"+_UserName+"' and Status='Blocked'";
+    'SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,"Fresh") as newStatus'
+    +' FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID'
+    +' HAVING  p.UserAccountID = "'+_UserAccountID+'" AND ScreenName ="'+ _UserName +'"AND newStatus != "Blocked"';
     DBConnect.DBConnect(query,function(response){
-      if(response[0].UserAccountID==_UserAccountID){
-        console.log(response);
-        callback(true);
+      if(response){
+        if(response[0].UserAccountID==_UserAccountID){
+          console.log(response);
+          callback(true);
+        }
       }else{
         callback(false);
       }
