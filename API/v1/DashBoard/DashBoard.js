@@ -1,6 +1,7 @@
 var beautify = require("json-beautify");
 var DashBoardModel = require('./DashBoardModel');
 var isNullOrEmpty = require('is-null-or-empty');
+let DBCheck = require("../../SharedController/DBCheck");
 let http = require('http');
 module.exports = function (app) { 
 

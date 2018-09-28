@@ -1,7 +1,6 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
-
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');

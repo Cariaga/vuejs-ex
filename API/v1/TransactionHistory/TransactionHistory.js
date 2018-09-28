@@ -1,5 +1,6 @@
 let TransactionHistoryModel = require("../TransactionHistory/TransactionHistoryModel");
 var isNullOrEmpty = require('is-null-or-empty');
+let DBCheck = require("../../SharedController/DBCheck");
 var beautify = require("json-beautify");
 
 module.exports = function (app) {
