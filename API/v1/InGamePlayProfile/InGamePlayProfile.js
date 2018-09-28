@@ -14,7 +14,12 @@ module.exports = function (app) {
                 DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                     if (response == true) {
                         InGamePlayProfileModel.InGamePlayProfile(UserAccountID, SeasonID, function (response) {
-                            res.send(response);
+                            if(response!=undefined){
+                                res.send(response);
+                            }else{
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                            }
                         });
                     } else {
                         let status = 404;
