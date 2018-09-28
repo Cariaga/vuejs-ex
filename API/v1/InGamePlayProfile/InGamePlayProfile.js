@@ -1,4 +1,5 @@
 let InGamePlayProfileModel = require('./InGamePlayProfileModel');
+let DBCheck = require("../../SharedController/DBCheck");
 let http = require('http');
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
