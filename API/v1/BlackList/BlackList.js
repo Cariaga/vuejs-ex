@@ -56,45 +56,32 @@ module.exports = function (app) {
       res.send("Missing BlackListID " + BlackListID);
     }
   });
-  //INSERT
-  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Title/:Title/Status/:Status/Reason/:Reason/', function (req, res) { //OK
+
+  //add user to black list
+  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Reason/:Reason/', function (req, res) { //OK
     let UserAccountID = req.params.UserAccountID;
-    let Title = req.params.Title;
-    let Status = req.params.Status;
     let Reason = req.params.Reason;
     if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(Title)) {
-        if (!isNullOrEmpty(Status)) {
-          if (!isNullOrEmpty(Reason)) {
-            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-              if (response == true) {
-                BlackListModel.AddBlackList(UserAccountID, Title, Status, Reason, function (response) {
-                  if (response != undefined) {
-                    res.send(response);
-                  } else {
-                    res.send({
-                      AddBlackListFailed: true
-                    });
-                  }
-                });
+      if (!isNullOrEmpty(Reason)) {
+        DBCheck.isUserAccountIDBlocked(UserAccountID, function (response) {
+          if (response == true) {
+            BlackListModel.AddBlackList(UserAccountID, Reason, function (response) {
+              if (response != undefined) {
+                res.send(response);
               } else {
-                let status = 404;
-                res.status(status).end(http.STATUS_CODES[status]);
+                res.send({
+                  AddBlackListFailed: true
+                });
               }
             });
           } else {
-            res.send({
-              DescriptionMissing: true
-            });
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
-        } else {
-          res.send({
-            StatusMissing: true
-          });
-        }
+        });
       } else {
         res.send({
-          TitleMissing: true
+          DescriptionMissing: true
         });
       }
     } else {
@@ -129,22 +116,16 @@ module.exports = function (app) {
       });
     }
   });
+
   //user inquire
   app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
 
     if (!isNullOrEmpty(UserAccountID)) {
-      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-        if (response == true) {
-          DBCheck.isUserAccountIDUserNameBlocked(UserAccountID, UserName, function (response) {
-            if (response != undefined) {
-              res.send(response);
-            } else {
-              let status = 404;
-              res.status(status).end(http.STATUS_CODES[status]);
-            }
-          });
+      DBCheck.isUserAccountIDUserNameBlocked(UserAccountID, UserName, function (response) {
+        if (response != undefined) {
+          res.send(response);
         } else {
           let status = 404;
           res.status(status).end(http.STATUS_CODES[status]);

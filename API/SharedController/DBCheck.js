@@ -78,15 +78,20 @@ const mysql = require('mysql2');
       }
     });
   }
-  module.exports.isUserAccountBlocked = function isUserAccountBlocked(UserAccountID, callback) {
+
+
+  module.exports.isUserAccountIDBlocked = function isUserAccountIDBlocked(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
-    "SELECT * FROM `sampledb`.`player_black_list` " +
-    "WHERE UserAccountID = '"+_UserAccountID+"' and Status='Blocked'";
+    'SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,"Fresh") as newStatus'
+    +' FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID'
+    +' HAVING  p.UserAccountID = "'+_UserAccountID+'" AND newStatus != "Blocked"';
     DBConnect.DBConnect(query,function(response){
-      if(response[0].UserAccountID==_UserAccountID){
-        console.log(response);
-        callback(true);
+      if(response){
+        if(response[0].UserAccountID==_UserAccountID){
+          console.log(response);
+          callback(true);
+        }
       }else{
         callback(false);
       }

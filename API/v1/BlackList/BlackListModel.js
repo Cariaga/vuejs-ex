@@ -11,7 +11,11 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
   let _offset = offset;
   if(limit!=undefined&&_offset!=undefined){
     let query =
-    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason FROM sampledb.player_Black_list limit "+_limit+" offset "+_offset;
+    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason"
+    +" FROM sampledb.player_Black_list"
+    +" WHERE BlackListID IN ( SELECT MAX(BlackListID) FROM player_Black_list GROUP BY UserAccountID)"
+    +" limit "+_limit+" offset "+_offset;
+    console.log(query)
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -72,14 +76,14 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
  * @param {*} Reason
  * @param {*} callback
  */
-module.exports.AddBlackList = function AddBlackList(UserAccountID, Title, Status, Reason, callback) {
+
+
+module.exports.AddBlackList = function AddBlackList(UserAccountID, Reason, callback) {
   let _UserAccountID = UserAccountID;
-let _Title = Title;
-let _Status = Status;
-let _Reason = Reason;
+  let _Reason = Reason;
   let query =
-  "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Title`, `Reason`, `ReportDate`) "+
-  "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Status+"','"+_Reason+"',now());";
+  "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Reason`, `ReportDate`) "+
+  "VALUES ('"+_UserAccountID+"' ,'Blocked',  '"+_Reason+"',now());";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -89,6 +93,7 @@ let _Reason = Reason;
     }
   });
 }
+
 module.exports.BlacklistSearch = function BlacklistSearch(Column, Value, callback) {
   let _Column = Column;
   let _Value = Value;
