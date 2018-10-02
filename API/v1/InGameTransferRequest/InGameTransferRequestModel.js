@@ -1,14 +1,13 @@
 let DBConnect = require("../../SharedController/DBConnect");
 // if the player has points the player can add and subtract transfer to other player
 //must update both the reciving/sender current player points 
-module.exports.RequestTransferHistory = function RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount, Reason,callback) {
+module.exports.RequestTransferHistory = function RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount,callback) {
     let _UserAccountIDReceiver = UserAccountIDReceiver;
     let _UserAccountIDSender = UserAccountIDSender;
     let _Amount = Amount;
-    let _Reason = Reason;
     let query = 
     "INSERT INTO `sampledb`.`transferhistories` (`TransferHistoryUUID`, `UserAccountIDReceiver`, `UserAccountIDSender`, `Amount`, `Status`, `Reason`, `TransferedDateTime`) "+
-    "VALUES (UUID(),'"+_UserAccountIDReceiver+"','"+_UserAccountIDSender+"','"+_Amount+"','pending','"+_Reason+"',now()) ";
+    "VALUES (UUID(),'"+_UserAccountIDReceiver+"','"+_UserAccountIDSender+"','"+_Amount+"','pending','transfer',now()) ";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);

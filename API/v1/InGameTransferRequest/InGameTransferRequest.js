@@ -18,7 +18,7 @@ module.exports = function (app) {
 
         if (!isNullOrEmpty(UserAccountIDSender)) {
             if (!isNullOrEmpty(UserAccountIDReceiver)) {
-                if (!isNullOrEmpty(Reason)) {
+           
                     if (!isNullOrEmpty(Amount)) {
                         if (validator.isNumeric(Amount)) {
                             var promise = new Promise(function (resolve, reject) {
@@ -77,7 +77,7 @@ module.exports = function (app) {
 
                                 Promise.all([promise3, promise4]).then(function (response) {
                                     if (response != undefined) {
-                                        InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReceiver, Amount, Reason, function (response) {
+                                        InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReceiver, Amount, function (response) {
                                             if (response != undefined) {
                                                 let status = 200;
                                                 res.status(status).end(http.STATUS_CODES[status]);
@@ -110,11 +110,7 @@ module.exports = function (app) {
                             NoAmount: true
                         });
                     }
-                } else {
-                    res.send({
-                        NoReason: true
-                    });
-                }
+               
             } else {
                 res.send({
                     NoUserAccountIDReceiver: true
