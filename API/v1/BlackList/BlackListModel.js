@@ -6,12 +6,15 @@ var moment = require('moment');
 const Collection = require('linqjs');
 var uuidv4 = require('uuid/v4');
 let DBConnect = require("../../SharedController/DBConnect");
+
+//select
 module.exports.BlackList = function BlackList(limit , offset, callback) {
   let _limit = limit;
   let _offset = offset;
   if(limit!=undefined&&_offset!=undefined){
+    // select player_black_list where select only the latest black list id of the user (with limit and offset)
     let query =
-    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason"
+    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason, Status"
     +" FROM sampledb.player_Black_list"
     +" WHERE BlackListID IN ( SELECT MAX(BlackListID) FROM player_Black_list GROUP BY UserAccountID)"
     +" limit "+_limit+" offset "+_offset;
@@ -48,14 +51,15 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
  * @param {*} Status
  * @param {*} callback
  */
-module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListID, UserAccountID, Status, callback) {
+
+ //Released
+module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListID, UserAccountID, callback) {
   let _BlackListID = BlackListID;
   let _UserAccountID =UserAccountID;
-  let _Status= Status;
   let query = 
   "UPDATE `sampledb`.`blacklist` "+
-  "SET Status = '"+_Status+"', ReleaseDate=now()"+
-  "WHERE BlackListID = "+_BlackListID+" and UserAccountID='"+_UserAccountID+"';"
+  " SET Status = 'Released', ReleaseDate=now()"+
+  " WHERE BlackListID = "+_BlackListID+" and UserAccountID='"+_UserAccountID+"';"
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -97,7 +101,14 @@ module.exports.AddBlackList = function AddBlackList(UserAccountID, Reason, callb
 module.exports.BlacklistSearch = function BlacklistSearch(Column, Value, callback) {
   let _Column = Column;
   let _Value = Value;
-  let query = "SELECT * FROM sampledb.player_Black_list where "+_Column+" like '%"+_Value+"%';";
+  let query = "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason, Status"
+  +" FROM player_Black_list"
+  +" WHERE BlackListID IN (SELECT MAX(BlackListID)"
+  +" FROM player_Black_list"
+  +" GROUP BY UserAccountID)"
+  +" AND "+_Column+" like '%"+_Value+"%';";
+
+  console.log(query)
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
