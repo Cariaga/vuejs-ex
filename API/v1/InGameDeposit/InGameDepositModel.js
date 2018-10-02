@@ -6,49 +6,50 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.InGameDeposit = function InGameDeposit(UserAccountID,Name,Amount,callback) {
-  let _UserAccountID =UserAccountID;
-  let _Name =Name;
-  let _Amount=Amount;
+module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amount, callback) {
+  let _UserAccountID = UserAccountID;
+  let _Name = Name;
+  let _Amount = Amount;
   let _UserTransactionID = uuidv4();
 
-    function Transactions(){
-      let query = 
-      "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES ('"+_UserTransactionID+"', '"+_UserAccountID+"', '"+_Amount+"', 'pending', 'deposit');";
-      return new Promise(resolve => {
-        DBConnect.DBConnect(query, function (response) {
-          if (response != undefined) {
-            console.log(response);
-            resolve(response);
-          } else {
-            resolve(undefined);
-          }
-        });
+  function Transactions() {
+    let query =
+      "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES ('" + _UserTransactionID + "', '" + _UserAccountID + "', '" + _Amount + "', 'pending', 'deposit');";
+    return new Promise(resolve => {
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
       });
-    }
-    function TransactionInfos(){
-      let query = 
-      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`) VALUES ('"+_UserTransactionID+"', now());";
-      return new Promise(resolve => {
-        DBConnect.DBConnect(query, function (response) {
-          if (response != undefined) {
-            console.log(response);
-            resolve(response);
-          } else {
-            resolve(undefined);
-          }
-        });
-      });
-     
-    }
-    async function RunAsync() {
-      console.log('calling');
-      let result = await Transactions();
-      let result2 = await TransactionInfos();
-      let finalresult = [result,result2];
-      callback(finalresult);
-    }
-    RunAsync();
-
-   
+    });
   }
+
+  function TransactionInfos() {
+    let query =
+      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`) VALUES ('" + _UserTransactionID + "', now());";
+    return new Promise(resolve => {
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          resolve(undefined);
+        }
+      });
+    });
+
+  }
+  async function RunAsync() {
+    console.log('calling');
+    let result = await Transactions();
+    let result2 = await TransactionInfos();
+    let finalresult = [result, result2];
+    callback(finalresult);
+  }
+  RunAsync();
+
+
+}
