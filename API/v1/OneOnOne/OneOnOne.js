@@ -47,35 +47,42 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
+  app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
+    let SupportTicketID = req.params.SupportTicketID;
     let UserAccountID = req.params.UserAccountID;
     let Answer = req.params.Answer;
-
-    if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(Answer)) {
-        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-          if (response == true) {
-            OneOnOneModel.WriteSupportAnswerUpdate(UserAccountID, Answer, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                let status = 404;
-                res.status(status).end(http.STATUS_CODES[status]);
-              }
-            });
-          } else {
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
-          }
-        });
+    
+    if(!isNullOrEmpty(SupportTicketID)){
+      if (!isNullOrEmpty(UserAccountID)) {
+        if (!isNullOrEmpty(Answer)) {
+          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+              OneOnOneModel.WriteSupportAnswerUpdate(SupportTicketID, UserAccountID, Answer, function (response) {
+                if (response != undefined) {
+                  res.send(response);
+                } else {
+                  let status = 404;
+                  res.status(status).end(http.STATUS_CODES[status]);
+                }
+              });
+            } else {
+              let status = 404;
+              res.status(status).end(http.STATUS_CODES[status]);
+            }
+          });
+        } else {
+          res.send({
+            InvalidValue: true
+          });
+        }
       } else {
         res.send({
-          InvalidValue: true
+          InvalidColumn: true
         });
       }
-    } else {
+    }else {
       res.send({
-        InvalidColumn: true
+        InvalidSupportTicketID: true
       });
     }
   });

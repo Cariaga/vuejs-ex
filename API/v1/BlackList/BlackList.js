@@ -21,34 +21,30 @@ module.exports = function (app) {
       });
     }
   });
-  //MODIFY
-  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
+
+  //MODIFY / release
+  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/', function (req, res) {
     let BlackListID = req.params.BlackListID;
     let UserAccountID = req.params.UserAccountID;
-    let Status = req.params.Status; //status to set
     if (!isNullOrEmpty(BlackListID)) {
       if (!isNullOrEmpty(UserAccountID)) {
-        if (!isNullOrEmpty(Status)) {
-          DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-            if (response == true) {
-              BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, Status, function (response) {
-                console.log("Status Set");
-                if (response != undefined) {
-                  res.send(response);
-                } else {
-                  res.send({
-                    BlackListStatusUpdateFailed: true
-                  });
-                }
-              });
-            } else {
-              let status = 404;
-              res.status(status).end(http.STATUS_CODES[status]);
-            }
-          });
-        } else {
-          res.send("Missing Status " + Status);
-        }
+        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+          if (response == true) {
+            BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, function (response) {
+              console.log("Status Set");
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                res.send({
+                  BlackListStatusUpdateFailed: true
+                });
+              }
+            });
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+        });
       } else {
         res.send("Missing UserAccountID " + UserAccountID);
       }

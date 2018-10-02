@@ -9,7 +9,7 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     let _Limit = Limit;
     let _Offset = Offset;
     if(Limit!=undefined&&Offset!=undefined){
-    let query = "SELECT player_supportlist.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, Title, RegisteredDateTime, DateTime, SupportTicketID FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset;
+    let query = "SELECT player_supportlist.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, Title, Status, RegisteredDateTime, DateTime, SupportTicketID FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
@@ -62,12 +62,17 @@ module.exports.WriteSupportTicketID = function WriteSupportTicketID(UserAccountI
         }
     });
 }
-module.exports.WriteSupportAnswerUpdate = function WriteSupportAnswerUpdate(SupportTicketID,UserAccountID,Answer,callback){
+module.exports.WriteSupportAnswerUpdate = function WriteSupportAnswerUpdate(SupportTicketID, UserAccountID, Answer,callback){
+    let _SupportTicketID = SupportTicketID;
+    let _UserAccountID = UserAccountID;
     let _Answer = Answer;
     let query = 
     "UPDATE `sampledb`.`supporttickets` " +
     "SET Answer = '"+_Answer+"', `DateTime` = now(),`Status` = 'Done' " +
-    "WHERE SupportTicketID = SupportTicketID AND UserAccountID = UserAccountID; ";
+    " WHERE SupportTicketID = "+
+    _SupportTicketID +
+    " AND UserAccountID = "+
+    "'"+UserAccountID+"'" ;
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
