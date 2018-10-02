@@ -21,6 +21,7 @@ module.exports = function (app) {
            
                     if (!isNullOrEmpty(Amount)) {
                         if (validator.isNumeric(Amount)) {
+                            
                             var promise = new Promise(function (resolve, reject) {
                                 InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender, Amount, function (response) {
                                     if (response != undefined) {
