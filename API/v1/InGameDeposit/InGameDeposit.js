@@ -13,7 +13,14 @@ module.exports = function (app) {
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response == true) {
                 InGameDepositModel.InGameDeposit(UserAccountID, Name, Amount, function (response) {
-                    res.send(response);
+                    if(response!=undefined){
+                        let status = 200;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                    }else{
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                    }
+    
                 });
             } else {
                 let status = 404;
