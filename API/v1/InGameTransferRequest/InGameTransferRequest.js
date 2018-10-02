@@ -10,10 +10,10 @@ var isNullOrEmpty = require('is-null-or-empty');
 let InGameTransferRequestModel = require('./InGameTransferRequestModel');
 let http = require('http');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/:UserAccountIDSender/UserAccountIDReceiver/:UserAccountIDReceiver/Amount/:Amount/Reason/:Reason/', function (req, res) {
+
+    app.get('/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/:UserAccountIDSender/UserAccountIDReceiver/:UserAccountIDReceiver/Amount/:Amount/', function (req, res) {
         let UserAccountIDSender = req.params.UserAccountIDSender;
         let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
-        let Reason = req.params.Reason;
         let Amount = req.params.Amount;
 
         if (!isNullOrEmpty(UserAccountIDSender)) {
