@@ -2,7 +2,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_daily_betting;";
+    "SELECT TotalDailyBettingByHeadOffice, HeadOfficeUserAccountID FROM sampledb.headoffice_daily_betting;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -15,7 +15,7 @@ module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback
 
 module.exports.HeadOfficeBettingMonthly = function HeadOfficeBettingMonthly(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_monthly_betting;";
+    "SELECT TotalMonthlyBettingByHeadOffice, HeadOfficeUserAccountID FROM sampledb.headoffice_monthly_betting;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -41,7 +41,7 @@ module.exports.HeadOfficeBettingYearly = function HeadOfficeBettingYearly(callba
 
 module.exports.HeadOfficeWithdrawDaily = function HeadOfficeWithdrawDaily(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_daily_withdraw;";
+    "SELECT ExitingAmount, HeadofficeUserAccountID FROM sampledb.headoffice_daily_withdraw;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -54,7 +54,7 @@ module.exports.HeadOfficeWithdrawDaily = function HeadOfficeWithdrawDaily(callba
 
 module.exports.HeadOfficeDepositDaily = function HeadOfficeDepositDaily(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_daily_deposit;";
+    "SELECT Amount, HeadOfficeUserAccountID FROM sampledb.headoffice_daily_deposit;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
