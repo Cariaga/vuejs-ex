@@ -176,6 +176,12 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     let query2 = 'UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()'+
                 " WHERE (UserTransactionID = '"+_UserTransactionID+"');";
    
+      //new money of player
+  //SELECT UserTransactionID,Amount+(select Money from players as P where  P.UserAccountID = 'Account8') as Money
+ //FROM sampledb.transactions where TransactionType ='deposit' and TransactionStatus='pending' and UserTransactionID='Transaction7' and UserAccountID='Account8';
+ 
+//UPDATE `sampledb`.`players` as P SET P.Money = '4000' WHERE P.UserAccountID = 'Account8';
+
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

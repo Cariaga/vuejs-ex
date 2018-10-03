@@ -12,6 +12,8 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amoun
   let _Amount = Amount;
   let _UserTransactionID = uuidv4();
 
+
+
   function Transactions() {
     let query =
       "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES ('" + _UserTransactionID + "', '" + _UserAccountID + "', '" + _Amount + "', 'pending', 'deposit');";
