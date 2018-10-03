@@ -8,7 +8,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 //SELECT ScreenName FROM sampledb.players where UserAccountID='Account8';
 module.exports.InGameScreeName = function InGameScreeName(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
-    let query ="SELECT ScreenName FROM sampledb.players where UserAccountID='"+UserAccountID+"';";
+    let query ="SELECT ScreenName FROM sampledb.players where UserAccountID='"+_UserAccountID+"';";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       //console.log(response);
