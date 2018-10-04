@@ -45,6 +45,7 @@ let DBConnect = require("../../SharedController/DBConnect");
       let _SeasonID = SeasonID;
       let _UserAccountID = UserAccountID;
       let _BeforePoints = BeforePoints;
+      
       let query ="UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '"+_BeforePoints+"' WHERE (`SeasonID` = '"+_SeasonID+"' and UserAccountID= '"+_UserAccountID+"' and SeasonEnded is null);";
       // let query ="UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '"+_BeforePoints+"' WHERE (`SeasonID` = '"+_SeasonID+"' and `UserAccountID`= '"+_UserAccountID+"');";
       console.log(query);
