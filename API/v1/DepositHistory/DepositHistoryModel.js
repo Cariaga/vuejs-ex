@@ -179,7 +179,7 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
                 " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
 
     let query3 = "UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved'"
-                " WHERE (`UserTransactionID` = '"+_UserTransactionID+"' and `UserAccountID`= '"+_UserAccountID+"' and TransactionType = 'deposit');";
+                " WHERE (`UserTransactionID` = '"+_UserTransactionID+"' and TransactionType = 'deposit');";
 
     let query4 = "UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()"+
                 " WHERE (`UserTransactionID` = '"+_UserTransactionID+"');";
