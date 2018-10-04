@@ -17,12 +17,11 @@ module.exports = function (app) {
     if (!isNullOrEmpty(UserTransactionID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         DepositHistoryModel.isTransactionExist(UserTransactionID,function(response){
-          if(response!=undefined/*&&response[0].UserTransactionID==UserTransactionID*/){
+          if(response!=undefined){
             DepositHistoryModel.TransactionStatus(UserTransactionID,function(response){
             
               if(response[0].TransactionStatus=="pending"){
                 console.log("it is pending");
-
 
                 if(response!=undefined){
                   DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, function (response) {//approve transaction
@@ -52,7 +51,7 @@ module.exports = function (app) {
             });
           }else{
             res.send({
-              DoseNotExist: true
+              UserTransactionDoesNotExist: true
             });
           }
         });
