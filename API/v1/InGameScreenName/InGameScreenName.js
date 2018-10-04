@@ -11,7 +11,7 @@ module.exports = function (app) {
         let UserAccountID = req.params.UserAccountID;
         InGameScreenNameModel.InGameScreeName(UserAccountID,function(response){
             if(response!=undefined){
-                res.send(response[0].ScreenName)
+                res.send(response);
             }else{
                 let status = 404;
                 res.status(status).end(http.STATUS_CODES[status]);

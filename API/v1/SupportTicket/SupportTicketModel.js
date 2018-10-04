@@ -86,8 +86,8 @@ module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountI
   let _Title = Title;
   let _Reason = Reason;
   let query =
-    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Reason`, `DateTime` ) "+
-    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Reason+"', now()); ";
+    "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Reason`, `DateTime`,`Status` ) "+
+    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Reason+"', now(),'pending'); ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
