@@ -350,3 +350,5 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://localhost:8080/Api/v1/InGameSeason/Clear/SeasonID/S2/ - in game clear points season
 
 //http://192.168.254.107:8080/Api/v1/InGameRoomConfiguration/Request/UserAccountID/Account6 - in game room config
+
+//http://192.168.254.106:8080/Api/v1/InGameSeasonPoints/SeasonID/0e032ae4-335b-4889-808e-3ff95e4cf7f4/
