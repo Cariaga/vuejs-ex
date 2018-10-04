@@ -24,7 +24,7 @@ module.exports = function (app) {
     //when the season ends we update their won points
     //UPDATE `sampledb`.`playerfinalcard` SET `WinPoints` = '500' WHERE (`SeasonID` = '0e032ae4-335b-4889-808e-3ff95e4cf7f4' and `UserAccountID`='Account8');
 
-    //note in the db their can only be one user account matching the season 1 user connot have two seasons
+    //this is their points when they joined the season //note in the db their can only be one user account matching the season 1 user connot have two seasons
     //UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '500' WHERE (`SeasonID` = '0e032ae4-335b-4889-808e-3ff95e4cf7f4' and `UserAccountID`='Account8');
 
 
