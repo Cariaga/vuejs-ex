@@ -179,37 +179,64 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
                 " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
 
     let query3 = "UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved'"
-                " WHERE (`UserTransactionID` = '"+_UserTransactionID+"' and `UserAccountID`= '"+_UserAccountID+"' and TransactionType = 'deposit');";
+                " WHERE (`UserTransactionID` = '"+_UserTransactionID+"' and TransactionType = 'deposit');";
 
     let query4 = "UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()"+
                 " WHERE (`UserTransactionID` = '"+_UserTransactionID+"');";
-   
+    
+    amountSetter = function(value){
+      Amount = value
+      console.log('amountsetter : '+value)
+    }
+
+
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
+       console.log('promise 1 response: '+response)
         if (response != undefined) {
-          Amount = response[0]['Money']
-          resolve();
+
+          resolve(response);
         } else {
           reject();
-          console.log('promise fails');
-          
         }
        })
+    })
+    .then(function(value){ 
+      amountSetter(value[0]['Money'])
+      console.log('promise 1 result = '+value[0]['Money'])
+      Promise.all([promise2,promise3,promise4]).then(function(values) {
+        console.log('promise all return: '+values)
+        console.log('approved deposit successful');
+        callback(true);
+        }, function(error){ //if promise or promise2 fail
+        console.log('something went wrong')
+        console.log('promise all error : ' + error)
+        callback(undefined);
+      });     
+    })
+    .catch(function(error){
+      console.log('promise 1 error : '+error)
     });
   
     var promise2 = new Promise(function(resolve, reject) {
+      console.log('this is amount : '+Amount)
       DBConnect.DBConnect(query2, function (response) {
-         if (response != undefined) {
-           resolve();
-         } else {
-           reject();
-           console.log('promise 2 fails');
-         }
+        console.log('promise 2 response: '+response)
+          if (response != undefined) {
+            resolve();
+          } else {
+            reject();
+          }
         })
+     })
+
+     promise2.catch(function(error){
+       console.log('promise 2 error : '+error)
      });
 
     var promise3 = new Promise(function(resolve, reject) {
       DBConnect.DBConnect(query3, function (response) {
+        console.log('promise 3 response: '+response)
          if (response != undefined) {
            resolve();
          } else {
@@ -217,10 +244,14 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
            console.log('promise 3 fails');
          }
         })
+     })
+     promise3.catch(function(error){
+      console.log('promise 3 error : '+error)
      });
 
     var promise4 = new Promise(function(resolve, reject) {
       DBConnect.DBConnect(query4, function (response) {
+        console.log('promise 4 response: '+response)
          if (response != undefined) {
            resolve();
          } else {
@@ -229,16 +260,11 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
            console.log('promise 4 fails');
          }
         })
+     })
+     promise4.catch(function(error){
+      console.log('promise 4 error : '+error)
      });
-    
-
-    Promise.all([promise,promise2,promise3,promise4]).then(function() {
-      console.log('approved deposit successful');
-      callback(true);
-      }, function(){ //if promise or promise2 fail
-      console.log('something went wrong')
-      callback(undefined);
-    });        
+       
   }
 
 
@@ -367,7 +393,6 @@ module.exports.isTransactionExist = function isTransactionExist(UserTransactionI
   console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
-      console.log(response);
       callback(response);
     } else {
       callback(undefined);
