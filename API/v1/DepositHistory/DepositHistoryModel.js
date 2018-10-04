@@ -171,12 +171,9 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   module.exports.DepositHistoryUpdateApproved = function DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, callback) {
     let _UserTransactionID = UserTransactionID;
     let _UserAccountID = UserAccountID;
-    let Amount;
     let query = "SELECT UserTransactionID,Amount+(select Money from players as P where  P.UserAccountID = '"+_UserAccountID+"') as Money"+
                 " FROM sampledb.transactions where TransactionType ='deposit' and TransactionStatus='pending' and UserTransactionID= '"+_UserTransactionID+"' and UserAccountID= '"+_UserAccountID+"' ;";
-  
-    let query2 = 'UPDATE `sampledb`.`players` as P SET P.Money = '+Amount+
-                " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
+
 
     let query3 = "UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved'"
                 " WHERE (`UserTransactionID` = '"+_UserTransactionID+"' and TransactionType = 'deposit');";
@@ -184,87 +181,99 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     let query4 = "UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()"+
                 " WHERE (`UserTransactionID` = '"+_UserTransactionID+"');";
     
-    amountSetter = function(value){
-      Amount = value
-      console.log('amountsetter : '+value)
-    }
 
 
-    var promise = new Promise(function(resolve, reject) {
-     DBConnect.DBConnect(query, function (response) {
-       console.log('promise 1 response: '+response)
-        if (response != undefined) {
-
-          resolve(response);
-        } else {
-          reject();
-        }
-       })
-    })
-    .then(function(value){ 
-      amountSetter(value[0]['Money'])
-      console.log('promise 1 result = '+value[0]['Money'])
-      Promise.all([promise2,promise3,promise4]).then(function(values) {
-        console.log('promise all return: '+values)
-        console.log('approved deposit successful');
-        callback(true);
-        }, function(error){ //if promise or promise2 fail
-        console.log('something went wrong')
-        console.log('promise all error : ' + error)
-        callback(undefined);
-      });     
-    })
-    .catch(function(error){
-      console.log('promise 1 error : '+error)
-    });
-  
-    var promise2 = new Promise(function(resolve, reject) {
-      console.log('this is amount : '+Amount)
-      DBConnect.DBConnect(query2, function (response) {
-        console.log('promise 2 response: '+response)
+    DBConnect.DBConnect(query, function (response) {
+      console.log('promise 1 response: '+response)
+      //query
+      if (response != undefined) {
+        let Amount  = response[0]['Money'];
+        let query2 = 'UPDATE `sampledb`.`players` as P SET P.Money = '+Amount+
+                     " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
+        //query2
+        DBConnect.DBConnect(query2, function (response) {
           if (response != undefined) {
-            resolve();
+            //query3
+            DBConnect.DBConnect(query3, function (response) {
+               if (response != undefined) {
+                //query4
+                DBConnect.DBConnect(query4, function (response) {
+                   if (response != undefined) {
+                     callback(true)
+                   } else {
+                    callback(undefined);
+                   }
+                  })//query4 end
+               } else {
+                callback(undefined);
+               }
+            })//query3 end
           } else {
-            reject();
-          }
+            callback(undefined);
+          }//query2 end
         })
-     })
+      } else {
+        callback(undefined);
+      }//query end
+    })
 
-     promise2.catch(function(error){
-       console.log('promise 2 error : '+error)
-     });
+    // var promise2 = new Promise(function(resolve, reject) {
+    //   console.log('this is amount : '+Amount)
+    //   DBConnect.DBConnect(query2, function (response) {
+    //     console.log('promise 2 response: '+response)
+    //       if (response != undefined) {
+    //         resolve();
+    //       } else {
+    //         reject();
+    //       }
+    //     })
+    //  })
 
-    var promise3 = new Promise(function(resolve, reject) {
-      DBConnect.DBConnect(query3, function (response) {
-        console.log('promise 3 response: '+response)
-         if (response != undefined) {
-           resolve();
-         } else {
-           reject();
-           console.log('promise 3 fails');
-         }
-        })
-     })
-     promise3.catch(function(error){
-      console.log('promise 3 error : '+error)
-     });
+    //  promise2.catch(function(error){
+    //    console.log('promise 2 error : '+error)
+    //  });
 
-    var promise4 = new Promise(function(resolve, reject) {
-      DBConnect.DBConnect(query4, function (response) {
-        console.log('promise 4 response: '+response)
-         if (response != undefined) {
-           resolve();
-         } else {
-           reject();
+    // var promise3 = new Promise(function(resolve, reject) {
+    //   DBConnect.DBConnect(query3, function (response) {
+    //     console.log('promise 3 response: '+response)
+    //      if (response != undefined) {
+    //        resolve();
+    //      } else {
+    //        reject();
+    //        console.log('promise 3 fails');
+    //      }
+    //     })
+    //  })
+    //  promise3.catch(function(error){
+    //   console.log('promise 3 error : '+error)
+    //  });
 
-           console.log('promise 4 fails');
-         }
-        })
-     })
-     promise4.catch(function(error){
-      console.log('promise 4 error : '+error)
-     });
-       
+    // var promise4 = new Promise(function(resolve, reject) {
+    //   DBConnect.DBConnect(query4, function (response) {
+    //     console.log('promise 4 response: '+response)
+    //      if (response != undefined) {
+    //        resolve();
+    //      } else {
+    //        reject();
+
+    //        console.log('promise 4 fails');
+    //      }
+    //     })
+    //  })
+    //  promise4.catch(function(error){
+    //   console.log('promise 4 error : '+error)
+    //  });
+    
+
+    // Promise.all([promise2,promise3,promise4]).then(function(values) {
+    //   console.log('promise all return: '+values)
+    //   console.log('approved deposit successful');
+    //   callback(true);
+    //   }, function(error){ //if promise or promise2 fail
+    //   console.log('something went wrong')
+    //   console.log('promise all error : ' + error)
+    //   callback(undefined);
+    // });        
   }
 
 
