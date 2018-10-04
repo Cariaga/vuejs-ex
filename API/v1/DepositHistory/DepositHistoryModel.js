@@ -363,7 +363,7 @@ module.exports.TransactionStatus = function TransactionStatus(UserTransactionID,
 }
 module.exports.isTransactionExist = function isTransactionExist(UserTransactionID, callback) {
   let _UserTransactionID = UserTransactionID;
-  let query = "SELECT * FROM sampledb.transactions where UserTransactionID='"+_UserTransactionID+"';";
+  let query = "SELECT * FROM sampledb.transactions where UserTransactionID='"+_UserTransactionID+"' and TransactionType='deposit';";
   console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {

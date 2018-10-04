@@ -10,14 +10,14 @@ let http = require('http');
 
 module.exports = function (app) {
   //approved deposit
-  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID/', function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserTransactionID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         DepositHistoryModel.isTransactionExist(UserTransactionID,function(response){
-          if(response[0].UserTransactionID==UserTransactionID){
+          if(response!=undefined&&response[0].UserTransactionID==UserTransactionID){
             DepositHistoryModel.TransactionStatus(UserTransactionID,function(response){
               if(response[0].TransactionStatus=="pending"){
                 DepositHistoryModel.ComputedNewMoney(UserTransactionID,function(response){//transaction + current player money 
