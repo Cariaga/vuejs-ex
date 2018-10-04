@@ -24,7 +24,7 @@ module.exports = function (app) {
             DepositHistoryModel.UpdatePlayerMoney(UserAccountID,NewMoney,function(response){
               if(response!=undefined){
                 DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, function (response) {//approve transaction
-                  if (response==true) {
+                  if (response) {
                     let status = 200;
                     res.status(status).end(http.STATUS_CODES[status]);
                   } else {
