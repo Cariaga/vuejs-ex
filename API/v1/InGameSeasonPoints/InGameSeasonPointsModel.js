@@ -13,7 +13,6 @@ module.exports.InGameSeasonPoints = function InGameSeasonPoints(SeasonID, callba
     DBConnect.DBConnect(query, function (response) {
       //console.log(response);
         if (response != undefined) {
-        
           callback(response);
         } else {
           callback(undefined);
