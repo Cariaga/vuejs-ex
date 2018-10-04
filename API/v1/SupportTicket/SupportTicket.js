@@ -100,7 +100,9 @@ module.exports = function (app) { //INSERT
           DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response == true) {
               SupportTicketModel.RequestSupportTicket(UserAccountID, Title, Reason, function (response) {
-                res.send(response);
+                let status = 200;
+                res.status(status).end(http.STATUS_CODES[status]);
+          
               });
             } else {
               let status = 404;

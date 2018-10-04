@@ -91,6 +91,7 @@ require('./API/v1/InGamePlayProfile/InGamePlayProfile')(app);
 require('./API/v1/InGamePlayRoomNotice/InGamePlayRoomNotice')(app);
 require('./API/v1/InGameRoom/InGameRoom')(app);
 require('./API/v1/InGameScreenName/InGameScreenName')(app);
+require('./API/v1/InGameSeasonPoints/InGameSeasonPoints')(app);
 require('./API/v1/InGameTransferHistory/InGameTransferHistory')(app);
 require('./API/v1/InGameTransferRequest/InGameTransferRequest')(app);
 require('./API/v1/InGameNotice/InGameNotice')(app);

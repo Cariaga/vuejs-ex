@@ -16,6 +16,7 @@ module.exports = function (app) {
 
     if (!isNullOrEmpty(UserTransactionID)) {
       if (!isNullOrEmpty(UserAccountID)) {
+        
         DepositHistoryModel.ComputedNewMoney(UserTransactionID,function(response){//transaction + current player money 
           
           if(response!=undefined){
@@ -45,6 +46,9 @@ module.exports = function (app) {
             });
           }
         });
+
+
+
       }else {
         res.send({
           UserAccountIDMissing: true
