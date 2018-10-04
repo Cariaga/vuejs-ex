@@ -33,34 +33,34 @@ module.exports = function (app) { //MODIFY
           if (!isNullOrEmpty(Speed)) {
             if (!isNullOrEmpty(GameType)) {
               let IsRoomIDFound = false; // for the update RoomID Must Exist
-          async.series([IsRoomIDExistCheck], function (error, response) {
-            
-            RoomConfigurationModel.RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind,Speed,GameType, function (response) {
-              if (IsRoomIDFound == true) {
-                res.send(response);
-              } else {
-                res.send({});
-              }
-            });
-          });
+              async.series([IsRoomIDExistCheck], function (error, response) {
 
-          function IsRoomIDExistCheck(callback) {
-            DBCheck.IsRoomIDExist(SeasonID, function (response) {
-              if (response != undefined) {
-                IsRoomIDFound = true;
-                callback(null, '1');
-              } else {
-                IsRoomIDFound = false;
-                callback(null, '1');
+                RoomConfigurationModel.RoomConfigurationRoomIDUpdateSmallBigBlind(RoomID, SmallBlind, BigBlind, Speed, GameType, function (response) {
+                  if (IsRoomIDFound == true) {
+                    res.send(response);
+                  } else {
+                    res.send({});
+                  }
+                });
+              });
+
+              function IsRoomIDExistCheck(callback) {
+                DBCheck.IsRoomIDExist(SeasonID, function (response) {
+                  if (response != undefined) {
+                    IsRoomIDFound = true;
+                    callback(null, '1');
+                  } else {
+                    IsRoomIDFound = false;
+                    callback(null, '1');
+                  }
+                });
               }
-            });
-          }
-            }else{
+            } else {
               res.send({
                 GameTypeMissing: true
               });
             }
-          }else{
+          } else {
             res.send({
               SpeedInvalidValue: true
             });
@@ -79,46 +79,64 @@ module.exports = function (app) { //MODIFY
       res.send({
         RoomIDMissing: true
       });
-    } 
+    }
   });
   //INSERT
-  app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/Speed/:Speed/', function (req, res) {
+  app.get('/Api/v1/RoomConfiguration/Add/RoomID/:RoomID/GameType/:GameType/SmallBlind/:SmallBlind/BuyIn/:BuyIn/Speed/:Speed/', function (req, res) {
     //USAGE /Api/v1/RoomConfiguration/Add/RoomID/qwertyui/SmallBlind/0/BigBlind/0/Speed/0
     let RoomID = req.params.RoomID;
     let GameType = req.params.GameType;
     let SmallBlind = req.params.SmallBlind;
-    let BigBlind = parseInt(SmallBlind)*2;
+    let BigBlind = parseInt(SmallBlind) * 2;
     let Speed = req.params.Speed;
+    let BuyIn = req.params.BuyIn;//unused 
     if (!isNullOrEmpty(RoomID)) {
       if (!isNullOrEmpty(SmallBlind)) {
-          if (!isNullOrEmpty(Speed)) {
-            if (validator.isNumeric(SmallBlind)) {
-                if (validator.isNumeric(Speed)) {
+        if (!isNullOrEmpty(Speed)) {
+          if (!isNullOrEmpty(BuyIn)) {
 
-                  RoomConfigurationModel.AddRoomConfiguration(RoomID,GameType,SmallBlind,BigBlind,Speed,function(response){
-                    if(response!=undefined){
+            if (validator.isNumeric(BuyIn)) {
+              if (validator.isNumeric(SmallBlind)) {
+                if (validator.isNumeric(Speed)) {
+                  
+                  RoomConfigurationModel.AddRoomConfiguration(RoomID, GameType, SmallBlind, BigBlind, Speed, function (response) {
+                    if (response != undefined) {
                       let status = 200;
                       res.status(status).end(http.STATUS_CODES[status]);
-                    }else{
-                      res.send({AddRoomConfigurationFailed:true});
+                    } else {
+                      res.send({
+                        AddRoomConfigurationFailed: true
+                      });
                     }
-                   });
+                  });
                 } else {
                   res.send({
                     SpeedInvalidValue: true
                   });
                 }
-              
+
+              } else {
+                res.send({
+                  SmallBlindInvalidValue: true
+                });
+              }
             } else {
               res.send({
-                SmallBlindInvalidValue: true
+                BuyInInvalidValue: true
               });
             }
+
           } else {
             res.send({
-              SpeedMissing: true
+              BuyInMissing: true
             });
           }
+
+        } else {
+          res.send({
+            SpeedMissing: true
+          });
+        }
       } else {
         res.send({
           SmallBlindMissing: true
