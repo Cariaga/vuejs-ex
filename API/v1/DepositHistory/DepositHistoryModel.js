@@ -241,6 +241,9 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     });        
   }
 
+
+
+  
 // DepositHistoryUpdateArchived
 module.exports.DepositHistoryUpdateArchived = function DepositHistoryUpdateArchived(UserTransactionID, callback) {
   let _UserTransactionID = UserTransactionID;
@@ -335,6 +338,33 @@ module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAcco
  */
 module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAccountIDStatus(UserAccountID, Status, callback) {
   let query = '';
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+
+module.exports.TransactionStatus = function TransactionStatus(UserTransactionID, callback) {
+  let _UserTransactionID = UserTransactionID;
+  let query = "SELECT TransactionStatus FROM sampledb.transactions where UserTransactionID='"+_UserTransactionID+"';";
+  console.log(query);
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+module.exports.isTransactionExist = function isTransactionExist(UserTransactionID, callback) {
+  let _UserTransactionID = UserTransactionID;
+  let query = "SELECT * FROM sampledb.transactions where UserTransactionID='"+_UserTransactionID+"';";
+  console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);

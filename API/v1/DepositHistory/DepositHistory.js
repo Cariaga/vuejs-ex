@@ -16,39 +16,46 @@ module.exports = function (app) {
 
     if (!isNullOrEmpty(UserTransactionID)) {
       if (!isNullOrEmpty(UserAccountID)) {
-        
-        DepositHistoryModel.ComputedNewMoney(UserTransactionID,function(response){//transaction + current player money 
-          
-          if(response!=undefined){
-            let NewMoney = response[0].Amount;
-            let UserAccountID = response[0].UserAccountID;
-            DepositHistoryModel.UpdatePlayerMoney(UserAccountID,NewMoney,function(response){
-              if(response!=undefined){
-                DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, function (response) {//approve transaction
-                  if (response==true) {
-                    let status = 200;
-                    res.status(status).end(http.STATUS_CODES[status]);
-                  } else {
-                    res.send({
-                      DepositHistoryUpdateApprovedFailed: true
+        DepositHistoryModel.isTransactionExist(UserTransactionID,function(response){
+          if(response[0].UserTransactionID==UserTransactionID){
+            DepositHistoryModel.TransactionStatus(UserTransactionID,function(response){
+              if(response[0].TransactionStatus=="pending"){
+                DepositHistoryModel.ComputedNewMoney(UserTransactionID,function(response){//transaction + current player money 
+                  if(response!=undefined){
+                    let NewMoney = response[0].Amount;
+                    let UserAccountID = response[0].UserAccountID;
+                    DepositHistoryModel.UpdatePlayerMoney(UserAccountID,NewMoney,function(response){
+                      if(response!=undefined){
+                        DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, function (response) {//approve transaction
+                          if (response==true) {
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                          } else {
+                            res.send({
+                              DepositHistoryUpdateApprovedFailed: true
+                            });
+                          }
+                        });
+                      }else{
+                        res.send({
+                          DepositHistoryPlayerMoneyFailed: true
+                        });
+                      } 
                     });
                   }
                 });
               }else{
                 res.send({
-                  DepositHistoryPlayerMoneyFailed: true
+                  AlreadyApproved: true
                 });
-              } 
+              }
             });
           }else{
             res.send({
-              DoesNotExist: true
+              DoseNotExist: true
             });
           }
         });
-
-
-
       }else {
         res.send({
           UserAccountIDMissing: true
