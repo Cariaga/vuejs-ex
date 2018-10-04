@@ -10,10 +10,12 @@ let http = require('http');
 
 module.exports = function (app) {
   //approved deposit
-  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID', function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
-    if (!isNullOrEmpty(UserTransactionID)) {
+    let UserAccountID = req.params.UserAccountID;
 
+    if (!isNullOrEmpty(UserTransactionID)) {
+      if (!isNullOrEmpty(UserAccountID)) {
         DepositHistoryModel.ComputedNewMoney(UserTransactionID,function(response){//transaction + current player money 
           
           if(response!=undefined){
@@ -21,7 +23,7 @@ module.exports = function (app) {
             let UserAccountID = response[0].UserAccountID;
             DepositHistoryModel.UpdatePlayerMoney(UserAccountID,NewMoney,function(response){
               if(response!=undefined){
-               DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, function (response) {//approve transaction
+                DepositHistoryModel.DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, function (response) {//approve transaction
                   if (response==true) {
                     let status = 200;
                     res.status(status).end(http.STATUS_CODES[status]);
@@ -43,6 +45,11 @@ module.exports = function (app) {
             });
           }
         });
+      }else {
+        res.send({
+          UserAccountIDMissing: true
+        });
+      }
     } else {
       res.send({
         UserTransactionIDMissing: true

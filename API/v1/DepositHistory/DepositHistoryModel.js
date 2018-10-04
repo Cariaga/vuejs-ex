@@ -127,7 +127,7 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   module.exports.ComputedNewMoney = function ComputedNewMoney(UserTransactionID, callback) {
     let _UserTransactionID = UserTransactionID;
     let query ="select (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"') as UserAccountID,(SELECT Amount FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')+(SELECT Money FROM sampledb.players where UserAccountID = (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')) as Amount from sampledb.transactions where UserTransactionID='"+_UserTransactionID+"' and TransactionStatus='pending';";
-    console.log(query)
+    console.log('computed new money : '+query)
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -167,27 +167,32 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     });        
   }
 
-  // DepositHistoryUpdateArchived(delete)
-  module.exports.DepositHistoryUpdateApproved = function DepositHistoryUpdateApproved(UserTransactionID, callback) {
-    let _UserTransactionID = UserTransactionID;
-    let query = 'UPDATE `sampledb`.`transactions` SET `TransactionStatus` = \'approved\' '+
-                " WHERE (UserTransactionID = '"+_UserTransactionID+"' AND TransactionType = 'deposit');";
-  
-    let query2 = 'UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()'+
-                " WHERE (UserTransactionID = '"+_UserTransactionID+"');";
-   
-      //new money of player
-  //SELECT UserTransactionID,Amount+(select Money from players as P where  P.UserAccountID = 'Account8') as Money
- //FROM sampledb.transactions where TransactionType ='deposit' and TransactionStatus='pending' and UserTransactionID='Transaction7' and UserAccountID='Account8';
- 
-//UPDATE `sampledb`.`players` as P SET P.Money = '4000' WHERE P.UserAccountID = 'Account8';
 
+  module.exports.DepositHistoryUpdateApproved = function DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, callback) {
+    let _UserTransactionID = UserTransactionID;
+    let _UserAccountID = UserAccountID;
+    let Amount;
+    let query = "SELECT UserTransactionID,Amount+(select Money from players as P where  P.UserAccountID = '"+_UserAccountID+"') as Money"+
+                " FROM sampledb.transactions where TransactionType ='deposit' and TransactionStatus='pending' and UserTransactionID= '"+_UserTransactionID+"' and UserAccountID= '"+_UserAccountID+"' ;";
+  
+    let query2 = 'UPDATE `sampledb`.`players` as P SET P.Money = '+Amount+
+                " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
+
+    let query3 = "UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved'"
+                " WHERE (`UserTransactionID` = '"+_UserTransactionID+"' and `UserAccountID`= '"+_UserAccountID+"' and TransactionType = 'deposit');";
+
+    let query4 = "UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()"+
+                " WHERE (`UserTransactionID` = '"+_UserTransactionID+"');";
+   
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
+          Amount = response[0]['Money']
           resolve();
         } else {
           reject();
+          console.log('promise fails');
+          
         }
        })
     });
@@ -198,11 +203,36 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
            resolve();
          } else {
            reject();
+           console.log('promise 2 fails');
+         }
+        })
+     });
+
+    var promise3 = new Promise(function(resolve, reject) {
+      DBConnect.DBConnect(query3, function (response) {
+         if (response != undefined) {
+           resolve();
+         } else {
+           reject();
+           console.log('promise 3 fails');
+         }
+        })
+     });
+
+    var promise4 = new Promise(function(resolve, reject) {
+      DBConnect.DBConnect(query4, function (response) {
+         if (response != undefined) {
+           resolve();
+         } else {
+           reject();
+
+           console.log('promise 4 fails');
          }
         })
      });
     
-    Promise.all([promise,promise2]).then(function() {
+
+    Promise.all([promise,promise2,promise3,promise4]).then(function() {
       console.log('approved deposit successful');
       callback(true);
       }, function(){ //if promise or promise2 fail
