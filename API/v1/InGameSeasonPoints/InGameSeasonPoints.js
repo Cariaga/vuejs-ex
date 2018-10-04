@@ -20,10 +20,13 @@ module.exports = function (app) {
             }
         })
     });
-    
-    app.get('/Api/v1/InGameSeasonPointsModel/SeasonID/:SeasonID/', function (req, res) {
+
+    //when the season ends we update their won points
+    app.get('/Api/v1/InGameSeasonPoints/Won/SeasonID/:SeasonID/UserAccountID/:UserAccountID/WinPoints/:WinPoints', function (req, res) {
         let SeasonID = req.params.SeasonID;
-        InGameSeasonPointsModel.InGameSeasonPoints(SeasonID,function(response){
+        let UserAccountID = req.params.UserAccountID;
+        let WinPoints = req.params.WinPoints;
+        InGameSeasonPointsModel.InGameSeasonPointsWon(SeasonID, UserAccountID, WinPoints, function(response){
             if(response!=undefined){
                 res.send(response);
             }else{
@@ -33,19 +36,58 @@ module.exports = function (app) {
         })
     });
 
-    //when the season ends we update their won points
-        //UPDATE `sampledb`.`playerfinalcard` SET `WinPoints` = '500' WHERE (`SeasonID` = '0e032ae4-335b-4889-808e-3ff95e4cf7f4' and `UserAccountID`='Account8');
 
     //this is their points when they joined the season 
     //note in the db their can only be one user account matching the season 1 user connot have two seasons
-        //UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '500' WHERE (`SeasonID` = '0e032ae4-335b-4889-808e-3ff95e4cf7f4' and `UserAccountID`='Account8');
+    app.get('/Api/v1/InGameSeasonPoints/Join/SeasonID/:SeasonID/UserAccountID/:UserAccountID/BeforePoints/:BeforePoints', function (req, res) {
+        let SeasonID = req.params.SeasonID;
+        let UserAccountID = req.params.UserAccountID;
+        let BeforePoints = req.params.BeforePoints;
+        InGameSeasonPointsModel.InGameSeasonPointsJoin(SeasonID, UserAccountID, BeforePoints, function(response){
+            if(response!=undefined){
+                res.send(response);
+            }else{
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
+            }
+        })
+    });
 
-
-    //used for updating the user points when they buy in // note in the db their can only be one user account matching the season 1 user connot have two seasons
-        //UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '0' WHERE (`SeasonID` = '0e032ae4-335b-4889-808e-3ff95e4cf7f4' and UserAccountID='Account8' and SeasonEnded is null);
+    //used for updating the user points when they buy in 
+    // note in the db their can only be one user account matching the season 1 user connot have two seasons
+        
+    app.get('/Api/v1/InGameSeasonPoints/BuyIn/SeasonID/:SeasonID/UserAccountID/:UserAccountID/CurrentPoints/:CurrentPoints', function (req, res) {
+        let SeasonID = req.params.SeasonID;
+        let UserAccountID = req.params.UserAccountID;
+        let CurrentPoints = req.params.CurrentPoints;
+        InGameSeasonPointsModel.InGameSeasonPointsBuyIn(SeasonID, UserAccountID, CurrentPoints, function(response){
+            if(response!=undefined){
+                res.send(response);
+            }else{
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
+            }
+        })
+    });
 
     //to end a season
-        //UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '0', `SeasonEnded` = now() WHERE (`SeasonID` = '0e032ae4-335b-4889-808e-3ff95e4cf7f4');
+    app.get('/Api/v1/InGameSeasonPoints/SeasonEnd/SeasonID/:SeasonID/CurrentPoints/:CurrentPoints', function (req, res) {
+        let SeasonID = req.params.SeasonID;
+        let CurrentPoints = req.params.CurrentPoints;
+        InGameSeasonPointsModel.InGameSeasonPointsEnd(SeasonID, CurrentPoints,function(response){
+            if(response!=undefined){
+                res.send(response);
+            }else{
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
+            }
+        })
+    });
+
+
+
+
+
 
 
     
