@@ -6,6 +6,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var LoginHistoryModel = require('./LoginHistoryModel');
 var jwt = require('jsonwebtoken');
+let http = require('http');
 module.exports = function (app) {
     
         // FORMAT OF TOKEN
@@ -29,7 +30,7 @@ module.exports = function (app) {
           res.sendStatus(403);
         }
       }
-      app.post('/Api/v1/Content', verifyToken, (req, res) => {
+      app.post('/Api/v1/ContentTest/', verifyToken, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
           if (err) {
             res.sendStatus(403);
@@ -41,35 +42,53 @@ module.exports = function (app) {
           }
         });
       });
+      app.get('/Api/v1/ContentTest/', verifyToken, (req, res) => {
+        jwt.verify(req.token, 'secretkey', (err, authData) => {
+          if (err) {
+            res.sendStatus(403);
+          } else {
+            res.json({
+              message: 'Get created...',
+              authData
+            });
+          }
+        });
+      });
 
   app.post('/Api/v1/Login/', function (req, res) {
-    var UserName = req.body.UserName;
-    var Password = req.body.Password;
-    if(!isNullOrEmpty(UserName)){
-      if (!isNullOrEmpty(Password)) {
-        const user = {
-          id: 1,
-          UserName: 'amy',
-          email: 'brad@gmail.com'
-        }
-      
-        jwt.sign({
-          user
-        }, 'secretkey', {
-          expiresIn: '2d'
-        }, (err, token) => {
-          res.json({
-            token
-          });
-        });
-      /*  LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
-          // Mock user
+    var _UserName = req.body.UserName;
+    var _Password = req.body.Password;
+
+
+    if(!isNullOrEmpty(_UserName)){
+      if (!isNullOrEmpty(_Password)) {
        
+        LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
+          //let firstRow = response[0];
+          let AccountType = response[0].AccountType;
+          let UserAccountID = response[0].UserAccountID;
+          // Mock user
+          const user = {
+            id: 1,
+            UserName: _UserName,
+            UserAccountID: UserAccountID,
+            AccountType: AccountType
+          }
+        
+          jwt.sign({
+            user
+          }, 'secretkey', {
+            expiresIn: '2d'
+          }, (err, token) => {
+            res.json({
+              token
+            });
+          });
+     
+    
          // res.send("login success!");
-          let firstRow = response[0];
-          let Verified = firstRow.Verified;
-          let Status= firstRow.Status;
-        });*/
+        
+        });
 
       }else{
         let status = 404;
