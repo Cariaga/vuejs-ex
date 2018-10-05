@@ -174,65 +174,47 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
     let query = "SELECT UserTransactionID,Amount+(select Money from players as P where  P.UserAccountID = '"+_UserAccountID+"') as Money"+
                 " FROM sampledb.transactions where TransactionType ='deposit' and TransactionStatus='pending' and UserTransactionID= '"+_UserTransactionID+"' and UserAccountID= '"+_UserAccountID+"' ;";
 
-    let query3 = "UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved'"+
-                " WHERE `UserTransactionID` = '"+_UserTransactionID+"' AND UserAccountID = '"+_UserAccountID+"' LIMIT 1 ;";
+    let query3 = "UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved' "+
+                 " WHERE `UserTransactionID` = '"+_UserTransactionID+"' AND UserAccountID = '"+_UserAccountID+"' LIMIT 1 ;";
 
     let query4 = "UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()"+
                 " WHERE (`UserTransactionID` = '"+_UserTransactionID+"');";
-    
-    //query3
-    DBConnect.DBConnect(query3, function (response) {
+
+                
+    DBConnect.DBConnect(query, function (response) {
+      console.log(_UserTransactionID)
+      console.log('promise 1 response: '+response)
+      //query
       if (response != undefined) {
-        console.log('called...')
-        callback(true)
-        //query4
-        // DBConnect.DBConnect(query4, function (response) {
-        //   if (response != undefined) {
-        //     callback(true)
-        //   } else {
-        //     callback(undefined);
-        //   }
-        //   })//query4 end
+        let Amount  = response[0]['Money'];
+        let query2 = 'UPDATE `sampledb`.`players` as P SET P.Money = '+Amount+
+                     " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
+        //query2
+        DBConnect.DBConnect(query2, function (response) {
+          if (response != undefined) {
+            //query3
+            DBConnect.DBConnect(query3, function (response) {
+               if (response != undefined) {
+                //query4
+                DBConnect.DBConnect(query4, function (response) {
+                   if (response != undefined) {
+                     callback(true)
+                   } else {
+                    callback(undefined);
+                   }
+                  })//query4 end
+               } else {
+                callback(undefined);
+               }
+            })//query3 end
+          } else {
+            callback(undefined);
+          }//query2 end
+        })
       } else {
         callback(undefined);
-      }
-    })//query3 end
-
-
-    // DBConnect.DBConnect(query, function (response) {
-    //   console.log(_UserTransactionID)
-    //   console.log('promise 1 response: '+response)
-    //   //query
-    //   if (response != undefined) {
-    //     let Amount  = response[0]['Money'];
-    //     let query2 = 'UPDATE `sampledb`.`players` as P SET P.Money = '+Amount+
-    //                  " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
-    //     //query2
-    //     DBConnect.DBConnect(query2, function (response) {
-    //       if (response != undefined) {
-    //         //query3
-    //         DBConnect.DBConnect(query3, function (response) {
-    //            if (response != undefined) {
-    //             //query4
-    //             DBConnect.DBConnect(query4, function (response) {
-    //                if (response != undefined) {
-    //                  callback(true)
-    //                } else {
-    //                 callback(undefined);
-    //                }
-    //               })//query4 end
-    //            } else {
-    //             callback(undefined);
-    //            }
-    //         })//query3 end
-    //       } else {
-    //         callback(undefined);
-    //       }//query2 end
-    //     })
-    //   } else {
-    //     callback(undefined);
-    //   }//query end
-    // })
+      }//query end
+    })
 
     // var promise2 = new Promise(function(resolve, reject) {
     //   console.log('this is amount : '+Amount)
