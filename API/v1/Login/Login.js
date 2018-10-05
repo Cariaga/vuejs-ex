@@ -54,6 +54,10 @@ module.exports = function (app) {
           }
         });
       });
+      app.get('/logout', function (req, res) {
+        req.session.destroy();
+        res.send("logout success!");
+      });
 
   app.post('/Api/v1/Login/', function (req, res) {
     var _UserName = req.body.UserName;
