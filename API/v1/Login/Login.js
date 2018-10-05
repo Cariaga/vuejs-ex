@@ -1,6 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+let Security = require("../../SharedController/Security");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
@@ -8,29 +9,7 @@ var LoginHistoryModel = require('./LoginHistoryModel');
 var jwt = require('jsonwebtoken');
 let http = require('http');
 module.exports = function (app) {
-    
-        // FORMAT OF TOKEN
-      // Authorization: Bearer <access_token>
-      // Verify Token
-      function verifyToken(req, res, next) {
-        // Get auth header value
-        const bearerHeader = req.headers['authorization'];
-        // Check if bearer is undefined
-        if (typeof bearerHeader !== 'undefined') {
-          // Split at the space
-          const bearer = bearerHeader.split(' ');
-          // Get token from array
-          const bearerToken = bearer[1];
-          // Set the token
-          req.token = bearerToken;
-          // Next middleware
-          next();
-        } else {
-          // Forbidden
-          res.sendStatus(403);
-        }
-      }
-      app.post('/Api/v1/ContentTest/', verifyToken, (req, res) => {
+      app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
           if (err) {
             res.sendStatus(403);
@@ -42,7 +21,7 @@ module.exports = function (app) {
           }
         });
       });
-      app.get('/Api/v1/ContentTest/', verifyToken, (req, res) => {
+      app.get('/Api/v1/ContentTest/',  Security.verifyToken, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
           if (err) {
             res.sendStatus(403);

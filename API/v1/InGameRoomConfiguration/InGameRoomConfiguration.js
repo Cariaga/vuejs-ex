@@ -18,12 +18,12 @@ module.exports = function (app) {
         if (!isNullOrEmpty(UserAccountID)) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
-                    let RoomID=  UUID();
+                    let RoomID=  UUID();//1 pass to check 
                     DBCheck.IsRoomIDExist(RoomID, function (response) {
                         if (response == false) {
                             res.send(UUID());
                         } else {
-                            res.send(UUID());
+                            res.send(UUID());//2 pass to check again
                            /* let status = 404;
                             res.status(status).end(http.STATUS_CODES[status]);*/
                         }

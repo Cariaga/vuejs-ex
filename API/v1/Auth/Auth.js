@@ -23,6 +23,10 @@ module.exports = function (app) {//MODIFY
         app.get('/content', auth, function (req, res) {
             res.send("You can only see this after you've logged in.");
         });
+
+    
+
+
       //--testing for authetication API key START
       app.post('/Api/v1/Content', verifyToken, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -57,7 +61,7 @@ module.exports = function (app) {//MODIFY
       // FORMAT OF TOKEN
       // Authorization: Bearer <access_token>
       // Verify Token
-      function verifyToken(req, res, next) {
+      /*function verifyToken(req, res, next) {
         // Get auth header value
         const bearerHeader = req.headers['authorization'];
         // Check if bearer is undefined
@@ -74,7 +78,7 @@ module.exports = function (app) {//MODIFY
           // Forbidden
           res.sendStatus(403);
         }
-      }
+      }*/
       
       //--testing for authetication API key END
       //--testing for season based authentication START
