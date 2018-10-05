@@ -18,8 +18,16 @@ module.exports = function (app) {
         if (!isNullOrEmpty(UserAccountID)) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
-                    
-                    res.send(UUID());
+                    let RoomID=  UUID();
+                    DBCheck.IsRoomIDExist(RoomID, function (response) {
+                        if (response == false) {
+                            res.send(UUID());
+                        } else {
+                            res.send(UUID());
+                           /* let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);*/
+                        }
+                    });
                 }
             });
         } else {
