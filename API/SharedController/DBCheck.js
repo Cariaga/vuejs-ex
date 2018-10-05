@@ -216,9 +216,9 @@ const mysql = require('mysql2');
    
     DBConnect.DBConnect(query,function(response){
       if(response.length>0){
-        callback(response);
+        callback(true);
       }else{
-        callback(undefined);
+        callback(false);
       }
     });
   }
