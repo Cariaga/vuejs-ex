@@ -54,8 +54,8 @@ module.exports = function (app) {
           }
         });
       });
-      app.get('/logout', function (req, res) {
-        req.session.destroy();
+      app.get('/Api/v1/logout', function (req, res) {
+        
         res.send("logout success!");
       });
 

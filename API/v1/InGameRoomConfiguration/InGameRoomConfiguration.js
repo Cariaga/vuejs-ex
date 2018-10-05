@@ -18,6 +18,7 @@ module.exports = function (app) {
         if (!isNullOrEmpty(UserAccountID)) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
+                    
                     res.send(UUID());
                 }
             });
