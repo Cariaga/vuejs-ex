@@ -46,7 +46,7 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
         }
       });
   }
-  module.exports.UpdatePlayerMoney = function PlayerNewMoneyAdd(UserAccountID, NewAmount,callback) {
+  module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID, NewAmount,callback) {
     let _UserAccountID = UserAccountID;
     let _NewAmount = NewAmount;
     let query = 
@@ -54,10 +54,23 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
     console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-         
           callback(response);
         } else {
           callback(undefined);
         }
       });
+  }
+
+  module.exports.UserNameUserAccount = function UserNameUserAccount(UserName, callback){
+    let _UserName = UserName;
+    let query = 
+    "SELECT UserAccountID FROM `sampledb`.`useraccounts` WHERE UserName = '"+_UserName+"' ";
+
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   }
