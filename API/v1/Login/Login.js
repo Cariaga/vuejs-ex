@@ -5,7 +5,82 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var LoginHistoryModel = require('./LoginHistoryModel');
+var jwt = require('jsonwebtoken');
 module.exports = function (app) {
+    
+        // FORMAT OF TOKEN
+      // Authorization: Bearer <access_token>
+      // Verify Token
+      function verifyToken(req, res, next) {
+        // Get auth header value
+        const bearerHeader = req.headers['authorization'];
+        // Check if bearer is undefined
+        if (typeof bearerHeader !== 'undefined') {
+          // Split at the space
+          const bearer = bearerHeader.split(' ');
+          // Get token from array
+          const bearerToken = bearer[1];
+          // Set the token
+          req.token = bearerToken;
+          // Next middleware
+          next();
+        } else {
+          // Forbidden
+          res.sendStatus(403);
+        }
+      }
+      app.post('/Api/v1/Content', verifyToken, (req, res) => {
+        jwt.verify(req.token, 'secretkey', (err, authData) => {
+          if (err) {
+            res.sendStatus(403);
+          } else {
+            res.json({
+              message: 'Post created...',
+              authData
+            });
+          }
+        });
+      });
+
+  app.post('/Api/v1/Login/', function (req, res) {
+    var UserName = req.body.UserName;
+    var Password = req.body.Password;
+    if(!isNullOrEmpty(UserName)){
+      if (!isNullOrEmpty(Password)) {
+        const user = {
+          id: 1,
+          UserName: 'amy',
+          email: 'brad@gmail.com'
+        }
+      
+        jwt.sign({
+          user
+        }, 'secretkey', {
+          expiresIn: '2d'
+        }, (err, token) => {
+          res.json({
+            token
+          });
+        });
+      /*  LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
+          // Mock user
+       
+         // res.send("login success!");
+          let firstRow = response[0];
+          let Verified = firstRow.Verified;
+          let Status= firstRow.Status;
+        });*/
+
+      }else{
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
+    }else{
+      let status = 404;
+      res.status(status).end(http.STATUS_CODES[status]);
+    }
+  });
+
   app.get('/Api/v1/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.params.UserName;

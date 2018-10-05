@@ -74,7 +74,6 @@ module.exports = function (app) {//MODIFY
           // Forbidden
           res.sendStatus(403);
         }
-      
       }
       
       //--testing for authetication API key END
