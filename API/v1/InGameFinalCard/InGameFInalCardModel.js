@@ -24,3 +24,22 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
       }
     });
   }
+  module.exports.UpdatePlayerFinalCard = function UpdatePlayerFinalCard(UserAccountID,SeasonID,CurrentPoints,WinPoints,AfterPoints,BeforePoints, callback) {
+    let _UserAccountID = UserAccountID;
+    let _SeasonID = SeasonID;
+    let _CurrentPoints = CurrentPoints;
+    let _WinPoints = WinPoints;
+    let _AfterPoints = AfterPoints;
+    let _BeforePoints = BeforePoints;
+    console.log(_UserAccountID+" "+_SeasonID+" "+_CurrentPoints+" "+_WinPoints+" "+_AfterPoints+" "+_BeforePoints)
+    let query = "";
+    console.log(query);
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  }
