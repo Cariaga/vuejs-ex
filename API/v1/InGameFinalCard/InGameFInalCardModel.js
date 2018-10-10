@@ -31,8 +31,8 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
     let _WinPoints = WinPoints;
     let _AfterPoints = AfterPoints;
     let _BeforePoints = BeforePoints;
-    console.log(_UserAccountID+" "+_SeasonID+" "+_CurrentPoints+" "+_WinPoints+" "+_AfterPoints+" "+_BeforePoints)
-    let query = "";
+
+    let query = "UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints`='"+_CurrentPoints+"',`BeforePoints` = '"+_BeforePoints+"', `WinPoints` = '"+_WinPoints+"', `AfterPoints` = '"+_AfterPoints+"' WHERE (`SeasonID` = '"+_SeasonID+"' and `UserAccountID`='"+_UserAccountID+"');";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -42,4 +42,5 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
         callback(undefined);
       }
     });
+
   }

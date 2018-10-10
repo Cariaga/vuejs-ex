@@ -33,6 +33,10 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
             console.log("Key Already Used In Another Table");
             callback(undefined);
           }
+          else if(err.sqlState=='42000'){
+            console.log("Empty Query Requested");
+            callback(undefined);
+          }
           else{
             console.log("Somthing Bad Happend :" );
           }
