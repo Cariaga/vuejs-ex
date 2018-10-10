@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 module.exports = function (app) {
-    app.get('/Api/v1/Profile/UserAccountID/:UserAccountID/', function (req, res) {
+    app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
 
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
