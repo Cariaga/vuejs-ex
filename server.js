@@ -124,6 +124,7 @@ require('./API/v1/TransactionHistory/TransactionHistory')(app);
 require('./API/v1/InGameScore/InGameScore')(app);
 require('./API/v1/InGameSeason/InGameSeason')(app);
 require('./API/v1/InGameRoomConfiguration/InGameRoomConfiguration')(app);
+require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 
 let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
 function test(){
