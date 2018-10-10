@@ -47,26 +47,33 @@ module.exports = function (app) {
       if (!isNullOrEmpty(_Password)) {
        
         LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
-          //let firstRow = response[0];
-          let AccountType = response[0].AccountType;
-          let UserAccountID = response[0].UserAccountID;
-          // Mock user
-          const user = {
-            id: 1,
-            UserName: _UserName,
-            UserAccountID: UserAccountID,
-            AccountType: AccountType
-          }
-        
-          jwt.sign({
-            user
-          }, 'secretkey', {
-            expiresIn: '2d'
-          }, (err, token) => {
-            res.json({
-              token
+
+          if(response){
+            //let firstRow = response[0];
+            let AccountType = response[0].AccountType;
+            let UserAccountID = response[0].UserAccountID;
+            // Mock user
+            const user = {
+              id: 1,
+              UserName: _UserName,
+              UserAccountID: UserAccountID,
+              AccountType: AccountType
+            }
+          
+            jwt.sign({
+              user
+            }, 'secretkey', {
+              expiresIn: '2d'
+            }, (err, token) => {
+              res.json({
+                token
+              });
             });
-          });
+            
+          }else{
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
      
     
          // res.send("login success!");
