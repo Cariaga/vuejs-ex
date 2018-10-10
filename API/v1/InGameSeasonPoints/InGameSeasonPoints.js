@@ -121,13 +121,11 @@ module.exports = function (app) {
     });
 
     //to end a season
-    app.get('/Api/v1/InGameSeasonPoints/SeasonEnd/SeasonID/:SeasonID/CurrentPoints/:CurrentPoints', function (req, res) {
+    app.get('/Api/v1/InGameSeasonPoints/SeasonEnd/SeasonID/:SeasonID/', function (req, res) {
         let SeasonID = req.params.SeasonID;
-        let CurrentPoints = req.params.CurrentPoints;
-
         if (!isNullOrEmpty(SeasonID)) {
-            if (!isNullOrEmpty(CurrentPoints)) {
-                InGameSeasonPointsModel.InGameSeasonPointsEnd(SeasonID, CurrentPoints, function (response) {
+        
+                InGameSeasonPointsModel.InGameSeasonPointsEnd(SeasonID, function (response) {
                     if (response != undefined) {
                         res.send(response);
                     } else {
@@ -135,10 +133,7 @@ module.exports = function (app) {
                         res.status(status).end(http.STATUS_CODES[status]);
                     }
                 });
-            } else {
-                let status = 404;
-                res.status(status).end(http.STATUS_CODES[status]);
-            }
+
         } else {
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);

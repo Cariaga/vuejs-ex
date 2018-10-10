@@ -79,10 +79,10 @@ let DBConnect = require("../../SharedController/DBConnect");
 
   //seasonEnd
     //UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '0', `SeasonEnded` = now() WHERE (`SeasonID` = '0e032ae4-335b-4889-808e-3ff95e4cf7f4');
-  module.exports.InGameSeasonPointsEnd = function InGameSeasonPointsEnd(SeasonID, CurrentPoints, callback) {
+  module.exports.InGameSeasonPointsEnd = function InGameSeasonPointsEnd(SeasonID, callback) {
       let _SeasonID = SeasonID;
-      let _CurrentPoints = CurrentPoints;
-      let query ="UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '"+_CurrentPoints+"', `SeasonEnded` = now() WHERE (`SeasonID` = '"+_SeasonID+"');";
+ 
+      let query ="UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = 0, `SeasonEnded` = now() WHERE (`SeasonID` = '"+_SeasonID+"');";
       console.log(query);
       DBConnect.DBConnect(query, function (response) {
         //console.log(response);
