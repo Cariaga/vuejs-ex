@@ -124,16 +124,6 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                             }
                         });
                         
-
-
-                       /* DbCheck.isUserAccountIDExist(UserAccountID,function(response){
-                            if(response==true){
-                                DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
-                                    if(response==false){
-                                       
-                                        });
-                                    }
-                                });*/
                     
                         }else{
                             //we resolve any way if it dosen't have a user accout or season id but we don't process it

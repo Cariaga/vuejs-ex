@@ -1,6 +1,4 @@
-module.exports.statictest = function statictest() {
-  console.log("asf");
-}
+
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>
 // Verify Token
