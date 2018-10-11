@@ -17,18 +17,29 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
       const bearerToken = bearer[1];
       // Set the token
       req.token = bearerToken;
-      var decoded = jwt.decode(bearerToken, {
-        complete: true
-      });
+     
 
       jwt.verify(bearerToken, 'secretkey', function (err, decoded) {
         if (err) {
           console.log("Error Token");
           res.sendStatus(403);
         } else {
-          console.log(decoded.header);
-          console.log(decoded.payload);
-          next();
+          let resultDecoded = jwt.decode(bearerToken, {
+            complete: true
+          });
+          console.log(resultDecoded.header);
+          console.log(resultDecoded.payload);
+          var dateNow = new Date();
+          
+          if(resultDecoded.expiresIn < dateNow.getTime())// token expired
+          {
+            console.log("Expired");
+            res.sendStatus(403);
+          }else{
+            next();
+          }
+         
+          
         }
       });
     }else{

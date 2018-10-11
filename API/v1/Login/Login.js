@@ -63,7 +63,7 @@ module.exports = function (app) {
             jwt.sign({
               user
             }, 'secretkey', {
-              expiresIn: '2d'
+              expiresIn: '1d'
             }, (err, token) => {
               res.json({
                 token
