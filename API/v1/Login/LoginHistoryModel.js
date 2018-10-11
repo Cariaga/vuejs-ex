@@ -122,7 +122,8 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
     "where UA.UserName ='"+_UserName+"' and UA.Password= '"+_Password+"' "+
     "order by BL.ReportDate desc limit 1; ";
-      //console.log(Query);
+
+      console.log(Query);
       return new Promise(resolve => {
         DBConnect.DBConnect(Query, function (response) {
           console.log(response);
