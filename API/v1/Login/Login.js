@@ -101,7 +101,7 @@ module.exports = function (app) {
     let DeviceCpu = req.params.DeviceCpu;
     let OperatingSystem = req.params.OperatingSystem;
     let GraphicsDevice = req.params.GraphicsDevice;
-
+    
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
         if (!isNullOrEmpty(IP)) {
