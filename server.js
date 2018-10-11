@@ -2,6 +2,7 @@
 "use strict";
 // set up ========================
 var helmet = require('helmet');
+var sqlinjection = require('sql-injection');
 var express = require('express');
 const routes = require('express').Router();
 var Nexmo = require('nexmo');
@@ -24,6 +25,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 
+app.use(sqlinjection);
 
 // configuration =================
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users

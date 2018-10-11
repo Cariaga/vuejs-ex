@@ -1,6 +1,7 @@
 let http = require('http');
 let InGameFinalCardModel = require('./InGameFinalCardModel');
 let DBConnect = require("../../SharedController/DBConnect");
+let DbCheck = require("../../SharedController/DBCheck");
 module.exports = function (app) { 
     app.get('/Api/v1/PlayerFinalCard2/Json/:Json/', function (req, res) {
         let Json = req.params.Json;
@@ -18,10 +19,11 @@ module.exports = function (app) {
 
                     }
                 )).catch(function(error) {
+                    let status = 500; res.status(status).end(http.STATUS_CODES[status]);
                     console.log("Error Occured "+ error);
                   });
             }else{
-                p = p.then(_ => new Promise(resolve =>
+                p = p.then(_ => new Promise((resolve,reject) =>
                     {
                         let Hand = JsonRow[i].hand;
                         let Score = JsonRow[i].score;
@@ -29,19 +31,36 @@ module.exports = function (app) {
                         let UserAccountID =   JsonRow[i].UserAccountID;
                         let SeasonID =   JsonRow[i].SeasonID;
                         if(SeasonID!=undefined&&UserAccountID!=undefined){//if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
-                            InGameFinalCardModel.AddPlayerFinalCard(UserAccountID,SeasonID,Rank,Score,Hand,function(response){
-                                if(response==undefined){
-                                    console.log("UserAccount or SeasonID dosn't Exist");
-                                }else{
-                                    resolve();
-                                }
-                            })
+                        DbCheck.isUserAccountIDExist(UserAccountID,function(response){
+                            if(response==true){
+                                DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
+                                    if(response==false){
+                                        InGameFinalCardModel.AddPlayerFinalCard(UserAccountID,SeasonID,Rank,Score,Hand,function(response){
+                                            if(response==undefined){
+                                                console.log("UserAccount or SeasonID dosn't Exist");
+                                            }else{
+                                                resolve();
+                                            }
+                                        })
+                                    }else{
+                                        console.log("UserAccount Blocked Set "+UserAccountID);
+                                        reject("UserAccount Blocked Set "+UserAccountID);
+                                    }
+                                })
+                            }else{
+                                console.log("UserAccount dosn't Exist Set" + UserAccountID);
+                                reject("UserAccount dosn't Exist Set" + UserAccountID);
+                            }
+                        });
+
+                           
                         }else{
                             //we resolve any way if it dosen't have a user accout or season id but we don't process it
                             resolve();
                         }
                     }
                 )).catch(function(error) {
+                    let status = 500; res.status(status).end(http.STATUS_CODES[status]);
                     console.log("Error Occured "+ error);
                   });
             }
@@ -70,7 +89,7 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     console.log("Error Occured "+ error);
                   });
             }else{
-                p = p.then(_ => new Promise(resolve =>
+                p = p.then(_ => new Promise((resolve,reject) =>
                     {
                         let UserAccountID = JsonRow[i].UserAccountID;
                         let SeasonID = JsonRow[i].SeasonID;
@@ -80,14 +99,42 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                         let BeforePoints =   JsonRow[i].BeforePoints;
                         console.log(UserAccountID+" "+SeasonID+" "+CurrentPoints+" "+WinPoints+" "+AfterPoints+" "+BeforePoints);
                         if(SeasonID!=undefined&&UserAccountID!=undefined){//if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
-                          
-                            InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID,SeasonID,CurrentPoints,WinPoints,AfterPoints,BeforePoints,function(response){
-                                if(response==undefined){
-                                    console.log("UserAccount or SeasonID dosn't Exist");
-                                }else{
-                                    resolve();
-                                }
-                            });
+                        DbCheck.isUserAccountIDExist(UserAccountID,function(response){
+                            if(response==true){
+                                DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
+                                    if(response==false){
+                                        InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID,SeasonID,CurrentPoints,WinPoints,AfterPoints,BeforePoints,function(response){
+                                            if(response==undefined){
+                                               
+                                                console.log("UserAccount or SeasonID dosn't Exist");
+                                            }else{
+                                                resolve();
+                                            }
+                                        });
+                                    }else{
+                                        console.log("UserAccount Blocked Update"+UserAccountID);
+                                        reject("UserAccount Blocked Update"+UserAccountID);
+                                      //  throw "UserAccount Blocked " + UserAccountID;
+                                    }
+                                })
+                            }else{
+                                console.log("UserAccount dosn't Exist Update" + UserAccountID);
+                                reject("UserAccount dosn't Exist Update" + UserAccountID);
+                              // throw "UserAccount dosn't Exist" + UserAccountID;
+                            }
+                        });
+                        
+
+
+                       /* DbCheck.isUserAccountIDExist(UserAccountID,function(response){
+                            if(response==true){
+                                DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
+                                    if(response==false){
+                                       
+                                        });
+                                    }
+                                });*/
+                    
                         }else{
                             //we resolve any way if it dosen't have a user accout or season id but we don't process it
                             resolve();
@@ -120,7 +167,7 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     console.log("Error Occured "+ error);
                   });
             }else{
-                p = p.then(_ => new Promise(resolve =>
+                p = p.then(_ => new Promise((resolve,reject) =>
                     {
                         let Hand = JsonRow[i].hand;
                         let Score = JsonRow[i].score;
@@ -128,13 +175,29 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                         let UserAccountID =   JsonRow[i].UserAccountID;
                         let SeasonID =   JsonRow[i].SeasonID;
                         if(SeasonID!=undefined&&UserAccountID!=undefined){//if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
-                            InGameFinalCardModel.AddPlayerFinalCard(UserAccountID,SeasonID,Rank,Score,Hand,function(response){
-                                if(response==undefined){
-                                    console.log("UserAccount or SeasonID dosn't Exist");
-                                }else{
-                                    resolve();
-                                }
-                            })
+                        DbCheck.isUserAccountIDExist(UserAccountID,function(response){
+                            if(response==true){
+                                DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
+                                    if(response==false){
+                                        InGameFinalCardModel.AddPlayerFinalCard(UserAccountID,SeasonID,Rank,Score,Hand,function(response){
+                                            if(response==undefined){
+                                                console.log("UserAccount or SeasonID dosn't Exist");
+                                            }else{
+                                                resolve();
+                                            }
+                                        })
+                                    }else{
+                                        console.log("UserAccount Blocked Set "+UserAccountID);
+                                        reject("UserAccount Blocked Set "+UserAccountID);
+                                    }
+                                })
+                            }else{
+                                console.log("UserAccount dosn't Exist Set" + UserAccountID);
+                                reject("UserAccount dosn't Exist Set" + UserAccountID);
+                            }
+                        });
+
+                           
                         }else{
                             //we resolve any way if it dosen't have a user accout or season id but we don't process it
                             resolve();
