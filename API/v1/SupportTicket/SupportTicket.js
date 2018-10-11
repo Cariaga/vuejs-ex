@@ -89,7 +89,7 @@ module.exports = function (app) { //INSERT
   });
 
   //INSERT w/out Answer & Status
-  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', function (req, res) {
+  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', Security.verifyToken, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
     let Description = req.params.Description;

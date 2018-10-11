@@ -7,7 +7,7 @@ var uuidv4 = require('uuid/v4');
 var isNullOrEmpty = require('is-null-or-empty');
 var http = require('http');
 module.exports = function (app) {
-  app.get('/Api/v1/SignOut/UserAccountID/:UserAccountID/', function (req, res) {
+  app.get('/Api/v1/SignOut/UserAccountID/:UserAccountID/', Security.verifyToken,function (req, res) {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {

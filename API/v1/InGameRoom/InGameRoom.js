@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameRoom/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName/', function (req, res) {
+    app.get('/Api/v1/InGameRoom/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName/',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let CurrentRoomName = req.params.CurrentRoomName;
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

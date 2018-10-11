@@ -12,7 +12,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
 
-    app.get('/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/:UserAccountIDSender/UserAccountIDReceiver/:UserAccountIDReceiver/Amount/:Amount/', function (req, res) {
+    app.get('/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/:UserAccountIDSender/UserAccountIDReceiver/:UserAccountIDReceiver/Amount/:Amount/',Security.verifyToken, function (req, res) {
         let UserAccountIDSender = req.params.UserAccountIDSender;
         let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
         let Amount = req.params.Amount;

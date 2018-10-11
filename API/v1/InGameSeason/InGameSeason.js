@@ -32,7 +32,7 @@ module.exports = function (app) { //selection
         }
     });
 
-    app.get('/Api/v1/InGameSeason/Clear/SeasonID/:SeasonID/', function (req, res) {
+    app.get('/Api/v1/InGameSeason/Clear/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) {
         let SeasonID = req.params.SeasonID;
         if (!isNullOrEmpty(SeasonID)) {
             InGameSeasonModel.InGameSeasonClear(SeasonID, function (response) {
