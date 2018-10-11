@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
 var uuidv4 = require('uuid/v4');
 let http = require('http');
-
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {
   //approved deposit
   app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID/', function (req, res) {

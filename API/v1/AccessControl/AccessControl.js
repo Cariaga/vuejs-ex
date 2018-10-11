@@ -5,6 +5,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 let http = require('http');
 let AccessControlModel = require("./AccessControlModel");
 var isNullOrEmpty = require('is-null-or-empty');
+var Security = require('../../SharedController/Security');
 module.exports = function(app) {//MODIFY
   
   app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', function (req, res) {

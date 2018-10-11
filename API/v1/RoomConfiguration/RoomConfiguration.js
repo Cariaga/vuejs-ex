@@ -8,6 +8,7 @@ var uuidv4 = require('uuid/v4');
 var async = require("async");
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/RoomNotice/:RoomNotice/', function (req, res) {
     let RoomID = req.params.RoomID;

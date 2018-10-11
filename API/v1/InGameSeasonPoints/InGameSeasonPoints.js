@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     //SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where SeasonID='0e032ae4-335b-4889-808e-3ff95e4cf7f4';
 

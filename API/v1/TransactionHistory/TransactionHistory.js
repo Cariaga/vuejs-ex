@@ -2,7 +2,7 @@ let TransactionHistoryModel = require("../TransactionHistory/TransactionHistoryM
 var isNullOrEmpty = require('is-null-or-empty');
 let DBCheck = require("../../SharedController/DBCheck");
 var beautify = require("json-beautify");
-
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {
   app.get('/Api/v1/TransactionHistory/UserTransactionID/:UserTransactionID/TransactionStatus/:TransactionStatus/', function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;

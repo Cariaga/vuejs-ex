@@ -1,13 +1,14 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
-let Security = require("../../SharedController/Security");
+
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var LoginHistoryModel = require('./LoginHistoryModel');
 var jwt = require('jsonwebtoken');
 let http = require('http');
+let Security = require("../../SharedController/Security");
 module.exports = function (app) {
       app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -63,7 +64,7 @@ module.exports = function (app) {
             jwt.sign({
               user
             }, 'secretkey', {
-              expiresIn: '10s'
+              expiresIn: '1d'
             }, (err, token) => {
               res.json({
                 token

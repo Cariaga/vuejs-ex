@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
 
   app.get('/Api/v1/UserAccount/', function (req, res) {

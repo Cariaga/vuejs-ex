@@ -9,6 +9,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 let InGameTransferRequestModel = require('./InGameTransferRequestModel');
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {
 
     app.get('/Api/v1/InGameTransferHistoryRequest/UserAccountIDSender/:UserAccountIDSender/UserAccountIDReceiver/:UserAccountIDReceiver/Amount/:Amount/', function (req, res) {

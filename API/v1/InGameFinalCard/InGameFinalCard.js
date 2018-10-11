@@ -2,6 +2,7 @@ let http = require('http');
 let InGameFinalCardModel = require('./InGameFinalCardModel');
 let DBConnect = require("../../SharedController/DBConnect");
 let DbCheck = require("../../SharedController/DBCheck");
+var Security = require('../../SharedController/Security');
 module.exports = function (app) { 
     app.get('/Api/v1/PlayerFinalCard2/Json/:Json/', function (req, res) {
         let Json = req.params.Json;

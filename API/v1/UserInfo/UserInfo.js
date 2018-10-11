@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;

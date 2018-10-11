@@ -1,6 +1,7 @@
 var AccountVerificationModel = require('./AccountVerificationModel');
 let DBCheck = require("../../SharedController/DBCheck");
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {
   //MODIFY
   app.get('/Api/v1/AccountVerification/Update/UserAccountID/:UserAccountID/Key/:Key', function (req, res) {

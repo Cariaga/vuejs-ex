@@ -3,6 +3,7 @@ let DBCheck = require("../../SharedController/DBCheck");
 let http = require('http');
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     app.get('/Api/v1/InGamePlayProfile/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', function (req, res) {
         /*should return the points for that current season of a player*/

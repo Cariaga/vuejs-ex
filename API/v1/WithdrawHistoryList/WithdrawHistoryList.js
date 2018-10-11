@@ -6,6 +6,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let WithdrawHistoryListModel = require ('../WithdrawHistoryList/WithdrawHistoryListModel');
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {//SELECTION
   app.get('/Api/v1/WithdrawHistoryList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', function (req, res) {
     let Column = req.params.Column;

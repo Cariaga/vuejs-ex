@@ -11,6 +11,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let InGameSeasonModel = require('./InGameSeasonModel');
 let http = require('http');
 let UUID = require('uuid');
+var Security = require('../../SharedController/Security');
 /*the FinalCard Current Points is the points to the current season only ones someone won it returns to zero */
 module.exports = function (app) { //selection
     app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/', function (req, res) {

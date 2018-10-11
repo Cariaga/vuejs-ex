@@ -5,6 +5,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var MemberListModel = require('../MemberList/MemberListModel');
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
 
   app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', function (req, res) {

@@ -5,6 +5,7 @@ let InGamePlayChipsModel = require("./InGamePlayChipsModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     app.get('/Api/v1/InGamePlayChips/Add/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Chips/:Chips/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
