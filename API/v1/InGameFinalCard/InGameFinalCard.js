@@ -71,7 +71,7 @@ module.exports = function (app) {
 http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0} ]
 
     */
-    app.get('/Api/v1/PlayerFinalCard/Update/Json/:Json/', function (req, res) {
+    app.get('/Api/v1/PlayerFinalCard/Update/Json/:Json/',Security.verifyToken, function (req, res) {
         let Json = req.params.Json;
         let JsonRow =  JSON.parse(Json);
         let length = JsonRow.length;
@@ -138,7 +138,7 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
             }
         }
     });
-    app.get('/Api/v1/PlayerFinalCard/Json/:Json/', function (req, res) {
+    app.get('/Api/v1/PlayerFinalCard/Json/:Json/',Security.verifyToken,function (req, res) {
         let Json = req.params.Json;
         let JsonRow =  JSON.parse(Json);
         let length = JsonRow.length;
