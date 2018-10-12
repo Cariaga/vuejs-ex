@@ -13,7 +13,7 @@ let http = require('http');
 let UUID = require('uuid');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID',Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID',/*Security.verifyToken,*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

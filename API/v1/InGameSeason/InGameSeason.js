@@ -14,7 +14,7 @@ let UUID = require('uuid');
 var Security = require('../../SharedController/Security');
 /*the FinalCard Current Points is the points to the current season only ones someone won it returns to zero */
 module.exports = function (app) { //selection
-    app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/', function (req, res) {
+    app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let RoomID = req.params.RoomID;
         if (!isNullOrEmpty(UserAccountID)) {
@@ -32,7 +32,7 @@ module.exports = function (app) { //selection
         }
     });
 
-    app.get('/Api/v1/InGameSeason/Clear/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameSeason/Clear/SeasonID/:SeasonID/',/*Security.verifyToken,*/ function (req, res) {
         let SeasonID = req.params.SeasonID;
         if (!isNullOrEmpty(SeasonID)) {
             InGameSeasonModel.InGameSeasonClear(SeasonID, function (response) {

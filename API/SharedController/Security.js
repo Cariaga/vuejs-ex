@@ -34,12 +34,10 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
           if(resultDecoded.expiresIn < dateNow.getTime())// token expired
           {
             console.log("Expired");
-            res.sendStatus(403);
+            res.sendStatus(401);
           }else{
             next();
           }
-         
-          
         }
       });
     }else{
