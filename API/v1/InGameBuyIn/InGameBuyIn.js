@@ -16,7 +16,6 @@ module.exports = function (app) {
                 DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                     if (response == true) {
                         InGameBuyInModel.BuyInChips(UserAccountID, BuyInAmount, function (response) {
-                            console.log("return");
                             res.send(response);
                         });
                     } else {
