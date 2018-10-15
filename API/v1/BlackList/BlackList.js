@@ -96,11 +96,7 @@ module.exports = function (app) {
       });
     }
   });
-
-  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value', function (req, res) {
-    let Column = req.params.Column;
-    let Value = req.params.Value;
-
+  function BlackListSearch(Column,Value,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
         BlackListModel.BlacklistSearch(Column, Value, function (response) {
@@ -121,6 +117,12 @@ module.exports = function (app) {
         InvalidColumn: true
       });
     }
+  }
+  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+
+    BlackListSearch(Column,Value,res);
   });
 
   //user inquire

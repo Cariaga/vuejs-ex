@@ -58,7 +58,7 @@ module.exports = function (app) { //INSERT
       res.send(response);
     });
   });
-  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value', function (req, res) {
+  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
 

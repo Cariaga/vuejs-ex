@@ -63,7 +63,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-  app.get('/Api/v1/TransferHistory/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', function (req, res) {
+  app.get('/Api/v1/TransferHistory/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     let StartDate = req.params.StartDate;

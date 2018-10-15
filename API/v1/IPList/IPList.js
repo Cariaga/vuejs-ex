@@ -163,7 +163,7 @@ module.exports = function (app) {//SELECTION
     IPListLimitOffset(Limit,Offset,res);
   });
 
-  app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value', function (req, res) {
+  app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
 

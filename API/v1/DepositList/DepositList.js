@@ -26,7 +26,7 @@ module.exports = function (app) {
     DepositListLimitOffet(limit,offset,res);
   });
 
-  app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', function (req, res) {
+  app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     let StartDate = req.params.StartDate;

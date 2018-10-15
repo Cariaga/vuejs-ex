@@ -29,7 +29,7 @@ module.exports = function (app) { //SELECTION
     OneOnOneOffetLimit(Limit,Offset,res);
   });
 
-  app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value', function (req, res) {
+  app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
 

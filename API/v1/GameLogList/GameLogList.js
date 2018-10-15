@@ -49,7 +49,7 @@ module.exports = function (app) {
     });
     
 
-    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value', function (req, res) {
+    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
         let Column = req.params.Column;
         let Value = req.params.Value;
 

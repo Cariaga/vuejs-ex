@@ -32,7 +32,7 @@ module.exports = function (app) { //SELECTION
     MembersListLimitOffset(Limit,Offset,res);
   });
 
-  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value', function (req, res) {
+  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
 
