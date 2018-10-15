@@ -61,7 +61,6 @@ module.exports = function (app) { //MODIFY
   });
 
 
-  //doing
   app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/AccountNumber/:AccountNumber/ApplicationAmount/:ApplicationAmount/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
