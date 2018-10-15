@@ -74,14 +74,21 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let SeasonID = req.params.SeasonID;
+  function HandHistorySeasonID(SeasonID,res){
     if (!isNullOrEmpty(SeasonID)) {
       HandHistoryModel.HandHistorySeasonID(SeasonID, function (response) {
         res.send(response);
       });
     }
+  }
+  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let SeasonID = req.params.SeasonID;
+    HandHistorySeasonID(SeasonID,res);
   });
-
+  app.post('/Api/v1/HandHistory/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let SeasonID = req.params.SeasonID;
+    HandHistorySeasonID(SeasonID,res);
+  });
 }
