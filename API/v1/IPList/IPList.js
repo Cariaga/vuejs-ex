@@ -189,5 +189,9 @@ module.exports = function (app) {//SELECTION
     let Value = req.params.Value;
     IPListSearch(Column,Value,res);
   });
-
+  app.post('/Api/v1/IPList/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    IPListSearch(Column,Value,res);
+  });
 }

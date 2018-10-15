@@ -57,6 +57,10 @@ module.exports = function (app) { //SELECTION
     let Column = req.params.Column;
     let Value = req.params.Value;
     MemberListSearch(Column,Value,res);
-
+  });
+  app.post('/Api/v1/MemberList/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    MemberListSearch(Column,Value,res);
   });
 }

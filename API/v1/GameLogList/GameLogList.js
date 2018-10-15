@@ -75,9 +75,9 @@ module.exports = function (app) {
         let Value = req.params.Value;
         GameLogListSearch(Column,Value,res);
     });
-    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
-        let Column = req.params.Column;
-        let Value = req.params.Value;
+    app.post('/Api/v1/GameLogList/Search/',Security.verifyToken, function (req, res) {
+        let Column = req.body.Column;
+        let Value = req.body.Value;
         GameLogListSearch(Column,Value,res);
     });
 }

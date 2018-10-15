@@ -34,6 +34,11 @@ module.exports = function (app) {
         let Value = req.params.Value;
         HeadOfficeListSearch(Column,Value,res);
     });
+    app.post('/Api/v1/HeadOfficeList/Search/',Security.verifyToken, function (req, res) {
+        let Column = req.body.Column;
+        let Value = req.body.Value;
+        HeadOfficeListSearch(Column,Value,res);
+    });
     
     function HeadOfficeListLimitOffet(Limit,Offset,res){
         if (!isNullOrEmpty(Limit)) {

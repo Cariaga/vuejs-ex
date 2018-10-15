@@ -57,6 +57,12 @@ module.exports = function (app) { //SELECTION
     OneOnOneSearch(Column,Value,res);
 
   });
+  app.post('/Api/v1/OneOnOne/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    OneOnOneSearch(Column,Value,res);
+
+  });
 
   app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;

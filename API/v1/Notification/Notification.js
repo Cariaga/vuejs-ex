@@ -87,5 +87,11 @@ module.exports = function (app) { //INSERT
     NotificationSearch(Column,Value,res);
     
   });
+  app.post('/Api/v1/Notification/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    NotificationSearch(Column,Value,res);
+    
+  });
   
 }
