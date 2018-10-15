@@ -19,7 +19,7 @@ module.exports = function (app) {
     let offset = req.params.Offset;
     DepositListLimitOffet(limit,offset,res);
   });
-  app.post('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/DepositList/',Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;
     let offset = req.params.Offset;

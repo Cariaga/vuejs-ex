@@ -142,9 +142,7 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {//OK
-    let Limit =req.params.Limit;
-    let Offset = req.params.Offset;
+  function IPListLimitOffset(Limit,Offset,res){
     IPListModel.IPList(Limit,Offset, function (response) {
       if (response != undefined) {
         res.send(response);
@@ -153,6 +151,16 @@ module.exports = function (app) {//SELECTION
         res.status(status).end(http.STATUS_CODES[status]);
       }
     });
+  }
+  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {//OK
+    let Limit =req.params.Limit;
+    let Offset = req.params.Offset;
+    IPListLimitOffset(Limit,Offset,res);
+  });
+  app.post('/Api/v1/IPList/',Security.verifyToken, function (req, res) {//OK
+    let Limit =req.body.Limit;
+    let Offset = req.body.Offset;
+    IPListLimitOffset(Limit,Offset,res);
   });
 
   app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value', function (req, res) {

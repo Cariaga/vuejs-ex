@@ -15,9 +15,7 @@ module.exports = function (app) {
         });
 
     });
-    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset',Security.verifyToken, function (req, res) {
-        let Limit = req.params.Limit;
-        let Offset = req.params.Offset;
+    function GameLogListLimitOffset(Limit,Offset){
         if (!isNullOrEmpty(Limit)) {
             if (!isNullOrEmpty(Offset)) {
                 GameLogListModel.GameLogList(Limit, Offset, function (response) {
@@ -38,6 +36,16 @@ module.exports = function (app) {
                 LimitMissing: true
             });
         }
+    }
+    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset',Security.verifyToken, function (req, res) {
+        let Limit = req.params.Limit;
+        let Offset = req.params.Offset;
+        GameLogListLimitOffset(Limit,Offset,res);
+    });
+    app.post('/Api/v1/GameLogList/',Security.verifyToken, function (req, res) {
+        let Limit = req.body.Limit;
+        let Offset = req.body.Offset;
+        GameLogListLimitOffset(Limit,Offset,res);
     });
     
 

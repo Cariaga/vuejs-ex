@@ -7,10 +7,7 @@ var MemberListModel = require('../MemberList/MemberListModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-
-  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset',Security.verifyToken, function (req, res) {
-    let Limit = req.params.Limit;
-    let Offset = req.params.Offset;
+  function MembersListLimitOffset(Limit,Offset,res){
     if(!isNullOrEmpty(Limit)){
       if(!isNullOrEmpty(Offset)){
         MemberListModel.MemberList(Limit,Offset,function(response){
@@ -23,6 +20,16 @@ module.exports = function (app) { //SELECTION
         });
       }
     }
+  }
+  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset',Security.verifyToken, function (req, res) {
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    MembersListLimitOffset(Limit,Offset,res);
+  });
+  app.post('/Api/v1/MembersList/',Security.verifyToken, function (req, res) {
+    let Limit = req.body.Limit;
+    let Offset = req.body.Offset;
+    MembersListLimitOffset(Limit,Offset,res);
   });
 
   app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value', function (req, res) {
