@@ -11,7 +11,21 @@ module.exports.BuyInChips = function BuyInChips(UserAccountID, BuyInAmount, call
     let _BuyInAmount = BuyInAmount;
     let query =
         "UPDATE `sampledb`.`player_profile` SET `Money` = Money -"+_BuyInAmount+" WHERE UserAccountID ='"+_UserAccountID+"';";
-    
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+            // console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
+}
+
+module.exports.RoomMoney  = function RoomMoney(UserAccountID, BuyInAmount, callback) {
+    let _UserAccountID = UserAccountID;
+    let _BuyInAmount = BuyInAmount;
+    let query =
+        "INSERT INTO sampledb.buyinmoney (`UserAccountID`, `RoomMoney`, `RoomName`) VALUES ('"+_UserAccountID+"', "+_BuyInAmount+", (SELECT CurrentRoomName FROM sampledb.players WHERE UserAccountID = '"+_UserAccountID+"'));";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             // console.log(response);
