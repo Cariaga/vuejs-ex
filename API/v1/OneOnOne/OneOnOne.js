@@ -8,9 +8,7 @@ let OneOnOneModel = require('../OneOnOne/OneOnOneModel')
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) { //OK
-    let Limit = req.params.Limit;
-    let Offset = req.params.Offset;
+  function OneOnOneOffetLimit(Limit, Offset,res){
     OneOnOneModel.OneOnOne(Limit, Offset, function (response) {
       if (response != undefined) {
         res.send(response);
@@ -19,6 +17,16 @@ module.exports = function (app) { //SELECTION
         res.status(status).end(http.STATUS_CODES[status]);
       }
     });
+  }
+  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) { //OK
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    OneOnOneOffetLimit(Limit,Offset,res);
+  });
+  app.post('/Api/v1/OneOnOne/',Security.verifyToken, function (req, res) { //OK
+    let Limit = req.body.Limit;
+    let Offset = req.body.Offset;
+    OneOnOneOffetLimit(Limit,Offset,res);
   });
 
   app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value', function (req, res) {
