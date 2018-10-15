@@ -10,9 +10,7 @@ module.exports.BuyInChips = function BuyInChips(UserAccountID, BuyInAmount, call
     let _UserAccountID = UserAccountID;
     let _BuyInAmount = BuyInAmount;
     let query =
-        "UPDATE sampledb.player_profile" +
-        "SET `Money` = Money -'"+_BuyInAmount+"'" +
-        "WHERE UserAccountID ='"+_UserAccountID+"'";
+        "UPDATE `sampledb`.`player_profile` SET `Money` = Money -'"+_BuyInAmount+"' WHERE UserAccountID ='"+_UserAccountID+"';";
     
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
