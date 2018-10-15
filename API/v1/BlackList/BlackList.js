@@ -125,6 +125,11 @@ module.exports = function (app) {
 
     BlackListSearch(Column,Value,res);
   });
+  app.post('/Api/v1/BlackList/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    BlackListSearch(Column,Value,res);
+  });
 
   //user inquire
   app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/', function (req, res) {

@@ -28,11 +28,7 @@ module.exports = function (app) { //SELECTION
     let Offset = req.body.Offset;
     OneOnOneOffetLimit(Limit,Offset,res);
   });
-
-  app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
-    let Column = req.params.Column;
-    let Value = req.params.Value;
-
+  function OneOnOneSearch(Column,Value,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
         OneOnOneModel.SupportSearch(Column, Value, function (response) {
@@ -54,6 +50,18 @@ module.exports = function (app) { //SELECTION
         InvalidColumn: true
       });
     }
+  }
+  app.get('/Api/v1/OneOnOne/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+    OneOnOneSearch(Column,Value,res);
+
+  });
+  app.post('/Api/v1/OneOnOne/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    OneOnOneSearch(Column,Value,res);
+
   });
 
   app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {

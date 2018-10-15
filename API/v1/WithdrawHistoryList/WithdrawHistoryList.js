@@ -8,11 +8,7 @@ let WithdrawHistoryListModel = require ('../WithdrawHistoryList/WithdrawHistoryL
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {//SELECTION
-  app.get('/Api/v1/WithdrawHistoryList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
-    let Column = req.params.Column;
-    let Value = req.params.Value;
-    let StartDate = req.params.StartDate;
-    let EndDate = req.params.EndDate;
+  function WithdrawHistoryListSearch(Column,Value,StartDate,EndDate,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
         if(!isNullOrEmpty(StartDate)){
@@ -47,6 +43,20 @@ module.exports = function (app) {//SELECTION
         InvalidColumn: true
       });
     }
+  }
+  app.get('/Api/v1/WithdrawHistoryList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+    let StartDate = req.params.StartDate;
+    let EndDate = req.params.EndDate;
+    WithdrawHistoryListSearch(Column,Value,StartDate,EndDate,res);
+  });
+  app.post('/Api/v1/WithdrawHistoryList/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    let StartDate = req.body.StartDate;
+    let EndDate = req.body.EndDate;
+    WithdrawHistoryListSearch(Column,Value,StartDate,EndDate,res);
   });
   function WithdrawHistoryListLimitOffet(Limit,Offset,res){
     if (!isNullOrEmpty(Limit)) {

@@ -5,6 +5,7 @@ let NotificationModel = require("../Notification/NotificationModel");
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) { //INSERT
   app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', function (req, res) {
     let NotificationType = req.params.NotificationType;
@@ -58,10 +59,7 @@ module.exports = function (app) { //INSERT
       res.send(response);
     });
   });
-  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
-    let Column = req.params.Column;
-    let Value = req.params.Value;
-
+  function NotificationSearch(Column,Value,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
         NotificationModel.NotificationSearch(Column, Value, function (response) {
@@ -82,6 +80,18 @@ module.exports = function (app) { //INSERT
         InvalidColumn: true
       });
     }
+  }
+  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+    NotificationSearch(Column,Value,res);
+    
+  });
+  app.post('/Api/v1/Notification/Search/',Security.verifyToken, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    NotificationSearch(Column,Value,res);
+    
   });
   
 }
