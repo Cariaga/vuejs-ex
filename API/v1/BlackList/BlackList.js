@@ -32,11 +32,7 @@ module.exports = function (app) {
     let Offset = req.body.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
-
-  //MODIFY / release
-  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/', function (req, res) {
-    let BlackListID = req.params.BlackListID;
-    let UserAccountID = req.params.UserAccountID;
+  function BlackListUpdate(BlackListID,UserAccountID){
     if (!isNullOrEmpty(BlackListID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
@@ -62,6 +58,17 @@ module.exports = function (app) {
     } else {
       res.send("Missing BlackListID " + BlackListID);
     }
+  }
+  //MODIFY / release
+  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/',Security.verifyToken, function (req, res) {
+    let BlackListID = req.params.BlackListID;
+    let UserAccountID = req.params.UserAccountID;
+    BlackListUpdate(BlackListID,UserAccountID,res);
+  });
+  app.post('/Api/v1/BlackList/Update/',Security.verifyToken, function (req, res) {
+    let BlackListID = req.params.BlackListID;
+    let UserAccountID = req.params.UserAccountID;
+    BlackListUpdate(BlackListID,UserAccountID,res);
   });
 
   //add user to black list
@@ -130,12 +137,7 @@ module.exports = function (app) {
     let Value = req.body.Value;
     BlackListSearch(Column,Value,res);
   });
-
-  //user inquire
-  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/', function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
-    let UserName = req.params.UserName;
-
+  function BlackListUserAccount(UserAccountID){
     if (!isNullOrEmpty(UserAccountID)) {
       DBCheck.isUserAccountIDUserNameBlocked(UserAccountID, UserName, function (response) {
         if (response != undefined) {
@@ -150,5 +152,16 @@ module.exports = function (app) {
         InvalidColumn: true
       });
     }
+  }
+  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/',Security.verifyToken, function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let UserName = req.params.UserName;
+    BlackListUserAccount(UserAccountID,UserName,res);   
+  });
+  //user inquire
+  app.post('/Api/v1/BlackList/Check/Blocked/',Security.verifyToken, function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let UserName = req.params.UserName;
+    BlackListUserAccount(UserAccountID,UserName,res);   
   });
 }

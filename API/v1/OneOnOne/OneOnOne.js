@@ -63,12 +63,7 @@ module.exports = function (app) { //SELECTION
     OneOnOneSearch(Column,Value,res);
 
   });
-
-  app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
-    let SupportTicketID = req.params.SupportTicketID;
-    let UserAccountID = req.params.UserAccountID;
-    let Answer = req.params.Answer;
-    
+  function OneOnOneAnswer(SupportTicketID,UserAccountID,Answer,res){
     if(!isNullOrEmpty(SupportTicketID)){
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(Answer)) {
@@ -102,6 +97,20 @@ module.exports = function (app) { //SELECTION
         InvalidSupportTicketID: true
       });
     }
+  }
+  app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/',Security.verifyToken, function (req, res) {
+    let SupportTicketID = req.params.SupportTicketID;
+    let UserAccountID = req.params.UserAccountID;
+    let Answer = req.params.Answer;
+    OneOnOneAnswer(SupportTicketID,UserAccountID,Answer,res);
+
+  });
+  app.post('/Api/v1/OneOnOne/',Security.verifyToken, function (req, res) {
+    let SupportTicketID = req.params.SupportTicketID;
+    let UserAccountID = req.params.UserAccountID;
+    let Answer = req.params.Answer;
+    OneOnOneAnswer(SupportTicketID,UserAccountID,Answer,res);
+
   });
   //write notice 
   app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/SupportTicketID/:SupportTicketID/', function (req, res) {
