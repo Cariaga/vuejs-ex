@@ -42,6 +42,19 @@ const mysql = require('mysql2');
     });
   }
 
+  module.exports.IsShopExist = function IsShopExist(ShopID, callback) {
+    let _ShopID = ShopID
+    let query ="SELECT ShopID,UserAccountID FROM sampledb.shops where ShopID='"+_ShopID+"'";
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(true);
+      }else{
+        callback(false);
+      }
+    });
+
+  }
 
   module.exports.isPhoneNumberExist = function isPhoneNumberExist(PhoneNumber, callback) {
     let _PhoneNumber = PhoneNumber

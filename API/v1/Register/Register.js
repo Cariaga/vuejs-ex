@@ -26,6 +26,29 @@ module.exports = function (app) {
     let Valid = '';
     let Expiration = '';
     //newer version
+    Register(UserAccountID,AccessID,UserName,Password,ScreenName,ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,AccountHolder,ShopID,res);
+  });
+  app.post('/Api/v1/Register/Add/', function (req, res) {
+    let ScreenName = req.body.ScreenName;
+    let UserName = req.body.UserName;
+    let Password = req.body.Password;
+    let Email = req.body.Email;
+    let PhoneNumber = req.body.PhoneNumber;
+    let BankName = req.body.BankName;
+    let AccountNumber = req.body.AccountNumber;
+    let SecurityCode = req.body.SecurityCode;
+
+    let AccountHolder = req.body.AccountHolder;
+    let ShopID = req.body.ShopID;
+    let UserAccountID = uuidv4();
+    let ValidKey = uuidv4();
+    let AccessID = "1";
+    let Valid = '';
+    let Expiration = '';
+    //newer version
+    Register(UserAccountID,AccessID,UserName,Password,ScreenName,ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,AccountHolder,ShopID,res);
+  });
+  function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res){
     if (!isNullOrEmpty(ScreenName)) {
       if (!isNullOrEmpty(UserName)) {
         if (!isNullOrEmpty(Password)) {
@@ -39,17 +62,28 @@ module.exports = function (app) {
 
                         DBCheck.isUserNameExist(UserName, function (response) {
                           if (response == false) {
-                            RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
-                              if (response != undefined) {
-                                // res.send(response);
-                                let status = 200;
-                                res.status(status).end(http.STATUS_CODES[status]);
-                              } else {
+                            DBCheck.IsShopExist(ShopID,function(response){
+                              if(response==true){
+                                RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
+                                  if (response != undefined) {
+                                    // res.send(response);
+                                    let status = 200;
+                                    res.status(status).end(http.STATUS_CODES[status]);
+                                  } else {
+                                    res.send({
+                                      AddUserAccountFailed: true
+                                    });
+                                  }
+                                });
+                              }else{
                                 res.send({
-                                  AddUserAccountFailed: true
+                                  ShoIDExist: false
                                 });
                               }
+                              
                             });
+                            
+
                           } else 
                           {
                             res.send({
@@ -108,11 +142,11 @@ module.exports = function (app) {
         InvalidScreenName: true
       });
     }
-  });
+  }
 
 
-
-  function Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res){
+///-------old
+  /*function Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res){
     
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
@@ -185,7 +219,7 @@ module.exports = function (app) {
       });
     }
   }
-  app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Expiration/:Expiration/AccountNumber/:AccountNumber/', function (req, res) {
+  /*app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Expiration/:Expiration/AccountNumber/:AccountNumber/', function (req, res) {
     let Name = req.params.Name;
     let SurName = req.params.SurName;
     let UserName = req.params.UserName;
@@ -195,12 +229,12 @@ module.exports = function (app) {
     let BankName = req.params.BankName;
     let AccountNumber = req.params.AccountNumber;
     let SecurityCode = req.params.SecurityCode;
-    let Valid = req.params.Valid;
+    let Valid = "OK";//never used
     let Expiration = req.params.Expiration;
     Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res);
 
   });
-  app.post('/Api/v1/Register/Add/', function (req, res) {
+ /* app.post('/Api/v1/Register/Add/', function (req, res) {
     let Name = req.body.Name;
     let SurName = req.body.SurName;
     let UserName = req.body.UserName;
@@ -210,9 +244,9 @@ module.exports = function (app) {
     let BankName = req.body.BankName;
     let AccountNumber = req.body.AccountNumber;
     let SecurityCode = req.body.SecurityCode;
-    let Valid = req.body.Valid;
+    let Valid = "OK";//never used
     let Expiration = req.body.Expiration;
     Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res);
 
-  });
+  });*/
 }
