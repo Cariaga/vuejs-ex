@@ -51,7 +51,7 @@ module.exports = function (app) {//SELECTION
     let EndDate = req.params.EndDate;
     WithdrawHistoryListSearch(Column,Value,StartDate,EndDate,res);
   });
-  app.get('/Api/v1/WithdrawHistoryList/Search/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/WithdrawHistoryList/Search/',Security.verifyToken, function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     let StartDate = req.body.StartDate;
