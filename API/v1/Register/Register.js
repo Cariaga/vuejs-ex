@@ -112,21 +112,8 @@ module.exports = function (app) {
 
 
 
-
-  app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Expiration/:Expiration/AccountNumber/:AccountNumber/', function (req, res) {
-    let Name = req.params.Name;
-    let SurName = req.params.SurName;
-    let UserName = req.params.UserName;
-    let Password = req.params.Password;
-    let Email = req.params.Email;
-    let PhoneNumber = req.params.PhoneNumber;
-    let BankName = req.params.BankName;
-    let AccountNumber = req.params.AccountNumber;
-    let SecurityCode = req.params.SecurityCode;
-    let Valid = req.params.Valid;
-    let Expiration = req.params.Expiration;
-
-
+  function Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res){
+    
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
         if (!isNullOrEmpty(Name)) {
@@ -197,5 +184,35 @@ module.exports = function (app) {
         UserName
       });
     }
+  }
+  app.get('/Api/v1/Register/Add/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/Expiration/:Expiration/AccountNumber/:AccountNumber/', function (req, res) {
+    let Name = req.params.Name;
+    let SurName = req.params.SurName;
+    let UserName = req.params.UserName;
+    let Password = req.params.Password;
+    let Email = req.params.Email;
+    let PhoneNumber = req.params.PhoneNumber;
+    let BankName = req.params.BankName;
+    let AccountNumber = req.params.AccountNumber;
+    let SecurityCode = req.params.SecurityCode;
+    let Valid = req.params.Valid;
+    let Expiration = req.params.Expiration;
+    Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res);
+
+  });
+  app.post('/Api/v1/Register/Add/', function (req, res) {
+    let Name = req.body.Name;
+    let SurName = req.body.SurName;
+    let UserName = req.body.UserName;
+    let Password = req.body.Password;
+    let Email = req.body.Email;
+    let PhoneNumber = req.body.PhoneNumber;
+    let BankName = req.body.BankName;
+    let AccountNumber = req.body.AccountNumber;
+    let SecurityCode = req.body.SecurityCode;
+    let Valid = req.body.Valid;
+    let Expiration = req.body.Expiration;
+    Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res);
+
   });
 }
