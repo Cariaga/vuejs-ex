@@ -26,12 +26,12 @@ module.exports = function (app) {
                 });
             } else {
                 res.send({
-                    InvalidUserAccount: true
+                    InvalidBuyInAmount: true
                 });
             }
         } else {
             res.send({
-                InvalidBuyInAmount: true
+                InvalidUserAccount: true
             });
         }
     });
