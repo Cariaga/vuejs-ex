@@ -38,8 +38,8 @@ module.exports = function (app) {
                 LimitMissing: true
             });
         }
-
     });
+    
 
     app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value', function (req, res) {
         let Column = req.params.Column;

@@ -7,13 +7,23 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
+
+  function DepositListLimitOffet(limit,offset,res){
+    DepositListModel.DepositList(limit, offset, function (response) {
+      res.send(response);
+    });
+  }
   app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;
     let offset = req.params.Offset;
-    DepositListModel.DepositList(limit, offset, function (response) {
-      res.send(response);
-    });
+    DepositListLimitOffet(limit,offset,res);
+  });
+  app.post('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let limit = req.params.Limit;
+    let offset = req.params.Offset;
+    DepositListLimitOffet(limit,offset,res);
   });
 
   app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', function (req, res) {
