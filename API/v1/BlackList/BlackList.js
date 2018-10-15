@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-  function BlackListLimitOffset(Limit,Offset){
+  function BlackListLimitOffset(Limit,Offset,res){
     if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
       BlackListModel.BlackList(Limit, Offset, function (response) {
         res.send(response);
@@ -23,7 +23,7 @@ module.exports = function (app) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
-    BlackListLimitOffset(Limit,Offset);
+    BlackListLimitOffset(Limit,Offset,res);
   });
   app.post('/Api/v1/BlackList/',Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
