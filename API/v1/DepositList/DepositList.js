@@ -25,13 +25,7 @@ module.exports = function (app) {
     let offset = req.params.Offset;
     DepositListLimitOffet(limit,offset,res);
   });
-
-  app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
-    let Column = req.params.Column;
-    let Value = req.params.Value;
-    let StartDate = req.params.StartDate;
-    let EndDate = req.params.EndDate;
-
+  function DepositListSearch(Column,Value,StartDate,EndDate,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
         if (!isNullOrEmpty(StartDate)) {
@@ -65,5 +59,13 @@ module.exports = function (app) {
         InvalidColumn: true
       });
     }
+  }
+  app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+    let StartDate = req.params.StartDate;
+    let EndDate = req.params.EndDate;
+    DepositListSearch(Column,Value,StartDate,EndDate,res);
+
   });
 }
