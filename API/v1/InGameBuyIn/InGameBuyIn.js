@@ -10,7 +10,7 @@ module.exports = function (app) {
 
     app.get('/Api/v1/InGameBuyIn/UserAccountID/:UserAccountID/BuyInAmount/:BuyInAmount',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
-        let BuyInAmount = req.params.UserAccountID;
+        let BuyInAmount = req.params.BuyInAmount;
         if (!isNullOrEmpty(UserAccountID)) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
