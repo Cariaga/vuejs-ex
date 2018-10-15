@@ -31,11 +31,7 @@ module.exports = function (app) { //SELECTION
     let Offset = req.body.Offset;
     MembersListLimitOffset(Limit,Offset,res);
   });
-
-  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
-    let Column = req.params.Column;
-    let Value = req.params.Value;
-
+  function MemberListSearch(Column,Value,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
         MemberListModel.MemberListSearch(Column, Value, function (response) {
@@ -56,5 +52,11 @@ module.exports = function (app) { //SELECTION
         InvalidColumn: true
       });
     }
+  }
+  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+    MemberListSearch(Column,Value,res);
+
   });
 }

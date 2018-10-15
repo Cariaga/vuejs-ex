@@ -48,11 +48,7 @@ module.exports = function (app) {
         GameLogListLimitOffset(Limit,Offset,res);
     });
     
-
-    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
-        let Column = req.params.Column;
-        let Value = req.params.Value;
-
+    function GameLogListSearch(Column,Value,res){
         if (!isNullOrEmpty(Column)) {
             if (!isNullOrEmpty(Value)) {
                 GameLogListModel.GameLogSearch(Column, Value, function (response) {
@@ -73,5 +69,15 @@ module.exports = function (app) {
                 InvalidColumn: true
             });
         }
+    }
+    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+        let Column = req.params.Column;
+        let Value = req.params.Value;
+        GameLogListSearch(Column,Value,res);
+    });
+    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+        let Column = req.params.Column;
+        let Value = req.params.Value;
+        GameLogListSearch(Column,Value,res);
     });
 }

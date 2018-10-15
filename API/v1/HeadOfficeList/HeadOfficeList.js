@@ -7,10 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    app.get('/Api/v1/HeadOfficeList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
-        let Column = req.params.Column;
-        let Value = req.params.Value;
-
+    function HeadOfficeListSearch(Column,Value,res){
         if (!isNullOrEmpty(Column)) {
             if (!isNullOrEmpty(Value)) {
                 HeadOfficeListModel.HeadOfficeListSearch(Column, Value, function (response) {
@@ -31,7 +28,13 @@ module.exports = function (app) {
                 InvalidColumn: true
             });
         }
+    }
+    app.get('/Api/v1/HeadOfficeList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+        let Column = req.params.Column;
+        let Value = req.params.Value;
+        HeadOfficeListSearch(Column,Value,res);
     });
+    
     function HeadOfficeListLimitOffet(Limit,Offset,res){
         if (!isNullOrEmpty(Limit)) {
             if (!isNullOrEmpty(Offset)) {
