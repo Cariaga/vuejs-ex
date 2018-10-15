@@ -46,6 +46,7 @@ module.exports = function (app) {
     let Valid = '';
     let Expiration = '';
     //newer version
+    console.log("register test");
     Register(UserAccountID,AccessID,UserName,Password,ScreenName,ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,AccountHolder,ShopID,res);
   });
   function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res){
