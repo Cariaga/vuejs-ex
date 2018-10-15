@@ -13,16 +13,45 @@ module.exports = function (app) {
         let BuyInAmount = req.params.BuyInAmount;
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(BuyInAmount)) {
-                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                    if (response == true) {
-                        InGameBuyInModel.BuyInChips(UserAccountID, BuyInAmount, function (response) {
-                            res.send(response);
-                        });
-                    } else {
-                        let status = 404;
-                        res.status(status).end(http.STATUS_CODES[status]);
-                    }
+
+                var promise = new Promise(function (resolve, reject) {
+                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                        if (response != undefined) {
+                            InGameBuyInModel.BuyInChips(UserAccountID, BuyInAmount, function (response) {
+                                resolve(response);
+                            });
+                        } else {
+                            reject();
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }
+                    });
                 });
+
+                var promise1 = new Promise(function (resolve, reject) {
+                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                        if (response != undefined) {
+                            InGameBuyInModel.RoomMoney(UserAccountID, BuyInAmount, function (response) {
+                                resolve(response);
+                            });
+                        } else {
+                            reject();
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }
+                    });
+                });
+
+                Promise.all([promise, promise1]).then(function (response) {
+                    if (response != undefined) {
+                        console.log("inserted");
+                    } else{
+
+                    }
+                }, function (error) {
+                    res.send(error);
+                });
+
             } else {
                 res.send({
                     InvalidBuyInAmount: true
