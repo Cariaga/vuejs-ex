@@ -29,7 +29,7 @@ module.exports = function (app) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.body.Limit;
     let Offset = req.body.Offset;
-    BlackListLimitOffset(Limit,Offset);
+    BlackListLimitOffset(Limit,Offset,res);
   });
 
   //MODIFY / release
