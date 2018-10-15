@@ -15,7 +15,7 @@ module.exports = function (app) {
         });
 
     });
-    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset', function (req, res) {
+    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset',Security.verifyToken, function (req, res) {
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
         if (!isNullOrEmpty(Limit)) {

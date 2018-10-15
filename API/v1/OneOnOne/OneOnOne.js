@@ -6,8 +6,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let OneOnOneModel = require('../OneOnOne/OneOnOneModel')
 let http = require('http');
+var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', function (req, res) { //OK
+  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) { //OK
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     OneOnOneModel.OneOnOne(Limit, Offset, function (response) {

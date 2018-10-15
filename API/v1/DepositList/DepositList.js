@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-  app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', function (req, res) {
+  app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;
     let offset = req.params.Offset;

@@ -7,11 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-  //SELECTION
-  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Limit = req.params.Limit;
-    let Offset = req.params.Offset;
+  function BlackListLimitOffset(Limit,Offset){
     if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
       BlackListModel.BlackList(Limit, Offset, function (response) {
         res.send(response);
@@ -21,6 +17,19 @@ module.exports = function (app) {
         res.send(response);
       });
     }
+  }
+  //SELECTION
+  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    BlackListLimitOffset(Limit,Offset);
+  });
+  app.post('/Api/v1/BlackList/',Security.verifyToken, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Limit = req.body.Limit;
+    let Offset = req.body.Offset;
+    BlackListLimitOffset(Limit,Offset);
   });
 
   //MODIFY / release

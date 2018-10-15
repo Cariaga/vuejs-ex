@@ -49,7 +49,7 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  app.get('/Api/v1/WithdrawHistoryList/Limit/:Limit/Offset/:Offset', function (req, res) {
+  app.get('/Api/v1/WithdrawHistoryList/Limit/:Limit/Offset/:Offset',Security.verifyToken, function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
 
