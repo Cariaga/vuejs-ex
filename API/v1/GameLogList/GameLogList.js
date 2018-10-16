@@ -15,7 +15,7 @@ module.exports = function (app) {
         });
 
     });
-    function GameLogListLimitOffset(Limit,Offset){
+    function GameLogListLimitOffset(Limit,Offset, res){
         if (!isNullOrEmpty(Limit)) {
             if (!isNullOrEmpty(Offset)) {
                 GameLogListModel.GameLogList(Limit, Offset, function (response) {
