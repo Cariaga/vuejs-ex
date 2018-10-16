@@ -11,7 +11,7 @@ let InGameTransferRequestModel = require('./InGameTransferRequestModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    function InGameTransferHistoryRequest(UserAccountIDReceiver, UserAccountIDSender, Amount, UserName, res) {
+    function InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res) {
         if (!isNullOrEmpty(UserAccountIDSender)) {
             if (!isNullOrEmpty(Amount)) {
                 if (validator.isNumeric(Amount)) {
@@ -374,6 +374,6 @@ module.exports = function (app) {
                 });
             }
         });
-         */
+        */
         
 }
