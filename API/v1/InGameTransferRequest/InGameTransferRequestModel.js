@@ -109,7 +109,7 @@ module.exports.InGameTransferRequest = function InGameTransferRequest(UserAccoun
 
 
 
-/*
+
 
 module.exports.RequestTransferHistory = function RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount,callback) {
     let _UserAccountIDReceiver = UserAccountIDReceiver;
@@ -184,4 +184,3 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
     });
   }
   
-  */
