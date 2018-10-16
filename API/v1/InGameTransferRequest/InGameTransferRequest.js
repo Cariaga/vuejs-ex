@@ -11,10 +11,10 @@ let InGameTransferRequestModel = require('./InGameTransferRequestModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    function InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res) {
+    function InGameTransferHistoryRequest(UserAccountIDReceiver, UserAccountIDSender, Amount, SubtractAmount, AddAmount, NewAmount, UserName, res) {
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response == true) {
-                InGameTransferRequestModel.InGameTransferRequest(UserAccountIDSender, Amount, UserName, function (response) {
+                InGameTransferRequestModel.InGameTransferRequest(UserAccountIDReceiver, UserAccountIDSender, Amount, SubtractAmount, AddAmount, NewAmount, UserName, function (response) {
                     if (response != undefined) {
                         let status = 200;
                         res.status(status).end(http.STATUS_CODES[status]);
@@ -31,17 +31,25 @@ module.exports = function (app) {
     }
 
     app.post('/Api/v1/InGameTransferRequest/', Security.verifyToken, function (req, res) {
+        let UserAccountIDReceiver = req.body.UserAccountIDReceiver;
         let UserAccountIDSender = req.body.UserAccountIDSender;
         let Amount = req.body.Amount;
+        let SubtractAmount = req.body.SubtractAmount;
+        let AddAmount = req.body.AddAmount;
+        let NewAmount = req.body.NewAmount;
         let UserName = req.body.UserName;
-        InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
+        InGameTransferHistoryRequest(UserAccountIDReceiver, UserAccountIDSender, Amount, SubtractAmount, AddAmount, NewAmount, UserName, res);
     });
 
     app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/', Security.verifyToken, function (req, res) {
+        let UserAccountIDReceiver = req.body.UserAccountIDReceiver;
         let UserAccountIDSender = req.body.UserAccountIDSender;
         let Amount = req.body.Amount;
+        let SubtractAmount = req.body.SubtractAmount;
+        let AddAmount = req.body.AddAmount;
+        let NewAmount = req.body.NewAmount;
         let UserName = req.body.UserName;
-        InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
+        InGameTransferHistoryRequest(UserAccountIDReceiver, UserAccountIDSender, Amount, SubtractAmount, AddAmount, NewAmount, UserName, res);
     });
 
 
