@@ -16,10 +16,11 @@ module.exports.InGameTransferRequest = function InGameTransferRequest(UserAccoun
   let _NewAmount = NewAmount;
   let _UserName = UserName;
 
+
   function RequestTransferHistory() {
     let query =
-      "INSERT INTO `sampledb`.`transferhistories` (`TransferHistoryUUID`, `UserAccountIDReceiver`, `UserAccountIDSender`, `Amount`, `Status`, `Reason`, `TransferedDateTime`) " +
-      "VALUES (UUID(),'" + _UserAccountIDReceiver + "','" + _UserAccountIDSender + "','" + _Amount + "','pending','transfer',now()) ";
+    "INSERT INTO `sampledb`.`transferhistories` (`TransferHistoryUUID`, `UserAccountIDReceiver`, `UserAccountIDSender`, `Amount`, `Status`, `Reason`, `TransferedDateTime`) "+
+    "VALUES (UUID(),'"+_UserAccountIDReceiver+"','"+_UserAccountIDSender+"','"+_Amount+"','pending','transfer',now()) ";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -31,10 +32,11 @@ module.exports.InGameTransferRequest = function InGameTransferRequest(UserAccoun
       });
     });
   }
+  
 
   function PlayerNewMoneySubtract() {
     let query =
-      "select (SELECT Money FROM sampledb.players where UserAccountID='" + _UserAccountIDReceiver + "') - " + _SubtractAmount + " as NewMoney";
+    "select (SELECT Money FROM sampledb.players where UserAccountID='"+_UserAccountIDReceiver+"') - "+_SubtractAmount+" as NewMoney";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -49,7 +51,7 @@ module.exports.InGameTransferRequest = function InGameTransferRequest(UserAccoun
 
   function PlayerNewMoneyAdd() {
     let query =
-      "select (SELECT Money FROM sampledb.players where UserAccountID='" + _UserAccountID + "') + " + _AddAmount + " as NewMoney";
+    "select (SELECT Money FROM sampledb.players where UserAccountID='"+_UserAccountID+"') + "+_AddAmount+" as NewMoney";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -64,7 +66,7 @@ module.exports.InGameTransferRequest = function InGameTransferRequest(UserAccoun
 
   function UpdatePlayerMoney() {
     let query =
-      "UPDATE `sampledb`.`players` SET `Money` = '" + _NewAmount + "' WHERE (`UserAccountID` = '" + _UserAccountID + "');";
+    "UPDATE `sampledb`.`players` SET `Money` = '"+_NewAmount+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -79,7 +81,7 @@ module.exports.InGameTransferRequest = function InGameTransferRequest(UserAccoun
 
   function UserNameUserAccount() {
     let query =
-      "SELECT UserAccountID FROM `sampledb`.`useraccounts` WHERE UserName = '" + _UserName + "' ";
+    "SELECT UserAccountID FROM `sampledb`.`useraccounts` WHERE UserName = '"+_UserName+"' ";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
