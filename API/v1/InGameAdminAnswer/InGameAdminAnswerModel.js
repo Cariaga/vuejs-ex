@@ -6,7 +6,8 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.InGameAdminAnswerSupport = function InGameAdminAnswerSupport(SupportTicketID,Answer,callback) {
-    let query = "UPDATE `sampledb`.`supporttickets` SET `Answer` = '"+Answer+"', `Status` = 'done' , `AnswerDateTime`= now() WHERE (`SupportTicketID` = '"+SupportTicketID+"');";
+    let query = 
+    "UPDATE `sampledb`.`supporttickets` SET `Answer` = '"+Answer+"', `Status` = 'done' , `AnswerDateTime`= now() WHERE (`SupportTicketID` = '"+SupportTicketID+"');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
