@@ -115,7 +115,8 @@ module.exports = function (app) {
                             Email: firstRow.Email,
                             PhoneNumber: firstRow.PhoneNumber,
                             Status: firstRow.Status,
-                            AccountType: firstRow.AccountType
+                            AccountType: firstRow.AccountType,
+                            Privilege: firstRow.Privilege
                           });
                          
                         } else {
@@ -141,9 +142,6 @@ module.exports = function (app) {
                   
 
                 });
-
-
-
 
               } else {
                 res.send({
