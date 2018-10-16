@@ -12,8 +12,6 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amoun
   let _Amount = Amount;
   let _UserTransactionID = uuidv4();
 
-
-
   function Transactions() {
     let query =
       "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES ('" + _UserTransactionID + "', '" + _UserAccountID + "', '" + _Amount + "', 'pending', 'deposit');";
@@ -42,8 +40,8 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amoun
         }
       });
     });
-
   }
+  
   async function RunAsync() {
     console.log('calling');
     let result = await Transactions();
@@ -52,6 +50,4 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amoun
     callback(finalresult);
   }
   RunAsync();
-
-
 }

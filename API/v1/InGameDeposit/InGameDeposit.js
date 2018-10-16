@@ -18,7 +18,6 @@ module.exports = function (app) {
                         let status = 404;
                         res.status(status).end(http.STATUS_CODES[status]);
                     }
-    
                 });
             } else {
                 let status = 404;
