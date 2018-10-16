@@ -47,7 +47,7 @@ module.exports = function (app) {
     let Expiration = '';
     //newer version
     console.log("register test");
-    Register(UserAccountID,AccessID,UserName,Password,ScreenName,ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,AccountHolder,ShopID,res);
+    Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res);
   });
   function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res){
     if (!isNullOrEmpty(ScreenName)) {
@@ -78,7 +78,7 @@ module.exports = function (app) {
                                 });
                               }else{
                                 res.send({
-                                  ShoIDExist: false
+                                  ShopIDExist: false
                                 });
                               }
                               

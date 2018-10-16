@@ -116,7 +116,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate "+
+    "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate "+
     "FROM sampledb.useraccounts as UA "+
     "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
@@ -158,6 +158,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
       if(result!=undefined){
         let result2 = await QueryAccountType();
         finalresult[0].UserAccountID = result[0].UserAccountID;
+        finalresult[0].Privilege = result[0].Privilege;
         finalresult[0].Verified = result[0].Verified;
         finalresult[0].Email = result[0].Email;
         finalresult[0].Description = result[0].Description;

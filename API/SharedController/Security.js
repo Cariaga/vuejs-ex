@@ -49,3 +49,4 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
     res.sendStatus(403);
   }
 }
+

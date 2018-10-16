@@ -90,19 +90,7 @@ module.exports = function (app) {
       res.status(status).end(http.STATUS_CODES[status]);
     }
   });
-
-  app.get('/Api/v1/Login2/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/',Security.verifyToken, function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let UserName = req.params.UserName;
-    let Password = req.params.Password;
-    let DeviceUUID = req.params.DeviceUUID;
-    let IP = req.params.IP;
-    let DeviceName = req.params.DeviceName;
-    let DeviceRam = req.params.DeviceRam;
-    let DeviceCpu = req.params.DeviceCpu;
-    let OperatingSystem = req.params.OperatingSystem;
-    let GraphicsDevice = req.params.GraphicsDevice;
-    
+  function Login(UserName,Password,IP,DeviceName,DeviceRam,DeviceCpu,res){
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
         if (!isNullOrEmpty(IP)) {
@@ -120,14 +108,16 @@ module.exports = function (app) {
                       LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
 
                         if (response3 != undefined) {
-                          
+                         // console.log("Accountz "+firstRow.AccountType);
                           res.send({
                             UserAccountID: firstRow.UserAccountID,
                             OnlineStatus: firstRow.OnlineStatus,
                             Email: firstRow.Email,
                             PhoneNumber: firstRow.PhoneNumber,
-                            Status: firstRow.Status
+                            Status: firstRow.Status,
+                            AccountType: firstRow.AccountType
                           });
+                         
                         } else {
                           let status = 500;
                           res.status(status).end(http.STATUS_CODES[status]);
@@ -186,6 +176,34 @@ module.exports = function (app) {
         UserNameMissing: true
       })
     }
+  }
+  app.get('/Api/v1/Game/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/',Security.verifyToken, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserName = req.params.UserName;
+    let Password = req.params.Password;
+    let DeviceUUID = req.params.DeviceUUID;
+    let IP = req.params.IP;
+    let DeviceName = req.params.DeviceName;
+    let DeviceRam = req.params.DeviceRam;
+    let DeviceCpu = req.params.DeviceCpu;
+    let OperatingSystem = req.params.OperatingSystem;
+    let GraphicsDevice = req.params.GraphicsDevice;
+    Login(UserName,Password,IP,DeviceName,DeviceRam,DeviceCpu,res);
+
+  });
+  app.post('/Api/v1/Game/Login/',Security.verifyToken, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let UserName = req.body.UserName;
+    let Password = req.body.Password;
+    let DeviceUUID = req.body.DeviceUUID;
+    let IP = req.body.IP;
+    let DeviceName = req.body.DeviceName;
+    let DeviceRam = req.body.DeviceRam;
+    let DeviceCpu = req.body.DeviceCpu;
+    let OperatingSystem = req.body.OperatingSystem;
+    let GraphicsDevice = req.body.GraphicsDevice;
+    Login(UserName,Password,IP,DeviceName,DeviceRam,DeviceCpu,res);
+
   });
 
 
@@ -218,7 +236,7 @@ module.exports = function (app) {
                       LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
 
                         if (response3 != undefined) {
-                          
+                         // console.log("Accountz "+firstRow.AccountType);
                           res.send({
                             UserAccountID: firstRow.UserAccountID,
                             OnlineStatus: firstRow.OnlineStatus,
