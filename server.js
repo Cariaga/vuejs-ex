@@ -211,8 +211,34 @@ app.get('/Api/v1', function (req, res) {
 //---POKER ROUTING START
 
 
+let server = require('http').Server(app);
+let io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+    // Log whenever a user connects
+    console.log('user connected');
+
+    // Log whenever a client disconnects from our websocket server
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+
+    // When we receive a 'message' event from our client, print out
+    // the contents of that message and then echo it back to our client
+    // using `io.emit()`
+    socket.on('message1', (message) => {
+        console.log("Message Received: " + message);
+        io.emit('message1', {type:'new-message', text: message});    
+    });
+
+    socket.on('message2', (message) => {
+        console.log("Message 2 Received: " + message);
+        io.emit('message2', {type:'new-message', text: message});    
+    });
+    
+});
 // listen (start app with node server.js) ======================================
-app.listen(port, ip);
+server.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
 module.exports = routes;
 module.exports = app;
