@@ -28,7 +28,7 @@ const sendmail = require('sendmail')();
 //app.use(sqlinjection);// disable because it blocks token access
 
 // configuration =================
-app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
+//app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('combined')); // log every request to the console
 app.use(bodyParser.urlencoded({
   'extended': 'true'
@@ -196,7 +196,12 @@ function SendMail(To, From, Subject, html) {
     console.dir(reply);
   });
 }
+app.get('/', function (req, res) {
+  res.send("");
+});
 //--Login End
+
+
 app.get('/Api/', function (req, res) {
   res.send('pick version');
 });
@@ -204,25 +209,6 @@ app.get('/Api/v1', function (req, res) {
   res.send('Api v1 version');
 });
 //---POKER ROUTING START
-var server = require('http').Server(app);
-var socket = require('socket.io')(server);
-
-socket.to('game').emit('nice game', "let's play a game");
-
-// sending to all clients in 'game1' and/or in 'game2' room, except sender
-socket.to('game1').to('game2').emit('nice game', "let's play a game (too)");
-
-// sending to all clients in 'game' room, including sender
-socket.in('game').emit('big-announcement', 'the game will start soon');
-
-// sending to all clients in namespace 'myNamespace', including sender
-socket.of('myNamespace').emit('bigger-announcement', 'the tournament will start soon');
-
-// sending to a specific room in a specific namespace, including sender
-socket.of('myNamespace').to('room').emit('event', 'message');
-
-// sending to individual socketid (private message)
-//socket.to(${socketId}).emit('hey', 'I just met you');
 
 
 // listen (start app with node server.js) ======================================
