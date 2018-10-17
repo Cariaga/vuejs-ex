@@ -85,6 +85,7 @@ require('./API/v1/InGameMoney/InGameMoney')(app);
 require('./API/v1/HeadOffice/HeadOffice')(app);
 require('./API/v1/HeadOfficeList/HeadOfficeList')(app);
 require('./API/v1/InGameAdminSupport/InGameAdminSupport')(app);
+require('./API/v1/InGameAdminAnswer/InGameAdminAnswer')(app);
 require('./API/v1/InGameDeposit/InGameDeposit')(app);
 require('./API/v1/InGameFinalCard/InGameFinalCard')(app);
 require('./API/v1/InGameNotice/InGameNotice')(app);

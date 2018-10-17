@@ -10,11 +10,12 @@ module.exports.InGameAdminAnswerSupport = function InGameAdminAnswerSupport(Supp
     let _Answer = Answer;
     let query = "UPDATE `sampledb`.`supporttickets` SET `Answer` = '"+_Answer+"', `Status` = 'done' , `AnswerDateTime`= now() WHERE (`SupportTicketID` = '"+_SupportTicketID+"');";
     DBConnect.DBConnect(query, function (response) {
+      console.log(query);
       if (response != undefined) {
         console.log(response);
-        callback(response);
+        callback(true);
       } else {
-        callback(undefined);
+        callback(false);
       }
     });
   }

@@ -11,7 +11,7 @@ module.exports = function (app) {
         if (!isNullOrEmpty(SupportTicketID)) {
             if (!isNullOrEmpty(Answer)) {
                 InGameAdminAnswerModel.InGameAdminAnswerSupport(SupportTicketID,Answer,function(response){
-                    if(response!=undefined){
+                    if(response==true){
                         let status = 200;
                         res.status(status).end(http.STATUS_CODES[status]);
                     }else{
@@ -37,6 +37,7 @@ module.exports = function (app) {
     app.post('/Api/v1/InGameAdminAnswer/', Security.verifyToken, function (req, res) {
         let SupportTicketID = req.body.SupportTicketID;
         let Answer = req.body.Answer;
+        console.log(SupportTicketID);
         InGameAdminAnswer(SupportTicketID,Answer,res);
     });
 
