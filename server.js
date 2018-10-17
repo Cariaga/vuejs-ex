@@ -237,6 +237,12 @@ io.on('connection', (socket) => {
     });
     
 });
+
+var nsp = io.of('/kahitano');
+nsp.on('connection', function(socket){
+  console.log('someone connected');
+});
+
 // listen (start app with node server.js) ======================================
 server.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
