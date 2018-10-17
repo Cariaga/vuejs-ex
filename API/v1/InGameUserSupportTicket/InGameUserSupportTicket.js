@@ -12,7 +12,7 @@ let InGameUserSupportTicketModel = require('./InGameUserSupportTicketModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //selection
-  app.get('/Api/v1/UserAccount/SupportTicket/UserAccountID/:UserAccountID/Status/Pending', function (req, res) {
+  app.get('/Api/v1/InGameUserSupport/UserAccountID/:UserAccountID/', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
       if (response == true) {
