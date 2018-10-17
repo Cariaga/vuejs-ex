@@ -129,9 +129,9 @@ module.exports = function (app) {
     });
 
     app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/', Security.verifyToken, function (req, res) {
-        let UserAccountIDSender = req.body.UserAccountIDSender;
-        let Amount = req.body.Amount;
-        let UserName = req.body.UserName;
+        let UserAccountIDSender = req.params.UserAccountIDSender;
+        let Amount = req.params.Amount;
+        let UserName = req.params.UserName;
         InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
     });
 
