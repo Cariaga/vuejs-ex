@@ -216,9 +216,9 @@ app.get('/Api/v1', function (req, res) {
 const SocketServer = require('ws').Server;
 
 
-const server = express()
+const server = app
   .use((req, res) => res.send("") )
-  .listen(3000, () => console.log(`Listening on ${ 3000 }`));
+  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const wss = new SocketServer({ server });
 
