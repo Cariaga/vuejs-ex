@@ -226,22 +226,26 @@ io.on('connection', (socket) => {
     // When we receive a 'message' event from our client, print out
     // the contents of that message and then echo it back to our client
     // using `io.emit()`
-    socket.on('message1', (message) => {
+    socket.on('message', (message) => {
         console.log("Message Received: " + message);
         io.emit('message1', {type:'new-message', text: message});    
     });
 
-    socket.on('message2', (message) => {
-        console.log("Message 2 Received: " + message);
-        io.emit('message2', {type:'new-message', text: message});    
-    });
+    // socket.on('message2', (message) => {
+    //     console.log("Message 2 Received: " + message);
+    //     io.emit('message2', {type:'new-message', text: message});    
+    // });
     
 });
 
-var nsp = io.of('/kahitano');
-nsp.on('connection', function(socket){
-  console.log('someone connected');
-});
+// var nsp = io.of('/kahitano');
+// nsp.on('connection', function(socket){
+//   console.log('someone connected');
+//       socket.on('message2', (message) => {
+//         console.log("Message 2 Received: " + message);
+//         io.emit('message2', {type:'new-message', text: message});    
+//     });
+// });
 
 // listen (start app with node server.js) ======================================
 server.listen(port, ip);
