@@ -231,6 +231,7 @@ setInterval(() => {
     client.send(new Date().toTimeString());
   });
 }, 1000);
+
 // listen (start app with node server.js) ======================================
 server.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
