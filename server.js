@@ -218,8 +218,12 @@ const path = require('path');
 
 //const INDEX = path.join(__dirname, 'index.html');
 
+const express = require('express');
+const SocketServer = require('ws').Server;
+
+const PORT = process.env.PORT || 3000;
 const server = express()
-  .use((req, res) => res.sendFile("") )
+  .use((req, res) => res.send("") )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const wss = new SocketServer({ server });
@@ -227,20 +231,17 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws) => {
   
   console.log('Client connected');
+  
   ws.on('close', () => console.log('Client disconnected'));
 });
 
 setInterval(() => {
- // console.log("Timed");
   wss.clients.forEach((client) => {
       if(client.readyState==1){
         client.send(new Date().toTimeString());
       }
   });
 }, 1000);
-
-// listen (start app with node server.js) ======================================
-server.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
 module.exports = routes;
 module.exports = app;
