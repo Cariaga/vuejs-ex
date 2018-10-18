@@ -213,15 +213,12 @@ app.get('/Api/v1', function (req, res) {
 
 
 
-//const INDEX = path.join(__dirname, 'index.html');
-
-
 const SocketServer = require('ws').Server;
 
-const PORT = process.env.PORT || 3000;
+
 const server = express()
   .use((req, res) => res.send("") )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  .listen(port, () => console.log(`Listening on ${ port }`));
 
 const wss = new SocketServer({ server });
 
@@ -240,6 +237,10 @@ setInterval(() => {
   });
 }, 1000);
 
+
+
+// listen (start app with node server.js) ======================================
+server.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
 module.exports = routes;
 module.exports = app;
