@@ -218,7 +218,7 @@ const path = require('path');
 
 //const INDEX = path.join(__dirname, 'index.html');
 
-const express = require('express');
+
 const SocketServer = require('ws').Server;
 
 const PORT = process.env.PORT || 3000;
@@ -242,6 +242,7 @@ setInterval(() => {
       }
   });
 }, 1000);
+
 console.log('Server running on http://%s:%s', ip, port);
 module.exports = routes;
 module.exports = app;
