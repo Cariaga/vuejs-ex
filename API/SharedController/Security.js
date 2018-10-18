@@ -27,8 +27,8 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
           let resultDecoded = jwt.decode(bearerToken, {
             complete: true
           });
-          console.log(resultDecoded.header);
-          console.log(resultDecoded.payload);
+         // console.log(resultDecoded.header);
+         // console.log(resultDecoded.payload);
           var dateNow = new Date();
           
           if(resultDecoded.expiresIn < dateNow.getTime())// token expired

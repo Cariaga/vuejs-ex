@@ -211,38 +211,26 @@ app.get('/Api/v1', function (req, res) {
 //---POKER ROUTING START
 
 
-let server = require('http').Server(app);
-let io = require('socket.io')(server);
 
-io.on('connection', (socket) => {
-    // Log whenever a user connects
-    console.log('user connected');
+const SocketServer = require('ws').Server;
+const path = require('path');
 
-    // Log whenever a client disconnects from our websocket server
-    socket.on('disconnect', function(){
-        console.log('user disconnected');
-    });
 
-    // When we receive a 'message' event from our client, print out
-    // the contents of that message and then echo it back to our client
-    // using `io.emit()`
-    socket.on('message1', (message) => {
-        console.log("Message Received: " + message);
-        io.emit('message1', {type:'new-message', text: message});    
-    });
+//const INDEX = path.join(__dirname, 'index.html');
 
-    socket.on('message2', (message) => {
-        console.log("Message 2 Received: " + message);
-        io.emit('message2', {type:'new-message', text: message});    
-    });
-    
+const server = express()
+  .use((req, res) => res.sendFile("") )
+  .listen(port, () => console.log(`Listening on ${ port }`));
+const wss = new SocketServer({ server });
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+ // ws.on('close', () => console.log('Client disconnected'));
 });
-
-var nsp = io.of('/kahitano');
-nsp.on('connection', function(socket){
-  console.log('someone connected');
-});
-
+setInterval(() => {
+  wss.clients.forEach((client) => {
+    client.send(new Date().toTimeString());
+  });
+}, 1000);
 // listen (start app with node server.js) ======================================
 server.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
