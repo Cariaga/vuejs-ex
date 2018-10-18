@@ -226,7 +226,7 @@ wss.on('connection', (ws) => {
   
   console.log('Client connected');
   ws.onmessage = function(event) {
-    console.debug("WebSocket message received:", event);
+    console.debug("WebSocket message received:", event.data);
   };
   ws.on('close', () => console.log('Client disconnected'));
 });
