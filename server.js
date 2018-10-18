@@ -225,7 +225,12 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws) => {
   
   console.log('Client connected');
-  
+  ws.onmessage = function(event) {
+    console.debug("WebSocket message received:", event);
+  };
+  ws.onerror = function(event) {
+    console.debug("WebSocket Error message received:", event);
+  };
   ws.on('close', () => console.log('Client disconnected'));
 });
 
