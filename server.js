@@ -218,21 +218,24 @@ const path = require('path');
 
 //const INDEX = path.join(__dirname, 'index.html');
 
-const server = app
-  //.use((req, res) => res.sendFile("") )
-  .listen(port, () => console.log(`Listening on ${ port }`));
+const server = express()
+  .use((req, res) => res.sendFile("") )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
 const wss = new SocketServer({ server });
+
 wss.on('connection', (ws) => {
-  console.log('Client connected');
-  ws.on('close', () => console.log('Client disconnected'));//if it never triggred even if the client times out its ok no acutal disconnection happend
-});
-setInterval(() => {
   
+  console.log('Client connected');
+  ws.on('close', () => console.log('Client disconnected'));
+});
+
+setInterval(() => {
+ // console.log("Timed");
   wss.clients.forEach((client) => {
-    if (client.readyState == WebSocket.OPEN) { 
-      client.send(new Date().toTimeString());
-    }
-   
+      if(client.readyState==1){
+        client.send(new Date().toTimeString());
+      }
   });
 }, 1000);
 
