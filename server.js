@@ -233,11 +233,10 @@ setInterval(() => {
   wss.clients.forEach((client) => {
       if(client.readyState==1){
         client.send(new Date().toTimeString());
+        
       }
   });
 }, 1000);
-
-
 
 // listen (start app with node server.js) ======================================
 server.listen(port, ip);
