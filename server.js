@@ -218,7 +218,7 @@ const SocketServer = require('ws').Server;
 
 const server = express()
   .use((req, res) => res.send("") )
-  .listen(port, () => console.log(`Listening on ${ port }`));
+  .listen(3000, () => console.log(`Listening on ${ 3000 }`));
 
 const wss = new SocketServer({ server });
 
