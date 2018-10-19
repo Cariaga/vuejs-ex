@@ -24,7 +24,8 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
-
+const url = require('url');
+const stringify = require('json-stringify');
 //app.use(sqlinjection);// disable because it blocks token access
 
 // configuration =================
@@ -223,7 +224,23 @@ const server = app
 const wss = new SocketServer({ server });
 let ConnectedUsers=0;
 let ClientList=[];
-wss.on('connection', (ws) => {
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
+
+wss.on('connection', (ws,req) => {
+
+    //--creation
+    const parameters = url.parse(req.url, true);
+    ws.UserAccountID = parameters.query.UserAccountID;
+  
+    ws.Money = getRandomInt(100,10000);
+  
+
+
+
     //bet event - update money of user account to in memory from value in database
     
     //buyin event - subtracts money out from main in memory money, subarray of useraccount and add to roomId pocketmoney
@@ -235,17 +252,19 @@ wss.on('connection', (ws) => {
   console.log('Client connected '+ConnectedUsers);
 
   ws.onmessage = function(event) {
-    
-    var UserAccountID = event.data;
+   /* var UserAccountID = event.data;
     var PlayerFound = ClientList.filter(e => e.UserAccountID === UserAccountID)[0];
-    if (PlayerFound!=undefined) {
+    
 
+
+    if (PlayerFound!=undefined) {
       console.log("Found "+PlayerFound.UserAccountID);
-      /* contains the element we're looking for */
+       //contains the element we're looking for 
     }else{
       console.log("Not Found So We Add It");
       ClientList.push({UserAccountID:UserAccountID})
     }
+*/
     console.debug("WebSocket message received:", event.data);
 
 
@@ -265,7 +284,11 @@ wss.on('connection', (ws) => {
 setInterval(() => {
   wss.clients.forEach((client) => {
       if(client.readyState==1){
-        client.send(new Date().toTimeString());
+        
+        client.send(stringify({
+          UserAccountID:client.UserAccountID,
+          Money:client.Money
+        },null,0));
 
       }
   });
