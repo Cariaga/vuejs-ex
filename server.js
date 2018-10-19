@@ -231,8 +231,11 @@ wss.on('connection', (ws) => {
 
     //remove room money link when player leaves
   ConnectedUsers++;
+
   console.log('Client connected '+ConnectedUsers);
+
   ws.onmessage = function(event) {
+    
     var UserAccountID = event.data;
     var PlayerFound = ClientList.filter(e => e.UserAccountID === UserAccountID)[0];
     if (PlayerFound!=undefined) {
