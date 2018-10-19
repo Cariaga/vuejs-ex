@@ -254,7 +254,9 @@ wss.on('connection', (ws,req) => {
 
     //remove room money link when player leaves
   ConnectedUsers++;
+
   console.log('Client connected '+ConnectedUsers);
+
   ws.onmessage = function(event) {
     
 
