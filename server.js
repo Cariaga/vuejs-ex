@@ -224,6 +224,12 @@ const wss = new SocketServer({ server });
 let ConnectedUsers=0;
 let ClientList=[];
 wss.on('connection', (ws) => {
+    //bet event - update money of user account to in memory from value in database
+    
+    //buyin event - subtracts money out from main in memory money, subarray of useraccount and add to roomId pocketmoney
+    //event retrive and update room money
+
+    //remove room money link when player leaves
   ConnectedUsers++;
   console.log('Client connected '+ConnectedUsers);
   ws.onmessage = function(event) {
