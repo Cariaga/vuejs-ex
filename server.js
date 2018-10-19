@@ -234,7 +234,7 @@ function getRandomInt(min, max) {
 let allconnections = [{id:1,UserAccountID:"1234"},{id:2,UserAccountID:"1234"},{id:3,UserAccountID:"abc"}];
 
 var x =Enumerable.from(allconnections).select((val, i) => ({ UserAccountID: val, id: i}));
-
+var distinctlist = Enumerable.from(allconnections).distinct(x=>x.UserAccountID);
 
 wss.on('connection', (ws,req) => {
 
