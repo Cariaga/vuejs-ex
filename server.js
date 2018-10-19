@@ -221,17 +221,43 @@ const server = app
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const wss = new SocketServer({ server });
-
+let ConnectedUsers=0;
+let ClientList=[];
 wss.on('connection', (ws) => {
-  
-  console.log('Client connected');
+    //bet event - update money of user account to in memory from value in database
+    
+    //buyin event - subtracts money out from main in memory money, subarray of useraccount and add to roomId pocketmoney
+    //event retrive and update room money
+
+    //remove room money link when player leaves
+  ConnectedUsers++;
+  console.log('Client connected '+ConnectedUsers);
   ws.onmessage = function(event) {
-    console.debug("WebSocket message received:", event);
+
+    var UserAccountID = event.data;
+    var PlayerFound = ClientList.filter(e => e.UserAccountID === UserAccountID)[0];
+    if (PlayerFound!=undefined) {
+
+      console.log("Found "+PlayerFound.UserAccountID);
+      /* contains the element we're looking for */
+    }else{
+      console.log("Not Found So We Add It");
+      ClientList.push({UserAccountID:UserAccountID})
+    }
+    console.debug("WebSocket message received:", event.data);
+
+
+   // console.debug("WebSocket message received:", event);
   };
   ws.onerror = function(event) {
+    
     console.debug("WebSocket Error message received:", event);
   };
-  ws.on('close', () => console.log('Client disconnected'));
+  ws.onclose = function(event) {
+    ConnectedUsers--;
+    console.log('Client disconnected '+ConnectedUsers);
+  };
+
 });
 
 setInterval(() => {
