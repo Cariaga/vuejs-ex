@@ -231,10 +231,23 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
-let allconnections = [{id:1,UserAccountID:"1234"},{id:2,UserAccountID:"1234"},{id:3,UserAccountID:"abc"}];
+let allconnections = [{id:1,UserAccountID:"1234",Money:80},{id:2,UserAccountID:"1234",Money:90},{id:3,UserAccountID:"abc",Money:100}];
 
-var x =Enumerable.from(allconnections).select((val, i) => ({ UserAccountID: val, id: i}));
+//var x =Enumerable.from(allconnections).select((val, i) => ({ UserAccountID: val, id: i}));
+
 var distinctlist = Enumerable.from(allconnections).distinct(x=>x.UserAccountID);
+//Enumerable.from(distinctlist).forEach(x=>console.log(x));
+
+function LatestAndUnique(distinctlist,LookUp){
+  return  Enumerable.from(distinctlist).single(x=>x.UserAccountID==LookUp);
+}
+for(var i =0; i<allconnections.length;++i){
+  allconnections[i].Money=LatestAndUnique(distinctlist,allconnections[i].UserAccountID).Money;
+}
+console.log(allconnections);
+
+
+
 
 wss.on('connection', (ws,req) => {
 
