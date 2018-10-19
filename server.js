@@ -26,6 +26,7 @@ const Collection = require('linqjs');
 const sendmail = require('sendmail')();
 const url = require('url');
 const stringify = require('json-stringify');
+const Enumerable = require('linq');
 //app.use(sqlinjection);// disable because it blocks token access
 
 // configuration =================
@@ -230,6 +231,11 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
+let allconnections = [{id:1,UserAccountID:"1234"},{id:2,UserAccountID:"1234"},{id:3,UserAccountID:"abc"}];
+
+var x =Enumerable.from(allconnections).select((val, i) => ({ UserAccountID: val, id: i}));
+
+
 wss.on('connection', (ws,req) => {
 
     //--creation
@@ -250,6 +256,8 @@ wss.on('connection', (ws,req) => {
   ConnectedUsers++;
   console.log('Client connected '+ConnectedUsers);
   ws.onmessage = function(event) {
+    
+
    /* var UserAccountID = event.data;
     var PlayerFound = ClientList.filter(e => e.UserAccountID === UserAccountID)[0];
     
