@@ -223,8 +223,8 @@ const server = app
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const wss = new SocketServer({ server });
-let ConnectedUsers=0;
 let ClientList=[];
+let ConnectedUsers=0;
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -258,7 +258,9 @@ wss.on('connection', (ws,req) => {
     ws.UserAccountID = parameters.query.UserAccountID;
   
     ws.Money = getRandomInt(100,10000);
-  
+
+
+    console.log('useraccount : '+ws.UserAccountID)
 
 
 
@@ -268,10 +270,9 @@ wss.on('connection', (ws,req) => {
     //event retrive and update room money
 
     //remove room money link when player leaves
-  ConnectedUsers++;
-
-  console.log('Client connected '+ConnectedUsers);
-
+    ConnectedUsers++;
+    console.log('Client connected '+ConnectedUsers);
+    
   ws.onmessage = function(event) {
     
 
@@ -287,15 +288,17 @@ wss.on('connection', (ws,req) => {
       console.log("Not Found So We Add It");
       ClientList.push({UserAccountID:UserAccountID})
     }
-*/
+  */ 
+    
     console.debug("WebSocket message received:", event.data);
-
-
+    // console.log(ClientList.length)
+   // ClientList[0].send('hello I received it');
    // console.debug("WebSocket message received:", event);
   };
   ws.onerror = function(event) {
     
     console.debug("WebSocket Error message received:", event);
+
   };
   ws.onclose = function(event) {
     ConnectedUsers--;
