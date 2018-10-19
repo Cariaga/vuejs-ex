@@ -18,6 +18,7 @@
     "json-beautify": "^1.0.1",
     "json-stringify": "^1.0.0",
     "jsonwebtoken": "^8.3.0",
+    "linq": "^3.1.0",
     "linqjs": "^0.0.6",
     "mocha": "^5.2.0",
     "moment": "^2.22.2",
