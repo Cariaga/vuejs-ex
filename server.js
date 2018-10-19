@@ -233,7 +233,6 @@ wss.on('connection', (ws,req) => {
   ConnectedUsers++;
   console.log('Client connected '+ConnectedUsers);
   ws.onmessage = function(event) {
-
     var UserAccountID = event.data;
     var PlayerFound = ClientList.filter(e => e.UserAccountID === UserAccountID)[0];
     
