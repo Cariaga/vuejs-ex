@@ -31,6 +31,7 @@
     "sort-array": "^2.0.0",
     "sql-injection": "0.0.6",
     "sqlstring": "^2.3.1",
+    "url": "^0.11.0",
     "uuid": "^3.3.2",
     "validator": "^10.8.0",
     "vue": "^2.5.17",

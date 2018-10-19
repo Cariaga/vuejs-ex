@@ -24,7 +24,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 const sendmail = require('sendmail')();
-
+const url = require('url');
 //app.use(sqlinjection);// disable because it blocks token access
 
 // configuration =================
@@ -223,7 +223,7 @@ const server = app
 const wss = new SocketServer({ server });
 let ConnectedUsers=0;
 let ClientList=[];
-wss.on('connection', (ws) => {
+wss.on('connection', (ws,req) => {
     //bet event - update money of user account to in memory from value in database
     
     //buyin event - subtracts money out from main in memory money, subarray of useraccount and add to roomId pocketmoney
@@ -236,14 +236,17 @@ wss.on('connection', (ws) => {
 
     var UserAccountID = event.data;
     var PlayerFound = ClientList.filter(e => e.UserAccountID === UserAccountID)[0];
-    if (PlayerFound!=undefined) {
+    
 
+
+    if (PlayerFound!=undefined) {
       console.log("Found "+PlayerFound.UserAccountID);
       /* contains the element we're looking for */
     }else{
       console.log("Not Found So We Add It");
       ClientList.push({UserAccountID:UserAccountID})
     }
+
     console.debug("WebSocket message received:", event.data);
 
 
@@ -263,7 +266,8 @@ wss.on('connection', (ws) => {
 setInterval(() => {
   wss.clients.forEach((client) => {
       if(client.readyState==1){
-        client.send(new Date().toTimeString());
+        
+        client.send("messagez");
 
       }
   });
