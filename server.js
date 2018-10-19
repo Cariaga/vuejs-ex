@@ -274,7 +274,7 @@ setInterval(() => {
   wss.clients.forEach((client) => {
       if(client.readyState==1){
         
-        client.send("messagez");
+        client.send(stringify({UserAccountID:client.UserAccountID},null,2));
 
       }
   });
