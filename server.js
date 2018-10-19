@@ -224,11 +224,20 @@ const server = app
 const wss = new SocketServer({ server });
 let ConnectedUsers=0;
 let ClientList=[];
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
+
 wss.on('connection', (ws,req) => {
 
     //--creation
     const parameters = url.parse(req.url, true);
     ws.UserAccountID = parameters.query.UserAccountID;
+  
+    ws.Money = getRandomInt(100,10000);
+  
 
 
 
@@ -274,7 +283,10 @@ setInterval(() => {
   wss.clients.forEach((client) => {
       if(client.readyState==1){
         
-        client.send(stringify({UserAccountID:client.UserAccountID},null,2));
+        client.send(stringify({
+          UserAccountID:client.UserAccountID,
+          Money:client.Money
+        },null,0));
 
       }
   });
