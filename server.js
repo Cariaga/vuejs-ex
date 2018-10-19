@@ -287,8 +287,8 @@ wss.on('connection', (ws,req) => {
       ClientList.push({UserAccountID:UserAccountID})
     }
   */ 
-    
-    console.debug("WebSocket message received:", event.data);
+
+    console.debug("WebSocket message received:", event.data, " from : ", event.target);
     // console.log(ClientList.length)
    // ClientList[0].send('hello I received it');
    // console.debug("WebSocket message received:", event);
