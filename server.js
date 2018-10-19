@@ -241,9 +241,11 @@ var distinctlist = Enumerable.from(allconnections).distinct(x=>x.UserAccountID);
 function LatestAndUnique(distinctlist,LookUp){
   return  Enumerable.from(distinctlist).single(x=>x.UserAccountID==LookUp);
 }
+
 for(var i =0; i<allconnections.length;++i){
   allconnections[i].Money=LatestAndUnique(distinctlist,allconnections[i].UserAccountID).Money;
 }
+
 console.log(allconnections);
 
 
