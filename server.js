@@ -275,33 +275,58 @@ wss.on('connection', (ws,req) => {
 
   ws.onmessage = function(event) {
     //console.log(event.data);
-   
-
     if(IsJsonString(event.data)){
 
-     let Object= JSON.parse(event.data);
-    
-      if(Object.Type=="BuyIn"){//identify object type
-        var BuyInRoom =Object;
-        console.log(BuyInRoom);
-         wss.clients.forEach((client) => {
-            if(client.UserAccountID==Object.UserAccountID){
-              console.log("Buyin Money "+ Object.BuyIn);
-              client.Money= client.Money-Object.BuyIn;
-            }
-          });
-        console.log("Buyin : "+BuyInRoom);
-      }
-
-   
-    }else{
-      //possibly a diffrent message type
-    }
-
-    
+      let Object= JSON.parse(event.data);
+     
+       if(Object.Type=="BuyIn"){//identify object type
+         var BuyInRoom =Object;
+         console.log(BuyInRoom);
+          wss.clients.forEach((client) => {
+             if(client.UserAccountID==Object.UserAccountID){
+             //  console.log("Buyin Money "+ Object.BuyIn);
+               if(client.Rooms==undefined){//when empty must inisialize only then the one bellow it can push
+                 client.Rooms = [];
+               }
+               if(client.Rooms.length==0){//must be if
+                 client.Rooms.push({RoomID:Object.RoomID,BuyIn:Object.BuyIn});
+                 //console.log(client.Rooms);
+                  client.Money= client.Money-Object.BuyIn;
+               }else{
  
-  
-
+                 if(client.Money-Object.BuyIn){
+                   var NotFound=true;
+                   for(var i = 0; i<client.Rooms.length;++i){
+                     if(client.Rooms[i].RoomID == Object.RoomID){//Match Found Update Instead
+                       console.log("Match Found Update Instead");
+                       client.Money= client.Money-Object.BuyIn;
+                       client.Rooms[i].BuyIn=client.Rooms[i].BuyIn+Object.BuyIn;
+                       console.log(client.Rooms[i].BuyIn+Object.BuyIn);
+                       NotFound=false;
+                      // break;
+                     }
+                   }
+                   if(NotFound==true){// nothing found so we add it instead
+                     client.Rooms.push({RoomID:Object.RoomID,BuyIn:Object.BuyIn});
+                     //console.log(client.Rooms);
+                      client.Money= client.Money-Object.BuyIn;
+                   }
+                 }else{
+                   console.log("Not Enough Money");
+                 }
+                
+               }
+             }
+           });
+         console.log("Buyin : "+BuyInRoom);
+       }
+ 
+       
+ 
+    
+     }else{
+       //possibly a diffrent message type
+     }
     }
     
   ws.onerror = function(event) {
