@@ -257,7 +257,7 @@ wss.on('connection', (ws,req) => {
   const parameters = url.parse(req.url, true);
   var UserAccountID = parameters.query.UserAccountID;
   ws.UserAccountID =UserAccountID;
-  ws.Money =1000;
+
 
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
@@ -272,9 +272,16 @@ wss.on('connection', (ws,req) => {
     ws.Rooms =SyncRoomVar;
     SyncRoomVar=undefined;
   }
-  
   console.log(ws.Money);
-
+  var _UserAccountID =UserAccountID;
+  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '"+_UserAccountID+"';";
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      ws.Money =response[0].Money;
+      //console.log(response[0]);
+    }
+  });
+   
 
 
 
