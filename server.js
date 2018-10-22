@@ -252,59 +252,67 @@ console.log(allconnections);
 
 
 wss.on('connection', (ws,req) => {
-
-    //--creation
-    const parameters = url.parse(req.url, true);
-    ws.UserAccountID = parameters.query.UserAccountID;
+  ConnectedUsers++;
+  console.log('Client connected '+ConnectedUsers);
+  const parameters = url.parse(req.url, true);
+   ws.UserAccountID = parameters.query.UserAccountID;
+   ws.Money = getRandomInt(100,10000);
   
-    ws.Money = getRandomInt(100,10000);
+  
+   /*
+   var distinctlist = Enumerable.from(wss.clients).distinct(x=>x.UserAccountID);
+   wss.clients.forEach((client) => {
+      if(client.UserAccountID==ws.UserAccountID){
+        client.Money=LatestAndUnique(distinctlist,client.UserAccountID).Money;
+      }
+  });*/
 
 
-    console.log('useraccount : '+ws.UserAccountID)
 
+  console.log(parameters.query.UserAccountID);
 
+ // console.log("url: ", ws);
 
-    //bet event - update money of user account to in memory from value in database
-    
-    //buyin event - subtracts money out from main in memory money, subarray of useraccount and add to roomId pocketmoney
-    //event retrive and update room money
-
-    //remove room money link when player leaves
-    ConnectedUsers++;
-    console.log('Client connected '+ConnectedUsers);
-    
   ws.onmessage = function(event) {
+    //console.log(event.data);
+   
+
+    if(IsJsonString(event.data)){
+
+     let Object= JSON.parse(event.data);
     
+      if(Object.Type=="BuyIn"){//identify object type
+        var BuyInRoom =Object;
+        console.log(BuyInRoom);
+         wss.clients.forEach((client) => {
+            if(client.UserAccountID==Object.UserAccountID){
+              console.log("Buyin Money "+ Object.BuyIn);
+              client.Money= client.Money-Object.BuyIn;
+            }
+          });
+        console.log("Buyin : "+BuyInRoom);
+      }
 
-   /* var UserAccountID = event.data;
-    var PlayerFound = ClientList.filter(e => e.UserAccountID === UserAccountID)[0];
-    
-
-
-    if (PlayerFound!=undefined) {
-      console.log("Found "+PlayerFound.UserAccountID);
-       //contains the element we're looking for 
+   
     }else{
-      console.log("Not Found So We Add It");
-      ClientList.push({UserAccountID:UserAccountID})
+      //possibly a diffrent message type
     }
-  */ 
 
-    console.debug("WebSocket message received:", event.data, " from : ", event.target);
-    // console.log(ClientList.length)
-   // ClientList[0].send('hello I received it');
-   // console.debug("WebSocket message received:", event);
-  };
+    
+ 
+  
+
+    }
+    
   ws.onerror = function(event) {
     
+    
     console.debug("WebSocket Error message received:", event);
-
   };
   ws.onclose = function(event) {
     ConnectedUsers--;
     console.log('Client disconnected '+ConnectedUsers);
   };
-
 });
 
 setInterval(() => {
@@ -319,6 +327,14 @@ setInterval(() => {
       }
   });
 }, 1000);
+function IsJsonString(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
 
 // listen (start app with node server.js) ======================================
 server.listen(port, ip);
