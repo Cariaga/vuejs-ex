@@ -223,35 +223,20 @@ const server = app
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const wss = new SocketServer({ server });
-let ClientList=[];
-let ConnectedUsers=0;
+let ConnectedUsers = 0;
+
+
+function LatestAndUnique(distinctlist, LookUp) {
+  return Enumerable.from(distinctlist).first(x => x.UserAccountID == LookUp);
+}
+
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
-
-let allconnections = [{id:1,UserAccountID:"1234",Money:80},{id:2,UserAccountID:"1234",Money:90},{id:3,UserAccountID:"abc",Money:100}];
-
-//var x =Enumerable.from(allconnections).select((val, i) => ({ UserAccountID: val, id: i}));
-
-var distinctlist = Enumerable.from(allconnections).distinct(x=>x.UserAccountID);
-//Enumerable.from(distinctlist).forEach(x=>console.log(x));
-
-function LatestAndUnique(distinctlist,LookUp){
-  return  Enumerable.from(distinctlist).single(x=>x.UserAccountID==LookUp);
-}
-
-for(var i =0; i<allconnections.length;++i){
-  allconnections[i].Money=LatestAndUnique(distinctlist,allconnections[i].UserAccountID).Money;
-}
-
-console.log(allconnections);
-
-
-
-
-wss.on('connection', (ws,req) => {
+wss.on('connection', (ws, req) => {
   ConnectedUsers++;
   console.log('Client connected ' + ConnectedUsers);
   const parameters = url.parse(req.url, true);
@@ -264,15 +249,15 @@ wss.on('connection', (ws,req) => {
     wss.clients.forEach((client) => {
       if(SyncRoomVar==undefined&&client.UserAccountID==ws.UserAccountID){//matching user account connecting to a diffrent application instance
         SyncRoomVar=client.Rooms;
-        console.log(client.UserAccountID); 
+        //console.log(client.UserAccountID); 
       }
   });
   if(SyncRoomVar!=undefined){
-    console.log(SyncRoomVar);
+   
     ws.Rooms =SyncRoomVar;
     SyncRoomVar=undefined;
   }
-  console.log(ws.Money);
+  //console.log(ws.Money);
   var _UserAccountID =UserAccountID;
   var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '"+_UserAccountID+"';";
   DBConnect.DBConnect(query,function(response){
@@ -281,8 +266,6 @@ wss.on('connection', (ws,req) => {
       //console.log(response[0]);
     }
   });
-   
-
 
 
 
@@ -300,10 +283,14 @@ wss.on('connection', (ws,req) => {
     if (IsJsonString(event.data)) {
 
       let Object = JSON.parse(event.data);
+      console.log(Object);
+     // if (Object.Type == "LeaveRoom") {
+    //    console.log("LeaveRoom "+ Object.RoomID);
+    //  }
 
       if (Object.Type == "BuyIn") { //identify object type
         var BuyInRoom = Object;
-        console.log(BuyInRoom);
+        //console.log(BuyInRoom);
         wss.clients.forEach((client) => {
           if (client.UserAccountID == Object.UserAccountID) {
             //  console.log("Buyin Money "+ Object.BuyIn);
@@ -326,7 +313,7 @@ wss.on('connection', (ws,req) => {
                     console.log("Match Found Update Instead");
                     client.Money = client.Money - Object.BuyIn;
                     client.Rooms[i].BuyIn = client.Rooms[i].BuyIn + Object.BuyIn;
-                    console.log(client.Rooms[i].BuyIn + Object.BuyIn);
+                    //console.log(client.Rooms[i].BuyIn + Object.BuyIn);
                     NotFound = false;
                     // break;
                   }
@@ -348,6 +335,7 @@ wss.on('connection', (ws,req) => {
         });
         console.log("Buyin : " + BuyInRoom);
       }
+     
 
 
 
@@ -402,6 +390,15 @@ setInterval(() => {
       }
   });*/
 }, 1000);
+
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
 function IsJsonString(str) {
   try {
       JSON.parse(str);
