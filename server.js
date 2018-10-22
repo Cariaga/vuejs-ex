@@ -253,100 +253,147 @@ console.log(allconnections);
 
 wss.on('connection', (ws,req) => {
   ConnectedUsers++;
-  console.log('Client connected '+ConnectedUsers);
+  console.log('Client connected ' + ConnectedUsers);
   const parameters = url.parse(req.url, true);
-   ws.UserAccountID = parameters.query.UserAccountID;
-   ws.Money = getRandomInt(100,10000);
-  
-  
-   /*
-   var distinctlist = Enumerable.from(wss.clients).distinct(x=>x.UserAccountID);
-   wss.clients.forEach((client) => {
-      if(client.UserAccountID==ws.UserAccountID){
-        client.Money=LatestAndUnique(distinctlist,client.UserAccountID).Money;
+  var UserAccountID = parameters.query.UserAccountID;
+  ws.UserAccountID =UserAccountID;
+  ws.Money =1000;
+
+  //--inisialization to Same Account instances // similar to all buffer
+  var SyncRoomVar = undefined;
+    wss.clients.forEach((client) => {
+      if(SyncRoomVar==undefined&&client.UserAccountID==ws.UserAccountID){//matching user account connecting to a diffrent application instance
+        SyncRoomVar=client.Rooms;
+        console.log(client.UserAccountID); 
       }
-  });*/
+  });
+  if(SyncRoomVar!=undefined){
+    console.log(SyncRoomVar);
+    ws.Rooms =SyncRoomVar;
+    SyncRoomVar=undefined;
+  }
+  
+  console.log(ws.Money);
 
 
 
-  console.log(parameters.query.UserAccountID);
 
- // console.log("url: ", ws);
 
-  ws.onmessage = function(event) {
-    //console.log(event.data);
-    if(IsJsonString(event.data)){
 
-      let Object= JSON.parse(event.data);
-     
-       if(Object.Type=="BuyIn"){//identify object type
-         var BuyInRoom =Object;
-         console.log(BuyInRoom);
-          wss.clients.forEach((client) => {
-             if(client.UserAccountID==Object.UserAccountID){
-             //  console.log("Buyin Money "+ Object.BuyIn);
-               if(client.Rooms==undefined){//when empty must inisialize only then the one bellow it can push
-                 client.Rooms = [];
-               }
-               if(client.Rooms.length==0){//must be if
-                 client.Rooms.push({RoomID:Object.RoomID,BuyIn:Object.BuyIn});
-                 //console.log(client.Rooms);
-                  client.Money= client.Money-Object.BuyIn;
-               }else{
  
-                 if(client.Money-Object.BuyIn){
-                   var NotFound=true;
-                   for(var i = 0; i<client.Rooms.length;++i){
-                     if(client.Rooms[i].RoomID == Object.RoomID){//Match Found Update Instead
-                       console.log("Match Found Update Instead");
-                       client.Money= client.Money-Object.BuyIn;
-                       client.Rooms[i].BuyIn=client.Rooms[i].BuyIn+Object.BuyIn;
-                       console.log(client.Rooms[i].BuyIn+Object.BuyIn);
-                       NotFound=false;
-                      // break;
-                     }
-                   }
-                   if(NotFound==true){// nothing found so we add it instead
-                     client.Rooms.push({RoomID:Object.RoomID,BuyIn:Object.BuyIn});
-                     //console.log(client.Rooms);
-                      client.Money= client.Money-Object.BuyIn;
-                   }
-                 }else{
-                   console.log("Not Enough Money");
-                 }
-                
-               }
-             }
-           });
-         console.log("Buyin : "+BuyInRoom);
-       }
-     }else{
-       //possibly a diffrent message type
-     }
+  // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
+
+
+  // console.log("url: ", ws);
+
+  ws.onmessage = function (event) {
+    //console.log(event.data);
+
+
+    if (IsJsonString(event.data)) {
+
+      let Object = JSON.parse(event.data);
+
+      if (Object.Type == "BuyIn") { //identify object type
+        var BuyInRoom = Object;
+        console.log(BuyInRoom);
+        wss.clients.forEach((client) => {
+          if (client.UserAccountID == Object.UserAccountID) {
+            //  console.log("Buyin Money "+ Object.BuyIn);
+            if (client.Rooms == undefined) { //when empty must inisialize only then the one bellow it can push
+              client.Rooms = [];
+            }
+            if (client.Rooms.length == 0) { //must be if
+              client.Rooms.push({
+                RoomID: Object.RoomID,
+                BuyIn: Object.BuyIn
+              });
+              //console.log(client.Rooms);
+              client.Money = client.Money - Object.BuyIn;
+            } else {
+
+              if (client.Money - Object.BuyIn) {
+                var NotFound = true;
+                for (var i = 0; i < client.Rooms.length; ++i) {
+                  if (client.Rooms[i].RoomID == Object.RoomID) { //Match Found Update Instead
+                    console.log("Match Found Update Instead");
+                    client.Money = client.Money - Object.BuyIn;
+                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn + Object.BuyIn;
+                    console.log(client.Rooms[i].BuyIn + Object.BuyIn);
+                    NotFound = false;
+                    // break;
+                  }
+                }
+                if (NotFound == true) { // nothing found so we add it instead
+                  client.Rooms.push({
+                    RoomID: Object.RoomID,
+                    BuyIn: Object.BuyIn
+                  });
+                  //console.log(client.Rooms);
+                  client.Money = client.Money - Object.BuyIn;
+                }
+              } else {
+                console.log("Not Enough Money");
+              }
+
+            }
+          }
+        });
+        console.log("Buyin : " + BuyInRoom);
+      }
+
+
+
+
+    } else {
+      //possibly a diffrent message type
     }
-    
-  ws.onerror = function(event) {
-    
-    
+
+  }
+
+  ws.onerror = function (event) {
+
+
     console.debug("WebSocket Error message received:", event);
   };
-  ws.onclose = function(event) {
+  ws.onclose = function (event) {
     ConnectedUsers--;
-    console.log('Client disconnected '+ConnectedUsers);
+    console.log('Client disconnected ' + ConnectedUsers);
   };
 });
 
 setInterval(() => {
+  let array = Array.from(wss.clients);
+  var distinctlist = Enumerable.from(array);
+
   wss.clients.forEach((client) => {
+
+    client.Money = LatestAndUnique(distinctlist, client.UserAccountID).Money;
+    // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
+  });
+  wss.clients.forEach((client) => {
+
+    client.send(stringify({
+    
+      UserAccountID: client.UserAccountID,
+      Money: client.Money,
+      Rooms: client.Rooms
+     
+    }, null, 0));
+    // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
+  });
+
+  // console.log(array.length);
+
+  /*wss.clients.forEach((client) => {
       if(client.readyState==1){
-        
+     
         client.send(stringify({
           UserAccountID:client.UserAccountID,
           Money:client.Money
         },null,0));
-
       }
-  });
+  });*/
 }, 1000);
 function IsJsonString(str) {
   try {
