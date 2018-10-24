@@ -71,7 +71,7 @@ app.use(function (req, res, next) {
 */
 
 //===========API===========
-let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
+let DBConnect = require("../API/SharedController/DBConnect");
 
 
 require('./API/v1/AccessControl/AccessControl')(app);
