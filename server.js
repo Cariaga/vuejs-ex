@@ -93,7 +93,7 @@ require('./API/v1/HeadOfficeList/HeadOfficeList')(app);
 require('./API/v1/InGameAdminSupport/InGameAdminSupport')(app);
 require('./API/v1/InGameAdminAnswer/InGameAdminAnswer')(app);
 require('./API/v1/InGameDeposit/InGameDeposit')(app);
-//require('./API/v1/InGameFinalCard/InGameFinalCard')(app);//broken
+require('./API/v1/InGameFinalCard/InGameFinalCard')(app);
 require('./API/v1/InGameNotice/InGameNotice')(app);
 require('./API/v1/InGamePlayChips/InGamePlayChips')(app);
 require('./API/v1/InGamePlayProfile/InGamePlayProfile')(app);
@@ -104,7 +104,7 @@ require('./API/v1/InGameSeasonPoints/InGameSeasonPoints')(app);
 require('./API/v1/InGameTransferHistory/InGameTransferHistory')(app);
 require('./API/v1/InGameTransferRequest/InGameTransferRequest')(app);
 require('./API/v1/InGameNotice/InGameNotice')(app);
-//require('./API/v1/InGameWithdraw/InGameWithdraw')(app);//broken
+//require('./API/v1/InGameWithdraw/InGameWithdraw')(app);
 require('./API/v1/IPList/IPList')(app);
 require('./API/v1/Login/Login')(app);
 require('./API/v1/Login/LogOut')(app);
@@ -224,7 +224,8 @@ const SocketServer = require('ws').Server;
 
 
 const server = app
-  .use((req, res) => res.send(""));
+  .use((req, res) => res.send(""))
+  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const wss = new SocketServer({
   server
