@@ -227,7 +227,7 @@ const server = app
   .use((req, res) => res.send(""));
   
 server.listen(8080, () => console.log(`Listening on ${ 8080 }`));
-/*
+
 const wss = new SocketServer({
   server
 });
@@ -458,7 +458,7 @@ function IsJsonString(str) {
     return false;
   }
   return true;
-}*/
+}
 
 // listen (start app with node server.js) ======================================
 //server.listen(port, ip);
