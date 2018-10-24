@@ -1,5 +1,5 @@
 //is not a function possibly brakets nested another module.export or missing parameters
-
+/*
 let DBCheck = require('./API/SharedController/DBCheck');
 DBCheck.IsRoomIDExist('RID88',function(response){
   console.log("Done");
@@ -143,7 +143,7 @@ DashBoardModel.UserAccountOnline(function (response) {
 
 
 //http://localhost:8080/Api/v1/Dashboard/TotalDepositWithdrawProfit/
-let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
+/*let DashBoardModel = require("./API/v1/DashBoard/DashBoardModel");
 DashBoardModel.TotalRegisteredUsersToday(function (response) {
   console.log(response);
 });
@@ -352,3 +352,4 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 //http://192.168.254.107:8080/Api/v1/InGameRoomConfiguration/Request/UserAccountID/Account6 - in game room config
 
 //http://192.168.254.106:8080/Api/v1/InGameSeasonPoints/SeasonID/0e032ae4-335b-4889-808e-3ff95e4cf7f4/
+*/
