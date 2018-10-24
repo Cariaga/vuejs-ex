@@ -461,11 +461,7 @@ function IsJsonString(str) {
 }
 
 // listen (start app with node server.js) ======================================
-<<<<<<< HEAD
 server.listen(port, ip);
-=======
-server.listen(3000, ip);
->>>>>>> parent of 453c7dbb... asf
 console.log('Server running on http://%s:%s', ip, port);
 module.exports = routes;
 module.exports = app;
