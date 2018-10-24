@@ -48,7 +48,6 @@ module.exports = function (app) {
         let UserAccountID = req.body.UserAccountID;
         let Name = req.body.Name;
         let Amount = req.body.Amount;
-        console.log("Deposit Request "+ UserAccountID+" "+Name);
         InGameDeposit(UserAccountID, Name, Amount, res);
     });
     app.get('/Api/v1/InGameDeposit/Request/UserAccountID/:UserAccountID/Name/:Name/Amount/:Amount/', Security.verifyToken, function (req, res) {

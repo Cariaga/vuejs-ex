@@ -136,11 +136,18 @@ require('./API/v1/InGameRoomConfiguration/InGameRoomConfiguration')(app);
 require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 
+<<<<<<< HEAD
 
 
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
   RegisterModel.RegisterAccount('UserAccountID' + Math.random(), 'AccessID', 'UserName', 'Password', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', function (response) {
+=======
+let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
+function test(){
+ let RegisterModel= require('./API/v1/Register/RegisterModel');
+ RegisterModel.RegisterAccount('UserAccountID'+Math.random(),'AccessID','UserName','Password','ValidKey','Email','PhoneNumber','BankName','AccountNumber','SecurityCode','Valid','Expiration',function(response){
+>>>>>>> parent of 6aefc74d... asf
     console.log("OK");
   });
 }
@@ -224,13 +231,16 @@ const SocketServer = require('ws').Server;
 
 
 const server = app
+<<<<<<< HEAD
   .use((req, res) => res.send(""));
   
 server.listen(8080, () => console.log(`Listening on ${ 8080 }`));
+=======
+  .use((req, res) => res.send("") )
+  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
+>>>>>>> parent of 6aefc74d... asf
 
-const wss = new SocketServer({
-  server
-});
+const wss = new SocketServer({ server });
 let ConnectedUsers = 0;
 
 
@@ -244,151 +254,119 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
-wss.on('connection', (ws, req) => { //each of connection is actually a unique instance to the connecting client this means ws is the sender also regardless connection events are not shared ws can be treated as isLocalPlayer
+wss.on('connection', (ws, req) => {
   ConnectedUsers++;
   console.log('Client connected ' + ConnectedUsers);
   const parameters = url.parse(req.url, true);
   var UserAccountID = parameters.query.UserAccountID;
-  ws.UserAccountID = UserAccountID;
-  ws.Rooms = []; //must be empty first
+  ws.UserAccountID =UserAccountID;
+
 
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
-  wss.clients.forEach((client) => {
-    if (SyncRoomVar == undefined && client.UserAccountID == ws.UserAccountID) { //matching user account connecting to a diffrent application instance
-      SyncRoomVar = client.Rooms;
-      //console.log(client.UserAccountID); 
-    }
+    wss.clients.forEach((client) => {
+      if(SyncRoomVar==undefined&&client.UserAccountID==ws.UserAccountID){//matching user account connecting to a diffrent application instance
+        SyncRoomVar=client.Rooms;
+        //console.log(client.UserAccountID); 
+      }
   });
-  if (SyncRoomVar != undefined) {
-
-    ws.Rooms = SyncRoomVar;
-    SyncRoomVar = undefined;
+  if(SyncRoomVar!=undefined){
+   
+    ws.Rooms =SyncRoomVar;
+    SyncRoomVar=undefined;
   }
   //console.log(ws.Money);
-  var _UserAccountID = UserAccountID;
-  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '" + _UserAccountID + "';";
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      ws.Money = response[0].Money;
+  var _UserAccountID =UserAccountID;
+  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '"+_UserAccountID+"';";
+  DBConnect.DBConnect(query,function(response){
+    if(response!=undefined){
+      ws.Money =response[0].Money;
       //console.log(response[0]);
     }
   });
+
+
+
+
+ 
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
 
 
   // console.log("url: ", ws);
 
   ws.onmessage = function (event) {
-    if (IsJsonString(event.data)) {
-      //console.log(event.data);
-      let Object = JSON.parse(event.data);
-      if (Object.Type == "LeaveRoom") { //event leave room
-        //console.log("LeaveRoom "+ Object.RoomID);
-        wss.clients.forEach((client) => {
-          if(client.readyState==1){
-            if (client.UserAccountID == Object.UserAccountID) {
-              var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
-                return value.RoomID == Object.RoomID;
-              });
-              if (filtered[0].BuyIn != undefined) { // the oldest is basically the first item we find from 0 to N.. 
-                client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
-  
-                var NewArrayfiltered = client.Rooms.filter(function (value) {
-                  return value.RoomID !== Object.RoomID;
-                });
-                
-                client.Rooms = NewArrayfiltered;
-              }
-            }
-          }
-          
-        });
-      } else if (Object.Type == "Bet") { //bet event occured 
-        wss.clients.forEach((client) => {
-          if(client.readyState==1){
-            if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
-              console.log("Bet");
-              for (var i = 0; i < client.Rooms.length; ++i) {
-                if (client.Rooms[i].RoomID == Object.RoomID) {
-                  if (client.Rooms[i].BuyIn - Object.BetAmount >= 0) {
-                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn - Object.BetAmount;
-                  } else {
-                    ws.send(stringify({
-                      Response: "NotEnoughMoney"
-                    }, null, 0)); //pops up only to the local player trying to bet
-                    //target.send();
-                    console.log("Tried to bet with no money");
-                  }
-                }
-              }
-            }
-          }
-          
+    //console.log(event.data);
 
-        });
-      } else if (Object.Type == "BuyIn") { //identify object type
+
+    if (IsJsonString(event.data)) {
+
+      let Object = JSON.parse(event.data);
+      console.log(Object);
+     // if (Object.Type == "LeaveRoom") {
+    //    console.log("LeaveRoom "+ Object.RoomID);
+    //  }
+
+      if (Object.Type == "BuyIn") { //identify object type
         var BuyInRoom = Object;
         //console.log(BuyInRoom);
-        console.log("Player Buy in " + Object.BuyIn + " " + Object.RoomID);
         wss.clients.forEach((client) => {
-          if(client.readyState==1){
-            if (client.UserAccountID == Object.UserAccountID) {
-              //  console.log("Buyin Money "+ Object.BuyIn);
-              if (client.Rooms == undefined) { //when empty must inisialize only then the one bellow it can push//in case we didn't inisialize it
-                client.Rooms = [];
-              }
-              if (client.Rooms.length == 0) { //must be if
-                client.Rooms.push({
-                  RoomID: Object.RoomID,
-                  BuyIn: Object.BuyIn
-                });
-                //console.log(client.Rooms);
-                client.Money = client.Money - Object.BuyIn;
-              } else {
-  
-                if (client.Money - Object.BuyIn > 0) { //if money is enough can buyIn
-                  var NotFound = true;
-                  for (var i = 0; i < client.Rooms.length; ++i) {
-                    if (client.Rooms[i].RoomID == Object.RoomID) { //Match Found Update Instead
-                      console.log("Match Found Update Instead");
-                      client.Money = client.Money - Object.BuyIn;
-                      client.Rooms[i].BuyIn = client.Rooms[i].BuyIn + Object.BuyIn;
-                      //console.log(client.Rooms[i].BuyIn + Object.BuyIn);
-                      NotFound = false;
-                      // break;
-                    }
-                  }
-                  if (NotFound == true) { // nothing found so we add it instead
-                    client.Rooms.push({
-                      RoomID: Object.RoomID,
-                      BuyIn: Object.BuyIn
-                    });
-                    //console.log(client.Rooms);
+          if (client.UserAccountID == Object.UserAccountID) {
+            //  console.log("Buyin Money "+ Object.BuyIn);
+            if (client.Rooms == undefined) { //when empty must inisialize only then the one bellow it can push
+              client.Rooms = [];
+            }
+            if (client.Rooms.length == 0) { //must be if
+              client.Rooms.push({
+                RoomID: Object.RoomID,
+                BuyIn: Object.BuyIn
+              });
+              //console.log(client.Rooms);
+              client.Money = client.Money - Object.BuyIn;
+            } else {
+
+              if (client.Money - Object.BuyIn) {
+                var NotFound = true;
+                for (var i = 0; i < client.Rooms.length; ++i) {
+                  if (client.Rooms[i].RoomID == Object.RoomID) { //Match Found Update Instead
+                    console.log("Match Found Update Instead");
                     client.Money = client.Money - Object.BuyIn;
+                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn + Object.BuyIn;
+                    //console.log(client.Rooms[i].BuyIn + Object.BuyIn);
+                    NotFound = false;
+                    // break;
                   }
-                } else {
-                  ws.send(stringify({
-                    Response: "NotEnoughMoney"
-                  }, null, 0));
-                  console.log("Not Enough Money");
                 }
-  
+                if (NotFound == true) { // nothing found so we add it instead
+                  client.Rooms.push({
+                    RoomID: Object.RoomID,
+                    BuyIn: Object.BuyIn
+                  });
+                  //console.log(client.Rooms);
+                  client.Money = client.Money - Object.BuyIn;
+                }
+              } else {
+                console.log("Not Enough Money");
               }
+
             }
           }
-          
         });
+        console.log("Buyin : " + BuyInRoom);
       }
+     
+
+
+
 
     } else {
       //possibly a diffrent message type
-      // console.log("Non Json Message");
     }
 
   }
 
   ws.onerror = function (event) {
+
+
     console.debug("WebSocket Error message received:", event);
   };
   ws.onclose = function (event) {
@@ -400,32 +378,21 @@ wss.on('connection', (ws, req) => { //each of connection is actually a unique in
 setInterval(() => {
   let array = Array.from(wss.clients);
   var distinctlist = Enumerable.from(array);
+
   wss.clients.forEach((client) => {
-    if(client.readyState==1){
-      client.Money = LatestAndUnique(distinctlist, client.UserAccountID).Money; // to snyc money accross accounts of same user
-      // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
-    }
-   
+
+    client.Money = LatestAndUnique(distinctlist, client.UserAccountID).Money;
+    // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
   wss.clients.forEach((client) => {
-    if(client.readyState==1){
-      let CountSameAccount = 0;
-    wss.clients.forEach((client2) => {
-      if(client.readyState==1){
-        if (client2.UserAccountID == client.UserAccountID) {
-          CountSameAccount++;
-        }
-      }
-     
-    });
+
     client.send(stringify({
+    
       UserAccountID: client.UserAccountID,
       Money: client.Money,
-      Rooms: client.Rooms,
-      CountSameAccount: CountSameAccount
+      Rooms: client.Rooms
+     
     }, null, 0));
-    }
-    
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
 
@@ -450,12 +417,11 @@ function IsJsonString(str) {
   }
   return true;
 }
-
 function IsJsonString(str) {
   try {
-    JSON.parse(str);
+      JSON.parse(str);
   } catch (e) {
-    return false;
+      return false;
   }
   return true;
 }

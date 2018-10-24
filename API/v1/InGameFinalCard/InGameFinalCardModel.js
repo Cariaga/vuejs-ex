@@ -43,6 +43,7 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
       }
     });
 
+<<<<<<< HEAD:API/v1/InGameFinalCard/InGameFinalCardModel.js
   }
 
   module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID,WinPoints, callback) {
@@ -60,3 +61,6 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
     });
 
   }
+=======
+  }
+>>>>>>> parent of 6aefc74d... asf:API/v1/InGameFinalCard/InGameFInalCardModel.js

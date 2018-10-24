@@ -112,7 +112,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/'/*,Security.verifyToken*/, (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/',Security.verifyToken, (req, res) => {
     let UserName = req.params.UserName;
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
@@ -128,7 +128,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
-  //NOT USED
+  
   app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/',Security.verifyToken, (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
