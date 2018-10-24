@@ -136,18 +136,11 @@ require('./API/v1/InGameRoomConfiguration/InGameRoomConfiguration')(app);
 require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 
-<<<<<<< HEAD
 
 
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
   RegisterModel.RegisterAccount('UserAccountID' + Math.random(), 'AccessID', 'UserName', 'Password', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', function (response) {
-=======
-let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
-function test(){
- let RegisterModel= require('./API/v1/Register/RegisterModel');
- RegisterModel.RegisterAccount('UserAccountID'+Math.random(),'AccessID','UserName','Password','ValidKey','Email','PhoneNumber','BankName','AccountNumber','SecurityCode','Valid','Expiration',function(response){
->>>>>>> parent of 6aefc74d... asf
     console.log("OK");
   });
 }
@@ -231,14 +224,8 @@ const SocketServer = require('ws').Server;
 
 
 const server = app
-<<<<<<< HEAD
-  .use((req, res) => res.send(""));
-  
-server.listen(8080, () => console.log(`Listening on ${ 8080 }`));
-=======
   .use((req, res) => res.send("") )
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
->>>>>>> parent of 6aefc74d... asf
 
 const wss = new SocketServer({ server });
 let ConnectedUsers = 0;
