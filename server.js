@@ -224,8 +224,7 @@ const SocketServer = require('ws').Server;
 
 
 const server = app
-  .use((req, res) => res.send(""))
-  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
+  .use((req, res) => res.send(""));
 
 const wss = new SocketServer({
   server
