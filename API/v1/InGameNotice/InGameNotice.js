@@ -13,4 +13,10 @@ module.exports = function (app) {
             res.send(response);
         });
     });
+    app.get('/Api/v1/InGameNotice/',function (req, res) {
+
+        InGameNoticeModel.InGameNotice(function(response){
+            res.send(response);
+        });
+    });
 }

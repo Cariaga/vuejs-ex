@@ -7,8 +7,8 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
   
     const connection = mysql.createConnection({
       host: /*'localhost'||*/'172.30.210.243',
-      user: 'user',
-      password: 'user',
+      user: /*root*/'user',
+      password: /*password*/'user',
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
     });
