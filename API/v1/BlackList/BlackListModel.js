@@ -16,7 +16,7 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
     let query =
     "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason, Status"
     +" FROM sampledb.player_Black_list"
-    +" WHERE BlackListID IN ( SELECT MAX(BlackListID) FROM player_Black_list GROUP BY UserAccountID)"
+    +" WHERE BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID)"
     +" limit "+_limit+" offset "+_offset;
     console.log(query)
     DBConnect.DBConnect(query, function (response) {
@@ -30,7 +30,7 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
   }
   else if(limit!=undefined&&_offset!=undefined){
     let query =
-    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason FROM sampledb.player_Black_list";
+    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason FROM sampledb.player_black_list";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -102,9 +102,9 @@ module.exports.BlacklistSearch = function BlacklistSearch(Column, Value, callbac
   let _Column = Column;
   let _Value = Value;
   let query = "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason, Status"
-  +" FROM player_Black_list"
+  +" FROM player_black_list"
   +" WHERE BlackListID IN (SELECT MAX(BlackListID)"
-  +" FROM player_Black_list"
+  +" FROM player_black_list"
   +" GROUP BY UserAccountID)"
   +" AND "+_Column+" like '%"+_Value+"%';";
 

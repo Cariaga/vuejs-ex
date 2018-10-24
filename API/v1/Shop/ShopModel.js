@@ -50,7 +50,7 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
   }
 
   function Q3() {
-    let query = "INSERT INTO `sampledb`.`Shops` (`UserAccountID`,`Name`,`Commission`,`DistributorID`) VALUES ('" + _UserAccountID + "', '" + _Name + "', " + _Commission + ",'" + _DistributorID + "');";
+    let query = "INSERT INTO `sampledb`.`shops` (`UserAccountID`,`Name`,`Commission`,`DistributorID`) VALUES ('" + _UserAccountID + "', '" + _Name + "', " + _Commission + ",'" + _DistributorID + "');";
     console.log(query);
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
