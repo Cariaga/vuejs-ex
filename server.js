@@ -409,7 +409,7 @@ function IsJsonString(str) {
 }
 
 // listen (start app with node server.js) ======================================
-//server.listen(port, ip);
+//server.listen(port, ip);// no loger needed
 console.log('Server running on http://%s:%s', ip, port);
 module.exports = routes;
 module.exports = app;
