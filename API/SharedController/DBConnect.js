@@ -33,7 +33,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
             callback(undefined);
           }
           else{
-            console.log("Somthing Bad Happend :" +err.sqlState);
+            console.log("Somthing Bad Happend :" +err);
           }
         }
         else if(results!=undefined&&results.length>0){//select
