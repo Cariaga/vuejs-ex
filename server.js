@@ -71,6 +71,8 @@ app.use(function (req, res, next) {
 */
 
 //===========API===========
+let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
+
 
 require('./API/v1/AccessControl/AccessControl')(app);
 /*
@@ -134,7 +136,7 @@ require('./API/v1/InGameRoomConfiguration/InGameRoomConfiguration')(app);
 require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 */
-let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
+
 
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
