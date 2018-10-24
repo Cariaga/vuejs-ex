@@ -1,3 +1,10 @@
+
+var uuidv4 = require('uuid/v4');
+var passwordValidator = require('password-validator');
+var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
+var async = require("async");
+var moment = require('moment');
+const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card, callback) {
     let _UserAccountID = UserAccountID;
