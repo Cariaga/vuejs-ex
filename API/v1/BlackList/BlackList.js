@@ -25,7 +25,12 @@ module.exports = function (app) {
     let Offset = req.params.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
-  
+  app.get('/Api/v1/BlackList/', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let Limit = req.body.Limit;
+    let Offset = req.body.Offset;
+    BlackListLimitOffset(Limit,Offset,res);
+  });
   app.post('/Api/v1/BlackList/',Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.body.Limit;
