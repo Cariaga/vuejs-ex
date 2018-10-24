@@ -71,8 +71,10 @@ app.use(function (req, res, next) {
 */
 
 //===========API===========
+
 require('./API/v1/AccessControl/AccessControl')(app);
-/*require('./API/v1/BankInformation/BankInformation')(app);
+/*
+require('./API/v1/BankInformation/BankInformation')(app);
 require('./API/v1/BlackList/BlackList')(app);
 require('./API/v1/ConnectingUsers/ConnectingUsers')(app);
 require('./API/v1/DashBoard/DashBoard')(app);
@@ -130,8 +132,8 @@ require('./API/v1/InGameScore/InGameScore')(app);
 require('./API/v1/InGameSeason/InGameSeason')(app);
 require('./API/v1/InGameRoomConfiguration/InGameRoomConfiguration')(app);
 require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
-require('./API/v1/InGameBuyIn/InGameBuyIn')(app);*/
-
+require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
+*/
 let DBConnect = require("../vuejs-ex/API/SharedController/DBConnect");
 
 function test() {
