@@ -139,7 +139,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     function QueryAccountType() {
       let Query = 
      "SELECT `UA`.`UserName`,FAT.UserAccountID,IFNULL(FAT.AccountType, 'NoType') as AccountType FROM sampledb.fullaccounttypes as FAT "+
-     "Inner Join sampledb.UserAccounts as UA on UA.UserAccountID = FAT.UserAccountID where `UA`.`UserName`='"+_UserName+"'; ";
+     "Inner Join sampledb.useraccounts as UA on UA.UserAccountID = FAT.UserAccountID where `UA`.`UserName`='"+_UserName+"'; ";
        return new Promise(resolve => {
          DBConnect.DBConnect(Query, function (response) {
            if (response != undefined) {
