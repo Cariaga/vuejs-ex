@@ -15,7 +15,7 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
     // select player_black_list where select only the latest black list id of the user (with limit and offset)
     let query =
     "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason, Status"
-    +" FROM sampledb.player_Black_list"
+    +" FROM sampledb.player_black_list"
     +" WHERE BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID)"
     +" limit "+_limit+" offset "+_offset;
     console.log(query)
