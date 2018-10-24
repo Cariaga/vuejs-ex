@@ -104,12 +104,19 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                             if(response==true){
                                 DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
                                     if(response==false){
+                                        
                                         InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID,SeasonID,CurrentPoints,WinPoints,AfterPoints,BeforePoints,function(response){
                                             if(response==undefined){
-                                               
                                                 console.log("UserAccount or SeasonID dosn't Exist");
                                             }else{
-                                                resolve();
+                                                InGameFinalCardModel.UpdatePlayerMoney(UserAccountID,WinPoints,function(response){
+                                                    if(response==undefined){
+                                                   
+                                                        console.log("UserAccount or SeasonID dosn't Exist");
+                                                    }else{
+                                                        resolve();
+                                                    }
+                                                });
                                             }
                                         });
                                     }else{
@@ -170,6 +177,7 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                             if(response==true){
                                 DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
                                     if(response==false){
+                                       
                                         InGameFinalCardModel.AddPlayerFinalCard(UserAccountID,SeasonID,Rank,Score,Hand,function(response){
                                             if(response==undefined){
                                                 console.log("UserAccount or SeasonID dosn't Exist");

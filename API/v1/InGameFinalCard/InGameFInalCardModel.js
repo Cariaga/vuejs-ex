@@ -44,3 +44,19 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
     });
 
   }
+
+  module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID,WinPoints, callback) {
+    let _UserAccountID = UserAccountID;
+    let _WinPoints = WinPoints;
+    let query = "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID='"+_UserAccountID+"' limit 1) as t)+'"+_WinPoints+"' WHERE (`UserAccountID` = 'Account8');";
+    console.log(query);
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+
+  }

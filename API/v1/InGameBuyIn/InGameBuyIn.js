@@ -7,9 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-
+    //DEPRECATED by Websocket based
     app.get('/Api/v1/InGameBuyIn/UserAccountID/:UserAccountID/BuyInAmount/:BuyInAmount', Security.verifyToken, function (req, res) {
-        let UserAccountID = req.params.UserAccountID;
+       /* let UserAccountID = req.params.UserAccountID;
         let BuyInAmount = req.params.BuyInAmount;
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(BuyInAmount)) {
@@ -61,7 +61,7 @@ module.exports = function (app) {
             res.send({
                 InvalidUserAccount: true
             });
-        }
+        }*/
     });
 
 }
