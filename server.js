@@ -75,7 +75,7 @@ let DBConnect = require("./API/SharedController/DBConnect");
 
 
 require('./API/v1/AccessControl/AccessControl')(app);
-/*
+
 require('./API/v1/BankInformation/BankInformation')(app);
 require('./API/v1/BlackList/BlackList')(app);
 require('./API/v1/ConnectingUsers/ConnectingUsers')(app);
@@ -135,7 +135,7 @@ require('./API/v1/InGameSeason/InGameSeason')(app);
 require('./API/v1/InGameRoomConfiguration/InGameRoomConfiguration')(app);
 require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
-*/
+
 
 
 function test() {
