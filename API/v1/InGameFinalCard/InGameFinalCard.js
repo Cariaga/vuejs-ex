@@ -1,6 +1,5 @@
 let http = require('http');
-let InGameFinalCardModel = require('./InGameFinalCardModel');
-let DBConnect = require("../../SharedController/DBConnect");
+let InGameFinalCardModel = require('../InGameFinalCard/InGameFinalCardModel');
 let DbCheck = require("../../SharedController/DBCheck");
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { 

@@ -4,7 +4,7 @@ var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,cre
 var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
-let DBConnect = require("../../SharedController/DBConnect");
+
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
