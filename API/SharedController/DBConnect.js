@@ -31,7 +31,7 @@ module.exports.DBConnectTest = function DBConnectTest(){
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   
    const connection = mysql.createConnection({
-      host:  '0.0.0.0' || 'localhost',
+      host:  'mysql-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com' || 'localhost',
       user: user,
       password: password,
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
