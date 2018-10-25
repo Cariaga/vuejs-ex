@@ -7,7 +7,6 @@ const mysql = require('mysql2');
 
 let user ='user';
 let password='user';
-function NotNumberException() {}
 
 //Test Connection Important here to check if information provided is correct
 module.exports.DBConnectTest = function DBConnectTest(){
