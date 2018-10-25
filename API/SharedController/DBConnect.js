@@ -10,7 +10,7 @@ let password='user';
 
 //Test Connection Important here to check if information provided is correct
 module.exports.DBConnectTest = function DBConnectTest(){
-          const connection = mysql.createConnection({
+       /*   const connection = mysql.createConnection({
             host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
             user: user,
             password: password,
@@ -23,7 +23,7 @@ module.exports.DBConnectTest = function DBConnectTest(){
             function (err, results, fields) {
               connection.end();
             
-            });
+            });*/
 
 }
 
