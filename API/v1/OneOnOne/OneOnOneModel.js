@@ -9,7 +9,7 @@ module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
     let _Limit = Limit;
     let _Offset = Offset;
     if(Limit!=undefined&&Offset!=undefined){
-    let query = "SELECT player_supportlist.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, Title, Status, RegisteredDateTime, DateTime, SupportTicketID FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset;
+    let query = "SELECT player_supportlist.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, Title, Status, RegisteredDateTime, DateTime, SupportTicketID FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset; 
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);
