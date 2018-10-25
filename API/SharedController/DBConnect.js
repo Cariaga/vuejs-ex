@@ -3,12 +3,39 @@
 const mysql = require('mysql2');
 //DEBUGGING mysql
 //if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
+//first attempt password
+
+let host ='localhost';
+let user ='user';
+let password='user';
+function NotNumberException() {}
+
+//Test Connection Important here to check if information provided is correct
+module.exports.DBConnectTest = function DBConnectTest(){
+          const connection = mysql.createConnection({
+            host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
+            user: user,
+            password: password,
+            port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
+            database: 'sampledb',
+          });
+         // connection.connect();
+          // simple query
+          connection.query("select * from `UserAccounts`",
+            function (err, results, fields) {
+              connection.end();
+            
+            });
+
+}
+
+
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   
    const connection = mysql.createConnection({
-      host: '172.30.210.243',
-      user: 'user',
-      password: 'user',
+      host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
+      user: user,
+      password: password,
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
     });
