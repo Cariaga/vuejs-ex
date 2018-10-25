@@ -12,14 +12,10 @@ module.exports = function (app) { //SELECTION
             res.send(response);
         });
     });
-    /*app.post('/Api/v1/Pagination/',Security.verifyToken, function (req, res) {
-        PaginationModel.PaginationCount(function(response){
-            res.send(response);
-        });
-    });*/
-    app.post('/Api/v1/Pagination/', function (req, res) {
+    app.post('/Api/v1/Pagination/',Security.verifyToken, function (req, res) {
         PaginationModel.PaginationCount(function(response){
             res.send(response);
         });
     });
+
 }
