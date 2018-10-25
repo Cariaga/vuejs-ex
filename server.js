@@ -455,6 +455,6 @@ function IsJsonString(str) {
 // listen (start app with node server.js) ======================================
 //server.listen(port, ip);// no loger needed
 console.log('Server running on http://%s:%s', ip, port);
-console.log("MYSQL  : "+process.env.IP);
+console.log("MYSQL  : "+process.env.DATABASE_SERVICE_NAME);
 module.exports = routes;
 module.exports = app;
