@@ -31,7 +31,7 @@ module.exports.DBConnectTest = function DBConnectTest(){
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   
    const connection = mysql.createConnection({
-      host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
+      host:  process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
       user: user,
       password: password,
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
