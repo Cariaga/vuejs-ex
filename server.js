@@ -454,10 +454,11 @@ function IsJsonString(str) {
 
 // listen (start app with node server.js) ======================================
 //server.listen(port, ip);// no loger needed
+var beautify = require('json-beautify');
 console.log('Server running on http://%s:%s', ip, port);
-setInterval(() => {
-  console.log("MYSQL  : "+JSON.stringify(process.env));
-},1000);
+
+  console.log("MYSQL  : "+beautify(process.env, null, 2, 100));
+
 
 module.exports = routes;
 module.exports = app;
