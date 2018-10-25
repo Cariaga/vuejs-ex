@@ -456,9 +456,11 @@ function IsJsonString(str) {
 //server.listen(port, ip);// no loger needed
 var beautify = require('json-beautify');
 console.log('Server running on http://%s:%s', ip, port);
-
-  console.log("MYSQL  : "+beautify(process.env, null, 2, 100));
-
+  console.log("--------process informationz  for openshift---------");
+  console.log(beautify(process.env, null, 2, 100));
+  console.log("-----------------");
+  console.log(process.env.MYSQL_SERVICE_HOST);
+  console.log(process.env.MYSQL_SERVICE_PORT);
 
 module.exports = routes;
 module.exports = app;
