@@ -11,7 +11,8 @@ module.exports.MemberList = function MemberList(Limit, Offset, callback) {
     let _Limit = Limit;
     let _Offset = Offset;
     let query = 
-    "SELECT member_list.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, PlayerCurrentPoints, OnlineStatus, RegisteredDateTime, LoginDateTime FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
+    "SELECT HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, PlayerCurrentPoints, OnlineStatus, RegisteredDateTime, LoginDateTime FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
+    // "SELECT member_list.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, PlayerCurrentPoints, OnlineStatus, RegisteredDateTime, LoginDateTime FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
