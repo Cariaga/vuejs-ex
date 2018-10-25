@@ -219,10 +219,7 @@ app.get('/Api/v1', function (req, res) {
 
 
 const SocketServer = require('ws').Server;
-
-
 const server = app
-  
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const wss = new SocketServer({ server });
