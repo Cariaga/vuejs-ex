@@ -5,10 +5,17 @@ const mysql = require('mysql2');
 //if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   
-    const connection = mysql.createConnection({
-      host: /*'localhost'*/'172.30.210.243',
-      user: /*'root'*/'user',
-      password: /*'password'*/'user',
+   /* const connection = mysql.createConnection({
+      host: '172.30.210.243',
+      user: 'user',
+      password: 'user',
+      port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
+      database: 'sampledb',
+    });*/
+       const connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
     });

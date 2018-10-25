@@ -29,6 +29,14 @@ module.exports = function (app) {
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
   });
+  app.get('/Api/v1/BlackList/withtoken',Security.verifyToken, function (req, res) {//test connection only
+    res.setHeader('Content-Type', 'application/json');
+    BlackListLimitOffset(10,0,res);
+  });
+  app.post('/Api/v1/BlackList/withtokenpost',Security.verifyToken, function (req, res) {//test connection only
+    res.setHeader('Content-Type', 'application/json');
+    BlackListLimitOffset(10,0,res);
+  });
   app.post('/Api/v1/BlackList/',Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.body.Limit;

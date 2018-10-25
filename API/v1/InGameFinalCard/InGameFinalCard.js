@@ -103,8 +103,8 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                             if(response==true){
                                 DbCheck.isUserAccountIDBlocked(UserAccountID,function(response){
                                     if(response==false){
-                                        InGameFinalCardModel.UpdatePlayerMoney(UserAccountID,WinPoints,function(response){
-                                            if(response!=undefined){
+                                       // InGameFinalCardModel.UpdatePlayerMoney(UserAccountID,WinPoints,function(response){
+                                          //  if(response!=undefined){
                                                 InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID,SeasonID,CurrentPoints,WinPoints,AfterPoints,BeforePoints,function(response){
                                                     if(response==undefined){
                                                        
@@ -113,9 +113,9 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                                                         resolve();
                                                     }
                                                 });
-                                            }
+                                         //   }
                                             
-                                        });
+                                       // });
                                        
 
                                     }else{

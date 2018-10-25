@@ -182,8 +182,6 @@ app.get('/SMS/:recipient/:message', function (req, res) {
 
   res.end();
 });
-
-
 /**
  *
  *
@@ -224,7 +222,7 @@ const SocketServer = require('ws').Server;
 
 
 const server = app
-  .use((req, res) => res.send("") )
+  
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const wss = new SocketServer({ server });
@@ -292,8 +290,53 @@ wss.on('connection', (ws, req) => {
      // if (Object.Type == "LeaveRoom") {
     //    console.log("LeaveRoom "+ Object.RoomID);
     //  }
+      if (Object.Type == "LeaveRoom") { //event leave room
+        //console.log("LeaveRoom "+ Object.RoomID);
+        wss.clients.forEach((client) => {
+          if(client.readyState==1){
+            if (client.UserAccountID == Object.UserAccountID) {
+              var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
+                return value.RoomID == Object.RoomID;
+              });
+              if (filtered[0].BuyIn != undefined) { // the oldest is basically the first item we find from 0 to N.. 
+                client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
 
-      if (Object.Type == "BuyIn") { //identify object type
+                var NewArrayfiltered = client.Rooms.filter(function (value) {
+                  return value.RoomID !== Object.RoomID;
+                });
+                
+                client.Rooms = NewArrayfiltered;
+              }
+            }
+          }
+          
+        });
+      }
+      else if (Object.Type == "Bet") { //bet event occured 
+        wss.clients.forEach((client) => {
+          if(client.readyState==1){
+            if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
+              console.log("Bet");
+              for (var i = 0; i < client.Rooms.length; ++i) {
+                if (client.Rooms[i].RoomID == Object.RoomID) {
+                  if (client.Rooms[i].BuyIn - Object.BetAmount >= 0) {
+                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn - Object.BetAmount;
+                  } else {
+                    ws.send(stringify({
+                      Response: "NotEnoughMoney"
+                    }, null, 0)); //pops up only to the local player trying to bet
+                    //target.send();
+                    console.log("Tried to bet with no money");
+                  }
+                }
+              }
+            }
+          }
+          
+
+        });
+      }
+      else if (Object.Type == "BuyIn") { //identify object type
         var BuyInRoom = Object;
         //console.log(BuyInRoom);
         wss.clients.forEach((client) => {
@@ -367,14 +410,16 @@ setInterval(() => {
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
   wss.clients.forEach((client) => {
-
-    client.send(stringify({
+    if(client.readyState==1){
+      client.send(stringify({
     
-      UserAccountID: client.UserAccountID,
-      Money: client.Money,
-      Rooms: client.Rooms
-     
-    }, null, 0));
+        UserAccountID: client.UserAccountID,
+        Money: client.Money,
+        Rooms: client.Rooms
+       
+      }, null, 0));
+    }
+   
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
 
