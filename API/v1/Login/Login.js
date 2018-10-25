@@ -71,7 +71,11 @@ module.exports = function (app) {
               });
             });
             
-          }else{
+          }
+          if(response=='ETIMEDOUT'){
+            res.send('Invalid Connection ETIMEDOUT');
+          }
+          else{
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
           }

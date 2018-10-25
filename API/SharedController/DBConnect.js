@@ -39,6 +39,10 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
             console.log("Empty Query Requested");
             callback(undefined);
           }
+          else if(err.sqlState=='ETIMEDOUT'){
+            console.log(err);
+            callback('ETIMEDOUT');
+          }
           else{
             console.log("Somthing Bad Happend :" +err);
           }
