@@ -456,7 +456,7 @@ function IsJsonString(str) {
 //server.listen(port, ip);// no loger needed
 console.log('Server running on http://%s:%s', ip, port);
 setInterval(() => {
-  console.log("MYSQL  : "+process.env);
+  console.log("MYSQL  : "+JSON.stringify(process.env));
 },1000);
 
 module.exports = routes;
