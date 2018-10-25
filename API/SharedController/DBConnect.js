@@ -39,13 +39,13 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
     });
-   /*   const connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'password',
-      port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
-      database: 'sampledb',
-    });*/
+    //   const connection = mysql.createConnection({
+    //   host: 'localhost',
+    //   user: 'root',
+    //   password: 'password',
+    //   port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
+    //   database: 'sampledb',
+    // });
     connection.connect();
     // simple query
     connection.query(RawQuery,
