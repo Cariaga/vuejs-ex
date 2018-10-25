@@ -449,7 +449,7 @@ function IsJsonString(str) {
   return true;
 }
 //Test Connection Important here to check if information provided is correct
-require('./API/SharedController/DBConnect').DBConnectTest();
+//require('./API/SharedController/DBConnect').DBConnectTest();
 
 
 // listen (start app with node server.js) ======================================
