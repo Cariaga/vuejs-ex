@@ -12,7 +12,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
     });
-    /*  const connection = mysql.createConnection({
+   /*   const connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
       password: 'password',
@@ -40,8 +40,8 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
             callback(undefined);
           }
           else if(err.sqlState=='ETIMEDOUT'){
-            console.log(err);
-            callback('ETIMEDOUT');
+            console.log("DB Connection sharedController DBConnect ERROR");
+           // callback('ETIMEDOUT');
           }
           else{
             console.log("Somthing Bad Happend :" +err);
