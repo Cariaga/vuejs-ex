@@ -5,7 +5,6 @@ const mysql = require('mysql2');
 //if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
 //first attempt password
 
-let host ='localhost';
 let user ='user';
 let password='user';
 function NotNumberException() {}
