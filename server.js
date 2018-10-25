@@ -56,6 +56,7 @@ app.use(function (req, res, next) {
   // Request headers you wish to allow
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Headers', 'Content-Type', 'X-Auth-Token');
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.header('Access-Control-Allow-Credentials', true);
@@ -284,9 +285,6 @@ wss.on('connection', (ws, req) => {
 
       let Object = JSON.parse(event.data);
       console.log(Object);
-     // if (Object.Type == "LeaveRoom") {
-    //    console.log("LeaveRoom "+ Object.RoomID);
-    //  }
       if (Object.Type == "LeaveRoom") { //event leave room
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
