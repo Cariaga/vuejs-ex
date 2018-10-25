@@ -6,8 +6,10 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
+//Deprecated by InGameFinalCard
 module.exports = function (app) {
-    app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/', function (req, res) {
+
+   /* app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
         let Rank = req.params.Rank;
@@ -48,7 +50,7 @@ module.exports = function (app) {
                 })
             }
         }
-    });
+    });*/
 
 
 

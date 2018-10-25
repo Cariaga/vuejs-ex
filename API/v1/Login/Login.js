@@ -49,6 +49,7 @@ module.exports = function (app) {
        
         LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
 
+       
           if(response){
             //let firstRow = response[0];
             let AccountType = response[0].AccountType;
@@ -71,7 +72,9 @@ module.exports = function (app) {
               });
             });
             
-          }else{
+          }
+
+          else{
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
           }

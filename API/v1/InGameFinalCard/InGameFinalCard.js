@@ -3,6 +3,7 @@ let InGameFinalCardModel = require('../InGameFinalCard/InGameFinalCardModel');
 let DbCheck = require("../../SharedController/DBCheck");
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { 
+
     app.get('/Api/v1/PlayerFinalCard2/Json/:Json/', function (req, res) {
         let Json = req.params.Json;
         let JsonRow =  JSON.parse(Json);
@@ -144,12 +145,16 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
             }
         }
     });
+/*
+http://192.168.254.102:8080/Api/v1/PlayerFinalCard/Json/[ {"hand":[ "JC", "AH", "KD", "7S", "KH" ], "score":3559, "rank":"ONE_PAIR", "UserAccountID":"Account8", "SeasonID":"5df00465-4b09-492a-8a46-cf9a9ce900e0"}, {"hand":[ "6C", "JC", "AH", "KD", "9C" ], "score":6240, "rank":"HIGH_CARD", "UserAccountID":"Account8", "SeasonID":"5df00465-4b09-492a-8a46-cf9a9ce900e0"}, {"hand":[ "JC", "AH", "KD", "JD", "8C" ], "score":3989, "rank":"ONE_PAIR"}, {"hand":[ "6C", "JC", "AH", "KD", "8D" ], "score":6246, "rank":"HIGH_CARD"}, {"hand":[ "JC", "AH", "KD", "TC", "JH" ], "score":3987, "rank":"ONE_PAIR"}, {"hand":[ "6C", "JC", "AH", "KD", "9S" ], "score":6240, "rank":"HIGH_CARD"}, {"hand":[ "4C", "AH", "KD", "4S", "4H" ], "score":2270, "rank":"THREE_OF_A_KIND"}, {"hand":[ "4C", "AH", "KD", "4D", "AD" ], "score":2567, "rank":"TWO_PAIRS"}, {"hand":[ "6C", "JC", "AH", "KD", "JS" ], "score":3991, "rank":"ONE_PAIR"} ]
+*/
+
     app.get('/Api/v1/PlayerFinalCard/Json/:Json/',Security.verifyToken,function (req, res) {
         let Json = req.params.Json;
         let JsonRow =  JSON.parse(Json);
         let length = JsonRow.length;
 
-        /*for loop promise based */
+        //for loop promise based 
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
             if(i==length){
                 p = p.then(_ => new Promise(resolve =>
