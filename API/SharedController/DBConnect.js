@@ -3,8 +3,34 @@
 const mysql = require('mysql2');
 //DEBUGGING mysql
 //if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
+//first attempt password
+
+let user ='user';
+let password='user';
+
+//Test Connection Important here to check if information provided is correct
+module.exports.DBConnectTest = function DBConnectTest(){
+       /*   const connection = mysql.createConnection({
+            host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
+            user: user,
+            password: password,
+            port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
+            database: 'sampledb',
+          });
+         // connection.connect();
+          // simple query
+          connection.query("select * from `UserAccounts`",
+            function (err, results, fields) {
+              connection.end();
+            
+            });*/
+
+}
+
+
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   
+<<<<<<< HEAD
   //  const connection = mysql.createConnection({
   //     host: '172.30.210.243',
   //     user: 'user',
@@ -16,6 +42,12 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       host: 'localhost',
       user: 'user',
       password: 'user',
+=======
+   const connection = mysql.createConnection({
+      host: /* 'mysql-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com' ||*/process.env.MYSQL_SERVICE_HOST|| 'localhost',
+      user: user,
+      password: password,
+>>>>>>> 8f846c9b84fa7e75749ae3fdf65c89a08d99de76
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
     });

@@ -448,9 +448,19 @@ function IsJsonString(str) {
   }
   return true;
 }
+//Test Connection Important here to check if information provided is correct
+//require('./API/SharedController/DBConnect').DBConnectTest();
+
 
 // listen (start app with node server.js) ======================================
 //server.listen(port, ip);// no loger needed
+var beautify = require('json-beautify');
 console.log('Server running on http://%s:%s', ip, port);
+  console.log("--------process informationz  for openshift---------");
+  console.log(beautify(process.env, null, 2, 100));
+  console.log("-----------------");
+  console.log(process.env.MYSQL_SERVICE_HOST);
+  console.log(process.env.MYSQL_SERVICE_PORT);
+
 module.exports = routes;
 module.exports = app;
