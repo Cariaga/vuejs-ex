@@ -5,9 +5,12 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+    //replaced byuses websocket now no need deprecated
 
+    /*
 module.exports.BuyInChips = function BuyInChips(UserAccountID, BuyInAmount, callback) {
-    let _UserAccountID = UserAccountID;
+
+   /* let _UserAccountID = UserAccountID;
     let _BuyInAmount = BuyInAmount;
     let query =
         "UPDATE `sampledb`.`player_profile` SET `Money` = Money -"+_BuyInAmount+" WHERE UserAccountID ='"+_UserAccountID+"';";
@@ -20,7 +23,7 @@ module.exports.BuyInChips = function BuyInChips(UserAccountID, BuyInAmount, call
         }
     });
 }
-
+/*
 module.exports.RoomMoney  = function RoomMoney(UserAccountID, BuyInAmount, callback) {
     let _UserAccountID = UserAccountID;
     let _BuyInAmount = BuyInAmount;
@@ -34,4 +37,4 @@ module.exports.RoomMoney  = function RoomMoney(UserAccountID, BuyInAmount, callb
             callback(undefined);
         }
     });
-}
+}*/
