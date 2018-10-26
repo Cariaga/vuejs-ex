@@ -29,7 +29,7 @@ module.exports.DeductMoneyOnBet = function DeductMoneyOnBet(UserAccountID,Deduct
   let _UserAccountID = UserAccountID;
   let _DeductAmount = DeductAmount;
 let query =
-  "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID='"+_UserAccountID+"' limit 1) as t)-'"+_DeductAmount+"' WHERE (`UserAccountID` = 'Account8');";
+  "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID='"+_UserAccountID+"' limit 1) as t)-'"+_DeductAmount+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
