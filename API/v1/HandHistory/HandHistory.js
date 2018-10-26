@@ -12,7 +12,6 @@ module.exports = function (app) { //MODIFY
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
-          if (!isNullOrEmpty(Amount)) {
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut" || MoveHand=="AllIn") {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
               if (response == true) {
@@ -34,11 +33,6 @@ module.exports = function (app) { //MODIFY
                 });
               }
             });
-          }else{
-            res.send({
-              AmountInvalidValue: true
-            });
-          }
 
           } else {
             res.send({
