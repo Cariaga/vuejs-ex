@@ -204,7 +204,7 @@ function SendMail(To, From, Subject, html) {
   });
 }
 app.get('/', function (req, res) {
-  res.send("");
+  res.sendStatus(200);
 });
 //--Login End
 
