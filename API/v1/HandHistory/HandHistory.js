@@ -8,19 +8,14 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-
-  //INSERT
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount',Security.verifyToken, function (req, res) { //ok
-    let UserAccountID = req.params.UserAccountID;
-    let MoveHand = req.params.MoveHand;
-    let SeasonID = req.params.SeasonID;
-    let Amount = req.params.Amount;
+  function AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount){
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut") {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
               if (response == true) {
+                
                 HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
 
                   if (response != undefined) {
@@ -59,7 +54,24 @@ module.exports = function (app) { //MODIFY
         RoundIDMissing: true
       });
     }
+  }
+  //INSERT
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount',Security.verifyToken, function (req, res) { //ok
+    let UserAccountID = req.params.UserAccountID;
+    let MoveHand = req.params.MoveHand;
+    let SeasonID = req.params.SeasonID;
+    let Amount = req.params.Amount;
+    AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount);
   });
+
+  app.post('/Api/v1/HandHistory/Add/',Security.verifyToken, function (req, res) { 
+    let UserAccountID = req.body.UserAccountID;
+    let MoveHand = req.body.MoveHand;
+    let SeasonID = req.body.SeasonID;
+    let Amount = req.body.Amount;
+    AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount);
+  });
+
   //SELECTION
   app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
