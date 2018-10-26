@@ -25,7 +25,7 @@ module.exports = function (app) { //MODIFY
                       AddHandHistoryFailed: true
                     });
                   }
-
+                  
                 });
               } else {
                 res.send({
