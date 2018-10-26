@@ -30,24 +30,10 @@ module.exports.DBConnectTest = function DBConnectTest(){
 
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   
-<<<<<<< HEAD
-  //  const connection = mysql.createConnection({
-  //     host: '172.30.210.243',
-  //     user: 'user',
-  //     password: 'user',
-  //     port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
-  //     database: 'sampledb',
-  //   });
-      const connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'user',
-      password: 'user',
-=======
    const connection = mysql.createConnection({
       host: /* 'mysql-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com' ||*/process.env.MYSQL_SERVICE_HOST|| 'localhost',
       user: user,
       password: password,
->>>>>>> 8f846c9b84fa7e75749ae3fdf65c89a08d99de76
       port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
       database: 'sampledb',
     });
