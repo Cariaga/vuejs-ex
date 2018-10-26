@@ -10,17 +10,19 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
 
   //INSERT
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) { //ok
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount',Security.verifyToken, function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
+    let Amount = req.params.Amount;
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
-          if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check") {
+          if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut") {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
               if (response == true) {
                 HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
+
                   if (response != undefined) {
                     res.send(response);
                   } else {
@@ -28,6 +30,7 @@ module.exports = function (app) { //MODIFY
                       AddHandHistoryFailed: true
                     });
                   }
+
                 });
               } else {
                 res.send({
