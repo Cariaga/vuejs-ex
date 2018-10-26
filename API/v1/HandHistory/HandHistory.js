@@ -8,7 +8,7 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  function AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount){
+  function AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res){
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
@@ -74,7 +74,7 @@ module.exports = function (app) { //MODIFY
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
     let Amount = req.params.Amount;
-    AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount);
+    AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res);
   });
 
   app.post('/Api/v1/HandHistory/Add/',Security.verifyToken, function (req, res) { 
@@ -82,7 +82,7 @@ module.exports = function (app) { //MODIFY
     let MoveHand = req.body.MoveHand;
     let SeasonID = req.body.SeasonID;
     let Amount = req.body.Amount;
-    AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount);
+    AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res);
   });
 
   //SELECTION
