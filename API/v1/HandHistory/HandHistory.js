@@ -12,7 +12,7 @@ module.exports = function (app) { //MODIFY
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
-          if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut") {
+          if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut" || MoveHand=="AllIn") {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
               if (response == true) {
                 

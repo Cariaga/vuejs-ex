@@ -1,6 +1,6 @@
 
 let DBConnect = require("../SharedController/DBConnect");
-const mysql = require('mysql2');
+
 
 
 

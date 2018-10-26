@@ -81,7 +81,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
 module.exports.DBConnectInsert = function DBConnectInsert(RawQuery,params,callback){
   
   const connection = mysql.createConnection({
-    host: 'localhost'||'172.30.166.206',
+    host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
     user: 'root',
     password: 'password',
     mutipleStatements: true,// required for multi statement in one query
