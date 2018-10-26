@@ -8,6 +8,9 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
 
+  /*uses websocket now no need deprecated
+
+
     app.get('/Api/v1/InGameBuyIn/UserAccountID/:UserAccountID/BuyInAmount/:BuyInAmount', Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let BuyInAmount = req.params.BuyInAmount;
@@ -62,6 +65,6 @@ module.exports = function (app) {
                 InvalidUserAccount: true
             });
         }
-    });
+    });*/
 
 }

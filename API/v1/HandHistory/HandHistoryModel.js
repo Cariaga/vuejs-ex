@@ -25,6 +25,20 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
       }
     });
 }
+module.exports.DeductMoneyOnBet = function DeductMoneyOnBet(UserAccountID,DeductAmount, callback) {
+  let _UserAccountID = UserAccountID;
+  let _DeductAmount = DeductAmount;
+let query =
+  "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID='"+_UserAccountID+"' limit 1) as t)-'"+_DeductAmount+"' WHERE (`UserAccountID` = 'Account8');";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
 module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, callback) {
   let _SeasonID = SeasonID;
   let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+_SeasonID+"';";

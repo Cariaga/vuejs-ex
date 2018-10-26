@@ -13,26 +13,39 @@ module.exports = function (app) { //MODIFY
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
           if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut" || MoveHand=="AllIn") {
-            DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-              if (response == true) {
-                
-                HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
-
-                  if (response != undefined) {
-                    res.send(response);
-                  } else {
-                    res.send({
-                      AddHandHistoryFailed: true
-                    });
-                  }
-                  
-                });
-              } else {
-                res.send({
-                  UserAccountNotExist: true
-                });
-              }
-            });
+            if(Amount>=0){
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                if (response == true) {
+                  HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
+                      if(response!=undefined){
+                        HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          } else {
+                            res.send({
+                              AddHandHistoryFailed: true
+                            });
+                          }
+                        });
+                      }else{
+                        res.send({
+                          DeductMoneyFailed: true
+                        });
+                      }
+                  });
+                 
+                } else {
+                  res.send({
+                    UserAccountNotExist: true
+                  });
+                }
+              });
+            }else{
+              res.send({
+                AmountInvalidValue: true
+              });
+            }
+            
 
           } else {
             res.send({

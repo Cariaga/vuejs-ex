@@ -44,7 +44,9 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
     });
 
   }
-
+  //winning bet points  only
+  //this has an equivelent query in HandHistoryModel but that one is For Deductions e.g DeductMoneyOnBet 
+  //this one adds Player Points after the end of the game
   module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID,WinPoints, callback) {
     let _UserAccountID = UserAccountID;
     let _WinPoints = WinPoints;
@@ -58,5 +60,4 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
         callback(undefined);
       }
     });
-
   }
