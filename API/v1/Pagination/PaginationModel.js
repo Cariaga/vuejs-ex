@@ -1,6 +1,6 @@
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.PaginationCount = function PaginationCount(callback) {
+module.exports.PaginationCount = function PaginationCount(index, callback) {
     let page = [
       'deposit_list',
       'withdraw_list',
@@ -15,7 +15,7 @@ module.exports.PaginationCount = function PaginationCount(callback) {
       'headoffice_list'
     ]
 
-    let query ="SELECT count(*) FROM sampledb."+page[0];
+    let query ="SELECT count(*) as ID FROM sampledb."+page[index];
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         // console.log(response);

@@ -8,8 +8,9 @@ module.exports = function (app) { //SELECTION
         });
     });
     
-    app.get('/Api/v1/Pagination/', function (req, res) {
-        PaginationModel.PaginationCount(function(response){
+    app.get('/Api/v1/Pagination/:Page', function (req, res) {
+        let page = req.params.Page;
+        PaginationModel.PaginationCount(page, function(response){
             res.send(response);
         });
     });
