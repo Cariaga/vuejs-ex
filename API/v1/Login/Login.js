@@ -46,7 +46,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(_Password)) {
         DBCheck.isUserNameExist(_UserName,function(response){
           if(response==true){
-            DBCheck.isUserNameBlocked(UserName,function(response){
+            DBCheck.isUserNameBlocked(_UserName,function(response){
               if(response==false){
                 LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
                   if (response) {
