@@ -96,6 +96,9 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     let WinPoints = JsonRow[i].WinPoints;
                     let AfterPoints = JsonRow[i].AfterPoints;
                     let BeforePoints = JsonRow[i].BeforePoints;
+                    if(WinPoints>0){
+                        console.log("User Account "+UserAccountID + " Won "+WinPoints);
+                    }
                     console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
                     if (SeasonID != undefined && UserAccountID != undefined) { //if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
                         DbCheck.isUserAccountIDExist(UserAccountID, function (response) {
@@ -107,11 +110,15 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                                                 console.log("UserAccount or SeasonID dosn't Exist");
                                             } else {
                                                 if(WinPoints>0){
+                                                 
                                                     InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, WinPoints, function (response) {
                                                         if(response!=undefined){
+                                                            console.log("Somebody Won" +UserAccountID);
                                                             resolve();
                                                         }
                                                     });
+                                                }else{
+                                                    resolve();
                                                 }
                                             }
                                         });
