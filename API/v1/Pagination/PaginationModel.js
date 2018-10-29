@@ -3,15 +3,16 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.PaginationCount = function PaginationCount(index, callback) {
     let page = [
       'deposit_list',
-      'withdraw_list',
-      'notifications',
-      'player_supportlist',
-      'useraccounts',
-      'player_iplist',
       'blacklist',
       'gamelog_list',
-      'loginhistory_list',
+      'player_iplist',
+      'player_supportlist',
       'member_list',
+      'withdraw_list',
+      //unused
+      'notifications',
+      'useraccounts',
+      'loginhistory_list',
       'headoffice_list'
     ]
 
