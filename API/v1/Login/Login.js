@@ -85,7 +85,9 @@ module.exports = function (app) {
                   // res.send("login success!");
                 });
               }else{
-                res.send({UserNameBlocked:true});
+                //possibly blocked or dose not exist
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             });
           }else{
