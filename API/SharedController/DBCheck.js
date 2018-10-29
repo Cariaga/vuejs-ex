@@ -146,16 +146,16 @@ let DBConnect = require("../SharedController/DBConnect");
   module.exports.isUserNameBlocked = function isUserNameBlocked(UserName, callback) {
     let _UserName = UserName;
     let query =
-    " SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,'Fresh') as newStatus FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID  HAVING "+
+    "SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,'Fresh') as newStatus FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID  HAVING "+
     " bl.UserName = '"+_UserName+"' AND newStatus != 'Blocked';";
     DBConnect.DBConnect(query,function(response){
       if(response){
         if(response[0].UserName==_UserName){
           console.log(response);
-          callback(true);
+          callback(false);
         }
       }else{
-        callback(false);
+        callback(true);
       }
     });
   }
