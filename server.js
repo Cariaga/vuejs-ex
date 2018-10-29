@@ -408,7 +408,7 @@ wss.on('connection', (ws, req) => {
 setInterval(() => {
   let array = Array.from(wss.clients);
   var distinctlist = Enumerable.from(array);
-
+  
   wss.clients.forEach((client) => {
 
     client.Money = LatestAndUnique(distinctlist, client.UserAccountID).Money;
@@ -416,15 +416,22 @@ setInterval(() => {
   });
   wss.clients.forEach((client) => {
     if(client.readyState==1){
+      var count =0;
+      wss.clients.forEach((client2) => {
+        if(client2.UserAccountID==client.UserAccountID){
+          count++;
+        }
+      });
+
       client.send(stringify({
     
         UserAccountID: client.UserAccountID,
         Money: client.Money,
-        Rooms: client.Rooms
-       
+        Rooms: client.Rooms,
+        CountSameAccount:count
+        
       }, null, 0));
     }
-   
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
 
