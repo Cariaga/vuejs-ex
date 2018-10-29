@@ -146,17 +146,21 @@ let DBConnect = require("../SharedController/DBConnect");
   module.exports.isUserNameBlocked = function isUserNameBlocked(UserName, callback) {
     let _UserName = UserName;
     let query =
-    "SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,'Fresh') as newStatus FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID  HAVING "+
-    " bl.UserName = '"+_UserName+"' AND newStatus != 'Blocked';";
+    "SELECT p.UserAccountID, p.ScreenName,bl.UserName,bl.Status FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID where "+
+    "bl.UserName = '"+_UserName+"'  and bl.ReleaseDate is null order by bl.ReportDate desc;";
+    console.log(query);
     DBConnect.DBConnect(query,function(response){
-      if(response){
-        if(response[0].UserName==_UserName){
-          console.log(response);
-          callback(false);
-        }
-      }else{
+      // if it was undefined it has never been blocked
+      if(response==undefined){
+        callback(false);
+      }
+      else if(response[0].newStatus=="Released"){//has been blocked before but now released
+        console.log(response);
+        callback(false);
+      }else{//if all fails to be true its blocked
         callback(true);
       }
+
     });
   }
   module.exports.isUserAccountIDExist = function isUserAccountIDExist(UserAccountID, callback) {

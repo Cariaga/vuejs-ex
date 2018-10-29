@@ -154,6 +154,7 @@ module.exports = function (app) {
                 res.send({UserNameBlocked:true});
               }
             });
+
           }else{
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
