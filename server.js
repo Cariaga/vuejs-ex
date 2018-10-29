@@ -378,7 +378,7 @@ wss.on('connection', (ws, req) => {
   }
 
   ws.onerror = function (event) {
-    
+
     console.debug("WebSocket Error message received:", event);
   };
   ws.onclose = function (event) {
