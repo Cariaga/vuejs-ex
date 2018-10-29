@@ -282,7 +282,7 @@ module.exports = function (app) {
     Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
   });
 
-
+/*
   app.get('/Api/v1/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.params.UserName;
@@ -379,5 +379,5 @@ module.exports = function (app) {
       })
     }
   });
-
+*/
 }
