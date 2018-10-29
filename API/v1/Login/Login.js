@@ -44,7 +44,7 @@ module.exports = function (app) {
     var _Password = req.body.Password;
     if (!isNullOrEmpty(_UserName)) {
       if (!isNullOrEmpty(_Password)) {
-        DBCheck.isUserNameExist(UserName,function(response){
+        DBCheck.isUserNameExist(_UserName,function(response){
           if(response==true){
             DBCheck.isUserNameBlocked(UserName,function(response){
               if(response==false){
