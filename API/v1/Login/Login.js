@@ -37,6 +37,8 @@ module.exports = function (app) {
   app.get('/Api/v1/logout', function (req, res) {
     res.send("logout success!");
   });
+  
+  //admins or certain account type can authorize then login already
   app.post('/Api/v1/Admin/Login/', function (req, res) {
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
@@ -54,7 +56,6 @@ module.exports = function (app) {
                     let Privilege = response[0].Privilege;
                     // Mock user
                     if(AccountType=="HeadOffice"||AccountType=="Distributor"||AccountType=="Shops"||Privilege=="Admin"){//only certain account types and admin type of player can login
-        
                       const user = {
                         id: 1,
                         UserName: _UserName,
@@ -101,50 +102,61 @@ module.exports = function (app) {
       res.status(status).end(http.STATUS_CODES[status]);
     }
   });
-
-  app.post('/Api/v1/Login/', function (req, res) {
+ //Player Authorization process only
+  app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
-
-
     if (!isNullOrEmpty(_UserName)) {
       if (!isNullOrEmpty(_Password)) {
-
-        LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
-
-
-          if (response) {
-            //let firstRow = response[0];
-            let AccountType = response[0].AccountType;
-            let UserAccountID = response[0].UserAccountID;
-            // Mock user
-            const user = {
-              id: 1,
-              UserName: _UserName,
-              UserAccountID: UserAccountID,
-              AccountType: AccountType
-            }
-
-            jwt.sign({
-              user
-            }, 'secretkey', {
-              expiresIn: '1d'
-            }, (err, token) => {
-              res.json({
-                token
-              });
+        DBCheck.isUserNameExist(UserName,function(response){
+          if(response==true){
+            DBCheck.isUserNameBlocked(UserName,function(response){
+              if(response==false){
+                LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
+                  if (response) {
+                    //let firstRow = response[0];
+                    let AccountType = response[0].AccountType;
+                    let UserAccountID = response[0].UserAccountID;
+                    let Privilege = response[0].Privilege;
+                    // Mock user
+                    if(AccountType=="Player"||Privilege=="Admin"){//only certain account types and privilage are allowed
+                      const user = {
+                        id: 1,
+                        UserName: _UserName,
+                        UserAccountID: UserAccountID,
+                        AccountType: AccountType,
+                        Privilege:Privilege
+                      }
+                      jwt.sign({
+                        user
+                      }, 'secretkey', {
+                        expiresIn: '1d'
+                      }, (err, token) => {
+                        res.json({
+                          token
+                        });
+                      });
+        
+                    }else{
+                      //if the above is invalid
+                      let status = 401;
+                      res.status(status).end(http.STATUS_CODES[status]);
+                    }
+                  } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                  }
+                  // res.send("login success!");
+                });
+              }else{
+                res.send({UserNameBlocked:true});
+              }
             });
-
-          } else {
+          }else{
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
           }
-
-
-          // res.send("login success!");
-
         });
-
       } else {
         let status = 404;
         res.status(status).end(http.STATUS_CODES[status]);
@@ -240,6 +252,7 @@ module.exports = function (app) {
       })
     }
   }
+  //GET : only possible when its authorized
   app.get('/Api/v1/Game/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.params.UserName;
@@ -254,6 +267,7 @@ module.exports = function (app) {
     Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
 
   });
+  //Post : only possible when its authorized
   app.post('/Api/v1/Game/Login/', Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.body.UserName;
