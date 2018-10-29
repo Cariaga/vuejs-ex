@@ -10,47 +10,110 @@ var jwt = require('jsonwebtoken');
 let http = require('http');
 let Security = require("../../SharedController/Security");
 module.exports = function (app) {
-      app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
-        jwt.verify(req.token, 'secretkey', (err, authData) => {
-          if (err) {
-            res.sendStatus(403);
-          } else {
-            res.json({
-              message: 'Post created...',
-              authData
-            });
-          }
+  app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+      } else {
+        res.json({
+          message: 'Post created...',
+          authData
         });
-      });
-      app.get('/Api/v1/ContentTest/',  Security.verifyToken, (req, res) => {
-        jwt.verify(req.token, 'secretkey', (err, authData) => {
-          if (err) {
-            res.sendStatus(403);
-          } else {
-            res.json({
-              message: 'Get created...',
-              authData
-            });
-          }
+      }
+    });
+  });
+  app.get('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+      } else {
+        res.json({
+          message: 'Get created...',
+          authData
         });
-      });
-      app.get('/Api/v1/logout', function (req, res) {
+      }
+    });
+  });
+  app.get('/Api/v1/logout', function (req, res) {
+    res.send("logout success!");
+  });
+  app.post('/Api/v1/Admin/Login/', function (req, res) {
+    var _UserName = req.body.UserName;
+    var _Password = req.body.Password;
+    if (!isNullOrEmpty(_UserName)) {
+      if (!isNullOrEmpty(_Password)) {
+        DBCheck.isUserNameExist(UserName,function(response){
+          if(response==true){
+            DBCheck.isUserNameBlocked(UserName,function(response){
+              if(response==false){
+                LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
+                  if (response) {
+                    //let firstRow = response[0];
+                    let AccountType = response[0].AccountType;
+                    let UserAccountID = response[0].UserAccountID;
+                    let Privilege = response[0].Privilege;
+                    // Mock user
+                    if(AccountType=="HeadOffice"||AccountType=="Distributor"||AccountType=="Shops"||Privilege=="Admin"){//only certain account types and admin type of player can login
         
-        res.send("logout success!");
-      });
+                      const user = {
+                        id: 1,
+                        UserName: _UserName,
+                        UserAccountID: UserAccountID,
+                        AccountType: AccountType,
+                        Privilege:Privilege
+                      }
+                      jwt.sign({
+                        user
+                      }, 'secretkey', {
+                        expiresIn: '1d'
+                      }, (err, token) => {
+                        res.json({
+                          token
+                        });
+                      });
+        
+                    }else{
+                      //Players can't login on Page without privllage or account type access
+                      let status = 401;
+                      res.status(status).end(http.STATUS_CODES[status]);
+                    }
+                  } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                  }
+                  // res.send("login success!");
+                });
+              }else{
+                res.send({UserNameBlocked:true});
+              }
+            });
+          }else{
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+        });
+      } else {
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
+    } else {
+      let status = 404;
+      res.status(status).end(http.STATUS_CODES[status]);
+    }
+  });
 
   app.post('/Api/v1/Login/', function (req, res) {
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
 
 
-    if(!isNullOrEmpty(_UserName)){
+    if (!isNullOrEmpty(_UserName)) {
       if (!isNullOrEmpty(_Password)) {
-       
+
         LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
 
-       
-          if(response){
+
+          if (response) {
             //let firstRow = response[0];
             let AccountType = response[0].AccountType;
             let UserAccountID = response[0].UserAccountID;
@@ -61,7 +124,7 @@ module.exports = function (app) {
               UserAccountID: UserAccountID,
               AccountType: AccountType
             }
-          
+
             jwt.sign({
               user
             }, 'secretkey', {
@@ -71,29 +134,28 @@ module.exports = function (app) {
                 token
               });
             });
-            
-          }
 
-          else{
+          } else {
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
           }
-     
-    
-         // res.send("login success!");
-        
+
+
+          // res.send("login success!");
+
         });
 
-      }else{
+      } else {
         let status = 404;
         res.status(status).end(http.STATUS_CODES[status]);
       }
-    }else{
+    } else {
       let status = 404;
       res.status(status).end(http.STATUS_CODES[status]);
     }
   });
-  function Login(UserName,Password,IP,DeviceName,DeviceRam,DeviceCpu,res){
+
+  function Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res) {
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
         if (!isNullOrEmpty(IP)) {
@@ -102,47 +164,47 @@ module.exports = function (app) {
               if (!isNullOrEmpty(DeviceCpu)) {
 
                 LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
-                  if(response!=undefined){
+                  if (response != undefined) {
                     let firstRow = response[0];
-                  console.log(firstRow.Verified);
-                  if (firstRow.Verified == "true") {
-                    if (firstRow.Status != "Blocked") {
+                    console.log(firstRow.Verified);
+                    if (firstRow.Verified == "true") {
+                      if (firstRow.Status != "Blocked") {
 
-                      LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
+                        LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
 
-                        if (response3 != undefined) {
-                         // console.log("Accountz "+firstRow.AccountType);
-                          res.send({
-                            UserAccountID: firstRow.UserAccountID,
-                            OnlineStatus: firstRow.OnlineStatus,
-                            Email: firstRow.Email,
-                            PhoneNumber: firstRow.PhoneNumber,
-                            Status: firstRow.Status,
-                            AccountType: firstRow.AccountType,
-                            Privilege: firstRow.Privilege
-                          });
-                         
-                        } else {
-                          let status = 500;
-                          res.status(status).end(http.STATUS_CODES[status]);
-                        }
-                      });
+                          if (response3 != undefined) {
+                            // console.log("Accountz "+firstRow.AccountType);
+                            res.send({
+                              UserAccountID: firstRow.UserAccountID,
+                              OnlineStatus: firstRow.OnlineStatus,
+                              Email: firstRow.Email,
+                              PhoneNumber: firstRow.PhoneNumber,
+                              Status: firstRow.Status,
+                              AccountType: firstRow.AccountType,
+                              Privilege: firstRow.Privilege
+                            });
+
+                          } else {
+                            let status = 500;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                          }
+                        });
+                      } else {
+                        res.send({
+                          AccountBlocked: true
+                        });
+                      }
                     } else {
                       res.send({
-                        AccountBlocked: true
+                        AccountUnverified: true
                       });
                     }
                   } else {
                     res.send({
-                      AccountUnverified: true
+                      AccountNotFound: true
                     });
                   }
-                  }else{
-                    res.send({
-                      AccountNotFound:true 
-                    });
-                  }
-                  
+
 
                 });
 
@@ -178,7 +240,7 @@ module.exports = function (app) {
       })
     }
   }
-  app.get('/Api/v1/Game/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/Game/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.params.UserName;
     let Password = req.params.Password;
@@ -189,10 +251,10 @@ module.exports = function (app) {
     let DeviceCpu = req.params.DeviceCpu;
     let OperatingSystem = req.params.OperatingSystem;
     let GraphicsDevice = req.params.GraphicsDevice;
-    Login(UserName,Password,IP,DeviceName,DeviceRam,DeviceCpu,res);
+    Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
 
   });
-  app.post('/Api/v1/Game/Login/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/Game/Login/', Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.body.UserName;
     let Password = req.body.Password;
@@ -203,8 +265,7 @@ module.exports = function (app) {
     let DeviceCpu = req.body.DeviceCpu;
     let OperatingSystem = req.body.OperatingSystem;
     let GraphicsDevice = req.body.GraphicsDevice;
-    Login(UserName,Password,IP,DeviceName,DeviceRam,DeviceCpu,res);
-
+    Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
   });
 
 
@@ -228,44 +289,44 @@ module.exports = function (app) {
               if (!isNullOrEmpty(DeviceCpu)) {
 
                 LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
-                  if(response!=undefined){
+                  if (response != undefined) {
                     let firstRow = response[0];
-                  console.log(firstRow.Verified);
-                  if (firstRow.Verified == "true") {
-                    if (firstRow.Status != "Blocked") {
+                    console.log(firstRow.Verified);
+                    if (firstRow.Verified == "true") {
+                      if (firstRow.Status != "Blocked") {
 
-                      LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
+                        LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
 
-                        if (response3 != undefined) {
-                         // console.log("Accountz "+firstRow.AccountType);
-                          res.send({
-                            UserAccountID: firstRow.UserAccountID,
-                            OnlineStatus: firstRow.OnlineStatus,
-                            Email: firstRow.Email,
-                            PhoneNumber: firstRow.PhoneNumber,
-                            Status: firstRow.Status
-                          });
-                        } else {
-                          let status = 500;
-                          res.status(status).end(http.STATUS_CODES[status]);
-                        }
-                      });
+                          if (response3 != undefined) {
+                            // console.log("Accountz "+firstRow.AccountType);
+                            res.send({
+                              UserAccountID: firstRow.UserAccountID,
+                              OnlineStatus: firstRow.OnlineStatus,
+                              Email: firstRow.Email,
+                              PhoneNumber: firstRow.PhoneNumber,
+                              Status: firstRow.Status
+                            });
+                          } else {
+                            let status = 500;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                          }
+                        });
+                      } else {
+                        res.send({
+                          AccountBlocked: true
+                        });
+                      }
                     } else {
                       res.send({
-                        AccountBlocked: true
+                        AccountUnverified: true
                       });
                     }
                   } else {
                     res.send({
-                      AccountUnverified: true
+                      AccountNotFound: true
                     });
                   }
-                  }else{
-                    res.send({
-                      AccountNotFound:true 
-                    });
-                  }
-                  
+
 
                 });
 

@@ -111,6 +111,57 @@ let DBConnect = require("../SharedController/DBConnect");
     });
   }
 
+
+  module.exports.isPlayer = function isPlayer(UserName, callback) {
+    let _UserName = UserName;
+    let query =
+    "SELECT `UserName` FROM sampledb.useraccount_types where `AccountType`='Player' and `UserName`='"+_UserName+"' limit 1";
+    DBConnect.DBConnect(query,function(response){
+      if(response){
+        if(response[0].UserName==_UserName){
+          console.log(response);
+          callback(false);
+        }
+      }else{
+        callback(true);
+      }
+    });
+  }
+  
+  module.exports.isPlayerAdminPrivilege = function isPlayerAdminPrivilege(UserName, callback) {
+    let _UserName = UserName;
+    let query =
+    "SELECT UserName FROM sampledb.useraccounts where `Privilege`='Admin' and `UserName`='"+_UserName+"';";
+    DBConnect.DBConnect(query,function(response){
+      if(response){
+        if(response[0].UserName==_UserName){
+          console.log(response);
+          callback(false);
+        }
+      }else{
+        callback(true);
+      }
+    });
+  }
+
+  module.exports.isUserNameBlocked = function isUserAccountIDBlocked(UserName, callback) {
+    let _UserName = UserName;
+    let query =
+    'SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,"Fresh") as newStatus'
+    +' FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID'
+    +' HAVING  p.UserName = "'+_UserName+'" AND newStatus != "Blocked"';
+    DBConnect.DBConnect(query,function(response){
+      if(response){
+        if(response[0].UserName==_UserAccountID){
+          console.log(response);
+          callback(false);
+        }
+      }else{
+        callback(true);
+      }
+    });
+  }
+
   module.exports.isUserAccountIDExist = function isUserAccountIDExist(UserAccountID, callback) {
     let _UserAccountID = UserAccountID
     let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID ='" + _UserAccountID+"'";
