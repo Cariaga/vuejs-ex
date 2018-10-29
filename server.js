@@ -264,7 +264,6 @@ wss.on('connection', (ws, req) => {
 
 
 
-
  
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
 
@@ -379,11 +378,28 @@ wss.on('connection', (ws, req) => {
   }
 
   ws.onerror = function (event) {
-
-
+    
     console.debug("WebSocket Error message received:", event);
   };
   ws.onclose = function (event) {
+    wss.clients.forEach((client) => {
+      if(client.readyState==1){
+        if (client.UserAccountID == Object.UserAccountID) {
+          var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
+            return value.RoomID == Object.RoomID;
+          });
+          if (filtered[0].BuyIn != undefined) { // the oldest is basically the first item we find from 0 to N.. 
+            client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
+
+            var NewArrayfiltered = client.Rooms.filter(function (value) {
+              return value.RoomID !== Object.RoomID;
+            });
+            
+            client.Rooms = NewArrayfiltered;
+          }
+        }
+      }
+    });
     ConnectedUsers--;
     console.log('Client disconnected ' + ConnectedUsers);
   };
