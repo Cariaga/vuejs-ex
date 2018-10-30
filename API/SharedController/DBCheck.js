@@ -103,10 +103,10 @@ let DBConnect = require("../SharedController/DBConnect");
       if(response){
         if(response[0].UserAccountID==_UserAccountID){
           console.log(response);
-          callback(false);
+          callback(true);
         }
       }else{
-        callback(true);
+        callback(false);
       }
     });
   }
