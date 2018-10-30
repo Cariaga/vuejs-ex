@@ -278,6 +278,7 @@ wss.on('connection', (ws, req) => {
 
       let Object = JSON.parse(event.data);
       console.log(Object);
+
       if (Object.Type == "LeaveRoom") { //event leave room
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
@@ -286,15 +287,20 @@ wss.on('connection', (ws, req) => {
               var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
                 return value.RoomID == Object.RoomID;
               });
-              if (filtered[0].BuyIn != undefined) { // the oldest is basically the first item we find from 0 to N.. 
-                client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
-
-                var NewArrayfiltered = client.Rooms.filter(function (value) {
-                  return value.RoomID !== Object.RoomID;
-                });
-                
-                client.Rooms = NewArrayfiltered;
+              if(filtered.length>0){
+                if (filtered[0].BuyIn != undefined) { // LeaveRoom the oldest is basically the first item we find from 0 to N.. 
+                  client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
+  
+                  var NewArrayfiltered = client.Rooms.filter(function (value) {
+                    return value.RoomID !== Object.RoomID;
+                  });
+                  
+                  client.Rooms = NewArrayfiltered;
+                }
+              }else{
+                console.log("LeaveRoom but and last Player");
               }
+              
             }
           }
           
@@ -304,7 +310,7 @@ wss.on('connection', (ws, req) => {
         wss.clients.forEach((client) => {
           if(client.readyState==1){
             if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
-              console.log("Bet");
+              console.log("Socket Bet");
               for (var i = 0; i < client.Rooms.length; ++i) {
                 if (client.Rooms[i].RoomID == Object.RoomID) {
                   if (client.Rooms[i].BuyIn - Object.BetAmount >= 0) {
@@ -320,8 +326,22 @@ wss.on('connection', (ws, req) => {
               }
             }
           }
-          
-
+        });
+      }
+      else if (Object.Type == "Win") { //Win event occured 
+        wss.clients.forEach((client) => {
+          if(client.readyState==1){
+            if (client.UserAccountID == Object.UserAccountID) { //we sync all same account win value
+              console.log("Socket Won");
+              for (var i = 0; i < client.Rooms.length; ++i) {
+                if (client.Rooms[i].RoomID == Object.RoomID) {
+                  if (client.Rooms[i].BuyIn + Object.WinAmount >= 0) {
+                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn + Object.WinAmount;
+                  }
+                }
+              }
+            }
+          }
         });
       }
       else if (Object.Type == "BuyIn") { //identify object type
@@ -373,6 +393,7 @@ wss.on('connection', (ws, req) => {
       }
     } else {
       //possibly a diffrent message type
+      console.log("some message "+event.data);
     }
 
   }
@@ -388,7 +409,7 @@ wss.on('connection', (ws, req) => {
           var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
             return value.RoomID == Object.RoomID;
           });
-          if (filtered[0].BuyIn != undefined) { // the oldest is basically the first item we find from 0 to N.. 
+          if (filtered[0].BuyIn != undefined) { //Onclose the oldest is basically the first item we find from 0 to N.. 
             client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
 
             var NewArrayfiltered = client.Rooms.filter(function (value) {
