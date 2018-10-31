@@ -8,7 +8,8 @@ let VerificationModel = require("./VerificationModel");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-  app.get('/Verify/UserName/:UserName/Key/:Key', function (req, res) {
+  //deprected
+  /*app.get('/Verify/UserName/:UserName/Key/:Key', function (req, res) {
     let UserName = req.params.UserName;
     let Key = req.params.Key;
     if(!isNullOrEmpty(UserName)){
@@ -18,5 +19,5 @@ module.exports = function (app) {
         });
       }
     }
-  });
+  });*/
 }

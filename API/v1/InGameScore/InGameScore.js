@@ -7,6 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
+    /*deprecated
     app.get('/Api/v1/InGameScore/UserAccountID/:UserAccountID/', function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
@@ -31,5 +32,5 @@ module.exports = function (app) {
                 InvalidUserAccountID: true
             });
         }
-    });
+    });*/
 }

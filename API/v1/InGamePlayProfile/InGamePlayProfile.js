@@ -42,7 +42,7 @@ module.exports = function (app) {
     app.get('/Api/v1/InGamePlayProfile/Update/UserAccountID/:UserAccountID/SeasonID/:SeasonID/CurrentPoints/:CurrentPoints',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
-        let CurrentPoints = req.params.CurrentPoints;
+        let CurrentPoints = parseInt(req.params.CurrentPoints);
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(SeasonID)) {
                 if (!isNullOrEmpty(CurrentPoints)) {

@@ -8,17 +8,18 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
+  
   function AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res){
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
         if (!isNullOrEmpty(MoveHand)) {
-          if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut" || MoveHand=="AllIn") {
+          if (MoveHand == "Fold" || MoveHand == "Call" || MoveHand == "Raise" || MoveHand == "Check" ||MoveHand =="TimedOut" || MoveHand=="AllIn"|| MoveHand=="BigBlind"||MoveHand=="SmallBlind") {
             if(Amount>=0){
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
                       if(response!=undefined){
-                        HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand, function (response) {
+                        HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand,Amount, function (response) {
                           if (response != undefined) {
                             res.send(response);
                           } else {
@@ -73,7 +74,7 @@ module.exports = function (app) { //MODIFY
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
-    let Amount = req.params.Amount;
+    let Amount = parseInt(req.params.Amount);
     AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res);
   });
 
@@ -81,7 +82,8 @@ module.exports = function (app) { //MODIFY
     let UserAccountID = req.body.UserAccountID;
     let MoveHand = req.body.MoveHand;
     let SeasonID = req.body.SeasonID;
-    let Amount = req.body.Amount;
+    let Amount = parseInt(req.body.Amount);
+    console.log("Player: "+MoveHand +"  Hand : "+MoveHand +" Amount :"+Amount);
     AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res);
   });
 

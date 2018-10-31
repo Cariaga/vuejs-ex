@@ -3,13 +3,20 @@ let InGameFinalCardModel = require('../InGameFinalCard/InGameFinalCardModel');
 let DbCheck = require("../../SharedController/DBCheck");
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
+    app.get('/Api/v1/PlayerFinalCard2/', function (req, res) {
+        
+        res.send("OK test");
+    });
 
     app.get('/Api/v1/PlayerFinalCard2/Json/:Json/', function (req, res) {
         let Json = req.params.Json;
-        let JsonRow = JSON.parse(Json);
-        let length = JsonRow.length;
+        
+        if(Json!=undefined){
+            console.log("---------");
+            let JsonRow = JSON.parse(Json);
+            let length = JsonRow.length;
 
-        /*for loop promise based */
+                   /*for loop promise based */
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
             if (i == length) {
                 p = p.then(_ => new Promise(resolve => {
@@ -30,11 +37,14 @@ module.exports = function (app) {
                     let Rank = JsonRow[i].rank;
                     let UserAccountID = JsonRow[i].UserAccountID;
                     let SeasonID = JsonRow[i].SeasonID;
+
+
                     if (SeasonID != undefined && UserAccountID != undefined) { //if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
+                    
+                    console.log("Season of FinalCard: "+SeasonID +" Player:"+UserAccountID);
+
                         DbCheck.isUserAccountIDExist(UserAccountID, function (response) {
                             if (response == true) {
-                                DbCheck.isUserAccountIDBlocked(UserAccountID, function (response) {
-                                    if (response == false) {
                                         InGameFinalCardModel.AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Hand, function (response) {
                                             if (response == undefined) {
                                                 console.log("UserAccount or SeasonID dosn't Exist");
@@ -42,11 +52,7 @@ module.exports = function (app) {
                                                 resolve();
                                             }
                                         })
-                                    } else {
-                                        console.log("UserAccount Blocked Set " + UserAccountID);
-                                        reject("UserAccount Blocked Set " + UserAccountID);
-                                    }
-                                })
+
                             } else {
                                 console.log("UserAccount dosn't Exist Set" + UserAccountID);
                                 reject("UserAccount dosn't Exist Set" + UserAccountID);
@@ -65,6 +71,12 @@ module.exports = function (app) {
                 });
             }
         }
+        }else{
+            let status = 500;
+            res.status(status).end(http.STATUS_CODES[status]);
+            console.log("Error Occured Empty Json Data" + error);
+        }
+ 
     });
     /*
 http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0}, {"UserAccountID":"Account8", "SeasonID":"1820b111-dc1d-4f78-b243-d298ca04c81a", "CurrentPoints":0, "WinPoints":0, "AfterPoints":0, "BeforePoints":0} ]
@@ -95,42 +107,38 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                 p = p.then(_ => new Promise((resolve, reject) => {
                     let UserAccountID = JsonRow[i].UserAccountID;
                     let SeasonID = JsonRow[i].SeasonID;
-                    let CurrentPoints = JsonRow[i].CurrentPoints;
-                    let WinPoints = JsonRow[i].WinPoints;
-                    let AfterPoints = JsonRow[i].AfterPoints;
-                    let BeforePoints = JsonRow[i].BeforePoints;
+                    let CurrentPoints = parseInt(JsonRow[i].CurrentPoints);
+                    let WinPoints =parseInt(JsonRow[i].WinPoints);
+                    let AfterPoints = parseInt(JsonRow[i].AfterPoints);
+                    let BeforePoints = parseInt(JsonRow[i].BeforePoints);
                     if(WinPoints>0){
-                        console.log("User Account "+UserAccountID + " Won "+WinPoints);
+                        console.log("Won");
+                        console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
+                    }else{
+                        console.log("Lost");
+                        console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
                     }
-                    console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
+                  
                     if (SeasonID != undefined && UserAccountID != undefined) { //if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
                         DbCheck.isUserAccountIDExist(UserAccountID, function (response) {
                             if (response == true) {
-                                DbCheck.isUserAccountIDBlocked(UserAccountID, function (response) {
-                                    if (response == false) {
                                         InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID, SeasonID, CurrentPoints, WinPoints, AfterPoints, BeforePoints, function (response) {
                                             if (response == undefined) {
                                                 console.log("UserAccount or SeasonID dosn't Exist");
                                             } else {
-                                                if(WinPoints>0){
+                                                if(WinPoints>0){//only winners get to update their points
                                                  
                                                     InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, WinPoints, function (response) {
                                                         if(response!=undefined){
                                                             console.log("Somebody Won" +UserAccountID);
                                                             resolve();
-                                                        }
+                                                        }//no need to update loser money they already lost it during the bet
                                                     });
                                                 }else{
                                                     resolve();
                                                 }
                                             }
                                         });
-                                    } else {
-                                        console.log("UserAccount Blocked Update" + UserAccountID);
-                                        reject("UserAccount Blocked Update" + UserAccountID);
-                                        //  throw "UserAccount Blocked " + UserAccountID;
-                                    }
-                                })
                             } else {
                                 console.log("UserAccount dosn't Exist Update" + UserAccountID);
                                 reject("UserAccount dosn't Exist Update" + UserAccountID);

@@ -8,14 +8,14 @@ let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
 
-module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, MoveHand, callback) {
+module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, MoveHand,Amount, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let _MoveHand = MoveHand;
-
+    let _Amount =Amount;
   let query =
-    "INSERT INTO `sampledb`.`handhistory` (`UserAccountID`, `SeasonID`, `MoveHand`, `HandDateTime`) "+
-    "VALUES ('"+_UserAccountID+"','"+_SeasonID+"','"+_MoveHand+"', now());";
+    "INSERT INTO `sampledb`.`handhistory` (`UserAccountID`, `SeasonID`, `MoveHand`, `HandDateTime`,`HandAmount`) "+
+    "VALUES ('"+_UserAccountID+"','"+_SeasonID+"','"+_MoveHand+"', now(),'"+_Amount+"');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

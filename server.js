@@ -307,6 +307,9 @@ wss.on('connection', (ws, req) => {
         });
       }
       else if (Object.Type == "Bet") { //bet event occured 
+
+      
+
         wss.clients.forEach((client) => {
           if(client.readyState==1){
             if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value

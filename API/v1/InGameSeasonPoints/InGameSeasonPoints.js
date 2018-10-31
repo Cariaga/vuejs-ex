@@ -23,10 +23,11 @@ module.exports = function (app) {
     });
 
     //when the season ends we update their won points
-    app.get('/Api/v1/InGameSeasonPoints/Won/SeasonID/:SeasonID/UserAccountID/:UserAccountID/WinPoints/:WinPoints', function (req, res) {
+    //deprected
+    /*app.get('/Api/v1/InGameSeasonPoints/Won/SeasonID/:SeasonID/UserAccountID/:UserAccountID/WinPoints/:WinPoints', function (req, res) {
         let SeasonID = req.params.SeasonID;
         let UserAccountID = req.params.UserAccountID;
-        let WinPoints = req.params.WinPoints;
+        let WinPoints =parseInt( req.params.WinPoints);
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(SeasonID)) {
                 if (!isNullOrEmpty(WinPoints)) {
@@ -51,7 +52,7 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
 
-    });
+    });*/
 
 
     //this is their points when they joined the season 

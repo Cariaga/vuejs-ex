@@ -7,7 +7,8 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFT
-  app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
+  //deprected
+ /* app.get('/Api/v1/LoginHistory/Update/:LoginHistoryID/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
     let LoginHistoryID = req.params.LoginHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let IP = req.params.IP;
@@ -74,9 +75,10 @@ module.exports = function (app) { //MODIFT
         LoginHistoryIDMissing: true
       });
     }
-  });
+  });*/
   //INSERT
-  app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
+  //deprecate
+  /*app.get('/Api/v1/LoginHistory/Add/:UserAccountID/:IP/:DeviceName/:DeviceRam/:DeviceCpu/:Time/:Date', function (req, res) {
     //USAGE /Api/v1/LoginHistory/Add/UserAccountID/IP/DeviceName/DeviceRam/DeviceCpu/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let IP = req.params.IP;
@@ -143,7 +145,7 @@ module.exports = function (app) { //MODIFT
         UserAccountIDMissing: true
       });
     }
-  });
+  });*/
   //SELECTION
   app.get('/Api/v1/LoginHistory/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

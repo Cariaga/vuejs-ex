@@ -7,6 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 module.exports = function (app) { //MODIFY
+ /*
   app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Point = req.params.Point;
@@ -109,7 +110,7 @@ module.exports = function (app) { //MODIFY
         UserAccountIDEmpty: true
       });
     }
-  });
+  });*/
   app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let CurrentRoomName = req.params.CurrentRoomName;
