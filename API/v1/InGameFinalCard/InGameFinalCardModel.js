@@ -44,6 +44,19 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
     });
 
   }
+  module.exports.SeasonEnd = function SeasonEnd(SeasonID,callback){
+    var _SeasonID = SeasonID;
+    var query ="UPDATE `sampledb`.`playerfinalcard` SET `SeasonEnded` = now() WHERE (`SeasonID` = '"+_SeasonID+"');";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+
+  }
   //winning bet points  only
   //this has an equivelent query in HandHistoryModel but that one is For Deductions e.g DeductMoneyOnBet 
   //this one adds Player Points after the end of the game

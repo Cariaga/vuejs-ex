@@ -163,6 +163,21 @@ let DBConnect = require("../SharedController/DBConnect");
 
     });
   }
+  module.exports.isSeasonEnded = function isSeasonEnded(SeasonID, callback) {
+    let _SeasonID = SeasonID;
+    let query =
+    "SELECT * FROM sampledb.playerfinalcard where SeasonID='"+_SeasonID+"'";
+    console.log(query);
+    DBConnect.DBConnect(query,function(response){
+      // if it was undefined it has never been blocked
+      if(response==undefined){
+        callback(false);
+      }else{//if all fails to be true its blocked
+        callback(true);
+      }
+
+    });
+  }
   module.exports.isUserAccountIDExist = function isUserAccountIDExist(UserAccountID, callback) {
     let _UserAccountID = UserAccountID
     let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID ='" + _UserAccountID+"'";

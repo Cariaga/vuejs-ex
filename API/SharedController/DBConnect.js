@@ -26,10 +26,62 @@ module.exports.DBConnectTest = function DBConnectTest(){
             });*/
 
 }
-
-
+const pool = mysql.createPool({
+  host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
+  user: user,
+  password: password,
+  database: 'sampledb',
+  waitForConnections: true,
+  port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
+  connectionLimit: 200,
+  queueLimit: 0,
+});
+/*pooling version*/
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
-  
+  pool.getConnection(function(err, conn) {
+    // Do something with the connection
+    conn.query(RawQuery,
+      function (err, results, fields) {
+        if(err!=undefined){
+          console.log(err);
+          if(err.sqlState=='23000'){
+            console.log("Foreign Key Error or Duplicate");
+            callback(undefined);
+          }
+          else if(err.sqlState=='02000'){
+            console.log("Key Already Used In Another Table");
+            callback(undefined);
+          }
+          else if(err.sqlState=='42000'){
+            console.log("Empty Query Requested");
+            callback(undefined);
+          }
+          else if(err.sqlState=='ETIMEDOUT'){
+            console.log("DB Connection sharedController DBConnect ERROR");
+           // callback('ETIMEDOUT');
+          }
+          else{
+            console.log("Somthing Bad Happend :" +err);
+          }
+        }
+        else if(results!=undefined&&results.length>0){//select
+          callback(results);
+        }
+        else if(results!=undefined&&results.affectedRows>0){//updated
+          callback(results);
+        }
+        else{
+        //  console.log("Empty");
+          callback(undefined);
+        }
+      });
+    // Don't forget to release the connection when finished!
+   
+ });
+}
+
+/*old non pool version
+module.exports.DBConnect = function DBConnect(RawQuery,callback){// non connection pool
    const connection = mysql.createConnection({
       host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
       user: user,
@@ -76,8 +128,8 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
           callback(undefined);
         }
       });
-      connection.end();
-}
+     // connection.end();
+}*/
 module.exports.DBConnectInsert = function DBConnectInsert(RawQuery,params,callback){
   
   const connection = mysql.createConnection({

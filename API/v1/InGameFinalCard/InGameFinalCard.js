@@ -93,11 +93,21 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
             if (i == length) {
                 p = p.then(_ => new Promise(resolve => {
-                    console.log("OK Done");
-                    let status = 200;
-                    res.status(status).end(http.STATUS_CODES[status]);
-                    resolve();
+                    var finalseason  = JsonRow[0].SeasonID;
+                    InGameFinalCardModel.SeasonEnd(finalseason,function(response){
 
+                        if(response!=undefined){
+                            console.log("OK Done");
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                            resolve();
+                        }else{
+                            console.log("OK Done");
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                            resolve();
+                        }
+                    });
                 })).catch(function (error) {
                     let status = 500;
                     res.status(status).end(http.STATUS_CODES[status]);
@@ -122,23 +132,28 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     if (SeasonID != undefined && UserAccountID != undefined) { //if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
                         DbCheck.isUserAccountIDExist(UserAccountID, function (response) {
                             if (response == true) {
-                                        InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID, SeasonID, CurrentPoints, WinPoints, AfterPoints, BeforePoints, function (response) {
-                                            if (response == undefined) {
-                                                console.log("UserAccount or SeasonID dosn't Exist");
-                                            } else {
-                                                if(WinPoints>0){//only winners get to update their points
-                                                 
-                                                    InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, WinPoints, function (response) {
-                                                        if(response!=undefined){
-                                                            console.log("Somebody Won" +UserAccountID);
+                                        DbCheck.isSeasonEnded(SeasonID,function(response){
+                                            if(response==false){
+                                                InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID, SeasonID, CurrentPoints, WinPoints, AfterPoints, BeforePoints, function (response) {
+                                                    if (response == undefined) {
+                                                        console.log("UserAccount or SeasonID dosn't Exist");
+                                                    } else {
+                                                        if(WinPoints>0){//only winners get to update their points
+                                                            InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, WinPoints, function (response) {
+                                                                if(response!=undefined){
+                                                                    console.log("Somebody Won" +UserAccountID);
+                                                                    resolve();
+                                                                }//no need to update loser money they already lost it during the bet
+                                                            });
+                                                        }else{
                                                             resolve();
-                                                        }//no need to update loser money they already lost it during the bet
-                                                    });
-                                                }else{
-                                                    resolve();
-                                                }
+                                                        }
+                                                    }
+                                                });
+                                            }else{
+                                                resolve();
                                             }
-                                        });
+                                        })
                             } else {
                                 console.log("UserAccount dosn't Exist Update" + UserAccountID);
                                 reject("UserAccount dosn't Exist Update" + UserAccountID);
