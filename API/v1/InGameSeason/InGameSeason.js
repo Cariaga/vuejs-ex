@@ -10,7 +10,7 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 let InGameSeasonModel = require('./InGameSeasonModel');
 let http = require('http');
-let UUID = require('uuid');
+let UUID = require('uuid/v4');
 var Security = require('../../SharedController/Security');
 /*the FinalCard Current Points is the points to the current season only ones someone won it returns to zero */
 module.exports = function (app) { //selection

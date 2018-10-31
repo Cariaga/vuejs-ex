@@ -10,22 +10,14 @@ let GlobalFunctions = require("../../SharedController/GlobalFunctions");
 var isNullOrEmpty = require('is-null-or-empty');
 let InGameRoomConfigurationModel = require('./InGameRoomConfigurationModel');
 let http = require('http');
-let UUID = require('uuid');
+let UUID = require('uuid/v4');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                if (response == true) {
-                    function getRandomInt(min, max) {
-                        return Math.floor(Math.random() * (max - min + 1)) + min;
-                    }
-                    function GenerateUUID() {
                         res.send(UUID());
-                      }
-                      setTimeout(GenerateUUID, getRandomInt(10,200));
-                }
                    // if (response == false) {
 
                        
