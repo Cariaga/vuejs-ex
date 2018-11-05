@@ -33,13 +33,14 @@ const pool = mysql.createPool({
   database: 'sampledb',
   waitForConnections: true,
   port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
-  connectionLimit: 200,
+  connectionLimit: 160,
   queueLimit: 0,
 });
 /*pooling version*/
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   pool.getConnection(function(err, conn) {
-    // Do something with the connection
+    if(RawQuery!=undefined&&err==undefined){
+      // Do something with the connection
     conn.query(RawQuery,
       function (err, results, fields) {
         if(err!=undefined){
@@ -74,14 +75,17 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
         //  console.log("Empty");
           callback(undefined);
         }
+            // Don't forget to release the connection when finished!
+        pool.releaseConnection(conn);
       });
-    // Don't forget to release the connection when finished!
-   
+    }
+    
+
  });
 }
 
-/*old non pool version
-module.exports.DBConnect = function DBConnect(RawQuery,callback){// non connection pool
+//old non pool version
+/*module.exports.DBConnect = function DBConnect(RawQuery,callback){// non connection pool
    const connection = mysql.createConnection({
       host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
       user: user,

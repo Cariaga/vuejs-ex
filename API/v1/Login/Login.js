@@ -104,6 +104,7 @@ module.exports = function (app) {
       res.status(status).end(http.STATUS_CODES[status]);
     }
   });
+  
  //Player Authorization process only
   app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
     var _UserName = req.body.UserName;
@@ -180,6 +181,7 @@ module.exports = function (app) {
 
                 LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
                   if (response != undefined) {
+                    console.log("Login Response : "+response);
                     let firstRow = response[0];
                     console.log(firstRow.Verified);
                     if (firstRow.Verified == "true") {
@@ -256,7 +258,7 @@ module.exports = function (app) {
     }
   }
   //GET : only possible when its authorized
-  app.get('/Api/v1/Game/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', Security.verifyToken, function (req, res) {
+  /*app.get('/Api/v1/Game/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserName = req.params.UserName;
     let Password = req.params.Password;
@@ -269,10 +271,16 @@ module.exports = function (app) {
     let GraphicsDevice = req.params.GraphicsDevice;
     Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
 
-  });
+  });*/
+
   //Post : only possible when its authorized
   app.post('/Api/v1/Game/Login/', Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let DeviceUUID = req.body.DeviceUUID;

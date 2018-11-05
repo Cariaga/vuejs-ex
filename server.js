@@ -20,21 +20,8 @@ const sendmail = require('sendmail')();
 const url = require('url');
 const stringify = require('json-stringify');
 const Enumerable = require('linq');
+var cors = require('cors');
 //app.use(sqlinjection);// disable because it blocks token access
-
-// configuration =================
-//app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
-app.use(morgan('combined')); // log every request to the console
-app.use(bodyParser.urlencoded({
-  'extended': 'true'
-})); // parse application/x-www-form-urlencoded
-app.use(bodyParser.json()); // parse application/json
-app.use(bodyParser.json({
-  type: 'application/vnd.api+json'
-})); // parse application/vnd.api+json as json
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-  ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
 app.use(function (req, res, next) {
@@ -44,7 +31,7 @@ app.use(function (req, res, next) {
   var origin = req.headers.origin;
   res.header("Access-Control-Allow-Origin", "*");
   // Request methods you wish to allow
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,OPTIONS');
 
   // Request headers you wish to allow
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -55,8 +42,29 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
 
   // Pass to next layer of middleware
-  next();
+  if (req.method === 'OPTIONS') {
+    //res.send(200);
+  } else {
+    next();
+  }
 });
+// configuration =================
+//app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
+app.use(morgan('combined')); // log every request to the console
+app.use(bodyParser.urlencoded({
+  'extended': 'true'
+})); // parse application/x-www-form-urlencoded
+app.use(cors());
+app.options('*', cors()); 
+
+app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.json({
+  type: 'application/vnd.api+json'
+})); // parse application/vnd.api+json as json
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+  ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+
 /*app.use(session({
   secret: '2C44-4D44-WppQ38S',
   resave: true,
@@ -110,7 +118,7 @@ require('./API/v1/OneOnOne/OneOnOne')(app);
 require('./API/v1/Pagination/Pagination')(app);
 require('./API/v1/Player/Player')(app);
 require('./API/v1/InGameFinalCard/InGameFinalCard')(app);
-require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app);//Deprected
+require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app); //Deprected
 require('./API/v1/Poker/Poker')(app);
 require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
@@ -217,7 +225,9 @@ const SocketServer = require('ws').Server;
 const server = app
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
-const wss = new SocketServer({ server });
+const wss = new SocketServer({
+  server
+});
 let ConnectedUsers = 0;
 
 
@@ -236,35 +246,35 @@ wss.on('connection', (ws, req) => {
   console.log('Client connected ' + ConnectedUsers);
   const parameters = url.parse(req.url, true);
   var UserAccountID = parameters.query.UserAccountID;
-  ws.UserAccountID =UserAccountID;
+  ws.UserAccountID = UserAccountID;
 
 
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
-    wss.clients.forEach((client) => {
-      if(SyncRoomVar==undefined&&client.UserAccountID==ws.UserAccountID){//matching user account connecting to a diffrent application instance
-        SyncRoomVar=client.Rooms;
-        //console.log(client.UserAccountID); 
-      }
+  wss.clients.forEach((client) => {
+    if (SyncRoomVar == undefined && client.UserAccountID == ws.UserAccountID) { //matching user account connecting to a diffrent application instance
+      SyncRoomVar = client.Rooms;
+      //console.log(client.UserAccountID); 
+    }
   });
-  if(SyncRoomVar!=undefined){
-   
-    ws.Rooms =SyncRoomVar;
-    SyncRoomVar=undefined;
+  if (SyncRoomVar != undefined) {
+
+    ws.Rooms = SyncRoomVar;
+    SyncRoomVar = undefined;
   }
   //console.log(ws.Money);
-  var _UserAccountID =UserAccountID;
-  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '"+_UserAccountID+"';";
-  DBConnect.DBConnect(query,function(response){
-    if(response!=undefined){
-      ws.Money =response[0].Money;
+  var _UserAccountID = UserAccountID;
+  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '" + _UserAccountID + "';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      ws.Money = response[0].Money;
       //console.log(response[0]);
     }
   });
 
 
 
- 
+
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
 
 
@@ -282,33 +292,32 @@ wss.on('connection', (ws, req) => {
       if (Object.Type == "LeaveRoom") { //event leave room
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
-          if(client.readyState==1){
+          if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) {
               var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
                 return value.RoomID == Object.RoomID;
               });
-              if(filtered.length>0){
+              if (filtered.length > 0) {
                 if (filtered[0].BuyIn != undefined) { // LeaveRoom the oldest is basically the first item we find from 0 to N.. 
                   client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
-  
+
                   var NewArrayfiltered = client.Rooms.filter(function (value) {
                     return value.RoomID !== Object.RoomID;
                   });
-                  
+
                   client.Rooms = NewArrayfiltered;
                 }
-              }else{
+              } else {
                 console.log("LeaveRoom but and last Player");
               }
-              
+
             }
           }
-          
+
         });
-      }
-      else if (Object.Type == "Bet") { //bet event occured 
+      } else if (Object.Type == "Bet") { //bet event occured 
         wss.clients.forEach((client) => {
-          if(client.readyState==1){
+          if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
               console.log("Socket Bet");
               for (var i = 0; i < client.Rooms.length; ++i) {
@@ -327,10 +336,9 @@ wss.on('connection', (ws, req) => {
             }
           }
         });
-      }
-      else if (Object.Type == "Win") { //Win event occured 
+      } else if (Object.Type == "Win") { //Win event occured 
         wss.clients.forEach((client) => {
-          if(client.readyState==1){
+          if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) { //we sync all same account win value
               console.log("Socket Won");
               for (var i = 0; i < client.Rooms.length; ++i) {
@@ -343,8 +351,7 @@ wss.on('connection', (ws, req) => {
             }
           }
         });
-      }
-      else if (Object.Type == "BuyIn") { //identify object type
+      } else if (Object.Type == "BuyIn") { //identify object type
         var BuyInRoom = Object;
         //console.log(BuyInRoom);
         wss.clients.forEach((client) => {
@@ -393,7 +400,7 @@ wss.on('connection', (ws, req) => {
       }
     } else {
       //possibly a diffrent message type
-      console.log("some message "+event.data);
+      console.log("some message " + event.data);
     }
 
   }
@@ -404,7 +411,7 @@ wss.on('connection', (ws, req) => {
   };
   ws.onclose = function (event) {
     wss.clients.forEach((client) => {
-      if(client.readyState==1){
+      if (client.readyState == 1) {
         if (client.UserAccountID == Object.UserAccountID) {
           var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
             return value.RoomID == Object.RoomID;
@@ -415,7 +422,7 @@ wss.on('connection', (ws, req) => {
             var NewArrayfiltered = client.Rooms.filter(function (value) {
               return value.RoomID !== Object.RoomID;
             });
-            
+
             client.Rooms = NewArrayfiltered;
           }
         }
@@ -429,28 +436,28 @@ wss.on('connection', (ws, req) => {
 setInterval(() => {
   let array = Array.from(wss.clients);
   var distinctlist = Enumerable.from(array);
-  
+
   wss.clients.forEach((client) => {
 
     client.Money = LatestAndUnique(distinctlist, client.UserAccountID).Money;
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
   wss.clients.forEach((client) => {
-    if(client.readyState==1){
-      var count =0;
+    if (client.readyState == 1) {
+      var count = 0;
       wss.clients.forEach((client2) => {
-        if(client2.UserAccountID==client.UserAccountID){
+        if (client2.UserAccountID == client.UserAccountID) {
           count++;
         }
       });
 
       client.send(stringify({
-    
+
         UserAccountID: client.UserAccountID,
         Money: client.Money,
         Rooms: client.Rooms,
-        CountSameAccount:count
-        
+        CountSameAccount: count
+
       }, null, 0));
     }
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
@@ -477,11 +484,12 @@ function IsJsonString(str) {
   }
   return true;
 }
+
 function IsJsonString(str) {
   try {
-      JSON.parse(str);
+    JSON.parse(str);
   } catch (e) {
-      return false;
+    return false;
   }
   return true;
 }
@@ -493,11 +501,11 @@ function IsJsonString(str) {
 //server.listen(port, ip);// no loger needed
 var beautify = require('json-beautify');
 console.log('Server running on http://%s:%s', ip, port);
-  console.log("--------process informationz  for openshift---------");
-  console.log(beautify(process.env, null, 2, 100));
-  console.log("-----------------");
-  console.log(process.env.MYSQL_SERVICE_HOST|| 'localhost');//output the service if service host is undefined
-  console.log(process.env.MYSQL_SERVICE_PORT||3306);
+console.log("--------process informationz  for openshift---------");
+console.log(beautify(process.env, null, 2, 100));
+console.log("-----------------");
+console.log(process.env.MYSQL_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
+console.log(process.env.MYSQL_SERVICE_PORT || 3306);
 
 module.exports = routes;
 module.exports = app;
