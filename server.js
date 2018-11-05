@@ -37,16 +37,12 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Headers', 'Content-Type', 'X-Auth-Token');
+
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.header('Access-Control-Allow-Credentials', true);
-
   // Pass to next layer of middleware
-  if (req.method === 'OPTIONS') {
-    //res.send(200);
-  } else {
     next();
-  }
 });
 // configuration =================
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -54,8 +50,6 @@ app.use(morgan('combined')); // log every request to the console
 app.use(bodyParser.urlencoded({
   'extended': 'true'
 })); // parse application/x-www-form-urlencoded
-app.use(cors());
-app.options('*', cors()); 
 
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({
