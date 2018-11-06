@@ -78,7 +78,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
 
     function Q2() {
       let query = "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) " +
-        "VALUES ('" + _UserAccountID + "', null, '" + _PhoneNumber + "', null);";
+        "VALUES (\'" + _UserAccountID + "\', null, \'" + _PhoneNumber + "\', null);";
       return new Promise(resolve => {
         DBConnect.DBConnect(query, function (response) {
           if (response != undefined) {

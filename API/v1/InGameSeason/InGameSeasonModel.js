@@ -24,7 +24,7 @@ module.exports.AddGameHistory = function AddGameHistory( RoomID, SeasonID, callb
     let _SeasonID = SeasonID;
     let query =
       "INSERT INTO `sampledb`.`gamehistories` (`RoomID`, `SeasonID`, `GameStartedDateTime`) "+
-      "VALUES ('"+_RoomID+"','"+_SeasonID+"',now());";
+      "VALUES (\'"+_RoomID+"\',\'"+_SeasonID+"\',now());";
    
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

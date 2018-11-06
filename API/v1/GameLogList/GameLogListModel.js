@@ -35,7 +35,7 @@ module.exports.GameLogSearch = function GameLogSearch(Column, Value, callback) {
     let _Column = Column;
     let _Value = Value;
     let query = 
-    "SELECT * FROM sampledb.gamelog_list where "+_Column+" like '%"+_Value+"%';";
+    "SELECT * FROM sampledb.gamelog_list where "+_Column+" like \'%"+_Value+"%\';";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
