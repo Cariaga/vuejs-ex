@@ -27,12 +27,12 @@ module.exports = function (app) {
     }    
     app.get('/Api/v1/Sales/LowRank/HeadOfficeID/:HeadOfficeID', Security.verifyToken, function (req, res) {
         let HeadOfficeID = req.params.HeadOfficeID;
-        InGameAdminAnswer(HeadOfficeID,res);
+        LowRank(HeadOfficeID,res);
     });
 
     app.post('/Api/v1/Sales/LowRank/', Security.verifyToken, function (req, res) {
         let HeadOfficeID = req.body.HeadOfficeID;
         console.log(HeadOfficeID);
-        InGameAdminAnswer(HeadOfficeID,res);
+        LowRank(HeadOfficeID,res);
     });
 }
