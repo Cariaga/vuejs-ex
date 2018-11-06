@@ -20,9 +20,11 @@ module.exports = function (app) {
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                       //  res.send(UUID());
                         function GenerateUUID() {
-                            res.send(UUID());
+                            var idGen = UUID();
+                            console.log(""+idGen);
+                            res.send(idGen);
                           }
-                          setTimeout(GenerateUUID, getRandomInt(10,300));
+                          setTimeout(GenerateUUID, getRandomInt(1,10));
 
                           function getRandomInt(min, max) {
                             min = Math.ceil(min);

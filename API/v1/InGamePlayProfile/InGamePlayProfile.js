@@ -5,10 +5,10 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    app.get('/Api/v1/InGamePlayProfile/UserAccountID/:UserAccountID/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) {
+  /*  app.get('/Api/v1/InGamePlayProfile/UserAccountID/:UserAccountID/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) {
         /*should return the points for that current season of a player*/
         /*their current points for the season will be cleared and moved to their account after the end of a season only on going season for the room is retrivable*/
-        let UserAccountID = req.params.UserAccountID;
+     /*   let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(SeasonID)) {
@@ -37,9 +37,9 @@ module.exports = function (app) {
                 InvalidUserAccountID: true
             });
         }
-    });
+    });*/
 
-    app.get('/Api/v1/InGamePlayProfile/Update/UserAccountID/:UserAccountID/SeasonID/:SeasonID/CurrentPoints/:CurrentPoints',Security.verifyToken, function (req, res) {
+  /*  app.get('/Api/v1/InGamePlayProfile/Update/UserAccountID/:UserAccountID/SeasonID/:SeasonID/CurrentPoints/:CurrentPoints',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let SeasonID = req.params.SeasonID;
         let CurrentPoints = parseInt(req.params.CurrentPoints);
@@ -71,5 +71,5 @@ module.exports = function (app) {
                 InvalidUserAccountID: true
             });
         }
-    });
+    });*/
 }
