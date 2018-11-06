@@ -28,7 +28,7 @@ module.exports.WithdrawSearch = function WithdrawSearch(Column, Value, StartDate
   let _StartDate = StartDate;
   let _EndDate = EndDate;
   let query =
-    "SELECT * FROM sampledb.withdraw_list as WD where " + _Column + " like '%" + _Value + "%' and (WD.RequestedDateTime BETWEEN '" + _StartDate + "' AND '" + _EndDate + "');";
+    "SELECT * FROM sampledb.withdraw_list as WD where " + _Column + " like \'%" + _Value + "%\' and (WD.RequestedDateTime BETWEEN \'" + _StartDate + "\' AND \'" + _EndDate + "\');";
     DBConnect.DBConnect(query, function (response) {
       console.log('this is the response : '+response)
       // if (response != undefined) {

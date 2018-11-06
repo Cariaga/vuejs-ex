@@ -26,7 +26,7 @@ let DBConnect = require("../../SharedController/DBConnect");
   module.exports.InGameSeasonPointsWon = function InGameSeasonPointsWon(SeasonID, UserAccountID, WinPoints, callback) {
       let _SeasonID = SeasonID;
       let _UserAccountID = UserAccountID;
-      let _WinPoints = WinPoints;
+      let _WinPoints = parseInt(WinPoints);
       let query ="UPDATE `sampledb`.`playerfinalcard` SET `WinPoints` = '"+_WinPoints+"' WHERE (`SeasonID` = \'"+_SeasonID+"\' and `UserAccountID`=\'"+_UserAccountID+"\')";
       console.log(query);
       DBConnect.DBConnect(query, function (response) {
@@ -44,7 +44,7 @@ let DBConnect = require("../../SharedController/DBConnect");
   module.exports.InGameSeasonPointsJoin = function InGameSeasonPointsJoin(SeasonID, UserAccountID, BeforePoints, callback) {
       let _SeasonID = SeasonID;
       let _UserAccountID = UserAccountID;
-      let _BeforePoints = BeforePoints;
+      let _BeforePoints = parseInt(BeforePoints);
       
       let query ="UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '"+_BeforePoints+"' WHERE (`SeasonID` = \'"+_SeasonID+"\' and UserAccountID=\'"+_UserAccountID+"\' and SeasonEnded is null);";
       // let query ="UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '"+_BeforePoints+"' WHERE (`SeasonID` = '"+_SeasonID+"' and `UserAccountID`= '"+_UserAccountID+"');";

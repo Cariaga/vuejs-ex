@@ -48,7 +48,7 @@ app.use(function (req, res, next) {
 
     next();
 });
-app.options('*', cors());
+app.options('*', cors());//to support webgl request and resolve post routing to option 
 //app.options('/Api/v1/Game/Login/', cors());// alternativly better than the app * 
 
 

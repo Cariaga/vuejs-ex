@@ -69,11 +69,11 @@ module.exports.WriteSupportAnswerUpdate = function WriteSupportAnswerUpdate(Supp
     let _Answer = Answer;
     let query = 
     "UPDATE `sampledb`.`supporttickets` " +
-    "SET Answer = '"+_Answer+"', `DateTime` = now(),`Status` = 'Done' " +
+    "SET Answer = \'"+_Answer+"\', `DateTime` = now(),`Status` = 'Done' " +
     " WHERE SupportTicketID = "+
     _SupportTicketID +
     " AND UserAccountID = "+
-    "'"+UserAccountID+"'" ;
+    "\'"+UserAccountID+"\'" ;
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);

@@ -1,6 +1,9 @@
 
 
 const mysql = require('mysql2');
+const notifier = require('node-notifier');
+// String
+
 //DEBUGGING mysql
 //if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
 //first attempt password
@@ -62,6 +65,11 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
            // callback('ETIMEDOUT');
           }
           else{
+            notifier.notify({
+              title: 'Server Error',
+              message: err
+            });
+
             console.log("Somthing Bad Happend :" +err);
           }
         }

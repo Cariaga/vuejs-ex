@@ -8,13 +8,16 @@ module.exports = function (app) {
         res.send("OK test");
     });
 
-    app.get('/Api/v1/PlayerFinalCard2/Json/:Json/', function (req, res) {
+    app.get('/Api/v1/PlayerFinalCard2/Json/:Json/',Security.verifyToken, function (req, res) {
         let Json = req.params.Json;
         
         if(Json!=undefined){
             console.log("---------");
             let JsonRow = JSON.parse(Json);
             let length = JsonRow.length;
+            
+
+
 
                    /*for loop promise based */
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
@@ -35,7 +38,7 @@ module.exports = function (app) {
                     let Hand = JsonRow[i].hand;
                     let Score = JsonRow[i].score;
                     let Rank = JsonRow[i].rank;
-                    let UserAccountID = JsonRow[i].UserAccountID;
+                    let UserAccountID = JsonRow[i].UserAccountID;//make sure the correct UserAccountID is recived by the route before checking query is wrong
                     let SeasonID = JsonRow[i].SeasonID;
 
 
@@ -89,6 +92,8 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
         let Json = req.params.Json;
         let JsonRow = JSON.parse(Json);
         let length = JsonRow.length;
+        
+
         /*for loop promise based */
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
             if (i == length) {
@@ -115,17 +120,17 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                 });
             } else {
                 p = p.then(_ => new Promise((resolve, reject) => {
-                    let UserAccountID = JsonRow[i].UserAccountID;
+                    let UserAccountID = JsonRow[i].UserAccountID;//make sure the correct UserAccountID is recived by the route before checking query is wrong
                     let SeasonID = JsonRow[i].SeasonID;
                     let CurrentPoints = parseInt(JsonRow[i].CurrentPoints);
                     let WinPoints =parseInt(JsonRow[i].WinPoints);
                     let AfterPoints = parseInt(JsonRow[i].AfterPoints);
                     let BeforePoints = parseInt(JsonRow[i].BeforePoints);
                     if(WinPoints>0){
-                        console.log("Won");
+                        console.log("-----------Won--------------");
                         console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
                     }else{
-                        console.log("Lost");
+                        console.log("-----------Lost-------------");
                         console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
                     }
                   

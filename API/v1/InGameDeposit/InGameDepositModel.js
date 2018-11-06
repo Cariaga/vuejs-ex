@@ -9,7 +9,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amount, callback) {
   let _UserAccountID = UserAccountID;
   let _Name = Name;
-  let _Amount = Amount;
+  let _Amount = parseInt(Amount);
   let _UserTransactionID = uuidv4();
 
   function Transactions() {

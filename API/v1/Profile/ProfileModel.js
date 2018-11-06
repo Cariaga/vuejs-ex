@@ -8,7 +8,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.Profile = function Profile(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
-    let query ="SELECT * FROM sampledb.player_profile where UserAccountID='"+_UserAccountID+"';";
+    let query ="SELECT * FROM sampledb.player_profile where UserAccountID=\'"+_UserAccountID+"\';";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);

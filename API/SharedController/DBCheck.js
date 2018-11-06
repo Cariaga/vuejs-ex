@@ -14,7 +14,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let _Email = Email
     let query =
     "SELECT * FROM `sampledb`.`userinfos` " +
-    "WHERE Email = '" + _Email+"' ";
+    "WHERE Email = \'" + _Email+"\' ";
     
    
     DBConnect.DBConnect(query,function(response){
@@ -29,7 +29,7 @@ let DBConnect = require("../SharedController/DBConnect");
   module.exports.PlayerMoney = function PlayerMoney(UserAccountID, callback) {
     let _UserAccountID = UserAccountID
     let query =
-    "SELECT Money FROM `sampledb`.`players` where UserAccountID='"+_UserAccountID+"'";
+    "SELECT Money FROM `sampledb`.`players` where UserAccountID=\'"+_UserAccountID+"\'";
     
    
     DBConnect.DBConnect(query,function(response){
@@ -44,7 +44,7 @@ let DBConnect = require("../SharedController/DBConnect");
 
   module.exports.IsShopExist = function IsShopExist(ShopID, callback) {
     let _ShopID = ShopID
-    let query ="SELECT ShopID,UserAccountID FROM sampledb.shops where ShopID='"+_ShopID+"'";
+    let query ="SELECT ShopID,UserAccountID FROM sampledb.shops where ShopID=\'"+_ShopID+"\'";
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
@@ -60,7 +60,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let _PhoneNumber = PhoneNumber
     let query =
     "SELECT * FROM `sampledb`.`userinfos` " +
-    "WHERE PhoneNumber = '" + _PhoneNumber+"' ";
+    "WHERE PhoneNumber = \'" + _PhoneNumber+"\' ";
     
    
     DBConnect.DBConnect(query,function(response){
@@ -79,7 +79,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let query =
     'SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,"Fresh") as newStatus'
     +' FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID'
-    +' HAVING  p.UserAccountID = "'+_UserAccountID+'" AND ScreenName ="'+ _UserName +'"AND newStatus != "Blocked"';
+    +' HAVING  p.UserAccountID = "\'+_UserAccountID+\'" AND ScreenName ="\'+ _UserName +\'"AND newStatus != "Blocked"';
     DBConnect.DBConnect(query,function(response){
       if(response){
         if(response[0].UserAccountID==_UserAccountID){
@@ -98,7 +98,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let query =
     'SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,"Fresh") as newStatus'
     +' FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID'
-    +' HAVING  p.UserAccountID = "'+_UserAccountID+'" AND newStatus != "Blocked"';
+    +' HAVING  p.UserAccountID = "\'+_UserAccountID+\'" AND newStatus != "Blocked"';
     DBConnect.DBConnect(query,function(response){
       if(response){
         if(response[0].UserAccountID==_UserAccountID){
@@ -115,7 +115,7 @@ let DBConnect = require("../SharedController/DBConnect");
   module.exports.isPlayer = function isPlayer(UserName, callback) {
     let _UserName = UserName;
     let query =
-    "SELECT `UserName` FROM sampledb.useraccount_types where `AccountType`='Player' and `UserName`='"+_UserName+"' limit 1";
+    "SELECT `UserName` FROM sampledb.useraccount_types where `AccountType`='Player' and `UserName`=\'"+_UserName+"\' limit 1";
     DBConnect.DBConnect(query,function(response){
       if(response){
         if(response[0].UserName==_UserName){
@@ -131,7 +131,7 @@ let DBConnect = require("../SharedController/DBConnect");
   module.exports.isPlayerAdminPrivilege = function isPlayerAdminPrivilege(UserName, callback) {
     let _UserName = UserName;
     let query =
-    "SELECT UserName FROM sampledb.useraccounts where `Privilege`='Admin' and `UserName`='"+_UserName+"';";
+    "SELECT UserName FROM sampledb.useraccounts where `Privilege`='Admin' and `UserName`=\'"+_UserName+"\';";
     DBConnect.DBConnect(query,function(response){
       if(response){
         if(response[0].UserName==_UserName){
@@ -147,7 +147,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let _UserName = UserName;
     let query =
     "SELECT p.UserAccountID, p.ScreenName,bl.UserName,bl.Status FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID where "+
-    "bl.UserName = '"+_UserName+"'  and bl.ReleaseDate is null order by bl.ReportDate desc;";
+    "bl.UserName = \'"+_UserName+"\'  and bl.ReleaseDate is null order by bl.ReportDate desc;";
     console.log(query);
     DBConnect.DBConnect(query,function(response){
       // if it was undefined it has never been blocked
@@ -166,7 +166,7 @@ let DBConnect = require("../SharedController/DBConnect");
   module.exports.isSeasonEnded = function isSeasonEnded(SeasonID, callback) {
     let _SeasonID = SeasonID;
     let query =
-    "SELECT * FROM sampledb.playerfinalcard where SeasonID='"+_SeasonID+"'";
+    "SELECT * FROM sampledb.playerfinalcard where SeasonID=\'"+_SeasonID+"\'";
     console.log(query);
     DBConnect.DBConnect(query,function(response){
       // if it was undefined it has never been blocked
@@ -180,7 +180,7 @@ let DBConnect = require("../SharedController/DBConnect");
   }
   module.exports.isUserAccountIDExist = function isUserAccountIDExist(UserAccountID, callback) {
     let _UserAccountID = UserAccountID
-    let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID ='" + _UserAccountID+"'";
+    let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID =\'" + _UserAccountID+"\'";
     
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
@@ -212,7 +212,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let _UserName = UserName;
     let query =
     "SELECT * FROM `sampledb`.`useraccounts` " +
-    "WHERE UserName = '"+_UserName+"' ";
+    "WHERE UserName = \'"+_UserName+"\' ";
     
    
     DBConnect.DBConnect(query,function(response){
@@ -224,7 +224,7 @@ let DBConnect = require("../SharedController/DBConnect");
       }
     });
   }
-
+/*
   function isDistributorAlreadyExist(DistributorID, callback) {
     let query =
     `SET @DistributorID=${DistributorID};`+
@@ -239,7 +239,7 @@ let DBConnect = require("../SharedController/DBConnect");
       }
     });
   }
-
+*//*
   function isPlayerAlreadyExist(PlayersID, callback) {
     let query =
     `SET @PlayersID=${PlayersID};`+
@@ -253,13 +253,13 @@ let DBConnect = require("../SharedController/DBConnect");
         callback(undefined);
       }
     });
-  }
+  }*/
 
   module.exports.isScreenNameExist = function isScreenNameExist(ScreenName, callback) {
     let _ScreenName = ScreenName;
     let query =
     "SELECT * FROM `sampledb`.`players` " +
-    "WHERE ScreenName = '"+_ScreenName+"' ";
+    "WHERE ScreenName = \'"+_ScreenName+"\' ";
     
    
     DBConnect.DBConnect(query,function(response){
@@ -271,7 +271,7 @@ let DBConnect = require("../SharedController/DBConnect");
       }
     });
   }
-
+/*
   function ChildDistributorsFromHeadOfficeID(HeadOfficeID, callback) { // returns Distributor
     let query =
     `SET @HeadOfficeID=${HeadOfficeID};`+
@@ -285,7 +285,7 @@ let DBConnect = require("../SharedController/DBConnect");
         callback(undefined);
       }
     });
-  }
+  }*/
 
   module.exports.isSupportTicketIDExist = function isSupportTicketIDExist(SupportTicketID, callback) {
     let _SupportTicketID = SupportTicketID;
@@ -307,7 +307,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let _RoomID = RoomID;
     let query =
     "SELECT * FROM sampledb.roomconfigurations "+
-    "WHERE RoomID = '"+_RoomID+"'";
+    "WHERE RoomID = \'"+_RoomID+"\'";
    
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
@@ -323,7 +323,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let _MinusPoints = MinusPoints;
     let query =
       "SELECT CurrentPoints - '" + _MinusPoints + "' AS 'NewPoints' FROM `sampledb`.`players` " +
-      "WHERE UserAccountID = '" + _UserAccountID + "' ";
+      "WHERE UserAccountID = \'" + _UserAccountID + "\' ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response[0].NewPoints > 0) {
@@ -333,7 +333,7 @@ let DBConnect = require("../SharedController/DBConnect");
       }
     });
   }
-
+/*
 function IsNotificationIDExist(NotificationID, callback) {
   let query =
   `SET @NotificationID=${NotificationID};`+
@@ -347,7 +347,7 @@ function IsNotificationIDExist(NotificationID, callback) {
       callback([]);
     }
   });
-}
+}*/
 
 module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccountID, Key, callback) {
   let _UserAccountID = UserAccountID;

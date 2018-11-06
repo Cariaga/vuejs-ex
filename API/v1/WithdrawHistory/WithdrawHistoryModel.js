@@ -34,7 +34,7 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
 
   let query =
   "INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)"+
-  "VALUES ('"+_UserAccountID+"','"+_UserTransactionID+"', "+_ApplicationAmount+", 'withdraw');";
+  "VALUES (\'"+_UserAccountID+"\',\'"+_UserTransactionID+"\', "+_ApplicationAmount+", \'withdraw\');";
 
   let query2 =
   "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`,`AccountHolder`, `RequestedDateTime`)"+

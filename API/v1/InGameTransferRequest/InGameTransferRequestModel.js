@@ -114,7 +114,7 @@ module.exports.InGameTransferRequest = function InGameTransferRequest(UserAccoun
 module.exports.RequestTransferHistory = function RequestTransferHistory(UserAccountIDReceiver, UserAccountIDSender, Amount,callback) {
     let _UserAccountIDReceiver = UserAccountIDReceiver;
     let _UserAccountIDSender = UserAccountIDSender;
-    let _Amount = Amount;
+    let _Amount = parseInt(Amount);
     let query = 
     "INSERT INTO `sampledb`.`transferhistories` (`TransferHistoryUUID`, `UserAccountIDReceiver`, `UserAccountIDSender`, `Amount`, `Status`, `Reason`, `TransferedDateTime`) "+
     "VALUES (UUID(),\'"+_UserAccountIDReceiver+"\',\'"+_UserAccountIDSender+"\',\'"+_Amount+"\',\'pending\',\'transfer\',now()) ";
@@ -129,7 +129,7 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
   }
   module.exports.PlayerNewMoneySubtract = function PlayerNewMoneySubtract(UserAccountID, SubtractAmount,callback) {
     let _UserAccountIDReceiver = UserAccountID;
-    let _SubtractAmount = SubtractAmount;
+    let _SubtractAmount = parseInt(SubtractAmount);
     let query = 
     "select (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountIDReceiver+"\') - "+_SubtractAmount+" as NewMoney";
     console.log(query);
@@ -143,7 +143,7 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
   }
   module.exports.PlayerNewMoneyAdd = function PlayerNewMoneyAdd(UserAccountID, AddAmount,callback) {
     let _UserAccountID = UserAccountID;
-    let _AddAmount = AddAmount;
+    let _AddAmount = parseInt(AddAmount);
     let query = 
     "select (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\') + "+_AddAmount+" as NewMoney";
     console.log(query);
@@ -158,7 +158,7 @@ module.exports.RequestTransferHistory = function RequestTransferHistory(UserAcco
   }
   module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID, NewAmount,callback) {
     let _UserAccountID = UserAccountID;
-    let _NewAmount = NewAmount;
+    let _NewAmount = parseInt(NewAmount);
     let query = 
     "UPDATE `sampledb`.`players` SET `Money` = '"+_NewAmount+"' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
     console.log(query);

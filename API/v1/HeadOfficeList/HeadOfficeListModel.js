@@ -39,7 +39,7 @@ module.exports.HeadOfficeList = function HeadOfficeList(Limit,Offset,callback) {
     let _Column = Column;
     let _Value = Value;
     let query = 
-    "SELECT * FROM sampledb.headoffice_list where `"+_Column+"` like '%"+_Value+"%';";
+    "SELECT * FROM sampledb.headoffice_list where `"+_Column+"` like \'%"+_Value+"%\';";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
