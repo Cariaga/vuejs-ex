@@ -16,8 +16,20 @@ module.exports = function (app) {
     app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
+            
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                        res.send(UUID());
+                      //  res.send(UUID());
+                        function GenerateUUID() {
+                            res.send(UUID());
+                          }
+                          setTimeout(GenerateUUID, getRandomInt(10,300));
+
+                          function getRandomInt(min, max) {
+                            min = Math.ceil(min);
+                            max = Math.floor(max);
+                            return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+                          }
+
                    // if (response == false) {
 
                        
