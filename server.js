@@ -54,6 +54,8 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 
 // configuration =================
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + '/Webgl'));
+
 app.use(morgan('combined')); // log every request to the console
 app.use(bodyParser.urlencoded({
   'extended': 'true'
@@ -270,7 +272,7 @@ wss.on('connection', (ws, req) => {
   var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '" + _UserAccountID + "';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
-      ws.Money = response[0].Money;
+      ws.Money = parseInt(response[0].Money);
       //console.log(response[0]);
     }
   });
@@ -302,7 +304,7 @@ wss.on('connection', (ws, req) => {
               });
               if (filtered.length > 0) {
                 if (filtered[0].BuyIn != undefined) { // LeaveRoom the oldest is basically the first item we find from 0 to N.. 
-                  client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
+                  client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
 
                   var NewArrayfiltered = client.Rooms.filter(function (value) {
                     return value.RoomID !== Object.RoomID;
@@ -325,8 +327,8 @@ wss.on('connection', (ws, req) => {
               console.log("Socket Bet");
               for (var i = 0; i < client.Rooms.length; ++i) {
                 if (client.Rooms[i].RoomID == Object.RoomID) {
-                  if (client.Rooms[i].BuyIn - Object.BetAmount >= 0) {
-                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn - Object.BetAmount;
+                  if (parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount) >= 0) {
+                    client.Rooms[i].BuyIn = parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount);
                   } else {
                     ws.send(stringify({
                       Response: "NotEnoughMoney"
@@ -346,8 +348,8 @@ wss.on('connection', (ws, req) => {
               console.log("Socket Won");
               for (var i = 0; i < client.Rooms.length; ++i) {
                 if (client.Rooms[i].RoomID == Object.RoomID) {
-                  if (client.Rooms[i].BuyIn + Object.WinAmount >= 0) {
-                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn + Object.WinAmount;
+                  if (parseInt(client.Rooms[i].BuyIn) + parseInt(Object.WinAmount) >= 0) {
+                    client.Rooms[i].BuyIn = parseInt(client.Rooms[i].BuyIn) + parseInt(Object.WinAmount);
                   }
                 }
               }
@@ -369,7 +371,7 @@ wss.on('connection', (ws, req) => {
                 BuyIn: Object.BuyIn
               });
               //console.log(client.Rooms);
-              client.Money = client.Money - Object.BuyIn;
+              client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
             } else {
 
               if (client.Money - Object.BuyIn) {
@@ -377,8 +379,8 @@ wss.on('connection', (ws, req) => {
                 for (var i = 0; i < client.Rooms.length; ++i) {
                   if (client.Rooms[i].RoomID == Object.RoomID) { //Match Found Update Instead
                     console.log("Match Found Update Instead");
-                    client.Money = client.Money - Object.BuyIn;
-                    client.Rooms[i].BuyIn = client.Rooms[i].BuyIn + Object.BuyIn;
+                    client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
+                    client.Rooms[i].BuyIn =parseInt(client.Rooms[i].BuyIn) + parseInt(Object.BuyIn);
                     //console.log(client.Rooms[i].BuyIn + Object.BuyIn);
                     NotFound = false;
                     // break;
@@ -390,7 +392,7 @@ wss.on('connection', (ws, req) => {
                     BuyIn: Object.BuyIn
                   });
                   //console.log(client.Rooms);
-                  client.Money = client.Money - Object.BuyIn;
+                  client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
                 }
               } else {
                 console.log("Not Enough Money");
@@ -420,7 +422,7 @@ wss.on('connection', (ws, req) => {
             return value.RoomID == Object.RoomID;
           });
           if (filtered[0].BuyIn != undefined) { //Onclose the oldest is basically the first item we find from 0 to N.. 
-            client.Money = client.Money + filtered[0].BuyIn; //add back the money to the player
+            client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
 
             var NewArrayfiltered = client.Rooms.filter(function (value) {
               return value.RoomID !== Object.RoomID;
@@ -442,7 +444,7 @@ setInterval(() => {
 
   wss.clients.forEach((client) => {
 
-    client.Money = LatestAndUnique(distinctlist, client.UserAccountID).Money;
+    client.Money = parseInt(LatestAndUnique(distinctlist, client.UserAccountID).Money);
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
   wss.clients.forEach((client) => {
