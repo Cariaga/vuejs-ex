@@ -193,6 +193,21 @@ let DBConnect = require("../SharedController/DBConnect");
     });
   }
 
+  module.exports.isHeadOfficeIDExist = function isHeadOfficeIDExist(UserAccountID, callback) {
+    let _HeadOfficeID = HeadOfficeID
+    let query = "SELECT * FROM sampledb.headoffices WHERE headoffices.HeadOfficeID ='" + _HeadOfficeID+"'";
+    
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+      //  console.log('UserAccountID exist');
+        callback(true);
+      }else{
+        callback(false);
+        console.log('HeadOfficeID does not exist');
+      }
+    });
+  }
+
   module.exports.isUserNameExist = function isUserNameExist(UserName, callback) {
     let _UserName = UserName;
     let query =

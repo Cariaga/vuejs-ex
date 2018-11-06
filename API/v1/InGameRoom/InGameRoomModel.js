@@ -14,7 +14,6 @@ module.exports.InGameRoomPlayerCurrentRoom = function InGameRoomPlayerCurrentRoo
     DBConnect.DBConnect(query, function (response) {
       //console.log(response);
         if (response != undefined) {
-        
           callback(response);
         } else {
           callback(undefined);
