@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) {
   app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/',Security.verifyToken, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
-    let Amount = req.params.Amount;
+    let Amount = parseInt(req.params.Amount);
     let Bank = req.params.Bank;
     let AccountNumber = req.params.AccountNumber;
     let Name = req.params.Name;

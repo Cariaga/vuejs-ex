@@ -20,7 +20,7 @@ module.exports = function (app) {
                         if (response != undefined) {
                             let UserAccountIDReceiver = response[0].UserAccountID;
                             var promise = new Promise(function (resolve, reject) {
-                                InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender, Amount, function (response) {
+                                InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,parseInt(Amount), function (response) {
                                     if (response != undefined) {
                                         //console.log("Valid Value "+response.NewMoney>=0);
                                         if (response.NewMoney >= 0) {
@@ -36,7 +36,7 @@ module.exports = function (app) {
                                 });
                             });
                             var promise2 = new Promise(function (resolve, reject) {
-                                InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReceiver, Amount, function (response) {
+                                InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReceiver, parseInt(Amount), function (response) {
                                     if (response != undefined) {
                                         resolve(response);
                                     } else {
@@ -45,8 +45,8 @@ module.exports = function (app) {
                                 });
                             });
                             Promise.all([promise, promise2]).then(function (response) {
-                                let NewMoneyOfSender = response[0].NewMoney;
-                                let NewMoneyOfReciever = response[1].NewMoney;
+                                let NewMoneyOfSender = parseInt(response[0].NewMoney);
+                                let NewMoneyOfReciever = parseInt(response[1].NewMoney);
 
                                 var promise3 = new Promise(function (resolve, reject) {
                                     InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDSender, NewMoneyOfSender, function (response) { //sender
@@ -123,14 +123,14 @@ module.exports = function (app) {
 
     app.post('/Api/v1/InGameTransferRequest/', Security.verifyToken, function (req, res) {
         let UserAccountIDSender = req.body.UserAccountIDSender;
-        let Amount = req.body.Amount;
+        let Amount =parseInt(req.body.Amount);
         let UserName = req.body.UserName;
         InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
     });
 
     app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/', Security.verifyToken, function (req, res) {
         let UserAccountIDSender = req.params.UserAccountIDSender;
-        let Amount = req.params.Amount;
+        let Amount = parseInt(req.params.Amount);
         let UserName = req.params.UserName;
         InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
     });

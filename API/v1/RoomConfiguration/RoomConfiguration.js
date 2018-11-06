@@ -23,9 +23,9 @@ module.exports = function (app) { //MODIFY
   });
   app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed/GameType/:GameType', function (req, res) {
     let RoomID = req.params.RoomID;
-    let SmallBlind = req.params.SmallBlind;
-    let BigBlind = req.params.BigBlind;
-    let Speed = req.params.BigBlind;
+    let SmallBlind =parseInt(req.params.SmallBlind);
+    let BigBlind = parseInt(req.params.BigBlind);
+    let Speed = parseInt(req.params.BigBlind);
     let GameType = req.params.BigBlind;
 
     if (!isNullOrEmpty(RoomID)) {
@@ -100,7 +100,7 @@ module.exports = function (app) { //MODIFY
               if (validator.isNumeric(SmallBlind)) {
                 if (validator.isNumeric(Speed)) {
                   
-                  RoomConfigurationModel.AddRoomConfiguration(RoomID, GameType, SmallBlind, BigBlind, Speed, function (response) {
+                  RoomConfigurationModel.AddRoomConfiguration(RoomID, GameType, parseInt(SmallBlind), parseInt(BigBlind), parseInt(Speed), function (response) {
                     if (response != undefined) {
                       let status = 200;
                       res.status(status).end(http.STATUS_CODES[status]);
