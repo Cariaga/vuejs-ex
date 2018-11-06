@@ -13,8 +13,7 @@ module.exports = function (app) {
         if (!isNullOrEmpty(HeadOfficeID)) {
             SalesModel.SalesLowRank(HeadOfficeID, function (response) {
                 if (response != undefined) {
-                    let status = 200;
-                    res.status(status).end(http.STATUS_CODES[status]);
+                    res.send(response);
                 } else {
                     let status = 404;
                     res.status(status).end(http.STATUS_CODES[status]);
