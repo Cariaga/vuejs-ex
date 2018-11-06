@@ -23,7 +23,7 @@ module.exports.InGamePlayProfile = function InGamePlayProfile(UserAccountID, Sea
 module.exports.InGamePlayProfileUpdatePoints = function InGamePlayProfileUpdatePoints(UserAccountID, SeasonID, CurrentPoints, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
-    let _CurrentPoints = CurrentPoints;
+    let _CurrentPoints = parseInt(CurrentPoints);
     let query =
         "UPDATE `sampledb`.`playerfinalcard` " +
         "SET CurrentPoints = \'" + _CurrentPoints + "\' " +

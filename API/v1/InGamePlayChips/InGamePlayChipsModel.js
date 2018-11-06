@@ -66,7 +66,7 @@ module.exports.PlayerSeasonChips = function PlayerSeasonChips(UserAccountID,Seas
 module.exports.PlayerNewPointsInSeason = function PlayerNewPointsInSeason(UserAccountID,SeasonID,Points, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
-    let _Points = Points;
+    let _Points = parseInt(Points);
     let query = "UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = "+_Points+" WHERE (`UserAccountID` = \'"+_UserAccountID+"\' and SeasonID=\'"+_SeasonID+"\');";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
