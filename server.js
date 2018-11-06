@@ -141,7 +141,7 @@ require('./API/v1/InGameSeason/InGameSeason')(app);
 require('./API/v1/InGameRoomConfiguration/InGameRoomConfiguration')(app);
 require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
-
+require('./API/v1/Sales/Sales')(app);
 
 
 function test() {
