@@ -15,7 +15,7 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
     let _Amount =Amount;
   let query =
     "INSERT INTO `sampledb`.`handhistory` (`UserAccountID`, `SeasonID`, `MoveHand`, `HandDateTime`,`HandAmount`) "+
-    "VALUES ('"+_UserAccountID+"','"+_SeasonID+"','"+_MoveHand+"', now(),'"+_Amount+"');";
+    "VALUES (\'"+_UserAccountID+"\',\'"+_SeasonID+"\',\'"+_MoveHand+"\', now(),\'"+_Amount+"\');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -29,7 +29,7 @@ module.exports.DeductMoneyOnBet = function DeductMoneyOnBet(UserAccountID,Deduct
   let _UserAccountID = UserAccountID;
   let _DeductAmount = DeductAmount;
 let query =
-  "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID='"+_UserAccountID+"' limit 1) as t)-'"+_DeductAmount+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+  "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID=\'"+_UserAccountID+"\' limit 1) as t)-'"+_DeductAmount+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -41,7 +41,7 @@ let query =
 }
 module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, callback) {
   let _SeasonID = SeasonID;
-  let query = "SELECT * FROM sampledb.handhistory where SeasonID='"+_SeasonID+"';";
+  let query = "SELECT * FROM sampledb.handhistory where SeasonID=\'"+_SeasonID+"\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -53,7 +53,7 @@ module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, call
 }
 module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
   let _UserAccountID = UserAccountID;
-  let query = "SELECT * FROM sampledb.handhistory where UserAccountID='"+_UserAccountID+"';";
+  let query = "SELECT * FROM sampledb.handhistory where UserAccountID=\'"+_UserAccountID+"\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);

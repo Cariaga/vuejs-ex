@@ -33,6 +33,7 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
  * @param {*} Name
  * @param {*} callback
  */
+/*
 module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, HeadOfficeID, Name, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -49,7 +50,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
       callback(undefined);
     }
   });
-  }
+}*/
   module.exports.RegisterDistributor = function RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, callback) {
     let _UserAccountID = UserAccountID;
     let _Name = Name;
@@ -61,7 +62,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
 
     function Q1() {
       let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) " +
-        " VALUES ('" + _UserAccountID + "', '" + _UserName + "', '" + _Password + "', now(), 'Offline', 'true', null);";
+        " VALUES (\'" + _UserAccountID + "\', \'" + _UserName + "\',\'" + _Password + "\', now(), \'Offline\', \'true\', null);";
       return new Promise(resolve => {
         DBConnect.DBConnect(query, function (response) {
           if (response != undefined) {
@@ -90,7 +91,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
     }
 
     function Q3() {
-      let query = "INSERT INTO `sampledb`.`distributors` (`UserAccountID`,`Name`,`Commission`,`HeadOfficeID`) VALUES ('" + _UserAccountID + "', '" + _Name + "', " + _Commission + ",'" + _HeadOfficeID + "');";
+      let query = "INSERT INTO `sampledb`.`distributors` (`UserAccountID`,`Name`,`Commission`,`HeadOfficeID`) VALUES (\'" + _UserAccountID + "\', \'" + _Name + "\', " + _Commission + ",\'" + _HeadOfficeID + "\');";
       return new Promise(resolve => {
         DBConnect.DBConnect(query, function (response) {
           if (response != undefined) {

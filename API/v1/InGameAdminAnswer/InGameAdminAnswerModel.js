@@ -8,7 +8,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.InGameAdminAnswerSupport = function InGameAdminAnswerSupport(SupportTicketID,Answer,callback) {
     let _SupportTicketID = SupportTicketID;
     let _Answer = Answer;
-    let query = "UPDATE `sampledb`.`supporttickets` SET `Answer` = '"+_Answer+"', `Status` = 'done' , `AnswerDateTime`= now() WHERE (`SupportTicketID` = '"+_SupportTicketID+"');";
+    let query = "UPDATE `sampledb`.`supporttickets` SET `Answer` = \'"+_Answer+"\', `Status` = \'done\' , `AnswerDateTime`= now() WHERE (`SupportTicketID` = "+_SupportTicketID+");";
     DBConnect.DBConnect(query, function (response) {
       console.log(query);
       if (response != undefined) {

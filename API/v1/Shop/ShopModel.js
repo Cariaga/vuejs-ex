@@ -19,7 +19,7 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
 
   function Q1() {
     let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) " +
-      " VALUES ('" + _UserAccountID + "', '" + _UserName + "', '" + _Password + "', now(), 'Offline', 'true', null);";
+      " VALUES (\'" + _UserAccountID + "\', \'" + _UserName + "\', \'" + _Password + "\', now(), \'Offline\', \'true\', null);";
       console.log(query);
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
@@ -35,7 +35,7 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
 
   function Q2() {
     let query = "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) " +
-      "VALUES ('" + _UserAccountID + "', null, '" + _PhoneNumber + "', null);";
+      "VALUES (\'" + _UserAccountID + "\', null, \'" + _PhoneNumber + "\', null);";
       console.log(query);
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
@@ -50,7 +50,7 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
   }
 
   function Q3() {
-    let query = "INSERT INTO `sampledb`.`shops` (`UserAccountID`,`Name`,`Commission`,`DistributorID`) VALUES ('" + _UserAccountID + "', '" + _Name + "', " + _Commission + ",'" + _DistributorID + "');";
+    let query = "INSERT INTO `sampledb`.`shops` (`UserAccountID`,`Name`,`Commission`,`DistributorID`) VALUES (\'" + _UserAccountID + "\', \'" + _Name + "\', " + _Commission + ",\'" + _DistributorID + "\');";
     console.log(query);
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {

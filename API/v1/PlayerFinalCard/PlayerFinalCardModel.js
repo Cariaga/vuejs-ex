@@ -16,7 +16,7 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
   let _AfterPoints = AfterPoints;
   let _WinPoints = WinPoints;
   let query = "INSERT INTO `sampledb`.`playerfinalcard` (`UserAccountID`, `SeasonID`, `Rank`, `Score`, `Card`,`DateTime`, `BeforePoints`, `AfterPoints`, `WinPoints`) " +
-    "VALUES ('" + _UserAccountID + "', '" + _SeasonID + "', '" + _Rank + "', '" + _Score + "', '" + _Card + "', now(), '" + _BeforePoints + "', '" + _AfterPoints + "', '" + _WinPoints + "');"
+    "VALUES (\'" + _UserAccountID + "\', \'" + _SeasonID + "\', \'" + _Rank + "\', \'" + _Score + "\', \'" + _Card + "\', now(), \'" + _BeforePoints + "\', \'" + _AfterPoints + "\', \'" + _WinPoints + "\');"
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -33,7 +33,7 @@ module.exports.AddPlayerFinalCard2 = function AddPlayerFinalCard2(UserAccountID,
   let _Score = Score;
   let _Card = Card;
   let query = "INSERT INTO `sampledb`.`playerfinalcard` " +
-  "SET UserAccountID = '" + _UserAccountID + "', SeasonID = '" + _SeasonID + "', `Rank` = '" + _Rank + "', Score = '" + _Score + "', Card = '" + _Card + "';";
+  "SET UserAccountID = '" + _UserAccountID + "\', SeasonID = \'" + _SeasonID + "\', `Rank` = \'" + _Rank + "\', Score = \'" + _Score + "\', Card = \'" + _Card + "\';";
   console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -50,7 +50,7 @@ module.exports.UpdatePlayerFinalCard = function UpdatePlayerFinalCard(UserAccoun
   let _BeforePoints = BeforePoints;
   let _AfterPoints = AfterPoints;
   let _WinPoints = WinPoints;
-  let query = "UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '" + _BeforePoints + "', `AfterPoints` = '" + _AfterPoints + "', `WinPoints` = '" + _WinPoints + "' WHERE (`UserAccountID` = '" + _UserAccountID + "' and `SeasonID`='" + _SeasonID + "');";
+  let query = "UPDATE `sampledb`.`playerfinalcard` SET `BeforePoints` = '" + _BeforePoints + "', `AfterPoints` = '" + _AfterPoints + "', `WinPoints` = '" + _WinPoints + "' WHERE (`UserAccountID` = \'" + _UserAccountID + "\' and `SeasonID`=\'" + _SeasonID + "\');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);

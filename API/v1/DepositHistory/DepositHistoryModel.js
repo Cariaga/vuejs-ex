@@ -24,7 +24,7 @@ module.exports.AddDepositHistoryRequest = function AddDepositHistory(UserAccount
   
   let query =
     "INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)" +
-    "VALUES ('" + _UserAccountID + "','" + _UserTransactionID + "','" + _Amount + "',now(),'false');";
+    "VALUES (\'" + _UserAccountID + "\',\'" + _UserTransactionID + "\',\'" + _Amount + "\',now(),\'false\');";
 
   let query2 =
     "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`)" +
@@ -68,10 +68,10 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   let _Amount = Amount;
   let _AccountHolder = AccountHolder;
   let query = 'INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)'+
-              "VALUES ('"+_UserAccountID+"','"+_UserTransactionID+"','"+_Amount+"','deposit');";
+              "VALUES (\'"+_UserAccountID+"\',\'"+_UserTransactionID+"\',\'"+_Amount+"\',\'deposit\');";
 
   let query2 = 'INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`,`AccountHolder`, `RequestedDateTime`)'+
-              "VALUES ('"+_UserTransactionID+"','"+_AccountHolder+"',now());";
+              "VALUES (\'"+_UserTransactionID+"\',\'"+_AccountHolder+"\',now());";
 
 
   var promise = new Promise(function(resolve, reject) {
@@ -106,7 +106,7 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   }
   module.exports.DepositHistoryUserTransactionID = function DepositHistoryUserTransactionID(UserTransactionID,callback){
     let _UserTransactionID = UserTransactionID;
-    let query = "SELECT UserAccountID,UserTransactionID,Amount FROM sampledb.transactions WHERE UserTransactionID ='"+_UserTransactionID+"'";
+    let query = "SELECT UserAccountID,UserTransactionID,Amount FROM sampledb.transactions WHERE UserTransactionID =\'"+_UserTransactionID+"\'";
     var promise = new Promise(function(resolve, reject) {
       DBConnect.DBConnect(query, function (response) {
          if (response != undefined) {
@@ -126,7 +126,7 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
 
   module.exports.ComputedNewMoney = function ComputedNewMoney(UserTransactionID, callback) {
     let _UserTransactionID = UserTransactionID;
-    let query ="select (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"') as UserAccountID,(SELECT Amount FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')+(SELECT Money FROM sampledb.players where UserAccountID = (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"')) as Amount from sampledb.transactions where UserTransactionID='"+_UserTransactionID+"' and TransactionStatus='pending';";
+    let query ="select (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= '"+_UserTransactionID+"') as UserAccountID,(SELECT Amount FROM sampledb.transactions where UserTransactionID= \'"+_UserTransactionID+"\')+(SELECT Money FROM sampledb.players where UserAccountID = (SELECT UserAccountID FROM sampledb.transactions where UserTransactionID= \'"+_UserTransactionID+"\')) as Amount from sampledb.transactions where UserTransactionID=\'"+_UserTransactionID+"\' and TransactionStatus=\'pending\';";
     console.log('computed new money : '+query)
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
@@ -148,7 +148,7 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID,NewMoney, callback) {
     let _NewMoney = NewMoney;
     let _UserAccountID = UserAccountID;
-    let query ="UPDATE `sampledb`.`players` SET `Money` = '"+_NewMoney+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+    let query ="UPDATE `sampledb`.`players` SET `Money` = \'"+_NewMoney+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
     console.log(query)
     var promise = new Promise(function(resolve, reject) {
      DBConnect.DBConnect(query, function (response) {
@@ -171,14 +171,14 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
   module.exports.DepositHistoryUpdateApproved = function DepositHistoryUpdateApproved(UserTransactionID, UserAccountID, callback) {
     let _UserTransactionID = UserTransactionID;
     let _UserAccountID = UserAccountID;
-    let query = "SELECT UserTransactionID,Amount+(select Money from players as P where  P.UserAccountID = '"+_UserAccountID+"') as Money"+
-                " FROM sampledb.transactions where TransactionType ='deposit' and TransactionStatus='pending' and UserTransactionID= '"+_UserTransactionID+"' and UserAccountID= '"+_UserAccountID+"' ;";
+    let query = "SELECT UserTransactionID,Amount+(select Money from players as P where  P.UserAccountID = \'"+_UserAccountID+"\') as Money"+
+                " FROM sampledb.transactions where TransactionType ='deposit' and TransactionStatus='pending' and UserTransactionID= \'"+_UserTransactionID+"\' and UserAccountID= \'"+_UserAccountID+"\' ;";
 
     let query3 = "UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved' "+
-                 " WHERE `UserTransactionID` = '"+_UserTransactionID+"' AND UserAccountID = '"+_UserAccountID+"' LIMIT 1 ;";
+                 " WHERE `UserTransactionID` = \'"+_UserTransactionID+"\' AND UserAccountID = \'"+_UserAccountID+"\' LIMIT 1 ;";
 
     let query4 = "UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()"+
-                " WHERE (`UserTransactionID` = '"+_UserTransactionID+"');";
+                " WHERE (`UserTransactionID` = \'"+_UserTransactionID+"\');";
 
                 
     DBConnect.DBConnect(query, function (response) {
@@ -188,7 +188,7 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
       if (response != undefined) {
         let Amount  = response[0]['Money'];
         let query2 = 'UPDATE `sampledb`.`players` as P SET P.Money = '+Amount+
-                     " WHERE P.UserAccountID = '"+_UserAccountID+"' ;";
+                     " WHERE P.UserAccountID = \'"+_UserAccountID+"\' ;";
         //query2
         DBConnect.DBConnect(query2, function (response) {
           if (response != undefined) {
@@ -282,10 +282,10 @@ module.exports.AddDepositHistory = function AddDepositHistory(UserAccountID, Use
 module.exports.DepositHistoryUpdateArchived = function DepositHistoryUpdateArchived(UserTransactionID, callback) {
   let _UserTransactionID = UserTransactionID;
   let query = 'UPDATE `sampledb`.`transactions` SET `TransactionStatus` = \'archived\' '+
-              " WHERE (UserTransactionID = '"+_UserTransactionID+"' AND TransactionType = 'deposit');";
+              " WHERE (UserTransactionID = '"+_UserTransactionID+"' AND TransactionType = \'deposit\');";
 
   let query2 = 'UPDATE `sampledb`.`transactioninfo` SET ApprovedDateTime = now()'+
-              " WHERE (UserTransactionID = '"+_UserTransactionID+"');";
+              " WHERE (UserTransactionID = \'"+_UserTransactionID+"\');";
 
   console.log(query)
   console.log(query2)

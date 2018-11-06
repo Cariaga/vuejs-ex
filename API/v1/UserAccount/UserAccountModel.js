@@ -18,7 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} RegisteredTime
  * @param {*} callback
  */
-module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, ValidKey, callback) {
+/*module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, ValidKey, callback) {
   let query = 
   `SET @UserAccountID=${UserAccountID};`+
   `SET @AccessID=${AccessID};`+
@@ -38,7 +38,7 @@ module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID,
     }else{
       callback(undefined);
     }
-  });
+  });*/
   /*var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,
@@ -65,9 +65,9 @@ module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID,
       // mhhh, wth!
       console.log("error inserting UserAccountID:" + UserAccountID + " \n AccessID:" + AccessID + "\n UserName:" + UserName + "\n Password:" + Password + "\n Verify:" + Verify + "\n ValidKey:" + ValidKey + "\n RegisteredDate:" + RegisteredDate + "\n RegisteredTime:" + RegisteredTime);
       callback(undefined);
-    });*/
-}
-
+    });
+}*/
+/*
 module.exports.LoginHistoryUserAccountID = function LoginHistoryUserAccountID(UserAccountID, callback) {
   let query = `SET @UserAccountID=${UserAccountID};` +
     DBConnect.DBConnect(query, function (response) {
@@ -77,7 +77,7 @@ module.exports.LoginHistoryUserAccountID = function LoginHistoryUserAccountID(Us
       } else {
         callback(undefined);
       }
-    });
+    });*/
   /*Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
@@ -99,9 +99,9 @@ module.exports.LoginHistoryUserAccountID = function LoginHistoryUserAccountID(Us
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });*/
-}
-
+  });
+}*/
+/*
 module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccountIDLatest(UserAccountID, callback) {
   let query = `SET @UserAccountID=${UserAccountID};` +
     DBConnect.DBConnect(query, function (response) {
@@ -111,7 +111,7 @@ module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccoun
       } else {
         callback(undefined);
       }
-    });
+    });*/
   /*Models.LoginHistory.sync();
   let result = Models.LoginHistory.findAll({
     where: {
@@ -134,8 +134,8 @@ module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccoun
   }).catch(function (result) { //catching any then errors
     console.log("Error " + result);
     callback(undefined);
-  });*/
-}
+  });
+}*/
 
 /**
  *
@@ -150,6 +150,7 @@ module.exports.LoginHistoryUserAccountIDLatest = function LoginHistoryUserAccoun
  * @param {*} RegisteredTime
  * @param {*} callback
  */
+/*
 module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID, UserName, Password, Verify, ValidKey, callback) {
   let query = `SET @UserAccountID=${UserAccountID};`+
   `SET @AccessID=${AccessID};`+
@@ -167,7 +168,7 @@ module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID,
     }else{
       callback(undefined);
     }
-  });
+  });*/
   /*var item1 = Models.UserAccount.build({
     UserAccountID: UserAccountID,
     AccessID: AccessID,
@@ -194,6 +195,6 @@ module.exports.AddUserAccount = function AddUserAccount(UserAccountID, AccessID,
       // mhhh, wth!
       console.log("error inserting UserAccountID:" + UserAccountID + " \n AccessID:" + AccessID + "\n UserName:" + UserName + "\n Password:" + Password + "\n Verify:" + Verify + "\n ValidKey:" + ValidKey + "\n RegisteredDate:" + RegisteredDate + "\n RegisteredTime:" + RegisteredTime);
       callback(undefined);
-    });*/
+    });
 }
-
+*/

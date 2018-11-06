@@ -22,7 +22,7 @@ module.exports.NotificationUpdate = function NotificationUpdate(NotificationID, 
 
   let query =
   "UPDATE `sampledb`.`notifications` " +
-  "SET Title = '"+_Title+"', `Description` = '"+_Description+"', `DateTime` = now(), `Status` = '"+_Status+"'" +
+  "SET Title = '"+_Title+"', `Description` = \'"+_Description+"\', `DateTime` = now(), `Status` = \'"+_Status+"\'" +
   "WHERE NotificationID = NotificationID";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -51,7 +51,7 @@ module.exports.AddNotification = function AddNotification(NotificationType, Titl
   let _Status = Status;
   let query =
     "INSERT INTO `sampledb`.`notifications` (`NotificationType`, `Title`, `Description`, `DateTime`, `Status`) "+
-    "VALUES ('"+_NotificationType+"', '"+_Title+"', '"+_Description+"', now(),'"+_Status+"');";
+    "VALUES (\'"+_NotificationType+"\', \'"+_Title+"\', \'"+_Description+"\', now(),\'"+_Status+"\');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -65,7 +65,7 @@ module.exports.NotificationSearch = function NotificationSearch(Column, Value, c
   let _Column = Column;
   let _Value = Value;
   let query = 
-  "SELECT * FROM sampledb.notifications where "+_Column+" like '%"+_Value+"%';";
+  "SELECT * FROM sampledb.notifications where "+_Column+" like \'%"+_Value+"%\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);

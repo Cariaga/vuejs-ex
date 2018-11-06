@@ -26,7 +26,7 @@ module.exports.MemberListSearch = function MemberListSearch(Column, Value, callb
     let _Column = Column;
     let _Value = Value;
     let query = 
-    "SELECT * FROM sampledb.member_list where `"+_Column+"` like '%"+_Value+"%';";
+    "SELECT * FROM sampledb.member_list where `"+_Column+"` like \'%"+_Value+"%\';";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {

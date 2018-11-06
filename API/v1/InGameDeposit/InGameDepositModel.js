@@ -14,7 +14,7 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amoun
 
   function Transactions() {
     let query =
-      "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES ('" + _UserTransactionID + "', '" + _UserAccountID + "', '" + _Amount + "', 'pending', 'deposit');";
+      "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) VALUES (\'" + _UserTransactionID + "\', \'" + _UserAccountID + "\', \'" + _Amount + "\', \'pending\', \'deposit\');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -29,7 +29,7 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amoun
 
   function TransactionInfos() {
     let query =
-      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`) VALUES ('" + _UserTransactionID + "', now());";
+      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`) VALUES (\'" + _UserTransactionID + "\', now());";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

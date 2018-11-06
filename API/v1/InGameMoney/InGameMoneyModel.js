@@ -9,7 +9,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.Money = function Money(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
-        "SELECT Money FROM sampledb.player_profile where UserAccountID='"+_UserAccountID+"'";
+        "SELECT Money FROM sampledb.player_profile where UserAccountID=\'"+_UserAccountID+"\'";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);

@@ -27,7 +27,7 @@ module.exports.DepositSearch = function DepositSearch(Column, Value, StartDate, 
   let _StartDate = StartDate;
   let _EndDate = EndDate;
   let query =
-    "SELECT * FROM sampledb.deposit_list DL where " + _Column + " like '%" + _Value + "%' and (DL.requesteddatetime BETWEEN '" + _StartDate + "' AND '" + _EndDate + "');";
+    "SELECT * FROM sampledb.deposit_list DL where " + _Column + " like \'%" + _Value + "%\' and (DL.requesteddatetime BETWEEN \'" + _StartDate + "\' AND \'" + _EndDate + "\');";
     // console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {

@@ -8,7 +8,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.InGameSeasonClear = function InGameSeasonClear(SeasonID, callback) {
     let _SeasonID = SeasonID;
-    let query ="UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '0' WHERE (`SeasonID` = '"+_SeasonID+"')";
+    let query ="UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = '0' WHERE (`SeasonID` = \'"+_SeasonID+"\')";
     console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

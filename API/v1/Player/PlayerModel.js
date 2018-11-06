@@ -16,6 +16,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
+/*
 module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -35,13 +36,14 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
       }
     });
 }
-
+*/
 /**
  *
  *
  * @param {*} UserAccountID
  * @param {*} callback
  */
+/*
 module.exports.PlayerUserAccountID = function PlayerUserAccountID(UserAccountID, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -53,7 +55,7 @@ module.exports.PlayerUserAccountID = function PlayerUserAccountID(UserAccountID,
         callback(undefined);
       }
     });
-}
+}*/
 /**
  *
  *
@@ -61,6 +63,7 @@ module.exports.PlayerUserAccountID = function PlayerUserAccountID(UserAccountID,
  * @param {*} CurrentPoints
  * @param {*} callback
  */
+/*
 module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, CurrentPoints, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -76,7 +79,7 @@ module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, Cur
         callback(undefined);
       }
     });
-}
+}*/
 /**
  *
  *
@@ -84,6 +87,7 @@ module.exports.PlayerUpdatePoint = function PlayerUpdatePoint(UserAccountID, Cur
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
+/*
 module.exports.PayerUpdateRoomName = function PayerUpdateRoomName(UserAccountID, CurrentRoomName, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -101,7 +105,8 @@ module.exports.PayerUpdateRoomName = function PayerUpdateRoomName(UserAccountID,
       }
     });
 }
-
+*/
+/*
 module.exports.PlayerUpdate = function PlayerUpdate(PlayersID, UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   let query =
     `SET @PlayersID=${PlayersID};` +
@@ -122,7 +127,7 @@ module.exports.PlayerUpdate = function PlayerUpdate(PlayersID, UserAccountID, Sh
         callback(undefined);
       }
     });
-}
+}*/
 /**
  *
  *
@@ -134,6 +139,7 @@ module.exports.PlayerUpdate = function PlayerUpdate(PlayersID, UserAccountID, Sh
  * @param {*} CurrentRoomName
  * @param {*} callback
  */
+/*
 module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName, Name, Surname, CurrentRoomName, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -152,10 +158,10 @@ module.exports.AddPlayer = function AddPlayer(UserAccountID, ShopID, ScreenName,
         callback(undefined);
       }
     });
-}
+}*/
 
 module.exports.PlayerInformation = function PlayerInformation(UserAccountID, callback) {
-  let query ="SELECT UserAccountID,ScreenName,Name,Surname,CurrentRoomName,CurrentPoints FROM sampledb.players where UserAccountID='"+UserAccountID+"';";
+  let query ="SELECT UserAccountID,ScreenName,Name,Surname,CurrentRoomName,CurrentPoints FROM sampledb.players where UserAccountID=\'"+UserAccountID+"\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       callback(response);

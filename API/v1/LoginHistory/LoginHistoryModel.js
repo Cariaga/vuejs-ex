@@ -18,6 +18,7 @@ var uuidv4 = require('uuid/v4');
  * @param {*} Date
  * @param {*} callback
  */
+/*
 module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, DeviceName, DeviceRam, DeviceCpu, LoginDateTime, callback) { //accessed by /Login
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -36,4 +37,4 @@ module.exports.AddLoginHistory = function AddLoginHistory(UserAccountID, IP, Dev
         callback(undefined);
       }
     });
-}
+}*/

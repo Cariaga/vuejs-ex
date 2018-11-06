@@ -26,21 +26,21 @@ module.exports.RegisterAccount2 = function RegisterAccount2(UserAccountID, Acces
   let _AccountHolder = AccountHolder;
   let UserAccountQuery =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`,`Recommended`) " +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'true','" + _ValidKey + "','"+_ShopID+"');";
+    "VALUES (\'" + _UserAccountID + "\',\'" + _UserName + "\',\'" + _Password + "\',now(),\'true\',\'" + _ValidKey + "\',\'"+_ShopID+"\');";
   console.log(UserAccountQuery);
   let UserInfoQuery =
     "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`) " +
-    "VALUES ('" + _UserAccountID + "','" + _Email + "','" + _PhoneNumber + "');";
+    "VALUES (\'" + _UserAccountID + "\',\'" + _Email + "\',\'" + _PhoneNumber + "\');";
   console.log(UserInfoQuery);
 
   let PlayerQuery =
     "INSERT INTO `sampledb`.`players` (`UserAccountID`, `ShopID`, `ScreenName`, `Name`, `Surname`, `CurrentRoomName`, `CurrentPoints`) " +
-    "VALUES ('" + _UserAccountID + "', '" + _ShopID + "', '" + _ScreenName + "', '', '', '', 0)";
+    "VALUES (\'" + _UserAccountID + "\', \'" + _ShopID + "\', \'" + _ScreenName + "\', \'\', \'\', \'\', 0)";
   console.log(PlayerQuery);
 
   let BankInfosQuery =
     "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`,`AccountHolder`) " +
-    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','true','" + _Expiration + "',now(),'" + _AccountHolder + "'); ";
+    "VALUES (\'" + _UserAccountID + "\',\'" + _BankName + "\',\'" + _AccountNumber + "\',\'" + _SecurityCode + "\',\'true\',\'" + _Expiration + "\',now(),\'" + _AccountHolder + "\'); ";
   console.log(BankInfosQuery);
 
   function Q1(){
@@ -122,16 +122,16 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
   let _Recommended = Recommended;
   let query =
     "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`,`Verified`,`Key`,`Recommended`) " +
-    "VALUES ('" + _UserAccountID + "','" + _UserName + "','" + _Password + "',now(),'false','" + _ValidKey + "','"+_Recommended+"');";
+    "VALUES (\'" + _UserAccountID + "\',\'" + _UserName + "\',\'" + _Password + "\',now(),\'false\',\'" + _ValidKey + "\',\'"+_Recommended+"\');";
   console.log(query);
 
   let query2 =
     "INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`) " +
-    "VALUES ('" + _UserAccountID + "','" + _Email + "','" + _PhoneNumber + "');";
+    "VALUES (\'" + _UserAccountID + "\',\'" + _Email + "\',\'" + _PhoneNumber + "\');";
   console.log(query2);
   let query3 =
     "INSERT INTO `sampledb`.`bankinformations` (`UserAccountID`, `BankName`, `AccountNumber`, `SecurityCode`, `Valid`, `Expiration`, `DateTime`) " +
-    "VALUES ('" + _UserAccountID + "','" + _BankName + "','" + _AccountNumber + "','" + _SecurityCode + "','false','" + _Expiration + "',now()); ";
+    "VALUES (\'" + _UserAccountID + "\',\'" + _BankName + "\',\'" + _AccountNumber + "\',\'" + _SecurityCode + "\',\'false',\'" + _Expiration + "\',now()); ";
   console.log(query3);
 
   async.waterfall([Q1, Q2], function (err, response) {

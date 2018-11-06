@@ -37,7 +37,7 @@ module.exports.SupportSearchSupportTicketUserAccountID = function SupportSearchS
     let _SupportTicketID = SupportTicketID;
     let _UserAccountID = UserAccountID;
     let query =
-      "SELECT * FROM sampledb.player_writesupport where SupportTicketID="+_SupportTicketID+" and UserAccountID='"+_UserAccountID+"';";
+      "SELECT * FROM sampledb.player_writesupport where SupportTicketID="+_SupportTicketID+" and UserAccountID=\'"+_UserAccountID+"\';";
   
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -52,7 +52,7 @@ module.exports.SupportSearchSupportTicketUserAccountID = function SupportSearchS
 module.exports.WriteSupportTicketID = function WriteSupportTicketID(UserAccountID,SupportTicketID,callback){
     let _SupportTicketID = SupportTicketID;
     let _UserAccountID = UserAccountID;
-    let query = "SELECT * FROM sampledb.player_writesupport where SupportTicketID='"+_SupportTicketID+"' and UserAccountID='"+_UserAccountID+"';";
+    let query = "SELECT * FROM sampledb.player_writesupport where SupportTicketID="+_SupportTicketID+" and UserAccountID=\'"+_UserAccountID+"\';";
   console.log(query);
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

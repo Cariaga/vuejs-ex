@@ -8,7 +8,7 @@ module.exports.LogOutUserAccount = function (UserAccountID, callback) {
     let query =
         "UPDATE `sampledb`.`useraccounts` " +
         "SET OnlineStatus = 'Offline' " +
-        "WHERE UserAccountID = '" + _UserAccountID + "' ";
+        "WHERE UserAccountID = \'" + _UserAccountID + "\' ";
 
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

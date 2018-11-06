@@ -59,7 +59,7 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListI
   let query = 
   "UPDATE `sampledb`.`blacklist` "+
   " SET Status = 'Released', ReleaseDate=now()"+
-  " WHERE BlackListID = "+_BlackListID+" and UserAccountID='"+_UserAccountID+"';"
+  " WHERE BlackListID = "+_BlackListID+" and UserAccountID=\'"+_UserAccountID+"\';"
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -87,7 +87,7 @@ module.exports.AddBlackList = function AddBlackList(UserAccountID, Reason, callb
   let _Reason = Reason;
   let query =
   "INSERT INTO `sampledb`.`blacklist` (`UserAccountID`, `Status`, `Reason`, `ReportDate`) "+
-  "VALUES ('"+_UserAccountID+"' ,'Blocked',  '"+_Reason+"',now());";
+  "VALUES (\'"+_UserAccountID+"\' ,\'Blocked\',  \'"+_Reason+"\',now());";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -106,7 +106,7 @@ module.exports.BlacklistSearch = function BlacklistSearch(Column, Value, callbac
   +" WHERE BlackListID IN (SELECT MAX(BlackListID)"
   +" FROM player_black_list"
   +" GROUP BY UserAccountID)"
-  +" AND "+_Column+" like '%"+_Value+"%';";
+  +" AND "+_Column+" like \'%"+_Value+"%\';";
 
   console.log(query)
   DBConnect.DBConnect(query, function (response) {

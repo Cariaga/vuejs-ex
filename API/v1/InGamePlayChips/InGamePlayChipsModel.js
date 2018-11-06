@@ -11,7 +11,7 @@ module.exports.isSeasonEnded = function isSeasonEnded(UserAccountID,SeasonID, ca
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let query =
-        "SELECT * FROM sampledb.playerfinalcard where SeasonID='"+_SeasonID+"' and UserAccountID='"+_UserAccountID+"' and SeasonEnded is null;";
+        "SELECT * FROM sampledb.playerfinalcard where SeasonID=\'"+_SeasonID+"\' and UserAccountID=\'"+_UserAccountID+"\' and SeasonEnded is null;";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);
@@ -39,7 +39,7 @@ module.exports.PlayerPointsUpdate = function PlayerPointsUpdate(UserAccountID,Ne
     let _UserAccountID = UserAccountID;
     let _NewPlayerPoints = NewPlayerPoints;
     let query =
-        "UPDATE `sampledb`.`players` SET `CurrentPoints` = '"+_NewPlayerPoints+"' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+        "UPDATE `sampledb`.`players` SET `CurrentPoints` = \'"+_NewPlayerPoints+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);
@@ -53,7 +53,7 @@ module.exports.PlayerSeasonChips = function PlayerSeasonChips(UserAccountID,Seas
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let query =
-        "SELECT UserAccountID,CurrentPoints FROM sampledb.playerfinalcard where UserAccountID='"+_UserAccountID+"' and SeasonID='"+_SeasonID+"';";
+        "SELECT UserAccountID,CurrentPoints FROM sampledb.playerfinalcard where UserAccountID=\'"+_UserAccountID+"\' and SeasonID=\'"+_SeasonID+"\';";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);
@@ -67,7 +67,7 @@ module.exports.PlayerNewPointsInSeason = function PlayerNewPointsInSeason(UserAc
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let _Points = Points;
-    let query = "UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = "+_Points+" WHERE (`UserAccountID` = '"+_UserAccountID+"' and SeasonID='"+_SeasonID+"');";
+    let query = "UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints` = "+_Points+" WHERE (`UserAccountID` = \'"+_UserAccountID+"\' and SeasonID=\'"+_SeasonID+"\');";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

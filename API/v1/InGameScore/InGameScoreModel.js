@@ -9,7 +9,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.WinRate = function WinRate(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
-        "SELECT WinRate FROM sampledb.in_game_score where UserAccountID='" + _UserAccountID + "';";
+        "SELECT WinRate FROM sampledb.in_game_score where UserAccountID=\'" + _UserAccountID + "\';";
 
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

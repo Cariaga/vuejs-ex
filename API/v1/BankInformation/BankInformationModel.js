@@ -18,6 +18,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Date
  * @param {*} callback
  */
+/*
 module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccountID, BankInformationID, BankName, SecurityCode, Expiration, DateTime, callback) {
 
   let query =
@@ -38,7 +39,7 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
       } else {
         callback(undefined);
       }
-    });
+    });*/
   /*Models.BankInformation.update({
       UserAccountID: UserAccountID,
       BankName: BankName,
@@ -57,9 +58,9 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
     .catch(error => {
       console.log("Error Updating " + error);
       callback(undefined);
-    });*/
+    });
 
-}
+}*/
 /**
  *
  *
@@ -72,6 +73,7 @@ module.exports.BankInformationUpdate = function BankInformationUpdate(UserAccoun
  * @param {*} Date
  * @param {*} callback
  */
+/*
 module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, BankName,AccountNumber, SecurityCode, Valid, Expiration, DateTime, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -110,6 +112,6 @@ module.exports.BankInformationAdd = function BankInformationAdd(UserAccountID, B
     .catch(error => {
       console.log("error inserting " + error);
       callback(undefined);
-    });*/
+    });
 
-}
+}*/

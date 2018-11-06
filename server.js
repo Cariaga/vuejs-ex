@@ -21,9 +21,11 @@ const url = require('url');
 const stringify = require('json-stringify');
 const Enumerable = require('linq');
 var cors = require('cors');
+
 //app.use(sqlinjection);// disable because it blocks token access
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
+
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -41,15 +43,22 @@ app.use(function (req, res, next) {
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.header('Access-Control-Allow-Credentials', true);
+
   // Pass to next layer of middleware
+
     next();
 });
+app.options('*', cors());
+//app.options('/Api/v1/Game/Login/', cors());// alternativly better than the app * 
+
+
 // configuration =================
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('combined')); // log every request to the console
 app.use(bodyParser.urlencoded({
   'extended': 'true'
 })); // parse application/x-www-form-urlencoded
+
 
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({

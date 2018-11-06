@@ -14,6 +14,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} TelephoneNumber
  * @param {*} callback
  */
+/*
 module.exports.UserInfoUpdate = function UserInfoUpdate(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -28,8 +29,8 @@ module.exports.UserInfoUpdate = function UserInfoUpdate(UserAccountID, Email, Ph
         callback(undefined);
       }
     });
-}
-
+}*/
+/*
 module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccountID, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -41,13 +42,14 @@ module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccoun
         callback(undefined);
       }
     });
-}
+}*/
 /**
  *
  *
  * @param {*} UserAccountID
  * @param {*} callback
  */
+/*
 module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccountID, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -59,8 +61,8 @@ module.exports.UserInfoUserAccountID = function UserInfoUserAccountID(UserAccoun
         callback(undefined);
       }
     });
-}
-
+}*/
+/*
 module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID, Email, callback) { // Verification With UserAccountID // Forcing Account To be Verified // Via UserAccountID
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -77,8 +79,8 @@ module.exports.UserInfoUpdateEmail = function UserInfoUpdateEmail(UserAccountID,
         callback(undefined);
       }
     });
-}
-
+}*/
+/*
 module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNumber, TelephoneNumber, callback) {
 
   let query =
@@ -96,4 +98,4 @@ module.exports.AddUserInfo = function AddUserInfo(UserAccountID, Email, PhoneNum
         callback(undefined);
       }
     });
-}
+}*/

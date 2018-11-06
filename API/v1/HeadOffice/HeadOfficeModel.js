@@ -19,7 +19,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
   
   function Q1(){
     let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
-    " VALUES ('"+_UserAccountID+"', '"+_UserName+"', '"+_Password+"', now(), 'Offline', 'true', null);";
+    " VALUES (\'"+_UserAccountID+"\', \'"+_UserName+"\', \'"+_Password+"\', now(), \'Offline\', \'true\', null);";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

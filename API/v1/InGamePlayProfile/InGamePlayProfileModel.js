@@ -10,7 +10,7 @@ module.exports.InGamePlayProfile = function InGamePlayProfile(UserAccountID, Sea
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let query =
-        "SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where UserAccountID = '" + _UserAccountID + "' and SeasonID = '" + _SeasonID + "';";
+        "SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where UserAccountID = \'" + _UserAccountID + "\' and SeasonID = \'" + _SeasonID + "\';";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             // console.log(response);
@@ -26,8 +26,8 @@ module.exports.InGamePlayProfileUpdatePoints = function InGamePlayProfileUpdateP
     let _CurrentPoints = CurrentPoints;
     let query =
         "UPDATE `sampledb`.`playerfinalcard` " +
-        "SET CurrentPoints = '" + _CurrentPoints + "' " +
-        "WHERE UserAccountID = '" + _UserAccountID + "' AND SeasonID = '" + _SeasonID + "' ";
+        "SET CurrentPoints = \'" + _CurrentPoints + "\' " +
+        "WHERE UserAccountID = \'" + _UserAccountID + "\' AND SeasonID = \'" + _SeasonID + "\' ";
 
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

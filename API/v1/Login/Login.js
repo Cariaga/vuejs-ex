@@ -1,7 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
-
+var cors = require('cors')
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
@@ -272,6 +272,7 @@ module.exports = function (app) {
     Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
 
   });*/
+ // app.options('/Api/v1/Game/Login/', cors());
 
   //Post : only possible when its authorized
   app.post('/Api/v1/Game/Login/', Security.verifyToken, function (req, res) {
@@ -292,6 +293,7 @@ module.exports = function (app) {
     let GraphicsDevice = req.body.GraphicsDevice;
     Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
   });
+
 
 /*
   app.get('/Api/v1/Login/UserName/:UserName/Password/:Password/IP/:IP/DeviceName/:DeviceName/DeviceRam/:DeviceRam/DeviceCpu/:DeviceCpu/', function (req, res) {

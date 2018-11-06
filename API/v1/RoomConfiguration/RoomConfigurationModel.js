@@ -25,7 +25,7 @@ module.exports.AddRoomConfiguration = function AddRoomConfiguration(RoomID, Game
   let _Speed = Speed;
   let query =
     "INSERT INTO `sampledb`.`roomconfigurations` (`RoomID`, `SmallBlind`, `BigBlind`, `Speed`, `GameType`, `CreatedRoomDateTime`) " +
-    "VALUES ('" + _RoomID + "', '" + _SmallBlind + "', '" + _BigBlind + "', '" + _Speed + "', '" + _GameType + "', now());";
+    "VALUES (\'" + _RoomID + "\', \'" + _SmallBlind + "\', \'" + _BigBlind + "\', \'" + _Speed + "\', \'" + _GameType + "\', now());";
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -40,7 +40,7 @@ module.exports.RoomConfigurationRoomIDUpdateNotice = function RoomConfigurationR
   let _RoomID = RoomID;
   let _RoomNotice = RoomNotice;
   let query =
-    "UPDATE `sampledb`.`roomconfigurations` SET `RoomNotice` = '"+_RoomNotice+"' WHERE (`RoomID` = '"+_RoomID+"');";
+    "UPDATE `sampledb`.`roomconfigurations` SET `RoomNotice` = \'"+_RoomNotice+"\' WHERE (`RoomID` = \'"+_RoomID+"\');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
      // console.log(response);
@@ -102,8 +102,8 @@ module.exports.RoomConfigurationRoomNotice = function RoomConfigurationRoomNotic
   let _RoomNotice = RoomNotice;
   let query =
     "UPDATE `sampledb`.`roomconfigurations`" +
-    "SET RoomNotice = " + _RoomNotice + "" +
-    "WHERE RoomID = " + _RoomID + "";
+    "SET RoomNotice = '" + _RoomNotice + "'" +
+    "WHERE RoomID = \'" + _RoomID + "\'";
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {

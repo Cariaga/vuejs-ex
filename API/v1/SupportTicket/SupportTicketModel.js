@@ -36,8 +36,8 @@ module.exports.SupportTicketUpdate = function SupportTicketUpdate(SupportTicketI
   let _Status = Status;
   let query =
     "UPDATE `sampledb`.`supporttickets` "+
-    "SET Answer = '"+_Answer+"', Status = '"+_Status+"' "+
-    "WHERE SupportTicketID = '"+_SupportTicketID+"' ";
+    "SET Answer = \'"+_Answer+"\', Status = \'"+_Status+"\' "+
+    "WHERE SupportTicketID = \'"+_SupportTicketID+"\' ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -69,7 +69,7 @@ module.exports.AddSupportTicket = function AddSupportTicket(UserAccountID, Title
   let _Status = Status;
   let query =
     "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Description`, `Reason`, `Answer`, `DateTime`, `Status`) "+
-    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Description+"','"+_Reason+"','"+_Answer+"', now(),'"+_Status+"');";
+    "VALUES (\'"+_UserAccountID+"\',\'"+_Title+"\',\'"+_Description+"\',\'"+_Reason+"\',\'"+_Answer+"\', now(),\'"+_Status+"\');";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -87,7 +87,7 @@ module.exports.RequestSupportTicket = function RequestSupportTicket(UserAccountI
   let _Reason = Reason;
   let query =
     "INSERT INTO `sampledb`.`supporttickets` (`UserAccountID`, `Title`, `Reason`, `DateTime`,`Status` ) "+
-    "VALUES ('"+_UserAccountID+"','"+_Title+"','"+_Reason+"', now(),'pending'); ";
+    "VALUES (\'"+_UserAccountID+"\',\'"+_Title+"\',\'"+_Reason+"\', now(),\'pending\'); ";
 
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {

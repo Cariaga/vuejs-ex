@@ -6,7 +6,7 @@ var moment = require('moment');
 const Collection = require('linqjs');
 
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName, AccessTags, callback) {
+/*module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName, AccessTags, callback) {
   let query =
     `SET @AccessID='${AccessID}';` +
     `SET @AccessName='${AccessName}';` +
@@ -22,7 +22,7 @@ module.exports.AddAccessControl = function AddAccessControl(AccessID, AccessName
       callback(undefined);
     }
   });
-}
+}*/
 
 
 

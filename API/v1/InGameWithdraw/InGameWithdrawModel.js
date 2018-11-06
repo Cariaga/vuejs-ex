@@ -20,7 +20,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       return new Promise(resolve => {
         let query =
       "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) "+
-      " VALUES ('"+_UserTransactionID+"','"+_UserAccountID+"', '"+_Amount+"', 'pending', 'withdraw'); ";
+      " VALUES (\'"+_UserTransactionID+"\',\'"+_UserAccountID+"\', \'"+_Amount+"\', \'pending\', \'withdraw\'); ";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -35,7 +35,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       return new Promise(resolve => {
         let query =
       "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `AccountHolder`, `RequestedDateTime`) "+
-      "VALUES ('"+_UserTransactionID+"', '"+_Name+"', now())";
+      "VALUES (\'"+_UserTransactionID+"\', \'"+_Name+"\', now())";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -50,7 +50,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       return new Promise(resolve => {
         let query =
       "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
-      " VALUES ('"+_UserTransactionID+"', '"+_ContactNumber+"', '"+_Bank+"', '"+_AccountNumber+"');";
+      " VALUES (\'"+_UserTransactionID+"\', \'"+_ContactNumber+"\', \'"+_Bank+"\', \'"+_AccountNumber+"\');";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);

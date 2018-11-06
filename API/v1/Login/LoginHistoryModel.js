@@ -15,12 +15,12 @@ module.exports.AddLoginHistory = function(UserName,Password, IP, DeviceName, Dev
     let _DeviceRam = DeviceRam;
     let _DeviceCpu = DeviceCpu;
     let query =
-    "SELECT UserAccountID,Verified,RegisteredDateTime FROM sampledb.useraccounts where UserName='"+_UserName+"'and Password='"+_Password+"';";
+    "SELECT UserAccountID,Verified,RegisteredDateTime FROM sampledb.useraccounts where UserName=\'"+_UserName+"\'and Password=\'"+_Password+"\';";
 
     async.waterfall([Q1], function (err, response) {
       let query2 =
       "INSERT INTO `sampledb`.`loginhistories` (`IP`, `UserAccountID`, `DeviceName`, `DeviceRam`, `DeviceCpu`, `LoginDateTime`) "+
-      "VALUES ('"+_IP+"','"+_UserAccountID+"','"+_DeviceName+"','"+_DeviceRam+"','"+_DeviceCpu+"',now());";
+      "VALUES (\'"+_IP+"\',\'"+_UserAccountID+"\',\'"+_DeviceName+"\',\'"+_DeviceRam+"\',\'"+_DeviceCpu+"\',now());";
         DBConnect.DBConnect(query2, function (response) {
             if (response != undefined) {
                 console.log(response);
@@ -54,7 +54,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     "FROM sampledb.useraccounts as UA "+
     "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
-    "where UA.UserName ='"+_UserName+"' and UA.Password= '"+_Password+"' "+
+    "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
     "order by BL.ReportDate desc limit 1; ";
       //console.log(Query);
       return new Promise(resolve => {
@@ -71,7 +71,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
 
     function QueryAccountType() {
       let Query = 
-     "SELECT * FROM sampledb.useraccount_types where useraccount_types.`UserName`='"+_UserName+"'";
+     "SELECT * FROM sampledb.useraccount_types where useraccount_types.`UserName`=\'"+_UserName+"\'";
        return new Promise(resolve => {
          DBConnect.DBConnect(Query, function (response) {
            if (response != undefined) {
@@ -120,7 +120,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     "FROM sampledb.useraccounts as UA "+
     "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
-    "where UA.UserName ='"+_UserName+"' and UA.Password= '"+_Password+"' "+
+    "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
     "order by BL.ReportDate desc limit 1; ";
 
       console.log(Query);
@@ -139,7 +139,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     function QueryAccountType() {
       let Query = 
      "SELECT `UA`.`UserName`,FAT.UserAccountID,IFNULL(FAT.AccountType, 'NoType') as AccountType FROM sampledb.fullaccounttypes as FAT "+
-     "Inner Join sampledb.useraccounts as UA on UA.UserAccountID = FAT.UserAccountID where `UA`.`UserName`='"+_UserName+"'; ";
+     "Inner Join sampledb.useraccounts as UA on UA.UserAccountID = FAT.UserAccountID where `UA`.`UserName`=\'"+_UserName+"\'; ";
        return new Promise(resolve => {
          DBConnect.DBConnect(Query, function (response) {
            if (response != undefined) {

@@ -38,11 +38,11 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
 
   let query2 =
   "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`,`AccountHolder`, `RequestedDateTime`)"+
-  "VALUES ('"+_UserTransactionID+"','"+_UserName+"', now());";
+  "VALUES (\'"+_UserTransactionID+"\',\'"+_UserName+"\', now());";
 
   let query3 =
   "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID` ,`ContactNumber`, `BankName`, `AccountNumber`,`RemainingAmount`,`ExistingAmount`) "+
-  " VALUES ('"+_UserTransactionID+"', '"+_ContactNumber+"','"+_BankName+"', '"+_AccountNumber+"', 0 , 0);";
+  " VALUES (\'"+_UserTransactionID+"\', \'"+_ContactNumber+"\',\'"+_BankName+"\', \'"+_AccountNumber+"\', 0 , 0);";
 
   var promise = new Promise(function(resolve, reject) {
     DBConnect.DBConnect(query, function (response) {
