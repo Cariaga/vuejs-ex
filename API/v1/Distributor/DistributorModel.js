@@ -14,6 +14,7 @@ let DBConnect = require("../../SharedController/DBConnect");
  * @param {*} Name
  * @param {*} callback
  */
+/*
 module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOfficeID, Name, callback) {
   let query = "";
   DBConnect.DBConnect(query, function (response) {
@@ -24,7 +25,7 @@ module.exports.AddDistributor = function AddDistributor(UserAccountID, HeadOffic
       callback(undefined);
     }
   });
-}
+}*/
 /**
  *
  *

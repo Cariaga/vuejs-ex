@@ -52,7 +52,7 @@ module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdat
   let _TransferHistoryUUID = TransferHistoryUUID;
   let _Status = Status;
   let query = 
-  "UPDATE `sampledb`.`transferhistories` SET `Status` = '"+_Status+"' WHERE (`TransferHistoryUUID` = \'"+_TransferHistoryUUID+"\');";
+  "UPDATE `sampledb`.`transferhistories` SET `Status` = \'"+_Status+"\' WHERE (`TransferHistoryUUID` = \'"+_TransferHistoryUUID+"\');";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

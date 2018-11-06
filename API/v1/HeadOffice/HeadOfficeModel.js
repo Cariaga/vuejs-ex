@@ -33,7 +33,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
   }
   function Q2(){
     let query ="INSERT INTO `sampledb`.`userinfos` (`UserAccountID`, `Email`, `PhoneNumber`, `TelephoneNumber`) "+
-    "VALUES ('"+_UserAccountID+"', null, '"+_PhoneNumber+"', null);";
+    "VALUES (\'"+_UserAccountID+"\', null, \'"+_PhoneNumber+"\', null);";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -46,7 +46,7 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
     });
   }
   function Q3(){
-    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`,`Name`,`Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Commission+"');";
+    let query = "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`,`Name`,`Commission`) VALUES (\'"+_UserAccountID+"\', \'"+_Name+"\', \'"+_Commission+"\');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -78,7 +78,7 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
   let _Commission = Commission;
 
   let query =
-    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `Commission`) VALUES ('"+_UserAccountID+"', '"+_Name+"', '"+_Description+"',"+_Commission+");";
+    "INSERT INTO `sampledb`.`headoffices` (`UserAccountID`, `Name`, `Description`, `Commission`) VALUES (\'"+_UserAccountID+"\', \'"+_Name+"\', \'"+_Description+"\',"+_Commission+");";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -96,6 +96,7 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
  * @param {*} Name
  * @param {*} callback
  */
+/*
 module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
   let query ="";
     DBConnect.DBConnect(query, function (response) {
@@ -106,4 +107,4 @@ module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAc
         callback(undefined);
       }
     });
-}
+}*/

@@ -319,7 +319,7 @@ module.exports.DepositHistoryUpdateArchived = function DepositHistoryUpdateArchi
 }
 
 
-
+/*
 module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdateProcessing(UserAccountID, DepositHistoryID, ProcessingDATE, ProcessingTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
@@ -330,9 +330,9 @@ module.exports.DepositHistoryUpdateProcessing = function DepositHistoryUpdatePro
       callback(undefined);
     }
   });
-}
+}*/
 
-
+/*
 module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejected(UserAccountID, DepositHistoryID, RequestedDATE, RejectedTIME, callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
@@ -343,7 +343,7 @@ module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejec
       callback(undefined);
     }
   });
-}
+}*/
 /**
  *
  *
@@ -351,6 +351,7 @@ module.exports.DepositHistoryUpdateRejected = function DepositHistoryUpdateRejec
  * @param {*} DepositHistoryID
  * @param {*} callback
  */
+/*
 module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAccountID(UserAccountID, DepositHistoryID, callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
@@ -362,7 +363,7 @@ module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAcco
     }
   });
 
-}
+}*/
 /**
  *
  *
@@ -370,6 +371,7 @@ module.exports.DepositHistoryIDUserAccountID = function DepositHistoryIDUserAcco
  * @param {*} Status
  * @param {*} callback
  */
+/*
 module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAccountIDStatus(UserAccountID, Status, callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
@@ -380,7 +382,7 @@ module.exports.DepositHistoryUserAccountIDStatus = function DepositHistoryUserAc
       callback(undefined);
     }
   });
-}
+}*/
 
 module.exports.TransactionStatus = function TransactionStatus(UserTransactionID, callback) {
   let _UserTransactionID = UserTransactionID;

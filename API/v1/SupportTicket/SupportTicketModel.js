@@ -5,6 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+/*
 module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(UserAccountID, callback) {
   let query =
     `SET @UserAccountID=${UserAccountID};` +
@@ -16,7 +17,7 @@ module.exports.SupportTicketUserAccountID = function SupportTicketUserAccountID(
         callback(undefined);
       }
     });
-}
+}*/
 /**
  *
  *

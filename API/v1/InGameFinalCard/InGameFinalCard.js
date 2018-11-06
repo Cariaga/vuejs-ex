@@ -89,6 +89,8 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
         let Json = req.params.Json;
         let JsonRow = JSON.parse(Json);
         let length = JsonRow.length;
+        
+
         /*for loop promise based */
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
             if (i == length) {
@@ -122,10 +124,10 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     let AfterPoints = parseInt(JsonRow[i].AfterPoints);
                     let BeforePoints = parseInt(JsonRow[i].BeforePoints);
                     if(WinPoints>0){
-                        console.log("Won");
+                        console.log("-----------Won--------------");
                         console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
                     }else{
-                        console.log("Lost");
+                        console.log("-----------Lost-------------");
                         console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
                     }
                   

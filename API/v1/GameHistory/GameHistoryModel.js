@@ -42,6 +42,7 @@ module.exports.AddGameHistory = function AddGameHistory( RoundID, SeasonID, call
  *
  * @param {*} callback
  */
+/*
 module.exports.GameHistory = function GameHistory(callback) {
   let query = '';
   DBConnect.DBConnect(query, function (response) {
@@ -52,4 +53,4 @@ module.exports.GameHistory = function GameHistory(callback) {
       callback(undefined);
     }
   });
-}
+}*/

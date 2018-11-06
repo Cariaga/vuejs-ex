@@ -25,7 +25,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 }*/
 
 
-
+/*
 module.exports.AccessControlUpdate = function AccessControlUpdate(AccessID, AccessName, AccessTags, callback) {
   let query =
     `SET @AccessID=${AccessID};` +
@@ -43,4 +43,4 @@ module.exports.AccessControlUpdate = function AccessControlUpdate(AccessID, Acce
         callback(undefined);
       }
     });
-}
+}*/
