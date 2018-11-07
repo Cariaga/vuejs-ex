@@ -9,6 +9,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 
 module.exports = function (app) {
+    //HeadOffice
     function LowRank(HeadOfficeID, res) {
         if (!isNullOrEmpty(HeadOfficeID)) {
             SalesModel.SalesLowRank(HeadOfficeID, function (response) {
@@ -31,7 +32,58 @@ module.exports = function (app) {
 
     app.post('/Api/v1/Sales/LowRank/', Security.verifyToken, function (req, res) {
         let HeadOfficeID = req.body.HeadOfficeID;
-        console.log(HeadOfficeID);
         LowRank(HeadOfficeID,res);
+    });
+
+    //Distributor
+    function LowRankDistributor(DistributorID, res) {
+        if (!isNullOrEmpty(DistributorID)) {
+            SalesModel.SalesLowRankDistributor(DistributorID, function (response) {
+                if (response != undefined) {
+                    res.send(response);
+                } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                }
+            });
+        } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+        }
+    }    
+    app.get('/Api/v1/Sales/LowRank/DistributorID/:DistributorID', Security.verifyToken, function (req, res) {
+        let DistributorID = req.params.DistributorID;
+        LowRankDistributor(DistributorID,res);
+    });
+
+    app.post('/Api/v1/Sales/LowRank/', Security.verifyToken, function (req, res) {
+        let DistributorID = req.body.DistributorID;
+        LowRankDistributor(DistributorID,res);
+    });
+
+    //Shop
+    function LowRankShop(ShopID, res) {
+        if (!isNullOrEmpty(ShopID)) {
+            SalesModel.SalesLowRankShop(ShopID, function (response) {
+                if (response != undefined) {
+                    res.send(response);
+                } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                }
+            });
+        } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+        }
+    }    
+    app.get('/Api/v1/Sales/LowRank/ShopID/:ShopID', Security.verifyToken, function (req, res) {
+        let ShopID = req.params.ShopID;
+        LowRankShop(ShopID,res);
+    });
+
+    app.post('/Api/v1/Sales/LowRank/', Security.verifyToken, function (req, res) {
+        let ShopID = req.body.ShopID;
+        LowRankShop(ShopID,res);
     });
 }
