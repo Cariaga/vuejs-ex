@@ -499,6 +499,17 @@ function IsJsonString(str) {
   }
   return true;
 }
+
+var path = require('path');
+var mime = require('mime');
+var fs = require('fs');
+
+app.get('/download/:Name', function(req, res){
+  let requestfile = req.params.Name;
+  res.download(__dirname + '/downloadable/'+requestfile);  
+});
+
+
 //Test Connection Important here to check if information provided is correct
 //require('./API/SharedController/DBConnect').DBConnectTest();
 
