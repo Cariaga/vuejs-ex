@@ -123,7 +123,7 @@ module.exports = function (app) {
 
     app.post('/Api/v1/InGameTransferRequest/', Security.verifyToken, function (req, res) {
         let UserAccountIDSender = req.body.UserAccountIDSender;
-        let Amount =parseInt(req.body.Amount);
+        let Amount =req.body.Amount;
         let UserName = req.body.UserName;
         InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
     });
