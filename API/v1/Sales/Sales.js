@@ -56,7 +56,7 @@ module.exports = function (app) {
         LowRankDistributor(DistributorID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRank/', Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/Sales/LowRankDistributor/', Security.verifyToken, function (req, res) {
         let DistributorID = req.body.DistributorID;
         LowRankDistributor(DistributorID,res);
     });
@@ -82,7 +82,7 @@ module.exports = function (app) {
         LowRankShop(ShopID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRank/', Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/Sales/LowRankShop/', Security.verifyToken, function (req, res) {
         let ShopID = req.body.ShopID;
         LowRankShop(ShopID,res);
     });
