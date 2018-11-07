@@ -51,7 +51,7 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRank/DistributorID/:DistributorID', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Sales/LowRankDistributor/DistributorID/:DistributorID', Security.verifyToken, function (req, res) {
         let DistributorID = req.params.DistributorID;
         LowRankDistributor(DistributorID,res);
     });
@@ -77,7 +77,7 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRank/ShopID/:ShopID', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Sales/LowRankShop/ShopID/:ShopID', Security.verifyToken, function (req, res) {
         let ShopID = req.params.ShopID;
         LowRankShop(ShopID,res);
     });
