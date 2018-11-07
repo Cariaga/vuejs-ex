@@ -1,22 +1,27 @@
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, UserTransactionID, Amount, callback) {
+module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, StartDate, EndDate, callback) {
     let _UserAccountID = UserAccountID;
-    let _UserTransactionID = UserTransactionID;
-    let _Amount = Amount;
+    let _StartDate = StartDate;
+    let _EndDate = EndDate;
     
-    let query =
-      "INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)" +
-      "VALUES (\'" + _UserAccountID + "\',\'" + _UserTransactionID + "\',\'" + _Amount + "\',now(),\'false\');";
+    let query = "select distinct UserAccountID useracct, (select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID"
+                +" where t.TransactionType = 'withdraw' AND t.UserAccountID = useracct AND tinfo.ApprovedDateTime"
+                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as withdraw,"
+                +" (select sum(amount) from transferhistories where UserAccountIDSender = useracct AND Status = 'approved' AND TransferedDateTime"
+                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as 'withdraw(transfer)',"
+                +" (select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID" 
+                +" where t.TransactionType = 'deposit' AND t.UserAccountID = useracct AND tinfo.ApprovedDateTime "
+                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as deposit,"
+                +" (select sum(amount) from transferhistories where UserAccountIDReceiver = useracct AND Status = 'approved' AND TransferedDateTime"
+                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as 'deposit(transfer)',"
+                +" (select sum(HandAmount) from handhistory where UserAccountID = useracct AND HandDateTime" 
+                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"' ) BettingAmount,"
+                +" round((select sum(HandAmount) from handhistory where UserAccountID = useracct AND HandDateTime" 
+                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"' ) * (1.5 / 100), 2) rake,"
+                +" money from players WHERE UserAccountID = '"+_UserAccountID+"'";
   
-    let query2 =
-      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`)" +
-      "VALUES ('"+ _UserTransactionID + "',now());";
-  
-      
-    
-    function Q2(callback) {
-    DBConnect.DBConnect(query2, function (response) {
+    DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
         console.log(response);
         callback(response);
@@ -24,6 +29,6 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, UserT
         callback(undefined);
         }
     });
-    }
+    
       
 }
