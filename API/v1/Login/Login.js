@@ -190,7 +190,7 @@ module.exports = function (app) {
                         LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
 
                           if (response3 != undefined) {
-                            // console.log("Accountz "+firstRow.AccountType);
+                             console.log("Accountz "+firstRow.Commission);
                             res.send({
                               UserAccountID: firstRow.UserAccountID,
                               OnlineStatus: firstRow.OnlineStatus,
@@ -198,7 +198,8 @@ module.exports = function (app) {
                               PhoneNumber: firstRow.PhoneNumber,
                               Status: firstRow.Status,
                               AccountType: firstRow.AccountType,
-                              Privilege: firstRow.Privilege
+                              Privilege: firstRow.Privilege,
+                              Commission: firstRow.Commission
                             });
 
                           } else {
