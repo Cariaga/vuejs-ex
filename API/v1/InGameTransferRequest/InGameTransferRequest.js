@@ -11,98 +11,123 @@ let InGameTransferRequestModel = require('./InGameTransferRequestModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    function InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res) {
+    function InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName,Password, res) {
         if (!isNullOrEmpty(UserAccountIDSender)) {
             if (!isNullOrEmpty(Amount)) {
                 if (validator.isNumeric(Amount)) {
-                    
-                    InGameTransferRequestModel.UserNameUserAccount(UserName, function (response) {
-                        if (response != undefined) {
-                            let UserAccountIDReceiver = response[0].UserAccountID;
-                            var promise = new Promise(function (resolve, reject) {
-                                InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,parseInt(Amount), function (response) {
-                                    if (response != undefined) {
-                                        //console.log("Valid Value "+response.NewMoney>=0);
-                                        if (response.NewMoney >= 0) {
-                                            resolve(response);
-                                        } else {
-                                            reject({
-                                                NotEnoughSenderPoints: true
-                                            });
-                                        }
-                                    } else {
-                                        reject();
-                                    }
-                                });
-                            });
-                            var promise2 = new Promise(function (resolve, reject) {
-                                InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReceiver, parseInt(Amount), function (response) {
-                                    if (response != undefined) {
-                                        resolve(response);
-                                    } else {
-                                        reject();
-                                    }
-                                });
-                            });
-                            Promise.all([promise, promise2]).then(function (response) {
-                                let NewMoneyOfSender = parseInt(response[0].NewMoney);
-                                let NewMoneyOfReciever = parseInt(response[1].NewMoney);
-
-                                var promise3 = new Promise(function (resolve, reject) {
-                                    InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDSender, NewMoneyOfSender, function (response) { //sender
-                                        if (response != undefined) {
-                                            resolve();
-                                        } else {
-                                            reject({
-                                                FailedUpdatePlayerSender: true
-                                            });
-                                        }
-                                    });
-
-                                });
-                                var promise4 = new Promise(function (resolve, reject) {
-                                    InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDReceiver, NewMoneyOfReciever, function (response) { //reciever
-                                        if (response != undefined) {
-                                            resolve();
-                                        } else {
-                                            reject({
-                                                FailedUpdatePlayerReciever: true
-                                            });
-                                        }
-                                    });
-
-                                });
-
-                                Promise.all([promise3, promise4]).then(function (response) {
-                                    if (response != undefined) {
-                                        InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReceiver, Amount, function (response) {
+                    if(!isNullOrEmpty(Password)){
+                        DBCheck.isUserNameExist(UserName,function(response){
+                            if(response==true){
+                                DBCheck.CheckWithdrawPassword(UserAccountIDSender,Password,function(response){
+                                    if(response==true){
+                                        InGameTransferRequestModel.UserNameUserAccount(UserName, function (response) {
                                             if (response != undefined) {
-                                                let status = 200;
-                                                res.status(status).end(http.STATUS_CODES[status]);
+                                                let UserAccountIDReceiver = response[0].UserAccountID;
+                                                var promise = new Promise(function (resolve, reject) {
+                                                    InGameTransferRequestModel.PlayerNewMoneySubtract(UserAccountIDSender,parseInt(Amount), function (response) {
+                                                        if (response != undefined) {
+                                                            //console.log("Valid Value "+response.NewMoney>=0);
+                                                            if (response.NewMoney >= 0) {
+                                                                resolve(response);
+                                                            } else {
+                                                                reject({
+                                                                    NotEnoughSenderPoints: true
+                                                                });
+                                                            }
+                                                        } else {
+                                                            reject();
+                                                        }
+                                                    });
+                                                });
+                                                var promise2 = new Promise(function (resolve, reject) {
+                                                    InGameTransferRequestModel.PlayerNewMoneyAdd(UserAccountIDReceiver, parseInt(Amount), function (response) {
+                                                        if (response != undefined) {
+                                                            resolve(response);
+                                                        } else {
+                                                            reject();
+                                                        }
+                                                    });
+                                                });
+                                                Promise.all([promise, promise2]).then(function (response) {
+                                                    let NewMoneyOfSender = parseInt(response[0].NewMoney);
+                                                    let NewMoneyOfReciever = parseInt(response[1].NewMoney);
+                    
+                                                    var promise3 = new Promise(function (resolve, reject) {
+                                                        InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDSender, NewMoneyOfSender, function (response) { //sender
+                                                            if (response != undefined) {
+                                                                resolve();
+                                                            } else {
+                                                                reject({
+                                                                    FailedUpdatePlayerSender: true
+                                                                });
+                                                            }
+                                                        });
+                    
+                                                    });
+                                                    var promise4 = new Promise(function (resolve, reject) {
+                                                        InGameTransferRequestModel.UpdatePlayerMoney(UserAccountIDReceiver, NewMoneyOfReciever, function (response) { //reciever
+                                                            if (response != undefined) {
+                                                                resolve();
+                                                            } else {
+                                                                reject({
+                                                                    FailedUpdatePlayerReciever: true
+                                                                });
+                                                            }
+                                                        });
+                    
+                                                    });
+                    
+                                                    Promise.all([promise3, promise4]).then(function (response) {
+                                                        if (response != undefined) {
+                                                            InGameTransferRequestModel.RequestTransferHistory(UserAccountIDSender, UserAccountIDReceiver, Amount, function (response) {
+                                                                if (response != undefined) {
+                                                                    let status = 200;
+                                                                    res.status(status).end(http.STATUS_CODES[status]);
+                                                                } else {
+                                                                    res.send({
+                                                                        FailedRequestTransferHistory: true
+                                                                    })
+                                                                }
+                                                            });
+                    
+                                                        } else {
+                    
+                                                        }
+                    
+                                                    }, function (error) {
+                                                        res.send(error);
+                                                    });
+                    
+                                                }, function (error) {
+                                                    res.send(error);
+                                                });
                                             } else {
-                                                res.send({
-                                                    FailedRequestTransferHistory: true
-                                                })
+                                                let status = 404;
+                                                res.status(status).end(http.STATUS_CODES[status]);
                                             }
+                    
                                         });
-
-                                    } else {
-
+                                    }else{
+                                        res.send({
+                                            InvalidPassword: true
+                                        });
                                     }
-
-                                }, function (error) {
-                                    res.send(error);
+                                   
                                 });
+                            }else{
+                                res.send({
+                                    InvalidReceiver: true
+                                });
+                            }
+                        });
 
-                            }, function (error) {
-                                res.send(error);
-                            });
-                        } else {
-                            let status = 404;
-                            res.status(status).end(http.STATUS_CODES[status]);
-                        }
 
-                    });
+                    }else{
+                        res.send({MissingPassword:true});
+                    }
+
+
+
 
                 } else {
                     res.send({
@@ -125,14 +150,16 @@ module.exports = function (app) {
         let UserAccountIDSender = req.body.UserAccountIDSender;
         let Amount =req.body.Amount;
         let UserName = req.body.UserName;
-        InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
+        let Password = req.body.Password;
+        InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName,Password, res);
     });
 
-    app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/Password/:Password', Security.verifyToken, function (req, res) {
         let UserAccountIDSender = req.params.UserAccountIDSender;
         let Amount = parseInt(req.params.Amount);
         let UserName = req.params.UserName;
-        InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName, res);
+        let Password = req.body.Password;
+        InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName,Password, res);
     });
 
 

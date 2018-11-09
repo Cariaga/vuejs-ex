@@ -293,6 +293,17 @@ wss.on('connection', (ws, req) => {
 
       let Object = JSON.parse(event.data);
       console.log(Object);
+      
+      if (Object.Type == "Transfer") { //event leave room
+        //console.log("LeaveRoom "+ Object.RoomID);
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            if (client.UserAccountID == Object.UserAccountID) {
+                  client.Money = parseInt(client.Money) - parseInt(Object.TransferAmount); //add back the money to the player
+            }
+          }
+        });
+      }
 
       if (Object.Type == "LeaveRoom") { //event leave room
         //console.log("LeaveRoom "+ Object.RoomID);
