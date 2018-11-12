@@ -47,8 +47,8 @@ module.exports = function (app) { //selection
         }
     });
 
-    app.get('/Api/v1/InGameSeason/Clear/SeasonID/:SeasonID/',/*Security.verifyToken,*/ function (req, res) {
-        let SeasonID = req.params.SeasonID;
+   //app.get('/Api/v1/InGameSeason/Clear/SeasonID/:SeasonID/',/*Security.verifyToken,*/ function (req, res) {
+   /*     let SeasonID = req.params.SeasonID;
         if (!isNullOrEmpty(SeasonID)) {
             InGameSeasonModel.InGameSeasonClear(SeasonID, function (response) {
                 if (response != undefined) {
@@ -65,7 +65,7 @@ module.exports = function (app) { //selection
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
         }
-    });
+    });*/
 
     
 }
