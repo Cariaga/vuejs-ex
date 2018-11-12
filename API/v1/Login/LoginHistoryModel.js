@@ -116,14 +116,15 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate "+
+    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission "+
     "FROM sampledb.useraccounts as UA "+
     "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
+    "LEFT JOIN sampledb.players as PL ON UA.UserAccountID = PL.UserAccountID "
     "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
     "order by BL.ReportDate desc limit 1; ";
 
-      console.log(Query);
+      console.log("LoginAccount : "+ Query);
       return new Promise(resolve => {
         DBConnect.DBConnect(Query, function (response) {
           console.log(response);
@@ -167,6 +168,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].Title = result[0].Title;
         finalresult[0].ReportDate = result[0].ReportDate;
         finalresult[0].AccountType = result2[0].AccountType;
+        finalresult[0].Commission = result2[0].Commission;
         callback(finalresult);
       }else{
         callback(undefined);

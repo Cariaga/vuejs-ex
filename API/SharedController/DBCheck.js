@@ -3,7 +3,34 @@ let DBConnect = require("../SharedController/DBConnect");
 
 
 
-
+  module.exports.CheckWithdrawPassword = function(UserAccountID,Password,callback){
+    let _UserAccountID = UserAccountID;
+    let _Password = Password
+    let query =
+    "SELECT * FROM sampledb.bankinformations where UserAccountID=\'"+UserAccountID+"\' and SecurityCode=\'"+Password+"\';";
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(true);
+      }else{
+        callback(false);
+      }
+    });
+  }
+  module.exports.isValidSubractPlayerAmount = function(UserAccountID,Money,callback){
+    let _UserAccountID = UserAccountID;
+    let _Money = Money
+    let query =
+    "SELECT Money-"+_Money+" FROM sampledb.players where UserAccountID = \'"+_UserAccountID+"\'";
+    DBConnect.DBConnect(query,function(response){
+      if(response.Money>0){
+        console.log(response);
+        callback(true);
+      }else{
+        callback(false);
+      }
+    });
+  }
   /**
    *
    *
