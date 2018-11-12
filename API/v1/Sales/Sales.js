@@ -25,12 +25,12 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRank/HeadOfficeID/:HeadOfficeID', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Sales/LowRank/HeadOfficeID/:HeadOfficeID', function (req, res) {
         let HeadOfficeID = req.params.HeadOfficeID;
         LowRank(HeadOfficeID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRank/', Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/Sales/LowRank/', function (req, res) {
         let HeadOfficeID = req.body.HeadOfficeID;
         LowRank(HeadOfficeID,res);
     });
@@ -51,12 +51,12 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRankDistributor/DistributorID/:DistributorID', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Sales/LowRankDistributor/DistributorID/:DistributorID', function (req, res) {
         let DistributorID = req.params.DistributorID;
         LowRankDistributor(DistributorID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRankDistributor/', Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/Sales/LowRankDistributor/', function (req, res) {
         let DistributorID = req.body.DistributorID;
         LowRankDistributor(DistributorID,res);
     });
@@ -77,12 +77,12 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRankShop/ShopID/:ShopID', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Sales/LowRankShop/ShopID/:ShopID', function (req, res) {
         let ShopID = req.params.ShopID;
         LowRankShop(ShopID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRankShop/', Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/Sales/LowRankShop/', function (req, res) {
         let ShopID = req.body.ShopID;
         LowRankShop(ShopID,res);
     });
