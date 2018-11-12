@@ -311,22 +311,25 @@ wss.on('connection', (ws, req) => {
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) {
-              var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
-                return value.RoomID == Object.RoomID;
-              });
-              if (filtered.length > 0) {
-                if (filtered[0].BuyIn != undefined) { // LeaveRoom the oldest is basically the first item we find from 0 to N.. 
-                  client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
-
-                  var NewArrayfiltered = client.Rooms.filter(function (value) {
-                    return value.RoomID !== Object.RoomID;
-                  });
-
-                  client.Rooms = NewArrayfiltered;
+              if(client.Rooms!=undefined){
+                var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
+                  return value.RoomID == Object.RoomID;
+                });
+                if (filtered.length > 0) {
+                  if (filtered[0].BuyIn != undefined) { // LeaveRoom the oldest is basically the first item we find from 0 to N.. 
+                    client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
+  
+                    var NewArrayfiltered = client.Rooms.filter(function (value) {
+                      return value.RoomID !== Object.RoomID;
+                    });
+  
+                    client.Rooms = NewArrayfiltered;
+                  }
+                } else {
+                  console.log("LeaveRoom but and last Player");
                 }
-              } else {
-                console.log("LeaveRoom but and last Player");
               }
+
 
             }
           }
@@ -430,18 +433,21 @@ wss.on('connection', (ws, req) => {
     wss.clients.forEach((client) => {
       if (client.readyState == 1) {
         if (client.UserAccountID == Object.UserAccountID) {
-          var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
-            return value.RoomID == Object.RoomID;
-          });
-          if (filtered[0].BuyIn != undefined) { //Onclose the oldest is basically the first item we find from 0 to N.. 
-            client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
-
-            var NewArrayfiltered = client.Rooms.filter(function (value) {
-              return value.RoomID !== Object.RoomID;
+          if(client.Rooms!=undefined){
+            var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
+              return value.RoomID == Object.RoomID;
             });
-
-            client.Rooms = NewArrayfiltered;
+            if (filtered[0].BuyIn != undefined) { //Onclose the oldest is basically the first item we find from 0 to N.. 
+              client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
+  
+              var NewArrayfiltered = client.Rooms.filter(function (value) {
+                return value.RoomID !== Object.RoomID;
+              });
+  
+              client.Rooms = NewArrayfiltered;
+            }
           }
+
         }
       }
     });

@@ -20,14 +20,27 @@ module.exports = function (app) { //selection
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(RoomID)) {
                 let SeasonID = UUID();
-                InGameSeasonModel.AddGameHistory(RoomID, SeasonID, function (response) {
-                    if(response!=undefined){
-                        res.send(SeasonID);
+                InGameSeasonModel.isRoomExist(RoomID,function(response){
+                   
+                    if(response==true){
+                        console.log("RoomExist "+RoomID);
+                        InGameSeasonModel.AddGameHistory(RoomID, SeasonID, function (response) {
+                            if(response!=undefined){
+                                res.send(SeasonID);
+                            }else{
+                                
+                            }
+                        });
                     }else{
-                        
+                        console.log("Room Dosn't Exist");
                     }
                 });
             }
+        }
+    });
+    app.get('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Security.verifyToken, function (req, res) {
+        let SeasonID = req.params.SeasonID;
+        if(!isNullOrEmpty(SeasonID)){
 
         }
     });

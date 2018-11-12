@@ -16,7 +16,7 @@ module.exports = function (app) {
     app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID',Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
-            
+            //client generate the RoomID for speed instead of server
             DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                       //  res.send(UUID());
                         function GenerateUUID() {
@@ -24,7 +24,7 @@ module.exports = function (app) {
                             console.log(""+idGen);
                             res.send(idGen);
                           }
-                          setTimeout(GenerateUUID, getRandomInt(1,10));
+                          setTimeout(GenerateUUID, getRandomInt(1,5));
 
                           function getRandomInt(min, max) {
                             min = Math.ceil(min);

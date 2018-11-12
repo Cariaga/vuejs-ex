@@ -101,6 +101,7 @@ module.exports = function (app) { //MODIFY
                 if (validator.isNumeric(Speed)) {
                   
                   RoomConfigurationModel.AddRoomConfiguration(RoomID, GameType, parseInt(SmallBlind), parseInt(BigBlind), parseInt(Speed), function (response) {
+                    console.log(" AddRoomConfiguration Room Added : " +RoomID)
                     if (response != undefined) {
                       let status = 200;
                       res.status(status).end(http.STATUS_CODES[status]);
@@ -110,6 +111,7 @@ module.exports = function (app) { //MODIFY
                       });
                     }
                   });
+
                 } else {
                   res.send({
                     SpeedInvalidValue: true
