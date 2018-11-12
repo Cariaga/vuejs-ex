@@ -172,6 +172,7 @@ module.exports = function (app) {
   });
 
   function Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res) {
+    console.log("Try Login "+ UserName+" : "+Password);
     if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Password)) {
         if (!isNullOrEmpty(IP)) {

@@ -168,7 +168,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].Title = result[0].Title;
         finalresult[0].ReportDate = result[0].ReportDate;
         finalresult[0].AccountType = result2[0].AccountType;
-        finalresult[0].Commission = result2[0].Commission;
+        finalresult[0].Commission = result[0].Commission;
         callback(finalresult);
       }else{
         callback(undefined);
