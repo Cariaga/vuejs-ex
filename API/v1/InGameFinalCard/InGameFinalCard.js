@@ -15,10 +15,6 @@ module.exports = function (app) {
             console.log("---------");
             let JsonRow = JSON.parse(Json);
             let length = JsonRow.length;
-            
-
-
-
                    /*for loop promise based */
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
             if (i == length) {
@@ -129,17 +125,17 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     let BeforePoints = parseInt(JsonRow[i].BeforePoints);
                     if(WinPoints>0){
                         console.log("-----------Won--------------");
-                        console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
+                        console.log("UserAccountID : "+UserAccountID + " SeasonID :  " + SeasonID + " CurrentPoints : " + CurrentPoints + " WinPoints : " + WinPoints + " AfterPoints : " + AfterPoints + " BeforePoints : " + BeforePoints);
                     }else{
                         console.log("-----------Lost-------------");
-                        console.log(UserAccountID + " " + SeasonID + " " + CurrentPoints + " " + WinPoints + " " + AfterPoints + " " + BeforePoints);
+                        console.log("UserAccountID : "+ UserAccountID + " SeasonID " + SeasonID + " CurrentPoints " + CurrentPoints + " WinPoints " + WinPoints + " AfterPoints " + AfterPoints + " BeforePoints " + BeforePoints);
                     }
                   
                     if (SeasonID != undefined && UserAccountID != undefined) { //if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
                         DbCheck.isUserAccountIDExist(UserAccountID, function (response) {
                             if (response == true) {
-                                        DbCheck.isSeasonEnded(SeasonID,function(response){
-                                            if(response==false){
+                                        //DbCheck.isSeasonEnded(SeasonID,function(response){//not used
+                                        //    if(response==false){
                                                 InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID, SeasonID, CurrentPoints, WinPoints, AfterPoints, BeforePoints, function (response) {
                                                     if (response == undefined) {
                                                         console.log("UserAccount or SeasonID dosn't Exist");
@@ -147,7 +143,7 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                                                         if(WinPoints>0){//only winners get to update their points
                                                             InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, WinPoints, function (response) {
                                                                 if(response!=undefined){
-                                                                    console.log("Somebody Won" +UserAccountID);
+                                                                    console.log("UpdatePlayerMoney Somebody Won" +UserAccountID);
                                                                     resolve();
                                                                 }//no need to update loser money they already lost it during the bet
                                                             });
@@ -156,10 +152,11 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                                                         }
                                                     }
                                                 });
-                                            }else{
+                                          // }else{
+                                         //       console.log("Season Already Ended");
                                                 resolve();
-                                            }
-                                        })
+                                         //   }
+                                       // })
                             } else {
                                 console.log("UserAccount dosn't Exist Update" + UserAccountID);
                                 reject("UserAccount dosn't Exist Update" + UserAccountID);
