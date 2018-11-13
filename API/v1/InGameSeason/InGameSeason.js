@@ -50,7 +50,6 @@ module.exports = function (app) { //selection
     app.get('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Security.verifyToken, function (req, res) {
         let SeasonID = req.params.SeasonID;
         if(!isNullOrEmpty(SeasonID)){
-<<<<<<< HEAD
             DBCheck.isSeasonIDExist(SeasonID, function (response) {
                 if(response){
                     
@@ -64,10 +63,6 @@ module.exports = function (app) { //selection
             res.send({
               SeasonIDIsEmpty: true
             });
-=======
-            let status = 200;
-            res.status(status).end(http.STATUS_CODES[status]);
->>>>>>> 206c320c10afedfaf21919af7454d155589fc4e0
         }
     });
 
