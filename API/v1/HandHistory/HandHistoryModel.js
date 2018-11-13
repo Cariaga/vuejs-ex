@@ -28,8 +28,8 @@ module.exports.AddHandHistory = function AddHandHistory(UserAccountID,SeasonID, 
 module.exports.DeductMoneyOnBet = function DeductMoneyOnBet(UserAccountID,DeductAmount, callback) {
   let _UserAccountID = UserAccountID;
   let _DeductAmount = DeductAmount;
-let query =
-  "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID=\'"+_UserAccountID+"\' limit 1) as t)-'"+_DeductAmount+"' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+  let query = "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from "+ 
+              "(SELECT Money FROM sampledb.players as t where UserAccountID=\'"+_UserAccountID+"\' limit 1) as t)-'"+_DeductAmount+"' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
@@ -54,6 +54,19 @@ module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, call
 module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(UserAccountID, callback) {
   let _UserAccountID = UserAccountID;
   let query = "SELECT * FROM sampledb.handhistory where UserAccountID=\'"+_UserAccountID+"\';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+
+module.exports.getCommissionPercentages = function getCommissionPercentages(UserAccountID, callback) {
+  let _UserAccountID = UserAccountID;
+  let query = "SELECT * FROM sampledb.player_to_oho where UserAccountID=\'"+_UserAccountID+"\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
