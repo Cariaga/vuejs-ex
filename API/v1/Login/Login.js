@@ -191,7 +191,7 @@ module.exports = function (app) {
                         LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
 
                           if (response3 != undefined) {
-                             console.log("Accountz "+firstRow.Commission);
+                             console.log("Account "+firstRow.Commission);
                             res.send({
                               UserAccountID: firstRow.UserAccountID,
                               OnlineStatus: firstRow.OnlineStatus,
