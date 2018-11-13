@@ -19,6 +19,7 @@ module.exports.InGameSeasonClear = function InGameSeasonClear(SeasonID, callback
         }
       });
   }
+
 module.exports.AddGameHistory = function AddGameHistory( RoomID, SeasonID, callback) {
     let _RoomID = RoomID;
     let _SeasonID = SeasonID;
@@ -36,6 +37,21 @@ module.exports.AddGameHistory = function AddGameHistory( RoomID, SeasonID, callb
       });
 }
 module.exports.isRoomExist = function AddGameHistory( RoomID, callback) {
+  let _RoomID = RoomID;
+  let query =
+    "SELECT * FROM sampledb.roomconfigurations where RoomID ='"+_RoomID+"';";
+ 
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
+}
+
+module.exports.gameEndCalculateRake = function AddGameHistory( RoomID, callback) {
   let _RoomID = RoomID;
   let query =
     "SELECT * FROM sampledb.roomconfigurations where RoomID ='"+_RoomID+"';";
