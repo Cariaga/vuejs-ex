@@ -19,6 +19,7 @@ module.exports.InGameSeasonClear = function InGameSeasonClear(SeasonID, callback
         }
       });
   }
+
 module.exports.AddGameHistory = function AddGameHistory( RoomID, SeasonID, callback) {
     let _RoomID = RoomID;
     let _SeasonID = SeasonID;
