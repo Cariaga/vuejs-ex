@@ -112,22 +112,17 @@ module.exports = function (app) {
     if (!isNullOrEmpty(_UserName)) {
       if (!isNullOrEmpty(_Password)) {
         DBCheck.isUserNameExist(_UserName,function(response){
-          console.log(1);
           if(response==true){
             DBCheck.isUserNameBlocked(_UserName,function(response){
-              console.log(2);
               if(response==false){
-                console.log(3);
                 LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
-                  console.log("Login Properties :"+response);
-                  if (response!=undefined) {
+                  if (response) {
                     //let firstRow = response[0];
                     let AccountType = response[0].AccountType;
                     let UserAccountID = response[0].UserAccountID;
                     let Privilege = response[0].Privilege;
                     // Mock user
                     if(AccountType=="Player"||Privilege=="Admin"){//only certain account types and privilage are allowed
-                      console.log(4);
                       const user = {
                         id: 1,
                         UserName: _UserName,
@@ -146,7 +141,6 @@ module.exports = function (app) {
                       });
         
                     }else{
-                      console.log("login Error 401");
                       //if the above is invalid
                       let status = 401;
                       res.status(status).end(http.STATUS_CODES[status]);
@@ -163,18 +157,15 @@ module.exports = function (app) {
             });
 
           }else{
-            console.log("Not Found 3");
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
           }
         });
       } else {
-        console.log("Not Found 2");
         let status = 404;
         res.status(status).end(http.STATUS_CODES[status]);
       }
     } else {
-      console.log("Not Found 1");
       let status = 404;
       res.status(status).end(http.STATUS_CODES[status]);
     }
