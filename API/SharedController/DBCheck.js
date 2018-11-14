@@ -409,20 +409,3 @@ module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDEx
     }
   });
 }
-
-module.exports.isSeasonIDExist = function isSeasonIDExist(SeasonID, callback) {
-  let _SeasonID = SeasonID;
-  let query =
-  "SELECT SeasonID FROM `sampledb`.`playerfinalcard` " +
-  "WHERE SeasonID = '"+_SeasonID+"' ";
- 
-  DBConnect.DBConnect(query,function(response){
-    if(response[0].SeasonID == _SeasonID){
-      console.log('seasonID exist :  ' + response);
-      callback(true);
-    }else{
-      callback(false);
-    }
-  });
-}
-

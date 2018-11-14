@@ -17,7 +17,6 @@ module.exports = function (app) { //MODIFY
             if(Amount>=0){
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
-                  
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
                       if(response!=undefined){
                         HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand,Amount, function (response) {
