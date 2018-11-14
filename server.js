@@ -538,8 +538,9 @@ console.log('Server running on http://%s:%s', ip, port);
 console.log("--------process informationz  for openshift---------");
 console.log(beautify(process.env, null, 2, 100));
 console.log("-----------------");
-console.log(process.env.MYSQL_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
-console.log(process.env.MYSQL_SERVICE_PORT || 3306);
-
+console.log( "mysql :" +process.env.MYSQL_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
+console.log("mysql : "+process.env.MYSQL_SERVICE_PORT || 3306);
+console.log("MARIADB :" +process.env.MARIADB_PORT_3306_TCP_ADDR || 'localhost'); //output the service if service host is undefined
+console.log("mysql : "+process.env.MARIADB_SERVICE_PORT || 3306);
 module.exports = routes;
 module.exports = app;
