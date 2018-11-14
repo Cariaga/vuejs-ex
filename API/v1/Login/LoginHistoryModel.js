@@ -91,7 +91,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
       let finalresult = [{}];
         let result = response;
         QueryAccountType(function(response2){
-         // console.log("D : "+ JSON.stringify(response2));
+          console.log("D : "+ JSON.stringify(response2));
 
           if(response2!=undefined){
             let result2 =response2;

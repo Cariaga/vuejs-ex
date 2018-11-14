@@ -44,7 +44,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       const rows = await conn.query(RawQuery);
      // console.log(rows[0]); //[ {val: 1}, meta: ... ]
      if(rows[0]!=undefined){
-     //  console.log("query gave result "+ JSON.stringify(rows));
+       console.log("query gave result "+ JSON.stringify(rows));
       callback(rows);
      }else{
       console.log("query empty result");
