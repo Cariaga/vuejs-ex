@@ -1,6 +1,7 @@
 
 
 const mysql = require('mysql2');
+const mariadb = require('mariadb');
 const notifier = require('node-notifier');
 // String
 
@@ -27,8 +28,42 @@ module.exports.DBConnectTest = function DBConnectTest(){
               connection.end();
             
             });*/
-
 }
+const pool2 = mariadb.createPool({
+  host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
+  user:'root',password: 'user',
+  database: 'sampledb',
+  port: process.env.OPENSHIFT_MYSQL_DB_PORT||3307,
+  connectionLimit: 160});
+  
+module.exports.DBConnect = function DBConnect(RawQuery,callback){
+  async function asyncFunction() {
+    let conn;
+    try {
+      conn = await pool2.getConnection();
+      const rows = await conn.query(RawQuery);
+     // console.log(rows[0]); //[ {val: 1}, meta: ... ]
+     if(rows[0]!=undefined){
+       console.log("query gave result "+ JSON.stringify(rows));
+      callback(rows);
+     }else{
+      console.log("query empty result");
+       callback(undefined);
+     }
+    } catch (err) {
+
+      throw err;
+      
+    } finally {
+      console.log("Closed db Connection");
+      if (conn) return conn.end();
+    }
+  }
+  asyncFunction();
+}
+
+
+/*
 const pool = mysql.createPool({
   host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
   user: user,
@@ -38,9 +73,12 @@ const pool = mysql.createPool({
   port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
   connectionLimit: 160,
   queueLimit: 0,
-});
+});*/
+
+
+
 /*pooling version*/
-module.exports.DBConnect = function DBConnect(RawQuery,callback){
+/*module.exports.DBConnect = function DBConnect(RawQuery,callback){
   pool.getConnection(function(err, conn) {
     if(RawQuery!=undefined&&err==undefined){
       // Do something with the connection
@@ -65,11 +103,6 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
            // callback('ETIMEDOUT');
           }
           else{
-            notifier.notify({
-              title: 'Server Error',
-              message: err
-            });
-
             console.log("Somthing Bad Happend :" +err);
           }
         }
@@ -90,7 +123,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
     
 
  });
-}
+}*/
 
 //old non pool version
 /*module.exports.DBConnect = function DBConnect(RawQuery,callback){// non connection pool

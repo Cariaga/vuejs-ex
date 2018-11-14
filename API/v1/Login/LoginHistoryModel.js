@@ -46,75 +46,10 @@ module.exports.AddLoginHistory = function(UserName,Password, IP, DeviceName, Dev
       
 }
 module.exports.LoginAccount = function(UserName,Password,callback){
+  console.log("A");
   let _UserName =UserName;
   let _Password =Password;  
-    function QueryLoginAccount() {
-     let Query = 
-    "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate "+
-    "FROM sampledb.useraccounts as UA "+
-    "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
-    "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
-    "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
-    "order by BL.ReportDate desc limit 1; ";
-      //console.log(Query);
-      return new Promise(resolve => {
-        DBConnect.DBConnect(Query, function (response) {
-          console.log(response);
-          if (response != undefined) {
-              resolve(response);
-            } else {
-              resolve(undefined);
-            }
-        });
-      });
-    }
-
-    function QueryAccountType() {
-      let Query = 
-     "SELECT * FROM sampledb.useraccount_types where useraccount_types.`UserName`=\'"+_UserName+"\'";
-       return new Promise(resolve => {
-         DBConnect.DBConnect(Query, function (response) {
-           if (response != undefined) {
-               resolve(response);
-             } else {
-              resolve(undefined);
-             }
-         });
-       });
-     }
-
-    async function RunAsync() {
-      console.log('calling');
-      let finalresult = [{}];
-      let result = await QueryLoginAccount();
-      if(result!=undefined){
-        let result2 = await QueryAccountType();
-        finalresult[0].UserAccountID = result[0].UserAccountID;
-        
-        finalresult[0].Verified = result[0].Verified;
-        finalresult[0].Email = result[0].Email;
-        finalresult[0].Description = result[0].Description;
-        finalresult[0].Online = result[0].OnlineStatus;
-        finalresult[0].Status = result[0].Status;
-        finalresult[0].Title = result[0].Title;
-        finalresult[0].ReportDate = result[0].ReportDate;
-        finalresult[0].AccountType = result2[0].AccountType;
-        callback(finalresult);
-      }else{
-        callback(undefined);
-      }
-     
-      
-      //console.log(finalresult);
-   
-      
-    }
-    RunAsync();
-}
-module.exports.LoginAccount = function(UserName,Password,callback){
-  let _UserName =UserName;
-  let _Password =Password;  
-    function QueryLoginAccount() {
+    function QueryLoginAccount(callback) {
      let Query = 
     "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission "+
     "FROM sampledb.useraccounts as UA "+
@@ -123,61 +58,91 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     "LEFT JOIN sampledb.players as PL ON UA.UserAccountID = PL.UserAccountID "+
     "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
     "order by BL.ReportDate desc limit 1; ";
-
       console.log("LoginAccount : "+ Query);
-      return new Promise(resolve => {
-        DBConnect.DBConnect(Query, function (response) {
-          console.log(response);
-          if (response != undefined) {
-              resolve(response);
-            } else {
-              resolve(undefined);
-            }
+      DBConnect.DBConnect(Query, function (response) {
+        console.log(response);
+        if (response != undefined) {
+          console.log("B");
+            //resolve(response);
+            callback(response);
+          } else {
+            callback(undefined);
+          }
         });
-      });
     }
 
-    function QueryAccountType() {
+    function QueryAccountType(callback) {
       let Query = 
      "SELECT `UA`.`UserName`,FAT.UserAccountID,IFNULL(FAT.AccountType, 'NoType') as AccountType FROM sampledb.fullaccounttypes as FAT "+
      "Inner Join sampledb.useraccounts as UA on UA.UserAccountID = FAT.UserAccountID where `UA`.`UserName`=\'"+_UserName+"\'; ";
-       return new Promise(resolve => {
-         DBConnect.DBConnect(Query, function (response) {
-           if (response != undefined) {
-               resolve(response);
-             } else {
-              resolve(undefined);
-             }
-         });
-       });
+     console.log(Query);
+     DBConnect.DBConnect(Query, function (response) {
+      if (response != undefined) {
+        console.log("C");
+        callback(response);
+        } else {
+          console.log("C undefined");
+          callback(undefined);
+       //  resolve(undefined);
+        }
+    });
      }
-
-    async function RunAsync() {
-      console.log('calling');
+     QueryLoginAccount(function(response){
       let finalresult = [{}];
-      let result = await QueryLoginAccount();
-      if(result!=undefined){
-        let result2 = await QueryAccountType();
-        finalresult[0].UserAccountID = result[0].UserAccountID;
-        finalresult[0].Privilege = result[0].Privilege;
-        finalresult[0].Verified = result[0].Verified;
-        finalresult[0].Email = result[0].Email;
-        finalresult[0].Description = result[0].Description;
-        finalresult[0].Online = result[0].OnlineStatus;
-        finalresult[0].Status = result[0].Status;
-        finalresult[0].Title = result[0].Title;
-        finalresult[0].ReportDate = result[0].ReportDate;
-        finalresult[0].AccountType = result2[0].AccountType;
-        finalresult[0].Commission = result[0].Commission;
-        callback(finalresult);
-      }else{
+        let result = response;
+        QueryAccountType(function(response2){
+          console.log("D : "+ JSON.stringify(response2));
+
+          if(response2!=undefined){
+            let result2 =response2;
+            finalresult[0].UserAccountID = result[0].UserAccountID;
+            finalresult[0].Privilege = result[0].Privilege;
+            finalresult[0].Verified = result[0].Verified;
+            finalresult[0].Email = result[0].Email;
+            finalresult[0].Description = result[0].Description;
+            finalresult[0].Online = result[0].OnlineStatus;
+            finalresult[0].Status = result[0].Status;
+            finalresult[0].Title = result[0].Title;
+            finalresult[0].ReportDate = result[0].ReportDate;
+            finalresult[0].AccountType = result2[0].AccountType;
+            finalresult[0].Commission = result[0].Commission;
+            callback(finalresult);
+            console.log(result);
+          }else{
+            console.log("QueryAccountType Empty");
+            callback(undefined);
+          }
+        });
+     });
+
+
+   /* async function RunAsync() {
+      console.log('calling');
+
+      try {
+        let finalresult = [{}];
+        let result = await QueryLoginAccount();
+        if(result!=undefined){
+          let result2 = await QueryAccountType();
+          finalresult[0].UserAccountID = result[0].UserAccountID;
+          finalresult[0].Privilege = result[0].Privilege;
+          finalresult[0].Verified = result[0].Verified;
+          finalresult[0].Email = result[0].Email;
+          finalresult[0].Description = result[0].Description;
+          finalresult[0].Online = result[0].OnlineStatus;
+          finalresult[0].Status = result[0].Status;
+          finalresult[0].Title = result[0].Title;
+          finalresult[0].ReportDate = result[0].ReportDate;
+          finalresult[0].AccountType = result2[0].AccountType;
+          finalresult[0].Commission = result[0].Commission;
+          callback(finalresult);
+        }else{
+          callback(undefined);
+        }
+      }catch(err){
+     
         callback(undefined);
       }
-     
-      
-      //console.log(finalresult);
-   
-      
-    }
-    RunAsync();
+    }*/
+    //RunAsync();
 }
