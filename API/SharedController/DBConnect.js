@@ -31,7 +31,7 @@ module.exports.DBConnectTest = function DBConnectTest(){
 }
 const pool2 = mariadb.createPool({
   host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
-  user:'root',password: 'user',
+  user:'user',password: 'user',
   database: 'sampledb',
   port: process.env.OPENSHIFT_MYSQL_DB_PORT||3307,
   connectionLimit: 160});
@@ -44,7 +44,7 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
       const rows = await conn.query(RawQuery);
      // console.log(rows[0]); //[ {val: 1}, meta: ... ]
      if(rows[0]!=undefined){
-       console.log("query gave result "+ JSON.stringify(rows));
+     //  console.log("query gave result "+ JSON.stringify(rows));
       callback(rows);
      }else{
       console.log("query empty result");
