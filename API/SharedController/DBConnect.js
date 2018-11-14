@@ -31,7 +31,7 @@ module.exports.DBConnectTest = function DBConnectTest(){
 }
 const pool2 = mariadb.createPool({
   host:  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost',
-  user:'user',password: 'user',
+  user:'root',
   database: 'sampledb',
   port: process.env.OPENSHIFT_MYSQL_DB_PORT||3307,
   connectionLimit: 160});
