@@ -8,33 +8,6 @@ const notifier = require('node-notifier');
 //if can't connect try to alter ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
 //first attempt password
 
-let user ='user';
-let password='user';
-/*const pool = mariadb.createPool({host: 'localhost', user:'user',password:'user', connectionLimit: 500});
-module.exports.DBConnect = function DBConnect(RawQuery,callback){
-  async function asyncFunction() {
-    let conn;
-    try {
-    conn = await pool.getConnection();
-      if(str.includes("Insert")||str.includes("INSERT")||str.includes("insert")){
-        const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);
-       callback(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
-      }else{
-        const rows = await conn.query(RawQuery);
-        console.log(rows); //[ {val: 1}, meta: ... ]
-      }
-    } catch (err) {
-    throw err;
-    } finally {
-    if (conn) return conn.end();
-    }
-  }
-}*/
-
-
-
-
-
 //Test Connection Important here to check if information provided is correct
 module.exports.DBConnectTest = function DBConnectTest(){
        /*   const connection = mysql.createConnection({
@@ -53,10 +26,11 @@ module.exports.DBConnectTest = function DBConnectTest(){
             });*/
 
 }
+/*process.env.MYSQL_SERVICE_HOST*/
 
 const pool = mysql.createPool({
-  host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
-  user: 'root',
+  host:process.env.MARIADB_PORT_3306_TCP_ADDR|| 'localhost',
+  user: 'user',
   password: 'user',
   database: 'sampledb',
   waitForConnections: true,
