@@ -17,7 +17,30 @@ module.exports = function (app) { //MODIFY
             if(Amount>=0){
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
-                  
+                  //get commission percentages start
+                  HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
+                    if(response!=undefined){
+                      //distribute rake
+                      console.log(response[0]['UserAccountID'])
+                      HandHistoryModel.distributeRake(response,Amount, function(distributeResponse){
+                        if(distributeResponse!=undefined){
+                          res.send({
+                            distributeRakeSuccess: true
+                          });
+                        }else{
+                          res.send({
+                            distributeRakeFailed:false
+                          });
+                        }
+                      });
+                      //distribute rake end
+                    }else{
+                      res.send({
+                        getCommissionPercentagesFailed: true
+                      });
+                    }
+                  });
+                  //get commission percentages start end
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
                       if(response!=undefined){
                         HandHistoryModel.AddHandHistory(UserAccountID, SeasonID, MoveHand,Amount, function (response) {
@@ -71,7 +94,7 @@ module.exports = function (app) { //MODIFY
     }
   }
   //INSERT
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount',Security.verifyToken, function (req, res) { //ok
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount', function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
