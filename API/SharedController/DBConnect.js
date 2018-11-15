@@ -30,11 +30,11 @@ module.exports.DBConnectTest = function DBConnectTest(){
 
 const pool = mysql.createPool({
   host:process.env.MARIADB_SERVICE_HOST|| 'localhost',
-  user: 'user',
-  password: 'user',
+  user: 'root',
+  password: '',
   database: 'sampledb',
   waitForConnections: true,
-  port: process.env.OPENSHIFT_MYSQL_DB_PORT||3307,
+  port: process.env.MARIADB_SERVICE_PORT||3307,
   connectionLimit: 160,
   queueLimit: 0,
 });
