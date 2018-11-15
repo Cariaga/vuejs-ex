@@ -67,12 +67,13 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
            // callback('ETIMEDOUT');
           }
           else{
-            notifier.notify({
+  /*          notifier.notify({
               title: 'Server Error',
               message: err
             });
-
+*/          
             console.log("Somthing Bad Happend :" +err);
+            callback(undefined);
           }
         }
         else if(results!=undefined&&results.length>0){//select
@@ -89,8 +90,6 @@ module.exports.DBConnect = function DBConnect(RawQuery,callback){
         pool.releaseConnection(conn);
       });
     }
-    
-
  });
 }
 

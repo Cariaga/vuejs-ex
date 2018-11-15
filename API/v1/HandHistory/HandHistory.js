@@ -18,28 +18,28 @@ module.exports = function (app) { //MODIFY
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
                   //get commission percentages start
-                  HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
-                    if(response!=undefined){
-                      //distribute rake
-                      console.log(response[0]['UserAccountID'])
-                      HandHistoryModel.distributeRake(response,Amount, function(distributeResponse){
-                        if(distributeResponse!=undefined){
-                          res.send({
-                            distributeRakeSuccess: true
-                          });
-                        }else{
-                          res.send({
-                            distributeRakeFailed:false
-                          });
-                        }
-                      });
-                      //distribute rake end
-                    }else{
-                      res.send({
-                        getCommissionPercentagesFailed: true
-                      });
-                    }
-                  });
+                  // HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
+                  //   if(response!=undefined){
+                  //     //distribute rake
+                  //     console.log(response[0]['UserAccountID'])
+                  //     HandHistoryModel.distributeRake(response,Amount, function(distributeResponse){
+                  //       if(distributeResponse!=undefined){
+                  //         res.send({
+                  //           distributeRakeSuccess: true
+                  //         });
+                  //       }else{
+                  //         res.send({
+                  //           distributeRakeFailed:false
+                  //         });
+                  //       }
+                  //     });
+                  //     //distribute rake end
+                  //   }else{
+                  //     res.send({
+                  //       getCommissionPercentagesFailed: true
+                  //     });
+                  //   }
+                  // });
                   //get commission percentages start end
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
                       if(response!=undefined){
