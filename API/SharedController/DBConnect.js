@@ -34,9 +34,9 @@ const pool = mysql.createPool({
   password: '',
   database: 'sampledb',
   waitForConnections: true,
-  port: process.env.MARIADB_SERVICE_PORT||3307,
+  port: process.env.MARIADB_SERVICE_PORT||3306,
   connectionLimit: 160,
-  queueLimit: 0,
+  //queueLimit: 0,
 });
 
 /*pooling version*/
