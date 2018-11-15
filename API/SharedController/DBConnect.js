@@ -1,8 +1,8 @@
 
 
 const mysql = require('mysql2');
-const notifier = require('node-notifier');
-var Client = require('mariasql');
+//const notifier = require('node-notifier');
+//var Client = require('mariasql');
 
 // String
 
