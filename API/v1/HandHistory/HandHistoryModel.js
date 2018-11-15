@@ -77,8 +77,9 @@ module.exports.getCommissionPercentages = function getCommissionPercentages(User
   });
 }
 
-module.exports.distributeRake = function distributeRake(playerToOHOCommission, bettingAmount, callback) {
+module.exports.distributeRake = function distributeRake(playerToOHOCommission, bettingAmount, SeasonID, callback) {
   let _playerToOHOCommission = playerToOHOCommission;
+  let _SeasonID = SeasonID;
   let playerRake = bettingAmount * (_playerToOHOCommission[0]['pCommission'] / 100 );
     playerRake = playerRake.toFixed(2);
   let shopRake = (bettingAmount * (_playerToOHOCommission[0]['sCommission'] / 100 )) - playerRake;
@@ -96,22 +97,33 @@ module.exports.distributeRake = function distributeRake(playerToOHOCommission, b
   console.log('player rake -> ' +headofficeRake);
   console.log('player rake -> ' +operatingheadofficeRake);
   console.log(_playerToOHOCommission[0]['UserAccountID']);
-
+  let rakeLogQuery = "INSERT INTO `sampledb`.`handhistory_rake` (`SeasonID`, `UserAccountID`, `RakePlayer`, `RakeStore`, `RakeDistributor`,`RakeHO`,`RakeOHO`) "+
+                     "VALUES (\'"+_SeasonID+"\',\'"+_playerToOHOCommission[0]['UserAccountID']+"\',"+playerRake+", "+shopRake+", "+distributorRake+", "+headofficeRake+", "+operatingheadofficeRake+");";
   let pquery = "UPDATE `sampledb`.`players` SET Money = Money + "+playerRake+
               "  WHERE UserAccountID = '"+_playerToOHOCommission[0]['UserAccountID']+"';";
 
   let squery = "UPDATE `sampledb`.`shops` SET CurrentPoints = CurrentPoints + "+shopRake+
               "  WHERE ShopID = '"+_playerToOHOCommission[0]['ShopID']+"';";
               
-  let dquery = "UPDATE `sampledb`.`distributors` SET CurrentPoints = CurrentPoints + "+shopRake+
+  let dquery = "UPDATE `sampledb`.`distributors` SET CurrentPoints = CurrentPoints + "+distributorRake+
               "  WHERE DistributorID = '"+_playerToOHOCommission[0]['DistributorID']+"';";
 
-  let hoquery = "UPDATE `sampledb`.`headoffices` SET CurrentPoints = CurrentPoints + "+shopRake+
+  let hoquery = "UPDATE `sampledb`.`headoffices` SET CurrentPoints = CurrentPoints + "+headofficeRake+
               "  WHERE HeadOfficeID = '"+_playerToOHOCommission[0]['HeadOfficeID']+"';";
 
-  let ohoquery = "UPDATE `sampledb`.`operatingheadoffice` SET CurrentPoints = CurrentPoints + "+shopRake+
+  let ohoquery = "UPDATE `sampledb`.`operatingheadoffice` SET CurrentPoints = CurrentPoints + "+operatingheadofficeRake+
               "  WHERE OperatingHeadOfficeID = '"+_playerToOHOCommission[0]['OperatingHeadOfficeID']+"';";
 
+  var rakeLogPromise = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(rakeLogQuery, function (response) {
+      if (response != undefined) {
+        resolve();
+      } else {
+        console.log('rake log query fail')
+        reject();
+      }
+    })
+  });
 
   var playerPromise = new Promise(function(resolve, reject) {
    DBConnect.DBConnect(pquery, function (response) {
@@ -168,7 +180,7 @@ module.exports.distributeRake = function distributeRake(playerToOHOCommission, b
       })
    });
   
-  Promise.all([playerPromise,shopPromise,distributorPromise,headOfficePromise,operatingHeadOfficePromise]).then(function() {
+  Promise.all([rakeLogPromise,playerPromise,shopPromise,distributorPromise,headOfficePromise,operatingHeadOfficePromise]).then(function() {
     console.log('rake distribution successful');
     // callback(true);
   }, function(){ //if promise or promise2 fail

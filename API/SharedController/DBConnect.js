@@ -44,6 +44,7 @@ const pool = mysql.createPool({
 /*pooling version*/
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   pool.getConnection(function(err, conn) {
+    console.log(err);
     if(RawQuery!=undefined&&err==undefined){
       // Do something with the connection
     conn.query(RawQuery,
@@ -147,8 +148,8 @@ module.exports.DBConnectInsert = function DBConnectInsert(RawQuery,params,callba
   
   const connection = mysql.createConnection({
     host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'user',
+    password: 'user',
     mutipleStatements: true,// required for multi statement in one query
     port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
     database: 'sampledb'
