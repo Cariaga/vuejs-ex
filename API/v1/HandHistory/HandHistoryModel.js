@@ -63,3 +63,117 @@ module.exports.HandHistoryUserAccountID = function HandHistoryUserAccountID(User
     }
   });
 }
+
+module.exports.getCommissionPercentages = function getCommissionPercentages(UserAccountID, callback) {
+  let _UserAccountID = UserAccountID;
+  let query = "SELECT * FROM sampledb.player_to_oho where UserAccountID=\'"+_UserAccountID+"\';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+
+module.exports.distributeRake = function distributeRake(playerToOHOCommission, bettingAmount, callback) {
+  let _playerToOHOCommission = playerToOHOCommission;
+  let playerRake = bettingAmount * (_playerToOHOCommission[0]['pCommission'] / 100 );
+    playerRake = playerRake.toFixed(2);
+  let shopRake = (bettingAmount * (_playerToOHOCommission[0]['sCommission'] / 100 )) - playerRake;
+    shopRake = shopRake.toFixed(2);
+  let distributorRake = (bettingAmount * (_playerToOHOCommission[0]['dCommission'] / 100 )) - playerRake - shopRake;
+    distributorRake = distributorRake.toFixed(2);
+  let headofficeRake = (bettingAmount * (_playerToOHOCommission[0]['hoCommission'] / 100 )) - playerRake - shopRake - distributorRake;
+    headofficeRake = headofficeRake.toFixed(2);
+  let operatingheadofficeRake = (bettingAmount * (_playerToOHOCommission[0]['ohoCommission'] / 100 )) - playerRake - shopRake - distributorRake - headofficeRake;
+    operatingheadofficeRake = operatingheadofficeRake.toFixed(2);
+
+  console.log('player rake -> ' + playerRake);
+  console.log('player rake -> ' +shopRake);
+  console.log('player rake -> ' +distributorRake);
+  console.log('player rake -> ' +headofficeRake);
+  console.log('player rake -> ' +operatingheadofficeRake);
+  console.log(_playerToOHOCommission[0]['UserAccountID']);
+
+  let pquery = "UPDATE `sampledb`.`players` SET Money = Money + "+playerRake+
+              "  WHERE UserAccountID = '"+_playerToOHOCommission[0]['UserAccountID']+"';";
+
+  let squery = "UPDATE `sampledb`.`shops` SET CurrentPoints = CurrentPoints + "+shopRake+
+              "  WHERE ShopID = '"+_playerToOHOCommission[0]['ShopID']+"';";
+              
+  let dquery = "UPDATE `sampledb`.`distributors` SET CurrentPoints = CurrentPoints + "+shopRake+
+              "  WHERE DistributorID = '"+_playerToOHOCommission[0]['DistributorID']+"';";
+
+  let hoquery = "UPDATE `sampledb`.`headoffices` SET CurrentPoints = CurrentPoints + "+shopRake+
+              "  WHERE HeadOfficeID = '"+_playerToOHOCommission[0]['HeadOfficeID']+"';";
+
+  let ohoquery = "UPDATE `sampledb`.`operatingheadoffice` SET CurrentPoints = CurrentPoints + "+shopRake+
+              "  WHERE OperatingHeadOfficeID = '"+_playerToOHOCommission[0]['OperatingHeadOfficeID']+"';";
+
+
+  var playerPromise = new Promise(function(resolve, reject) {
+   DBConnect.DBConnect(pquery, function (response) {
+      if (response != undefined) {
+        resolve();
+      } else {
+        console.log('player query fail')
+        reject();
+      }
+     })
+  });
+
+  var shopPromise = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(squery, function (response) {
+       if (response != undefined) {
+         resolve();
+       } else {
+        console.log('shop query fail')
+         reject();
+       }
+      })
+   });
+
+  var distributorPromise = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(dquery, function (response) {
+       if (response != undefined) {
+         resolve();
+       } else {
+        console.log('distributor query fail')
+         reject();
+       }
+      })
+   });
+
+  var headOfficePromise = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(hoquery, function (response) {
+       if (response != undefined) {
+         resolve();
+       } else {
+        console.log('head office query fail')
+         reject();
+       }
+      })
+   });
+
+  var operatingHeadOfficePromise = new Promise(function(resolve, reject) {
+    DBConnect.DBConnect(ohoquery, function (response) {
+       if (response != undefined) {
+         resolve();
+       } else {
+        console.log('operating head office query fail')
+         reject();
+       }
+      })
+   });
+  
+  Promise.all([playerPromise,shopPromise,distributorPromise,headOfficePromise,operatingHeadOfficePromise]).then(function() {
+    console.log('rake distribution successful');
+    // callback(true);
+  }, function(){ //if promise or promise2 fail
+    console.log('something went wrong')
+    // callback(undefined);
+  });
+
+}
