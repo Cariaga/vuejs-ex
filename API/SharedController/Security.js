@@ -41,11 +41,13 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
         }
       });
     }else{
+      console.log("Error Token Null");
       res.sendStatus(403);
     }
     // Next middleware
   } else {
     // Forbidden
+    console.log("Error Token Null");
     res.sendStatus(403);
   }
 }
