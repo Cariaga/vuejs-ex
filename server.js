@@ -541,5 +541,8 @@ console.log("-----------------");
 console.log(process.env.MYSQL_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
 console.log(process.env.MYSQL_SERVICE_PORT || 3306);
 
+console.log(process.env.MARIADB_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
+console.log(process.env.MYSQL_SERVICE_PORT || 3306);
+
 module.exports = routes;
 module.exports = app;
