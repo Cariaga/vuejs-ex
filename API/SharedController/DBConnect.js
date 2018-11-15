@@ -10,6 +10,30 @@ const notifier = require('node-notifier');
 
 let user ='user';
 let password='user';
+/*const pool = mariadb.createPool({host: 'localhost', user:'user',password:'user', connectionLimit: 500});
+module.exports.DBConnect = function DBConnect(RawQuery,callback){
+  async function asyncFunction() {
+    let conn;
+    try {
+    conn = await pool.getConnection();
+      if(str.includes("Insert")||str.includes("INSERT")||str.includes("insert")){
+        const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);
+       callback(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
+      }else{
+        const rows = await conn.query(RawQuery);
+        console.log(rows); //[ {val: 1}, meta: ... ]
+      }
+    } catch (err) {
+    throw err;
+    } finally {
+    if (conn) return conn.end();
+    }
+  }
+}*/
+
+
+
+
 
 //Test Connection Important here to check if information provided is correct
 module.exports.DBConnectTest = function DBConnectTest(){
@@ -29,16 +53,18 @@ module.exports.DBConnectTest = function DBConnectTest(){
             });*/
 
 }
+
 const pool = mysql.createPool({
   host:process.env.MYSQL_SERVICE_HOST|| 'localhost',
-  user: user,
-  password: password,
+  user: 'root',
+  password: 'user',
   database: 'sampledb',
   waitForConnections: true,
-  port: process.env.OPENSHIFT_MYSQL_DB_PORT||3306,
+  port: process.env.OPENSHIFT_MYSQL_DB_PORT||3307,
   connectionLimit: 160,
   queueLimit: 0,
 });
+
 /*pooling version*/
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   pool.getConnection(function(err, conn) {
