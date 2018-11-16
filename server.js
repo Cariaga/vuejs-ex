@@ -22,6 +22,7 @@ const stringify = require('json-stringify');
 const Enumerable = require('linq');
 var cors = require('cors');
 
+
 //app.use(sqlinjection);// disable because it blocks token access
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
@@ -225,8 +226,8 @@ app.get('/Api/v1', function (req, res) {
 //---POKER ROUTING START
 
 
-
-
+let totalSocketBytes=0;
+var sizeof = require('object-sizeof');
 const SocketServer = require('ws').Server;
 const server = app
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
@@ -291,8 +292,9 @@ wss.on('connection', (ws, req) => {
 
 
     if (IsJsonString(event.data)) {
-
+      totalSocketBytes +=sizeof(event.data);
       let Object = JSON.parse(event.data);
+      
       console.log(Object);
       
       if (Object.Type == "Transfer") { //event leave room
@@ -473,15 +475,16 @@ setInterval(() => {
           count++;
         }
       });
-
-      client.send(stringify({
+      let result = stringify({
 
         UserAccountID: client.UserAccountID,
         Money: client.Money,
         Rooms: client.Rooms,
         CountSameAccount: count
 
-      }, null, 0));
+      }, null, 0);
+      totalSocketBytes+=sizeof(result);
+      client.send(result);
     }
     // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
   });
@@ -543,6 +546,40 @@ console.log(process.env.MYSQL_SERVICE_PORT || 3306);
 
 console.log(process.env.MARIADB_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
 console.log(process.env.MARIADB_SERVICE_PORT || 3306);
+
+var requestStats = require('request-stats');
+
+
+const pretty = require('prettysize');
+var stats = requestStats(server);
+var AllHttpBytes = 0;
+
+stats.on('complete', function (details) {
+  var size = details.req.bytes;
+  AllHttpBytes+=size;
+  console.log("Total Size of Each HTTP : " +pretty(AllHttpBytes)+ " Total Socket Size : " +pretty(totalSocketBytes));
+});
+
+let blocked = require('blocked');
+blocked((time, stack) => {
+  console.log(`Blocked for ${time}ms, operation started here:`, stack)
+});
+
+/*
+var stats = requestStats(app);
+
+stats.on('complete', function (details) {
+  var size = details.req.bytes;
+  console.log(size);
+});
+stats.on('request', function (req) {
+  // evey second, print stats
+  var interval = setInterval(function () {
+    var progress = req.progress()
+    console.log(progress)
+    if (progress.completed) clearInterval(interval)
+  }, 1000)
+})*/
 
 module.exports = routes;
 module.exports = app;

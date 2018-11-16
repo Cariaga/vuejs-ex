@@ -21,7 +21,7 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
 
       jwt.verify(bearerToken, 'secretkey', function (err, decoded) {
         if (err) {
-          console.log("Error Token");
+          console.log("Error Token A" );
           res.sendStatus(403);
         } else {
           let resultDecoded = jwt.decode(bearerToken, {
@@ -41,13 +41,13 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
         }
       });
     }else{
-      console.log("Error Token Null");
+      console.log("Error Token split");
       res.sendStatus(403);
     }
     // Next middleware
   } else {
     // Forbidden
-    console.log("Error Token Null");
+    console.log("Error Token undefined");
     res.sendStatus(403);
   }
 }
