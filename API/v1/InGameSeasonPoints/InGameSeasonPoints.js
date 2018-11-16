@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     //SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where SeasonID='0e032ae4-335b-4889-808e-3ff95e4cf7f4';
 
-    app.get('/Api/v1/InGameSeasonPoints/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameSeasonPoints/SeasonID/:SeasonID/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
         let SeasonID = req.params.SeasonID;
         InGameSeasonPointsModel.InGameSeasonPoints(SeasonID, function (response) {
             if (response != undefined) {

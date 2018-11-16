@@ -27,8 +27,22 @@ var cors = require('cors');
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
 
-app.use(function (req, res, next) {
+/*
+var cache = require('express-redis-cache')();
 
+var ExpressBrute = require('express-brute'),
+	RedisStore = require('express-brute-redis');
+  var store = new RedisStore({
+    host: 'localhost',
+    port: 6379
+  });
+
+*/
+
+  
+
+app.use(function (req, res, next) {
+  
   // Website you wish to allow to connect
   var allowedOrigins = ['http://127.0.0.1:8020', 'http://localhost:8020', 'http://127.0.0.1:8080', 'http://127.0.0.1:9000', 'http://localhost:9000', 'http://localhost:8080'];
   var origin = req.headers.origin;
@@ -45,7 +59,7 @@ app.use(function (req, res, next) {
   // to the API (e.g. in case you use sessions)
   res.header('Access-Control-Allow-Credentials', true);
 
-  // Pass to next layer of middleware
+
 
     next();
 });
@@ -79,6 +93,8 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 */
 
 //===========API===========
+let Security = require("./API/SharedController/Security");
+
 let DBConnect = require("./API/SharedController/DBConnect");
 
 
@@ -216,11 +232,16 @@ app.get('/', function (req, res) {
 });
 //--Login End
 
+var cache = require('express-redis-cache')();
 
-app.get('/Api/', function (req, res) {
+
+
+
+app.get('/Api/', Security.globalBruteforce.prevent,cache.route({ expire: 5  }), function (req, res) {
   res.send('pick version');
+ // setTimeout(function(){res.send('pick version');}, 5000);
 });
-app.get('/Api/v1', function (req, res) {
+app.get('/Api/v1', Security.globalBruteforce.prevent,cache.route({ expire: 100  }), function (req, res) {
   res.send('Api v1 version');
 });
 //---POKER ROUTING START
@@ -541,11 +562,15 @@ console.log('Server running on http://%s:%s', ip, port);
 console.log("--------process informationz  for openshift---------");
 console.log(beautify(process.env, null, 2, 100));
 console.log("-----------------");
-console.log(process.env.MYSQL_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
-console.log(process.env.MYSQL_SERVICE_PORT || 3306);
+console.log("MysqlHost :"+process.env.MYSQL_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
+console.log("Mysql Port :"+process.env.MYSQL_SERVICE_PORT || 3306);
 
-console.log(process.env.MARIADB_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
-console.log(process.env.MARIADB_SERVICE_PORT || 3306);
+console.log("MariaHost :"+process.env.MARIADB_SERVICE_HOST || 'localhost'); //output the service if service host is undefined
+console.log("MariaDB Port :"+process.env.MARIADB_SERVICE_PORT || 3306);
+
+
+console.log("Redis :"+process.env.REDIS_PORT_6379_TCP_ADDR);
+console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);
 
 var requestStats = require('request-stats');
 

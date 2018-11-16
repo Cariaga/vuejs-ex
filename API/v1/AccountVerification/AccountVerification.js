@@ -4,7 +4,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
   //MODIFY
-  app.get('/Api/v1/AccountVerification/Update/UserAccountID/:UserAccountID/Key/:Key', function (req, res) {
+  app.get('/Api/v1/AccountVerification/Update/UserAccountID/:UserAccountID/Key/:Key', Security.globalBruteforce.prevent, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Key = req.params.Key;
     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

@@ -10,7 +10,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
   //approved deposit
-  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID/', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID/', Security.globalBruteforce.prevent, function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     let UserAccountID = req.params.UserAccountID;
 
@@ -68,7 +68,7 @@ module.exports = function (app) {
   });
 
   //archived deposit
-  app.get('/Api/v1/DepositHistory/Archived/UserTransactionID/:UserTransactionID', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Archived/UserTransactionID/:UserTransactionID', Security.globalBruteforce.prevent, function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     if (!isNullOrEmpty(UserTransactionID)) {
       DepositHistoryModel.DepositHistoryUpdateArchived(UserTransactionID, function (response) {
@@ -87,7 +87,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/', Security.globalBruteforce.prevent, function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let ProcessingDATE = req.params.ProcessingDATE;
@@ -133,7 +133,7 @@ module.exports = function (app) {
       });
     }
   });
-  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/', Security.globalBruteforce.prevent, function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let RejectedDATE = req.params.RejectedDATE;
@@ -179,7 +179,7 @@ module.exports = function (app) {
       });
     }
   });
-  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', Security.globalBruteforce.prevent, function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let Amount = req.params.Amount;
@@ -368,7 +368,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', function (req, res) {
+  app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', Security.globalBruteforce.prevent, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let Status = req.params.Status;
@@ -411,7 +411,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/AccountHolder/:AccountHolder', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/AccountHolder/:AccountHolder', Security.globalBruteforce.prevent, function (req, res) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
     //       /Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     let UserAccountID = req.params.UserAccountID;
@@ -480,7 +480,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/', function (req, res) {
+  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/', Security.globalBruteforce.prevent, function (req, res) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/
    
     async.series([], function (error, response) {
@@ -491,7 +491,7 @@ module.exports = function (app) {
    
     
   });
-app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', function (req, res) {
+app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', Security.globalBruteforce.prevent, function (req, res) {
   // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;

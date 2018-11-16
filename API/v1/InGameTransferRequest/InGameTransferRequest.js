@@ -146,7 +146,7 @@ module.exports = function (app) {
         }
     }
 
-    app.post('/Api/v1/InGameTransferRequest/', Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/InGameTransferRequest/', Security.globalBruteforce.prevent, Security.verifyToken, function (req, res) {
         let UserAccountIDSender = req.body.UserAccountIDSender;
         let Amount =req.body.Amount;
         let UserName = req.body.UserName;
@@ -154,7 +154,7 @@ module.exports = function (app) {
         InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName,Password, res);
     });
 
-    app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/Password/:Password', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/Password/:Password', Security.globalBruteforce.prevent, Security.verifyToken, function (req, res) {
         let UserAccountIDSender = req.params.UserAccountIDSender;
         let Amount = parseInt(req.params.Amount);
         let UserName = req.params.UserName;

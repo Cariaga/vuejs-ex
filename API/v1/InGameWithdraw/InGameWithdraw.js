@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 
 module.exports = function (app) {
-  app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
     let Bank = req.params.Bank;
@@ -21,7 +21,7 @@ module.exports = function (app) {
     Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res);
   });
 
-  app.post('/Api/v1/WithdrawHistory/Request/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/WithdrawHistory/Request/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Amount = parseInt(req.body.Amount);
     let Bank = req.body.Bank;

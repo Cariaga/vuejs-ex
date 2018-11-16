@@ -13,13 +13,13 @@ module.exports = function (app) {
       res.send(response);
     });
   }
-  app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;
     let offset = req.params.Offset;
     DepositListLimitOffet(limit,offset,res);
   });
-  app.post('/Api/v1/DepositList/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/DepositList/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;
     let offset = req.params.Offset;
@@ -60,7 +60,7 @@ module.exports = function (app) {
       });
     }
   }
-  app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     let StartDate = req.params.StartDate;
@@ -68,7 +68,7 @@ module.exports = function (app) {
     DepositListSearch(Column,Value,StartDate,EndDate,res);
 
   });
-  app.post('/Api/v1/DepositList/Search/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/DepositList/Search/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     let StartDate = req.body.StartDate;

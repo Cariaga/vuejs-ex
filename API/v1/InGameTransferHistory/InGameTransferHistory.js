@@ -11,7 +11,7 @@ let InGameTransferHistoryModel = require('./InGameTransferHistoryModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //selection
-  app.get('/Api/v1/InGameTransferHistory/UserAccountID/:UserAccountID/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/InGameTransferHistory/UserAccountID/:UserAccountID/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
       if (response == true) {

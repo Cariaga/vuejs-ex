@@ -8,7 +8,7 @@ var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/Status/:Status/', function (req, res) {
+  app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/Status/:Status/', Security.globalBruteforce.prevent, function (req, res) {
     let TransferHistoryUUID = req.params.TransferHistoryUUID;
     let Status = req.params.Status;
     if(!isNullOrEmpty(TransferHistoryUUID)){
@@ -26,7 +26,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //INSERT
-  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', function (req, res) {
+  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', Security.globalBruteforce.prevent, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
     let UserAccountIDSender = req.params.UserAccountIDSender;
@@ -63,7 +63,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-  app.get('/Api/v1/TransferHistory/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/TransferHistory/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     let StartDate = req.params.StartDate;

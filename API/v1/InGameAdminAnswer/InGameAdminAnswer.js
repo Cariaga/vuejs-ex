@@ -28,7 +28,7 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }
-    app.get('/Api/v1/InGameAdminAnswer/SupportTicketID/:SupportTicketID/Answer/:Answer', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameAdminAnswer/SupportTicketID/:SupportTicketID/Answer/:Answer', Security.globalBruteforce.prevent, Security.verifyToken, function (req, res) {
         let SupportTicketID = req.params.SupportTicketID;
         let Answer = req.params.Answer;
         InGameAdminAnswer(SupportTicketID,Answer,res);

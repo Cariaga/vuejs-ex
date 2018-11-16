@@ -52,3 +52,37 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
   }
 }
 
+var cache = require('express-redis-cache')();
+var failCallback = function (req, res, next, nextValidRequestDate) {
+  console.log("DDOS Attempt Ip now Blocked");
+  res.sendStatus(429); // brute force protection triggered, send them back to the login page
+};
+var ExpressBrute = require('express-brute'),
+	RedisStore = require('express-brute-redis');
+  var store = new RedisStore({
+    host: 'localhost',
+    port: 6379
+  });
+
+var handleStoreError = function (error) {
+  log.error(error); // log this error so we can figure out what went wrong
+  // cause node to exit, hopefully restarting the process fixes the problem
+  throw {
+      message: error.message,
+      parent: error.parent
+  };
+}
+
+module.exports.globalBruteforce = new ExpressBrute(store, {
+  freeRetries: 1000,
+  attachResetToRequest: false,
+  refreshTimeoutOnRequest: false,
+  minWait: 25*60*60*1000, // 1 day 1 hour (should never reach this wait time)
+  maxWait: 25*60*60*1000, // 1 day 1 hour (should never reach this wait time)
+  lifetime: 24*60*60, // 1 day (seconds not milliseconds)
+  failCallback: failCallback,
+  handleStoreError: handleStoreError
+});
+
+
+

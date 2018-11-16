@@ -18,7 +18,7 @@ module.exports = function (app) { //SELECTION
       }
     });
   }
-  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) { //OK
+  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) { //OK
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     OneOnOneOffetLimit(Limit,Offset,res);
@@ -98,7 +98,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   }
-  app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
     let UserAccountID = req.params.UserAccountID;
     let Answer = req.params.Answer;
@@ -113,7 +113,7 @@ module.exports = function (app) { //SELECTION
 
   });
   //write notice 
-  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/SupportTicketID/:SupportTicketID/', function (req, res) {
+  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/SupportTicketID/:SupportTicketID/', Security.globalBruteforce.prevent, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let SupportTicketID = req.params.SupportTicketID;
 
@@ -145,7 +145,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   //write notice 
-  app.get('/Api/v1/OneOnOne/WriteSupportAnswer/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', function (req, res) {
+  app.get('/Api/v1/OneOnOne/WriteSupportAnswer/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', Security.globalBruteforce.prevent, function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
     let UserAccountID = req.params.UserAccountID;
     let Answer = req.params.Answer;

@@ -8,7 +8,7 @@ var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', function (req, res) {
+  app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', Security.globalBruteforce.prevent, function (req, res) {
     let ShopID = req.params.ShopID;
     let UserAccountID = req.params.UserAccountID;
     let DistributorID = req.params.DistributorID;
@@ -37,7 +37,7 @@ module.exports = function (app) { //MODIFY
         });
     }
   });
-  app.get('/Api/v1/Shop/Validate/:UserAccountID/', function (req, res) { //check for validation only
+  app.get('/Api/v1/Shop/Validate/:UserAccountID/', Security.globalBruteforce.prevent, function (req, res) { //check for validation only
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -59,7 +59,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //INSERT
-  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorID/:DistributorID/', function (req, res) {
+  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorID/:DistributorID/', Security.globalBruteforce.prevent, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
@@ -127,7 +127,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', function (req, res) {
+  app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', Security.globalBruteforce.prevent, function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
     let DistributorID = req.params.DistributorID;

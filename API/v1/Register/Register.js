@@ -8,7 +8,7 @@ var uuidv4 = require('uuid/v4');
 var http = require('http');
 module.exports = function (app) {
 
-  app.get('/Api/v1/Register/Add/ScreenName/:ScreenName/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/AccountNumber/:AccountNumber/AccountHolder/:AccountHolder/ShopID/:ShopID/', function (req, res) {
+  app.get('/Api/v1/Register/Add/ScreenName/:ScreenName/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/AccountNumber/:AccountNumber/AccountHolder/:AccountHolder/ShopID/:ShopID/', Security.globalBruteforce.prevent, function (req, res) {
     let ScreenName = req.params.ScreenName;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
@@ -28,7 +28,7 @@ module.exports = function (app) {
     //newer version
     Register(UserAccountID,AccessID,UserName,Password,ScreenName,ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,AccountHolder,ShopID,res);
   });
-  app.post('/Api/v1/Register/Add/', function (req, res) {
+  app.post('/Api/v1/Register/Add/', Security.globalBruteforce.prevent, function (req, res) {
     let ScreenName = req.body.ScreenName;
     let UserName = req.body.UserName;
     let Password = req.body.Password;

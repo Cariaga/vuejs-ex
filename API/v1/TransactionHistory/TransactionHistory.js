@@ -4,7 +4,7 @@ let DBCheck = require("../../SharedController/DBCheck");
 var beautify = require("json-beautify");
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-  app.get('/Api/v1/TransactionHistory/UserTransactionID/:UserTransactionID/TransactionStatus/:TransactionStatus/', function (req, res) {
+  app.get('/Api/v1/TransactionHistory/UserTransactionID/:UserTransactionID/TransactionStatus/:TransactionStatus/', Security.globalBruteforce.prevent, function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     let TransactionStatus = req.params.TransactionStatus;
 

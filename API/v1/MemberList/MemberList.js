@@ -21,12 +21,12 @@ module.exports = function (app) { //SELECTION
       }
     }
   }
-  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     MembersListLimitOffset(Limit,Offset,res);
   });
-  app.post('/Api/v1/MembersList/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/MembersList/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Limit = req.body.Limit;
     let Offset = req.body.Offset;
     MembersListLimitOffset(Limit,Offset,res);
@@ -53,12 +53,12 @@ module.exports = function (app) { //SELECTION
       });
     }
   }
-  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     MemberListSearch(Column,Value,res);
   });
-  app.post('/Api/v1/MemberList/Search/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/MemberList/Search/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     MemberListSearch(Column,Value,res);

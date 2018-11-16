@@ -19,25 +19,25 @@ module.exports = function (app) {
     }
   }
   //SELECTION
-  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
-  app.get('/Api/v1/BlackList/', function (req, res) {//test connection only
+  app.get('/Api/v1/BlackList/', Security.globalBruteforce.prevent, function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
   });
-  app.get('/Api/v1/BlackList/withtoken',Security.verifyToken, function (req, res) {//test connection only
+  app.get('/Api/v1/BlackList/withtoken', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
   });
-  app.post('/Api/v1/BlackList/withtokenpost',Security.verifyToken, function (req, res) {//test connection only
+  app.post('/Api/v1/BlackList/withtokenpost', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
   });
-  app.post('/Api/v1/BlackList/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/BlackList/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.body.Limit;
     let Offset = req.body.Offset;
@@ -71,7 +71,7 @@ module.exports = function (app) {
     }
   }
   //MODIFY / release
-  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let BlackListID = req.params.BlackListID;
     let UserAccountID = req.params.UserAccountID;
     BlackListUpdate(BlackListID,UserAccountID,res);
@@ -83,7 +83,7 @@ module.exports = function (app) {
   });
 
   //add user to black list
-  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Reason/:Reason/', function (req, res) { //OK
+  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Reason/:Reason/', Security.globalBruteforce.prevent, function (req, res) { //OK
     let UserAccountID = req.params.UserAccountID;
     let Reason = req.params.Reason;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -137,7 +137,7 @@ module.exports = function (app) {
       });
     }
   }
-  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
 
@@ -164,13 +164,13 @@ module.exports = function (app) {
       });
     }
   }
-  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/',Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
     BlackListUserAccount(UserAccountID,UserName,res);   
   });
   //user inquire
-  app.post('/Api/v1/BlackList/Check/Blocked/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/BlackList/Check/Blocked/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
     BlackListUserAccount(UserAccountID,UserName,res);   

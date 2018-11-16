@@ -11,7 +11,7 @@ module.exports = function (app) {
 
 
     //userprofit search
-    app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', function (req, res) {
+    app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', Security.globalBruteforce.prevent, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let StartDate = req.params.StartDate;
     let EndDate = req.params.EndDate;

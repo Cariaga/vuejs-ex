@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {//MODIFY
-  app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', function (req, res) {
+  app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', Security.globalBruteforce.prevent, function (req, res) {
     let BankInformationID = req.params.BankInformationID;
     let UserAccountID = req.params.UserAccountID;
     let BankName = req.params.BankName;
@@ -69,7 +69,7 @@ module.exports = function (app) {//MODIFY
     }
   });
 //INSERT
-  app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', function (req, res) {
+  app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', Security.globalBruteforce.prevent, function (req, res) {
     //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let BankName = req.params.BankName;
@@ -133,7 +133,7 @@ module.exports = function (app) {//MODIFY
   });
 
 //SELECTION
-  app.get('/Api/v1/BankInformation/', function (req, res) {
+  app.get('/Api/v1/BankInformation/', Security.globalBruteforce.prevent, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -179,7 +179,7 @@ module.exports = function (app) {//MODIFY
     }
     //res.send("BankInformation "+Offset+" "+ Limit+" "+Sort);
   });
-  app.get('/Api/v1/BankInformation/Describe', function (req, res) {
+  app.get('/Api/v1/BankInformation/Describe', Security.globalBruteforce.prevent, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.BankInformation.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     Models.BankInformation.describe().then(result => {
@@ -188,7 +188,7 @@ module.exports = function (app) {//MODIFY
   });
 
 //STRUCTURE
-  app.get('/Api/v1/BankInformation/Clear', function (req, res) {
+  app.get('/Api/v1/BankInformation/Clear', Security.globalBruteforce.prevent, function (req, res) {
     Models.BankInformation.destroy({
         where: {},
         truncate: true
@@ -200,7 +200,7 @@ module.exports = function (app) {//MODIFY
         res.send("Truncate " + err);
       });
   });
-  app.get('/Api/v1/BankInformation/Delete', function (req, res) {
+  app.get('/Api/v1/BankInformation/Delete', Security.globalBruteforce.prevent, function (req, res) {
     Models.BankInformation.sync({
       force: true
     }).then(function (result) {
