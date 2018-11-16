@@ -52,7 +52,7 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
   }
 }
 
-var cache = require('express-redis-cache')();
+
 var failCallback = function (req, res, next, nextValidRequestDate) {
   console.log("DDOS Attempt Ip now Blocked");
   res.sendStatus(429); // brute force protection triggered, send them back to the login page

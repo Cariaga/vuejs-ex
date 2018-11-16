@@ -9,6 +9,8 @@ var LoginHistoryModel = require('./LoginHistoryModel');
 var jwt = require('jsonwebtoken');
 let http = require('http');
 let Security = require("../../SharedController/Security");
+var cache = require('express-redis-cache')();
+
 module.exports = function (app) {
   app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -34,12 +36,12 @@ module.exports = function (app) {
       }
     });
   });
-  app.get('/Api/v1/logout', function (req, res) {
+  app.get('/Api/v1/logout',cache.route({ expire: 5000  }), function (req, res) {
     res.send("logout success!");
   });
   
   //admins or certain account type can authorize then login already
-  app.post('/Api/v1/Admin/Login/', function (req, res) {
+  app.post('/Api/v1/Admin/Login/',cache.route({ expire: 5000  }), function (req, res) {
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
     if (!isNullOrEmpty(_UserName)) {
@@ -106,7 +108,7 @@ module.exports = function (app) {
   });
   
  //Player Authorization process only
-  app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
+  app.post('/Api/v1/Login/',cache.route({ expire: 5000  }), function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
     if (!isNullOrEmpty(_UserName)) {
@@ -277,7 +279,7 @@ module.exports = function (app) {
  // app.options('/Api/v1/Game/Login/', cors());
 
   //Post : only possible when its authorized
-  app.post('/Api/v1/Game/Login/', Security.globalBruteforce.prevent, Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/Game/Login/', Security.globalBruteforce.prevent, Security.verifyToken,cache.route({ expire: 5000  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
