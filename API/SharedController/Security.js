@@ -121,8 +121,8 @@ module.exports.rateLimiterMiddleware = (req, res, next) => {
       res.status(429).send('Too Many Requests');
     });
 };
-
+/*
 var cache = require('express-redis-cache')({
   host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost', port: process.env.REDIS_PORT_6379_TCP_PORT||6379/*,no_ready_check: true, auth_pass: 'eastcoast'*/
-  });
-module.exports.cache = cache;
+  //});
+//module.exports.cache = cache;*/
