@@ -232,7 +232,9 @@ app.get('/', function (req, res) {
 });
 //--Login End
 
-var cache = require('express-redis-cache')();
+var cache = require('express-redis-cache')({
+  host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost', port: process.env.REDIS_PORT_6379_TCP_PORT||6379, auth_pass: 'eastcoast'
+  });
 
 
 
