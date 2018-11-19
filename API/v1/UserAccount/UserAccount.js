@@ -112,7 +112,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', Security.rateLimiterMiddleware,/*Security.verifyToken,*/ (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
     let UserName = req.params.UserName;
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
@@ -129,7 +129,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   
-  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {
