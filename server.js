@@ -141,13 +141,13 @@ require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app); //Deprected
 require('./API/v1/Poker/Poker')(app);
 require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
-/*require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
+require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
 require('./API/v1/Shop/Shop')(app);
 require('./API/v1/SupportTicket/SupportTicket')(app);
 require('./API/v1/TransferHistory/TransferHistory')(app);
 require('./API/v1/UserAccount/UserAccount')(app);
 require('./API/v1/UserInfo/UserInfo')(app);
-require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicket')(app);
+/*require('./API/v1/InGameUserSupportTicket/InGameUserSupportTicket')(app);
 require('./API/v1/Verification/Verification')(app);
 require('./API/v1/WithdrawHistory/WithdrawHistory')(app);
 require('./API/v1/WithdrawHistoryList/WithdrawHistoryList')(app);
