@@ -108,7 +108,7 @@ require('./API/v1/GameHistory/GameHistory')(app);
 require('./API/v1/GameLogList/GameLogList')(app);
 require('./API/v1/HandHistory/HandHistory')(app);
 require('./API/v1/HandHistoryList/HandHistoryList')(app);
-/*require('./API/v1/InGameMoney/InGameMoney')(app);
+require('./API/v1/InGameMoney/InGameMoney')(app);
 require('./API/v1/HeadOffice/HeadOffice')(app);
 require('./API/v1/HeadOfficeList/HeadOfficeList')(app);
 require('./API/v1/InGameAdminSupport/InGameAdminSupport')(app);
@@ -141,7 +141,7 @@ require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app); //Deprected
 require('./API/v1/Poker/Poker')(app);
 require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
-require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
+/*require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
 require('./API/v1/Shop/Shop')(app);
 require('./API/v1/SupportTicket/SupportTicket')(app);
 require('./API/v1/TransferHistory/TransferHistory')(app);
