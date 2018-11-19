@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
+var Security = require('../../SharedController/Security');
 //Deprecated by InGameFinalCard
 module.exports = function (app) {
 
