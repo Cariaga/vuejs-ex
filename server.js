@@ -132,15 +132,16 @@ require('./API/v1/IPList/IPList')(app);
 require('./API/v1/LoginHistory/LoginHistory')(app);
 require('./API/v1/MemberBlackList/MemberBlackList')(app);
 require('./API/v1/MemberList/MemberList')(app);
-require('./API/v1/Notification/Notification')(app);*require('./API/v1/OneOnOne/OneOnOne')(app);
+require('./API/v1/Notification/Notification')(app);
+require('./API/v1/OneOnOne/OneOnOne')(app);
 require('./API/v1/Pagination/Pagination')(app);
 require('./API/v1/Player/Player')(app);
 require('./API/v1/InGameFinalCard/InGameFinalCard')(app);
-/*require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app); //Deprected
+require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app); //Deprected
 require('./API/v1/Poker/Poker')(app);
 require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
-require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
+/*require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
 require('./API/v1/Shop/Shop')(app);
 require('./API/v1/SupportTicket/SupportTicket')(app);
 require('./API/v1/TransferHistory/TransferHistory')(app);
