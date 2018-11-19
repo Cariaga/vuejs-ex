@@ -13,9 +13,12 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
                 +" ifnull((select sum(amount) from transferhistories where UserAccountIDSender = useracct AND Status = 'approved'"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdrawTransfer',"
                 // deposit
 =======
+=======
+>>>>>>> parent of f5e52dab... Update UserProfitModel.js
 =======
 >>>>>>> parent of f5e52dab... Update UserProfitModel.js
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdraw(transfer)',"
@@ -27,9 +30,12 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
                 +" ifnull( (select sum(amount) from transferhistories where UserAccountIDReceiver = useracct AND Status = 'approved'"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'depositTransfer',"
                 //betting amount
 =======
+=======
+>>>>>>> parent of f5e52dab... Update UserProfitModel.js
 =======
 >>>>>>> parent of f5e52dab... Update UserProfitModel.js
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'deposit(transfer)',"
