@@ -97,7 +97,7 @@ let Security = require("./API/SharedController/Security");
 
 let DBConnect = require("./API/SharedController/DBConnect");
 
-
+/*
 require('./API/v1/AccessControl/AccessControl')(app);
 
 require('./API/v1/BankInformation/BankInformation')(app);
@@ -162,7 +162,7 @@ require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 require('./API/v1/Sales/Sales')(app);
 require('./API/v1/UserProfit/UserProfit')(app);
-
+*/
 
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
