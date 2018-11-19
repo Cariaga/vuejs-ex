@@ -229,7 +229,7 @@ var cache = require('express-redis-cache')({
 
 
 
-app.get('/Api/', Security.globalBruteforce.prevent,cache.route({ expire: 5  }),function (req, res) {
+app.get('/Api/', /*Security.globalBruteforce.prevent,*/cache.route({ expire: 5  }),function (req, res) {
  
   setTimeout(function(){res.send('pick version');}, 10000);
 });
