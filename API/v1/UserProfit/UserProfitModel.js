@@ -11,13 +11,13 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
                 +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as withdraw,"
 
                 +" ifnull((select sum(amount) from transferhistories where UserAccountIDSender = useracct AND Status = 'approved'"
-                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdraw(transfer)',"
+                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdrawTransfer',"
 
                 +" ifnull((select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID where t.TransactionType = 'deposit' AND t.UserAccountID = useracct"
                 +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as deposit,"
 
                 +" ifnull( (select sum(amount) from transferhistories where UserAccountIDReceiver = useracct AND Status = 'approved'"
-                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'deposit(transfer)',"
+                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'depositTransfer',"
                 
                 +" ifnull((select sum(HandAmount) from handhistory where UserAccountID = useracct"
                 +" AND HandDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0)  BettingAmount,"
