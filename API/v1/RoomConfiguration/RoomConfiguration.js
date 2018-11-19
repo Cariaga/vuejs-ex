@@ -10,7 +10,7 @@ var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,cre
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/RoomNotice/:RoomNotice/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/RoomNotice/:RoomNotice/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let RoomID = req.params.RoomID;
     let RoomNotice = req.params.RoomNotice;
     if (!isNullOrEmpty(RoomID)) {
@@ -21,7 +21,7 @@ module.exports = function (app) { //MODIFY
       }
     }
   });
-  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed/GameType/:GameType', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed/GameType/:GameType', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let RoomID = req.params.RoomID;
     let SmallBlind =parseInt(req.params.SmallBlind);
     let BigBlind = parseInt(req.params.BigBlind);
@@ -152,7 +152,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-  app.get('/Api/v1/RoomConfiguration/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/RoomConfiguration/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;

@@ -8,7 +8,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
 
-  app.get('/Api/v1/HandHistoryList/SeasonID/:SeasonID/', Security.rateLimiterMiddleware, function (req, res) { // by season
+  app.get('/Api/v1/HandHistoryList/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { // by season
     res.setHeader('Content-Type', 'application/json');
     let SeasonID = req.params.SeasonID;
     if (!isNullOrEmpty(SeasonID)) {
@@ -24,7 +24,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', Security.rateLimiterMiddleware, function (req, res) { // by user Account with season
+  app.get('/Api/v1/HandHistoryList/UserAccountID/:UserAccountID/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { // by user Account with season
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let SeasonID = req.params.SeasonID;

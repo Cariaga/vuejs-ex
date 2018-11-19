@@ -37,7 +37,7 @@ module.exports = function (app) {
             });
         }
     }
-    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
         GameLogListLimitOffset(Limit,Offset,res);
@@ -70,7 +70,7 @@ module.exports = function (app) {
             });
         }
     }
-    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/GameLogList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let Column = req.params.Column;
         let Value = req.params.Value;
         GameLogListSearch(Column,Value,res);

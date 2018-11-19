@@ -8,7 +8,7 @@ var uuidv4 = require('uuid/v4');
 var http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    app.get('/Api/v1/Profile/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Profile/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountID = req.params.UserAccountID;
 
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

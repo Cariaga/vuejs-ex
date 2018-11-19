@@ -49,7 +49,7 @@ module.exports = function(app) {//MODIFY
     }
   });
 //INSERT
-  app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let AccessID = req.params.AccessID;
     let AccessName = req.params.AccessName;
     let AccessTags = req.params.AccessTags;

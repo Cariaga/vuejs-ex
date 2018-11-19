@@ -9,7 +9,7 @@ var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //INSERT
-  app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Answer/:Answer/Status/:Status', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/SupportTicket/Add/UserAccountID/:UserAccountID/Title/:Title/Description/:Description/Reason/:Reason/Answer/:Answer/Status/:Status', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     ///USAGE /Api/v1/SupportTicket/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Title/Title/Description/Description/Reason/Reason/Time/01:57:17/Date/2018-06-27/Status/Status
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
@@ -89,7 +89,7 @@ module.exports = function (app) { //INSERT
   });
 
   //INSERT w/out Answer & Status
-  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', Security.rateLimiterMiddleware, Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
     let Description = req.params.Description;
@@ -126,7 +126,7 @@ module.exports = function (app) { //INSERT
       });
     }
   });
-  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/SupportTicket/Request/UserAccountID/:UserAccountID/Title/:Title/Reason/:Reason/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Title = req.params.Title;
     let Description = req.params.Description;
@@ -162,7 +162,7 @@ module.exports = function (app) { //INSERT
     }
   });
   //MODIFY
-  app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/Answer/:Answer/Status/:Status', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/SupportTicket/Update/SupportTicketID/:SupportTicketID/Answer/:Answer/Status/:Status', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
     let Answer = req.params.Answer;
     let Status = req.params.Status;
@@ -189,7 +189,7 @@ module.exports = function (app) { //INSERT
       });
     }
   });
-  app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/SupportTicket/UserAccountID/:UserAccountID/Status/:Status', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let Status = req.params.Status;

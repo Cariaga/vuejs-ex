@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //INSERT
-  app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
@@ -49,7 +49,7 @@ module.exports = function (app) { //INSERT
     }
   });
   //MODIFY
-  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationID = req.params.NotificationID;
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
@@ -81,13 +81,13 @@ module.exports = function (app) { //INSERT
       });
     }
   }
-  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     NotificationSearch(Column,Value,res);
     
   });
-  app.post('/Api/v1/Notification/Search/',Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/Notification/Search/',Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     NotificationSearch(Column,Value,res);

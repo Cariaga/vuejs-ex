@@ -7,7 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/Distributor/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Distributor/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -52,7 +52,7 @@ module.exports = function (app) { //SELECTION
     }
     //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
   });
-  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', Security.rateLimiterMiddleware, function (req, res) { //check for validation only
+  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       DBCheck.isDistributorUserAccountIDExist(UserAccountID, function (response) {
@@ -71,7 +71,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   //MODIFY
-  app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DistributorID = req.params.DistributorID;
     let UserAccountID = req.params.UserAccountID;
     let HeadOfficeID = req.params.HeadOfficeID;
@@ -119,7 +119,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   //INSERT
-  app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
     let UserAccountID = req.params.UserAccountID;
     let HeadOfficeID = req.params.HeadOfficeID;
@@ -161,7 +161,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/Shop/DistributorID/:DistributorID/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Shop/DistributorID/:DistributorID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let DistributorID = req.params.DistributorID;
     if (!isNullOrEmpty(DistributorID)) {
@@ -179,7 +179,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/Distributor/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeID/:HeadOfficeID', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Distributor/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeID/:HeadOfficeID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;

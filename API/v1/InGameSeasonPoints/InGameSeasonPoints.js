@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     //SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where SeasonID='0e032ae4-335b-4889-808e-3ff95e4cf7f4';
 
-    app.get('/Api/v1/InGameSeasonPoints/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameSeasonPoints/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let SeasonID = req.params.SeasonID;
         InGameSeasonPointsModel.InGameSeasonPoints(SeasonID, function (response) {
             if (response != undefined) {
@@ -57,7 +57,7 @@ module.exports = function (app) {
 
     //this is their points when they joined the season 
     //note in the db their can only be one user account matching the season 1 user connot have two seasons
-    app.get('/Api/v1/InGameSeasonPoints/Join/SeasonID/:SeasonID/UserAccountID/:UserAccountID/BeforePoints/:BeforePoints', function (req, res) {
+    app.get('/Api/v1/InGameSeasonPoints/Join/SeasonID/:SeasonID/UserAccountID/:UserAccountID/BeforePoints/:BeforePoints',Security.cache.route({ expire: 5  }), function (req, res) {
         let SeasonID = req.params.SeasonID;
         let UserAccountID = req.params.UserAccountID;
         let BeforePoints = req.params.BeforePoints;

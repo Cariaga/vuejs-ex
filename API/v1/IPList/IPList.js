@@ -8,7 +8,7 @@ var IPListModel = require('./IPListModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {//SELECTION
-  app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let UserAccountIDExist = false;
@@ -152,7 +152,7 @@ module.exports = function (app) {//SELECTION
       }
     });
   }
-  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {//OK
+  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
     let Limit =req.params.Limit;
     let Offset = req.params.Offset;
     IPListLimitOffset(Limit,Offset,res);
@@ -184,7 +184,7 @@ module.exports = function (app) {//SELECTION
       });
     }
   }
-  app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     IPListSearch(Column,Value,res);

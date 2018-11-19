@@ -8,7 +8,7 @@ var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Email = req.params.Email;
     let UserAccountIDExist = false;
@@ -61,7 +61,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber', function (req, res) {
+  app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber',Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Email = req.params.Email;
     let PhoneNumber = req.params.PhoneNumber;

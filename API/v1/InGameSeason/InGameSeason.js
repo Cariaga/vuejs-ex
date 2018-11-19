@@ -14,7 +14,7 @@ let UUID = require('uuid/v4');
 var Security = require('../../SharedController/Security');
 /*the FinalCard Current Points is the points to the current season only ones someone won it returns to zero */
 module.exports = function (app) { //selection
-    app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let RoomID = req.params.RoomID;
         if (!isNullOrEmpty(UserAccountID)) {
@@ -39,7 +39,7 @@ module.exports = function (app) { //selection
         }
     });
     
-    app.post('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Security.rateLimiterMiddleware, Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let SeasonID = req.params.SeasonID;
         if(!isNullOrEmpty(SeasonID)){
             let status = 200;
@@ -47,7 +47,7 @@ module.exports = function (app) { //selection
         }
     });
 
-    app.get('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Security.verifyToken, Security.cache.route({ expire: 5  }),function (req, res) {
         let SeasonID = req.params.SeasonID;
         if(!isNullOrEmpty(SeasonID)){
             let status = 200;

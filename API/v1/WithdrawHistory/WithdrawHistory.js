@@ -9,7 +9,7 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let ApprovedDATE = req.params.ApprovedDATE;
@@ -61,7 +61,7 @@ module.exports = function (app) { //MODIFY
   });
 
 
-  app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/AccountNumber/:AccountNumber/ApplicationAmount/:ApplicationAmount/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/WithdrawHistory/Add/UserAccountID/:UserAccountID/UserName/:UserName/ContactNo/:ContactNo/BankName/:BankName/AccountNumber/:AccountNumber/ApplicationAmount/:ApplicationAmount/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
     let ContactNo = req.params.ContactNo;

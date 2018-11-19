@@ -21,12 +21,12 @@ module.exports = function (app) { //SELECTION
       }
     }
   }
-  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     MembersListLimitOffset(Limit,Offset,res);
   });
-  app.post('/Api/v1/MembersList/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/MembersList/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.body.Limit;
     let Offset = req.body.Offset;
     MembersListLimitOffset(Limit,Offset,res);
@@ -53,12 +53,12 @@ module.exports = function (app) { //SELECTION
       });
     }
   }
-  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/MemberList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     MemberListSearch(Column,Value,res);
   });
-  app.post('/Api/v1/MemberList/Search/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/MemberList/Search/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     MemberListSearch(Column,Value,res);

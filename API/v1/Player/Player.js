@@ -112,7 +112,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });*/
-  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let CurrentRoomName = req.params.CurrentRoomName;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -167,7 +167,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let PlayersID = req.params.PlayersID;
     let UserAccountID = req.params.UserAccountID;
     let ShopID = req.params.ShopID;
@@ -235,7 +235,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', Security.rateLimiterMiddleware, Security.cache.route({ expire: 5  }),function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Point = req.params.Point;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -346,7 +346,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let CurrentRoomName = req.params.CurrentRoomName;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -402,7 +402,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Player/ShopID/:ShopID/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Player/ShopID/:ShopID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let ShopID = req.params.ShopID;
     if (!isNullOrEmpty(ShopID)) {
@@ -419,7 +419,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Player/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware, function (req, res) { //ok
+  app.get('/Api/v1/Player/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //ok
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
 
@@ -447,7 +447,7 @@ module.exports = function (app) { //MODIFY
     }
 
   });
-  app.get('/Api/v1/Player/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Player/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -493,7 +493,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //INSERT
-  app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
     let UserAccountID = req.params.UserAccountID;
     let ShopID = req.params.ShopID;
@@ -556,7 +556,7 @@ module.exports = function (app) { //MODIFY
     }
   });
 
-  app.get('/Api/v1/Player/Validate/:UserAccountID/', Security.rateLimiterMiddleware, function (req, res) { //check for validation only
+  app.get('/Api/v1/Player/Validate/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;

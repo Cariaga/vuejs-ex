@@ -13,7 +13,7 @@ let http = require('http');
 let UUID = require('uuid/v4');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
             //client generate the RoomID for speed instead of server

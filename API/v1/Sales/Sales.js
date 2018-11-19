@@ -25,12 +25,12 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRank/HeadOfficeID/:HeadOfficeID', Security.rateLimiterMiddleware, function (req, res) {
+    app.get('/Api/v1/Sales/LowRank/HeadOfficeID/:HeadOfficeID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let HeadOfficeID = req.params.HeadOfficeID;
         LowRank(HeadOfficeID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRank/', Security.rateLimiterMiddleware, function (req, res) {
+    app.post('/Api/v1/Sales/LowRank/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let HeadOfficeID = req.body.HeadOfficeID;
         LowRank(HeadOfficeID,res);
     });
@@ -51,7 +51,7 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRankDistributor/DistributorID/:DistributorID', Security.rateLimiterMiddleware, function (req, res) {
+    app.get('/Api/v1/Sales/LowRankDistributor/DistributorID/:DistributorID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let DistributorID = req.params.DistributorID;
         LowRankDistributor(DistributorID,res);
     });
@@ -77,7 +77,7 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRankShop/ShopID/:ShopID', Security.rateLimiterMiddleware, function (req, res) {
+    app.get('/Api/v1/Sales/LowRankShop/ShopID/:ShopID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let ShopID = req.params.ShopID;
         LowRankShop(ShopID,res);
     });

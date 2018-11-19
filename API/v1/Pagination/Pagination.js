@@ -2,7 +2,7 @@ let PaginationModel = require('./PaginationModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-    app.get('/Api/v1/Pagination/:Page/', Security.rateLimiterMiddleware, function (req, res) {
+    app.get('/Api/v1/Pagination/:Page/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let page = req.params.Page;
         PaginationModel.PaginationCount(page, function(response){
             res.send(response);

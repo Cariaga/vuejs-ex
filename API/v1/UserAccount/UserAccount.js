@@ -9,7 +9,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
 
-  app.get('/Api/v1/UserAccount/', function (req, res) {
+  app.get('/Api/v1/UserAccount/',Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -37,7 +37,7 @@ module.exports = function (app) { //SELECTION
 
 
   //SELECTION
-  app.get('/Api/v1/UserAccount/AccountType/:UserAccountID', function (req, res) {
+  app.get('/Api/v1/UserAccount/AccountType/:UserAccountID',Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -63,7 +63,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
     let UserAccountID = uuidv4(); //generated
@@ -129,7 +129,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   
-  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken, (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {
