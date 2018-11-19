@@ -11,14 +11,24 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
                 +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as withdraw,"
                 //withdraw transfer
                 +" ifnull((select sum(amount) from transferhistories where UserAccountIDSender = useracct AND Status = 'approved'"
+<<<<<<< HEAD
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdrawTransfer',"
                 // deposit
+=======
+                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdraw(transfer)',"
+
+>>>>>>> parent of f5e52dab... Update UserProfitModel.js
                 +" ifnull((select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID where t.TransactionType = 'deposit' AND t.UserAccountID = useracct"
                 +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as deposit,"
                 // deposit transfer
                 +" ifnull( (select sum(amount) from transferhistories where UserAccountIDReceiver = useracct AND Status = 'approved'"
+<<<<<<< HEAD
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'depositTransfer',"
                 //betting amount
+=======
+                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'deposit(transfer)',"
+                
+>>>>>>> parent of f5e52dab... Update UserProfitModel.js
                 +" ifnull((select sum(HandAmount) from handhistory where UserAccountID = useracct"
                 +" AND HandDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0)  BettingAmount,"
                 //rake
