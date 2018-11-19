@@ -136,7 +136,7 @@ require('./API/v1/Notification/Notification')(app);*require('./API/v1/OneOnOne/O
 require('./API/v1/Pagination/Pagination')(app);
 require('./API/v1/Player/Player')(app);
 require('./API/v1/InGameFinalCard/InGameFinalCard')(app);
-require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app); //Deprected
+/*require('./API/v1/PlayerFinalCard/PlayerFinalCard')(app); //Deprected
 require('./API/v1/Poker/Poker')(app);
 require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
@@ -158,7 +158,7 @@ require('./API/v1/InGamePlayerWins/InGamePlayerWins')(app);
 require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 require('./API/v1/Sales/Sales')(app);
 require('./API/v1/UserProfit/UserProfit')(app);
-
+*/
 
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
