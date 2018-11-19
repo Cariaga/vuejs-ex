@@ -35,7 +35,7 @@ module.exports = function (app) {
   });
   
   //admins or certain account type can authorize then login already
-  app.post('/Api/v1/Admin/Login/',/*Security.rateLimiterMiddleware,*//*cache.route({ expire: 5000  }),*/ function (req, res) {
+  app.post('/Api/v1/Admin/Login/', function (req, res) {
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
     if (!isNullOrEmpty(_UserName)) {
@@ -102,7 +102,7 @@ module.exports = function (app) {
   });
   
  //Player Authorization process only
-  app.post('/Api/v1/Login/',/*Security.rateLimiterMiddleware,*//*cache.route({ expire: 5000  }),*/ function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
+  app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
     if (!isNullOrEmpty(_UserName)) {
@@ -273,7 +273,7 @@ module.exports = function (app) {
  // app.options('/Api/v1/Game/Login/', cors());
 
   //Post : only possible when its authorized
-  app.post('/Api/v1/Game/Login/', /*Security.rateLimiterMiddleware,*//* Security.verifyToken,cache.route({ expire: 5000  }),*/ function (req, res) {
+  app.post('/Api/v1/Game/Login/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
