@@ -60,7 +60,7 @@ var failCallback = function (req, res, next, nextValidRequestDate) {
 var ExpressBrute = require('express-brute'),
 	RedisStore = require('express-brute-redis');
   var store = new RedisStore({
-    host: 'localhost',
+    host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
     port: 6379
   });
 
