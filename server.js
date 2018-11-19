@@ -204,14 +204,8 @@ app.get('/SMS/:recipient/:message', function (req, res) {
 
   res.end();
 });
-/**
- *
- *
- * @param {*} To
- * @param {*} From
- * @param {*} Subject
- * @param {*} html
- */
+
+/*
 function SendMail(To, From, Subject, html) {
   sendmail({
     from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
@@ -222,7 +216,7 @@ function SendMail(To, From, Subject, html) {
     console.log(err && err.stack);
     console.dir(reply);
   });
-}
+}*/
 app.get('/', function (req, res) {
   res.sendStatus(200);
 });
