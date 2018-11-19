@@ -249,10 +249,10 @@ var cache = require('express-redis-cache')({
    
   const rateLimiter = new RateLimiterMemory(opts);
 
-  client.on('connect', () => {   
+  redisClient.on('connect', () => {   
     global.console.log("connected");
   });
-  client.on('error', err => {       
+  redisClient.on('error', err => {       
     global.console.log(err.message)
   });                                      
 
