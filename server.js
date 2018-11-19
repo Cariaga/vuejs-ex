@@ -228,10 +228,35 @@ var cache = require('express-redis-cache')({
   });
 
 
+  
+  const Redis = require('ioredis');
+  const redisClient = new Redis({ enableOfflineQueue: false });
+  
+  const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
 
-app.get('/Api/', /*Security.globalBruteforce.prevent,*/cache.route({ expire: 5  }),function (req, res) {
- 
-  setTimeout(function(){res.send('pick version');}, 10000);
+
+  const opts = {
+    storeClient: redisClient,
+    points: 6, // Number of points
+    duration: 5, // Per second(s)
+  };
+   
+  const rateLimiter = new RateLimiterMemory(opts);
+
+  const rateLimiterMiddleware = (req, res, next) => {
+    rateLimiter.consume(req.connection.remoteAddress)
+      .then(() => {
+        next();
+      })
+      .catch((rejRes) => {
+        res.status(429).send('Too Many Requests');
+      });
+  };
+
+
+app.get('/Api/', /*Security.globalBruteforce.prevent,*/ rateLimiterMiddleware,/*cache.route({ expire: 5  }),*/function (req, res) {
+  res.send('pick version');
+  //setTimeout(function(){res.send('pick version');}, 10000);
 });
 /*
 app.get('/Api/v1', Security.globalBruteforce.prevent,cache.route({ expire: 100  }),function (req, res) {

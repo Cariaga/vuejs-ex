@@ -28,7 +28,6 @@
     "jsonwebtoken": "^8.4.0",
     "linq": "^3.1.1",
     "linqjs": "^0.0.6",
-
     "mime": "^2.3.1",
     "mocha": "^5.2.0",
     "moment": "^2.22.2",
@@ -39,7 +38,9 @@
     "path": "^0.12.7",
     "poker-hand-evaluator": "^1.0.1",
     "prettysize": "^1.1.0",
+    "rate-limiter-flexible": "^0.18.5",
     "redis": "^2.8.0",
+    "redis-rate-limiter": "^1.2.0",
     "request": "^2.88.0",
     "request-stats": "^3.0.0",
     "sendmail": "^1.4.1",
@@ -50,7 +51,6 @@
     "url": "^0.11.0",
     "uuid": "^3.3.2",
     "validator": "^10.9.0",
-   
     "ws": "^6.1.2"
   },
   "scripts": {
