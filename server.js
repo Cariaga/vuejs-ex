@@ -233,7 +233,7 @@ app.get('/', function (req, res) {
 //--Login End
 
 var cache = require('express-redis-cache')({
-  host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost', port: process.env.REDIS_PORT_6379_TCP_PORT||6379,no_ready_check: true, /*auth_pass: 'eastcoast'*/
+  host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost', port: process.env.REDIS_PORT_6379_TCP_PORT||6379,/*no_ready_check: true, /*auth_pass: 'eastcoast'*/
   });
 
 
