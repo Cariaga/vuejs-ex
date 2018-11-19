@@ -36,7 +36,7 @@ module.exports = function (app) {
       }
     });
   });
-  app.get('/Api/v1/logout',cache.route({ expire: 5000  }), function (req, res) {
+  app.get('/Api/v1/logout', function (req, res) {
     res.send("logout success!");
   });
   
