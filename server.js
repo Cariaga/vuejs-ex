@@ -233,9 +233,11 @@ var cache = require('express-redis-cache')({
   const redisClient = new Redis({ enableOfflineQueue: false,
      host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
       port: process.env.REDIS_PORT_6379_TCP_PORT||6379,
-      name: 'mymaster'
+      name: 'mymaster',
+      no_ready_check: true,
+      auth_pass:'eastcoast'
      });
-     redisClient.auth('eastcoast');
+    // redisClient.auth('eastcoast');
   const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
 
 
@@ -246,6 +248,14 @@ var cache = require('express-redis-cache')({
   };
    
   const rateLimiter = new RateLimiterMemory(opts);
+
+  client.on('connect', () => {   
+    global.console.log("connected");
+  });
+  client.on('error', err => {       
+    global.console.log(err.message)
+  });                                      
+
 
   const rateLimiterMiddleware = (req, res, next) => {
     rateLimiter.consume(req.connection.remoteAddress)
