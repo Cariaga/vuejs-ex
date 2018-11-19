@@ -167,13 +167,13 @@ function test() {
   });
 }
 //--testing for season based authentication END
-
+/*
 var nexmo = new Nexmo({
   apiKey: "34958c75",
   apiSecret: "VnTUCGBvp3yr2onE",
   /* applicationId: APP_ID,
    privateKey: PRIVATE_KEY_PATH,*/
-}, {
+/*}, {
   debug: true
 });
 
@@ -203,7 +203,8 @@ app.get('/SMS/:recipient/:message', function (req, res) {
   }
 
   res.end();
-});
+});*/
+
 
 /*
 function SendMail(To, From, Subject, html) {
