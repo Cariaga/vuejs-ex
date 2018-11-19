@@ -63,7 +63,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', Security.rateLimiterMiddleware, function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
     let UserAccountID = uuidv4(); //generated
@@ -112,7 +112,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', Security.globalBruteforce.prevent,/*Security.verifyToken,*/ (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', Security.rateLimiterMiddleware,/*Security.verifyToken,*/ (req, res) => {
     let UserName = req.params.UserName;
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
@@ -129,7 +129,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   
-  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.globalBruteforce.prevent,Security.verifyToken, (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken, (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {

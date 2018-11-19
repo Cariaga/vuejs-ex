@@ -8,7 +8,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-  app.get('/Api/v1/SignOut/UserAccountID/:UserAccountID/', Security.globalBruteforce.prevent, Security.verifyToken,function (req, res) {
+  app.get('/Api/v1/SignOut/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware, Security.verifyToken,function (req, res) {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {

@@ -279,7 +279,7 @@ module.exports = function (app) {
  // app.options('/Api/v1/Game/Login/', cors());
 
   //Post : only possible when its authorized
-  app.post('/Api/v1/Game/Login/', Security.globalBruteforce.prevent, Security.verifyToken,cache.route({ expire: 5000  }), function (req, res) {
+  app.post('/Api/v1/Game/Login/', Security.rateLimiterMiddleware, Security.verifyToken,cache.route({ expire: 5000  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");

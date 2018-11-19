@@ -29,7 +29,7 @@ module.exports = function (app) {
             });
         }
     }
-    app.get('/Api/v1/HeadOfficeList/Search/Column/:Column/Value/:Value', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/HeadOfficeList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         let Column = req.params.Column;
         let Value = req.params.Value;
         HeadOfficeListSearch(Column,Value,res);
@@ -62,7 +62,7 @@ module.exports = function (app) {
             });
         }
     }
-    app.get('/Api/v1/HeadOfficeList/Limit/:Limit/Offset/:Offset', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/HeadOfficeList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
         HeadOfficeListLimitOffet(Limit,Offset,res);

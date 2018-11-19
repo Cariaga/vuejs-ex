@@ -95,7 +95,7 @@ module.exports = function (app) { //MODIFY
   }
   //INSERT
   // Security.verifyToken,
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount', Security.globalBruteforce.prevent, function (req, res) { //ok
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount', Security.rateLimiterMiddleware, function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
@@ -103,7 +103,7 @@ module.exports = function (app) { //MODIFY
     AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res);
   });
 
-  app.post('/Api/v1/HandHistory/Add/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) { 
+  app.post('/Api/v1/HandHistory/Add/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) { 
     let UserAccountID = req.body.UserAccountID;
     let MoveHand = req.body.MoveHand;
     let SeasonID = req.body.SeasonID;
@@ -113,7 +113,7 @@ module.exports = function (app) { //MODIFY
   });
 
   //SELECTION
-  app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID/', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -136,12 +136,12 @@ module.exports = function (app) { //MODIFY
       });
     }
   }
-  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let SeasonID = req.params.SeasonID;
     HandHistorySeasonID(SeasonID,res);
   });
-  app.post('/Api/v1/HandHistory/SeasonID/:SeasonID/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/HandHistory/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let SeasonID = req.params.SeasonID;
     HandHistorySeasonID(SeasonID,res);

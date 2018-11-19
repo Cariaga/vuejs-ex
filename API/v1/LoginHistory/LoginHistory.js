@@ -147,7 +147,7 @@ module.exports = function (app) { //MODIFT
     }
   });*/
   //SELECTION
-  app.get('/Api/v1/LoginHistory/', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/LoginHistory/', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -173,7 +173,7 @@ module.exports = function (app) { //MODIFT
         res.send("Error " + result);
       });
     }
-    app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', Security.globalBruteforce.prevent, function (req, res) {
+    app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware, function (req, res) {
       res.setHeader('Content-Type', 'application/json');
       let UserAccountID = req.params.UserAccountID;
       DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
@@ -195,7 +195,7 @@ module.exports = function (app) { //MODIFT
     });
     //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
   });
-  app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/LoginHistory/Latest/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
@@ -215,7 +215,7 @@ module.exports = function (app) { //MODIFT
       }
     });
   });
-  app.get('/Api/v1/LoginHistory/', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/LoginHistory/', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -262,7 +262,7 @@ module.exports = function (app) { //MODIFT
     //res.send("LoginHistory "+Offset+" "+ Limit+" "+Sort);
   });
   //STRUCTURE
-  app.get('/Api/v1/LoginHistory/Clear', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/LoginHistory/Clear', Security.rateLimiterMiddleware, function (req, res) {
     Models.LoginHistory.destroy({
         where: {},
         truncate: true
@@ -274,7 +274,7 @@ module.exports = function (app) { //MODIFT
         res.send("Truncate " + err);
       });
   });
-  app.get('/Api/v1/LoginHistory/Delete', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/LoginHistory/Delete', Security.rateLimiterMiddleware, function (req, res) {
     Models.LoginHistory.sync({
       force: true
     }).then(function (result) {
@@ -284,7 +284,7 @@ module.exports = function (app) { //MODIFT
       res.send("Error " + result);
     });
   });
-  app.get('/Api/v1/LoginHistory/Describe', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/LoginHistory/Describe', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.LoginHistory.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     Models.LoginHistory.describe().then(result => {

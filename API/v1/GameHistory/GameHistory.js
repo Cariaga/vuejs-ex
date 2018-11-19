@@ -9,7 +9,7 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', Security.rateLimiterMiddleware, function (req, res) {
 
     let GameHistoryID = req.params.GameHistoryID;
     let UserAccountID = req.params.UserAccountID;
@@ -162,7 +162,7 @@ module.exports = function (app) { //MODIFY
       }*/
   });
   //SELECTION
-  app.get('/Api/v1/GameHistory', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/GameHistory', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;

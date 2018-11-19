@@ -12,7 +12,7 @@ module.exports = function (app) {
 
     //userprofit search
     // 
-    app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', Security.globalBruteforce.prevent, function (req, res) {
+    app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let StartDate = req.params.StartDate;
     let EndDate = req.params.EndDate;
@@ -47,7 +47,7 @@ module.exports = function (app) {
         }
     }); //userprofit search end
 
-    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset',  Security.globalBruteforce.prevent, function (req, res) {
+    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset',  Security.rateLimiterMiddleware, function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
 

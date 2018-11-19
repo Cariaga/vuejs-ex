@@ -7,38 +7,38 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) { 
 
 
-    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Daily/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Daily/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.HeadOfficeBettingDaily(function (response) {
             res.send(response);
           });
       });
-    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Monthly/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Monthly/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.HeadOfficeBettingMonthly(function (response) {
             res.send(response);
           });
       });
-    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Yearly/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Yearly/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.HeadOfficeBettingYearly(function (response) {
             res.send(response);
           });
       });
-    app.get('/Api/v1/Dashboard/HeadOffice/Deposit/Daily/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/HeadOffice/Deposit/Daily/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.HeadOfficeDepositDaily(function (response) {
             res.send(response);
           });
       });
-    app.get('/Api/v1/Dashboard/HeadOffice/Withdraw/Daily/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/HeadOffice/Withdraw/Daily/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.HeadOfficeWithdrawDaily(function (response) {
             res.send(response);
           });
       });
 
-    app.get('/Api/v1/Dashboard/OnlineStatuses/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/OnlineStatuses/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.UserAccountOnline(function (response) {
             res.send(response);
@@ -51,28 +51,28 @@ module.exports = function (app) {
           });
       });*/
 
-    app.get('/Api/v1/Dashboard/TotalRegisteredUser/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/TotalRegisteredUser/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalRegisteredUsers(function (response) {
             res.send(response[0]);
           });
       });
 
-    app.get('/Api/v1/Dashboard/TotalRegisteredUsersToday/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/Dashboard/TotalRegisteredUsersToday/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalRegisteredUsersToday(function (response) {
             res.send(response[0]);
             });
         });
 
-      app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+      app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalWithdrawDepositProfit(function (response) {
             res.send(response);
           });
       });
 
-      app.get('/Api/v1/Dashboard/TransactionRecent/', Security.globalBruteforce.prevent,Security.verifyToken, function (req, res) {
+      app.get('/Api/v1/Dashboard/TransactionRecent/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TransactionRecent(function (response) {
             res.send(response);

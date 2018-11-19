@@ -44,13 +44,13 @@ module.exports = function (app) {
         }
     }
 
-    app.post('/Api/v1/InGameDeposit/Request/', Security.globalBruteforce.prevent, Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/InGameDeposit/Request/', Security.rateLimiterMiddleware, Security.verifyToken, function (req, res) {
         let UserAccountID = req.body.UserAccountID;
         let Name = req.body.Name;
         let Amount = parseInt(req.body.Amount);
         InGameDeposit(UserAccountID, Name, Amount, res);
     });
-    app.get('/Api/v1/InGameDeposit/Request/UserAccountID/:UserAccountID/Name/:Name/Amount/:Amount/', Security.globalBruteforce.prevent, Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/InGameDeposit/Request/UserAccountID/:UserAccountID/Name/:Name/Amount/:Amount/', Security.rateLimiterMiddleware, Security.verifyToken, function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let Name = req.params.Name;
         let Amount = parseInt(req.params.Amount);

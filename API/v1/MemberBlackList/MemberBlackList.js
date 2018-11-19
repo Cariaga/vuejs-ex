@@ -6,7 +6,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', Security.globalBruteforce.prevent, function (req, res) {
+  app.get('/Api/v1/MembersBlackList/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let UserAccountIDExist = false;
