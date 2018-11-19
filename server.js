@@ -232,10 +232,10 @@ var cache = require('express-redis-cache')({
   const Redis = require('ioredis');
   const redisClient = new Redis({ enableOfflineQueue: false,
      host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
-      port: process.env.REDIS_PORT_6379_TCP_PORT||6379,
-      name: 'mymaster',
-      no_ready_check: true,
-      auth_pass:'eastcoast'
+      port: process.env.REDIS_PORT_6379_TCP_PORT||6379//,
+     // name: 'mymaster',
+     // no_ready_check: true,
+     // auth_pass:'eastcoast'
      });
     // redisClient.auth('eastcoast');
   const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
