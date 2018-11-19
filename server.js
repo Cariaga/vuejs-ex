@@ -127,7 +127,7 @@ require('./API/v1/InGameTransferRequest/InGameTransferRequest')(app);
 require('./API/v1/InGameNotice/InGameNotice')(app);
 require('./API/v1/InGameWithdraw/InGameWithdraw')(app);
 require('./API/v1/IPList/IPList')(app);
-//require('./API/v1/Login/Login')(app);
+require('./API/v1/Login/Login')(app);
 //require('./API/v1/Login/LogOut')(app);
 require('./API/v1/LoginHistory/LoginHistory')(app);
 require('./API/v1/MemberBlackList/MemberBlackList')(app);
