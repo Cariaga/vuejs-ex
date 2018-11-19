@@ -5,14 +5,14 @@ var helmet = require('helmet');
 //var sqlinjection = require('sql-injection');// disable because it blocks token access
 var express = require('express');
 const routes = require('express').Router();
-var Nexmo = require('nexmo');
+//var Nexmo = require('nexmo');
 var app = express(); // create our app w/ express
 app.use(helmet());
 var fs = require('fs')
 var morgan = require('morgan'); // log requests to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
 var beautify = require("json-beautify");
-const sendmail = require('sendmail')();
+//const sendmail = require('sendmail')();
 const url = require('url');
 const stringify = require('json-stringify');
 const Enumerable = require('linq');
