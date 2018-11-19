@@ -1,15 +1,9 @@
-let DBConnect = require("../../SharedController/DBConnect");
 let DBCheck = require("../../SharedController/DBCheck");
-let GlobalFunctions = require("../../SharedController/GlobalFunctions");
-var cors = require('cors')
-var beautify = require("json-beautify");
-var isNullOrEmpty = require('is-null-or-empty');
-var uuidv4 = require('uuid/v4');
-var LoginHistoryModel = require('./LoginHistoryModel');
-var jwt = require('jsonwebtoken');
+let isNullOrEmpty = require('is-null-or-empty');
+let LoginHistoryModel = require('./LoginHistoryModel');
+let jwt = require('jsonwebtoken');
 let http = require('http');
 let Security = require("../../SharedController/Security");
-var cache = require('express-redis-cache')();
 
 module.exports = function (app) {
   app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
