@@ -26,7 +26,6 @@ module.exports.DBConnectTest = function DBConnectTest(){
               connection.end();
             
             });*/
-
 }
 /*process.env.MYSQL_SERVICE_HOST*/
 

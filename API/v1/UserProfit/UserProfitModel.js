@@ -5,21 +5,29 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
     let _StartDate = StartDate;
     let _EndDate = EndDate;
     
-    let query = "select distinct UserAccountID useracct, (select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID"
-                +" where t.TransactionType = 'withdraw' AND t.UserAccountID = useracct AND tinfo.ApprovedDateTime"
-                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as withdraw,"
-                +" (select ifnull(sum(amount),0) from transferhistories where UserAccountIDSender = useracct AND Status = 'approved' AND TransferedDateTime"
-                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as 'withdrawTransfer',"
-                +" (select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID" 
-                +" where t.TransactionType = 'deposit' AND t.UserAccountID = useracct AND tinfo.ApprovedDateTime "
-                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as deposit,"
-                +" (select ifnull(sum(amount),0) from transferhistories where UserAccountIDReceiver = useracct AND Status = 'approved' AND TransferedDateTime"
-                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') as 'depositTransfer',"
-                +" (select sum(HandAmount) from handhistory where UserAccountID = useracct AND HandDateTime" 
-                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"' ) BettingAmount,"
-                +" round((select sum(HandAmount) from handhistory where UserAccountID = useracct AND HandDateTime" 
-                +" BETWEEN '"+_StartDate+"' AND '"+_EndDate+"' ) * (1.5 / 100), 2) rake,"
-                +" money from players WHERE UserAccountID = '"+_UserAccountID+"'";
+    let query = "select distinct UserAccountID useracct, "
+
+                +" ifnull((select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID where t.TransactionType = 'withdraw' AND t.UserAccountID = useracct "
+                +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as withdraw,"
+
+                +" ifnull((select sum(amount) from transferhistories where UserAccountIDSender = useracct AND Status = 'approved'"
+                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdraw(transfer)',"
+
+                +" ifnull((select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID where t.TransactionType = 'deposit' AND t.UserAccountID = useracct"
+                +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as deposit,"
+
+                +" ifnull( (select sum(amount) from transferhistories where UserAccountIDReceiver = useracct AND Status = 'approved'"
+                +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'deposit(transfer)',"
+                
+                +" ifnull((select sum(HandAmount) from handhistory where UserAccountID = useracct"
+                +" AND HandDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0)  BettingAmount,"
+
+                +" ifnull((select sum(TotalRake) from handhistory_rake_time where UserAccountID = useracct"
+                +" AND HandDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"') ,0) rake,"
+
+                +" money"
+
+                +" money from players WHERE UserAccountID = '"+_UserAccountID+"';";
   
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
