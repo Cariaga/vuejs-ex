@@ -232,20 +232,20 @@ app.get('/', function (req, res) {
 });
 //--Login End
 
-var cache = require('express-redis-cache')({
-  host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost', port: process.env.REDIS_PORT_6379_TCP_PORT||6379,/*no_ready_check: true, /*auth_pass: 'eastcoast'*/
+/*var cache = require('express-redis-cache')({
+  host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost', port: process.env.REDIS_PORT_6379_TCP_PORT||6379,no_ready_check: true, auth_pass: 'eastcoast'
   });
+*/
 
-
-
-
-app.get('/Api/', Security.globalBruteforce.prevent,/*cache.route({ expire: 5  }), */function (req, res) {
-  //res.send('pick version');
+/*
+app.get('/Api/', Security.globalBruteforce.prevent,/*cache.route({ expire: 5  }),function (req, res) {
+ 
   setTimeout(function(){res.send('pick version');}, 10000);
-});
-app.get('/Api/v1', Security.globalBruteforce.prevent,/*cache.route({ expire: 100  }),*/ function (req, res) {
+});*/
+/*
+app.get('/Api/v1', Security.globalBruteforce.prevent,cache.route({ expire: 100  }),function (req, res) {
   res.send('Api v1 version');
-});
+});*/
 //---POKER ROUTING START
 
 
