@@ -247,7 +247,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-  app.get('/Api/v1/UserInfo/', Security.rateLimiterMiddleware,verifyToken,Security.cache.route({ expire: 20  }), function (req, res) {
+  app.get('/Api/v1/UserInfo/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
