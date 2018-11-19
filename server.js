@@ -231,7 +231,7 @@ app.get('/', function (req, res) {
 
 
 
-app.get('/Api/',Security.rateLimiterMiddleware,/*cache.route({ expire: 5  }),*//*Security.cache, */function (req, res) {
+app.get('/Api/',Security.rateLimiterMiddleware,/*cache.route({ expire: 5  }),*/Security.cache,function (req, res) {
   res.send('pick version');
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
