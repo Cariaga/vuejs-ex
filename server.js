@@ -93,7 +93,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 let Security = require("./API/SharedController/Security");
 
 let DBConnect = require("./API/SharedController/DBConnect");
-/*
+
 
 require('./API/v1/AccessControl/AccessControl')(app);
 
@@ -102,7 +102,7 @@ require('./API/v1/BlackList/BlackList')(app);
 require('./API/v1/ConnectingUsers/ConnectingUsers')(app);
 require('./API/v1/DashBoard/DashBoard')(app);
 require('./API/v1/DepositHistory/DepositHistory')(app);
-require('./API/v1/DepositList/DepositList')(app);
+/*require('./API/v1/DepositList/DepositList')(app);
 require('./API/v1/Distributor/Distributor')(app);
 require('./API/v1/GameHistory/GameHistory')(app);
 require('./API/v1/GameLogList/GameLogList')(app);
