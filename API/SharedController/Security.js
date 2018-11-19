@@ -52,7 +52,7 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
   }
 }
 
-
+/*
 var failCallback = function (req, res, next, nextValidRequestDate) {
   console.log("DDOS Attempt Ip now Blocked");
   res.sendStatus(429); // brute force protection triggered, send them back to the login page
@@ -60,8 +60,8 @@ var failCallback = function (req, res, next, nextValidRequestDate) {
 var ExpressBrute = require('express-brute'),
 	RedisStore = require('express-brute-redis');
   var store = new RedisStore({
-    host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',/*no_ready_check: true,password:'eastcoast',*/ port: process.env.REDIS_PORT_6379_TCP_PORT||6379
-  });
+  //  host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',/*no_ready_check: true,password:'eastcoast', port: process.env.REDIS_PORT_6379_TCP_PORT||6379
+ /* });
 
 var handleStoreError = function (error) {
   log.error(error); // log this error so we can figure out what went wrong
@@ -82,5 +82,5 @@ module.exports.globalBruteforce = new ExpressBrute(store, {
   failCallback: failCallback,
   handleStoreError: handleStoreError
 });
-
+*/
 
