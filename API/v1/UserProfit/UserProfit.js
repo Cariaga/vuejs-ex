@@ -11,8 +11,8 @@ module.exports = function (app) {
 
 
     //userprofit search
-    // Security.globalBruteforce.prevent,
-    app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', function (req, res) {
+    // 
+    app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', Security.globalBruteforce.prevent, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let StartDate = req.params.StartDate;
     let EndDate = req.params.EndDate;
@@ -44,6 +44,28 @@ module.exports = function (app) {
             }
         } else { //useracccountid if else end
             res.send({ UserAccountIDMissing: true});
+        }
+    }); //userprofit search end
+
+    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset',  Security.globalBruteforce.prevent, function (req, res) {
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+
+        if (!isNullOrEmpty(Limit)) {
+            if(!isNullOrEmpty(Offset)){
+                UserProfitModel.UserProfit(Limit, Offset, function (response) {
+                    if (response != undefined) {
+                        res.send(response);
+                    } else {
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                    }
+                });
+            }else{ 
+                res.send({OffsetMissing:true});
+            }
+        } else { 
+            res.send({ LimitMissing: true});
         }
     }); //userprofit search end
 }
