@@ -179,14 +179,14 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/Distributor/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeID/:HeadOfficeID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/Distributor/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeUserAccountID/:HeadOfficeUserAccountID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Commission = req.params.Commission;
-    let HeadOfficeID = req.params.HeadOfficeID;
+    let HeadOfficeUserAccountID = req.params.HeadOfficeUserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Name)) {
@@ -194,16 +194,23 @@ module.exports = function (app) { //SELECTION
           if (!isNullOrEmpty(UserName)) {
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(Commission)) {
-                if (!isNullOrEmpty(HeadOfficeID)) {
+                if (!isNullOrEmpty(HeadOfficeUserAccountID)) {
                   DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                    if (response == true) {
-                      DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
-                        if (response != undefined) {
-                          res.send(response);
-                        } else {
-                          res.send({
-                            RegisterDistributorFailed: true
+                    if (response == false) {
+                      DistributorModel.IDOfHeadOffice(HeadOfficeUserAccountID,function(response){
+                        if(response!=undefined){
+                          let HeadOfficeID = response[0].HeadOfficeID;
+                          DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
+                            if (response != undefined) {
+                              res.send(response);
+                            } else {
+                              res.send({
+                                RegisterDistributorFailed: true
+                              });
+                            }
                           });
+                        }else{
+                          res.send({HeadOfficeUserAccountIDNotFound:true});
                         }
                       });
                     } else {

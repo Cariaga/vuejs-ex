@@ -88,23 +88,17 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
       }
     });
 }
-/**
- *
- *
- * @param {*} HeadOfficeID
- * @param {*} UserAccountID
- * @param {*} Name
- * @param {*} callback
- */
-/*
-module.exports.HeadOfficeUpdate = function HeadOfficeUpdate(HeadOfficeID, UserAccountID, Name, callback) {
-  let query ="";
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-}*/
+module.exports.IDOperatingHeadOffice = function IDOperatingHeadOffice(UserAccountID, callback) {
+  let _UserAccountID = UserAccountID;
+
+  let query = "select UserAccountID,DistributorID from sampledb.operatingheadoffice where UserAccountID='"+_UserAccountID+"';";
+  console.log(query);
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log("Found :"+response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
