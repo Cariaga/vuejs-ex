@@ -102,7 +102,7 @@ module.exports = function (app) {
   });
   
  //Player Authorization process only
-  app.post('/Api/v1/Login/',Security.cache.route({ expire: 1800  }), function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
+  app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
     if (!isNullOrEmpty(_UserName)) {
@@ -273,7 +273,7 @@ module.exports = function (app) {
  // app.options('/Api/v1/Game/Login/', cors());
 
   //Post : only possible when its authorized
-  app.post('/Api/v1/Game/Login/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 1800  }), function (req, res) {
+  app.post('/Api/v1/Game/Login/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
