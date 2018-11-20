@@ -21,7 +21,7 @@ module.exports = function (app) {
     Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res);
   });
 
-  app.post('/Api/v1/WithdrawHistory/Request/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 1  }), function (req, res) {
+  app.post('/Api/v1/WithdrawHistory/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Amount = parseInt(req.body.Amount);
     let Bank = req.body.Bank;
