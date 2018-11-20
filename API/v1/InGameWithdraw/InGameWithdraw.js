@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 
 module.exports = function (app) {
-  app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 1  }), function (req, res) {
+  app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
     let Bank = req.params.Bank;
