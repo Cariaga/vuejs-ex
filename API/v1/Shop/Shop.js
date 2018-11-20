@@ -59,6 +59,9 @@ module.exports = function (app) { //MODIFY
     }
   });
   //INSERT
+
+  //useraccount being created must not exist already
+  //but the Upper level should exist
   app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorUserAccountID/:DistributorUserAccountID/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
@@ -76,7 +79,7 @@ module.exports = function (app) { //MODIFY
                 if (!isNullOrEmpty(DistributorUserAccountID)) {
 
                   DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                    if (response == true) {
+                    if (response == false) {
                       ShopModel.IDOfDistributor(DistributorUserAccountID,function(response){
 
                         if(response!=undefined){
@@ -91,14 +94,13 @@ module.exports = function (app) { //MODIFY
                             }
                           });
                         }else{
-                          res.send({DistributorNotFound:true});
+                          res.send({DistributorUserAccountIDNotFound:true});
                         }
                         
                       });
                       
                     } else {
-                      let status = 404;
-                      res.status(status).end(http.STATUS_CODES[status]);
+                      res.send({ShopUserAccountIDAlreadyExist:true});
                     }
                   });
                 } else {
