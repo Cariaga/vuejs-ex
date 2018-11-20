@@ -91,7 +91,7 @@ module.exports.AddHeadOffice = function AddHeadOffice(UserAccountID, Name, Descr
 module.exports.IDOperatingHeadOffice = function IDOperatingHeadOffice(UserAccountID, callback) {
   let _UserAccountID = UserAccountID;
 
-  let query = "select UserAccountID,DistributorID from sampledb.operatingheadoffice where UserAccountID='"+_UserAccountID+"';";
+  let query = "select UserAccountID,OperatingHeadOfficeID from sampledb.operatingheadoffice where UserAccountID='"+_UserAccountID+"';";
   console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
