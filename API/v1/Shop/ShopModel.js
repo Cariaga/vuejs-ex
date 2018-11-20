@@ -67,10 +67,25 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
     console.log('calling');
     let finalresult = [{}];
     let result = await Q1();
+    
     let result2 = await Q2();
     let result3 = await Q3();
     console.log('Done');
     callback('done');
   }
   RunAsync();
+}
+module.exports.IDOfDistributor = function IDOfDistributor(UserAccountID, callback) {
+  let _UserAccountID = UserAccountID;
+
+  let query = "select UserAccountID,DistributorID from sampledb.distributors where UserAccountID='"+_UserAccountID+"';";
+  console.log(query);
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log("Found :"+response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
 }
