@@ -74,3 +74,16 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
   }
   RunAsync();
 }
+module.exports.IDOfDistributor = function IDOfDistributor(UserAccountID, callback) {
+  let _UserAccountID = UserAccountID;
+
+  let query = "select  UserAccountID,DistributorID  from sampledb.distributors where UserAccountID='"+_UserAccountID+"';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      console.log(response);
+      resolve(response);
+    } else {
+      resolve(undefined);
+    }
+  });
+}

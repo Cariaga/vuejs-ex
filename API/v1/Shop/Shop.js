@@ -59,33 +59,43 @@ module.exports = function (app) { //MODIFY
     }
   });
   //INSERT
-  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorID/:DistributorID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorUserAccountID/:DistributorUserAccountID/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Commission = req.params.Commission;
-    let DistributorID = req.params.DistributorID;
-
+    let DistributorUserAccountID = req.params.DistributorUserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Name)) {
         if (!isNullOrEmpty(PhoneNumber)) {
           if (!isNullOrEmpty(UserName)) {
             if (!isNullOrEmpty(Password)) {
               if (!isNullOrEmpty(Commission)) {
-                if (!isNullOrEmpty(DistributorID)) {
+                if (!isNullOrEmpty(DistributorUserAccountID)) {
+
                   DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                     if (response == true) {
-                      ShopModel.RegisterShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorID, function (response) {
-                        if (response != undefined) {
-                          res.send(response);
-                        } else {
-                          res.send({
-                            RegisterShopFailed: true
+                      ShopModel.IDOfDistributor(DistributorUserAccountID,function(response){
+
+                        if(response!=undefined){
+                          var DistributorID = response[0].DistributorID;
+                          ShopModel.RegisterShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorID, function (response) {
+                            if (response != undefined) {
+                              res.send(response);
+                            } else {
+                              res.send({
+                                RegisterShopFailed: true
+                              });
+                            }
                           });
+                        }else{
+                          res.send({DistributorNotFound:true});
                         }
+                        
                       });
+                      
                     } else {
                       let status = 404;
                       res.status(status).end(http.STATUS_CODES[status]);
