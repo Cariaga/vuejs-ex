@@ -46,7 +46,7 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
       
 }
 
-module.exports.UserProfit = function UserProfit(Offset, Limit, callback) {
+module.exports.UserProfit = function UserProfit(Limit, Offset, callback) {
     let _Offset = Offset;
     let _Limit = Limit;
     

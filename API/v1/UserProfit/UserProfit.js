@@ -11,7 +11,6 @@ module.exports = function (app) {
 
 
     //userprofit search
-    // 
     app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let StartDate = req.params.StartDate;
