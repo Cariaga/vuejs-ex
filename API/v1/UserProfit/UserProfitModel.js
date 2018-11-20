@@ -7,16 +7,16 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
     
     let query = "select distinct p.UserAccountID useracct, p.shopID, d.DistributorID, h.HeadOfficeID, p.ScreenName,"
                 //withdraw
-                +" ifnull((select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID where t.TransactionType = 'withdraw' AND t.UserAccountID = useracct "
-                +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as withdraw,"
+                +" ifnull((select sum(ApplicationAmount) from withdraw_list where UserAccountID = useracct and TransactionStatus = 'approved'"
+                +" AND RequestedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as withdraw,"
                 //withdraw transfer
-                +" ifnull((select sum(amount) from transferhistories where UserAccountIDSender = useracct AND Status = 'approved'"
+                +" ifnull((select sum(amount) from money_sent_histories where UserAccountIDSender = useracct"
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'withdrawTransfer',"
                 // deposit
-                +" ifnull((select sum(amount) from transactions t left join transactioninfo tinfo on tinfo.UserTransactionID = t.UserTransactionID where t.TransactionType = 'deposit' AND t.UserAccountID = useracct"
-                +" AND tinfo.ApprovedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as deposit,"
+                +" ifnull((select sum(Amount) from deposit_list where UserAccountID = useracct and TransactionStatus = 'approved'"
+                +" AND RequestedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as deposit,"
                 // deposit transfer
-                +" ifnull( (select sum(amount) from transferhistories where UserAccountIDReceiver = useracct AND Status = 'approved'"
+                +" ifnull((select sum(amount) from money_received_histories where UserAccountIDReceiver = useracct"
                 +" AND TransferedDateTime BETWEEN '"+_StartDate+"' AND '"+_EndDate+"'),0) as 'depositTransfer',"
                 //betting amount
                 +" ifnull((select sum(HandAmount) from handhistory where UserAccountID = useracct"
