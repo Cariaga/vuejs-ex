@@ -51,7 +51,7 @@ module.exports = function (app) {
           });
       });*/
 
-    app.get('/Api/v1/Dashboard/TotalRegisteredUser/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/Dashboard/TotalRegisteredUser/', /*Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }),*/ function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalRegisteredUsers(function (response) {
             res.send(response[0]);
