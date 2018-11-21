@@ -63,6 +63,7 @@ module.exports = function (app) { //MODIFY
   //useraccount being created must not exist already
   //but the Upper level should exist
   app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorUserAccountID/:DistributorUserAccountID/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
@@ -70,75 +71,20 @@ module.exports = function (app) { //MODIFY
     let Password = req.params.Password;
     let Commission = req.params.Commission;
     let DistributorUserAccountID = req.params.DistributorUserAccountID;
-    if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(Name)) {
-        if (!isNullOrEmpty(PhoneNumber)) {
-          if (!isNullOrEmpty(UserName)) {
-            if (!isNullOrEmpty(Password)) {
-              if (!isNullOrEmpty(Commission)) {
-                if (!isNullOrEmpty(DistributorUserAccountID)) {
-
-                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                    if (response == false) {
-                      ShopModel.IDOfDistributor(DistributorUserAccountID,function(response){
-
-                        if(response!=undefined){
-                          var DistributorID = response[0].DistributorID;
-                          ShopModel.RegisterShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorID, function (response) {
-                            if (response != undefined) {
-                              res.send(response);
-                            } else {
-                              res.send({
-                                RegisterShopFailed: true
-                              });
-                            }
-                          });
-                        }else{
-                          res.send({DistributorUserAccountIDNotFound:true});
-                        }
-                        
-                      });
-                      
-                    } else {
-                      res.send({ShopUserAccountIDAlreadyExist:true});
-                    }
-                  });
-                } else {
-                  res.send({
-                    HeadOfficeIDMissing: true
-                  });
-                }
-              } else {
-                res.send({
-                  CommissionMissing: true
-                });
-              }
-            } else {
-              res.send({
-                PasswordMissing: true
-              });
-            }
-          } else {
-            res.send({
-              UserNameMissing: true
-            });
-          }
-        } else {
-          res.send({
-            PhoneNumberMissing: true
-          });
-        }
-      } else {
-        res.send({
-          NameMissing: true
-        });
-      }
-    } else {
-      res.send({
-        UserAccountIDMissing: true
-      });
-    }
+    AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res);
   });
+  app.post('/Api/v1/Shop/Add/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+
+    let UserAccountID = req.body.UserAccountID;
+    let Name = req.body.Name;
+    let PhoneNumber = req.body.PhoneNumber;
+    let UserName = req.body.UserName;
+    let Password = req.body.Password;
+    let Commission = req.body.Commission;
+    let DistributorUserAccountID = req.body.DistributorUserAccountID;
+    AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res);
+  });
+  
   app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
@@ -172,4 +118,81 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
+}
+
+function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res) {
+  if (!isNullOrEmpty(UserAccountID)) {
+    if (!isNullOrEmpty(Name)) {
+      if (!isNullOrEmpty(PhoneNumber)) {
+        if (!isNullOrEmpty(UserName)) {
+          if (!isNullOrEmpty(Password)) {
+            if (!isNullOrEmpty(Commission)) {
+              if (!isNullOrEmpty(DistributorUserAccountID)) {
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response == false) {
+                    ShopModel.IDOfDistributor(DistributorUserAccountID, function (response) {
+                      if (response != undefined) {
+                        var DistributorID = response[0].DistributorID;
+                        ShopModel.RegisterShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorID, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          }
+                          else {
+                            res.send({
+                              RegisterShopFailed: true
+                            });
+                          }
+                        });
+                      }
+                      else {
+                        res.send({ DistributorUserAccountIDNotFound: true });
+                      }
+                    });
+                  }
+                  else {
+                    res.send({ ShopUserAccountIDAlreadyExist: true });
+                  }
+                });
+              }
+              else {
+                res.send({
+                  HeadOfficeIDMissing: true
+                });
+              }
+            }
+            else {
+              res.send({
+                CommissionMissing: true
+              });
+            }
+          }
+          else {
+            res.send({
+              PasswordMissing: true
+            });
+          }
+        }
+        else {
+          res.send({
+            UserNameMissing: true
+          });
+        }
+      }
+      else {
+        res.send({
+          PhoneNumberMissing: true
+        });
+      }
+    }
+    else {
+      res.send({
+        NameMissing: true
+      });
+    }
+  }
+  else {
+    res.send({
+      UserAccountIDMissing: true
+    });
+  }
 }
