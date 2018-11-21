@@ -188,70 +188,95 @@ module.exports = function (app) { //SELECTION
     let Commission = req.params.Commission;
     let HeadOfficeUserAccountID = req.params.HeadOfficeUserAccountID;
 
-    if (!isNullOrEmpty(UserAccountID)) {
-      if (!isNullOrEmpty(Name)) {
-        if (!isNullOrEmpty(PhoneNumber)) {
-          if (!isNullOrEmpty(UserName)) {
-            if (!isNullOrEmpty(Password)) {
-              if (!isNullOrEmpty(Commission)) {
-                if (!isNullOrEmpty(HeadOfficeUserAccountID)) {
-                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                    if (response == false) {
-                      DistributorModel.IDOfHeadOffice(HeadOfficeUserAccountID,function(response){
-                        if(response!=undefined){
-                          let HeadOfficeID = response[0].HeadOfficeID;
-                          DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
-                            if (response != undefined) {
-                              res.send(response);
-                            } else {
-                              res.send({
-                                RegisterDistributorFailed: true
-                              });
-                            }
-                          });
-                        }else{
-                          res.send({HeadOfficeUserAccountIDNotFound:true});
-                        }
-                      });
-                    } else {
-                      let status = 404;
-                      res.status(status).end(http.STATUS_CODES[status]);
-                    }
-                  });
-                } else {
-                  res.send({
-                    HeadOfficeIDMissing: true
-                  });
-                }
-              } else {
-                res.send({
-                  CommissionMissing: true
+    AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeUserAccountID, res);
+  });
+  app.post('/Api/v1/Distributor/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserAccountID = req.body.UserAccountID;
+    let Name = req.body.Name;
+    let PhoneNumber = req.body.PhoneNumber;
+    let UserName = req.body.UserName;
+    let Password = req.body.Password;
+    let Commission = req.body.Commission;
+    let HeadOfficeUserAccountID = req.body.HeadOfficeUserAccountID;
+
+    AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeUserAccountID, res);
+  });
+}
+
+function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeUserAccountID, res) {
+  if (!isNullOrEmpty(UserAccountID)) {
+    if (!isNullOrEmpty(Name)) {
+      if (!isNullOrEmpty(PhoneNumber)) {
+        if (!isNullOrEmpty(UserName)) {
+          if (!isNullOrEmpty(Password)) {
+            if (!isNullOrEmpty(Commission)) {
+              if (!isNullOrEmpty(HeadOfficeUserAccountID)) {
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response == false) {
+                    DistributorModel.IDOfHeadOffice(HeadOfficeUserAccountID, function (response) {
+                      if (response != undefined) {
+                        let HeadOfficeID = response[0].HeadOfficeID;
+                        DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
+                          if (response != undefined) {
+                            res.send(response);
+                          }
+                          else {
+                            res.send({
+                              RegisterDistributorFailed: true
+                            });
+                          }
+                        });
+                      }
+                      else {
+                        res.send({ HeadOfficeUserAccountIDNotFound: true });
+                      }
+                    });
+                  }
+                  else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                  }
                 });
               }
-            } else {
+              else {
+                res.send({
+                  HeadOfficeIDMissing: true
+                });
+              }
+            }
+            else {
               res.send({
-                PasswordMissing: true
+                CommissionMissing: true
               });
             }
-          } else {
+          }
+          else {
             res.send({
-              UserNameMissing: true
+              PasswordMissing: true
             });
           }
-        } else {
+        }
+        else {
           res.send({
-            PhoneNumberMissing: true
+            UserNameMissing: true
           });
         }
-      } else {
+      }
+      else {
         res.send({
-          NameMissing: true
+          PhoneNumberMissing: true
         });
       }
-    } else {
+    }
+    else {
       res.send({
-        UserAccountIDMissing: true
+        NameMissing: true
       });
     }
-  });
+  }
+  else {
+    res.send({
+      UserAccountIDMissing: true
+    });
+  }
 }

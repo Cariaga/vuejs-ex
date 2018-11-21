@@ -58,6 +58,7 @@ module.exports = function (app) { //INSERT
       res.send("Missing params");
     }
   });
+  
   app.get('/Api/v1/HeadOffice/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/OperatingHeadOfficeUserAccoundID/:OperatingHeadOfficeUserAccoundID', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
@@ -66,65 +67,84 @@ module.exports = function (app) { //INSERT
     let Password = req.params.Password;
     let Commission = req.params.Commission;
     let OperatingHeadOfficeUserAccoundID = req.params.OperatingHeadOfficeUserAccoundID;
-      if (!isNullOrEmpty(UserAccountID)) {
-        if (!isNullOrEmpty(Name)) {
-          if (!isNullOrEmpty(PhoneNumber)) {
-            if (!isNullOrEmpty(UserName)) {
-              if (!isNullOrEmpty(Password)) {
-                if (!isNullOrEmpty(Commission)) {
-                  DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                    if (response==false) {
-                 
-                    HeadOfficeModel.IDOperatingHeadOffice(OperatingHeadOfficeUserAccoundID,function(response){
-                      if(response!=undefined){
-                       // res.send(response[0].UserAccountID);
-                        let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID;//don't res.send it will think its a status code but its actually an ID
-                    
-                        HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission,OperatingHeadOfficeID, function (response) {
-                          res.send(response);
-                        });
-                      }else{
-                        res.send({OperatingHeadOfficeUserAccountIDNotFound:true});
-                      }
-                    });
-                    }else{
-                      res.send({
-                        UserAccountIDExist: true
-                      })
-                    }
-                  });
-                } else {
-                  res.send({
-                    UserAccountIDMissing: true
-                  })
-                }
-              } else {
-                res.send({
-                  NameMissing: true
-                })
-              }
-            } else {
-              res.send({
-                PhoneNumberMissing: true
-              })
-            }
-          } else {
-            res.send({
-              UserNameMissing: true
-            })
-          }
-        } else {
-          res.send({
-            PasswordMissing: true
-          })
-        }
-      } else {
-        res.send({
-          CommissionMissing: true
-        })
-      }
+      AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccoundID, res);
   });
-  
+  app.post('/Api/v1/HeadOffice/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+    let UserAccountID = req.body.UserAccountID;
+    let Name = req.body.Name;
+    let PhoneNumber = req.body.PhoneNumber;
+    let UserName = req.body.UserName;
+    let Password = req.body.Password;
+    let Commission = req.body.Commission;
+    let OperatingHeadOfficeUserAccoundID = req.body.OperatingHeadOfficeUserAccoundID;
+      AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccoundID, res);
+  });
   //STRUCTURE
   //SELECTION
+}
+
+function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccoundID, res) {
+  if (!isNullOrEmpty(UserAccountID)) {
+    if (!isNullOrEmpty(Name)) {
+      if (!isNullOrEmpty(PhoneNumber)) {
+        if (!isNullOrEmpty(UserName)) {
+          if (!isNullOrEmpty(Password)) {
+            if (!isNullOrEmpty(Commission)) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                if (response == false) {
+                  HeadOfficeModel.IDOperatingHeadOffice(OperatingHeadOfficeUserAccoundID, function (response) {
+                    if (response != undefined) {
+                      // res.send(response[0].UserAccountID);
+                      let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID
+                      HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
+                        res.send(response);
+                      });
+                    }
+                    else {
+                      res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
+                    }
+                  });
+                }
+                else {
+                  res.send({
+                    UserAccountIDExist: true
+                  });
+                }
+              });
+            }
+            else {
+              res.send({
+                UserAccountIDMissing: true
+              });
+            }
+          }
+          else {
+            res.send({
+              NameMissing: true
+            });
+          }
+        }
+        else {
+          res.send({
+            PhoneNumberMissing: true
+          });
+        }
+      }
+      else {
+        res.send({
+          UserNameMissing: true
+        });
+      }
+    }
+    else {
+      res.send({
+        PasswordMissing: true
+      });
+    }
+  }
+  else {
+    res.send({
+      CommissionMissing: true
+    });
+  }
 }
