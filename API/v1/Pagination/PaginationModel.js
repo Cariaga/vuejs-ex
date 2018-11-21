@@ -9,6 +9,7 @@ module.exports.PaginationCount = function PaginationCount(index, callback) {
       'player_supportlist',
       'member_list',
       'withdraw_list',
+      'player_profit_overall',
       //unused
       'notifications',
       'useraccounts',
