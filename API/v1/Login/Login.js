@@ -100,6 +100,9 @@ module.exports = function (app) {
       res.status(status).end(http.STATUS_CODES[status]);
     }
   });
+  app.post('/Api/v1/Admin/Login/Token', function (req, res) {
+    Security.DecompileToken(req,res);
+  });
   
  //Player Authorization process only
   app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
