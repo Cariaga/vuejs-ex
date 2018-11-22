@@ -50,10 +50,13 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate "+
+    "SELECT  BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.ShopID,PL.UserAccountID,DR.DistributorID,DR.UserAccountID,HO.HeadOfficeID,HO.UserAccountID "+
     "FROM sampledb.useraccounts as UA "+
     "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
+    "left Join sampledb.players as PL on UA.UserAccountID = PL.UserAccountID "+
+    "left Join sampledb.distributors as DR on UA.UserAccountID = DR.UserAccountID "+
+    "left Join sampledb.headoffices as HO on UA.UserAccountID = HO.UserAccountID "+
     "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
     "order by BL.ReportDate desc limit 1; ";
       //console.log(Query);

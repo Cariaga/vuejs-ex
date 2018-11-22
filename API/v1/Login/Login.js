@@ -50,6 +50,25 @@ module.exports = function (app) {
                     let AccountType = response[0].AccountType;
                     let UserAccountID = response[0].UserAccountID;
                     let Privilege = response[0].Privilege;
+                    let ParentType = undefined;
+                    let ParentUserAccountID = "";
+                    let ParentIndex = "";
+                    if(response[0].Privilege=="Shops"){
+                      ParentType ="Distributor";
+                      
+                    }
+                    if(response[0].Privilege=="Distributor"){
+                      ParentType ="HeadOffice";
+
+                    }
+                    if(response[0].Privilege=="HeadOffice"){
+                      ParentType ="OperatingHeadOffice";
+
+                    }
+
+
+
+
                     // Mock user
                     if(AccountType=="HeadOffice"||AccountType=="Distributor"||AccountType=="Shops"||Privilege=="Admin"){//only certain account types and admin type of player can login
                       const user = {
@@ -57,7 +76,8 @@ module.exports = function (app) {
                         UserName: _UserName,
                         UserAccountID: UserAccountID,
                         AccountType: AccountType,
-                        Privilege:Privilege
+                        Privilege:Privilege,
+                        ParentType:ParentType
                       }
                       jwt.sign({
                         user
@@ -68,6 +88,7 @@ module.exports = function (app) {
                           token
                         });
                       });
+
         
                     }else{
                       //Players can't login on Page without privllage or account type access
