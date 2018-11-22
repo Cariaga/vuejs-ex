@@ -121,11 +121,15 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission "+
+    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission,PL.ShopID,DR.DistributorID,HO.HeadOfficeID "+
+
     "FROM sampledb.useraccounts as UA "+
     "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
-    "LEFT JOIN sampledb.players as PL ON UA.UserAccountID = PL.UserAccountID "+
+    "left Join sampledb.players as PL on UA.UserAccountID = PL.UserAccountID "+
+    "left Join sampledb.shops as SH on UA.UserAccountID = SH.UserAccountID "+
+    "left Join sampledb.distributors as DR on UA.UserAccountID = DR.UserAccountID "+
+    "left Join sampledb.headoffices as HO on UA.UserAccountID = HO.UserAccountID "+
     "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
     "order by BL.ReportDate desc limit 1; ";
 
@@ -163,6 +167,8 @@ module.exports.LoginAccount = function(UserName,Password,callback){
       let result = await QueryLoginAccount();
       if(result!=undefined){
         let result2 = await QueryAccountType();
+     
+      
         finalresult[0].UserAccountID = result[0].UserAccountID;
         finalresult[0].Privilege = result[0].Privilege;
         finalresult[0].Verified = result[0].Verified;
@@ -174,6 +180,11 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].ReportDate = result[0].ReportDate;
         finalresult[0].AccountType = result2[0].AccountType;
         finalresult[0].Commission = result[0].Commission;
+        
+        finalresult[0].ShopID = result[0].ShopID;
+        finalresult[0].DistributorID = result[0].DistributorID;
+        finalresult[0].HeadOfficeID = result[0].HeadOfficeID;
+
         callback(finalresult);
       }else{
         callback(undefined);

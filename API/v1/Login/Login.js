@@ -59,8 +59,8 @@ module.exports = function (app) {
                       LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
 
                         let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
-                        
-                        if(UserAccountIDOfShop!=undefined){
+
+                        if(ParentUserAccountID!=undefined){
                           newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
                         }
                       });
@@ -69,7 +69,7 @@ module.exports = function (app) {
                       ParentType ="Distributor";
                       LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(response){
                         let ParentUserAccountID = response[0].UserAccountID;//Distributor UserAccount
-                        if(UserAccountIDOFDistributor!=undefined){
+                        if(ParentUserAccountID!=undefined){
                           newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
                         }
                       });
@@ -78,7 +78,7 @@ module.exports = function (app) {
                       ParentType ="HeadOffice";
                       LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
                         let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
-                        if(UserAccountIDOFHeadOffice!=undefined){
+                        if(ParentUserAccountID!=undefined){
                           newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
                         }
                       });
