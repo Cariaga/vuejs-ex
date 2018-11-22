@@ -52,34 +52,37 @@ module.exports = function (app) {
                     let Privilege = response[0].Privilege;
                     let ParentType = "";
                     let ParentUserAccountID = "";
-                    let ParentIndex = "";
+                    let ParentID = "";
 
                     if(AccountType=="Player"){
                       ParentType ="Shops";
+                      ParentID = response[0].ShopID;
                       LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
 
                         let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
 
                         if(ParentUserAccountID!=undefined){
-                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
+                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                         }
                       });
                     }
                     if(AccountType=="Shops"){
                       ParentType ="Distributor";
+                      ParentID = response[0].DistributorID;
                       LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(response){
                         let ParentUserAccountID = response[0].UserAccountID;//Distributor UserAccount
                         if(ParentUserAccountID!=undefined){
-                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
+                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                         }
                       });
                     }
                     if(AccountType=="Distributor"){
                       ParentType ="HeadOffice";
+                      ParentID = response[0].HeadOfficeID;
                       LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
                         let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
                         if(ParentUserAccountID!=undefined){
-                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
+                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                         }
                       });
                     }
@@ -414,7 +417,7 @@ module.exports = function (app) {
 */
 }
 
-function newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res) {
+function newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res) {
   if (AccountType == "HeadOffice" || AccountType == "Distributor" || AccountType == "Shops" || Privilege == "Admin") { //only certain account types and admin type of player can login
     const user = {
       id: 1,
@@ -423,7 +426,8 @@ function newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentTyp
       AccountType: AccountType,
       Privilege: Privilege,
       ParentType: ParentType,
-      ParentUserAccountID:ParentUserAccountID
+      ParentUserAccountID:ParentUserAccountID,
+      ParentID:ParentID
     };
     console.log(user);
     jwt.sign({
