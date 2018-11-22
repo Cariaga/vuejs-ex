@@ -51,28 +51,28 @@ module.exports = function (app) {
           });
       });*/
 
-    app.get('/Api/v1/Dashboard/TotalRegisteredUser/', /*Security.rateLimiterMiddleware*/,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/Dashboard/TotalRegisteredUser/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalRegisteredUsers(function (response) {
             res.send(response[0]);
           });
       });
 
-    app.get('/Api/v1/Dashboard/TotalRegisteredUsersToday/',/* Security.rateLimiterMiddleware*/,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/Dashboard/TotalRegisteredUsersToday/',/* Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalRegisteredUsersToday(function (response) {
             res.send(response[0]);
             });
         });
 
-      app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', /*Security.rateLimiterMiddleware*/,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+      app.get('/Api/v1/Dashboard/TotalDepositWithdrawProfit/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalWithdrawDepositProfit(function (response) {
             res.send(response);
           });
       });
 
-      app.get('/Api/v1/Dashboard/TransactionRecent/', /*Security.rateLimiterMiddleware*/,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+      app.get('/Api/v1/Dashboard/TransactionRecent/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TransactionRecent(function (response) {
             res.send(response);
