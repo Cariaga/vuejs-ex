@@ -50,51 +50,48 @@ module.exports = function (app) {
                     let AccountType = response[0].AccountType;
                     let UserAccountID = response[0].UserAccountID;
                     let Privilege = response[0].Privilege;
-                    let ParentType = undefined;
+                    let ParentType = "";
                     let ParentUserAccountID = "";
                     let ParentIndex = "";
-                    if(response[0].Privilege=="Shops"){
+
+                    if(AccountType=="Player"){
+                      ParentType ="Shops";
+                      LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
+
+                        let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
+                        
+                        if(UserAccountIDOfShop!=undefined){
+                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
+                        }
+                      });
+                    }
+                    if(AccountType=="Shops"){
                       ParentType ="Distributor";
-                      
+                      LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(response){
+                        let ParentUserAccountID = response[0].UserAccountID;//Distributor UserAccount
+                        if(UserAccountIDOFDistributor!=undefined){
+                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
+                        }
+                      });
                     }
-                    if(response[0].Privilege=="Distributor"){
+                    if(AccountType=="Distributor"){
                       ParentType ="HeadOffice";
-
+                      LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
+                        let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
+                        if(UserAccountIDOFHeadOffice!=undefined){
+                          newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res);
+                        }
+                      });
                     }
-                    if(response[0].Privilege=="HeadOffice"){
+                    if(AccountType=="HeadOffice"){
                       ParentType ="OperatingHeadOffice";
-
                     }
-
-
-
+                    console.log(ParentType);
 
                     // Mock user
-                    if(AccountType=="HeadOffice"||AccountType=="Distributor"||AccountType=="Shops"||Privilege=="Admin"){//only certain account types and admin type of player can login
-                      const user = {
-                        id: 1,
-                        UserName: _UserName,
-                        UserAccountID: UserAccountID,
-                        AccountType: AccountType,
-                        Privilege:Privilege,
-                        ParentType:ParentType
-                      }
-                      jwt.sign({
-                        user
-                      }, 'secretkey', {
-                        expiresIn: '1d'
-                      }, (err, token) => {
-                        res.json({
-                          token
-                        });
-                      });
+                   
 
-        
-                    }else{
-                      //Players can't login on Page without privllage or account type access
-                      let status = 401;
-                      res.status(status).end(http.STATUS_CODES[status]);
-                    }
+
                   } else {
                     let status = 404;
                     res.status(status).end(http.STATUS_CODES[status]);
@@ -415,4 +412,33 @@ module.exports = function (app) {
     }
   });
 */
+}
+
+function newFunction(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID, res) {
+  if (AccountType == "HeadOffice" || AccountType == "Distributor" || AccountType == "Shops" || Privilege == "Admin") { //only certain account types and admin type of player can login
+    const user = {
+      id: 1,
+      UserName: _UserName,
+      UserAccountID: UserAccountID,
+      AccountType: AccountType,
+      Privilege: Privilege,
+      ParentType: ParentType,
+      ParentUserAccountID:ParentUserAccountID
+    };
+    console.log(user);
+    jwt.sign({
+      user
+    }, 'secretkey', {
+        expiresIn: '1d'
+      }, (err, token) => {
+        res.json({
+          token
+        });
+      });
+  }
+  else {
+    //Players can't login on Page without privllage or account type access
+    let status = 401;
+    res.status(status).end(http.STATUS_CODES[status]);
+  }
 }

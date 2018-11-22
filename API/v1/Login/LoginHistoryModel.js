@@ -45,6 +45,7 @@ module.exports.AddLoginHistory = function(UserName,Password, IP, DeviceName, Dev
       }
       
 }
+/*
 module.exports.LoginAccount = function(UserName,Password,callback){
   let _UserName =UserName;
   let _Password =Password;  
@@ -59,7 +60,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     "left Join sampledb.headoffices as HO on UA.UserAccountID = HO.UserAccountID "+
     "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
     "order by BL.ReportDate desc limit 1; ";
-      //console.log(Query);
+      console.log(Query);
       return new Promise(resolve => {
         DBConnect.DBConnect(Query, function (response) {
           console.log(response);
@@ -113,7 +114,8 @@ module.exports.LoginAccount = function(UserName,Password,callback){
       
     }
     RunAsync();
-}
+}*/
+
 module.exports.LoginAccount = function(UserName,Password,callback){
   let _UserName =UserName;
   let _Password =Password;  
@@ -183,4 +185,38 @@ module.exports.LoginAccount = function(UserName,Password,callback){
       
     }
     RunAsync();
+}
+module.exports.UserAccountIDOFDistributorID = function(DistributorID,callback){
+  let _DistributorID = DistributorID;
+  let Query = "select UserAccountID from distributors where DistributorID=\'"+_DistributorID+"\'";
+  DBConnect.DBConnect(Query, function (response) {
+    if (response != undefined) {
+      callback(response);
+      } else {
+        callback(undefined);
+      }
+  });
+}
+module.exports.UserAccountIDOFShopID = function(ShopID,callback){
+  let _ShopID = ShopID;
+  let Query = "select UserAccountID from shops where ShopID=\'"+_ShopID+"\'";
+  console.log(Query);
+  DBConnect.DBConnect(Query, function (response) {
+    if (response != undefined) {
+      callback(response);
+      } else {
+        callback(undefined);
+      }
+  });
+}
+module.exports.UserAccountIDOFHeadOfficeID = function(HeadOfficeID,callback){
+  let _HeadOfficeID = HeadOfficeID;
+  let Query = "select UserAccountID from headoffices where HeadOfficeID=\'"+_HeadOfficeID+"\'";
+  DBConnect.DBConnect(Query, function (response) {
+    if (response != undefined) {
+      callback(response);
+      } else {
+        callback(undefined);
+      }
+  });
 }
