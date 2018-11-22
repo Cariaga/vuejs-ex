@@ -576,7 +576,10 @@ stats.on('complete', function (details) {
 
 let blocked = require('blocked');
 blocked((time, stack) => {
-  console.log(`Blocked for ${time}ms, operation started here:`, stack)
+  if(stack!=undefined){
+    console.log(`Blocked for ${time}ms, operation started here:`, stack)
+  }
+ 
 },{threshold:4, trimFalsePositives:true});
 
 /*
