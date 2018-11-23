@@ -599,6 +599,7 @@ stats.on('request', function (req) {
   }, 1000)
 })*/
 
+/*this catches everything and prevent node application from compleatly shutting down */
 process.on('uncaughtException', function (err) {
   console.log("Catch everything: "+err);
 }); 
