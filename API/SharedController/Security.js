@@ -158,7 +158,7 @@ redisClient.on('connect', () => {
   global.console.log("connected");
 });
 redisClient.on('error', err => {       
-  global.console.log(err.message)
+  global.console.log("redis Limiter Error "+err.message)
 });                                      
 
 
@@ -176,4 +176,13 @@ module.exports.rateLimiterMiddleware = (req, res, next) => {
 var cache = require('express-redis-cache')({
   host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost', port: process.env.REDIS_PORT_6379_TCP_PORT||6379,no_ready_check: true, auth_pass: 'eastcoast'
   });
+
+
+  cache.on('connect', () => {   
+    global.console.log("connected");
+  });
+  cache.on('error', err => {       
+    global.console.log("redis cache Error "+err.message)
+  });        
+
 module.exports.cache = cache;
