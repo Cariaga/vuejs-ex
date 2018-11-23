@@ -34,8 +34,7 @@ var ExpressBrute = require('express-brute'),
   });
 
 */
-
-  
+ 
 
 app.use(function (req, res, next) {
   
@@ -603,5 +602,13 @@ stats.on('request', function (req) {
 process.on('uncaughtException', function (err) {
   console.log("Catch everything: "+err);
 }); 
+
+//to show all routes 
+/*
+app._router.stack.forEach(function(r){
+  if (r.route && r.route.path){
+    console.log(r.route.path)
+  }
+})*/
 module.exports = routes;
 module.exports = app;
