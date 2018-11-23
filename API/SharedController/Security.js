@@ -136,7 +136,7 @@ module.exports.globalBruteforce = new ExpressBrute(store, {
 
 const Redis = require('ioredis');
 const redisClient = new Redis({ enableOfflineQueue: false,
-   host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost2',
+   host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
     port: process.env.REDIS_PORT_6379_TCP_PORT||6379//,
    // name: 'mymaster',
    // no_ready_check: true,
