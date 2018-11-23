@@ -19,11 +19,12 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserAccountID, Start
       
 }
 
-module.exports.LowRank1 = function LowRank1(Limit, Offset,callback) {
+module.exports.LowRank1 = function LowRank1(Limit, Offset, LowRank, callback) {
     let _Offset = Offset;
     let _Limit = Limit;
+    let _LowRank = LowRank;
     
-    let query = "select * from calculateManage_1 LIMIT "+_Limit+" OFFSET "+_Offset;
+    let query = "select * from calculateManage_"+_LowRank+" LIMIT "+_Limit+" OFFSET "+_Offset;
                 
     DBConnect.DBConnect(query, function (response) {
         console.log(query)
