@@ -102,7 +102,7 @@ module.exports.RoomConfigurationRoomNotice = function RoomConfigurationRoomNotic
   let _RoomNotice = RoomNotice;
   let query =
     "UPDATE `sampledb`.`roomconfigurations`" +
-    "SET RoomNotice = '" + _RoomNotice + "'" +
+    "SET RoomNotice = \'" + _RoomNotice + "\'" +
     "WHERE RoomID = \'" + _RoomID + "\'";
 
   DBConnect.DBConnect(query, function (response) {

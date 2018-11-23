@@ -222,7 +222,7 @@ let DBConnect = require("../SharedController/DBConnect");
 
   module.exports.isHeadOfficeIDExist = function isHeadOfficeIDExist(UserAccountID, callback) {
     let _HeadOfficeID = HeadOfficeID
-    let query = "SELECT * FROM sampledb.headoffices WHERE headoffices.HeadOfficeID ='" + _HeadOfficeID+"'";
+    let query = "SELECT * FROM sampledb.headoffices WHERE headoffices.HeadOfficeID =\'" + _HeadOfficeID+"\'";
     
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
@@ -318,7 +318,7 @@ let DBConnect = require("../SharedController/DBConnect");
     let _SupportTicketID = SupportTicketID;
     let query =
     "SELECT * FROM `sampledb`.`supporttickets` " +
-    "WHERE SupportTicketID = '"+_SupportTicketID+"' ";
+    "WHERE SupportTicketID = \'"+_SupportTicketID+"\' ";
    
     DBConnect.DBConnect(query,function(response){
       if(response[0].SupportTicketID==_SupportTicketID){
@@ -381,7 +381,7 @@ module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccoun
   let _Key = Key;
   let query =
     "SELECT * FROM `sampledb`.`useraccounts` " +
-    "WHERE UserAccountID = '" + _UserAccountID + "' AND `Key` = '"+ _Key + "' ";
+    "WHERE UserAccountID = \'" + _UserAccountID + "\' AND `Key` = \'"+ _Key + "\' ";
 
   DBConnect.DBConnect(query, function (response) {
     if (response[0].UserAccountID==_UserAccountID && Key==_Key) {
@@ -398,7 +398,7 @@ module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDEx
   let _SeasonID = SeasonID;
   let query =
   "SELECT UserAccountID, SeasonID FROM `sampledb`.`playerfinalcard` " +
-  "WHERE UserAccountID = '"+_UserAccountID+"' AND SeasonID = '"+_SeasonID+"' ";
+  "WHERE UserAccountID = '"+_UserAccountID+"' AND SeasonID = \'"+_SeasonID+"\' ";
  
   DBConnect.DBConnect(query,function(response){
     if(response[0].UserAccountID==_UserAccountID && response[0].SeasonID == _SeasonID){

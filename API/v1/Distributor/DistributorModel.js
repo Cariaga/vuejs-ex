@@ -119,7 +119,7 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
   module.exports.IDOfHeadOffice = function IDOfHeadOffice(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
   
-    let query = "select UserAccountID,HeadOfficeID from sampledb.headoffices where UserAccountID='"+_UserAccountID+"';";
+    let query = "select UserAccountID,HeadOfficeID from sampledb.headoffices where UserAccountID=\'"+_UserAccountID+"\';";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {

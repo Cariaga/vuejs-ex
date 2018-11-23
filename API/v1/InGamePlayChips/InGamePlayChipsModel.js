@@ -25,7 +25,7 @@ module.exports.isSeasonEnded = function isSeasonEnded(UserAccountID,SeasonID, ca
 module.exports.PlayerPoints = function PlayerPoints(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
     let query =
-        "SELECT CurrentPoints FROM sampledb.players where UserAccountID='"+_UserAccountID+"'";
+        "SELECT CurrentPoints FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\'";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
            // console.log(response);

@@ -38,7 +38,7 @@ module.exports.AddGameHistory = function AddGameHistory( RoomID, SeasonID, callb
 module.exports.isRoomExist = function AddGameHistory( RoomID, callback) {
   let _RoomID = RoomID;
   let query =
-    "SELECT * FROM sampledb.roomconfigurations where RoomID ='"+_RoomID+"';";
+    "SELECT * FROM sampledb.roomconfigurations where RoomID =\'"+_RoomID+"\';";
  
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {

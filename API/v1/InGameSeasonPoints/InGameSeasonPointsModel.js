@@ -9,7 +9,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
   module.exports.InGameSeasonPoints = function InGameSeasonPoints(SeasonID, callback) {
       let _SeasonID = SeasonID;
-      let query ="SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where SeasonID='"+_SeasonID+"';";
+      let query ="SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where SeasonID=\'"+_SeasonID+"\';";
       console.log(query);
       DBConnect.DBConnect(query, function (response) {
         //console.log(response);

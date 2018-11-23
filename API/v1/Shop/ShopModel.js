@@ -78,7 +78,7 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
 module.exports.IDOfDistributor = function IDOfDistributor(UserAccountID, callback) {
   let _UserAccountID = UserAccountID;
 
-  let query = "select UserAccountID,DistributorID from sampledb.distributors where UserAccountID='"+_UserAccountID+"';";
+  let query = "select UserAccountID,DistributorID from sampledb.distributors where UserAccountID=\'"+_UserAccountID+"\';";
   console.log(query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
