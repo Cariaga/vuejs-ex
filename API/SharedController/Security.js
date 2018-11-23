@@ -136,7 +136,7 @@ module.exports.globalBruteforce = new ExpressBrute(store, {
 
 const Redis = require('ioredis');
 const redisClient = new Redis({ enableOfflineQueue: false,
-   host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
+   host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost2',
     port: process.env.REDIS_PORT_6379_TCP_PORT||6379//,
    // name: 'mymaster',
    // no_ready_check: true,
@@ -165,6 +165,7 @@ redisClient.on('error', err => {
 module.exports.rateLimiterMiddleware = (req, res, next) => {
   rateLimiter.consume(req.connection.remoteAddress)
     .then(() => {
+   
       next();
     })
     .catch((rejRes) => {

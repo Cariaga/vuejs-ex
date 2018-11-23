@@ -162,6 +162,7 @@ require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
 
 
+
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
   RegisterModel.RegisterAccount('UserAccountID' + Math.random(), 'AccessID', 'UserName', 'Password', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', function (response) {
@@ -598,5 +599,8 @@ stats.on('request', function (req) {
   }, 1000)
 })*/
 
+process.on('uncaughtException', function (err) {
+  console.log("Catch everything: "+err);
+}); 
 module.exports = routes;
 module.exports = app;
