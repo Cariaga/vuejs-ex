@@ -121,7 +121,7 @@ module.exports = function (app) {
       res.status(status).end(http.STATUS_CODES[status]);
     }
   });
-  app.post('/Api/v1/Admin/Login/Token', function (req, res) {
+  app.get('/Api/v1/Admin/Login/Token', Security.verifyToken, function (req, res) {
     Security.DecompileToken(req,res);
   });
   
