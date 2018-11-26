@@ -33,6 +33,14 @@ module.exports = function (app) {
   });
 
   function Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res){
+    console.log("UserAccountID "+UserAccountID);
+    console.log("Amount "+Amount);
+    console.log("Bank "+Bank);
+    console.log("AccountNumber "+AccountNumber);
+    console.log("Name "+Name);
+    console.log("WithdrawPassword "+WithdrawPassword);
+    console.log("ContactNumber "+ContactNumber);
+
     if(!isNullOrEmpty(UserAccountID)){
 
       if(!isNullOrEmpty(Amount)&&Amount>=1){
@@ -40,12 +48,15 @@ module.exports = function (app) {
           if(!isNullOrEmpty(AccountNumber)){
             if(!isNullOrEmpty(WithdrawPassword)){
               if(!isNullOrEmpty(ContactNumber)){
-                DBCheck.isValidSubractPlayerAmount(UserAccountID,Amount,function(response){
-                  if(response==true){
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response == true) {
                     DBCheck.CheckWithdrawPassword(UserAccountID,WithdrawPassword,function(response){
                       if(response==true){
-                        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                          if (response == true) {
+    
+                        DBCheck.isValidSubractPlayerAmount(UserAccountID,Amount,function(response){
+                          if(response==true){
+    
+    
                             InGameWithdrawModel.RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, function (response) {
                               if(response!=undefined){
                                 let status = 200;
@@ -54,21 +65,28 @@ module.exports = function (app) {
                                 let status = 404;
                                 res.status(status).end(http.STATUS_CODES[status]);
                               }
-                            })
-                          } else {
-                            let status = 404;
-                            res.status(status).end(http.STATUS_CODES[status]);
+                            });
+                          }else{
+                            console.log("NotEnoughMoney");
+                            res.send({NotEnoughMoney:true});
                           }
                         });
                       }else{
                         res.send({InvalidWithdrawPassword:true});
                       }
                     });
-                  }else{
-                    res.send({NotEnoughMoney:true});
+                  } else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
                   }
-
                 });
+
+
+
+
+
+
+         
   
 
               }else{

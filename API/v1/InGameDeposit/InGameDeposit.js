@@ -8,6 +8,9 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     function InGameDeposit(UserAccountID, Name, Amount, res) {
+        console.log("UserAccountID : "+UserAccountID);
+        console.log("Name : "+Name);
+        console.log("Amount : "+Amount);
         if (!isNullOrEmpty(UserAccountID)) {
             if (!isNullOrEmpty(Name)) {
                 if (!isNullOrEmpty(Amount)) {
