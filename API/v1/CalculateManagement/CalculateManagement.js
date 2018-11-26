@@ -9,7 +9,7 @@ var async = require("async");
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     // Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
-    app.get('/Api/v1/CalculateManage/LowRank/:LowRank/Office/:Office/Limit/:Limit/Offset/:Offset',  function (req, res) {
+    app.get('/Api/v1/CalculateManage/LowRank/:LowRank/Office/:Office/Limit/:Limit/Offset/:Offset', Security.verifyToken,  function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     let LowRank = req.params.LowRank;

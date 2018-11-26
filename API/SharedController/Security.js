@@ -54,6 +54,7 @@ module.exports.verifyToken = function verifyToken(req, res, next) {
 
 module.exports.DecompileToken = function DecompileToken(req, res) {
   const bearerHeader = req.headers['authorization'];
+  console.log('auth key : '+bearerHeader);
   // Check if bearer is undefined
   
   if (typeof bearerHeader !== 'undefined') {
