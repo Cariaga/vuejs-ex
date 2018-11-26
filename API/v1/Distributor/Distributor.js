@@ -6,6 +6,8 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var uuidv4 = require('uuid/v4');
+
 module.exports = function (app) { //SELECTION
   app.get('/Api/v1/Distributor/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -179,8 +181,8 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/Distributor/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeUserAccountID/:HeadOfficeUserAccountID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
+  app.get('/Api/v1/Distributor/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeUserAccountID/:HeadOfficeUserAccountID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserAccountID = uuidv4();
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
     let UserName = req.params.UserName;
