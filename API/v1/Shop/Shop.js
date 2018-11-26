@@ -128,6 +128,9 @@ function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commissio
           if (!isNullOrEmpty(Password)) {
             if (!isNullOrEmpty(Commission)) {
               if (!isNullOrEmpty(DistributorUserAccountID)) {
+                DBCheck.isUserNameExist(UserName,function(response){
+                  if(response==false){
+                                    
                 DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                   if (response == false) {
                     ShopModel.IDOfDistributor(DistributorUserAccountID, function (response) {
@@ -153,6 +156,12 @@ function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commissio
                     res.send({ ShopUserAccountIDAlreadyExist: true });
                   }
                 });
+                  }else{
+                    res.send({UserNameAlreadyExist:true});
+                  }
+                });
+
+
               }
               else {
                 res.send({

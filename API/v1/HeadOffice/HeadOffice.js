@@ -92,6 +92,8 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
         if (!isNullOrEmpty(UserName)) {
           if (!isNullOrEmpty(Password)) {
             if (!isNullOrEmpty(Commission)) {
+              DBCheck.isUserNameExist(UserName,function(response){
+                if(response==false){
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == false) {
                   HeadOfficeModel.IDOperatingHeadOffice(OperatingHeadOfficeUserAccountID, function (response) {
@@ -114,6 +116,11 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                   });
                 }
               });
+                }else{
+                  res.send({UserNameAlreadyExist:true});
+                }
+              });
+
             }
             else {
               res.send({

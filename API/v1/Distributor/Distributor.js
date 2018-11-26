@@ -213,32 +213,42 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
           if (!isNullOrEmpty(Password)) {
             if (!isNullOrEmpty(Commission)) {
               if (!isNullOrEmpty(HeadOfficeUserAccountID)) {
-                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                  if (response == false) {
-                    DistributorModel.IDOfHeadOffice(HeadOfficeUserAccountID, function (response) {
-                      if (response != undefined) {
-                        let HeadOfficeID = response[0].HeadOfficeID;
-                        DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
+
+                DBCheck.isUserNameExist(UserName,function(response){
+                  if(response==false){
+                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                      if (response == false) {
+                        DistributorModel.IDOfHeadOffice(HeadOfficeUserAccountID, function (response) {
                           if (response != undefined) {
-                            res.send(response);
+                            let HeadOfficeID = response[0].HeadOfficeID;
+                            DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
+                              if (response != undefined) {
+                                res.send(response);
+                              }
+                              else {
+                                res.send({
+                                  RegisterDistributorFailed: true
+                                });
+                              }
+                            });
                           }
                           else {
-                            res.send({
-                              RegisterDistributorFailed: true
-                            });
+                            res.send({ HeadOfficeUserAccountIDNotFound: true });
                           }
                         });
                       }
                       else {
-                        res.send({ HeadOfficeUserAccountIDNotFound: true });
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
                       }
                     });
-                  }
-                  else {
-                    let status = 404;
-                    res.status(status).end(http.STATUS_CODES[status]);
+                  }else{
+                    res.send({UserNameAlreadyExist:true});
                   }
                 });
+  
+
+
               }
               else {
                 res.send({
