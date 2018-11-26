@@ -97,6 +97,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                       // res.send(response[0].UserAccountID);
                       let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID
                       HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
+                        
                         res.send(response);
                       });
                     }

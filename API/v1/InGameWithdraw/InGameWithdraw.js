@@ -55,8 +55,6 @@ module.exports = function (app) {
     
                         DBCheck.isValidSubractPlayerAmount(UserAccountID,Amount,function(response){
                           if(response==true){
-    
-    
                             InGameWithdrawModel.RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, function (response) {
                               if(response!=undefined){
                                 let status = 200;
