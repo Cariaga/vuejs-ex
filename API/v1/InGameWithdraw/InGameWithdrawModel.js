@@ -15,7 +15,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
     let _WithdrawPassword = WithdrawPassword;
     let _ContactNumber = ContactNumber;
     let _UserTransactionID= uuidv4();
-
+    
     function TransactionsInsert(){
       return new Promise(resolve => {
         let query =
