@@ -6,6 +6,8 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var uuidv4 = require('uuid/v4');
+
 module.exports = function (app) { //INSERT
   app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
@@ -59,15 +61,15 @@ module.exports = function (app) { //INSERT
     }
   });
   
-  app.get('/Api/v1/HeadOffice/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/OperatingHeadOfficeUserAccoundID/:OperatingHeadOfficeUserAccoundID', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
+  app.get('/Api/v1/HeadOffice/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/OperatingHeadOfficeUserAccountID/:OperatingHeadOfficeUserAccountID', Security.verifyToken, Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserAccountID = uuidv4();
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
     let UserName = req.params.UserName;
     let Password = req.params.Password;
     let Commission = req.params.Commission;
-    let OperatingHeadOfficeUserAccoundID = req.params.OperatingHeadOfficeUserAccoundID;
-      AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccoundID, res);
+    let OperatingHeadOfficeUserAccountID = req.params.OperatingHeadOfficeUserAccountID;
+      AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res);
   });
   app.post('/Api/v1/HeadOffice/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
     let UserAccountID = req.body.UserAccountID;
@@ -76,14 +78,14 @@ module.exports = function (app) { //INSERT
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Commission = req.body.Commission;
-    let OperatingHeadOfficeUserAccoundID = req.body.OperatingHeadOfficeUserAccoundID;
-      AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccoundID, res);
+    let OperatingHeadOfficeUserAccountID = req.body.OperatingHeadOfficeUserAccountID;
+      AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res);
   });
   //STRUCTURE
   //SELECTION
 }
 
-function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccoundID, res) {
+function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res) {
   if (!isNullOrEmpty(UserAccountID)) {
     if (!isNullOrEmpty(Name)) {
       if (!isNullOrEmpty(PhoneNumber)) {
@@ -92,7 +94,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
             if (!isNullOrEmpty(Commission)) {
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == false) {
-                  HeadOfficeModel.IDOperatingHeadOffice(OperatingHeadOfficeUserAccoundID, function (response) {
+                  HeadOfficeModel.IDOperatingHeadOffice(OperatingHeadOfficeUserAccountID, function (response) {
                     if (response != undefined) {
                       // res.send(response[0].UserAccountID);
                       let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID

@@ -62,9 +62,9 @@ module.exports = function (app) { //MODIFY
 
   //useraccount being created must not exist already
   //but the Upper level should exist
-  app.get('/Api/v1/Shop/Add/UserAccountID/:UserAccountID/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorUserAccountID/:DistributorUserAccountID/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+  app.get('/Api/v1/Shop/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorUserAccountID/:DistributorUserAccountID/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
 
-    let UserAccountID = req.params.UserAccountID;
+    let UserAccountID = uuidv4();
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
     let UserName = req.params.UserName;
