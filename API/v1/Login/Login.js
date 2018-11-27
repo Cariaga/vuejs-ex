@@ -53,85 +53,80 @@ module.exports = function (app) {
                     let ParentType = "";
                     let ParentUserAccountID = "";
                     let ParentID = "";
+                    let AccessTags="";
+                    LoginHistoryModel.SubAccount(UserAccountID,function(response4){//will check if its a sub account or not regardless should responed either way
+                      if(response4){
+                        AccessTags = response4[0].AccessTags;
+                      }
+                      
+   
 
-                    let AccessTags ="";
-
-                   /* if( response2!=undefined){
-                      console.log(response2);
-                      AccessTags=response2[0].AccessTags;
-                    }*/
-
-                    if(AccountType=="Player"){
-                      ParentType ="Shops";
-                      ParentID = response[0].ShopID;
-                      LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
-
-                        let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
-
-                        if(ParentUserAccountID!=undefined){
-                          BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
-                        }
-                      });
-                    }
-                    if(AccountType=="Shops"){
-                      ParentType ="Distributor";
-                      ParentID = response[0].DistributorID;
-                      LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(response){
-                        let ParentUserAccountID = response[0].UserAccountID;//Distributor UserAccount
-                        if(ParentUserAccountID!=undefined){
-                          BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
-                        }
-                      });
-                    }
-                    if(AccountType=="Distributor"){
-                      ParentType ="HeadOffice";
-                      ParentID = response[0].HeadOfficeID;
-                      LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
-                        let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
-                        if(ParentUserAccountID!=undefined){
-                          BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
-                        }
-                      });
-                    }
-                    if(AccountType=="HeadOffice"){
-                      ParentType ="OperatingHeadOffice";
-                    }
-                    console.log(ParentType);
-
-                   /* LoginHistoryModel.SubAccount(UserAccountID,function(response2){//will check if its a sub account or not regardless should responed either way
-                      let AccessTags ="";
-                     
-
+                      if(AccountType=="Player"){
+                        ParentType ="Shops";
+                        ParentID = response[0].ShopID;
+                        LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
+  
+                          let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
+  
+                          if(ParentUserAccountID!=undefined){
+                            BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
+                          }
+                        });
+                      }
+                      if(AccountType=="Shops"){
+                        ParentType ="Distributor";
+                        ParentID = response[0].DistributorID;
+                        LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(response){
+                          let ParentUserAccountID = response[0].UserAccountID;//Distributor UserAccount
+                          if(ParentUserAccountID!=undefined){
+                            BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
+                          }
+                        });
+                      }
+                      if(AccountType=="Distributor"){
+                        ParentType ="HeadOffice";
+                        ParentID = response[0].HeadOfficeID;
+                        LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
+                          let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
+                          if(ParentUserAccountID!=undefined){
+                            BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
+                          }
+                        });
+                      }
+                      if(AccountType=="HeadOffice"){
+                        ParentType ="OperatingHeadOffice";
+                      }
+                      console.log(ParentType);
                     });
-*/
+
                     // Mock user
                    
 
 
                   } else {
                     let status = 404;
-                    res.status(status).end(http.STATUS_CODES[status]);//404 a
+                    res.status(status).end(http.STATUS_CODES[status]);
                   }
                   // res.send("login success!");
                 });
               }else{
                 //possibly blocked or dose not exist
                 let status = 404;
-                res.status(status).end(http.STATUS_CODES[status]);//404 b
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             });
           }else{
             let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);// 404 c
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         });
       } else {
         let status = 404;
-        res.status(status).end(http.STATUS_CODES[status]);//404 d
+        res.status(status).end(http.STATUS_CODES[status]);
       }
     } else {
       let status = 404;
-      res.status(status).end(http.STATUS_CODES[status]);//404 e
+      res.status(status).end(http.STATUS_CODES[status]);
     }
   });
   app.get('/Api/v1/Admin/Login/Token', Security.verifyToken, function (req, res) {
@@ -454,9 +449,5 @@ function BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, 
         });
       });
   }
-  else {
-    //Players can't login on Page without privllage or account type access
 
-    res.status(401).end(http.STATUS_CODES[401]);
-  }
 }
