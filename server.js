@@ -294,7 +294,7 @@ wss.on('connection', (ws, req) => {
   }
   //console.log(ws.Money);
   var _UserAccountID = UserAccountID;
-  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '" + _UserAccountID + "';";
+  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       ws.Money = parseInt(response[0].Money);
@@ -302,12 +302,7 @@ wss.on('connection', (ws, req) => {
     }
   });
 
-
-
-
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
-
-
   // console.log("url: ", ws);
 
   ws.onmessage = function (event) {
