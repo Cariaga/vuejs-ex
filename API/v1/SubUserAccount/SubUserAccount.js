@@ -9,7 +9,7 @@ var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-    app.get('/Api/v1/SubAccounts/Add/UserName/UserName/Password/:Password/MainUserAccountID/:MainUserAccountID/', function (req, res) {
+    app.get('/Api/v1/SubAccounts/Add/UserName/UserName/Password/:Password/AccessID/:AccessID/MainUserAccountID/:MainUserAccountID/', function (req, res) {
         let UserName = req.params.UserName;
         let Password = req.params.Password;
         let AccessID = req.params.AccessID;
