@@ -60,8 +60,8 @@ module.exports = function (app) { //INSERT
       res.send("Missing params");
     }
   });
-  
-  app.get('/Api/v1/HeadOffice/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/OperatingHeadOfficeUserAccountID/:OperatingHeadOfficeUserAccountID', Security.verifyToken, Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  // Security.verifyToken, Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+  app.get('/Api/v1/HeadOffice/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/OperatingHeadOfficeUserAccountID/:OperatingHeadOfficeUserAccountID', function (req, res) {
     let UserAccountID = uuidv4();
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
