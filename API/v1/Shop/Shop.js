@@ -129,8 +129,7 @@ function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commissio
             if (!isNullOrEmpty(Commission)) {
               if (!isNullOrEmpty(DistributorUserAccountID)) {
                 DBCheck.isUserNameExist(UserName,function(response){
-                  if(response==false){
-                                    
+                  if(response==false){      
                 DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                   if (response == false) {
                     ShopModel.IDOfDistributor(DistributorUserAccountID, function (response) {

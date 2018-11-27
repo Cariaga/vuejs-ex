@@ -50,6 +50,8 @@ module.exports = function (app) {
     console.log("register test");
     Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res);
   });
+
+  
   function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res){
     if (!isNullOrEmpty(ScreenName)) {
       if (!isNullOrEmpty(UserName)) {
@@ -251,4 +253,6 @@ module.exports = function (app) {
     Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res);
 
   });*/
+
+  
 }

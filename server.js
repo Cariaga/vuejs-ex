@@ -142,6 +142,7 @@ require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
 require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
 require('./API/v1/Shop/Shop')(app);
+require('./API/v1/SubUserAccount/SubUserAccount')(app);
 require('./API/v1/SupportTicket/SupportTicket')(app);
 require('./API/v1/TransferHistory/TransferHistory')(app);
 require('./API/v1/UserAccount/UserAccount')(app);
@@ -230,6 +231,19 @@ app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5 
   res.send('pick version');
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
+app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+
+  DBConnect.DBConnect("Select GameVersion from Gameconfiguration",function(response){
+    if(response!=undefined){
+      res.send(response[0]);
+    }else{
+      res.sendStatus(404);
+    }
+     
+  });
+  //setTimeout(function(){res.send('pick version');}, 10000);
+});
+
 /*
 app.get('/Api/v1', Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
   res.send('Api v1 version');
@@ -282,7 +296,7 @@ wss.on('connection', (ws, req) => {
   }
   //console.log(ws.Money);
   var _UserAccountID = UserAccountID;
-  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = '" + _UserAccountID + "';";
+  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       ws.Money = parseInt(response[0].Money);
@@ -290,12 +304,7 @@ wss.on('connection', (ws, req) => {
     }
   });
 
-
-
-
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
-
-
   // console.log("url: ", ws);
 
   ws.onmessage = function (event) {
