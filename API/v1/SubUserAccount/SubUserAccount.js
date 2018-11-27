@@ -17,8 +17,6 @@ module.exports = function (app) { //SELECTION
         let Password = req.params.Password;
         let AccessID = req.params.AccessID;
         let MainUserAccountID = req.params.MainUserAccountID;
-        let status = 404;
-        res.status(status).end(http.STATUS_CODES[status]);
 
         if (!isNullOrEmpty(UserName)) {
 
