@@ -27,7 +27,8 @@ module.exports.AddSubAccount = function AddSubAccount(UserName,Password,AccessID
         });
       }
       function Q2(){
-        let query = "INSERT INTO `sampledb`.`subaccounts` (`UserAccountID`, `AccessID`, `MainUserAccountID`) VALUES (\'"+_UserAccountID+"\', \'"+_AccessID+"\', `\'"+_MainUserAccountID+"\');";
+        let query = "INSERT INTO `sampledb`.`subaccounts` (`UserAccountID`, `AccessID`, `MainUserAccountID`) VALUES (\'"+_UserAccountID+"', \'"+_AccessID+"\', \'"+_MainUserAccountID+"\');";
+        console.log(query);
         return new Promise((resolve,reject)  => {
           DBConnect.DBConnect(query, function (response) {
             if (response != undefined) {
@@ -43,6 +44,7 @@ module.exports.AddSubAccount = function AddSubAccount(UserName,Password,AccessID
         console.log('calling');
         let finalresult = [{}];
         let result = await Q1();
+        
         let result2 = await Q2();
         console.log('Done');
         callback('done');
