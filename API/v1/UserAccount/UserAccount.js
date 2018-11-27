@@ -159,6 +159,17 @@ module.exports = function (app) { //SELECTION
       }
     }
   });
+  app.get('/Api/v1/UserAccount/Update/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserAccountID = req.body.UserAccountID;
+    let Privilege = req.body.Privilege;
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(Privilege)){
+        if(Privilege=="Admin"){
+          UserAccountUpdatePrivilege(UserAccountID, Privilege, res);
+        }
+      }
+    }
+  });
 }
 
 function UserAccountUpdatePrivilege(UserAccountID, Privilege, res) {
