@@ -56,7 +56,7 @@ module.exports = function (app) {
                     
                     LoginHistoryModel.SubAccount(UserAccountID,function(response){//will check if its a sub account or not regardless should responed either way
                       let AccessID = response[0].AccessID;
-                      let AccessTags = response[0].AccessTags;//not done<<<<
+                      let AccessTags = response[0].AccessTags;
                       let AccessName = response[0].AccessName;
 
                       if(AccountType=="Player"){

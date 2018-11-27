@@ -148,4 +148,29 @@ module.exports = function (app) { //SELECTION
     }
   });
 
+  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Privilege/:Privilege/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserAccountID = req.params.UserAccountID;
+    let Privilege = req.params.Privilege;
+    if(!isNullOrEmpty(UserAccountID)){
+      if(!isNullOrEmpty(Privilege)){
+        if(Privilege=="Admin"){
+          UserAccountUpdatePrivilege(UserAccountID, Privilege, res);
+        }
+      }
+    }
+  });
+}
+
+function UserAccountUpdatePrivilege(UserAccountID, Privilege, res) {
+  UserAccountModel.PrivilegeUpdate(UserAccountID, Privilege, function (response) {
+    if (response != undefined) {
+      let status = 200;
+      res.status(status).end(http.STATUS_CODES[status]);
+    }
+    else {
+      res.send({
+        PlayerUpdateFailed: true
+      });
+    }
+  });
 }

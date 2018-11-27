@@ -5,6 +5,22 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+
+
+module.exports.PrivilegeUpdate = function PrivilegeUpdate(UserAccountID, Privilege, callback) {
+  let _UserAccountID = UserAccountID;
+  let _Privilege =Privilege;
+  let query ="UPDATE `sampledb`.`useraccounts` SET `Privilege` = \'"+_Privilege+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+
+
 /**
  *
  *
