@@ -142,6 +142,7 @@ require('./API/v1/Profile/Profile')(app);
 require('./API/v1/Register/Register')(app);
 require('./API/v1/RoomConfiguration/RoomConfiguration')(app);
 require('./API/v1/Shop/Shop')(app);
+require('./API/v1/SubUserAccount/SubUserAccount')(app);
 require('./API/v1/SupportTicket/SupportTicket')(app);
 require('./API/v1/TransferHistory/TransferHistory')(app);
 require('./API/v1/UserAccount/UserAccount')(app);
