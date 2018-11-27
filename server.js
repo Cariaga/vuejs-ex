@@ -160,6 +160,7 @@ require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 require('./API/v1/Sales/Sales')(app);
 require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
+require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
 
 
 
