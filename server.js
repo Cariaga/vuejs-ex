@@ -229,6 +229,19 @@ app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5 
   res.send('pick version');
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
+app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+
+  DBConnect.DBConnect("Select GameVersion from Gameconfiguration",function(response){
+    if(response!=undefined){
+      res.send(response[0]);
+    }else{
+      res.sendStatus(404);
+    }
+     
+  });
+  //setTimeout(function(){res.send('pick version');}, 10000);
+});
+
 /*
 app.get('/Api/v1', Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
   res.send('Api v1 version');
