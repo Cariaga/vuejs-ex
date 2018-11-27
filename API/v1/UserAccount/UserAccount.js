@@ -159,7 +159,7 @@ module.exports = function (app) { //SELECTION
       }
     }
   });
-  app.get('/Api/v1/UserAccount/Update/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/UserAccount/Update/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Privilege = req.body.Privilege;
     if(!isNullOrEmpty(UserAccountID)){
