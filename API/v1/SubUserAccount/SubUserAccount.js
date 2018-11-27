@@ -28,6 +28,9 @@ module.exports = function (app) { //SELECTION
                         if(response==true){
                             SubUserAccountModel.AddSubAccount(UserName,Password,AccessID,MainUserAccountID,function(response){
                                 if(response!=undefined){
+                                    let status = 200;
+                                    res.status(status).end(http.STATUS_CODES[status]);
+                                }else{
                                     let status = 404;
                                     res.status(status).end(http.STATUS_CODES[status]);
                                 }
