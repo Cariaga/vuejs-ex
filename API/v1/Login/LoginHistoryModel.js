@@ -231,3 +231,15 @@ module.exports.UserAccountIDOFHeadOfficeID = function(HeadOfficeID,callback){
       }
   });
 }
+
+module.exports.SubAccount = function(UserAccountID,callback){
+  let _UserAccountID = UserAccountID;
+  let Query = "SELECT * FROM sampledb.subaccounts as SA join sampledb.UserAccounts as UA on UA.UserAccountID=SA.UserAccountID where SA.UserAccountID='"+_UserAccountID+"';";
+  DBConnect.DBConnect(Query, function (response) {
+    if (response != undefined) {
+      callback(response);
+      } else {
+        callback(undefined);
+      }
+  });
+}

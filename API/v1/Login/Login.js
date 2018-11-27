@@ -53,7 +53,7 @@ module.exports = function (app) {
                     let ParentType = "";
                     let ParentUserAccountID = "";
                     let ParentID = "";
-
+                    
                     if(AccountType=="Player"){
                       ParentType ="Shops";
                       ParentID = response[0].ShopID;
@@ -89,6 +89,7 @@ module.exports = function (app) {
                     if(AccountType=="HeadOffice"){
                       ParentType ="OperatingHeadOffice";
                     }
+
                     console.log(ParentType);
 
                     // Mock user
