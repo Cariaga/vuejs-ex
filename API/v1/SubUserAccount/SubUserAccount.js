@@ -24,30 +24,7 @@ module.exports = function (app) { //SELECTION
             if (!isNullOrEmpty(Password)) {
     
               if (!isNullOrEmpty(MainUserAccountID)) {
-                  DBCheck.isUserNameExist(UserName,function(response){
-                      if(response==false){
-                        DBCheck.isUserAccountIDExist(MainUserAccountID,function(response){
-                            if(response==true){
-                                SubUserAccountModel.AddSubAccount(UserName,Password,AccessID,MainUserAccountID,function(response){
-                                    if(response!=undefined){
-                                        let status = 200;
-                                        res.status(status).end(http.STATUS_CODES[status]);
-                                    }else{
-                                        let status = 404;
-                                        res.status(status).end(http.STATUS_CODES[status]);
-                                    }
-                                });
-                            }else{
-                                let status = 404;
-                                res.status(status).end(http.STATUS_CODES[status]);
-                            }
-                        });
-                      }else{
-                        res.send({
-                            UserNameAlreadyExist: true
-                          });
-                      }
-                  });
+                  AddSubAccount(UserName, MainUserAccountID, Password, AccessID, res);
                    
               }else{
                 res.send({
@@ -68,13 +45,17 @@ module.exports = function (app) { //SELECTION
     app.post('/Api/v1/SubAccounts/Add/', function (req, res) {
         let UserName = req.body.UserName;
         let Password = req.body.Password;
+        let AccessID = req.body.AccessID;
         let MainUserAccountID = req.body.MainUserAccountID;
+
         if (!isNullOrEmpty(UserName)) {
+
     
             if (!isNullOrEmpty(Password)) {
     
               if (!isNullOrEmpty(MainUserAccountID)) {
-    
+                  AddSubAccount(UserName, MainUserAccountID, Password, AccessID, res);
+                   
               }else{
                 res.send({
                     MainUserAccountIDMissing: true
@@ -92,3 +73,33 @@ module.exports = function (app) { //SELECTION
         }
     });
 }
+function AddSubAccount(UserName, MainUserAccountID, Password, AccessID, res) {
+    DBCheck.isUserNameExist(UserName, function (response) {
+        if (response == false) {
+            DBCheck.isUserAccountIDExist(MainUserAccountID, function (response) {
+                if (response == true) {
+                    SubUserAccountModel.AddSubAccount(UserName, Password, AccessID, MainUserAccountID, function (response) {
+                        if (response != undefined) {
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }
+                        else {
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                        }
+                    });
+                }
+                else {
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                }
+            });
+        }
+        else {
+            res.send({
+                UserNameAlreadyExist: true
+            });
+        }
+    });
+}
+
