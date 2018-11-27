@@ -54,43 +54,48 @@ module.exports = function (app) {
                     let ParentUserAccountID = "";
                     let ParentID = "";
                     
-                    if(AccountType=="Player"){
-                      ParentType ="Shops";
-                      ParentID = response[0].ShopID;
-                      LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
+                    LoginHistoryModel.SubAccount(UserAccountID,function(response){//will check if its a sub account or not regardless should responed either way
+                      let AccessID = response[0].AccessID;
+                      let AccessTags = response[0].AccessTags;//not done<<<<
+                      let AccessName = response[0].AccessName;
 
-                        let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
-
-                        if(ParentUserAccountID!=undefined){
-                          BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
-                        }
-                      });
-                    }
-                    if(AccountType=="Shops"){
-                      ParentType ="Distributor";
-                      ParentID = response[0].DistributorID;
-                      LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(response){
-                        let ParentUserAccountID = response[0].UserAccountID;//Distributor UserAccount
-                        if(ParentUserAccountID!=undefined){
-                          BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
-                        }
-                      });
-                    }
-                    if(AccountType=="Distributor"){
-                      ParentType ="HeadOffice";
-                      ParentID = response[0].HeadOfficeID;
-                      LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
-                        let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
-                        if(ParentUserAccountID!=undefined){
-                          BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
-                        }
-                      });
-                    }
-                    if(AccountType=="HeadOffice"){
-                      ParentType ="OperatingHeadOffice";
-                    }
-
-                    console.log(ParentType);
+                      if(AccountType=="Player"){
+                        ParentType ="Shops";
+                        ParentID = response[0].ShopID;
+                        LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
+  
+                          let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
+  
+                          if(ParentUserAccountID!=undefined){
+                            BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
+                          }
+                        });
+                      }
+                      if(AccountType=="Shops"){
+                        ParentType ="Distributor";
+                        ParentID = response[0].DistributorID;
+                        LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(response){
+                          let ParentUserAccountID = response[0].UserAccountID;//Distributor UserAccount
+                          if(ParentUserAccountID!=undefined){
+                            BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
+                          }
+                        });
+                      }
+                      if(AccountType=="Distributor"){
+                        ParentType ="HeadOffice";
+                        ParentID = response[0].HeadOfficeID;
+                        LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
+                          let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
+                          if(ParentUserAccountID!=undefined){
+                            BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,AccessTags, res);
+                          }
+                        });
+                      }
+                      if(AccountType=="HeadOffice"){
+                        ParentType ="OperatingHeadOffice";
+                      }
+                      console.log(ParentType);
+                    });
 
                     // Mock user
                    
@@ -428,7 +433,8 @@ function BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, 
       Privilege: Privilege,
       ParentType: ParentType,
       ParentUserAccountID:ParentUserAccountID,
-      ParentID:ParentID
+      ParentID:ParentID,
+      AccessTags:AccessTags
     };
     console.log(user);
     jwt.sign({
