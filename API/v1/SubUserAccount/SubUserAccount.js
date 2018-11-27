@@ -24,22 +24,31 @@ module.exports = function (app) { //SELECTION
             if (!isNullOrEmpty(Password)) {
     
               if (!isNullOrEmpty(MainUserAccountID)) {
-                    DBCheck.isUserAccountIDExist(MainUserAccountID,function(response){
-                        if(response==true){
-                            SubUserAccountModel.AddSubAccount(UserName,Password,AccessID,MainUserAccountID,function(response){
-                                if(response!=undefined){
-                                    let status = 200;
-                                    res.status(status).end(http.STATUS_CODES[status]);
-                                }else{
-                                    let status = 404;
-                                    res.status(status).end(http.STATUS_CODES[status]);
-                                }
-                            });
-                        }else{
-                            let status = 404;
-                            res.status(status).end(http.STATUS_CODES[status]);
-                        }
-                    });
+                  DBCheck.isUserNameExist(UserName,function(response){
+                      if(response==false){
+                        DBCheck.isUserAccountIDExist(MainUserAccountID,function(response){
+                            if(response==true){
+                                SubUserAccountModel.AddSubAccount(UserName,Password,AccessID,MainUserAccountID,function(response){
+                                    if(response!=undefined){
+                                        let status = 200;
+                                        res.status(status).end(http.STATUS_CODES[status]);
+                                    }else{
+                                        let status = 404;
+                                        res.status(status).end(http.STATUS_CODES[status]);
+                                    }
+                                });
+                            }else{
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                            }
+                        });
+                      }else{
+                        res.send({
+                            UserNameAlreadyExist: true
+                          });
+                      }
+                  });
+                   
               }else{
                 res.send({
                     MainUserAccountIDMissing: true
