@@ -21,9 +21,11 @@ let DBConnect = require("../SharedController/DBConnect");
     let _UserAccountID = UserAccountID;
     let _Money = Money
     let query =
-    "SELECT Money-"+_Money+" FROM sampledb.players where UserAccountID = \'"+_UserAccountID+"\'";
+    "SELECT Money-"+_Money+" as Money FROM sampledb.players where UserAccountID = \'"+_UserAccountID+"\'";
+
     DBConnect.DBConnect(query,function(response){
-      if(response.Money>0){
+      console.log("New Possible Amount "+response[0].Money);
+      if(response[0].Money>0){
         console.log(response);
         callback(true);
       }else{

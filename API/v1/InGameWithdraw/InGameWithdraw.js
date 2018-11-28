@@ -43,7 +43,7 @@ module.exports = function (app) {
 
     if(!isNullOrEmpty(UserAccountID)){
 
-      if(!isNullOrEmpty(Amount)&&Amount>=1){
+      if(!isNullOrEmpty(Amount)&&Amount>0){
         if(!isNullOrEmpty(Bank)){
           if(!isNullOrEmpty(AccountNumber)){
             if(!isNullOrEmpty(WithdrawPassword)){

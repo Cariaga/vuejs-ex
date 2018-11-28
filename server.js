@@ -317,12 +317,22 @@ wss.on('connection', (ws, req) => {
       
       console.log(Object);
       
-      if (Object.Type == "Transfer") { //event leave room
+      if (Object.Type == "Transfer") { //event trasfer room
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) {
                   client.Money = parseInt(client.Money) - parseInt(Object.TransferAmount); //add back the money to the player
+            }
+          }
+        });
+      }
+      if (Object.Type == "Withdraw") { //event withdraw room
+        //console.log("LeaveRoom "+ Object.RoomID);
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            if (client.UserAccountID == Object.UserAccountID) {
+                  client.Money = parseInt(client.Money) - parseInt(Object.WithdrawAmount); //add back the money to the player
             }
           }
         });
