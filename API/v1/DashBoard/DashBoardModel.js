@@ -2,7 +2,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback) {
   let query =
-    "SELECT TotalDailyBettingByHeadOffice, HeadOfficeUserAccountID FROM sampledb.headoffice_daily_betting;";
+    "SELECT * FROM sampledb.headoffice_daily_betting;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -15,7 +15,7 @@ module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback
 
 module.exports.HeadOfficeBettingMonthly = function HeadOfficeBettingMonthly(callback) {
   let query =
-    "SELECT TotalMonthlyBettingByHeadOffice, HeadOfficeUserAccountID FROM sampledb.headoffice_monthly_betting;";
+    "SELECT * FROM sampledb.headoffice_monthly_betting;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
