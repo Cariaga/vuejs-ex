@@ -121,8 +121,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission,PL.ShopID,DR.DistributorID,HO.HeadOfficeID "+
-
+    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission,PL.ShopID,SH.DistributorID,DR.HeadOfficeID "+
     "FROM sampledb.useraccounts as UA "+
     "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
     "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
@@ -184,6 +183,9 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].ShopID = result[0].ShopID;
         finalresult[0].DistributorID = result[0].DistributorID;
         finalresult[0].HeadOfficeID = result[0].HeadOfficeID;
+        console.log("------ShopID :"+result[0].ShopID);
+        console.log("------DistributorID :"+result[0].DistributorID);
+        console.log("------HeadOfficeID :"+result[0].HeadOfficeID);
 
         callback(finalresult);
       }else{
@@ -232,9 +234,9 @@ module.exports.UserAccountIDOFHeadOfficeID = function(HeadOfficeID,callback){
   });
 }
 
-module.exports.SubAccount = function(UserAccountID,callback){
-  let _UserAccountID = UserAccountID;
-  let Query = "SELECT SA.SubAccountID,SA.UserAccountID,SA.MainUserAccountID,SA.AccessID,AC.AccessName,AC.AccessTags FROM sampledb.subaccounts as SA join sampledb.UserAccounts as UA on UA.UserAccountID=SA.UserAccountID join sampledb.accesscontrol as AC on AC.AccessID=SA.AccessID where SA.UserAccountID=\'"+_UserAccountID+"\';";
+module.exports.SubAccount = function(UserName,callback){
+  let _UserName = UserName;
+  let Query = "SELECT SA.SubAccountID,SA.UserAccountID,SA.MainUserAccountID,SA.AccessID,AC.AccessName,AC.AccessTags,UA.UserName FROM sampledb.subaccounts as SA join sampledb.UserAccounts as UA on UA.UserAccountID=SA.UserAccountID join sampledb.accesscontrol as AC on AC.AccessID=SA.AccessID where UA.UserName = '"+_UserName+"'";
   console.log(Query);
   DBConnect.DBConnect(Query, function (response) {
     if (response != undefined) {
