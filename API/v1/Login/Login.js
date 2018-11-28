@@ -121,6 +121,7 @@ module.exports = function (app) {
                           }
                           if(AccountType=="HeadOffice"){
                             ParentType ="OperatingHeadOffice";
+                            
                           }
                           console.log(ParentType);
                    
@@ -131,6 +132,7 @@ module.exports = function (app) {
     
                       } else {
                         console.log("Not Found A");
+
                         let status = 404;
                         res.status(status).end(http.STATUS_CODES[status]);
                       }

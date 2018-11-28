@@ -121,16 +121,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission,PL.ShopID,SH.DistributorID,DR.HeadOfficeID "+
-    "FROM sampledb.useraccounts as UA "+
-    "LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID "+
-    "LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID "+
-    "left Join sampledb.players as PL on UA.UserAccountID = PL.UserAccountID "+
-    "left Join sampledb.shops as SH on UA.UserAccountID = SH.UserAccountID "+
-    "left Join sampledb.distributors as DR on UA.UserAccountID = DR.UserAccountID "+
-    "left Join sampledb.headoffices as HO on UA.UserAccountID = HO.UserAccountID "+
-    "where UA.UserName =\'"+_UserName+"\' and UA.Password= \'"+_Password+"\' "+
-    "order by BL.ReportDate desc limit 1; ";
+    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission, PL.ShopID,SH.DistributorID,DR.HeadOfficeID,HO.operatingheadofficeid FROM sampledb.useraccounts as UA LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID left Join sampledb.players as PL on UA.UserAccountID = PL.UserAccountID left Join sampledb.shops as SH on UA.UserAccountID = SH.UserAccountID left Join sampledb.distributors as DR on UA.UserAccountID = DR.UserAccountID left Join sampledb.headoffices as HO on UA.UserAccountID = HO.UserAccountID left join sampledb.operatingheadoffice as OHO on UA.UserAccountID = HO.UserAccountID where UA.UserName =\'"+_UserName+"\' and UA.Password= '"+_Password+"' order by BL.ReportDate desc limit 1";
 
       console.log("LoginAccount : "+ Query);
       return new Promise(resolve => {
@@ -183,6 +174,8 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].ShopID = result[0].ShopID;
         finalresult[0].DistributorID = result[0].DistributorID;
         finalresult[0].HeadOfficeID = result[0].HeadOfficeID;
+        finalresult[0].OperatingHeadOfficeID = result[0].OperatingHeadOfficeID;
+        
         console.log("------ShopID :"+result[0].ShopID);
         console.log("------DistributorID :"+result[0].DistributorID);
         console.log("------HeadOfficeID :"+result[0].HeadOfficeID);
