@@ -149,7 +149,7 @@ const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible')
 
 const opts = {
   storeClient: redisClient,
-  points: 1000, // Number of points
+  points: 5000, // Number of points
   duration: 18000, // Per second(s)
 };
  
