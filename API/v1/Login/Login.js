@@ -45,8 +45,6 @@ module.exports = function (app) {
           if(response==true){
             DBCheck.isUserNameBlocked(_UserName,function(response){
               if(response==false){
-
-                
                 LoginHistoryModel.SubAccount(_UserName,_Password,function(response4){//subAccount Check if sub Account 
                   if(response4!=undefined){//its a sub account if this is true
                     //sub accounts have limited access but its still have acccess in the backoffice
@@ -54,14 +52,11 @@ module.exports = function (app) {
                     let AccessTags="";
                     let MainAccount="";
                     let UserAccountID ="";
-                    
                     AccessTags = response4[0].AccessTags;
                     MainAccount = response4[0].MainUserAccountID;
                     UserAccountID = response4[0].UserAccount;
-
                     BackOfficeSubAccountSetUpLogin(AccountType,_UserName,UserAccountID,MainAccount,AccessTags,res);
-                 
-                    
+
                   }else{//it is a main account if it else
                     LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
                       if (response!=undefined) {
@@ -227,15 +222,18 @@ module.exports = function (app) {
             });
 
           }else{
+            console.log("Not Found A");
             let status = 404;
             res.status(status).end(http.STATUS_CODES[status]);
           }
         });
       } else {
+        console.log("Not Found A");
         let status = 404;
         res.status(status).end(http.STATUS_CODES[status]);
       }
     } else {
+      console.log("Not Found A");
       let status = 404;
       res.status(status).end(http.STATUS_CODES[status]);
     }

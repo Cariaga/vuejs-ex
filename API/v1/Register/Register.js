@@ -31,6 +31,7 @@ module.exports = function (app) {
   });
   app.post('/Api/v1/Register/Add/', Security.rateLimiterMiddleware, function (req, res) {
     let ScreenName = req.body.ScreenName;
+
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Email = req.body.Email;
@@ -48,6 +49,7 @@ module.exports = function (app) {
     let Expiration = '';
     //newer version
     console.log("register test");
+
     Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res);
   });
 
@@ -142,6 +144,7 @@ module.exports = function (app) {
         });
       }
     } else {
+      console.log("Invalid Screen Name");
       res.send({
         InvalidScreenName: true
       });
