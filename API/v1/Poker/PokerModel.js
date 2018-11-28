@@ -16,7 +16,7 @@ module.exports.PokerHandCompute = function PokerHandCompute(PlayerHand, TotalCar
         }
         let scores = sortBy(EvaluatedHand, 'score');
         console.log("----------------");
-        for(let i =0; scores.length;++i){
+        for(let i =0;i< scores.length;++i){
             console.log(scores[0]);
         }
         console.log("----------------");
