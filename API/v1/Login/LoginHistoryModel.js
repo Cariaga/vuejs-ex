@@ -175,11 +175,11 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].DistributorID = result[0].DistributorID;
         finalresult[0].HeadOfficeID = result[0].HeadOfficeID;
         finalresult[0].OperatingHeadOfficeID = result[0].OperatingHeadOfficeID;
-        
+
         console.log("------ShopID :"+result[0].ShopID);
         console.log("------DistributorID :"+result[0].DistributorID);
         console.log("------HeadOfficeID :"+result[0].HeadOfficeID);
-
+        console.log("------HeadOfficeID :"+result[0].OperatingHeadOfficeID);
         callback(finalresult);
       }else{
         callback(undefined);
