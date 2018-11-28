@@ -58,7 +58,7 @@ module.exports = function (app) {
                     BackOfficeSubAccountSetUpLogin(AccountType,_UserName,UserAccountID,MainAccount,AccessTags,res);
 
                   }else{//it is a main account if it else
-                    LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
+                    LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {//Account Must Exist inorder to login
                       if (response!=undefined) {
                         //let firstRow = response[0];
                         let AccountType = response[0].AccountType;
@@ -93,7 +93,7 @@ module.exports = function (app) {
                             });
                           }
     
-                          if(AccountType=="Shops"){
+                          else if(AccountType=="Shops"){
                             ParentType ="Distributor";
                             ParentID = response[0].DistributorID;
     
@@ -107,7 +107,7 @@ module.exports = function (app) {
                               }
                             });
                           }
-                          if(AccountType=="Distributor"){
+                          else if(AccountType=="Distributor"){
                             ParentType ="HeadOffice";
                             ParentID = response[0].HeadOfficeID;
                             console.log("ParentType "+ParentID);
@@ -119,7 +119,7 @@ module.exports = function (app) {
                               }
                             });
                           }
-                          if(AccountType=="HeadOffice"){
+                          else if(AccountType=="HeadOffice"){
                             ParentType ="OperatingHeadOffice";
                             ParentID = response[0].OperatingHeadOfficeID;
                             LoginHistoryModel.UserAccountIDOFOperatingHeadOffice(response[0].OperatingHeadOfficeID,function(response){
@@ -128,6 +128,13 @@ module.exports = function (app) {
                                 BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                               }
                             });
+                          }else{
+                              //should never execute without getting validated from LoginAccount beacuse its a super account
+                              ParentType ="Elite";
+                              ParentUserAccountID="";
+                              AccountType="OperatingHeadOffice";
+                              ParentID="";
+                              BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                           }
                           console.log(ParentType);
                    
@@ -484,7 +491,7 @@ module.exports = function (app) {
 //Main Account
 function BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res) {
   console.log("BackOfficeSetUpLogin");
-  if (AccountType == "HeadOffice" || AccountType == "Distributor" || AccountType == "Shops" || Privilege == "Admin") { //only certain account types and admin type of player can login
+  if (AccountType=="OperatingHeadOffice"||AccountType == "HeadOffice" || AccountType == "Distributor" || AccountType == "Shops" || Privilege == "Admin") { //only certain account types and admin type of player can login
     const user = {
       id: 1,
       UserName: _UserName,
