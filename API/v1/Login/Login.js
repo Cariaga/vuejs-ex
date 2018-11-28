@@ -87,6 +87,7 @@ module.exports = function (app) {
                                 if(Privilege=="Admin"){//only admin player can login as player in the backoffice
                                   BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                                 }else{
+                                  console.log("This Player is not admin or valid AccountType")
                                   let status = 401;
                                   res.status(status).end(http.STATUS_CODES[status]);
                                 }
