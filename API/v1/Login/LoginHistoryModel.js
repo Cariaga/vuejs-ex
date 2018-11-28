@@ -234,9 +234,10 @@ module.exports.UserAccountIDOFHeadOfficeID = function(HeadOfficeID,callback){
   });
 }
 
-module.exports.SubAccount = function(UserName,callback){
+module.exports.SubAccount = function(UserName,Password,callback){
   let _UserName = UserName;
-  let Query = "SELECT SA.SubAccountID,SA.UserAccountID,SA.MainUserAccountID,SA.AccessID,AC.AccessName,AC.AccessTags,UA.UserName FROM sampledb.subaccounts as SA join sampledb.UserAccounts as UA on UA.UserAccountID=SA.UserAccountID join sampledb.accesscontrol as AC on AC.AccessID=SA.AccessID where UA.UserName = '"+_UserName+"'";
+  let _Password = Password;
+  let Query = "SELECT SA.SubAccountID,SA.UserAccountID,SA.MainUserAccountID,SA.AccessID,AC.AccessName,AC.AccessTags,UA.UserName FROM sampledb.subaccounts as SA join sampledb.UserAccounts as UA on UA.UserAccountID=SA.UserAccountID join sampledb.accesscontrol as AC on AC.AccessID=SA.AccessID where UA.UserName = '"+_UserName+"' and UA.Password = \'"+_Password+"\';";
   console.log(Query);
   DBConnect.DBConnect(Query, function (response) {
     if (response != undefined) {
