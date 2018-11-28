@@ -18,8 +18,8 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
   let _OperatingHeadOfficeID = OperatingHeadOfficeID;
   
   function Q1(){
-    let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`,`Privilege`) "+
-    " VALUES (\'"+_UserAccountID+"\', \'"+_UserName+"\', \'"+_Password+"\', now(), \'Offline\', \'true\', null,\'headoffice\');";
+    let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) "+
+    " VALUES (\'"+_UserAccountID+"\', \'"+_UserName+"\', \'"+_Password+"\', now(), \'Offline\', \'true\', null);";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {

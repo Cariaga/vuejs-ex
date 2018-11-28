@@ -18,8 +18,8 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
   let _DistributorID = DistributorID;
 
   function Q1() {
-    let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`,`Privilege`) " +
-      " VALUES (\'" + _UserAccountID + "\', \'" + _UserName + "\', \'" + _Password + "\', now(), \'Offline\', \'true\', null,\'shop\');";
+    let query = "INSERT INTO `sampledb`.`useraccounts` (`UserAccountID`, `UserName`, `Password`, `RegisteredDateTime`, `OnlineStatus`, `Verified`, `Key`) " +
+      " VALUES (\'" + _UserAccountID + "\', \'" + _UserName + "\', \'" + _Password + "\', now(), \'Offline\', \'true\', null);";
       console.log(query);
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
