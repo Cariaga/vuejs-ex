@@ -73,7 +73,7 @@ module.exports = function (app) { //INSERT
     AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, res);
   });
   app.post('/Api/v1/OperatingHeadOffice/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
-    let UserAccountID = req.body.UserAccountID;
+    let UserAccountID = uuidv4();
     let Name = req.body.Name;
     let PhoneNumber = req.body.PhoneNumber;
     let UserName = req.body.UserName;
@@ -86,25 +86,45 @@ module.exports = function (app) { //INSERT
 }
 
 function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, res) {
-
-  DBCheck.isUserNameExist(UserName, function (response) {
-    if (response == false) {
-      DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-        if (response == false) {
-
-          OperatingHeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, function (response) {
-
-            res.send(response);
+if(!isNullOrEmpty(UserAccountID)){
+  if(!isNullOrEmpty(Name)){
+    if(!isNullOrEmpty(UserName)){
+      if(!isNullOrEmpty(Password)){
+        if(!isNullOrEmpty(Commission)){
+          DBCheck.isUserNameExist(UserName, function (response) {
+            if (response == false) {
+              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                if (response == false) {
+                  OperatingHeadOfficeModel.RegisterHeadOffice(UserAccountID,Name,PhoneNumber,UserName,Password,Commission, function (response) {
+                    res.send(response);
+                  });
+        
+                } else {
+                  res.send({
+                    UserAccountIDExist: true
+                  });
+                }
+              });
+            }
           });
-
-        } else {
-          res.send({
-            UserAccountIDExist: true
-          });
+        }else{
+          res.send({CommissionMissing:true});
         }
-      });
+      }else{
+        res.send({PasswordMissing:true});
+      }
+    }else{
+      res.send({UserNameMissing:true});
     }
-  });
+  }else{
+    res.send({NameMissing:true});
+  }
+}else{
+  res.send({UserAccountIDMissing:true});
+}
+
+
+
   /*
     if (!isNullOrEmpty(UserAccountID)) {
       if (!isNullOrEmpty(Name)) {
