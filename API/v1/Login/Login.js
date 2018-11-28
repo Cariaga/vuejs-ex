@@ -48,7 +48,7 @@ module.exports = function (app) {
 
                 
                 LoginHistoryModel.SubAccount(_UserName,_Password,function(response4){//subAccount Check if sub Account 
-                  if(response4!=undefined){
+                  if(response4!=undefined){//its a sub account if this is true
                     let AccountType = "SubAccount";
                     let AccessTags="";
                     let MainAccount="";
@@ -61,7 +61,7 @@ module.exports = function (app) {
                     BackOfficeSubAccountSetUpLogin(AccountType,_UserName,UserAccountID,MainAccount,AccessTags,res);
                  
                     
-                  }else{
+                  }else{//it is a main account if it else
                     LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
                       if (response!=undefined) {
                         //let firstRow = response[0];
