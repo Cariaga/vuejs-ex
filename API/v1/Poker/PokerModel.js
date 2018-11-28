@@ -16,8 +16,8 @@ module.exports.PokerHandCompute = function PokerHandCompute(PlayerHand, TotalCar
         }
         let scores = sortBy(EvaluatedHand, 'score');
         console.log("----------------");
-        for(let i =0;i< scores.length;++i){
-            console.log(scores[0]);
+        for(let i =0;i<scores.length;++i){
+            console.log(scores[i]);
         }
         console.log("----------------");
         let bestScore = scores[0];//[0] will return the best score
