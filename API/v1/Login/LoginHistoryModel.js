@@ -121,7 +121,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT BL.BlackListID ,UA.UserAccountID ,UA.OnlineStatus,UA.Verified,UA.Privilege,UI.Email,BL.BlackListID,BL.Reason,BL.Status,BL.Title,BL.ReportDate,BL.ReleaseDate,PL.Commission, PL.ShopID,SH.DistributorID,DR.HeadOfficeID,HO.operatingheadofficeid FROM sampledb.useraccounts as UA LEFT JOIN sampledb.userinfos as UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist as BL ON UA.UserAccountID = BL.UserAccountID left Join sampledb.players as PL on UA.UserAccountID = PL.UserAccountID left Join sampledb.shops as SH on UA.UserAccountID = SH.UserAccountID left Join sampledb.distributors as DR on UA.UserAccountID = DR.UserAccountID left Join sampledb.headoffices as HO on UA.UserAccountID = HO.UserAccountID left join sampledb.operatingheadoffice as OHO on UA.UserAccountID = HO.UserAccountID where UA.UserName =\'"+_UserName+"\' and UA.Password= '"+_Password+"' order by BL.ReportDate desc limit 1";
+    "SELECT BL.BlackListID, UA.UserAccountID, UA.OnlineStatus, UA.Verified, UA.Privilege, UI.Email, BL.BlackListID, BL.Reason, BL.Status, BL.Title, BL.ReportDate, BL.ReleaseDate, PL.Commission, PL.ShopID, SH.DistributorID, DR.HeadOfficeID, HO.OperatingHeadOfficeID FROM sampledb.useraccounts AS UA LEFT JOIN sampledb.userinfos AS UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist AS BL ON UA.UserAccountID = BL.UserAccountID LEFT JOIN sampledb.players AS PL ON UA.UserAccountID = PL.UserAccountID LEFT JOIN sampledb.shops AS SH ON UA.UserAccountID = SH.UserAccountID LEFT JOIN sampledb.distributors AS DR ON UA.UserAccountID = DR.UserAccountID LEFT JOIN sampledb.headoffices AS HO ON UA.UserAccountID = HO.UserAccountID LEFT JOIN sampledb.operatingheadoffice AS OHO ON UA.UserAccountID = OHO.UserAccountID WHERE UA.UserName = '"+_UserName+"' AND UA.Password = '"+_Password+"' ORDER BY BL.ReportDate DESC LIMIT 1";
 
       console.log("LoginAccount : "+ Query);
       return new Promise(resolve => {
@@ -179,7 +179,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         console.log("------ShopID :"+result[0].ShopID);
         console.log("------DistributorID :"+result[0].DistributorID);
         console.log("------HeadOfficeID :"+result[0].HeadOfficeID);
-        console.log("------HeadOfficeID :"+result[0].OperatingHeadOfficeID);
+        console.log("------OperatingHeadOfficeID :"+result[0].OperatingHeadOfficeID);
         callback(finalresult);
       }else{
         callback(undefined);
@@ -230,6 +230,7 @@ module.exports.UserAccountIDOFHeadOfficeID = function(HeadOfficeID,callback){
 module.exports.UserAccountIDOFOperatingHeadOffice = function(OperatingHeadOfficeID,callback){
   let _OperatingHeadOfficeID = OperatingHeadOfficeID;
   let Query = "select UserAccountID from operatingheadoffice where OperatingHeadOfficeID=\'"+_OperatingHeadOfficeID+"\'";
+  console.log(Query);
   DBConnect.DBConnect(Query, function (response) {
     if (response != undefined) {
       callback(response);

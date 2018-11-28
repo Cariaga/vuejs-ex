@@ -121,7 +121,9 @@ module.exports = function (app) {
                           }
                           if(AccountType=="HeadOffice"){
                             ParentType ="OperatingHeadOffice";
+                            ParentID = response[0].OperatingHeadOfficeID;
                             LoginHistoryModel.UserAccountIDOFOperatingHeadOffice(response[0].OperatingHeadOfficeID,function(response){
+                              let ParentUserAccountID = response[0].UserAccountID;// UserAccount
                               if(ParentUserAccountID!=undefined){
                                 BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                               }
