@@ -27,7 +27,7 @@ module.exports = function (app) {
     let Valid = '';
     let Expiration = '';
     //newer version
-    Register(UserAccountID,AccessID,UserName,Password,ScreenName,ValidKey,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,AccountHolder,ShopID,res);
+    Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, res);
   });
   app.post('/Api/v1/Register/Add/', Security.rateLimiterMiddleware, function (req, res) {
     let ScreenName = req.body.ScreenName;
@@ -50,11 +50,12 @@ module.exports = function (app) {
     //newer version
     console.log("register test");
 
-    Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res);
+    Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, res);
   });
 
-  
-  function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID,res){
+
+  function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopUserAccountID, res) {
+    console.log("ShopUserAccountID "+ShopUserAccountID);
     if (!isNullOrEmpty(ScreenName)) {
       if (!isNullOrEmpty(UserName)) {
         if (!isNullOrEmpty(Password)) {
@@ -64,12 +65,17 @@ module.exports = function (app) {
                 if (!isNullOrEmpty(AccountNumber)) {
                   if (!isNullOrEmpty(SecurityCode)) {
                     if (!isNullOrEmpty(AccountHolder)) {
-                      if (!isNullOrEmpty(ShopID)) {
+                      if (!isNullOrEmpty(ShopUserAccountID)) {
 
-                        DBCheck.isUserNameExist(UserName, function (response) {
+                        DBCheck.isUserNameExist(UserName, function (response) { //already exist checking
                           if (response == false) {
-                            DBCheck.IsShopExist(ShopID,function(response){
-                              if(response==true){
+                            console.log("isUserNameExist check false");
+                            RegisterModel.ShopIDOfUserAccountID(ShopUserAccountID, function (response) {
+                              let ShopID = response[0].ShopID;
+                              console.log("ShopID of UserAccount "+ShopID);
+                             console.log("ShopIDOfUserAccountID");
+                              if(response!=undefined){
+                                console.log("ShopID "+ShopID+" ShopUserAccountID "+ShopUserAccountID);
                                 RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
                                   if (response != undefined) {
                                     // res.send(response);
@@ -81,17 +87,10 @@ module.exports = function (app) {
                                     });
                                   }
                                 });
-                              }else{
-                                res.send({
-                                  ShopIDExist: false
-                                });
                               }
-                              
+                           
                             });
-                            
-
-                          } else 
-                          {
+                          } else {
                             res.send({
                               UserNameExist: true
                             });
@@ -100,7 +99,7 @@ module.exports = function (app) {
 
                       } else {
                         res.send({
-                          InvalidShopID: true
+                          InvalidShopUserAccountID: true
                         });
                       }
                     } else {
@@ -152,7 +151,7 @@ module.exports = function (app) {
   }
 
 
-///-------old
+  ///-------old
   /*function Register(Name,SurName,UserName,Password,Email,PhoneNumber,BankName,AccountNumber,SecurityCode,Valid,Expiration,res){
     
     if (!isNullOrEmpty(UserName)) {
@@ -257,5 +256,5 @@ module.exports = function (app) {
 
   });*/
 
-  
+
 }

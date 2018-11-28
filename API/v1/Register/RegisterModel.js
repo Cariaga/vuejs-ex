@@ -170,3 +170,17 @@ module.exports.RegisterAccount = function RegisterAccount(UserAccountID, AccessI
     });
   }
 }
+module.exports.ShopIDOfUserAccountID = function ShopIDOfUserAccountID(UserAccountID,callback) {
+  let _UserAccountID = UserAccountID;
+  let query2 = "select ShopID from sampledb.shops where UserAccountID=\'"+_UserAccountID+"\';";
+  console.log(query2);
+  DBConnect.DBConnect(query2, function (response) {
+    if (response != undefined) {
+      console.log(response);
+
+      callback(response);
+    } else {
+      //callback(undefined);
+    }
+  });
+}
