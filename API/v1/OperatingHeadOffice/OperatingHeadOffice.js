@@ -105,6 +105,8 @@ if(!isNullOrEmpty(UserAccountID)){
                   });
                 }
               });
+            }else{
+              res.send({UserNameAlreadyExist:true});
             }
           });
         }else{
