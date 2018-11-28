@@ -49,6 +49,7 @@ module.exports = function (app) {
                 
                 LoginHistoryModel.SubAccount(_UserName,_Password,function(response4){//subAccount Check if sub Account 
                   if(response4!=undefined){//its a sub account if this is true
+                    //sub accounts have limited access but its still have acccess in the backoffice
                     let AccountType = "SubAccount";
                     let AccessTags="";
                     let MainAccount="";
