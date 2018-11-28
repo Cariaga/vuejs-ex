@@ -121,7 +121,11 @@ module.exports = function (app) {
                           }
                           if(AccountType=="HeadOffice"){
                             ParentType ="OperatingHeadOffice";
-                            
+                            LoginHistoryModel.UserAccountIDOFOperatingHeadOffice(response[0].OperatingHeadOfficeID,function(response){
+                              if(ParentUserAccountID!=undefined){
+                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                              }
+                            });
                           }
                           console.log(ParentType);
                    

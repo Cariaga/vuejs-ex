@@ -227,6 +227,18 @@ module.exports.UserAccountIDOFHeadOfficeID = function(HeadOfficeID,callback){
   });
 }
 
+module.exports.UserAccountIDOFOperatingHeadOffice = function(OperatingHeadOfficeID,callback){
+  let _OperatingHeadOfficeID = OperatingHeadOfficeID;
+  let Query = "select UserAccountID from operatingheadoffice where OperatingHeadOfficeID=\'"+_OperatingHeadOfficeID+"\'";
+  DBConnect.DBConnect(Query, function (response) {
+    if (response != undefined) {
+      callback(response);
+      } else {
+        callback(undefined);
+      }
+  });
+}
+
 module.exports.SubAccount = function(UserName,Password,callback){
   let _UserName = UserName;
   let _Password = Password;
