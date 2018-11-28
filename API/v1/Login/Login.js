@@ -82,9 +82,16 @@ module.exports = function (app) {
                             LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
       
                               let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
-      
+                            
                               if(ParentUserAccountID!=undefined){
-                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                                if(Privilege=="Admin"){//only admin player can login as player in the backoffice
+                                  BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                                }else{
+                                  let status = 401;
+                                  res.status(status).end(http.STATUS_CODES[status]);
+                                }
+                              }else{
+                                console.log("UserAccountIDOFShopID not found");
                               }
                             });
                           }
@@ -492,6 +499,7 @@ function BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, 
         });
       });
   }
+  
 }
 //Sub Account
 function BackOfficeSubAccountSetUpLogin(AccountType,_UserName,UserAccountID,MainAccount,AccessTags,res) {
