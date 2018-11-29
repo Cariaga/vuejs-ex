@@ -14,24 +14,35 @@ module.exports = function (app) { //MODIFY
     let UserAccountID = req.params.UserAccountID;
     if(!isNullOrEmpty(UserAccountID)){
       if (!isNullOrEmpty(WithdrawHistoryID)) {
-        WithdrawHistoryModel.isValidWithdraw(WithdrawHistoryID,UserAccountID,function(response){
-          if(response==true){
-            WithdrawHistoryModel.WithdrawHistoryUpdateApproved(WithdrawHistoryID,UserAccountID, function (response) {
-              if (response != undefined) {
-                var status = 200;
-                res.status(status).end(http.STATUS_CODES[status]);
-              } else {
+        WithdrawHistoryModel.isAlreadyApproved(WithdrawHistoryID,UserAccountID,function(response){
+          if(response==false){
+            WithdrawHistoryModel.isValidWithdraw(WithdrawHistoryID,UserAccountID,function(response){
+              if(response==true){
+                WithdrawHistoryModel.WithdrawHistoryUpdateApproved(WithdrawHistoryID,UserAccountID, function (response) {
+                  if (response != undefined) {
+                    var status = 200;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                  } else {
+                    res.send({
+                      WithdrawHistoryUpdateApprovalFailed: true
+                    });
+                  }
+                });
+              }else{
                 res.send({
-                  WithdrawHistoryUpdateApprovalFailed: true
+                  InvalidUserAccountIDORWithdrawHistoryID: true
                 });
               }
             });
           }else{
             res.send({
-              InvalidUserAccountIDORWithdrawHistoryID: true
+              isAlreadyApproved: true
             });
           }
+
+
         });
+ 
 
 
 

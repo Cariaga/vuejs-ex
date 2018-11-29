@@ -95,7 +95,7 @@ module.exports.isValidWithdraw = function isValidWithdraw(WithdrawHistoryID,User
     }
   });
 }
-module.exports.isValidWithdraw = function isValidWithdraw(WithdrawHistoryID,UserAccountID, callback){
+module.exports.isAlreadyApproved = function isAlreadyApproved(WithdrawHistoryID,UserAccountID, callback){
   let _WithdrawHistoryID = WithdrawHistoryID;
   let _UserAccountID = UserAccountID;
   let query1 ="SELECT * FROM sampledb.transactions where TransactionStatus='approved' and UserTransactionID='"+_WithdrawHistoryID+"' and UserAccountID='"+_UserAccountID+"';";
