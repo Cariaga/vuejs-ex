@@ -9,11 +9,8 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/WithdrawHistoryID/:WithdrawHistoryID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
-    let UserAccountID = "No Need";
-    let ApprovedDATE = "No Need";
-    let ApprovedTIME = "no Need";
     if (!isNullOrEmpty(WithdrawHistoryID)) {
       WithdrawHistoryModel.WithdrawHistoryUpdateApproved(WithdrawHistoryID, function (response) {
         if (response != undefined) {
