@@ -61,7 +61,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       });
       });
     }
-    function UpdateMoney(){
+  /*  function UpdateMoney(){
       return new Promise((resolve,reject) => {
         let query ="";
       DBConnect.DBConnect(query, function (response) {
@@ -73,7 +73,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
         }
       });
       });
-    }
+    }*/
     async function RunAsync() {
       console.log('calling');
       let result = await TransactionsInsert();
