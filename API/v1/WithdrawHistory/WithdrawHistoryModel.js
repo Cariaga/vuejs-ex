@@ -82,7 +82,19 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
      callback(undefined);
    });  
 }
+module.exports.isValidWithdraw = function isValidWithdraw(WithdrawHistoryID,UserAccountID, callback){
+  let _WithdrawHistoryID = WithdrawHistoryID;
+  let _UserAccountID = UserAccountID;
 
+  let query1 ="SELECT * FROM sampledb.transactions where UserTransactionID='"+_WithdrawHistoryID+"' and UserAccountID='"+_UserAccountID+"' and TransactionType='withdraw';";
+  DBConnect.DBConnect(query1, function (response) {
+    if (response != undefined) {
+      callback(true);
+    } else {
+      callback(undefined);
+    }
+  });
+}
 
 module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(WithdrawHistoryID,UserAccountID, callback) {
   let _WithdrawHistoryID = WithdrawHistoryID;
