@@ -95,6 +95,18 @@ module.exports.isValidWithdraw = function isValidWithdraw(WithdrawHistoryID,User
     }
   });
 }
+module.exports.isValidWithdraw = function isValidWithdraw(WithdrawHistoryID,UserAccountID, callback){
+  let _WithdrawHistoryID = WithdrawHistoryID;
+  let _UserAccountID = UserAccountID;
+  let query1 ="SELECT * FROM sampledb.transactions where TransactionStatus='approved' and UserTransactionID='"+_WithdrawHistoryID+"' and UserAccountID='"+_UserAccountID+"';";
+  DBConnect.DBConnect(query1, function (response) {
+    if (response != undefined) {
+      callback(true);
+    } else {
+      callback(undefined);
+    }
+  });
+}
 
 module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(WithdrawHistoryID,UserAccountID, callback) {
   let _WithdrawHistoryID = WithdrawHistoryID;
