@@ -84,8 +84,9 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
 }
 
 
-module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(WithdrawHistoryID, callback) {
+module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(WithdrawHistoryID,UserAccountID, callback) {
   let _WithdrawHistoryID = WithdrawHistoryID;
+  let _UserAccountID = UserAccountID;
   var promise1 = new Promise(function(resolve, reject) {
     let query1 ="UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved' WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
     DBConnect.DBConnect(query1, function (response) {
@@ -107,8 +108,19 @@ module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApp
     });
   });
 
-  Promise.all([promise,promise2]).then(function() {
-    console.log('insert withdraw successful');
+  var promise2 = new Promise(function(resolve, reject) {
+    let query2 = "UPDATE `sampledb`.`withdraw` SET `ExistingAmount` = (SELECT Amount FROM sampledb.transactions where UserTransactionID =\'"+_WithdrawHistoryID+"\'), `RemainingAmount` = (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\') WHERE (`UserTransactionID` = \'"+_WithdrawHistoryID+"\');";
+    DBConnect.DBConnect(query2, function (response) {
+      if (response != undefined) {
+        resolve(response);
+      } else {
+        reject(undefined);
+      }
+    });
+  });
+
+  Promise.all([promise1,promise2]).then(function() {
+    console.log('Withdraw Update Sucessful');
     callback(true);
     }, function(){ //if promise or promise2 fail
     console.log('something went wrong')

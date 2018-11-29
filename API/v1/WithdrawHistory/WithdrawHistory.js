@@ -9,23 +9,32 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
-    let WithdrawHistoryID = "7dc1420e-9bb6-4a0d-9e9c-95e4bf69b143";
-    if (!isNullOrEmpty(WithdrawHistoryID)) {
-      WithdrawHistoryModel.WithdrawHistoryUpdateApproved(WithdrawHistoryID, function (response) {
-        if (response != undefined) {
-          res.send(response);
-        } else {
-          res.send({
-            WithdrawHistoryUpdateApprovalFailed: true
-          });
-        }
-      });
-    } else {
+  app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+    let WithdrawHistoryID = req.params.WithdrawHistoryID;
+    let UserAccountID = req.params.UserAccountID;
+    if(!isNullOrEmpty(UserAccountID)){
+      if (!isNullOrEmpty(WithdrawHistoryID)) {
+        WithdrawHistoryModel.WithdrawHistoryUpdateApproved(WithdrawHistoryID,UserAccountID, function (response) {
+          if (response != undefined) {
+            var status = 200;
+            res.status(status).end(http.STATUS_CODES[status]);
+          } else {
+            res.send({
+              WithdrawHistoryUpdateApprovalFailed: true
+            });
+          }
+        });
+      } else {
+        res.send({
+          WithdrawHistoryIDMissing: true
+        });
+      }
+    }else{
       res.send({
-        WithdrawHistoryIDMissing: true
+        UserAccountIDMissing: true
       });
     }
+
   });
 
 
