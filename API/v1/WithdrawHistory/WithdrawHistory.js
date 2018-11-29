@@ -11,48 +11,19 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
   app.get('/Api/v1/WithdrawHistory/Update/WithdrawHistoryID/:WithdrawHistoryID/UserAccountID/:UserAccountID/Status/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let WithdrawHistoryID = req.params.WithdrawHistoryID;
-    let UserAccountID = req.params.UserAccountID;
-    let ApprovedDATE = req.params.ApprovedDATE;
-    let ApprovedTIME = req.params.ApprovedTIME;
+    let UserAccountID = "No Need";
+    let ApprovedDATE = "No Need";
+    let ApprovedTIME = "no Need";
     if (!isNullOrEmpty(WithdrawHistoryID)) {
-      if (!isNullOrEmpty(UserAccountID)) {
-        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-          if (response == true) {
-            let ApprovedDATEParsed = moment(ApprovedDATE, "YYYY-MM-DD");
-            let isValidApprovedDATEParsed = ApprovedDATEParsed.isValid();
-            if (!isNullOrEmpty(ApprovedDATE) && isValidApprovedDATEParsed == true && ApprovedDATEParsed.year() > 1959) {
-              if (!isNullOrEmpty(ApprovedTIME)) {
-
-                WithdrawHistoryModel.WithdrawHistoryUpdateApproved(UserAccountID, WithdrawHistoryID, ApprovedDATE, ApprovedTIME, function (response) {
-                  if (response != undefined) {
-                    res.send(response);
-                  } else {
-                    res.send({
-                      WithdrawHistoryUpdateApprovalFailed: true
-                    });
-                  }
-                });
-
-              } else {
-                res.send({
-                  ApprovedTIMEMissing: true
-                });
-              }
-            } else {
-              res.send({
-                ApprovedDATEMissing: true
-              });
-            }
-          } else {
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
-          }
-        });
-      } else {
-        res.send({
-          UserAccountIDMissing: true
-        });
-      }
+      WithdrawHistoryModel.WithdrawHistoryUpdateApproved(WithdrawHistoryID, function (response) {
+        if (response != undefined) {
+          res.send(response);
+        } else {
+          res.send({
+            WithdrawHistoryUpdateApprovalFailed: true
+          });
+        }
+      });
     } else {
       res.send({
         WithdrawHistoryIDMissing: true

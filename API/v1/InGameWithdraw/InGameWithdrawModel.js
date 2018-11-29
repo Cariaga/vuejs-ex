@@ -8,7 +8,7 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, callback) {
     let _UserAccountID = UserAccountID;
-    let _Amount = Amount;
+    let _Amount = parseInt(Amount);
     let _Bank = Bank;
     let _AccountNumber = AccountNumber;
     let _Name = Name;
@@ -61,9 +61,9 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       });
       });
     }
-  /*  function UpdateMoney(){
+    function UpdateMoney(){
       return new Promise((resolve,reject) => {
-        let query ="";
+        let query ="UPDATE `sampledb`.`players` SET `Money` = (select Money-"+Amount+" as Money from players WHERE (`UserAccountID` = '"+_UserAccountID+"')) WHERE (`UserAccountID` = '"+_UserAccountID+"');";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -73,13 +73,14 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
         }
       });
       });
-    }*/
+    }
     async function RunAsync() {
       console.log('calling');
       let result = await TransactionsInsert();
       let result2 = await TransactionInfosInsert();
       let result3 = await WithdrawInsert();
-      let finalresult = [result,result2,result3];
+      let result4 = await UpdateMoney();
+      let finalresult = [result,result2,result3,result4];
       callback(finalresult);
     }
     RunAsync();

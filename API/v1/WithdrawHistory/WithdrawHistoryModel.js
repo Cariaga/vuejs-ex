@@ -83,4 +83,26 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
    });  
 }
 
+
+module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(WithdrawHistoryID, callback) {
+  let _WithdrawHistoryID = WithdrawHistoryID;
+  let query1 ="UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved' WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
+  DBConnect.DBConnect(query1, function (response) {
+    if (response != undefined) {
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+  let query2 = "UPDATE `sampledb`.`transactioninfo` SET `ApprovedDateTime` = now() WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
+  DBConnect.DBConnect(query2, function (response) {
+    if (response != undefined) {
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+
+
 //SELECT *,P.Money-(select Amount from sampledb.transactions as T2 where T2.UserTransactionID='Transaction2' and  T.TransactionStatus='pending' and T.TransactionType='withdraw') as NewMoney FROM sampledb.transactions as T Join withdraw as W on W.UserTransactionID = T.UserTransactionID Join players as P on P.UserAccountID=T.UserAccountID where T.TransactionType='withdraw' and T.UserTransactionID='Transaction2' and T.TransactionStatus='pending';
