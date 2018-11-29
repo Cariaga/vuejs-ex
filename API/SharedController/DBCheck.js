@@ -6,8 +6,9 @@ let DBConnect = require("../SharedController/DBConnect");
   module.exports.CheckWithdrawPassword = function(UserAccountID,Password,callback){
     let _UserAccountID = UserAccountID;
     let _Password = Password
+    //we origianlly use withdraw password from user account now we use password of user
     let query =
-    "SELECT * FROM sampledb.bankinformations where UserAccountID=\'"+UserAccountID+"\' and SecurityCode=\'"+Password+"\';";
+    "SELECT * FROM sampledb.useraccounts where UserAccountID=\'"+UserAccountID+"\' and Password=\'"+Password+"\';";
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);

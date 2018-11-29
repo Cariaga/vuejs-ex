@@ -78,15 +78,6 @@ module.exports = function (app) {
                     res.status(status).end(http.STATUS_CODES[status]);
                   }
                 });
-
-
-
-
-
-
-         
-  
-
               }else{
                 res.send({InvalidContactNumber:true});
               }
