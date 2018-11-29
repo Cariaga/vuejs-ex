@@ -32,7 +32,7 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
       });
     }
     function TransactionInfosInsert(){
-      return new Promise(resolve => {
+      return new Promise((resolve,reject) => {
         let query =
       "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `AccountHolder`, `RequestedDateTime`) "+
       "VALUES (\'"+_UserTransactionID+"\', \'"+_Name+"\', now())";
@@ -41,13 +41,13 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
           console.log(response);
           resolve(response);
         } else {
-          resolve(undefined);
+          reject(undefined);
         }
       });
       });
     }
     function WithdrawInsert(){
-      return new Promise(resolve => {
+      return new Promise((resolve,reject) => {
         let query =
       "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
       " VALUES (\'"+_UserTransactionID+"\', \'"+_ContactNumber+"\', \'"+_Bank+"\', \'"+_AccountNumber+"\');";
@@ -56,7 +56,20 @@ module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount,
           console.log(response);
           resolve(response);
         } else {
-          resolve(undefined);
+          reject(undefined);
+        }
+      });
+      });
+    }
+    function UpdateMoney(){
+      return new Promise((resolve,reject) => {
+        let query ="";
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+          console.log(response);
+          resolve(response);
+        } else {
+          reject(undefined);
         }
       });
       });
