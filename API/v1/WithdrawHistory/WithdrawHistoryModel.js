@@ -90,9 +90,9 @@ module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApp
     let query1 ="UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved' WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
     DBConnect.DBConnect(query1, function (response) {
       if (response != undefined) {
-        callback(response);
+        resolve(response);
       } else {
-        callback(undefined);
+        reject(undefined);
       }
     });
   });
@@ -100,13 +100,20 @@ module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApp
     let query2 = "UPDATE `sampledb`.`transactioninfo` SET `ApprovedDateTime` = now() WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
     DBConnect.DBConnect(query2, function (response) {
       if (response != undefined) {
-        callback(response);
+        resolve(response);
       } else {
-        callback(undefined);
+        reject(undefined);
       }
     });
   });
 
+  Promise.all([promise,promise2]).then(function() {
+    console.log('insert withdraw successful');
+    callback(true);
+    }, function(){ //if promise or promise2 fail
+    console.log('something went wrong')
+    callback(undefined);
+  });  
 
 }
 
