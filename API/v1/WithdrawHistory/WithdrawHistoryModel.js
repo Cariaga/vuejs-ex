@@ -86,22 +86,28 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
 
 module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApproved(WithdrawHistoryID, callback) {
   let _WithdrawHistoryID = WithdrawHistoryID;
-  let query1 ="UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved' WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
-  DBConnect.DBConnect(query1, function (response) {
-    if (response != undefined) {
-      callback(response);
-    } else {
-      callback(undefined);
-    }
+  var promise1 = new Promise(function(resolve, reject) {
+    let query1 ="UPDATE `sampledb`.`transactions` SET `TransactionStatus` = 'approved' WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
+    DBConnect.DBConnect(query1, function (response) {
+      if (response != undefined) {
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   });
-  let query2 = "UPDATE `sampledb`.`transactioninfo` SET `ApprovedDateTime` = now() WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
-  DBConnect.DBConnect(query2, function (response) {
-    if (response != undefined) {
-      callback(response);
-    } else {
-      callback(undefined);
-    }
+  var promise2 = new Promise(function(resolve, reject) {
+    let query2 = "UPDATE `sampledb`.`transactioninfo` SET `ApprovedDateTime` = now() WHERE (`UserTransactionID` = '"+_WithdrawHistoryID+"');";
+    DBConnect.DBConnect(query2, function (response) {
+      if (response != undefined) {
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
   });
+
+
 }
 
 
