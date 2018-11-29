@@ -9,8 +9,8 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/WithdrawHistoryID/:WithdrawHistoryID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
-    let WithdrawHistoryID = req.params.WithdrawHistoryID;
+  app.get('/Api/v1/WithdrawHistory/Update/Status/Approved/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+    let WithdrawHistoryID = "7dc1420e-9bb6-4a0d-9e9c-95e4bf69b143";
     if (!isNullOrEmpty(WithdrawHistoryID)) {
       WithdrawHistoryModel.WithdrawHistoryUpdateApproved(WithdrawHistoryID, function (response) {
         if (response != undefined) {
