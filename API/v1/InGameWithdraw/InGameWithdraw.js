@@ -16,7 +16,7 @@ module.exports = function (app) {
     let Bank = req.params.Bank;
     let AccountNumber = req.params.AccountNumber;
     let Name = req.params.Name;
-    let WithdrawPassword = req.params.WithdrawPassword;
+    let WithdrawPassword = req.params.WithdrawPassword;//now is user password
     let ContactNumber = req.params.ContactNumber;
     Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res);
   });
@@ -27,7 +27,7 @@ module.exports = function (app) {
     let Bank = req.body.Bank;
     let AccountNumber = req.body.AccountNumber;
     let Name = req.body.Name;
-    let WithdrawPassword = req.body.WithdrawPassword;
+    let WithdrawPassword = req.body.WithdrawPassword;//now is user password
     let ContactNumber = req.body.ContactNumber;
     Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res);
   });
@@ -55,6 +55,7 @@ module.exports = function (app) {
     
                         DBCheck.isValidSubractPlayerAmount(UserAccountID,Amount,function(response){
                           if(response==true){
+
                             InGameWithdrawModel.RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, function (response) {
                               if(response!=undefined){
                                 let status = 200;
@@ -63,6 +64,7 @@ module.exports = function (app) {
                                 let status = 404;
                                 res.status(status).end(http.STATUS_CODES[status]);
                               }
+
                             });
                           }else{
                             console.log("NotEnoughMoney");
