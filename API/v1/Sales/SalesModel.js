@@ -1,5 +1,31 @@
 let DBConnect = require("../../SharedController/DBConnect");
 
+
+
+module.exports.SalesHeadOffice = function SalesHeadOffice(OHOID, Limit, Offset, callback){
+    let _OHOID = OHOID;
+    let _Limit = Limit;
+    let _Offset = Offset;
+    let query = "SELECT * FROM sampledb.total_money_headoffices WHERE OperatingHeadOfficeID = \'"+_OHOID+"\' limit "+_Limit +" offset "+_Offset;
+    console.log(query);
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+            callback(response);
+          } else {
+            callback(undefined);
+          }
+    });
+}
+
+
+
+
+
+
+
+
+
+
 module.exports.SalesLowRank = function SalesLowRank(HeadOfficeID, callback){
     let _HeadOfficeID = HeadOfficeID;
     let query = "SELECT * FROM sampledb.lowrank WHERE HeadOfficeID = \'"+_HeadOfficeID+"\';";
