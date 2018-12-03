@@ -9,6 +9,25 @@ var Security = require('../../SharedController/Security');
 var uuidv4 = require('uuid/v4');
 
 module.exports = function (app) { //INSERT
+  app.get('/Api/v1/UserNameCheck/:UserName', function(req, res){
+    let UserName = req.params.UserName;
+    if (!isNullOrEmpty(UserName)) {
+      DBCheck.isUserNameExist(UserName,function(response){
+        if(response==false){
+          res.send(true);
+        }else{
+          res.send(false);
+          // let status = 404;
+          // res.status(status).end(http.STATUS_CODES[status]);
+        }
+      });
+
+    }else{
+      res.send({UserNameMissing:true});
+    }
+
+  });
+
   app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
     let UserAccountID = req.params.UserAccountID;
@@ -71,8 +90,8 @@ module.exports = function (app) { //INSERT
     let OperatingHeadOfficeUserAccountID = req.params.OperatingHeadOfficeUserAccountID;
       AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res);
   });
-  app.post('/Api/v1/HeadOffice/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
-    let UserAccountID = req.body.UserAccountID;
+  app.post('/Api/v1/HeadOffice/Add', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+    let UserAccountID = uuidv4();
     let Name = req.body.Name;
     let PhoneNumber = req.body.PhoneNumber;
     let UserName = req.body.UserName;

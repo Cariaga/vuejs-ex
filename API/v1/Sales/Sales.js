@@ -11,15 +11,17 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     //OHO = operating head office
     // Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
-    app.get('/Api/v1/Sales/HeadOfficeList/OHO/:OHOID/Limit/:Limit/Offset/:Offset', function (req, res) {
-        let OHOID = req.params.OHOID;
+
+    //head office
+    app.get('/Api/v1/Sales/HeadOfficeList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', function (req, res) {
+        let ParentID = req.params.ParentID;
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
 
-            if (!isNullOrEmpty(OHOID)) {
+            if (!isNullOrEmpty(ParentID)) {
                 if(!isNullOrEmpty(Limit)){
                     if(!isNullOrEmpty(Offset)){
-                        SalesModel.SalesHeadOffice(OHOID, Limit, Offset, function(response){
+                        SalesModel.SalesHeadOffice(ParentID, Limit, Offset, function(response){
                             if (response != undefined) {
                                 res.send(response);
                             } else {
@@ -37,6 +39,97 @@ module.exports = function (app) {
                         LimitIsMissing: true
                       });
                 }
+            } else {
+                res.send({
+                    IDisMissing: true
+                  });
+            }
+        
+    });
+
+    //distributors
+    app.get('/Api/v1/Sales/DistributorList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', function (req, res) {
+        let ParentID = req.params.ParentID;
+        let Limit = req.params.Limit;
+        let Offset = req.params.Offset;
+
+            if (!isNullOrEmpty(ParentID)) {
+                if(!isNullOrEmpty(Limit)){
+                    if(!isNullOrEmpty(Offset)){
+                        SalesModel.SaledDistributor(ParentID, Limit, Offset, function(response){
+                            if (response != undefined) {
+                                res.send(response);
+                            } else {
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                            }
+                        });
+                    }else{  
+                        res.send({
+                            OffsetIsMissing: true
+                          });
+                    }
+                }else{
+                    res.send({
+                        LimitIsMissing: true
+                      });
+                }
+            } else {
+                res.send({
+                    IDisMissing: true
+                  });
+            }
+        
+    });
+
+    //shops
+    app.get('/Api/v1/Sales/ShopList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', function (req, res) {
+        let ParentID = req.params.ParentID;
+        let Limit = req.params.Limit;
+        let Offset = req.params.Offset;
+
+            if (!isNullOrEmpty(ParentID)) {
+                if(!isNullOrEmpty(Limit)){
+                    if(!isNullOrEmpty(Offset)){
+                        SalesModel.SalesShop(ParentID, Limit, Offset, function(response){
+                            if (response != undefined) {
+                                res.send(response);
+                            } else {
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                            }
+                        });
+                    }else{  
+                        res.send({
+                            OffsetIsMissing: true
+                          });
+                    }
+                }else{
+                    res.send({
+                        LimitIsMissing: true
+                      });
+                }
+            } else {
+                res.send({
+                    IDisMissing: true
+                  });
+            }
+        
+    });
+
+    //pagination
+    app.get('/Api/v1/Sales/Pagination/Page/:Page', function (req, res) {
+        let Page = req.params.Page;
+
+            if (!isNullOrEmpty(Page)) {
+                SalesModel.SalesPaginationCount(Page, function(response){
+                    if (response != undefined) {
+                        res.send(response);
+                    } else {
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                    }
+                });
             } else {
                 res.send({
                     IDisMissing: true
