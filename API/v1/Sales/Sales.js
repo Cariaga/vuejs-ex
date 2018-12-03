@@ -9,6 +9,75 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 
 module.exports = function (app) {
+    //OHO = operating head office
+    // Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+    app.get('/Api/v1/Sales/HeadOfficeList/OHO/:OHOID/Limit/:Limit/Offset/:Offset', function (req, res) {
+        let OHOID = req.params.OHOID;
+        let Limit = req.params.Limit;
+        let Offset = req.params.Offset;
+
+            if (!isNullOrEmpty(OHOID)) {
+                if(!isNullOrEmpty(Limit)){
+                    if(!isNullOrEmpty(Offset)){
+                        SalesModel.SalesHeadOffice(OHOID, Limit, Offset, function(response){
+                            if (response != undefined) {
+                                res.send(response);
+                            } else {
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                            }
+                        });
+                    }else{  
+                        res.send({
+                            OffsetIsMissing: true
+                          });
+                    }
+                }else{
+                    res.send({
+                        LimitIsMissing: true
+                      });
+                }
+            } else {
+                res.send({
+                    IDisMissing: true
+                  });
+            }
+        
+    });
+
+
+
+    // SalesModel.SalesLowRank(HeadOfficeID, function (response) {
+    //     if (response != undefined) {
+    //         res.send(response);
+    //     } else {
+    //         let status = 404;
+    //         res.status(status).end(http.STATUS_CODES[status]);
+    //     }
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //HeadOffice
     function LowRank(HeadOfficeID, res) {
         if (!isNullOrEmpty(HeadOfficeID)) {
