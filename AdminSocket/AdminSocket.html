@@ -1,0 +1,57 @@
+<head>
+    <script type="text/javascript">
+        var ws = new WebSocket("ws://localhost:8080/?UserAccountID=AdminUserAccountIDHere");
+
+        function WebSocketTest() {
+
+            if ("WebSocket" in window) {
+               // alert("WebSocket is supported by your Browser!");
+                // Let us open a web socket
+
+                ws.onopen = function () {
+                    // Web Socket is connected, send data using send()
+                   // ws.send("Message to send");
+                  //  alert("Message is sent...");
+                };
+                ws.onmessage = function (evt) {
+                    var received_msg = evt.data;
+                    console.log(received_msg);
+                };
+                ws.onclose = function () {
+                    // websocket is closed.
+                   // alert("Connection is closed...");
+                };
+            } else {
+
+                // The browser doesn't support WebSocket
+                alert("WebSocket NOT supported by your Browser!");
+            }
+        }
+        WebSocketTest();//connect
+        function WebSocketMessage() {
+            if ("WebSocket" in window) {
+                var MessageReceiver = "622875a1-fd51-48a4-a700-c384ba5a382d";
+                var Amount ="";//for pop up message in game only
+                var DepositUUID ="c8dafb54-6ecb-4189-b725-19f783acf88f";
+                var DepositNotice = "Deposit Approved Amount "+Amount;
+                var message = "{\"Type\":\"NotifyPlayerDeposit\",\"MessageReceiver\" :\"" + MessageReceiver +
+                    "\",\"DepositNotice\":\"" + DepositNotice + "\",\"DepositUUID\":\"" + DepositUUID + "\"}";
+                    console.log("Notify Player");
+                ws.send(message);
+            } else {
+                alert("WebSocket NOT supported by your Browser!");
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <ul>
+        <li> <a href="javascript:WebSocketTest()">Run WebSocket</a></li>
+        <li> <a href="javascript:WebSocketMessage()">Notify Player</a></li>
+       
+    </ul>
+
+
+</body>

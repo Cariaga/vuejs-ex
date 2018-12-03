@@ -63,6 +63,9 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 
 
 // configuration =================
+
+app.use(express.static('AdminSocket'));
+
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/Webgl'));
 
@@ -279,7 +282,7 @@ wss.on('connection', (ws, req) => {
   const parameters = url.parse(req.url, true);
   var UserAccountID = parameters.query.UserAccountID;
   ws.UserAccountID = UserAccountID;
-
+  ws.DepositNotice = "";
 
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
@@ -303,21 +306,62 @@ wss.on('connection', (ws, req) => {
       //console.log(response[0]);
     }
   });
-
+  
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
   // console.log("url: ", ws);
 
   ws.onmessage = function (event) {
     //console.log(event.data);
-
-
     if (IsJsonString(event.data)) {
+
       totalSocketBytes +=sizeof(event.data);
       let Object = JSON.parse(event.data);
-      
-      console.log(Object);
-      
-      if (Object.Type == "Transfer") { //event trasfer room
+      //console.log(Object);
+   
+         /*admin related */
+      if (Object.Type == "NotifyPlayerDeposit") {
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            if (client.UserAccountID == Object.MessageReceiver) {
+                  client.DepositNotice = Object.DepositNotice; 
+                  let DepositUUID = Object.DepositUUID;
+                  if(DepositUUID!=""){
+                    console.log("Deposit UUID"+DepositUUID);
+                 
+                    var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID='"+DepositUUID+"';";
+                    console.log(query2);
+                    DBConnect.DBConnect(query2, function (response) {
+                      if (response != undefined) {
+                        client.Money = (parseInt(client.Money)+parseInt(response[0].Amount));
+                        console.log("New Client Money "+(parseInt(client.Money)+parseInt(response[0].Amount)));
+                      }
+                    });
+                  }else{
+                    console.log("UUID EMpty");
+                  }
+                 // console.log("Amount Deposit Approved "+Object.DepositUUID);
+                 // console.log(Object.DepositNotice);
+
+            }
+          }
+        });
+      }
+
+
+      /*player related */
+      else if (Object.Type == "NotifyPlayerDepositReceived") {
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            if (client.UserAccountID == Object.UserAccountID) {
+                  client.DepositNotice = ""; 
+                  InvokeRepeat();//force update list right away
+                 // console.log(Object.DepositNotice);
+
+            }
+          }
+        });
+      }
+      else if (Object.Type == "Transfer") { //event trasfer room
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -327,7 +371,7 @@ wss.on('connection', (ws, req) => {
           }
         });
       }
-      if (Object.Type == "Withdraw") { //event withdraw room
+      else if (Object.Type == "Withdraw") { //event withdraw room
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -337,8 +381,7 @@ wss.on('connection', (ws, req) => {
           }
         });
       }
-
-      if (Object.Type == "LeaveRoom") { //event leave room
+      else if (Object.Type == "LeaveRoom") { //event leave room
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -365,7 +408,6 @@ wss.on('connection', (ws, req) => {
 
             }
           }
-
         });
       } else if (Object.Type == "Bet") { //bet event occured 
         wss.clients.forEach((client) => {
@@ -488,7 +530,12 @@ wss.on('connection', (ws, req) => {
   };
 });
 
+//websocket constant InvokeRepeat
 setInterval(() => {
+  InvokeRepeat();
+}, 1000);
+
+function InvokeRepeat(){
   let array = Array.from(wss.clients);
   var distinctlist = Enumerable.from(array);
 
@@ -508,6 +555,7 @@ setInterval(() => {
       let result = stringify({
 
         UserAccountID: client.UserAccountID,
+        DepositNotice:client.DepositNotice,
         Money: client.Money,
         Rooms: client.Rooms,
         CountSameAccount: count
@@ -530,7 +578,7 @@ setInterval(() => {
         },null,0));
       }
   });*/
-}, 1000);
+}
 
 function IsJsonString(str) {
   try {
