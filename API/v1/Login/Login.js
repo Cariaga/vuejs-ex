@@ -73,7 +73,7 @@ module.exports = function (app) {
                         let HeadOfficeCommission = response[0].HeadOfficeCommission;
                         let OperatingHeadOfficeCommission = response[0].OperatingHeadOfficeCommission;
     
-                        console.log("AccountType : "+AccountType);
+                        console.log("AccountType : "+AccountType); 
                         console.log("UserAccountID : "+UserAccountID);
                         console.log("Privilege : "+Privilege);
                   
