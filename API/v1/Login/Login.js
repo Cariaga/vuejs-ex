@@ -67,6 +67,11 @@ module.exports = function (app) {
                         let ParentType = "";
                         let ParentUserAccountID = "";
                         let ParentID = "";
+                        let PlayerCommission = response[0].PlayerCommission;
+                        let ShopCommission = response[0].ShopCommission;
+                        let DistributorCommission = response[0].DistributorCommission;
+                        let HeadOfficeCommission = response[0].HeadOfficeCommission;
+                        let OperatingHeadOfficeCommission = response[0].OperatingHeadOfficeCommission;
     
                         console.log("AccountType : "+AccountType);
                         console.log("UserAccountID : "+UserAccountID);
@@ -81,7 +86,7 @@ module.exports = function (app) {
                             
                               if(ParentUserAccountID!=undefined){
                                 if(Privilege=="Admin"){//only admin player can login as player in the backoffice
-                                  BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                                  BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, PlayerCommission, res);
                                 }else{
                                   console.log("This Player is not admin or valid AccountType")
                                   let status = 401;
@@ -103,7 +108,7 @@ module.exports = function (app) {
                               let ParentUserAccountID = responseD[0].UserAccountID;//Distributor UserAccount
                             
                              if(ParentUserAccountID!=undefined){
-                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,ShopCommission, res);
                               }
                             });
                           }
@@ -115,7 +120,7 @@ module.exports = function (app) {
                            LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
                               let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
                               if(ParentUserAccountID!=undefined){
-                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,DistributorCommission, res);
                               }
                             });
                           }
@@ -125,7 +130,7 @@ module.exports = function (app) {
                             LoginHistoryModel.UserAccountIDOFOperatingHeadOffice(response[0].OperatingHeadOfficeID,function(response){
                               let ParentUserAccountID = response[0].UserAccountID;// UserAccount
                               if(ParentUserAccountID!=undefined){
-                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,HeadOfficeCommission, res);
                               }
                             });
                           }else{
@@ -134,7 +139,7 @@ module.exports = function (app) {
                               ParentUserAccountID="";
                               AccountType="OperatingHeadOffice";
                               ParentID="";
-                              BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
+                              BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,OperatingHeadOfficeCommission, res);
                           }
                           console.log(ParentType);
                    
@@ -489,18 +494,19 @@ module.exports = function (app) {
 */
 }
 //Main Account
-function BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res) {
+function BackOfficeSetUpLogin(_AccountType, _Privilege, _UserName, _UserAccountID, ParentType,ParentUserAccountID,ParentID,_Commission, res) {
   console.log("BackOfficeSetUpLogin");
-  if (AccountType=="OperatingHeadOffice"||AccountType == "HeadOffice" || AccountType == "Distributor" || AccountType == "Shops" || Privilege == "Admin") { //only certain account types and admin type of player can login
+  if (_AccountType=="OperatingHeadOffice"||_AccountType == "HeadOffice" || _AccountType == "Distributor" || _AccountType == "Shops" || _Privilege == "Admin") { //only certain account types and admin type of player can login
     const user = {
       id: 1,
       UserName: _UserName,
-      UserAccountID: UserAccountID,
-      AccountType: AccountType,
-      Privilege: Privilege,
-      ParentType: ParentType,
-      ParentUserAccountID:ParentUserAccountID,
-      ParentID:ParentID
+      UserAccountID: _UserAccountID,
+      AccountType: _AccountType,
+      Commission: _Commission,
+      Privilege: _Privilege
+      // ParentType: ParentType,
+      // ParentUserAccountID:ParentUserAccountID,
+      // ParentID:ParentID
      
     };
     console.log(user);

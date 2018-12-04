@@ -14,9 +14,11 @@ module.exports = function (app) { //INSERT
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName,function(response){
         if(response==false){
-          res.send(true);
+          res.send(response);
         }else{
-          res.send(false);
+          // username already exist
+          res.send({ UserNameAlreadyExist:true});
+          // res.send(response);
           // let status = 404;
           // res.status(status).end(http.STATUS_CODES[status]);
         }
@@ -119,10 +121,11 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                     if (response != undefined) {
                       // res.send(response[0].UserAccountID);
                       let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID
-                      HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
-                        
-                        res.send(response);
-                      });
+                        HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
+                          
+                          res.send(response);
+                          console.log('addheadoffice response' + JSON.stringify(response))
+                        });
                     }
                     else {
                       res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
