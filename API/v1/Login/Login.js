@@ -48,7 +48,23 @@ module.exports = function (app) {
 
 
                   LoginHistoryModel.Login2(_UserName,_Password,function(response){
-                    res.send(response);
+                    const user = {
+                      UserAccountID:response[0].UserAccountID,
+                      UserName: response[0].AccountType,
+                      UserAccountID: response[0].Privilege,
+                      UserName: response[0].UserName,
+                      Commission: response[0].Commission,
+                  
+                    }
+                    jwt.sign({
+                      user
+                    }, 'secretkey', {
+                      expiresIn: '1d'
+                    }, (err, token) => {
+                      res.json({
+                        token
+                      });
+                    });
                   });
 
 
