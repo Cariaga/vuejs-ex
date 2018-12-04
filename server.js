@@ -312,7 +312,7 @@ wss.on('connection', (ws, req) => {
     }
   });
 
-  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
 
   function UpdateStatus(){
     DBConnect.DBConnect(query2, function (response) {
