@@ -65,6 +65,7 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 // configuration =================
 
 app.use(express.static('AdminSocket'));
+app.use(express.static('WalletOne'));
 
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/Webgl'));
@@ -164,6 +165,66 @@ require('./API/v1/Sales/Sales')(app);
 require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
 require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
+
+app.get('/success', function (req, res) {
+  console.log(req);
+  res.sendStatus(200);
+});
+app.get('/fail', function (req, res) {
+  console.log(req)
+  res.sendStatus(501);
+});
+
+app.get('/Pay', function (req, res) {
+  var iconv = require('iconv-lite');
+var crypto = require('crypto');
+ 
+var key = '484639536c5d766e767c5734474f455a5b344337305348635f5966';
+ let PaymentNumber = getRandomInt(0,1000);
+var fields = {
+  WMI_MERCHANT_ID: '190887657209',
+  WMI_PAYMENT_AMOUNT: '100.00',
+  WMI_CURRENCY_ID: '840',
+  WMI_PAYMENT_NO:PaymentNumber,
+  WMI_DESCRIPTION: 'BASE64:' + new Buffer("Payment for order #"+PaymentNumber+" in MYSHOP.com").toString('base64'),
+  WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
+  WMI_SUCCESS_URL: 'https://mariadb-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
+  WMI_FAIL_URL: 'https://mariadb-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
+  MyShopParam1: 'Value1',
+  MyShopParam2: 'Value2',
+  MyShopParam3: 'Value3'
+};
+ 
+var comparator = function(a, b){
+  var a = a.toLowerCase();
+  var b = b.toLowerCase();
+  return a > b ? 1 : a < b ? -1 : 0;
+};
+ 
+var createInput = function(name, value){
+  return '<input name="' + name + '" value="' + value + '">';
+};
+ 
+var inputs = '';
+var values = '';
+ 
+Object.keys(fields).sort(comparator).forEach(function(name){
+  var value = fields[name];
+  if (Array.isArray(value)) {
+    values += value.sort(comparator).join('');
+    inputs += value.map(function(val){ return createInput(name, val); }).join('');
+  }
+  else {
+    values += value;
+    inputs += createInput(name, value);
+  }
+});
+inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
+//console.log('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
+  res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
+});
+
+
 
 
 
@@ -270,7 +331,7 @@ function LatestAndUnique(distinctlist, LookUp) {
   return Enumerable.from(distinctlist).first(x => x.UserAccountID == LookUp);
 }
 
-
+let jc = require('json-cycle');
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -283,6 +344,9 @@ wss.on('connection', (ws, req) => {
   var UserAccountID = parameters.query.UserAccountID;
   ws.UserAccountID = UserAccountID;
   ws.DepositNotice = "";
+
+
+
 
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
@@ -300,12 +364,24 @@ wss.on('connection', (ws, req) => {
   //console.log(ws.Money);
   var _UserAccountID = UserAccountID;
   var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
+
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       ws.Money = parseInt(response[0].Money);
+      UpdateStatus();
       //console.log(response[0]);
     }
   });
+
+  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+
+  function UpdateStatus(){
+    DBConnect.DBConnect(query2, function (response) {
+      if (response != undefined) {
+      }
+    });
+  }
+
   
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
   // console.log("url: ", ws);
@@ -409,6 +485,7 @@ wss.on('connection', (ws, req) => {
             }
           }
         });
+        
       } else if (Object.Type == "Bet") { //bet event occured 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -504,6 +581,8 @@ wss.on('connection', (ws, req) => {
     console.debug("WebSocket Error message received:", event);
   };
   ws.onclose = function (event) {
+    let DisconnectedUserAccountID= event.target.UserAccountID;
+
     wss.clients.forEach((client) => {
       if (client.readyState == 1) {
         if (client.UserAccountID == Object.UserAccountID) {
@@ -521,12 +600,36 @@ wss.on('connection', (ws, req) => {
               client.Rooms = NewArrayfiltered;
             }
           }
-
         }
       }
     });
+    let CountSameAccount =0;
+    wss.clients.forEach((client) => {
+      if (client.readyState == 1) {
+        if (client.UserAccountID == DisconnectedUserAccountID) {
+          CountSameAccount++;
+        }
+      }
+    });
+
+    if(CountSameAccount==0){
+      console.log("Last Instance Of : "+DisconnectedUserAccountID +" Disconnected");
+      var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Offline' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+      function UpdateStatus(){
+        DBConnect.DBConnect(query2, function (response) {
+          if (response != undefined) {
+          }
+        });
+      }
+      UpdateStatus();
+    }
+
+
+
+   // console.log(JSON.stringify(jc.decycle(event.target.UserAccountID)));
+
     ConnectedUsers--;
-    console.log('Client disconnected ' + ConnectedUsers);
+    console.log('Client disconnected ' + ConnectedUsers+" UserAccount That Disconnected : "+event.target.UserAccountID);
   };
 });
 
@@ -615,7 +718,7 @@ app.get('/download/:Name', function(req, res){
 // listen (start app with node server.js) ======================================
 //server.listen(port, ip);// no loger needed
 var beautify = require('json-beautify');
-console.log('Server running on http://%s:%s', ip, port);
+/*console.log('Server running on http://%s:%s', ip, port);
 console.log("--------process informationz  for openshift---------");
 console.log(beautify(process.env, null, 2, 100));
 console.log("-----------------");
@@ -627,7 +730,7 @@ console.log("MariaDB Port :"+process.env.MARIADB_SERVICE_PORT || 3306);
 
 
 console.log("Redis :"+process.env.REDIS_PORT_6379_TCP_ADDR);
-console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);
+console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
 
