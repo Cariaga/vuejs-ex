@@ -167,7 +167,8 @@ require('./API/v1/CalculateManagement/CalculateManagement')(app);
 require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
 
 app.get('/success', function (req, res) {
-
+  console.log(req);
+  res.sendStatus(200);
 });
 app.get('/fail', function (req, res) {
   console.log(req)
