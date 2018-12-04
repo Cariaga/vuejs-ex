@@ -65,6 +65,7 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 // configuration =================
 
 app.use(express.static('AdminSocket'));
+app.use(express.static('WalletOne'));
 
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/Webgl'));
@@ -164,6 +165,59 @@ require('./API/v1/Sales/Sales')(app);
 require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
 require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
+
+
+app.get('/Pay', function (req, res) {
+  var iconv = require('iconv-lite');
+var crypto = require('crypto');
+ 
+var key = '484639536c5d766e767c5734474f455a5b344337305348635f5966';
+ 
+var fields = {
+  WMI_MERCHANT_ID: '190887657209',
+  WMI_PAYMENT_AMOUNT: '100.00',
+  WMI_CURRENCY_ID: '643',
+  WMI_PAYMENT_NO: '12345-001',
+  WMI_DESCRIPTION: 'BASE64:' + new Buffer('Payment for order #12345-001 in MYSHOP.com').toString('base64'),
+  WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
+  WMI_SUCCESS_URL: 'http://example.com/success/',
+  WMI_FAIL_URL: 'http://example.com/fail/',
+ 
+  MyShopParam1: 'Value1',
+  MyShopParam2: 'Value2',
+  MyShopParam3: 'Value3'
+};
+ 
+var comparator = function(a, b){
+  var a = a.toLowerCase();
+  var b = b.toLowerCase();
+  return a > b ? 1 : a < b ? -1 : 0;
+};
+ 
+var createInput = function(name, value){
+  return '<input name="' + name + '" value="' + value + '">';
+};
+ 
+var inputs = '';
+var values = '';
+ 
+Object.keys(fields).sort(comparator).forEach(function(name){
+  var value = fields[name];
+  if (Array.isArray(value)) {
+    values += value.sort(comparator).join('');
+    inputs += value.map(function(val){ return createInput(name, val); }).join('');
+  }
+  else {
+    values += value;
+    inputs += createInput(name, value);
+  }
+});
+inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
+console.log('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
+  res.sendStatus(200);
+});
+
+
 
 
 
@@ -657,7 +711,7 @@ app.get('/download/:Name', function(req, res){
 // listen (start app with node server.js) ======================================
 //server.listen(port, ip);// no loger needed
 var beautify = require('json-beautify');
-console.log('Server running on http://%s:%s', ip, port);
+/*console.log('Server running on http://%s:%s', ip, port);
 console.log("--------process informationz  for openshift---------");
 console.log(beautify(process.env, null, 2, 100));
 console.log("-----------------");
@@ -669,7 +723,7 @@ console.log("MariaDB Port :"+process.env.MARIADB_SERVICE_PORT || 3306);
 
 
 console.log("Redis :"+process.env.REDIS_PORT_6379_TCP_ADDR);
-console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);
+console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
 
