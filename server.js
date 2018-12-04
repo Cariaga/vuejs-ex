@@ -270,7 +270,7 @@ function LatestAndUnique(distinctlist, LookUp) {
   return Enumerable.from(distinctlist).first(x => x.UserAccountID == LookUp);
 }
 
-
+let jc = require('json-cycle');
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -424,6 +424,7 @@ wss.on('connection', (ws, req) => {
             }
           }
         });
+        
       } else if (Object.Type == "Bet") { //bet event occured 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -519,6 +520,8 @@ wss.on('connection', (ws, req) => {
     console.debug("WebSocket Error message received:", event);
   };
   ws.onclose = function (event) {
+    let DisconnectedUserAccountID= event.target.UserAccountID;
+
     wss.clients.forEach((client) => {
       if (client.readyState == 1) {
         if (client.UserAccountID == Object.UserAccountID) {
@@ -536,12 +539,35 @@ wss.on('connection', (ws, req) => {
               client.Rooms = NewArrayfiltered;
             }
           }
-
         }
       }
     });
+    let CountSameAccount =0;
+    wss.clients.forEach((client) => {
+      if (client.readyState == 1) {
+        if (client.UserAccountID == DisconnectedUserAccountID) {
+          CountSameAccount++;
+        }
+      }
+    });
+
+    if(CountSameAccount==0){
+      console.log("Last Instance Of : "+DisconnectedUserAccountID +" Disconnected");
+      var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Offline' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+      function UpdateStatus(){
+        DBConnect.DBConnect(query2, function (response) {
+          if (response != undefined) {
+          }
+        });
+      }
+    }
+
+
+
+   // console.log(JSON.stringify(jc.decycle(event.target.UserAccountID)));
+
     ConnectedUsers--;
-    console.log('Client disconnected ' + ConnectedUsers);
+    console.log('Client disconnected ' + ConnectedUsers+" UserAccount That Disconnected : "+event.target.UserAccountID);
   };
 });
 
