@@ -123,42 +123,6 @@ module.exports = function (app) {
                   });
                 });
 
-               /* LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
-                  if (response) {
-                    //let firstRow = response[0];
-                    let AccountType = response[0].AccountType;
-                    let UserAccountID = response[0].UserAccountID;
-                    let Privilege = response[0].Privilege;
-                    // Mock user
-                    if(AccountType=="Player"||Privilege=="Admin"){//only certain account types and privilage are allowed
-                      const user = {
-                        id: 1,
-                        UserName: _UserName,
-                        UserAccountID: UserAccountID,
-                        AccountType: AccountType,
-                        Privilege:Privilege
-                      }
-                      jwt.sign({
-                        user
-                      }, 'secretkey', {
-                        expiresIn: '1d'
-                      }, (err, token) => {
-                        res.json({
-                          token
-                        });
-                      });
-        
-                    }else{
-                      //if the above is invalid
-                      let status = 401;
-                      res.status(status).end(http.STATUS_CODES[status]);
-                    }
-                  } else {
-                    let status = 404;
-                    res.status(status).end(http.STATUS_CODES[status]);
-                  }
-                  // res.send("login success!");
-                });*/
               }else{
                 res.send({UserNameBlocked:true});
               }
