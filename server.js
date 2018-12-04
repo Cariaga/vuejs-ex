@@ -349,6 +349,8 @@ wss.on('connection', (ws, req) => {
 
 
 
+  
+
 
 
   //--inisialization to Same Account instances // similar to all buffer
@@ -381,10 +383,22 @@ wss.on('connection', (ws, req) => {
   function UpdateStatus(){
     DBConnect.DBConnect(query2, function (response) {
       if (response != undefined) {
+        ParentListOfPlayer();
       }
     });
   }
-  
+
+  function ParentListOfPlayer(){
+    var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
+    //console.log(ParentsUserAccountsQuery);
+    DBConnect.DBConnect(ParentsUserAccountsQuery, function (response) {
+      if (response != undefined) {
+        let ParentUserAccountIDList = response.map(x=>x.ParentUserAccountID); 
+        ws.ParentUserAccountID = ParentUserAccountIDList;
+      //  console.log("Ok "+ParentUserAccountIDList.length);
+      }
+    });
+  }
 
   
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
@@ -429,6 +443,7 @@ wss.on('connection', (ws, req) => {
 
 
       /*player related */
+       
       else if (Object.Type == "NotifyPlayerDepositReceived") {
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -511,6 +526,7 @@ wss.on('connection', (ws, req) => {
         });
         
       } else if (Object.Type == "Bet") { //bet event occured 
+
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
@@ -531,6 +547,13 @@ wss.on('connection', (ws, req) => {
             }
           }
         });
+
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            console.log("My Parents to Notify" +ws.ParentListOfPlayer);
+          }
+        });
+
       } else if (Object.Type == "Win") { //Win event occured 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
