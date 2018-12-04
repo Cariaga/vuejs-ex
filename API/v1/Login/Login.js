@@ -51,7 +51,7 @@ module.exports = function (app) {
                     const user = {
                       UserAccountID:response[0].UserAccountID,
                       UserName: response[0].AccountType,
-                      UserAccountID: response[0].Privilege,
+                      Privilege: response[0].Privilege,
                       UserName: response[0].UserName,
                       Commission: response[0].Commission
                     }
@@ -102,7 +102,28 @@ module.exports = function (app) {
           if(response==true){
             DBCheck.isUserNameBlocked(_UserName,function(response){
               if(response==false){
-                LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
+
+
+                LoginHistoryModel.Login2(_UserName,_Password,function(response){
+                  const user = {
+                    UserAccountID:response[0].UserAccountID,
+                    UserName: response[0].AccountType,
+                    Privilege: response[0].Privilege,
+                    UserName: response[0].UserName,
+                    Commission: response[0].Commission
+                  }
+                  jwt.sign({
+                    user
+                  }, 'secretkey', {
+                    expiresIn: '1d'
+                  }, (err, token) => {
+                    res.json({
+                      token
+                    });
+                  });
+                });
+
+               /* LoginHistoryModel.LoginAccount(_UserName, _Password, function (response) {
                   if (response) {
                     //let firstRow = response[0];
                     let AccountType = response[0].AccountType;
@@ -137,7 +158,7 @@ module.exports = function (app) {
                     res.status(status).end(http.STATUS_CODES[status]);
                   }
                   // res.send("login success!");
-                });
+                });*/
               }else{
                 res.send({UserNameBlocked:true});
               }
