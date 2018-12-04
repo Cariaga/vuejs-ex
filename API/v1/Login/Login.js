@@ -45,7 +45,15 @@ module.exports = function (app) {
           if(response==true){
             DBCheck.isUserNameBlocked(_UserName,function(response){
               if(response==false){
-                LoginHistoryModel.SubAccount(_UserName,_Password,function(response4){//subAccount Check if sub Account 
+
+
+                  LoginHistoryModel.Login2(_UserName,_Password,function(response){
+                    res.send(response);
+                  });
+
+
+
+/*                LoginHistoryModel.SubAccount(_UserName,_Password,function(response4){//subAccount Check if sub Account 
                   if(response4!=undefined){//its a sub account if this is true
                     //sub accounts have limited access but its still have acccess in the backoffice
                     let AccountType = "SubAccount";
@@ -67,11 +75,6 @@ module.exports = function (app) {
                         let ParentType = "";
                         let ParentUserAccountID = "";
                         let ParentID = "";
-                        let PlayerCommission = response[0].PlayerCommission;
-                        let ShopCommission = response[0].ShopCommission;
-                        let DistributorCommission = response[0].DistributorCommission;
-                        let HeadOfficeCommission = response[0].HeadOfficeCommission;
-                        let OperatingHeadOfficeCommission = response[0].OperatingHeadOfficeCommission;
     
                         console.log("AccountType : "+AccountType); 
                         console.log("UserAccountID : "+UserAccountID);
@@ -80,14 +83,13 @@ module.exports = function (app) {
                           if(AccountType=="Player"){
                             ParentType ="Shops";
                             ParentID = response[0].ShopID;
-                            console.log("is Player");
                             LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
       
                               let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
                             
                               if(ParentUserAccountID!=undefined){
                                 if(Privilege=="Admin"){//only admin player can login as player in the backoffice
-                                  BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, PlayerCommission, res);
+                                  BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                                 }else{
                                   console.log("This Player is not admin or valid AccountType")
                                   let status = 401;
@@ -102,48 +104,45 @@ module.exports = function (app) {
                           else if(AccountType=="Shops"){
                             ParentType ="Distributor";
                             ParentID = response[0].DistributorID;
-                            console.log("is Shop");
+    
                             console.log("ParentID : "+ParentID);
                             LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(responseD){
                              
                               let ParentUserAccountID = responseD[0].UserAccountID;//Distributor UserAccount
                             
                              if(ParentUserAccountID!=undefined){
-                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,ShopCommission, res);
+                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                               }
                             });
                           }
                           else if(AccountType=="Distributor"){
                             ParentType ="HeadOffice";
-                            console.log("is Distributor");
                             ParentID = response[0].HeadOfficeID;
                             console.log("ParentType "+ParentID);
     
                            LoginHistoryModel.UserAccountIDOFHeadOfficeID(response[0].HeadOfficeID,function(response){
                               let ParentUserAccountID = response[0].UserAccountID;//HeadOffice UserAccount
                               if(ParentUserAccountID!=undefined){
-                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,DistributorCommission, res);
+                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                               }
                             });
                           }
                           else if(AccountType=="HeadOffice"){
                             ParentType ="OperatingHeadOffice";
-                            console.log("is HeadOffice");
                             ParentID = response[0].OperatingHeadOfficeID;
                             LoginHistoryModel.UserAccountIDOFOperatingHeadOffice(response[0].OperatingHeadOfficeID,function(response){
                               let ParentUserAccountID = response[0].UserAccountID;// UserAccount
                               if(ParentUserAccountID!=undefined){
-                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,HeadOfficeCommission, res);
+                                BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                               }
                             });
                           }else{
-                            console.log("is OperatingHeadOffice");
                               //should never execute without getting validated from LoginAccount beacuse its a super account
                               ParentType ="Elite";
                               ParentUserAccountID="";
                               AccountType="OperatingHeadOffice";
                               ParentID="";
-                              BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID,OperatingHeadOfficeCommission, res);
+                              BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res);
                           }
                           console.log(ParentType);
                    
@@ -163,7 +162,7 @@ module.exports = function (app) {
                    
                   }
                 });
-
+*/
 
 
 
@@ -498,19 +497,18 @@ module.exports = function (app) {
 */
 }
 //Main Account
-function BackOfficeSetUpLogin(_AccountType, _Privilege, _UserName, _UserAccountID, ParentType,ParentUserAccountID,ParentID,_Commission, res) {
+function BackOfficeSetUpLogin(AccountType, Privilege, _UserName, UserAccountID, ParentType,ParentUserAccountID,ParentID, res) {
   console.log("BackOfficeSetUpLogin");
-  if (_AccountType=="OperatingHeadOffice"||_AccountType == "HeadOffice" || _AccountType == "Distributor" || _AccountType == "Shops" || _Privilege == "Admin") { //only certain account types and admin type of player can login
+  if (AccountType=="OperatingHeadOffice"||AccountType == "HeadOffice" || AccountType == "Distributor" || AccountType == "Shops" || Privilege == "Admin") { //only certain account types and admin type of player can login
     const user = {
       id: 1,
       UserName: _UserName,
-      UserAccountID: _UserAccountID,
-      AccountType: _AccountType,
-      Commission: _Commission,
-      Privilege: _Privilege
-      // ParentType: ParentType,
-      // ParentUserAccountID:ParentUserAccountID,
-      // ParentID:ParentID
+      UserAccountID: UserAccountID,
+      AccountType: AccountType,
+      Privilege: Privilege,
+      ParentType: ParentType,
+      ParentUserAccountID:ParentUserAccountID,
+      ParentID:ParentID
      
     };
     console.log(user);
