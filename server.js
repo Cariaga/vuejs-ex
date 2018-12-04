@@ -284,6 +284,9 @@ wss.on('connection', (ws, req) => {
   ws.UserAccountID = UserAccountID;
   ws.DepositNotice = "";
 
+
+
+
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
   wss.clients.forEach((client) => {
@@ -300,12 +303,24 @@ wss.on('connection', (ws, req) => {
   //console.log(ws.Money);
   var _UserAccountID = UserAccountID;
   var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
+
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       ws.Money = parseInt(response[0].Money);
+      UpdateStatus();
       //console.log(response[0]);
     }
   });
+
+  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = '"+_UserAccountID+"');";
+
+  function UpdateStatus(){
+    DBConnect.DBConnect(query2, function (response) {
+      if (response != undefined) {
+      }
+    });
+  }
+
   
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
   // console.log("url: ", ws);
