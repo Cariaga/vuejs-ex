@@ -301,7 +301,8 @@ Object.keys(fields).sort(comparator).forEach(function(name){
   }
 });
 inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
-console.log(crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
+//console.log("Decode "+iconv.decode(values + key, 'win1251'));
+
   res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
 });
 
@@ -454,6 +455,25 @@ wss.on('connection', (ws, req) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) {
                   client.Money = parseInt(client.Money) - parseInt(Object.WithdrawAmount); //add back the money to the player
+            }
+          }
+        });
+      }
+
+      else if (Object.Type == "RoomChanged") { //event withdraw room
+        //console.log("LeaveRoom "+ Object.RoomID);
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            if (client.UserAccountID == ws.UserAccountID) {
+
+              var _UserAccountID = Object.UserAccountID;
+              var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+Object.RoomName+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+              DBConnect.DBConnect(query3, function (response) {
+                if (response != undefined) {
+                  
+                  //console.log(response[0]);
+                }
+              });
             }
           }
         });
