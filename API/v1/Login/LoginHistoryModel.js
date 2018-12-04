@@ -121,7 +121,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT BL.BlackListID, UA.UserAccountID, UA.OnlineStatus, UA.Verified, UA.Privilege, UI.Email, BL.BlackListID, BL.Reason, BL.Status, BL.Title, BL.ReportDate, BL.ReleaseDate, PL.Commission, PL.ShopID, SH.DistributorID, DR.HeadOfficeID, HO.OperatingHeadOfficeID FROM sampledb.useraccounts AS UA LEFT JOIN sampledb.userinfos AS UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist AS BL ON UA.UserAccountID = BL.UserAccountID LEFT JOIN sampledb.players AS PL ON UA.UserAccountID = PL.UserAccountID LEFT JOIN sampledb.shops AS SH ON UA.UserAccountID = SH.UserAccountID LEFT JOIN sampledb.distributors AS DR ON UA.UserAccountID = DR.UserAccountID LEFT JOIN sampledb.headoffices AS HO ON UA.UserAccountID = HO.UserAccountID LEFT JOIN sampledb.operatingheadoffice AS OHO ON UA.UserAccountID = OHO.UserAccountID WHERE UA.UserName = \'"+_UserName+"\' AND UA.Password = \'"+_Password+"\' ORDER BY BL.ReportDate DESC LIMIT 1";
+    "SELECT BL.BlackListID, UA.UserAccountID, UA.UserName, UA.OnlineStatus, UA.Verified, UA.Privilege, UI.Email, BL.BlackListID, BL.Reason, BL.Status, BL.Title, BL.ReportDate, BL.ReleaseDate, PL.Commission PlayerCommission, PL.ShopID, SH.Commission ShopCommission, SH.DistributorID, DR.Commission DistributorCommission, DR.HeadOfficeID, HO.Commission HeadOfficeCommission, OHO.OperatingHeadOfficeID, OHO.Commission OperatingHeadOfficeCommission FROM sampledb.useraccounts AS UA LEFT JOIN sampledb.userinfos AS UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist AS BL ON UA.UserAccountID = BL.UserAccountID LEFT JOIN sampledb.players AS PL ON UA.UserAccountID = PL.UserAccountID LEFT JOIN sampledb.shops AS SH ON UA.UserAccountID = SH.UserAccountID LEFT JOIN sampledb.distributors AS DR ON UA.UserAccountID = DR.UserAccountID LEFT JOIN sampledb.headoffices AS HO ON UA.UserAccountID = HO.UserAccountID LEFT JOIN sampledb.operatingheadoffice AS OHO ON UA.UserAccountID = OHO.UserAccountID WHERE UA.UserName = 'user20' AND UA.Password = 'user20' ORDER BY BL.ReportDate DESC LIMIT 1";
 
       console.log("LoginAccount : "+ Query);
       return new Promise(resolve => {
@@ -169,12 +169,16 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].Title = result[0].Title;
         finalresult[0].ReportDate = result[0].ReportDate;
         finalresult[0].AccountType = result2[0].AccountType;
-        finalresult[0].Commission = result[0].Commission;
+        finalresult[0].PlayerCommission = result[0].PlayerCommission;
         
         finalresult[0].ShopID = result[0].ShopID;
+        finalresult[0].ShopCommission = result[0].ShopCommission;
         finalresult[0].DistributorID = result[0].DistributorID;
+        finalresult[0].DistributorCommission = result[0].DistributorCommission;
         finalresult[0].HeadOfficeID = result[0].HeadOfficeID;
+        finalresult[0].HeadOfficeCommission = result[0].HeadOfficeCommission;
         finalresult[0].OperatingHeadOfficeID = result[0].OperatingHeadOfficeID;
+        finalresult[0].OperatingHeadOfficeCommission = result[0].OperatingHeadOfficeCommission;
 
         console.log("------ShopID :"+result[0].ShopID);
         console.log("------DistributorID :"+result[0].DistributorID);

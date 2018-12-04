@@ -251,6 +251,7 @@ let DBConnect = require("../SharedController/DBConnect");
         callback(true);
       }else{
         callback(false);
+        console.log('UserName does not exist');
       }
     });
   }
