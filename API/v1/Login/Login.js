@@ -92,7 +92,7 @@ module.exports = function (app) {
                         let ParentUserAccountID = "";
                         let ParentID = "";
     
-                        console.log("AccountType : "+AccountType);
+                        console.log("AccountType : "+AccountType); 
                         console.log("UserAccountID : "+UserAccountID);
                         console.log("Privilege : "+Privilege);
                   
