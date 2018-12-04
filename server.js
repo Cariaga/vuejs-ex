@@ -166,23 +166,29 @@ require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
 require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
 
+app.get('/success', function (req, res) {
+
+});
+app.get('/fail', function (req, res) {
+  console.log(req)
+  res.sendStatus(501);
+});
 
 app.get('/Pay', function (req, res) {
   var iconv = require('iconv-lite');
 var crypto = require('crypto');
  
 var key = '484639536c5d766e767c5734474f455a5b344337305348635f5966';
- 
+ let PaymentNumber = getRandomInt(0,1000);
 var fields = {
   WMI_MERCHANT_ID: '190887657209',
   WMI_PAYMENT_AMOUNT: '100.00',
-  WMI_CURRENCY_ID: '643',
-  WMI_PAYMENT_NO: '12345-001',
-  WMI_DESCRIPTION: 'BASE64:' + new Buffer('Payment for order #12345-001 in MYSHOP.com').toString('base64'),
+  WMI_CURRENCY_ID: '840',
+  WMI_PAYMENT_NO:PaymentNumber,
+  WMI_DESCRIPTION: 'BASE64:' + new Buffer("Payment for order #"+PaymentNumber+" in MYSHOP.com").toString('base64'),
   WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
-  WMI_SUCCESS_URL: 'http://example.com/success/',
-  WMI_FAIL_URL: 'http://example.com/fail/',
- 
+  WMI_SUCCESS_URL: 'http://localhost:8080/success/',
+  WMI_FAIL_URL: 'http://localhost:8080/fail/',
   MyShopParam1: 'Value1',
   MyShopParam2: 'Value2',
   MyShopParam3: 'Value3'
@@ -213,8 +219,8 @@ Object.keys(fields).sort(comparator).forEach(function(name){
   }
 });
 inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
-console.log('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
-  res.sendStatus(200);
+//console.log('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
+  res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
 });
 
 
