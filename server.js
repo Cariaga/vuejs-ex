@@ -350,6 +350,7 @@ wss.on('connection', (ws, req) => {
 
 
 
+
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
   wss.clients.forEach((client) => {
@@ -383,6 +384,7 @@ wss.on('connection', (ws, req) => {
       }
     });
   }
+  
 
   
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
