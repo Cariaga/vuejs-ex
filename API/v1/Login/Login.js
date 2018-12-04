@@ -80,6 +80,7 @@ module.exports = function (app) {
                           if(AccountType=="Player"){
                             ParentType ="Shops";
                             ParentID = response[0].ShopID;
+                            console.log("is Player");
                             LoginHistoryModel.UserAccountIDOFShopID(response[0].ShopID,function(response){
       
                               let ParentUserAccountID = response[0].UserAccountID;//Shop UserAccount
@@ -101,7 +102,7 @@ module.exports = function (app) {
                           else if(AccountType=="Shops"){
                             ParentType ="Distributor";
                             ParentID = response[0].DistributorID;
-    
+                            console.log("is Shop");
                             console.log("ParentID : "+ParentID);
                             LoginHistoryModel.UserAccountIDOFDistributorID(response[0].DistributorID,function(responseD){
                              
@@ -114,6 +115,7 @@ module.exports = function (app) {
                           }
                           else if(AccountType=="Distributor"){
                             ParentType ="HeadOffice";
+                            console.log("is Distributor");
                             ParentID = response[0].HeadOfficeID;
                             console.log("ParentType "+ParentID);
     
@@ -126,6 +128,7 @@ module.exports = function (app) {
                           }
                           else if(AccountType=="HeadOffice"){
                             ParentType ="OperatingHeadOffice";
+                            console.log("is HeadOffice");
                             ParentID = response[0].OperatingHeadOfficeID;
                             LoginHistoryModel.UserAccountIDOFOperatingHeadOffice(response[0].OperatingHeadOfficeID,function(response){
                               let ParentUserAccountID = response[0].UserAccountID;// UserAccount
@@ -134,6 +137,7 @@ module.exports = function (app) {
                               }
                             });
                           }else{
+                            console.log("is OperatingHeadOffice");
                               //should never execute without getting validated from LoginAccount beacuse its a super account
                               ParentType ="Elite";
                               ParentUserAccountID="";
