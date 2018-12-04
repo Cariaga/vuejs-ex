@@ -560,6 +560,7 @@ wss.on('connection', (ws, req) => {
           }
         });
       }
+      UpdateStatus();
     }
 
 
