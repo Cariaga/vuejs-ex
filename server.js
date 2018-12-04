@@ -305,11 +305,6 @@ inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.enc
 
   res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
 });
-
-
-
-
-
 /*
 app.get('/Api/v1', Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
   res.send('Api v1 version');
@@ -346,7 +341,7 @@ wss.on('connection', (ws, req) => {
   var UserAccountID = parameters.query.UserAccountID;
   ws.UserAccountID = UserAccountID;
   ws.DepositNotice = "";
-
+  ws.ParentUserAccountIDList=[];
 
 
   
@@ -394,7 +389,7 @@ wss.on('connection', (ws, req) => {
     DBConnect.DBConnect(ParentsUserAccountsQuery, function (response) {
       if (response != undefined) {
         let ParentUserAccountIDList = response.map(x=>x.ParentUserAccountID); 
-        ws.ParentUserAccountID = ParentUserAccountIDList;
+        ws.ParentUserAccountIDList = ParentUserAccountIDList;
       //  console.log("Ok "+ParentUserAccountIDList.length);
       }
     });
@@ -519,8 +514,6 @@ wss.on('connection', (ws, req) => {
                   console.log("LeaveRoom but and last Player");
                 }
               }
-
-
             }
           }
         });
@@ -547,12 +540,21 @@ wss.on('connection', (ws, req) => {
             }
           }
         });
-
+        
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
-            console.log("My Parents to Notify" +ws.ParentListOfPlayer);
+            for(let i=0;i<ws.ParentUserAccountIDList.length;++i){
+              if(ws.ParentUserAccountIDList.includes(client.UserAccountID)){
+                console.log("Parent To Notify "+client.UserAccountID);
+                client.send(stringify({
+                  Response: "PlayerBet"
+                }, null, 0));
+              }
+            }
           }
         });
+
+     
 
       } else if (Object.Type == "Win") { //Win event occured 
         wss.clients.forEach((client) => {
@@ -615,6 +617,19 @@ wss.on('connection', (ws, req) => {
           }
         });
         console.log("Buyin : " + BuyInRoom);
+
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            for(let i=0;i<ws.ParentUserAccountIDList.length;++i){
+              if(ws.ParentUserAccountIDList.includes(client.UserAccountID)){
+                console.log("Parent To Notify "+client.UserAccountID);
+                client.send(stringify({
+                  Response: "PlayerBuyIn"
+                }, null, 0));
+              }
+            }
+          }
+        });
       }
     } else {
       //possibly a diffrent message type
