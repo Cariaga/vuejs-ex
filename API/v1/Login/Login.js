@@ -53,8 +53,7 @@ module.exports = function (app) {
                       UserName: response[0].AccountType,
                       UserAccountID: response[0].Privilege,
                       UserName: response[0].UserName,
-                      Commission: response[0].Commission,
-                  
+                      Commission: response[0].Commission
                     }
                     jwt.sign({
                       user
