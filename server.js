@@ -301,7 +301,8 @@ Object.keys(fields).sort(comparator).forEach(function(name){
   }
 });
 inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
-console.log(crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
+//console.log("Decode "+iconv.decode(values + key, 'win1251'));
+
   res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
 });
 
