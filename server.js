@@ -50,7 +50,8 @@ let successHandler = (data, callback) => {
   // data === req.body    
   // save payment info in db e.t.c    
   // callback() or return promise
-  console.log("Should be called");
+  callback();
+  console.log("Should be called "+data);
 };
 
 let errorHandler = (err, meta) => {
