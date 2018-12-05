@@ -311,11 +311,12 @@ app.get('/fail', function (req, res) {
 app.get('/Pay2', function (req, res) {
   // Create form data
   let PaymentNumber = getRandomInt(0,10000);
+  
   let fields = w1.getFormFields({
       WMI_PAYMENT_AMOUNT: '10',
       WMI_PAYMENT_NO:PaymentNumber,
       WMI_CURRENCY_ID: '840',
-      WMI_DESCRIPTION: 'Payment Order',
+      WMI_DESCRIPTION: 'BASE64:' + new Buffer("Payment for order #"+PaymentNumber+" in MYSHOP.com").toString('base64'),
       WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
       WMI_CUSTOMER_EMAIL: 'user@example.com',
       WMI_AUTO_LOCATION: "1"
