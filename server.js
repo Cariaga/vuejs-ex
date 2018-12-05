@@ -306,13 +306,14 @@ app.get('/success', function  (req, res, next) {
   res.send(req.params);
 });
 
-app.get('/Pay2', function (req, res) {
+app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   // Create form data
+  let DepositAmount = req.params.DepositAmount;
   let PaymentNumber = getRandomInt(0,10000);
   w1.setAlgorithm("md5");
   
   let fields = w1.getFormFields({
-      WMI_PAYMENT_AMOUNT: '10',
+      WMI_PAYMENT_AMOUNT: DepositAmount,
       WMI_PAYMENT_NO:PaymentNumber,
       WMI_CURRENCY_ID: '840',
       WMI_DESCRIPTION: 'Recharge',
@@ -329,6 +330,8 @@ app.get('/Pay2', function (req, res) {
   for(let i=0;i<fields.length;++i){
     resultfeild+=createInput(fields[i].name,fields[i].value);
   }
+  resultfeild += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
+  
   console.log(resultfeild);
   let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
   res.send(form);
