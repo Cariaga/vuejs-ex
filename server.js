@@ -273,8 +273,8 @@ var fields = {
   WMI_PAYMENT_NO:PaymentNumber,
   WMI_DESCRIPTION: 'BASE64:' + new Buffer("Payment for order #"+PaymentNumber+" in MYSHOP.com").toString('base64'),
   WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
-  WMI_SUCCESS_URL: 'https://mariadb-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
-  WMI_FAIL_URL: 'https://mariadb-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
+  WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
+  WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
   MyShopParam1: 'Value1',
   MyShopParam2: 'Value2',
   MyShopParam3: 'Value3'
