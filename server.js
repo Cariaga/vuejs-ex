@@ -251,12 +251,7 @@ notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
 
 app.get('/success',function(req,res,next){
-  //w1.notify(successHandler, errorHandler)(req, res, next);
- //res.sendStatus(200);
- var host = req.headers.host;
-var referer = req.headers.referer;
-console.log(req.headers)
- res.send(host+"|"+referer);
+  res.sendStatus(200);
 });
 app.get('/fail',function(req,res){
 });
