@@ -332,8 +332,6 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
 
   signaturelist.push(computedsignature);
 
-
-
   let fields = w1.getFormFields(feildvalues);
 
   var createInput = function(name, value){
