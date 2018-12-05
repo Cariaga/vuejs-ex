@@ -329,12 +329,11 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   };
 
   //let computedsignature = w1.getSignature(fields);
-
-  signature = w1.getSignature(fields);
-  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+signature;
-  feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
-  
   let fields = w1.getFormFields(feildvalues);
+  signature = w1.getSignature(fields);
+  feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
+
+  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+signature;
 
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
@@ -346,7 +345,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   console.log("Payment Url "+w1.getPaymentUrl());
 
   console.log(resultfeild);
-  let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
+  let form = '<form method="POST" action='+w1.getPaymentUrl()+' accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
   res.send(form);
 });
 
