@@ -205,15 +205,19 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 const W1 = require("walletone");
+const uuid = require("uuid/v4");
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
+const w1 = new W1(secretKey, merchantId, defaultData);
 
+app.get('/Pay',function(req,res){
+  
 let defaultData = {
   WMI_SUCCESS_URL: 'http://example.com/success/',
   WMI_FAIL_URL: 'http://example.com/fail/',
 };
-const w1 = new W1(secretKey, merchantId, defaultData);
-app.get('/Pay',function(req,res){
+
+
 // Create form data
   let fields = w1.getFormFields({
     WMI_PAYMENT_AMOUNT: '10',
