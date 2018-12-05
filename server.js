@@ -299,7 +299,7 @@ let errorHandler = (err, meta) => {
 notifyRouter.get('/', w1.notify(successHandler, errorHandler));
 
 
-app.use('/notification', notifyRouter);
+app.use('/success', notifyRouter);
 
 
 
