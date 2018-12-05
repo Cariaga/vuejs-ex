@@ -302,8 +302,9 @@ app.get('/fail', function (req, res) {
 });
 let signature ="";
 
-app.get('/success/:Data', function  (req, res, next) {
-  res.send(w1.checkSignature(Data,signature));
+app.get('/success/:Sig', function  (req, res, next) {
+  let Sig = req.param.Sig;
+  res.send(signature==Sig);
 });
 
 app.get('/getsignature', function  (req, res, next) {
@@ -325,17 +326,16 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
     WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
     WMI_CUSTOMER_EMAIL: 'user@example.com',
     WMI_AUTO_LOCATION: "1",
-    WMI_SUCCESS_URL: "https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/",
+    WMI_SUCCESS_URL: "http://localhost:8080/success/",
     WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
     // ...and other options
   };
 
-  //let computedsignature = w1.getSignature(fields);
-
   let fields =undefined;
-  fields =  w1.getFormFields(feildvalues);
+  signature = getRandomInt(1,100000);
+  feildvalues.WMI_SUCCESS_URL=feildvalues.WMI_SUCCESS_URL+signature;
   
-  feildvalues.WMI_SUCCESS_URL=feildvalues.WMI_SUCCESS_URL+w1.getSignature(fields);
+  fields =  w1.getFormFields(feildvalues);
 
 
   
@@ -343,7 +343,9 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
     return '<input name="' + name + '" value="' + value + '">';
   };
   let resultfeild="";
-  setTimeout(myFunction, 3000);
+
+
+  setTimeout(myFunction, 1);
 
   function myFunction(){
     for(let i=0;i<fields.length;++i){
