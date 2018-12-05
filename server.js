@@ -316,6 +316,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   // Create form data
   let DepositAmount = req.params.DepositAmount;
   let PaymentNumber = getRandomInt(0,10000);
+  signature = getRandomInt(1,100000);
   w1.setAlgorithm("md5");
   let feildvalues ={
    
@@ -326,15 +327,12 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
     WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
     WMI_CUSTOMER_EMAIL: 'user@example.com',
     WMI_AUTO_LOCATION: "1",
-    WMI_SUCCESS_URL: "http://localhost:8080/success/",
+    WMI_SUCCESS_URL: "http://localhost:8080/success/"+signature,
     WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
     // ...and other options
   };
 
   let fields =undefined;
-  signature = getRandomInt(1,100000);
-  feildvalues.WMI_SUCCESS_URL=feildvalues.WMI_SUCCESS_URL+signature;
-  
   fields =  w1.getFormFields(feildvalues);
 
 
