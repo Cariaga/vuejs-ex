@@ -251,7 +251,7 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 
-
+/*
 app.get('/success', function (req, res) {
   let found =false;
   for(let i =0;i<PaymentNumbers.length;++i){
@@ -266,7 +266,27 @@ app.get('/success', function (req, res) {
   if(found==false){
     res.sendStatus(404);
   }
-});
+});*/
+const busboy = require('express-busboy');
+const notifyRouter = busboy.extend(express.Router());
+
+let successHandler = (data, callback) => {
+  // data === req.body    
+  // save payment info in db e.t.c    
+  // callback() or return promise
+};
+
+let errorHandler = (err, meta) => {
+  // you can save something to a file, db e.t.c.
+  // operation must be synchronous or in the background 
+};
+
+notifyRouter.post('/success', w1.notify(successHandler, errorHandler));
+
+
+app.use('/notification', notifyRouter);
+
+
 
 app.get('/fail', function (req, res) {
   console.log(req)
