@@ -230,6 +230,7 @@ app.get('/Pay',function(req,res){
   for(var i =0;i<fields.length;++i){
     result+=createInput(fields[i].name,fields[i].value);
   }
+  w1.
   res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + result + '<input type="submit"></form>');
 });
 
