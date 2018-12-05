@@ -268,9 +268,6 @@ app.get('/success', function (req, res) {
   }
 });*/
 
-const busboy = require('express-busboy');
-const notifyRouter = busboy.extend(express.Router());
-
 const W1 = require("walletone");
 
 
@@ -278,22 +275,6 @@ const W1 = require("walletone");
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
 const w1 = new W1(secretKey, merchantId);
-let successHandler = (data, callback) => {
-  // data === req.body    
-  // save payment info in db e.t.c    
-  // callback() or return promise
-  console.log("Must finish here");
-  
-};
-let errorHandler = (err, meta) => {
-  // you can save something to a file, db e.t.c.
-  // operation must be synchronous or in the background 
-};
-
-/*
-notifyRouter.get('/', w1.notify(successHandler, errorHandler));
-app.use('/notification', notifyRouter);*/
-
 
 
 app.get('/fail', function (req, res) {
@@ -303,12 +284,15 @@ app.get('/fail', function (req, res) {
 let signature ="";
 
 app.get('/success/:Sig', function  (req, res, next) {
-  let Sig = req.param.Sig;
-  res.send(signature==Sig);
+  let Sig = req.params.Sig;
+  console.log("Signature : "+signature);
+  console.log("SigToCheck : "+Sig);
+  res.send(signature==""+Sig);
+
 });
 
 app.get('/getsignature', function  (req, res, next) {
-  res.send(signature);
+  res.send("Signature "+signature);
  // res.send(req.params);
 });
 
@@ -358,8 +342,23 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
 
 });
 
-
-
+const busboy = require('express-busboy');
+const notifyRouter = busboy.extend(express.Router());
+ 
+let successHandler = (data, callback) => {
+    // data === req.body    
+    // save payment info in db e.t.c    
+    // callback() or return promise
+    console.log("--------------------------Sucess-------------------------------")
+};
+ 
+let errorHandler = (err, meta) => {
+    // you can save something to a file, db e.t.c.
+    // operation must be synchronous or in the background 
+};
+ 
+notifyRouter.post('/', w1.notify(successHandler, errorHandler));
+app.use('/notification', notifyRouter);
 
 
 
