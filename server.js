@@ -332,7 +332,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
     resultfeild+=createInput(fields[i].name,fields[i].value);
   }
   console.log("Payment Url "+w1.getPaymentUrl());
-  console.log("signature  "+w1.getSignature());
+  console.log("signature  "+w1.getSignature(fields));
 
 
   console.log(resultfeild);
