@@ -339,10 +339,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   }
   console.log("Payment Url "+w1.getPaymentUrl());
   console.log("signature  "+w1.getSignature(fields));
-
   signature = w1.getSignature(fields);
-
-
   console.log(resultfeild);
   let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
   res.send(form);
