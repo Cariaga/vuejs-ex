@@ -203,6 +203,9 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 const W1 = require("walletone");
+const busboy = require('express-busboy');
+const notifyRouter = busboy.extend(express.Router());
+
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
 let defaultData = {
@@ -222,7 +225,6 @@ app.get('/Pay',function(req,res){
     WMI_AUTO_LOCATION: "1"
     // ...and other options
   });
-  console.log(fields);  // returns sorted fields and signature too
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
   };
@@ -230,12 +232,10 @@ app.get('/Pay',function(req,res){
   for(var i =0;i<fields.length;++i){
     result+=createInput(fields[i].name,fields[i].value);
   }
-  
   res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + result + '<input type="submit"></form>');
 });
 
-const busboy = require('express-busboy');
-const notifyRouter = busboy.extend(express.Router());
+
 let successHandler = (data, callback) => {
     // data === req.body    
     // save payment info in db e.t.c    
