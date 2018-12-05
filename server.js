@@ -177,57 +177,7 @@ function test() {
   });
 }
 //--testing for season based authentication END
-/*
-var nexmo = new Nexmo({
-  apiKey: "34958c75",
-  apiSecret: "VnTUCGBvp3yr2onE",
-  /* applicationId: APP_ID,
-   privateKey: PRIVATE_KEY_PATH,*/
-/*}, {
-  debug: true
-});
 
-app.get('/SMS/:recipient/:message', function (req, res) {
-  let sender = "825080825012";
-  let recipient = req.params.recipient.split(",");
-  let message = req.params.message;
-
-
-  if (message.length > 69) {
-    console.log("Message Too Long " + message);
-  } else {
-    for (i = 0; i < recipient.length; i++) {
-      console.log(recipient[i]);
-
-      nexmo.message.sendSms(sender, recipient[i], message, {
-          type: 'unicode'
-        },
-        (err, responseData) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.dir(responseData);
-          }
-        });
-    }
-  }
-
-  res.end();
-});*/
-
-
-/*
-function SendMail(To, From, Subject, html) {
-  sendmail({
-    from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
-    to: 'cariaga.info@gmail.com',
-    subject: Subject,
-    html: html,
-  }, function (err, reply) {
-    console.log(err && err.stack);
-    console.dir(reply);
-  });
-}*/
 
 app.get('/', function (req, res) {
   res.sendStatus(200);
@@ -251,6 +201,8 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 
+
+
 /*
 app.get('/success', function (req, res) {
   let found =false;
@@ -268,88 +220,41 @@ app.get('/success', function (req, res) {
   }
 });*/
 
+
 const W1 = require("walletone");
 
 
 
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
-const w1 = new W1(secretKey, merchantId);
 
+let defaultData = {
+  WMI_SUCCESS_URL: 'http://example.com/success/',
+  WMI_FAIL_URL: 'http://example.com/fail/',
+};
 
-app.get('/fail', function (req, res) {
-  console.log(req);
-  res.sendStatus(501);
-});
-let signature ="";
+let secretKey = "key";
+let merchantId = "000000001";
 
-app.get('/success/:Sig', function  (req, res, next) {
-  let Sig = req.params.Sig;
-  console.log("Signature : "+signature);
-  console.log("SigToCheck : "+Sig);
-  res.send(signature==""+Sig);
+const w1 = new W1(secretKey, merchantId, defaultData);
 
-});
-
-app.get('/getsignature', function  (req, res, next) {
-  res.send("Signature "+signature);
- // res.send(req.params);
-});
-
-app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
-  // Create form data
-  let DepositAmount = req.params.DepositAmount;
-  let PaymentNumber = getRandomInt(0,10000);
-  signature = getRandomInt(1,100000);
-  w1.setAlgorithm("md5");
-  let feildvalues ={
-   
-    WMI_PAYMENT_AMOUNT: DepositAmount,
-    WMI_PAYMENT_NO:PaymentNumber,
-    WMI_CURRENCY_ID: '840',
-    WMI_DESCRIPTION: 'Recharge',
-    WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
-    WMI_CUSTOMER_EMAIL: 'user@example.com',
-    WMI_AUTO_LOCATION: "1",
-    WMI_SUCCESS_URL: "https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/"+signature,
-    WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
-    // ...and other options
-  };
-
-  let fields =undefined;
-  fields =  w1.getFormFields(feildvalues);
-
-
-  
-  var createInput = function(name, value){
-    return '<input name="' + name + '" value="' + value + '">';
-  };
-  let resultfeild="";
-
-
-  setTimeout(myFunction, 1);
-
-  function myFunction(){
-    for(let i=0;i<fields.length;++i){
-      resultfeild+=createInput(fields[i].name,fields[i].value);
-    }
-    console.log("Payment Url "+w1.getPaymentUrl());
-  
-    console.log(resultfeild);
-    let form = '<form method="POST" action='+w1.getPaymentUrl()+' accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
-    res.send(form);
-  }
-
+// Create form data
+let fields = w1.getFormFields({
+  WMI_PAYMENT_AMOUNT: '10',
+  WMI_CURRENCY_ID: '643',
+  WMI_DESCRIPTION: 'Recharge',
+  WMI_CUSTOMER_EMAIL: 'user@example.com',
+  WMI_AUTO_LOCATION: "1"
+  // ...and other options
 });
 
-const busboy = require('express-busboy');
+console.log(fields);  // returns sorted fields and signature too
 const notifyRouter = busboy.extend(express.Router());
  
 let successHandler = (data, callback) => {
     // data === req.body    
     // save payment info in db e.t.c    
     // callback() or return promise
-    console.log("--------------------------Sucess-------------------------------")
 };
  
 let errorHandler = (err, meta) => {
@@ -365,59 +270,6 @@ app.use('/notification', notifyRouter);
 
 
 
-
-
-var iconv = require('iconv-lite');
-var crypto = require('crypto');
-let PaymentNumbers=[];
-
-app.get('/Pay', function (req, res) {
-  let Amount = req.params.Amount;
-var key = '484639536c5d766e767c5734474f455a5b344337305348635f5966';
- let PaymentNumber = getRandomInt(0,10000);
- PaymentNumbers.push(PaymentNumber);
-
-var fields = {
-  WMI_MERCHANT_ID: '190887657209',
-  WMI_PAYMENT_AMOUNT: '100.00',
-  WMI_CURRENCY_ID: '840',
-  WMI_PAYMENT_NO:PaymentNumber,
-  WMI_DESCRIPTION: 'BASE64:' + new Buffer("Payment for order #"+PaymentNumber+" in MYSHOP.com").toString('base64'),
-  WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
-  WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+PaymentNumber,
-  WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
-};
-var comparator = function(a, b){
-  var a = a.toLowerCase();
-  var b = b.toLowerCase();
-  return a > b ? 1 : a < b ? -1 : 0;
-};
-var createInput = function(name, value){
-  return '<input name="' + name + '" value="' + value + '">';
-};
-var inputs = '';
-var values = '';
-Object.keys(fields).sort(comparator).forEach(function(name){
-  var value = fields[name];
-  if (Array.isArray(value)) {
-    values += value.sort(comparator).join('');
-    inputs += value.map(function(val){ return createInput(name, val); }).join('');
-  }
-  else {
-    values += value;
-    inputs += createInput(name, value);
-  }
-});
-inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
-//console.log("Decode "+iconv.decode(values + key, 'win1251'));
-
-
-res.send(inputs);
-
-
-
-  //res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
-});
 /*
 app.get('/Api/v1', Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
   res.send('Api v1 version');

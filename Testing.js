@@ -1,3 +1,56 @@
+/*
+var nexmo = new Nexmo({
+  apiKey: "34958c75",
+  apiSecret: "VnTUCGBvp3yr2onE",
+  /* applicationId: APP_ID,
+   privateKey: PRIVATE_KEY_PATH,*/
+/*}, {
+  debug: true
+});
+
+app.get('/SMS/:recipient/:message', function (req, res) {
+  let sender = "825080825012";
+  let recipient = req.params.recipient.split(",");
+  let message = req.params.message;
+
+
+  if (message.length > 69) {
+    console.log("Message Too Long " + message);
+  } else {
+    for (i = 0; i < recipient.length; i++) {
+      console.log(recipient[i]);
+
+      nexmo.message.sendSms(sender, recipient[i], message, {
+          type: 'unicode'
+        },
+        (err, responseData) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.dir(responseData);
+          }
+        });
+    }
+  }
+
+  res.end();
+});*/
+
+
+/*
+function SendMail(To, From, Subject, html) {
+  sendmail({
+    from: 'no-reply@holdem1route-holdem1.4b63.pro-ap-southeast-2.openshiftapps.com',
+    to: 'cariaga.info@gmail.com',
+    subject: Subject,
+    html: html,
+  }, function (err, reply) {
+    console.log(err && err.stack);
+    console.dir(reply);
+  });
+}*/
+
+
 //is not a function possibly brakets nested another module.export or missing parameters
 /*
 let DBCheck = require('./API/SharedController/DBCheck');
