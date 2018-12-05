@@ -19,6 +19,7 @@ const Enumerable = require('linq');
 var cors = require('cors');
 const W1 = require("walletone");
 const busboy = require('express-busboy');
+const notifyRouter = busboy.extend(express.Router());
 
 //app.use(sqlinjection);// disable because it blocks token access
 //to enable CORS required for json request get put post and http cross
@@ -36,6 +37,22 @@ var ExpressBrute = require('express-brute'),
 
 */
  
+let successHandler = (data, callback) => {
+  // data === req.body    
+  // save payment info in db e.t.c    
+  // callback() or return promise
+  console.log("Should be called");
+};
+
+let errorHandler = (err, meta) => {
+console.log("failed");
+  // you can save something to a file, db e.t.c.
+  // operation must be synchronous or in the background 
+};
+
+notifyRouter.post('/', w1.notify(successHandler, errorHandler));
+app.use('/notification', notifyRouter);
+
 
 app.use(function (req, res, next) {
   
@@ -200,12 +217,6 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 
-
-
-
-
-const notifyRouter = busboy.extend(routes);
-
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
 let defaultData = {
@@ -238,23 +249,6 @@ app.get('/Pay',function(req,res){
 });
 
 
-let successHandler = (data, callback) => {
-    // data === req.body    
-    // save payment info in db e.t.c    
-    // callback() or return promise
-    console.log("Should be called");
-};
- 
-let errorHandler = (err, meta) => {
-  console.log("failed");
-    // you can save something to a file, db e.t.c.
-    // operation must be synchronous or in the background 
-};
-
-
-
-notifyRouter.post('/', w1.notify(successHandler, errorHandler));
-app.use('/notification', notifyRouter);
 
 
 app.get('/success',function(req,res,next){
