@@ -292,6 +292,42 @@ app.get('/fail', function (req, res) {
   console.log(req)
   res.sendStatus(501);
 });
+
+app.get('/Pay', function (req, res) {
+
+  const W1 = require("walletone");
+ 
+let defaultData = {
+    WMI_SUCCESS_URL: 'http://example.com/success/',
+    WMI_FAIL_URL: 'http://example.com/fail/',
+};
+ 
+let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
+let merchantId = "190887657209";
+ 
+const w1 = new W1(secretKey, merchantId, defaultData);
+ 
+// Create form data
+let fields = w1.getFormFields({
+    WMI_PAYMENT_AMOUNT: '10',
+    WMI_CURRENCY_ID: '643',
+    WMI_DESCRIPTION: 'Recharge',
+    WMI_CUSTOMER_EMAIL: 'user@example.com',
+    WMI_AUTO_LOCATION: "1"
+    // ...and other options
+});
+});
+
+
+
+
+
+
+
+
+
+
+
 var iconv = require('iconv-lite');
 var crypto = require('crypto');
 let PaymentNumbers=[];
