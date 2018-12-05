@@ -55,7 +55,7 @@ let successHandler = (data, callback) => {
 };
 
 let errorHandler = (err, meta) => {
-console.log("failed");
+console.log("failed "+err);
   // you can save something to a file, db e.t.c.
   // operation must be synchronous or in the background 
 };
