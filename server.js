@@ -51,6 +51,10 @@ let successHandler = (data, callback) => {
   // save payment info in db e.t.c    
   // callback() or return promise
   callback();
+  if(data.WMI_ORDER_STATE=="Accepted"){
+    console.log("Accepted Payment Process here ");
+    console.log("PayAmount "+data.WMI_PAYMENT_AMOUNT);
+  }
   console.log("Should be called "+beautify(data,null ,2 ,100));
 };
 
