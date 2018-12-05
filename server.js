@@ -254,6 +254,7 @@ app.get('/success',function(req,res,next){
  //res.sendStatus(200);
  var host = req.headers.host;
 var referer = req.headers.referer;
+console.log(req.headers)
  res.send(host+"|"+referer);
 });
 app.get('/fail',function(req,res){
