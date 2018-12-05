@@ -305,10 +305,12 @@ let signature ="";
 app.get('/success/:Data', function  (req, res, next) {
   res.send(w1.checkSignature(Data,signature));
 });
+
 app.get('/getsignature', function  (req, res, next) {
   res.send(signature);
  // res.send(req.params);
 });
+
 app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   // Create form data
   let DepositAmount = req.params.DepositAmount;
@@ -327,10 +329,12 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   };
 
   //let computedsignature = w1.getSignature(fields);
-  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+feildvalues;
+  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/';
   feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
   let fields = w1.getFormFields(feildvalues);
-  
+
+  feildvalues.WMI_SUCCESS_URL+=fields;
+
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
   };
