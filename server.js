@@ -251,7 +251,7 @@ app.use('/notification', notifyRouter);
 
 app.get('/success',function(req,res,next){
   w1.notify(successHandler, errorHandler)(req, res, next);
-  res.sendStatus(200);
+ //res.sendStatus(200);
 });
 app.get('/fail',function(req,res){
 });
