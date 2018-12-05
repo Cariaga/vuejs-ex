@@ -244,11 +244,13 @@ let successHandler = (data, callback) => {
 };
  
 let errorHandler = (err, meta) => {
+  console.log("failed");
     // you can save something to a file, db e.t.c.
     // operation must be synchronous or in the background 
 };
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
+
 
 app.get('/success',function(req,res,next){
   res.sendStatus(200);
