@@ -253,8 +253,8 @@ app.get('/success',function(req,res,next){
   //w1.notify(successHandler, errorHandler)(req, res, next);
  //res.sendStatus(200);
  var host = req.headers.host;
-var origin = req.headers.origin;
- res.send(host+"|"+origin);
+var referer = req.headers.referer;
+ res.send(host+"|"+referer);
 });
 app.get('/fail',function(req,res){
 });
