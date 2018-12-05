@@ -50,10 +50,10 @@ module.exports = function (app) {
                   LoginHistoryModel.Login2(_UserName,_Password,function(response){
                     const user = {
                       UserAccountID:response[0].UserAccountID,
-                      UserName: response[0].AccountType,
-                      Privilege: response[0].Privilege,
                       UserName: response[0].UserName,
-                      Commission: response[0].Commission
+                      Privilege: response[0].Privilege,
+                      Commission: response[0].Commission,
+                      AccountType:response[0].AccountType
                     }
                     jwt.sign({
                       user
