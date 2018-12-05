@@ -252,10 +252,11 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 });
 
 
-app.post('/success', function (req, res) {
+app.get('/success', function (req, res) {
   console.log("Respnsed "+req.body.MyShopParam3);
   res.send("Respnsed "+req.body.MyShopParam3);
 });
+
 app.get('/fail', function (req, res) {
   console.log(req)
   res.sendStatus(501);
