@@ -270,10 +270,25 @@ app.get('/success', function (req, res) {
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
 
+
+const W1 = require("walletone");
+ 
+let defaultData = {
+    WMI_SUCCESS_URL: 'http://example.com/success/',
+    WMI_FAIL_URL: 'http://example.com/fail/',
+};
+
+let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
+let merchantId = "190887657209";
+
+const w1 = new W1(secretKey, merchantId, defaultData);
+
+
 let successHandler = (data, callback) => {
   // data === req.body    
   // save payment info in db e.t.c    
   // callback() or return promise
+  console.log("Sucess");
 };
 
 let errorHandler = (err, meta) => {
@@ -293,29 +308,28 @@ app.get('/fail', function (req, res) {
   res.sendStatus(501);
 });
 
-app.get('/Pay', function (req, res) {
+app.get('/Pay2', function (req, res) {
+  // Create form data
+  let fields = w1.getFormFields({
+      WMI_PAYMENT_AMOUNT: '10',
+      WMI_CURRENCY_ID: '840',
+      WMI_DESCRIPTION: 'Payment Order',
+      WMI_CUSTOMER_EMAIL: 'user@example.com',
+      WMI_AUTO_LOCATION: "1"
+      // ...and other options
+  });
 
-  const W1 = require("walletone");
- 
-let defaultData = {
-    WMI_SUCCESS_URL: 'http://example.com/success/',
-    WMI_FAIL_URL: 'http://example.com/fail/',
-};
- 
-let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
-let merchantId = "190887657209";
- 
-const w1 = new W1(secretKey, merchantId, defaultData);
- 
-// Create form data
-let fields = w1.getFormFields({
-    WMI_PAYMENT_AMOUNT: '10',
-    WMI_CURRENCY_ID: '643',
-    WMI_DESCRIPTION: 'Recharge',
-    WMI_CUSTOMER_EMAIL: 'user@example.com',
-    WMI_AUTO_LOCATION: "1"
-    // ...and other options
-});
+  var createInput = function(name, value){
+    return '<input name="' + name + '" value="' + value + '">';
+  };
+  let resultfeild="";
+  for(let i=0;i<fields.length;++i){
+    resultfeild+=createInput(fields[i].name,fields[i].value);
+  }
+  console.log(resultfeild);
+  let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
+  res.send(form);
+
 });
 
 
@@ -372,7 +386,12 @@ Object.keys(fields).sort(comparator).forEach(function(name){
 inputs += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
 //console.log("Decode "+iconv.decode(values + key, 'win1251'));
 
-  res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
+
+res.send(inputs);
+
+
+
+  //res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + inputs + '<input type="submit"></form>');
 });
 /*
 app.get('/Api/v1', Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
