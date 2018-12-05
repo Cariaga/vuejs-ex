@@ -330,8 +330,11 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   for(let i=0;i<fields.length;++i){
     resultfeild+=createInput(fields[i].name,fields[i].value);
   }
-  resultfeild += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
+  console.log("Payment Url "+w1.getPaymentUrl());
+  console.log("Payment Url "+w1.getPaymentUrl());
   
+  resultfeild += createInput('WMI_SIGNATURE', crypto.createHash('md5').update(iconv.encode(values + key, 'win1251')).digest('base64'));
+
   console.log(resultfeild);
   let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
   res.send(form);
