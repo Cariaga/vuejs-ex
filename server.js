@@ -216,7 +216,7 @@ const w1 = new W1(secretKey, merchantId, defaultData);
 
 
 app.get('/success',function(req,res){
-
+  res.send(req.header.origin+" "+req.header.host);
 });
 
 app.get('/fail',function(req,res){
