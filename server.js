@@ -180,6 +180,7 @@ function test() {
 
 
 app.get('/', function (req, res) {
+  console.log("Begining of route");
   res.sendStatus(200);
 });
 //--Login End
