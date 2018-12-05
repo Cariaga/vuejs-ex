@@ -203,23 +203,6 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 
-/*
-app.get('/success', function (req, res) {
-  let found =false;
-  for(let i =0;i<PaymentNumbers.length;++i){
-    if(PaymentNumbers[i]==req.params.MyShopParam3){
-      console.log("Respnsed "+req.params.MyShopParam3);
-      found=true;
-      delete PaymentNumbers[i];
-      res.send("Respnsed "+req.params.MyShopParam3);
-      break;
-    }
-  }
-  if(found==false){
-    res.sendStatus(404);
-  }
-});*/
-
 
 const W1 = require("walletone");
 
@@ -232,22 +215,30 @@ let defaultData = {
   WMI_SUCCESS_URL: 'http://example.com/success/',
   WMI_FAIL_URL: 'http://example.com/fail/',
 };
-
 const w1 = new W1(secretKey, merchantId, defaultData);
-
+app.get('/Pay',function(req,res){
 // Create form data
-let fields = w1.getFormFields({
-  WMI_PAYMENT_AMOUNT: '10',
-  WMI_CURRENCY_ID: '643',
-  WMI_DESCRIPTION: 'Recharge',
-  WMI_CUSTOMER_EMAIL: 'user@example.com',
-  WMI_AUTO_LOCATION: "1"
-  // ...and other options
+  let fields = w1.getFormFields({
+    WMI_PAYMENT_AMOUNT: '10',
+    WMI_CURRENCY_ID: '840',
+    WMI_DESCRIPTION: 'Recharge',
+    WMI_CUSTOMER_EMAIL: 'user@example.com',
+    WMI_AUTO_LOCATION: "1"
+    // ...and other options
+  });
+  console.log(fields);  // returns sorted fields and signature too
+  var createInput = function(name, value){
+    return '<input name="' + name + '" value="' + value + '">';
+  };
+  let result = "";
+  for(var i =0;i<fields.length;++i){
+    result+=createInput(fields[i].name,fields[i].value);
+  }
+  res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + result + '<input type="submit"></form>');
 });
 
-console.log(fields);  // returns sorted fields and signature too
+const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
- 
 let successHandler = (data, callback) => {
     // data === req.body    
     // save payment info in db e.t.c    
@@ -258,7 +249,6 @@ let errorHandler = (err, meta) => {
     // you can save something to a file, db e.t.c.
     // operation must be synchronous or in the background 
 };
- 
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
 
