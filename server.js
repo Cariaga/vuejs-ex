@@ -325,7 +325,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
     WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
     WMI_CUSTOMER_EMAIL: 'user@example.com',
     WMI_AUTO_LOCATION: "1",
-    WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
+    WMI_SUCCESS_URL: "https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/",
     WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
     // ...and other options
   };
@@ -334,6 +334,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   
   let fields = w1.getFormFields(feildvalues);
   signature = w1.getSignature(fields);
+  console.log("Sig "+signature);
   feildvalues.WMI_SUCCESS_URL=feildvalues.WMI_SUCCESS_URL+signature;
 
   var createInput = function(name, value){
