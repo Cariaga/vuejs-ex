@@ -306,7 +306,7 @@ app.get('/fail', function (req, res) {
   res.sendStatus(501);
 });
 
-app.get('/success', function (req, res) {
+app.get('/success', w1.notify(successHandler, errorHandler), function (req, res) {
  // console.log(req)
   res.sendStatus(200);
 });
