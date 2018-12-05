@@ -37,6 +37,8 @@ var ExpressBrute = require('express-brute'),
 
 */
  
+
+
 let successHandler = (data, callback) => {
   // data === req.body    
   // save payment info in db e.t.c    
@@ -52,6 +54,9 @@ console.log("failed");
 
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
+
+
+
 
 
 app.use(function (req, res, next) {
