@@ -274,7 +274,7 @@ const notifyRouter = busboy.extend(express.Router());
 const W1 = require("walletone");
  
 let defaultData = {
-    WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
+    WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/notification/',
     WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
 };
 
@@ -299,7 +299,7 @@ let errorHandler = (err, meta) => {
 notifyRouter.get('/', w1.notify(successHandler, errorHandler));
 
 
-app.use('/success', notifyRouter);
+app.use('/notification', notifyRouter);
 
 
 
