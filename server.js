@@ -300,15 +300,15 @@ app.get('/fail', function (req, res) {
   console.log(req);
   res.sendStatus(501);
 });
-app.get('/success', function  (req, res, next) {
-  
-  res.send(req.params);
+let signature ="";
+
+app.get('/success/:Data', function  (req, res, next) {
+  res.send(w1.checkSignature(Data,signature));
 });
 app.get('/getsignature', function  (req, res, next) {
   res.send(signaturelist);
  // res.send(req.params);
 });
-let signaturelist =[];
 app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   // Create form data
   let DepositAmount = req.params.DepositAmount;
@@ -326,14 +326,10 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
     // ...and other options
   };
 
-  let computedsignature = w1.getSignature(fields);
-  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+computedsignature;
+  //let computedsignature = w1.getSignature(fields);
+  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+feildvalues;
   feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
-
-  signaturelist.push(computedsignature);
-
   let fields = w1.getFormFields(feildvalues);
-
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
   };
@@ -344,6 +340,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   console.log("Payment Url "+w1.getPaymentUrl());
   console.log("signature  "+w1.getSignature(fields));
 
+  signature = w1.getSignature(fields);
 
 
   console.log(resultfeild);
