@@ -317,7 +317,8 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   let PaymentNumber = getRandomInt(0,10000);
   w1.setAlgorithm("md5");
   let feildvalues ={
-   
+    WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
+    WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
     WMI_PAYMENT_AMOUNT: DepositAmount,
     WMI_PAYMENT_NO:PaymentNumber,
     WMI_CURRENCY_ID: '840',
@@ -329,8 +330,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   };
 
   //let computedsignature = w1.getSignature(fields);
-  feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
-  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/';
+  
   let fields = w1.getFormFields(feildvalues);
   signature = w1.getSignature(fields);
   feildvalues.WMI_SUCCESS_URL=feildvalues.WMI_SUCCESS_URL+signature;
