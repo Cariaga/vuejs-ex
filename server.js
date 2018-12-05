@@ -253,8 +253,16 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 app.get('/success', function (req, res) {
-  console.log("Respnsed "+req.params.MyShopParam3);
-  res.send("Respnsed "+req.params.MyShopParam3);
+  let found =false;
+  for(let i =0;i<PaymentNumbers.length;++i){
+    if(PaymentNumbers[i]==req.params.MyShopParam3){
+      console.log("Respnsed "+req.params.MyShopParam3);
+      found=true;
+      res.send("Respnsed "+req.params.MyShopParam3);
+      break;
+    }
+  }
+  
 });
 
 app.get('/fail', function (req, res) {
@@ -263,10 +271,14 @@ app.get('/fail', function (req, res) {
 });
 var iconv = require('iconv-lite');
 var crypto = require('crypto');
+let PaymentNumbers=[];
+
 app.get('/Pay', function (req, res) {
   let Amount = req.params.Amount;
 var key = '484639536c5d766e767c5734474f455a5b344337305348635f5966';
  let PaymentNumber = getRandomInt(0,10000);
+ PaymentNumbers.push(PaymentNumber);
+
 var fields = {
   WMI_MERCHANT_ID: '190887657209',
   WMI_PAYMENT_AMOUNT: '100.00',
