@@ -307,8 +307,8 @@ app.get('/fail', function (req, res) {
 });
 
 app.get('/success', function (req, res) {
-  console.log(req)
-  res.sendStatus(501);
+ // console.log(req)
+  res.sendStatus(200);
 });
 
 app.get('/Pay2', function (req, res) {
