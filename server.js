@@ -65,7 +65,7 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 // configuration =================
 
 app.use(express.static('AdminSocket'));
-app.use(express.static('WalletOne'));
+//app.use(express.static('WalletOne'));
 
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/Webgl'));
@@ -204,7 +204,7 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 const W1 = require("walletone");
 const busboy = require('express-busboy');
-const notifyRouter = busboy.extend(express.Router());
+const notifyRouter = busboy.extend(routes);
 
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
@@ -251,16 +251,11 @@ let errorHandler = (err, meta) => {
     // operation must be synchronous or in the background 
 };
 
-notifyRouter.post('/notice',function(req,res){
 
-  console.log(req);
 
-});
-
-/*
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
-*/
+
 
 app.get('/success',function(req,res,next){
   res.sendStatus(200);
