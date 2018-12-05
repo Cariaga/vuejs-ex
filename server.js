@@ -266,7 +266,6 @@ app.get('/success', function (req, res) {
   if(found==false){
     res.sendStatus(404);
   }
-
 });
 
 app.get('/fail', function (req, res) {
