@@ -331,24 +331,31 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   };
 
   //let computedsignature = w1.getSignature(fields);
+
+  let fields =undefined;
+  fields =  w1.getFormFields(feildvalues);
   
-  let fields = w1.getFormFields(feildvalues);
-  signature = w1.getSignature(fields);
-  console.log("Sig "+signature);
   feildvalues.WMI_SUCCESS_URL=feildvalues.WMI_SUCCESS_URL+w1.getSignature(fields);
 
+
+  
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
   };
   let resultfeild="";
-  for(let i=0;i<fields.length;++i){
-    resultfeild+=createInput(fields[i].name,fields[i].value);
-  }
-  console.log("Payment Url "+w1.getPaymentUrl());
+  setTimeout(myFunction, 3000);
 
-  console.log(resultfeild);
-  let form = '<form method="POST" action='+w1.getPaymentUrl()+' accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
-  res.send(form);
+  function myFunction(){
+    for(let i=0;i<fields.length;++i){
+      resultfeild+=createInput(fields[i].name,fields[i].value);
+    }
+    console.log("Payment Url "+w1.getPaymentUrl());
+  
+    console.log(resultfeild);
+    let form = '<form method="POST" action='+w1.getPaymentUrl()+' accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
+    res.send(form);
+  }
+
 });
 
 
