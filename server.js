@@ -329,10 +329,11 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   };
 
   //let computedsignature = w1.getSignature(fields);
+  feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
+  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/';
   let fields = w1.getFormFields(feildvalues);
   signature = w1.getSignature(fields);
-  feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
-  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+signature;
+  feildvalues.WMI_SUCCESS_URL=feildvalues.WMI_SUCCESS_URL+signature;
 
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
