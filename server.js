@@ -225,6 +225,8 @@ app.get('/Pay',function(req,res){
     WMI_AUTO_LOCATION: "1"
     // ...and other options
   });
+  w1.setAlgorithm('md5');
+  
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
   };
