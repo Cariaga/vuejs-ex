@@ -53,7 +53,7 @@ let successHandler = (data, callback) => {
   if(data.WMI_ORDER_STATE=="Accepted"){
     console.log("Accepted Payment Process here ");
     console.log("PayAmount "+data.WMI_PAYMENT_AMOUNT);
-    console.log("Reciver UUID "+data.UserAccountID);
+    console.log("Reciver UUID "+data.UserAccountID);//custom parameter
   }
 
   callback();
