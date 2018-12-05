@@ -258,11 +258,15 @@ app.get('/success', function (req, res) {
     if(PaymentNumbers[i]==req.params.MyShopParam3){
       console.log("Respnsed "+req.params.MyShopParam3);
       found=true;
+      delete PaymentNumbers[i];
       res.send("Respnsed "+req.params.MyShopParam3);
       break;
     }
   }
-  
+  if(found==false){
+    res.sendStatus(404);
+  }
+
 });
 
 app.get('/fail', function (req, res) {
