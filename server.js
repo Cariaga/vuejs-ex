@@ -304,13 +304,17 @@ app.get('/success', function  (req, res, next) {
   
   res.send(req.params);
 });
-
+app.get('/getsignature', function  (req, res, next) {
+  res.send(signaturelist);
+ // res.send(req.params);
+});
+let signaturelist =[];
 app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   // Create form data
   let DepositAmount = req.params.DepositAmount;
   let PaymentNumber = getRandomInt(0,10000);
   w1.setAlgorithm("md5");
-
+  
   let fields = w1.getFormFields({
       WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
       WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
@@ -334,6 +338,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   console.log("Payment Url "+w1.getPaymentUrl());
   console.log("signature  "+w1.getSignature(fields));
 
+  signaturelist.push(w1.getSignature(fields));
 
   console.log(resultfeild);
   let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
