@@ -302,8 +302,8 @@ app.get('/fail', function (req, res) {
   res.sendStatus(501);
 });
 app.get('/success', function  (req, res, next) {
-  w1.notify(successHandler, errorHandler)(req, res, next);
-  res.sendStatus(200);
+  
+  res.send(req.params);
 });
 
 app.get('/Pay2', function (req, res) {
