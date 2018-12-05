@@ -314,19 +314,27 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   let DepositAmount = req.params.DepositAmount;
   let PaymentNumber = getRandomInt(0,10000);
   w1.setAlgorithm("md5");
-  
-  let fields = w1.getFormFields({
-      WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
-      WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
-      WMI_PAYMENT_AMOUNT: DepositAmount,
-      WMI_PAYMENT_NO:PaymentNumber,
-      WMI_CURRENCY_ID: '840',
-      WMI_DESCRIPTION: 'Recharge',
-      WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
-      WMI_CUSTOMER_EMAIL: 'user@example.com',
-      WMI_AUTO_LOCATION: "1"
-      // ...and other options
-  });
+  let feildvalues ={
+   
+    WMI_PAYMENT_AMOUNT: DepositAmount,
+    WMI_PAYMENT_NO:PaymentNumber,
+    WMI_CURRENCY_ID: '840',
+    WMI_DESCRIPTION: 'Recharge',
+    WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
+    WMI_CUSTOMER_EMAIL: 'user@example.com',
+    WMI_AUTO_LOCATION: "1"
+    // ...and other options
+  };
+
+  let computedsignature = w1.getSignature(fields);
+  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+computedsignature;
+  feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
+
+  signaturelist.push(computedsignature);
+
+
+
+  let fields = w1.getFormFields(feildvalues);
 
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
@@ -338,7 +346,7 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   console.log("Payment Url "+w1.getPaymentUrl());
   console.log("signature  "+w1.getSignature(fields));
 
-  signaturelist.push(w1.getSignature(fields));
+
 
   console.log(resultfeild);
   let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
