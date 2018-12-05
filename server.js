@@ -265,7 +265,7 @@ var crypto = require('crypto');
 app.get('/Pay', function (req, res) {
   let Amount = req.params.Amount;
 var key = '484639536c5d766e767c5734474f455a5b344337305348635f5966';
- let PaymentNumber = 0;
+ let PaymentNumber = getRandomInt(0,10000);
 var fields = {
   WMI_MERCHANT_ID: '190887657209',
   WMI_PAYMENT_AMOUNT: '100.00',
