@@ -20,7 +20,7 @@ var cors = require('cors');
 const W1 = require("walletone");
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
-
+var beautify = require('json-beautify');
 //app.use(sqlinjection);// disable because it blocks token access
 //to enable CORS required for json request get put post and http cross
 //https must be enabled
@@ -51,7 +51,7 @@ let successHandler = (data, callback) => {
   // save payment info in db e.t.c    
   // callback() or return promise
   callback();
-  console.log("Should be called "+data);
+  console.log("Should be called "+beautify(data,null ,2 ,100));
 };
 
 let errorHandler = (err, meta) => {
@@ -741,7 +741,7 @@ app.get('/download/:Name', function(req, res){
 
 // listen (start app with node server.js) ======================================
 //server.listen(port, ip);// no loger needed
-var beautify = require('json-beautify');
+
 /*console.log('Server running on http://%s:%s', ip, port);
 console.log("--------process informationz  for openshift---------");
 console.log(beautify(process.env, null, 2, 100));
