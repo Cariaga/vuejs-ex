@@ -332,11 +332,9 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   let fields = w1.getFormFields(feildvalues);
   signature = w1.getSignature(fields);
 
-  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+fields;
+  feildvalues.WMI_SUCCESS_URL = 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/'+signature;
   feildvalues.WMI_FAIL_URL= 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/';
   
-
-  console.log(fields);
 
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
