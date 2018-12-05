@@ -17,7 +17,8 @@ const url = require('url');
 const stringify = require('json-stringify');
 const Enumerable = require('linq');
 var cors = require('cors');
-
+const W1 = require("walletone");
+const busboy = require('express-busboy');
 
 //app.use(sqlinjection);// disable because it blocks token access
 //to enable CORS required for json request get put post and http cross
@@ -202,8 +203,7 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 
-const W1 = require("walletone");
-const busboy = require('express-busboy');
+
 const notifyRouter = busboy.extend(routes);
 
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
