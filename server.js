@@ -316,7 +316,7 @@ app.get('/Pay2', function (req, res) {
       WMI_PAYMENT_AMOUNT: '10',
       WMI_PAYMENT_NO:PaymentNumber,
       WMI_CURRENCY_ID: '840',
-      WMI_DESCRIPTION: 'BASE64:' + new Buffer("Payment for order #"+PaymentNumber+" in MYSHOP.com").toString('base64'),
+      WMI_DESCRIPTION: 'Recharge',
       WMI_EXPIRED_DATE: '2020-12-31T23:59:59',
       WMI_CUSTOMER_EMAIL: 'user@example.com',
       WMI_AUTO_LOCATION: "1"
