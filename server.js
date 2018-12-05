@@ -251,16 +251,16 @@ let errorHandler = (err, meta) => {
     // operation must be synchronous or in the background 
 };
 
-app.post('/notice',function(req,res){
+notifyRouter.post('/notice',function(req,res){
 
   console.log(req);
-  
+
 });
 
-
+/*
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
-
+*/
 
 app.get('/success',function(req,res,next){
   res.sendStatus(200);
