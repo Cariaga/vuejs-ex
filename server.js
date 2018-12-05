@@ -205,9 +205,6 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 const W1 = require("walletone");
-
-
-
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
 
@@ -243,6 +240,7 @@ let successHandler = (data, callback) => {
     // data === req.body    
     // save payment info in db e.t.c    
     // callback() or return promise
+    console.log("Should be called");
 };
  
 let errorHandler = (err, meta) => {
