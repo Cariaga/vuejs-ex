@@ -314,6 +314,7 @@ app.get('/success', function (req, res) {
 app.get('/Pay2', function (req, res) {
   // Create form data
   let PaymentNumber = getRandomInt(0,10000);
+  w1.setAlgorithm("md5");
   
   let fields = w1.getFormFields({
       WMI_PAYMENT_AMOUNT: '10',
