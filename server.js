@@ -179,10 +179,7 @@ function test() {
 //--testing for season based authentication END
 
 
-app.get('/', function (req, res) {
-  console.log("Begining of route");
-  res.sendStatus(200);
-});
+
 //--Login End
 
 app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
@@ -206,7 +203,6 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 const W1 = require("walletone");
-const uuid = require("uuid/v4");
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
 let defaultData = {
@@ -214,15 +210,6 @@ let defaultData = {
   WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
 };
 const w1 = new W1(secretKey, merchantId, defaultData);
-
-
-app.get('/success',function(req,res){
-  res.send(req.header.origin+" "+req.header.host);
-});
-
-app.get('/fail',function(req,res){
-
-});
 
 app.get('/Pay',function(req,res){
 
@@ -262,7 +249,11 @@ let errorHandler = (err, meta) => {
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
 
-
+app.get('/success',function(req,res){
+  res.send(req.header.origin+" "+req.header.host);
+});
+app.get('/fail',function(req,res){
+});
 
 
 
