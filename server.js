@@ -45,18 +45,21 @@ let defaultData = {
 };
 const w1 = new W1(secretKey, merchantId, defaultData);
 
-
 let successHandler = (data, callback) => {
   // data === req.body    
   // save payment info in db e.t.c    
   // callback() or return promise
-  callback();
+  //console.log("Should be called "+beautify(data,null ,2 ,100));
   if(data.WMI_ORDER_STATE=="Accepted"){
     console.log("Accepted Payment Process here ");
     console.log("PayAmount "+data.WMI_PAYMENT_AMOUNT);
+    console.log("Reciver UUID "+data.UserAccountID);
   }
-  console.log("Should be called "+beautify(data,null ,2 ,100));
+
+  callback();
 };
+
+
 
 let errorHandler = (err, meta) => {
 console.log("failed "+err);
@@ -244,7 +247,8 @@ app.get('/Pay',function(req,res){
     WMI_CURRENCY_ID: '840',
     WMI_DESCRIPTION: 'Recharge',
     WMI_CUSTOMER_EMAIL: 'user@example.com',
-    WMI_AUTO_LOCATION: "1"
+    WMI_AUTO_LOCATION: "1",
+    UserAccountID:"SomeUUID"
     // ...and other options
   });
   w1.setAlgorithm('md5');
