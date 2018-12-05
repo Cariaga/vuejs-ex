@@ -249,8 +249,9 @@ let errorHandler = (err, meta) => {
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
 
-app.get('/success',function(req,res){
-  res.send(req.header.origin+" "+req.header.host);
+app.get('/success',function(req,res,next){
+  w1.notify(successHandler, errorHandler)(req, res, next);
+  res.sendStatus(200);
 });
 app.get('/fail',function(req,res){
 });
