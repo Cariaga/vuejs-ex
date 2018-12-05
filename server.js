@@ -334,7 +334,8 @@ app.get('/Pay2/DepositAmount/:DepositAmount', function (req, res) {
   let fields = w1.getFormFields(feildvalues);
 
   feildvalues.WMI_SUCCESS_URL+=fields;
-
+  console.log(fields);
+  
   var createInput = function(name, value){
     return '<input name="' + name + '" value="' + value + '">';
   };
