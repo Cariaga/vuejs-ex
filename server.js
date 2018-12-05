@@ -267,49 +267,42 @@ app.get('/success', function (req, res) {
     res.sendStatus(404);
   }
 });*/
+
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
 
-
 const W1 = require("walletone");
- 
 let defaultData = {
     WMI_SUCCESS_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/success/',
     WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
 };
-
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
-
 const w1 = new W1(secretKey, merchantId, defaultData);
-
-
 let successHandler = (data, callback) => {
   // data === req.body    
   // save payment info in db e.t.c    
   // callback() or return promise
-  console.log("Sucess");
+  console.log("Must finish here");
+  
 };
-
 let errorHandler = (err, meta) => {
   // you can save something to a file, db e.t.c.
   // operation must be synchronous or in the background 
 };
 
+/*
 notifyRouter.get('/', w1.notify(successHandler, errorHandler));
+app.use('/notification', notifyRouter);*/
 
 
-app.use('/notification', notifyRouter);
 
 app.get('/fail', function (req, res) {
-  console.log(req)
+  console.log(req);
   res.sendStatus(501);
 });
-
-app.get('/success', function (req, res,next) {
- // console.log(req)
- w1.notify(successHandler, errorHandler)(req, res, next);
- 
+app.get('/success', function  (req, res, next) {
+  w1.notify(successHandler, errorHandler)(req, res, next);
   res.sendStatus(200);
 });
 
@@ -339,7 +332,6 @@ app.get('/Pay2', function (req, res) {
   console.log(resultfeild);
   let form = '<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">'+resultfeild+'<input type="submit"></form>';
   res.send(form);
-
 });
 
 
