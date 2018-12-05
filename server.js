@@ -250,6 +250,14 @@ let errorHandler = (err, meta) => {
     // you can save something to a file, db e.t.c.
     // operation must be synchronous or in the background 
 };
+
+app.post('/notice',function(req,res){
+
+  console.log(req);
+  
+});
+
+
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
 
