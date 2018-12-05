@@ -250,8 +250,11 @@ notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
 
 app.get('/success',function(req,res,next){
-  w1.notify(successHandler, errorHandler)(req, res, next);
+  //w1.notify(successHandler, errorHandler)(req, res, next);
  //res.sendStatus(200);
+ var host = req.headers.host;
+var origin = req.headers.origin;
+ res.send(host+"|"+origin);
 });
 app.get('/fail',function(req,res){
 });
