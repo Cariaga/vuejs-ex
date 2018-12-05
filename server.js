@@ -233,9 +233,6 @@ let defaultData = {
   WMI_FAIL_URL: 'http://example.com/fail/',
 };
 
-let secretKey = "key";
-let merchantId = "000000001";
-
 const w1 = new W1(secretKey, merchantId, defaultData);
 
 // Create form data
