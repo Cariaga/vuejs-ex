@@ -248,16 +248,17 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
 
 
 
-app.get('/Pay',function(req,res){
-
+app.get('/Pay/:Amount/:UserAccountID',function(req,res){
+  let Amount =  req.params.Amount;
+  let UserAccountID =  req.params.UserAccountID;
 // Create form data
   let fields = w1.getFormFields({
-    WMI_PAYMENT_AMOUNT: '10',
+    WMI_PAYMENT_AMOUNT: Amount,
     WMI_CURRENCY_ID: '840',
     WMI_DESCRIPTION: 'Recharge',
     WMI_CUSTOMER_EMAIL: 'user@example.com',
     WMI_AUTO_LOCATION: "1",
-    UserAccountID:"0f69ad02-12de-49f0-a228-313a4997b046"
+    UserAccountID:UserAccountID
     // ...and other options
   });
   w1.setAlgorithm('md5');
