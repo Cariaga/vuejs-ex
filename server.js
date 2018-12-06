@@ -54,6 +54,8 @@ let successHandler = (data, callback) => {
     console.log("Accepted Payment Process here ");
     console.log("PayAmount "+data.WMI_PAYMENT_AMOUNT);
     console.log("Reciver UUID "+data.UserAccountID);//custom parameter
+
+    
   }
 
   callback();
@@ -217,6 +219,9 @@ function test() {
 //--testing for season based authentication END
 
 
+app.get('/',function (req, res) {
+  res.status(200);
+});
 
 //--Login End
 
