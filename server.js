@@ -265,13 +265,13 @@ app.get('/Pay/:Amount/:UserAccountID',function(req,res){
   w1.setAlgorithm('md5');
   
   var createInput = function(name, value){
-    return '<input name="' + name + '" value="' + value + '">';
+    return '<input name="' + name + '" value="' + value + '" type="hidden">';
   };
   let result = "";
   for(var i =0;i<fields.length;++i){
     result+=createInput(fields[i].name,fields[i].value);
   }
-  res.send('<form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">' + result + '<input type="submit"></form>');
+  res.send('<body onload="document.frm1.submit()"> <form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8" name="frm1">' + result + '<input type="submit"></form> </body>');
 });
 
 
