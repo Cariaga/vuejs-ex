@@ -247,9 +247,7 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 
-
-
-app.get('/Pay/:Amount/:UserAccountID',function(req,res){
+app.get('/Pay/UserAccountID/:UserAccountID/Amount/:Amount/',function(req,res){
   let Amount =  req.params.Amount;
   let UserAccountID =  req.params.UserAccountID;
 // Create form data
