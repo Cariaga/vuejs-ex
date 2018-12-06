@@ -51,11 +51,15 @@ let successHandler = (data, callback) => {
   // callback() or return promise
   //console.log("Should be called "+beautify(data,null ,2 ,100));
   if(data.WMI_ORDER_STATE=="Accepted"){
-    console.log("Accepted Payment Process here ");
+    console.log("----Accepted Payment Process here -------");
     console.log("PayAmount "+data.WMI_PAYMENT_AMOUNT);
     console.log("Reciver UUID "+data.UserAccountID);//custom parameter
+    let query = "UPDATE `sampledb`.`players` SET `Money` = (SELECT Money FROM sampledb.useraccounts as UA join sampledb.players as PL on PL.UserAccountID=UA.UserAccountID where UA.UserAccountID='"+data.UserAccountID+"')+50 WHERE (`UserAccountID` = '"+data.UserAccountID+"');";
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
 
-    
+      }
+    });
   }
 
   callback();
@@ -253,7 +257,7 @@ app.get('/Pay',function(req,res){
     WMI_DESCRIPTION: 'Recharge',
     WMI_CUSTOMER_EMAIL: 'user@example.com',
     WMI_AUTO_LOCATION: "1",
-    UserAccountID:"SomeUUID"
+    UserAccountID:"0f69ad02-12de-49f0-a228-313a4997b046"
     // ...and other options
   });
   w1.setAlgorithm('md5');
