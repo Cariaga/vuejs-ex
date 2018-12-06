@@ -271,7 +271,7 @@ app.get('/Pay/:Amount/:UserAccountID',function(req,res){
   for(var i =0;i<fields.length;++i){
     result+=createInput(fields[i].name,fields[i].value);
   }
-  res.send('<body onload="document.frm1.submit()"> <form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8" name="frm1">' + result + '<input type="submit"></form> </body>');
+  res.send('<body onload="document.frm1.submit()"> <form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8" name="frm1">' + result + '</form> </body>');
 });
 
 
