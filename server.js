@@ -54,7 +54,7 @@ let successHandler = (data, callback) => {
     console.log("----Accepted Payment Process here -------");
     console.log("PayAmount "+data.WMI_PAYMENT_AMOUNT);
     console.log("Reciver UUID "+data.UserAccountID);//custom parameter
-    let query = "UPDATE `sampledb`.`players` SET `Money` = (SELECT Money FROM sampledb.useraccounts as UA join sampledb.players as PL on PL.UserAccountID=UA.UserAccountID where UA.UserAccountID='"+data.UserAccountID+"')+50 WHERE (`UserAccountID` = '"+data.UserAccountID+"');";
+    let query = "UPDATE `sampledb`.`players` as PL2 SET PL2.`Money` = (select pl.Money from sampledb.players as pl join sampledb.useraccounts as ua on ua.UserAccountID=pl.UserAccountID where ua.UserAccountID='"+data.UserAccountID+"')+"+parseInt(data.WMI_PAYMENT_AMOUNT)+" WHERE (PL2.`UserAccountID` = '"+data.UserAccountID+"');";
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
 
