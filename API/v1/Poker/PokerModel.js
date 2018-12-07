@@ -15,11 +15,15 @@ module.exports.PokerHandCompute = function PokerHandCompute(PlayerHand, TotalCar
             EvaluatedHand.push(new PokerHand(AllCombinations[i].join().replace(/\,/ig, " "))); //join = tostring() // replacing "," to " " and i = ignore case sensitive, g = global
         }
         let scores = sortBy(EvaluatedHand, 'score');
-       /* console.log("----------------");
-        for(let i =0;i<scores.length;++i){
-            console.log(scores[i]);
-        }
-        console.log("----------------");*/
-        let bestScore = scores[0];//[0] will return the best score
-        return bestScore;
+
+        console.log("----------------");
+
+
+        //console.log(scores);
+        console.log("----------------");
+        let result= {};//[0] will return the best score
+        result.BestScore =  scores[0];
+        result.scores = scores;
+        
+        return result;
 }

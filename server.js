@@ -36,7 +36,7 @@ var ExpressBrute = require('express-brute'),
   });
 
 */
- 
+
 let secretKey = "484639536c5d766e767c5734474f455a5b344337305348635f5966";
 let merchantId = "190887657209";
 let defaultData = {
@@ -44,7 +44,6 @@ let defaultData = {
   WMI_FAIL_URL: 'https://tester-holdem-server.4b63.pro-ap-southeast-2.openshiftapps.com/fail/',
 };
 const w1 = new W1(secretKey, merchantId, defaultData);
-
 let successHandler = (data, callback) => {
   // data === req.body    
   // save payment info in db e.t.c    
@@ -62,12 +61,8 @@ let successHandler = (data, callback) => {
       }
     });
   }
-
   callback();
 };
-
-
-
 let errorHandler = (err, meta) => {
 console.log("failed "+err);
   // you can save something to a file, db e.t.c.
@@ -77,10 +72,6 @@ console.log("failed "+err);
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
 
-
-
-
-
 app.use(function (req, res, next) {
   
   // Website you wish to allow to connect
@@ -89,18 +80,13 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   // Request methods you wish to allow
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,OPTIONS');
-
   // Request headers you wish to allow
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Headers', 'Content-Type', 'X-Auth-Token');
-
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.header('Access-Control-Allow-Credentials', true);
-
-
-
     next();
 });
 app.options('*', cors());//to support webgl request and resolve post routing to option 
