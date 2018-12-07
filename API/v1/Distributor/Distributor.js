@@ -192,8 +192,8 @@ module.exports = function (app) { //SELECTION
 
     AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeUserAccountID, res);
   });
-  app.post('/Api/v1/Distributor/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserAccountID = req.body.UserAccountID;
+  app.post('/Api/v1/Distributor/Add', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserAccountID = uuidv4();
     let Name = req.body.Name;
     let PhoneNumber = req.body.PhoneNumber;
     let UserName = req.body.UserName;

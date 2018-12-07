@@ -49,9 +49,9 @@ module.exports.SalesShop = function SalesShop(DistributorID, Limit, Offset, call
 
 module.exports.SalesPaginationCount = function SalesPaginationCount(index, callback) {
     let page = [
-      'sales_headoffice',
+      'sales_shop',
       'sales_distributor',
-      'sales_shop'
+      'sales_headoffice'
     ]
 
     let query ="SELECT count(*) as ID FROM sampledb."+page[index];

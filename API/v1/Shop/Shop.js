@@ -75,7 +75,7 @@ module.exports = function (app) { //MODIFY
   });
   app.post('/Api/v1/Shop/Add/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
 
-    let UserAccountID = req.body.UserAccountID;
+    let UserAccountID = uuidv4();
     let Name = req.body.Name;
     let PhoneNumber = req.body.PhoneNumber;
     let UserName = req.body.UserName;
