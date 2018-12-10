@@ -156,7 +156,8 @@ function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commissio
                   }
                 });
                   }else{
-                    res.send({UserNameAlreadyExist:true});
+                    let status = 409;
+                    res.status(status).end(http.STATUS_CODES[status]);
                   }
                 });
 

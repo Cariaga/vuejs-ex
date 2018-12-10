@@ -22,12 +22,12 @@ module.exports = function (app) {
                 if(!isNullOrEmpty(Limit)){
                     if(!isNullOrEmpty(Offset)){
                         SalesModel.SalesHeadOffice(ParentID, Limit, Offset, function(response){
-                            if (response != undefined) {
+                            // if (response != undefined) {
                                 res.send(response);
-                            } else {
-                                let status = 404;
-                                res.status(status).end(http.STATUS_CODES[status]);
-                            }
+                            // } else {
+                                // let status = 404;
+                                // res.status(status).end(http.STATUS_CODES[status]);
+                            // }
                         });
                     }else{  
                         res.send({

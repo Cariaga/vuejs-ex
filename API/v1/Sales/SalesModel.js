@@ -9,6 +9,7 @@ module.exports.SalesHeadOffice = function SalesHeadOffice(OHOID, Limit, Offset, 
     let query = "SELECT * FROM sampledb.sales_headoffice WHERE ParentID = \'"+_OHOID+"\' limit "+_Limit +" offset "+_Offset;
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
+      console.log('get head office list response : ' + response)
         if (response != undefined) {
             callback(response);
           } else {
