@@ -110,8 +110,8 @@ module.exports.DistributorUpdate = function DistributorUpdate(UserAccountID, Hea
       let result = await Q1();
       let result2 = await Q2();
       let result3 = await Q3();
-      console.log('Done');
-      callback('done');
+      console.log('add distributor successful');
+      callback(true);
     }
     RunAsync();
   }

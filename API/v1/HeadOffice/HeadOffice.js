@@ -122,9 +122,15 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                       // res.send(response[0].UserAccountID);
                       let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID
                         HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
-                          
-                          res.send(response);
-                          console.log('addheadoffice response' + JSON.stringify(response))
+                          if(response!=undefined){
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                            console.log('addheadoffice response' + JSON.stringify(response))
+                          }else{
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
+                            console.log('addheadoffice response' + JSON.stringify(response))
+                          }
                         });
                     }
                     else {

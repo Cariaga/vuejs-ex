@@ -223,12 +223,12 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
                             let HeadOfficeID = response[0].HeadOfficeID;
                             DistributorModel.RegisterDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeID, function (response) {
                               if (response != undefined) {
-                                res.send(response);
+                                let status = 200;
+                                res.status(status).end(http.STATUS_CODES[status]);
                               }
                               else {
-                                res.send({
-                                  RegisterDistributorFailed: true
-                                });
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]);
                               }
                             });
                           }

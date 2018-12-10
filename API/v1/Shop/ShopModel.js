@@ -70,8 +70,8 @@ module.exports.RegisterShop = function RegisterShop(UserAccountID, Name, PhoneNu
     
     let result2 = await Q2();
     let result3 = await Q3();
-    console.log('Done');
-    callback('done');
+    console.log('add shop successful');
+    callback(true);
   }
   RunAsync();
 }
