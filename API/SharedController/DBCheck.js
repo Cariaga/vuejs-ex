@@ -1,7 +1,7 @@
 
 let DBConnect = require("../SharedController/DBConnect");
 
-
+var isNullOrEmpty = require('is-null-or-empty');
 
   module.exports.CheckWithdrawPassword = function(UserAccountID,Password,callback){
     let _UserAccountID = UserAccountID;
@@ -181,7 +181,7 @@ let DBConnect = require("../SharedController/DBConnect");
     console.log(query);
     DBConnect.DBConnect(query,function(response){
       // if it was undefined it has never been blocked
-      if(response==undefined){
+      if(!isNullOrEmpty(_UserName)){
         callback(false);
       }
       else if(response[0].newStatus=="Released"){//has been blocked before but now released

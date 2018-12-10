@@ -19,3 +19,17 @@ module.exports.InGamePlayerWins = function InGamePlayerWins(UserAccountID, callb
         }
       });
 }
+
+
+module.exports.InGamePlayersWinLoseRake = function InGamePlayersWinLoseRake(UserAccountIDList, callback) {
+  let _UserAccountIDList = UserAccountIDList;
+  let query ="select * from Player_winlose where UserAccountID IN("+_UserAccountIDList+"); ";
+  DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}

@@ -28,3 +28,34 @@ module.exports = function (app) {
         });
     });
 }
+
+module.exports = function (app) {
+    app.get('/Api/v1/PlayerWins/UserAccounts/:UserAccounts/', function (req, res) {
+
+        let UserAccounts = req.params.UserAccounts;
+        console.log(UserAccounts);
+        let UserAccountIDs = UserAccounts.split(',');
+        for(let i=0;i<UserAccountIDs.length;++i){
+            UserAccountIDs[i]= "\'"+UserAccountIDs[i]+"\'";
+        }
+
+        InGamePlayerWinsModel.InGamePlayersWinLoseRake(UserAccountIDs,function(response){
+            res.send(response);
+        });
+    /*    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+            if (response == true) {
+                InGamePlayerWinsModel.InGamePlayerWins(UserAccountID, function (response) {
+                    if (response != undefined) {
+                        res.send(response);
+                    } else {
+                        let status = 404;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                    }
+                });
+            } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
+            }
+        });*/
+    });
+}
