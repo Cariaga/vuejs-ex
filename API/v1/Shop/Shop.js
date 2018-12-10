@@ -137,12 +137,12 @@ function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commissio
                         var DistributorID = response[0].DistributorID;
                         ShopModel.RegisterShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorID, function (response) {
                           if (response != undefined) {
-                            res.send(response);
+                            let status = 200;
+                            res.status(status).end(http.STATUS_CODES[status]);
                           }
                           else {
-                            res.send({
-                              RegisterShopFailed: true
-                            });
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
                           }
                         });
                       }

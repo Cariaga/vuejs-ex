@@ -64,8 +64,8 @@ module.exports.RegisterHeadOffice = function RegisterHeadOffice(UserAccountID,Na
     let result = await Q1();
     let result2 = await Q2();
     let result3 = await Q3();
-    console.log('Done');
-    callback('done');
+    console.log('add head office successful');
+    callback(true);
   }
   RunAsync();
   
