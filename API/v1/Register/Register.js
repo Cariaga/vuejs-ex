@@ -70,7 +70,7 @@ module.exports = function (app) {
                         DBCheck.isUserNameExist(UserName, function (response) { //already exist checking
                           if (response == false) {
                             console.log("isUserNameExist check false");
-                            RegisterModel.ShopIDOfUserName(ShopUserName, function (response) {
+                            RegisterModel.ShopRecommendation(ShopUserName, function (response) {
                               let ShopID = response[0].ShopID;
                               console.log("ShopID of UserAccount "+ShopID);
                              console.log("ShopIDOfUserAccountID");
