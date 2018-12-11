@@ -233,7 +233,10 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
                             });
                           }
                           else {
-                            res.send({ HeadOfficeUserAccountIDNotFound: true });
+                            // res.send({ HeadOfficeUserAccountIDNotFound: true });
+                            // bad request useraccountid not found
+                            let status = 400;
+                            res.status(status).end(http.STATUS_CODES[status]);
                           }
                         });
                       }
@@ -243,7 +246,9 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
                       }
                     });
                   }else{
-                    res.send({UserNameAlreadyExist:true});
+                    // res.send({UserNameAlreadyExist:true});
+                    let status = 409;
+                    res.status(status).end(http.STATUS_CODES[status]);
                   }
                 });
   
@@ -251,44 +256,65 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
 
               }
               else {
-                res.send({
-                  HeadOfficeIDMissing: true
-                });
+                // res.send({
+                //   HeadOfficeIDMissing: true
+                // });
+                // empty request = bad request
+                let status = 400;
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             }
             else {
-              res.send({
-                CommissionMissing: true
-              });
+              // res.send({
+              //   CommissionMissing: true
+              // });
+              // empty request = bad request
+              let status = 400;
+              res.status(status).end(http.STATUS_CODES[status]);
             }
           }
           else {
-            res.send({
-              PasswordMissing: true
-            });
+            // res.send({
+            //   PasswordMissing: true
+            // });
+            // empty request = bad request
+            let status = 400;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         }
         else {
-          res.send({
-            UserNameMissing: true
-          });
+          // res.send({
+          //   UserNameMissing: true
+          // });
+          // empty request = bad request
+          let status = 400;
+          res.status(status).end(http.STATUS_CODES[status]);
         }
       }
       else {
-        res.send({
-          PhoneNumberMissing: true
-        });
+        // res.send({
+        //   PhoneNumberMissing: true
+        // });
+        // empty request = bad request
+        let status = 400;
+        res.status(status).end(http.STATUS_CODES[status]);
       }
     }
     else {
-      res.send({
-        NameMissing: true
-      });
+      // res.send({
+      //   NameMissing: true
+      // });
+      // empty request = bad request
+      let status = 400;
+      res.status(status).end(http.STATUS_CODES[status]);
     }
   }
   else {
-    res.send({
-      UserAccountIDMissing: true
-    });
+    // res.send({
+    //   UserAccountIDMissing: true
+    // });
+    // empty request = bad request
+    let status = 400;
+    res.status(status).end(http.STATUS_CODES[status]);
   }
 }

@@ -115,74 +115,98 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
             if (!isNullOrEmpty(Commission)) {
               DBCheck.isUserNameExist(UserName,function(response){
                 if(response==false){
-              DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-                if (response == false) {
-                  HeadOfficeModel.IDOperatingHeadOffice(OperatingHeadOfficeUserAccountID, function (response) {
-                    if (response != undefined) {
-                      // res.send(response[0].UserAccountID);
-                      let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID
-                        HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
-                          if(response!=undefined){
-                            let status = 200;
-                            res.status(status).end(http.STATUS_CODES[status]);
-                            console.log('addheadoffice response' + JSON.stringify(response))
-                          }else{
-                            let status = 404;
-                            res.status(status).end(http.STATUS_CODES[status]);
-                            console.log('addheadoffice response' + JSON.stringify(response))
-                          }
-                        });
-                    }
-                    else {
-                      res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
-                    }
-                  });
-                }
-                else {
-                  res.send({
-                    UserAccountIDExist: true
-                  });
-                }
-              });
+                DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                  if (response == false) {
+                    HeadOfficeModel.IDOperatingHeadOffice(OperatingHeadOfficeUserAccountID, function (response) {
+                      if (response != undefined) {
+                        // res.send(response[0].UserAccountID);
+                        let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID
+                          HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
+                            if(response!=undefined){
+                              let status = 200;
+                              res.status(status).end(http.STATUS_CODES[status]);
+                            }else{
+                              let status = 404;
+                              res.status(status).end(http.STATUS_CODES[status]);
+                            }
+                          });
+                      }
+                      else {
+                        // res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
+                        // operating head office useraccountid not found, http bad request
+                        let status = 400;
+                        res.status(status).end(http.STATUS_CODES[status]);
+                      }
+                    });
+                  }
+                  else {
+                    // useraccountid already exist, http conflict
+                    let status = 409;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                    // res.send({
+                    //   UserAccountIDExist: true
+                    // });
+                  }
+                });
                 }else{
-                  res.send({UserNameAlreadyExist:true});
+                  // username already exist, http conflict
+                  let status = 409;
+                  res.status(status).end(http.STATUS_CODES[status]);
                 }
               });
 
             }
             else {
-              res.send({
-                UserAccountIDMissing: true
-              });
+              // res.send({
+              //   CommissionMissing: true
+              // });
+              // empty request catch 400 = bad request
+              let status = 400;
+              res.status(status).end(http.STATUS_CODES[status]);
             }
           }
           else {
-            res.send({
-              NameMissing: true
-            });
+            // res.send({
+            //   PasswordMissing: true
+            // });
+            // empty request catch
+            let status = 400;
+            res.status(status).end(http.STATUS_CODES[status]);
           }
         }
         else {
-          res.send({
-            PhoneNumberMissing: true
-          });
+          // res.send({
+          //   UserNameMissing: true
+          // });
+          // empty request catch
+          let status = 400;
+          res.status(status).end(http.STATUS_CODES[status]);
         }
       }
       else {
-        res.send({
-          UserNameMissing: true
-        });
+        // res.send({
+        //   PhoneNumberMissing: true
+        // });
+        // empty request catch
+        let status = 400;
+        res.status(status).end(http.STATUS_CODES[status]);
       }
     }
     else {
-      res.send({
-        PasswordMissing: true
-      });
+      // res.send({
+      //   NameMissing: true
+      // });
+      // empty request catch
+      let status = 400;
+      res.status(status).end(http.STATUS_CODES[status]);
     }
   }
   else {
-    res.send({
-      CommissionMissing: true
-    });
+    // res.send({
+    //   UserAccountIDMissing: true
+    // });
+    // empty request catch
+    let status = 400;
+    res.status(status).end(http.STATUS_CODES[status]);
   }
 }
