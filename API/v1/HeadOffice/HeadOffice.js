@@ -114,7 +114,6 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
           if (!isNullOrEmpty(Password)) {
             if (!isNullOrEmpty(Commission)) {
               DBCheck.isUserNameExist(UserName,function(response){
-                console.log('isUserName exist response xxxxxxxxxxxxxxxxxxxxxxxxxxx : ' + response)
                 if(response==false){
                 DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                   if (response == false) {
@@ -124,28 +123,33 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                         let OperatingHeadOfficeID = response[0].OperatingHeadOfficeID; //don't res.send it will think its a status code but its actually an ID
                           HeadOfficeModel.RegisterHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeID, function (response) {
                             if(response!=undefined){
-                              console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ' + JSON.stringify(response))
                               let status = 200;
                               res.status(status).end(http.STATUS_CODES[status]);
                             }else{
                               let status = 404;
                               res.status(status).end(http.STATUS_CODES[status]);
-                              console.log('addheadoffice response' + JSON.stringify(response))
                             }
                           });
                       }
                       else {
-                        res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
+                        // res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
+                        // operating head office useraccountid not found, http bad request
+                        let status = 400;
+                        res.status(status).end(http.STATUS_CODES[status]);
                       }
                     });
                   }
                   else {
-                    res.send({
-                      UserAccountIDExist: true
-                    });
+                    // useraccountid already exist, http conflict
+                    let status = 409;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                    // res.send({
+                    //   UserAccountIDExist: true
+                    // });
                   }
                 });
                 }else{
+                  // username already exist, http conflict
                   let status = 409;
                   res.status(status).end(http.STATUS_CODES[status]);
                 }
@@ -156,6 +160,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
               // res.send({
               //   CommissionMissing: true
               // });
+              // empty request catch 400 = bad request
               let status = 400;
               res.status(status).end(http.STATUS_CODES[status]);
             }
@@ -164,6 +169,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
             // res.send({
             //   PasswordMissing: true
             // });
+            // empty request catch
             let status = 400;
             res.status(status).end(http.STATUS_CODES[status]);
           }
@@ -172,6 +178,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
           // res.send({
           //   UserNameMissing: true
           // });
+          // empty request catch
           let status = 400;
           res.status(status).end(http.STATUS_CODES[status]);
         }
@@ -180,6 +187,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
         // res.send({
         //   PhoneNumberMissing: true
         // });
+        // empty request catch
         let status = 400;
         res.status(status).end(http.STATUS_CODES[status]);
       }
@@ -188,6 +196,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
       // res.send({
       //   NameMissing: true
       // });
+      // empty request catch
       let status = 400;
       res.status(status).end(http.STATUS_CODES[status]);
     }
@@ -196,6 +205,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
     // res.send({
     //   UserAccountIDMissing: true
     // });
+    // empty request catch
     let status = 400;
     res.status(status).end(http.STATUS_CODES[status]);
   }
