@@ -184,3 +184,17 @@ module.exports.ShopIDOfUserAccountID = function ShopIDOfUserAccountID(UserAccoun
     }
   });
 }
+module.exports.ShopIDOfUserName = function ShopIDOfUserName(UserName,callback) {
+  let _UserName = UserName;
+  let query2 = "select ShopID from sampledb. where UserName=\'"+_UserName+"\';";
+  console.log(query2);
+  DBConnect.DBConnect(query2, function (response) {
+    if (response != undefined) {
+      console.log(response);
+
+      callback(response);
+    } else {
+      //callback(undefined);
+    }
+  });
+}

@@ -41,7 +41,7 @@ module.exports = function (app) {
     let SecurityCode = req.body.SecurityCode;
 
     let AccountHolder = req.body.AccountHolder;
-    let ShopID = req.body.ShopID;
+    let ShopUserName = req.body.ShopID;
     let UserAccountID = uuidv4();
     let ValidKey = uuidv4();
     let AccessID = "1";
@@ -50,12 +50,12 @@ module.exports = function (app) {
     //newer version
     console.log("register test");
 
-    Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, res);
+    Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopUserName, res);
   });
 
 
-  function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopUserAccountID, res) {
-    console.log("ShopUserAccountID "+ShopUserAccountID);
+  function Register(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopUserName, res) {
+    console.log("ShopUserName "+ShopUserName);
     if (!isNullOrEmpty(ScreenName)) {
       if (!isNullOrEmpty(UserName)) {
         if (!isNullOrEmpty(Password)) {
@@ -65,17 +65,17 @@ module.exports = function (app) {
                 if (!isNullOrEmpty(AccountNumber)) {
                   if (!isNullOrEmpty(SecurityCode)) {
                     if (!isNullOrEmpty(AccountHolder)) {
-                      if (!isNullOrEmpty(ShopUserAccountID)) {
+                      if (!isNullOrEmpty(ShopUserName)) {
 
                         DBCheck.isUserNameExist(UserName, function (response) { //already exist checking
                           if (response == false) {
                             console.log("isUserNameExist check false");
-                            RegisterModel.ShopIDOfUserAccountID(ShopUserAccountID, function (response) {
+                            RegisterModel.ShopIDOfUserName(ShopUserName, function (response) {
                               let ShopID = response[0].ShopID;
                               console.log("ShopID of UserAccount "+ShopID);
                              console.log("ShopIDOfUserAccountID");
                               if(response!=undefined){
-                                console.log("ShopID "+ShopID+" ShopUserAccountID "+ShopUserAccountID);
+                                console.log("ShopID "+ShopID+" ShopUserName "+ShopUserName);
                                 RegisterModel.RegisterAccount2(UserAccountID, AccessID, UserName, Password, ScreenName, ValidKey, Email, PhoneNumber, BankName, AccountNumber, SecurityCode, Valid, Expiration, AccountHolder, ShopID, function (response) {
                                   if (response != undefined) {
                                     // res.send(response);
