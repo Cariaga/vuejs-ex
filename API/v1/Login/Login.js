@@ -100,7 +100,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(_Password)) {
         DBCheck.isUserNameExist(_UserName,function(response){
           if(response==true){
-            DBCheck.isUserNameBlocked(_UserName,function(response){
+           DBCheck.isUserNameBlocked(_UserName,function(response){
               if(response==false){
 
 
@@ -112,6 +112,7 @@ module.exports = function (app) {
                     UserName: response[0].UserName,
                     Commission: response[0].Commission
                   }
+                  console.log("Logining in");
                   jwt.sign({
                     user
                   }, 'secretkey', {
@@ -123,7 +124,7 @@ module.exports = function (app) {
                   });
                 });
 
-              }else{
+             }else{
                 res.send({UserNameBlocked:true});
               }
             });
