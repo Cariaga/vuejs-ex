@@ -6,7 +6,21 @@ var fuzzyEqual = require('fuzzy-equal');
 const Combinatorics = require('js-combinatorics');
 module.exports = function (app) {
     //https://janrueval.herokuapp.com/poker/"QC","4C","5S","7C","KH","2S","6C"
-    app.get('/Api/v1/Poker/:Hand0?/:Hand1?/:Hand2?/:Hand3?/:Hand4?/:Hand5?/:Hand6?/:Hand7?/:Hand8?/:Hand9?'/*, Security.rateLimiterMiddleware,Security.verifyToken,*/ ,(req, res) => {
+    app.get('/Api/v1/Poker/:Hand0?/:Hand1?/:Hand2?/:Hand3?/:Hand4?/:Hand5?/:Hand6?/:Hand7?/:Hand8?/:Hand9?', Security.rateLimiterMiddleware,Security.verifyToken, (req, res) => {
+      //res.setHeader('Content-Type', 'application/json');
+      let BestPlayerScores=[];
+      let TotalCards  = 5;
+      for (var propName in req.params) {
+        if (req.params.hasOwnProperty(propName)&&req.params[propName]!=undefined) {
+           // console.log(propName, req.params[propName]);
+              let bestScore = PokerModel.PokerHandCompute(req.params[propName], TotalCards);
+              BestPlayerScores.push(bestScore);
+        }
+      }
+      res.send(BestPlayerScores);
+    });
+    
+    app.get('/Api/v1/PokerBalancer/:Hand0?/:Hand1?/:Hand2?/:Hand3?/:Hand4?/:Hand5?/:Hand6?/:Hand7?/:Hand8?/:Hand9?'/*, Security.rateLimiterMiddleware,Security.verifyToken,*/ ,(req, res) => {
 
         res.setHeader('Content-Type', 'application/json');
         let BestPlayerScores=[];
@@ -14,51 +28,64 @@ module.exports = function (app) {
         for (var propName in req.params) {
           if (req.params.hasOwnProperty(propName)&&req.params[propName]!=undefined) {
              // console.log(propName, req.params[propName]);
-                let bestScore = PokerModel.PokerHandCompute(req.params[propName], TotalCards);
+                let bestScore = PokerModel.PokerHandCompute2(req.params[propName], TotalCards);
                 BestPlayerScores.push(bestScore);
           }
         }
+        let BestPreFlopByPlayer=[];
+        let BestIndex=0;
         for (var propName in req.params) {//main loop
           if (req.params.hasOwnProperty(propName)&&req.params[propName]!=undefined) {
              // console.log(propName, req.params[propName]);
-               let bestScore = PokerModel.PokerHandCompute(req.params[propName], TotalCards);
-               //--do recommend on current selected player if we want it to win
-               let PlayerToMakeWin = InTableCard(req.params[propName], bestScore);//what ever we select in the main loop is the selected best player we want to increase chance on pre flop
+             BestIndex++;
+            // if(BestIndex==1){
+                let bestScore = PokerModel.PokerHandCompute2(req.params[propName], TotalCards);
                 //--do recommend on current selected player if we want it to win
-                console.log("Player to make win");
-               console.log(PlayerToMakeWin);
-               //---do recommend on other players
+                let PlayerToMakeWin = InTableCard(req.params[propName], bestScore);//what ever we select in the main loop is the selected best player we want to increase chance on pre flop
+                  //--do recommend on current selected player if we want it to win
+                  console.log("Player to make win");
+                // console.log(PlayerToMakeWin);
+                //---do recommend on other players
+                PlayerToMakeWin.BestPlayer=true;
+                
+                PlayerToMakeWin.BestIndex =BestIndex;
+                BestPreFlopByPlayer.push(PlayerToMakeWin);
+          
+                for (var propName2 in req.params) {//main loop
+                if (req.params.hasOwnProperty(propName2)&&req.params[propName2]!=undefined) 
+                  {
+                   
+                    let bestScore2 = PokerModel.PokerHandCompute2(req.params[propName2], TotalCards);
+                
+                    
+                    if(bestScore.BestScore.score!=bestScore2.BestScore.score){//exclude self to make lose because we don't want to loop over the same player from to make win
+                    console.log("Conted");
+                                        //This is the suggested cards for non winners to make sure the selected wins if not atleast bet on preflop 
+                    let SuggestedForNonWinningPlayers = {};
+                    SuggestedForNonWinningPlayers.A = PlayerToMakeWin.PreFlopCardRecommended[0];
+                    SuggestedForNonWinningPlayers.B = PlayerToMakeWin.PreFlopCardRecommended[1];
+                    SuggestedForNonWinningPlayers.C = PlayerToMakeWin.PreFlopCardRecommended[2];
+                    SuggestedForNonWinningPlayers.D = PlayerToMakeWin.TurnCardRecommended;
+                    SuggestedForNonWinningPlayers.E = PlayerToMakeWin.RiverRecommended;
+                  // console.log("Player to make lose from ");
+                    
+                    SuggestForNonWinners(req.params[propName2], bestScore2,SuggestedForNonWinningPlayers,function(response){
+                      if(response!=undefined){
+                        BestPreFlopByPlayer.push(response);
+                      }
+                    });
 
-               for (var propName2 in req.params) {//main loop
-
-              
-               if (req.params.hasOwnProperty(propName2)&&req.params[propName2]!=undefined) 
-                {
-                  let bestScore2 = PokerModel.PokerHandCompute(req.params[propName2], TotalCards);
-                  if(req.params[propName2]!=req.params[propName]){//exclude self to make lose because we don't want to loop over the same player from to make win
-                                      /*This is the suggested cards for non winners to make sure the selected wins if not atleast bet on preflop */
-                  let SuggestedForNonWinningPlayers = {};
-                  SuggestedForNonWinningPlayers.A = PlayerToMakeWin.PreFlopCardRecommended[0];
-                  SuggestedForNonWinningPlayers.B = PlayerToMakeWin.PreFlopCardRecommended[1];
-                  SuggestedForNonWinningPlayers.C = PlayerToMakeWin.PreFlopCardRecommended[2];
-                  SuggestedForNonWinningPlayers.D = PlayerToMakeWin.TurnCardRecommended;
-                  SuggestedForNonWinningPlayers.E = PlayerToMakeWin.RiverRecommended;
-                  console.log("Player to make lose");
-                 console.log(ComparerTest(req.params[propName2], bestScore2,SuggestedForNonWinningPlayers));
+                  // console.log();
+                    }else{
+                    // console.log("Self")
+                    }
                   }
-
-                 
-
-                }
-
-               }
-
-               //--do recommend on other players
-
-             
+               // }
+                //--do recommend on other players
+            }
           }
         }
-
+        res.send(BestPreFlopByPlayer);
 
 
       //  let FirstCards =req.params.Hand0;
@@ -67,7 +94,7 @@ module.exports = function (app) {
      //   console.log(InTableCard(FirstCards, BestPlayerScores));
       //  console.log(InTableCard(FirstCards01, BestPlayerScores));
 
-        res.send(beautify(BestPlayerScores, null, 2, 100));
+       // res.send(beautify(BestPlayerScores, null, 2, 100)); // deprecated
       });
     
 
@@ -90,13 +117,13 @@ module.exports = function (app) {
  }
 
 
-function ComparerTest(PlayerCard, BestPlayerScores,SuggestedForNonWinningPlayers) {//Recomend a preflop for player with the highest chance on a card
+function SuggestForNonWinners(PlayerCard, BestPlayerScores,SuggestedForNonWinningPlayers,callback) {//Recomend a preflop for player with the highest chance on a card
   let ObjectFirstCards = PlayerCard.replace(/['"]+/g, '').split(",").slice(0, 5); //In Table Card
   let PlayerCardAtHand = PlayerCard.replace(/['"]+/g, '').split(",").slice(5, 7);
 
   let FlopChances = [];
 
-
+ 
    // for (let i = 0; i < BestPlayerScores.length; ++i) {
 
 
@@ -127,10 +154,9 @@ function ComparerTest(PlayerCard, BestPlayerScores,SuggestedForNonWinningPlayers
         PreFlopCardRecommended: PreFlop.split(','),
         TurnCardRecommended: TurnCard,
         RiverRecommended: River,
-        PreFlopChance: comparison.similarity //the higher the similarity the more likly its safe to bet
+        PreFlopChance: comparison.similarity, //the higher the similarity the more likly its safe to bet
+        BestPlayer:false
       });
-
-
       /* console.log(
                  "Best Card : "+BestPlayerScores[i].BestScore.toString().split(" ")+
                  " Player Card At Hand: "+PlayerCardAtHand+
@@ -143,7 +169,7 @@ function ComparerTest(PlayerCard, BestPlayerScores,SuggestedForNonWinningPlayers
   
   let FlopChanceSorted = FlopChances.sort((obj1, obj2) => obj1.PreFlopChance - obj2.PreFlopChance).reverse();
   // let HighestChanceOnPreFlop = FlopChanceSorted[0];
-  return FlopChanceSorted[0];
+  callback(FlopChanceSorted[0]);
   /*for (let k = 0; k < FlopChanceSorted.length; ++k) {
     console.log(FlopChanceSorted[k].PlayerCardAtHand + " " + FlopChanceSorted[k].PreFlopChance);
   }*/
