@@ -20,6 +20,16 @@ var cors = require('cors');
 const W1 = require("walletone");
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
+var Redis = require('ioredis');
+
+var redis = new Redis(new Redis({ enableOfflineQueue: false,
+  host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
+   port: process.env.REDIS_PORT_6379_TCP_PORT||6379//,
+  // name: 'mymaster',
+  // no_ready_check: true,
+  // auth_pass:'eastcoast'
+  }));
+
 var beautify = require('json-beautify');
 //app.use(sqlinjection);// disable because it blocks token access
 //to enable CORS required for json request get put post and http cross
@@ -382,6 +392,14 @@ wss.on('connection', (ws, req) => {
                   if(DepositUUID!=""){
                     console.log("Deposit UUID"+DepositUUID);
                     
+                    redis.set('foo', 'bar');
+                    redis.get('foo', function (err, result) {
+                      console.log("Already Approved");
+                    });
+
+
+                
+
                     var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
 
                     console.log(query2);
