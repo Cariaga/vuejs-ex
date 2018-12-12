@@ -29,7 +29,7 @@ module.exports.InGameDeposit = function InGameDeposit(UserAccountID, Name, Amoun
 
   function TransactionInfos() {
     let query =
-      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`) VALUES (\'" + _UserTransactionID + "\', now());";
+      "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `RequestedDateTime`,`AccountHolder`) VALUES (\'" + _UserTransactionID + "\', now(),'"+_Name+"');";
     return new Promise(resolve => {
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
