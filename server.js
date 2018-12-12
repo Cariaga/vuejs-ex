@@ -598,7 +598,7 @@ wss.on('connection', (ws, req) => {
       }
     } else {
       //possibly a diffrent message type
-      console.log("some message " + event.data);
+      console.log("some message : " + event.data);
     }
 
   }
