@@ -389,6 +389,8 @@ wss.on('connection', (ws, req) => {
 
                         client.Money = (parseInt(client.Money)+parseInt(response[0].Amount));
                         console.log("New Client Money "+(parseInt(client.Money)+parseInt(response[0].Amount)));
+                      }else{
+                        console.log('May have executed before the api route of aproval');
                       }
                     });
 
