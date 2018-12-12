@@ -31,6 +31,7 @@
 
         function WebSocketMessage() {
             if ("WebSocket" in window) {
+
                 var MessageReceiver = "622875a1-fd51-48a4-a700-c384ba5a382d";
                 var Amount ="";//for pop up message in game only
                 var DepositUUID ="c8dafb54-6ecb-4189-b725-19f783acf88f";
@@ -38,7 +39,9 @@
                 var message = "{\"Type\":\"NotifyPlayerDeposit\",\"MessageReceiver\" :\"" + MessageReceiver +
                     "\",\"DepositNotice\":\"" + DepositNotice + "\",\"DepositUUID\":\"" + DepositUUID + "\"}";
                     console.log("Notify Player");
+                    
                 ws.send(message);
+
             } else {
                 alert("WebSocket NOT supported by your Browser!");
             }

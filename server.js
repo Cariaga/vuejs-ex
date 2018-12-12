@@ -381,15 +381,17 @@ wss.on('connection', (ws, req) => {
                   let DepositUUID = Object.DepositUUID;
                   if(DepositUUID!=""){
                     console.log("Deposit UUID"+DepositUUID);
-                 
+                    
                     var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID='"+DepositUUID+"';";
                     console.log(query2);
                     DBConnect.DBConnect(query2, function (response) {
                       if (response != undefined) {
+
                         client.Money = (parseInt(client.Money)+parseInt(response[0].Amount));
                         console.log("New Client Money "+(parseInt(client.Money)+parseInt(response[0].Amount)));
                       }
                     });
+
                   }else{
                     console.log("UUID EMpty");
                   }
