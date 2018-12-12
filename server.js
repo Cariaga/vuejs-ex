@@ -382,7 +382,8 @@ wss.on('connection', (ws, req) => {
                   if(DepositUUID!=""){
                     console.log("Deposit UUID"+DepositUUID);
                     
-                    var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID='"+DepositUUID+"';";
+                    var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
+
                     console.log(query2);
                     DBConnect.DBConnect(query2, function (response) {
                       if (response != undefined) {
