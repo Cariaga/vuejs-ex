@@ -211,6 +211,13 @@ require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
 
 
 
+
+
+
+
+
+
+
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
   RegisterModel.RegisterAccount('UserAccountID' + Math.random(), 'AccessID', 'UserName', 'Password', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', function (response) {
@@ -221,6 +228,7 @@ function test() {
 
 
 app.get('/',function (req, res) {
+  redis.set('foo', 'bar');
   res.status(200);
 });
 
@@ -228,6 +236,9 @@ app.get('/',function (req, res) {
 
 app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
   res.send('pick version');
+  redis.get('foo', function (err, result) {
+    console.log(result);
+  });
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
@@ -391,12 +402,8 @@ wss.on('connection', (ws, req) => {
                   let DepositUUID = Object.DepositUUID;
                   if(DepositUUID!=""){
                     console.log("Deposit UUID"+DepositUUID);
-                    
-                    redis.set('foo', 'bar');
-                    redis.get('foo', function (err, result) {
-                      console.log("Already Approved");
-                    });
 
+                   
 
                 
 
