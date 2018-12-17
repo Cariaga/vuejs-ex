@@ -23,8 +23,11 @@ const notifyRouter = busboy.extend(express.Router());
 var Redis = require('ioredis');
 
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
+  no_ready_check: true,
+  auth_pass: 'eastcoast',
   host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
    port: process.env.REDIS_PORT_6379_TCP_PORT||6379//,
+ 
   // name: 'mymaster',
   // no_ready_check: true,
   // auth_pass:'eastcoast'
@@ -447,10 +450,12 @@ wss.on('connection', (ws, req) => {
         });
       }
       else if (Object.Type == "Transfer") { //event trasfer room
+        console.log("Transfered Money "+ Object.TransferAmount/*JSON.stringify(Object,null,2)*/);
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) {
+                  console.log("UserAccountID : "+client.UserAccountID+ " Matched "+Object.UserAccountID);
                   client.Money = parseInt(client.Money) - parseInt(Object.TransferAmount); //add back the money to the player
             }
           }
