@@ -24,7 +24,7 @@ module.exports.LowRank1 = function LowRank1(Limit, Offset, LowRank, callback) {
     let _Limit = Limit;
     let _LowRank = LowRank;
     
-    let query = "select * from calculateManage_"+_LowRank+" LIMIT "+_Limit+" OFFSET "+_Offset;
+    let query = "select * from calculateManage_"+_LowRank+" LIMIT "+_Limit+" OFFSET "+_Offset ;
                 
     DBConnect.DBConnect(query, function (response) {
         console.log(query)

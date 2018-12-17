@@ -95,7 +95,7 @@ module.exports = function (app) { //MODIFY
   }
   //INSERT
   // Security.verifyToken,
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount', Security.rateLimiterMiddleware,/*Security.cache.route({ expire: 5  }),*/ function (req, res) { //ok
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount', Security.rateLimiterMiddleware, Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
