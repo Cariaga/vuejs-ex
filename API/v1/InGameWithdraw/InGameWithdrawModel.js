@@ -6,13 +6,10 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amount, WithdrawPassword, callback) {
+module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amount, callback) {
     let _UserAccountID = UserAccountID;
     let _Amount = parseInt(Amount);
-    let _Bank = Bank;
-    let _AccountNumber = AccountNumber;
-    let _Name = Name;
-    let _WithdrawPassword = WithdrawPassword;
+
     let _ContactNumber = ContactNumber;
     let _UserTransactionID= uuidv4();
     
