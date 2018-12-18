@@ -15,11 +15,7 @@ module.exports = function (app) {
   app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/WithdrawPassword/:WithdrawPassword/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
-    let Bank = req.params.Bank;
-    let AccountNumber = req.params.AccountNumber;
-    let Name = req.params.Name;
     let WithdrawPassword = req.params.WithdrawPassword;//now is user password
-    let ContactNumber = req.params.ContactNumber;
     Request2(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,'0',res);
   });
   app.post('/Api/v1/WithdrawHistory/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
