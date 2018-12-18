@@ -25,11 +25,7 @@ module.exports = function (app) {
   function Request2(UserAccountID,Amount,WithdrawPassword,res){
     console.log("UserAccountID "+UserAccountID);
     console.log("Amount "+Amount);
-    console.log("Bank "+Bank);
-    console.log("AccountNumber "+AccountNumber);
-    console.log("Name "+Name);
-    console.log("WithdrawPassword "+WithdrawPassword);
-    console.log("ContactNumber "+ContactNumber);
+    console.log("WithdrawPassword "+WithdrawPassword);;
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(Amount)&&Amount>0){
             if(!isNullOrEmpty(WithdrawPassword)){
