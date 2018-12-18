@@ -103,21 +103,26 @@ var isNullOrEmpty = require('is-null-or-empty');
     });
   }
   //used by inquire
-  module.exports.isUserAccountIDUserNameBlocked = function isUserAccountIDUserNameBlocked(UserAccountID,UserName, callback) {
-    let _UserAccountID = UserAccountID;
+  module.exports.isUserAccountIDUserNameBlocked = function isUserAccountIDUserNameBlocked(UserName,ScreenName, callback) {
     let _UserName = UserName;
+    let _ScreenName = ScreenName;
     let query =
-    'SELECT p.UserAccountID, p.ScreenName,bl.UserName, IFNULL(bl.Status,"Fresh") as newStatus'
-    +' FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID'
-    +' HAVING  p.UserAccountID = "\'+_UserAccountID+\'" AND ScreenName ="\'+ _UserName +\'"AND newStatus != "Blocked"';
+    'SELECT p.UserAccountID, p.ScreenName, uap.UserName, IFNULL(bl.Status,"Fresh") as newStatus'
+    +' FROM players p' 
+    +' LEFT JOIN useraccounts uap on p.UserAccountID = uap.UserAccountID'
+    +' LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID'
+    +' HAVING  uap.UserName = "'+_UserName+'" AND ScreenName = "'+ _ScreenName +'"AND newStatus != "Blocked"';
+    console.log('blacklist query: '+query)
     DBConnect.DBConnect(query,function(response){
       if(response){
-        if(response[0].UserAccountID==_UserAccountID){
+        // console.log('query has response XXXXXXXXXXXXXXXXXXX')
+        if(response[0].UserName==_UserName){
           console.log(response);
           callback(true);
         }
       }else{
         callback(false);
+        // console.log('query has no response XXXXXXXXXXXXXXXXXXX')
       }
     });
   }

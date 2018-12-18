@@ -137,7 +137,8 @@ module.exports = function (app) {
       });
     }
   }
-  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  // Security.rateLimiterMiddleware,
+  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value', Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
 
@@ -147,32 +148,40 @@ module.exports = function (app) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     BlackListSearch(Column,Value,res);
+
   });
-  function BlackListUserAccount(UserAccountID){
-    if (!isNullOrEmpty(UserAccountID)) {
-      DBCheck.isUserAccountIDUserNameBlocked(UserAccountID, UserName, function (response) {
-        if (response != undefined) {
-          res.send(response);
-        } else {
-          let status = 404;
-          res.status(status).end(http.STATUS_CODES[status]);
-        }
-      });
+  function BlackListUserAccount(UserName, ScreenName, res){
+    if (!isNullOrEmpty(UserName)) {
+      if(!isNullOrEmpty(ScreenName)){
+        DBCheck.isUserAccountIDUserNameBlocked(UserName, ScreenName, function (response) {
+          if (response != undefined) {
+            res.send(response);
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+        });
+      }else{
+        res.send({
+          ScreenNameIsEmpty: true
+        });
+      }
     } else {
       res.send({
-        InvalidColumn: true
+        UserNameIsEmpty: true
       });
     }
   }
-  app.get('/Api/v1/BlackList/Check/Blocked/UserAccountID/:UserAccountID/UserName/:UserName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
+  app.get('/Api/v1/BlackList/Check/Blocked/UserName/:UserName/ScreenName/:ScreenName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
-    BlackListUserAccount(UserAccountID,UserName,res);   
+    let ScreenName = req.params.ScreenName;
+    BlackListUserAccount(UserName,ScreenName,res);   
   });
+  
   //user inquire
   app.post('/Api/v1/BlackList/Check/Blocked/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
     let UserName = req.params.UserName;
-    BlackListUserAccount(UserAccountID,UserName,res);   
+    let ScreenName = req.params.ScreenName;
+    BlackListUserAccount(UserName,ScreenName,res);   
   });
 }

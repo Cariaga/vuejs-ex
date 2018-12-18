@@ -152,10 +152,12 @@ module.exports = function (app) {//SELECTION
       }
     });
   }
+
   app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
     let Limit =req.params.Limit;
     let Offset = req.params.Offset;
     IPListLimitOffset(Limit,Offset,res);
+    
   });
   
   app.post('/Api/v1/IPList/',Security.verifyToken, function (req, res) {//OK
