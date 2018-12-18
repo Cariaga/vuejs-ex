@@ -14,7 +14,7 @@ module.exports = function (app) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
     let WithdrawPassword = req.params.WithdrawPassword;//now is user password
-    Request2(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,'0',res);
+    Request2(UserAccountID,Amount,WithdrawPassword,res);
   });
   app.post('/Api/v1/WithdrawHistory2/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
     let UserAccountID = req.body.UserAccountID;
@@ -22,7 +22,7 @@ module.exports = function (app) {
     let WithdrawPassword = req.body.WithdrawPassword;//now is user password
     Request2(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,'0',res);
   });
-  function Request2(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res){
+  function Request2(UserAccountID,Amount,WithdrawPassword,res){
     console.log("UserAccountID "+UserAccountID);
     console.log("Amount "+Amount);
     console.log("Bank "+Bank);
@@ -30,9 +30,7 @@ module.exports = function (app) {
     console.log("Name "+Name);
     console.log("WithdrawPassword "+WithdrawPassword);
     console.log("ContactNumber "+ContactNumber);
-
     if(!isNullOrEmpty(UserAccountID)){
-
       if(!isNullOrEmpty(Amount)&&Amount>0){
         if(!isNullOrEmpty(Bank)){
           if(!isNullOrEmpty(AccountNumber)){
