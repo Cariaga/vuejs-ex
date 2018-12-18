@@ -5,6 +5,21 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+
+module.exports.TransferHistoryList = function TransferHistoryList(limit, Offset, callback) {
+  let _limit = limit;
+  let _Offset = Offset;
+  let query = "select * from transferhistories_list limit " + _limit + " Offset " + _Offset;
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      // console.log(response);
+      callback(response);
+    } else {
+      callback(undefined);
+    }
+  });
+}
+
 module.exports.TransferHistory = function TransferHistory(Limit,Offset,callback) {
   let _Limit = Limit;
   let _Offset =Offset;

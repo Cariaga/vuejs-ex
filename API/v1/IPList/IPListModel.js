@@ -12,7 +12,7 @@ module.exports.IPList = function IPList(limit, offset, callback) {
     let _offset = offset;
 
     if (limit != undefined && offset != undefined) {
-        let query = "SELECT * FROM sampledb.player_iplist LIMIT " + _limit + " OFFSET " + _offset;
+        let query = "SELECT * FROM sampledb.ip_list LIMIT " + _limit + " OFFSET " + _offset;
         DBConnect.DBConnect(query, function (response) {
             if (response != undefined) {
                 console.log(response);
@@ -23,7 +23,7 @@ module.exports.IPList = function IPList(limit, offset, callback) {
         });
 
     } else if (limit == undefined && offset == undefined) {
-        let query = "SELECT * FROM sampledb.player_iplist";
+        let query = "SELECT * FROM sampledb.ip_list";
         DBConnect.DBConnect(query, function (response) {
             if (response != undefined) {
                 console.log(response);

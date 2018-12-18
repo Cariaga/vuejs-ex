@@ -25,6 +25,40 @@ module.exports = function (app) { //MODIFY
       }
     }
   });
+
+  // Security.cache.route({ expire: 5  })
+  app.get('/Api/v1/TransferHistoryList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let limit = req.params.Limit;
+    let offset = req.params.Offset;
+    
+    if(!isNullOrEmpty(limit)){
+      if(!isNullOrEmpty(offset)){
+        TransferHistoryModel.TransferHistoryList(limit, offset, function(response){
+          if(response!= undefined){
+            res.send(response);
+          }else{
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+        })
+      }else{
+        // let status = 400;
+        // res.status(status).end(http.STATUS_CODES[status]);
+        res.send([{
+          OffsetMissing: true
+        }]);
+      }
+    }else{
+      // let status = 400;
+      // res.status(status).end(http.STATUS_CODES[status]);
+      res.send([{
+        LimitMissing: true
+      }]);
+    }
+  });
+
+
   //INSERT
   app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');

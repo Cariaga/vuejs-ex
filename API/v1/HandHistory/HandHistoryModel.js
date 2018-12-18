@@ -80,16 +80,15 @@ module.exports.getCommissionPercentages = function getCommissionPercentages(User
 module.exports.distributeRake = function distributeRake(playerToOHOCommission, bettingAmount, SeasonID, callback) {
   let _playerToOHOCommission = playerToOHOCommission;
   let _SeasonID = SeasonID;
-  let playerRake = bettingAmount * (_playerToOHOCommission[0]['pCommission'] / 100 );
-    playerRake = playerRake.toFixed(2);
-  let shopRake = (bettingAmount * (_playerToOHOCommission[0]['sCommission'] / 100 )) - playerRake;
-    shopRake = shopRake.toFixed(2);
-  let distributorRake = (bettingAmount * (_playerToOHOCommission[0]['dCommission'] / 100 )) - playerRake - shopRake;
-    distributorRake = distributorRake.toFixed(2);
-  let headofficeRake = (bettingAmount * (_playerToOHOCommission[0]['hoCommission'] / 100 )) - playerRake - shopRake - distributorRake;
-    headofficeRake = headofficeRake.toFixed(2);
-  let operatingheadofficeRake = (bettingAmount * (_playerToOHOCommission[0]['ohoCommission'] / 100 )) - playerRake - shopRake - distributorRake - headofficeRake;
-    operatingheadofficeRake = operatingheadofficeRake.toFixed(2);
+  let playerRake = (bettingAmount * (_playerToOHOCommission[0]['pCommission'] / 100 )).toFixed(2);
+    // playerRake = playerRake.toFixed(2);
+  let shopRake = ((bettingAmount * (_playerToOHOCommission[0]['sCommission'] / 100 )) - playerRake).toFixed(2);
+    // shopRake = shopRake.toFixed(2);
+  let distributorRake = ((bettingAmount * (_playerToOHOCommission[0]['dCommission'] / 100 )) - playerRake - shopRake).toFixed(2);
+    // distributorRake = distributorRake.toFixed(2);
+  let headofficeRake = ((bettingAmount * (_playerToOHOCommission[0]['hoCommission'] / 100 )) - playerRake - shopRake - distributorRake).toFixed(2);
+    // headofficeRake = headofficeRake.toFixed(2);
+  let operatingheadofficeRake = ((bettingAmount * (_playerToOHOCommission[0]['ohoCommission'] / 100 )) - playerRake - shopRake - distributorRake - headofficeRake).toFixed(2);
 
   console.log('player rake -> ' + playerRake);
   console.log('player rake -> ' +shopRake);

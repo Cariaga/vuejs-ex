@@ -21,6 +21,7 @@ module.exports.DepositList = function DepositList(limit, Offset, callback) {
     }
   });
 }
+
 module.exports.DepositSearch = function DepositSearch(Column, Value, StartDate, EndDate, callback) {
   let _Column = Column;
   let _Value = Value;
