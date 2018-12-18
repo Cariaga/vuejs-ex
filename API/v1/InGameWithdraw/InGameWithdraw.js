@@ -18,7 +18,7 @@ module.exports = function (app) {
     let Name = req.params.Name;
     let WithdrawPassword = req.params.WithdrawPassword;//now is user password
     let ContactNumber = req.params.ContactNumber;
-    Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res);
+    Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,'0',res);
   });
 
   app.post('/Api/v1/WithdrawHistory/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
@@ -29,7 +29,7 @@ module.exports = function (app) {
     let Name = req.body.Name;
     let WithdrawPassword = req.body.WithdrawPassword;//now is user password
     let ContactNumber = req.body.ContactNumber;
-    Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res);
+    Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,'0',res);
   });
 
   function Request(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,ContactNumber,res){
