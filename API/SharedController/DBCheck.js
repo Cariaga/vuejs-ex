@@ -8,7 +8,7 @@ var isNullOrEmpty = require('is-null-or-empty');
     let _Password = Password
     //we origianlly use withdraw password from user account now we use password of user
     let query =
-    "SELECT * FROM sampledb.useraccounts where UserAccountID=\'"+UserAccountID+"\' and Password=\'"+Password+"\';";
+    "SELECT * FROM sampledb.useraccounts as UA, sampledb.bankinformations as B where UA.UserAccountID=\'"+UserAccountID+"\' and B.SecurityCode=\'"+Password+"\';";
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         console.log(response);
