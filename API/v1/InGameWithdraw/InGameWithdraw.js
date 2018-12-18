@@ -32,19 +32,14 @@ module.exports = function (app) {
     console.log("ContactNumber "+ContactNumber);
     if(!isNullOrEmpty(UserAccountID)){
       if(!isNullOrEmpty(Amount)&&Amount>0){
-        if(!isNullOrEmpty(Bank)){
-          if(!isNullOrEmpty(AccountNumber)){
             if(!isNullOrEmpty(WithdrawPassword)){
-              if(!isNullOrEmpty(ContactNumber)){
                 DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                   if (response == true) {
                     DBCheck.CheckWithdrawPassword(UserAccountID,WithdrawPassword,function(response){
                       if(response==true){
-    
                         DBCheck.isValidSubractPlayerAmount(UserAccountID,Amount,function(response){
                           if(response==true){
-
-                            InGameWithdrawModel.RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, function (response) {
+                            InGameWithdrawModel.RequestWithdraw2(UserAccountID, Amount, WithdrawPassword, function (response) {
                               if(response!=undefined){
                                 let status = 200;
                                 res.status(status).end(http.STATUS_CODES[status]);
@@ -68,18 +63,11 @@ module.exports = function (app) {
                     res.status(status).end(http.STATUS_CODES[status]);
                   }
                 });
-              }else{
-                res.send({InvalidContactNumber:true});
-              }
+
             }else{
               res.send({InvalidWithdrawPassword:true});
             }
-          }else{
-            res.send({InvalidAccountNumber:true});
-          }
-        }else{
-          res.send({InvalidBank:true});
-        }
+
       }else{
         res.send({InvalidAmount:true});
       }
