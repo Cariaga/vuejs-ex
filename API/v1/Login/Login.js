@@ -53,7 +53,9 @@ module.exports = function (app) {
                       UserName: response[0].UserName,
                       Privilege: response[0].Privilege,
                       Commission: response[0].Commission,
-                      AccountType:response[0].AccountType
+                      AccountType:response[0].AccountType,
+                      ObscureBankName:response[0].AccountType,
+                      ObscureAccountNumber:response[0].ObscureAccountNumber
                     }
                     jwt.sign({
                       user
@@ -96,6 +98,8 @@ module.exports = function (app) {
   app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
+    console.log("UserName :"+_UserName);
+    console.log("Password : "+_Password);
     if (!isNullOrEmpty(_UserName)) {
       if (!isNullOrEmpty(_Password)) {
         DBCheck.isUserNameExist(_UserName,function(response){
@@ -110,7 +114,9 @@ module.exports = function (app) {
                     UserName: response[0].AccountType,
                     Privilege: response[0].Privilege,
                     UserName: response[0].UserName,
-                    Commission: response[0].Commission
+                    Commission: response[0].Commission,
+                    BankName :response[0].BankName,
+                    AccountNumber :response[0].AccountNumber
                   }
                   console.log("Logining in");
                   jwt.sign({
@@ -262,6 +268,7 @@ module.exports = function (app) {
 
     let UserName = req.body.UserName;
     let Password = req.body.Password;
+    
     let DeviceUUID = req.body.DeviceUUID;
     let IP = req.body.IP;
     let DeviceName = req.body.DeviceName;

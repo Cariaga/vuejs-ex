@@ -115,6 +115,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
     }
     RunAsync();
 }*/
+
 module.exports.Login2 = function(UserName,Password,callback){
   let Query = "SELECT * FROM sampledb.login_view where UserName=\'"+UserName+"\' and Password=\'"+Password+"\' limit 1;";
   console.log(Query);

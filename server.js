@@ -84,7 +84,6 @@ console.log("failed "+err);
 
 notifyRouter.post('/', w1.notify(successHandler, errorHandler));
 app.use('/notification', notifyRouter);
-
 app.use(function (req, res, next) {
   
   // Website you wish to allow to connect
@@ -210,17 +209,6 @@ require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
 require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
 
-
-
-
-
-
-
-
-
-
-
-
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
   RegisterModel.RegisterAccount('UserAccountID' + Math.random(), 'AccessID', 'UserName', 'Password', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', function (response) {
@@ -249,6 +237,18 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
   DBConnect.DBConnect("Select GameVersion from Gameconfiguration",function(response){
     if(response!=undefined){
       res.send(response[0]);
+    }else{
+      res.sendStatus(404);
+    }
+     
+  });
+  //setTimeout(function(){res.send('pick version');}, 10000);
+});
+app.get('/SideNotice/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+
+  DBConnect.DBConnect("SELECT notice as Notice, title as Title, `Date` as `Date`, enddate as EndDate FROM sampledb.sidenotice where EndDate>Now() order by id limit 1 ",function(response){
+    if(response!=undefined){
+      res.send(response);
     }else{
       res.sendStatus(404);
     }
