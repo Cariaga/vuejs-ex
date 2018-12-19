@@ -418,3 +418,4 @@ module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDEx
     }
   });
 }
+
