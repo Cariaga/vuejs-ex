@@ -117,7 +117,9 @@ module.exports = function (app) {
                     UserName: response[0].UserName,
                     Commission: response[0].Commission,
                     BankName :response[0].BankName,
-                    AccountNumber :response[0].AccountNumber
+                    AccountNumber :response[0].AccountNumber,
+                    ObscureBankName:response[0].ObscureBankName,
+                    ObscureAccountNumber:response[0].ObscureAccountNumber
                   }
                   console.log("Logining in");
                   jwt.sign({
@@ -183,7 +185,9 @@ module.exports = function (app) {
                               Status: firstRow.Status,
                               AccountType: firstRow.AccountType,
                               Privilege: firstRow.Privilege,
-                              Commission: firstRow.Commission
+                              Commission: firstRow.Commission,
+                              ObscureBankName: firstRow.ObscureBankName,
+                              ObscureAccountNumber:firstRow.ObscureAccountNumber
                             });
 
                           } else {
