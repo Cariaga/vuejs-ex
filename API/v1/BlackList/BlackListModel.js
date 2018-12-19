@@ -14,9 +14,7 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
   if(limit!=undefined&&_offset!=undefined){
     // select player_black_list where select only the latest black list id of the user (with limit and offset)
     let query =
-    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason, Status"
-    +" FROM sampledb.player_black_list"
-    +" WHERE BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID)"
+    " select un.hoUserName HeadOfficeID, un.dUserName DistributorID, un.sUserName ShopID, pbl.UserName UserAccountID, pbl.ScreenName, pbl.RegisteredDateTime, pbl.ReleaseDate, pbl.Reason, pbl.Status FROM sampledb.player_black_list pbl left join player_to_oho_username un on pbl.UserAccountID = un.pUserAccountID WHERE pbl.BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID) "
     +" limit "+_limit+" offset "+_offset;
     console.log(query)
     DBConnect.DBConnect(query, function (response) {
@@ -53,13 +51,12 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
  */
 
  //Released
-module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(BlackListID, UserAccountID, callback) {
-  let _BlackListID = BlackListID;
+module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(UserAccountID, callback) {
   let _UserAccountID =UserAccountID;
   let query = 
   "UPDATE `sampledb`.`blacklist` "+
   " SET Status = 'Released', ReleaseDate=now()"+
-  " WHERE BlackListID = "+_BlackListID+" and UserAccountID=\'"+_UserAccountID+"\';"
+  " WHERE UserAccountID=\'"+_UserAccountID+"\';"
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
@@ -101,12 +98,9 @@ module.exports.AddBlackList = function AddBlackList(UserAccountID, Reason, callb
 module.exports.BlacklistSearch = function BlacklistSearch(Column, Value, callback) {
   let _Column = Column;
   let _Value = Value;
-  let query = "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason, Status"
-  +" FROM player_black_list"
-  +" WHERE BlackListID IN (SELECT MAX(BlackListID)"
-  +" FROM player_black_list"
-  +" GROUP BY UserAccountID)"
-  +" AND "+_Column+" like \'%"+_Value+"%\';";
+  let query = 
+  " select un.hoUserName HeadOfficeID, un.dUserName DistributorID, un.sUserName ShopID, pbl.UserName UserAccountID, pbl.ScreenName, pbl.RegisteredDateTime, pbl.ReleaseDate, pbl.Reason, pbl.Status FROM sampledb.player_black_list pbl left join player_to_oho_username un on pbl.UserAccountID = un.pUserAccountID WHERE pbl.BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID) "
+  +" AND pbl."+_Column+" like \'%"+_Value+"%\';";
 
   console.log(query)
   DBConnect.DBConnect(query, function (response) {

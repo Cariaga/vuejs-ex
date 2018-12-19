@@ -43,12 +43,12 @@ module.exports = function (app) {
     let Offset = req.body.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
-  function BlackListUpdate(BlackListID,UserAccountID){
-    if (!isNullOrEmpty(BlackListID)) {
-      if (!isNullOrEmpty(UserAccountID)) {
-        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-          if (response == true) {
-            BlackListModel.BlackListStatusUpdate(BlackListID, UserAccountID, function (response) {
+  function BlackListUpdate(UserName){
+      if (!isNullOrEmpty(UserName)) {
+        DBCheck.isUserNameExistThenGetUserAccountID(UserName, function (response) {
+          if (response != undefined) {
+            let UserAccountID = response[0].UserAccountID
+            BlackListModel.BlackListStatusUpdate(UserAccountID, function (response) {
               console.log("Status Set");
               if (response != undefined) {
                 res.send(response);
@@ -64,39 +64,46 @@ module.exports = function (app) {
           }
         });
       } else {
-        res.send("Missing UserAccountID " + UserAccountID);
+        res.send("Missing UserName " + UserName);
       }
-    } else {
-      res.send("Missing BlackListID " + BlackListID);
-    }
+
   }
   //MODIFY / release
-  app.get('/Api/v1/BlackList/Update/BlackListID/:BlackListID/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    let BlackListID = req.params.BlackListID;
-    let UserAccountID = req.params.UserAccountID;
-    BlackListUpdate(BlackListID,UserAccountID,res);
+  app.get('/Api/v1/BlackList/Update/UserName/:UserName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserName = req.params.UserName;
+    BlackListUpdate(UserName,res);
   });
   app.post('/Api/v1/BlackList/Update/',Security.verifyToken, function (req, res) {
-    let BlackListID = req.params.BlackListID;
     let UserAccountID = req.params.UserAccountID;
-    BlackListUpdate(BlackListID,UserAccountID,res);
+    BlackListUpdate(UserAccountID,res);
   });
 
   //add user to black list
-  app.get('/Api/v1/BlackList/Add/UserAccountID/:UserAccountID/Reason/:Reason/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //OK
-    let UserAccountID = req.params.UserAccountID;
+  app.get('/Api/v1/BlackList/Add/UserName/:UserName/Reason/:Reason/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //OK
+    let UserName = req.params.UserName;
     let Reason = req.params.Reason;
-    if (!isNullOrEmpty(UserAccountID)) {
+    if (!isNullOrEmpty(UserName)) {
       if (!isNullOrEmpty(Reason)) {
-        DBCheck.isUserAccountIDBlocked(UserAccountID, function (response) {
-          if (response == true) {
-            BlackListModel.AddBlackList(UserAccountID, Reason, function (response) {
-              if (response != undefined) {
-                res.send(response);
-              } else {
-                res.send({
-                  AddBlackListFailed: true
+        DBCheck.isUserNameBlocked(UserName, function (response) {
+          if (response == false) {
+            DBCheck.isUserNameExistThenGetUserAccountID(UserName, function(response){
+              if(response != undefined){
+                console.log('username exists');
+                let UserAccountID = response[0].UserAccountID;
+                BlackListModel.AddBlackList(UserAccountID, Reason, function (response) {
+                  if (response != undefined) {
+                    res.send(response);
+                  } else {
+                    console.log('addblacklist failed');
+                    res.send({
+                      AddBlackListFailed: true
+                    });
+                  }
                 });
+
+              }else{
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
               }
             });
           } else {
@@ -111,7 +118,7 @@ module.exports = function (app) {
       }
     } else {
       res.send({
-        UserAccountIDMissing: true
+        UserNameMissing: true
       });
     }
   });
