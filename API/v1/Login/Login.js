@@ -98,6 +98,7 @@ module.exports = function (app) {
   app.post('/Api/v1/Login/', function (req, res) {// this route if for player only while /Api/v1/Admin/Login/  is for admins only
     var _UserName = req.body.UserName;
     var _Password = req.body.Password;
+    var _DeviceUUID = req.body.DeviceUUID;
     console.log("UserName :"+_UserName);
     console.log("Password : "+_Password);
     if (!isNullOrEmpty(_UserName)) {
@@ -107,7 +108,7 @@ module.exports = function (app) {
            DBCheck.isUserNameBlocked(_UserName,function(response){
               if(response==false){
 
-
+                console.log("Logging Account");
                 LoginHistoryModel.Login2(_UserName,_Password,function(response){
                   const user = {
                     UserAccountID:response[0].UserAccountID,

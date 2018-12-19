@@ -10,17 +10,17 @@ var Security = require('../../SharedController/Security');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 
 module.exports = function (app) {
-  app.get('/Api/v1/WithdrawHistory2/Request/UserAccountID/:UserAccountID/Amount/:Amount/WithdrawPassword/:WithdrawPassword/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
+  app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/WithdrawPassword/:WithdrawPassword/',/* Security.rateLimiterMiddleware,Security.verifyToken,*//*Security.cache.route({ expire: 1  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
     let WithdrawPassword = req.params.WithdrawPassword;//now is user password
     Request2(UserAccountID,Amount,WithdrawPassword,res);
   });
-  app.post('/Api/v1/WithdrawHistory2/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
+  app.post('/Api/v1/WithdrawHistory/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Amount = parseInt(req.body.Amount);
     let WithdrawPassword = req.body.WithdrawPassword;//now is user password
-    Request2(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,'0',res);
+    Request2(UserAccountID,Amount,WithdrawPassword,res);
   });
   function Request2(UserAccountID,Amount,WithdrawPassword,res){
     console.log("UserAccountID "+UserAccountID);
@@ -43,7 +43,6 @@ module.exports = function (app) {
                                 let status = 404;
                                 res.status(status).end(http.STATUS_CODES[status]);
                               }
-
                             });
                           }else{
                             console.log("NotEnoughMoney");
@@ -71,7 +70,7 @@ module.exports = function (app) {
       res.send({InvalidUserAccountID:true});
     }
   }
-  app.get('/Api/v1/WithdrawHistory/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
+  app.get('/Api/v1/WithdrawHistoryOLD/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
     let Bank = req.params.Bank;
@@ -84,7 +83,7 @@ module.exports = function (app) {
   });
 
 
-  app.post('/Api/v1/WithdrawHistory/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
+  app.post('/Api/v1/WithdrawHistoryOLD/Request/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Amount = parseInt(req.body.Amount);
     let Bank = req.body.Bank;
