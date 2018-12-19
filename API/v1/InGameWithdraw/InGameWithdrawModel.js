@@ -18,6 +18,7 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
         let query =
       "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) "+
       " VALUES (\'"+_UserTransactionID+"\',\'"+_UserAccountID+"\', \'"+_Amount+"\', \'pending\', \'withdraw\'); ";
+      console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -47,7 +48,7 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
       return new Promise((resolve,reject) => {
         let query =
       "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
-      " VALUES (\'"+_UserTransactionID+"\', \'"+_ContactNumber+"\', \'"+_Bank+"\', \'"+_AccountNumber+"\');";
+      " VALUES (\'"+_UserTransactionID+"\', (SELECT PhoneNumber FROM userinfos where UserAccountID ='"+_UserAccountID+"' limit 1) as PhoneNumber, (SELECT BankName FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1) as BankName, (SELECT AccountNumber FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1) as AccountNumber ;";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
