@@ -260,6 +260,23 @@ var isNullOrEmpty = require('is-null-or-empty');
       }
     });
   }
+  module.exports.isNickNameExist = function isNickNameExist(NickName, callback) {
+    let _NickName = NickName;
+    let query =
+    "SELECT * FROM `sampledb`.`useraccounts` " +
+    "WHERE UserName = \'"+_UserName+"\' ";
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      console.log(response);
+      if(response!=undefined){
+        callback(true);
+      }else{
+        callback(false);
+        console.log('UserName does not exist');
+      }
+    });
+  }
 /*
   function isDistributorAlreadyExist(DistributorID, callback) {
     let query =
