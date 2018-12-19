@@ -273,6 +273,7 @@ var isNullOrEmpty = require('is-null-or-empty');
       console.log(response);
       if(response!=undefined){
         callback(true);
+      }})}
 
   module.exports.isUserNameExistThenGetUserAccountID = function isUserNameExistThenGetUserAccountID(UserName, callback) {
     let _UserName = UserName;
@@ -447,5 +448,6 @@ module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDEx
       callback(false);
     }
   });
-}
 
+
+}
