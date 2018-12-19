@@ -255,7 +255,7 @@ var isNullOrEmpty = require('is-null-or-empty');
     DBConnect.DBConnect(query,function(response){
       console.log(response);
       if(response!=undefined){
-        callback(response);
+        callback(true);
       }else{
         callback(false);
         console.log('UserName does not exist');
