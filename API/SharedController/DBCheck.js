@@ -178,6 +178,8 @@ var isNullOrEmpty = require('is-null-or-empty');
       }
     });
   }
+
+  
   module.exports.isUserNameBlocked = function isUserNameBlocked(UserName, callback) {
     let _UserName = UserName;
     let query =
@@ -198,6 +200,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 
     });
   }
+
   module.exports.isSeasonEnded = function isSeasonEnded(SeasonID, callback) {
     let _SeasonID = SeasonID;
     let query =
@@ -249,11 +252,10 @@ var isNullOrEmpty = require('is-null-or-empty');
     "SELECT * FROM `sampledb`.`useraccounts` " +
     "WHERE UserName = \'"+_UserName+"\' ";
     
-   
     DBConnect.DBConnect(query,function(response){
       console.log(response);
       if(response!=undefined){
-        callback(true);
+        callback(response);
       }else{
         callback(false);
         console.log('UserName does not exist');
