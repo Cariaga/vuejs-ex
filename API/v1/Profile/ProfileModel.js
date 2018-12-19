@@ -32,10 +32,16 @@ module.exports.InsertSettings = function InsertSettings(UserAccountID,DeviceUUID
     });
 }
 
-module.exports.ProfileSettingsUpdate = function ProfileSettingsUpdate(UserAccountID,DeviceUUID, callback) {
+module.exports.ProfileSettingsUpdate = function ProfileSettingsUpdate(UserAccountID,DeviceUUID,BackDeck,Avatar,FrontDeck,Felt,Background, callback) {
   let _UserAccountID = UserAccountID;
   let _DeviceUUID = DeviceUUID;
-  let query ="INSERT INTO sampledb.profile_settings (DeviceUUID, UserAccountID, Avatar, FrontDeck, BackDeck, Felt, Background) VALUES('"+_DeviceUUID+"', '"+_UserAccountID+"', '1', '1', '1', '1', '1');";
+  let _BackDeck = BackDeck;
+  let _Avatar = Avatar;
+  let _FrontDeck = FrontDeck;
+  let _Felt = Felt;
+  let _Background = Background;
+
+  let query ="UPDATE `sampledb`.`profile_settings` SET `Avatar` = '"+_Avatar+"', `FrontDeck` = '"+_FrontDeck+"', `BackDeck` = '"+_BackDeck+"', `Felt` = '"+_Felt+"', `Background` = '"+_Background+"' where DeviceUUID='"+_DeviceUUID+"' and UserAccountID='"+_UserAccountID+"' limit 1";
   DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
