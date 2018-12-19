@@ -12,7 +12,7 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
     let _UserTransactionID= uuidv4();
     
     function TransactionsInsert(){
-      return new Promise(resolve => {
+      return new Promise(function(resolve,reject) {
         let query =
       "INSERT INTO `sampledb`.`transactions` (`UserTransactionID`, `UserAccountID`, `Amount`, `TransactionStatus`, `TransactionType`) "+
       " VALUES (\'"+_UserTransactionID+"\',\'"+_UserAccountID+"\', \'"+_Amount+"\', \'pending\', \'withdraw\'); ";
@@ -22,7 +22,7 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
           console.log(response);
           resolve(response);
         } else {
-          resolve(undefined);
+          reject(undefined);
         }
       });
       });
@@ -32,6 +32,7 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
         let query =
       "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `AccountHolder`, `RequestedDateTime`) "+
       "VALUES (\'"+_UserTransactionID+"\', (select AccountHolder FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1), now())";
+      console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -46,7 +47,8 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
       return new Promise((resolve,reject) => {
         let query =
       "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
-      " VALUES (\'"+_UserTransactionID+"\', (SELECT PhoneNumber FROM userinfos where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT BankName FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1) as BankName, (SELECT AccountNumber FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1) ;";
+      " VALUES (\'"+_UserTransactionID+"\', (SELECT PhoneNumber FROM userinfos where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT BankName FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT AccountNumber FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1) ;";
+      console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -73,9 +75,13 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
     async function RunAsync() {
       console.log('calling');
       let result = await TransactionsInsert();
+      console.log("Result 1");
       let result2 = await TransactionInfosInsert();
+      console.log("Result 2");
       let result3 = await WithdrawInsert();
+      console.log("Result 3");
       let result4 = await UpdateMoney();
+      console.log("Result 4");
       let finalresult = [result,result2,result3,result4];
       callback(finalresult);
     }
