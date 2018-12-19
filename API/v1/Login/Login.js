@@ -164,55 +164,44 @@ module.exports = function (app) {
           if (!isNullOrEmpty(DeviceName)) {
             if (!isNullOrEmpty(DeviceRam)) {
               if (!isNullOrEmpty(DeviceCpu)) {
-
-                LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
-                  if (response != undefined) {
-                    console.log("Login Response : "+response);
-                    let firstRow = response[0];
-                    console.log(firstRow.Verified);
-                    if (firstRow.Verified == "true") {
-                      if (firstRow.Status != "Blocked") {
-
-                        LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
-
-                          if (response3 != undefined) {
-                             console.log("Account "+firstRow.Commission);
-                            res.send({
-                              UserAccountID: firstRow.UserAccountID,
-                              OnlineStatus: firstRow.OnlineStatus,
-                              Email: firstRow.Email,
-                              PhoneNumber: firstRow.PhoneNumber,
-                              Status: firstRow.Status,
-                              AccountType: firstRow.AccountType,
-                              Privilege: firstRow.Privilege,
-                              Commission: firstRow.Commission,
-                              ObscureBankName: firstRow.ObscureBankName,
-                              ObscureAccountNumber:firstRow.ObscureAccountNumber
+                DBCheck.isUserNameBlocked(UserName,function(response){
+                  if(response==false){
+                    LoginHistoryModel.Login2(UserName, Password, function (response) {
+                      if (response != undefined) {
+                        console.log("Login Response : "+response);
+                        let firstRow = response[0];
+                            LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
+                              if (response3 != undefined) {
+                                 console.log("Account "+firstRow.Commission);
+                                res.send({
+                                  UserAccountID: firstRow.UserAccountID,
+                                  OnlineStatus: firstRow.OnlineStatus,
+                                  AccountType: firstRow.AccountType,
+                                  Privilege: firstRow.Privilege,
+                                  Commission: firstRow.Commission,
+                                  ObscureBankName: firstRow.ObscureBankName,
+                                  ObscureAccountNumber:firstRow.ObscureAccountNumber
+                                });
+    
+                              } else {
+                                let status = 500;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                              }
                             });
-
-                          } else {
-                            let status = 500;
-                            res.status(status).end(http.STATUS_CODES[status]);
-                          }
-                        });
                       } else {
                         res.send({
-                          AccountBlocked: true
+                          AccountNotFound: true
                         });
                       }
-                    } else {
-                      res.send({
-                        AccountUnverified: true
-                      });
-                    }
+                    });
                   } else {
                     res.send({
-                      AccountNotFound: true
+                      AccountBlocked: true
                     });
                   }
 
-
                 });
+
 
               } else {
                 res.send({
