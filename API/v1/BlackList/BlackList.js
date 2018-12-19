@@ -43,10 +43,11 @@ module.exports = function (app) {
     let Offset = req.body.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
-  function BlackListUpdate(UserAccountID){
-      if (!isNullOrEmpty(UserAccountID)) {
-        DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
-          if (response == true) {
+  function BlackListUpdate(UserName){
+      if (!isNullOrEmpty(UserName)) {
+        DBCheck.isUserNameExistThenGetUserAccountID(UserName, function (response) {
+          if (response != undefined) {
+            let UserAccountID = response[0].UserAccountID
             BlackListModel.BlackListStatusUpdate(UserAccountID, function (response) {
               console.log("Status Set");
               if (response != undefined) {
@@ -63,14 +64,14 @@ module.exports = function (app) {
           }
         });
       } else {
-        res.send("Missing UserAccountID " + UserAccountID);
+        res.send("Missing UserName " + UserName);
       }
 
   }
   //MODIFY / release
-  app.get('/Api/v1/BlackList/Update/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
-    BlackListUpdate(UserAccountID,res);
+  app.get('/Api/v1/BlackList/Update/UserName/:UserName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserName = req.params.UserName;
+    BlackListUpdate(UserName,res);
   });
   app.post('/Api/v1/BlackList/Update/',Security.verifyToken, function (req, res) {
     let UserAccountID = req.params.UserAccountID;
@@ -85,7 +86,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(Reason)) {
         DBCheck.isUserNameBlocked(UserName, function (response) {
           if (response == false) {
-            DBCheck.isUserNameExist(UserName, function(response){
+            DBCheck.isUserNameExistThenGetUserAccountID(UserName, function(response){
               if(response != undefined){
                 console.log('username exists');
                 let UserAccountID = response[0].UserAccountID;

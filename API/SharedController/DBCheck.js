@@ -262,6 +262,23 @@ var isNullOrEmpty = require('is-null-or-empty');
       }
     });
   }
+
+  module.exports.isUserNameExistThenGetUserAccountID = function isUserNameExistThenGetUserAccountID(UserName, callback) {
+    let _UserName = UserName;
+    let query =
+    "SELECT UserAccountID FROM `sampledb`.`useraccounts` " +
+    "WHERE UserName = \'"+_UserName+"\' ";
+    
+    DBConnect.DBConnect(query,function(response){
+      console.log(response);
+      if(response!=undefined){
+        callback(response);
+      }else{
+        callback(false);
+        console.log('UserName does not exist');
+      }
+    });
+  }
 /*
   function isDistributorAlreadyExist(DistributorID, callback) {
     let query =
