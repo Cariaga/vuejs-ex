@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 var validator = require('validator'); //email,mobile phone,isIP,isPostalCode,credit card
 
 module.exports = function (app) {
-  app.get('/Api/v1/WithdrawHistory2/Request/UserAccountID/:UserAccountID/Amount/:Amount/WithdrawPassword/:WithdrawPassword/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
+  app.get('/Api/v1/WithdrawHistory2/Request/UserAccountID/:UserAccountID/Amount/:Amount/WithdrawPassword/:WithdrawPassword/',/* Security.rateLimiterMiddleware,Security.verifyToken,*//*Security.cache.route({ expire: 1  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
     let WithdrawPassword = req.params.WithdrawPassword;//now is user password
@@ -20,7 +20,7 @@ module.exports = function (app) {
     let UserAccountID = req.body.UserAccountID;
     let Amount = parseInt(req.body.Amount);
     let WithdrawPassword = req.body.WithdrawPassword;//now is user password
-    Request2(UserAccountID,Amount,Bank,AccountNumber,Name,WithdrawPassword,'0',res);
+    Request2(UserAccountID,Amount,WithdrawPassword,res);
   });
   function Request2(UserAccountID,Amount,WithdrawPassword,res){
     console.log("UserAccountID "+UserAccountID);

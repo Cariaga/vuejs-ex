@@ -9,8 +9,6 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amount, callback) {
     let _UserAccountID = UserAccountID;
     let _Amount = parseInt(Amount);
-
-    let _ContactNumber = ContactNumber;
     let _UserTransactionID= uuidv4();
     
     function TransactionsInsert(){
@@ -33,7 +31,7 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
       return new Promise((resolve,reject) => {
         let query =
       "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`, `AccountHolder`, `RequestedDateTime`) "+
-      "VALUES (\'"+_UserTransactionID+"\', \'"+_Name+"\', now())";
+      "VALUES (\'"+_UserTransactionID+"\', (select AccountHolder FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1) as AccountHolder, now())";
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
           console.log(response);
@@ -83,7 +81,7 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
     }
     RunAsync();
   }
-
+/// TO Be replaced
   module.exports.RequestWithdraw = function RequestWithdraw(UserAccountID, Amount, Bank, AccountNumber, Name, WithdrawPassword, ContactNumber, callback) {
     let _UserAccountID = UserAccountID;
     let _Amount = parseInt(Amount);
