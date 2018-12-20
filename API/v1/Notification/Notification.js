@@ -15,7 +15,7 @@ module.exports = function (app) { //INSERT
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Location = req.params.Location;
-    let Status = req.params.Title;
+    let Status = req.params.Title;//Intentionally Missing for now
     let Description = req.params.Description;//Intentionally Missing for now
     NotificationModel.NotificationUpdate2(NotificationType, Title, Description, Status,Location,function(response){
       if(response!=undefined){
