@@ -15,7 +15,7 @@ module.exports = function (app) { //INSERT
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Location = req.params.Location;
-    let Status = req.params.Title;//Intentionally Missing for now
+    let Status = req.params.Status;//Intentionally Missing for now
     let Description = req.params.Description;//Intentionally Missing for now
     UpdateNotification(NotificationType, Title, Description, Status, Location, res);
   });
@@ -23,7 +23,7 @@ module.exports = function (app) { //INSERT
     let NotificationType = req.body.NotificationType;
     let Title = req.body.Title;
     let Location = req.body.Location;
-    let Status = req.body.Title;//Intentionally Missing for now
+    let Status = req.body.Status;//Intentionally Missing for now
     let Description = req.body.Description;//Intentionally Missing for now
     UpdateNotification(NotificationType, Title, Description, Status, Location, res);
   });
