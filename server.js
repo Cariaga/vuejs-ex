@@ -226,6 +226,10 @@ app.get('/',function (req, res) {
 //--Login End
 
 app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+  console.log("test");
+
+  console.log("tester2");
+
   res.send('pick version');
   redis.get('foo', function (err, result) {
     console.log(result);

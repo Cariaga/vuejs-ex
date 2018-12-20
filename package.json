@@ -60,6 +60,6 @@
     "ws": "^6.1.2"
   },
   "scripts": {
-    "start": "node --inspect --trace-events-enabled server.js"
+    "start": "node --inspect server.js"
   }
 }
