@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
-
+        console.log("Player Wins Check");
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response == true) {
                 InGamePlayerWinsModel.InGamePlayerWins(UserAccountID, function (response) {
@@ -28,7 +28,7 @@ module.exports = function (app) {
         });
     });
 }
-
+/*
 module.exports = function (app) {
     app.get('/Api/v1/PlayerWins/UserAccounts/:UserAccounts/', function (req, res) {
 
@@ -56,6 +56,6 @@ module.exports = function (app) {
                 let status = 404;
                 res.status(status).end(http.STATUS_CODES[status]);
             }
-        });*/
+        });
     });
-}
+}*/
