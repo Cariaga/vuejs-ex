@@ -17,15 +17,27 @@ module.exports = function (app) { //INSERT
     let Location = req.params.Location;
     let Status = req.params.Title;//Intentionally Missing for now
     let Description = req.params.Description;//Intentionally Missing for now
-    NotificationModel.NotificationUpdate2(NotificationType, Title, Description, Status,Location,function(response){
-      if(response!=undefined){
+    UpdateNotification(NotificationType, Title, Description, Status, Location, res);
+  });
+  app.post('/Api/v1/Notification/Update/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let NotificationType = req.body.NotificationType;
+    let Title = req.body.Title;
+    let Location = req.body.Location;
+    let Status = req.body.Title;//Intentionally Missing for now
+    let Description = req.body.Description;//Intentionally Missing for now
+    UpdateNotification(NotificationType, Title, Description, Status, Location, res);
+  });
+  function UpdateNotification(NotificationType, Title, Description, Status, Location, res) {
+    NotificationModel.NotificationUpdate2(NotificationType, Title, Description, Status, Location, function (response) {
+      if (response != undefined) {
         res.sendStatus(200);
-      }else{
+      }
+      else {
         res.sendStatus(404);
       }
     });
-  });
-  
+  }
+
 /*Possibly deprecated due to new schema */
   /*
   app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
@@ -116,3 +128,5 @@ module.exports = function (app) { //INSERT
   });
   */
 }
+
+
