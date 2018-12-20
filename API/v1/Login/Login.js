@@ -111,6 +111,8 @@ module.exports = function (app) {
               if(response==false){
 
                 console.log("Logging Account");
+
+                /*THIS ONLY SENDS TOKEN FInd /Game/Login for Data */
                 LoginHistoryModel.Login2(_UserName,_Password,function(response){
                   if(response!=undefined){
                     const user = {
@@ -190,7 +192,8 @@ module.exports = function (app) {
                                   Commission: firstRow.Commission,
                                   ObscureBankName: firstRow.ObscureBankName,
                                   ObscureAccountNumber:firstRow.ObscureAccountNumber,
-                                  ObscureAccountHolder:firstRow.ObscureAccountHolder
+                                  ObscureAccountHolder:firstRow.ObscureAccountHolder,
+                                
                                 });
     
                               } else {
