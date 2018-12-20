@@ -5,6 +5,28 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+
+
+
+
+module.exports.NotificationUpdate2 = function NotificationUpdate2(NotificationType, Title, Description, Status,Location, callback) {
+  let _NotificationType = NotificationType;
+  let _Location = Location;
+  let _Title = Title;
+  let _Description = Description;//Not Used Yet intentional
+  let _Status = Status;//Not Used Yet intentional
+
+  let query ="UPDATE sampledb.notifications SET NotificationType=\'"+_NotificationType+"\',Title=\'"+_Title+"\' WHERE location=\'"+_Location+"\';";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
 /**
  *
  *

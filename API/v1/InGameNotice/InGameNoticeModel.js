@@ -10,7 +10,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.InGameNotice = function InGameNotice(callback) {
     let query = 
-    "SELECT * FROM sampledb.in_game_notice;";
+    "SELECT * FROM sampledb.in_game_notice where NotificationType='Header';";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

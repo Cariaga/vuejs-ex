@@ -238,7 +238,7 @@ app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5 
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
-
+  console.log("Game Version Retrived");
   DBConnect.DBConnect("Select GameVersion from Gameconfiguration",function(response){
     if(response!=undefined){
       res.send(response[0]);
