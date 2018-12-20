@@ -189,7 +189,8 @@ module.exports = function (app) {
                                   Privilege: firstRow.Privilege,
                                   Commission: firstRow.Commission,
                                   ObscureBankName: firstRow.ObscureBankName,
-                                  ObscureAccountNumber:firstRow.ObscureAccountNumber
+                                  ObscureAccountNumber:firstRow.ObscureAccountNumber,
+                                  ObscureAccountHolder:firstRow.ObscureAccountHolder
                                 });
     
                               } else {
