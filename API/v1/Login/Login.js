@@ -124,7 +124,8 @@ module.exports = function (app) {
                       BankName :response[0].BankName,
                       AccountNumber :response[0].AccountNumber,
                       ObscureBankName:response[0].ObscureBankName,
-                      ObscureAccountNumber:response[0].ObscureAccountNumber
+                      ObscureAccountNumber:response[0].ObscureAccountNumber,
+                      ObscureAccountHolder:response[0].ObscureAccountHolder
                     }
                     console.log("Logining in");
                     jwt.sign({
