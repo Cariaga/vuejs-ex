@@ -141,7 +141,7 @@ let Security = require("./API/SharedController/Security");
 
 let DBConnect = require("./API/SharedController/DBConnect");
 let DBGlobal = require("./API/SharedController/DBGlobal");
-
+let DBCheck = require('./API/SharedController/DBCheck');
 require('./API/v1/AccessControl/AccessControl')(app);
 
 require('./API/v1/BankInformation/BankInformation')(app);
@@ -346,7 +346,9 @@ wss.on('connection', (ws, req) => {
 
     console.log("pCommisssion Socket :"+pCommisssion);
   });
-  
+  DBCheck.isUserAccountIDExist(client.UserAccountID,function(response){
+    ws.UserName = response[0]["UserName"];
+  });
 
 
 
@@ -476,12 +478,11 @@ wss.on('connection', (ws, req) => {
           }
         });
         //Target Update add Money Reciver Money
+        // slightly diffrent from above due to the reqirment of userName instead of UserAccountID
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
-            if (client.UserAccountID == Object.Target) {
-                
-                  
-                  console.log("UserName Reciver : "+client.UserAccountID+ " Matched "+Object.Target);
+            if (client.UserName == Object.Target) {//target userName
+                  console.log("UserName Reciver : "+client.UserName+ " Matched "+Object.UserName);
                   client.Money = parseInt(client.Money) + parseInt(Object.TransferAmount); //add back the money to the player
                   
             }
