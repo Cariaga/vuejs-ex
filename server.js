@@ -340,7 +340,7 @@ wss.on('connection', (ws, req) => {
  
 
   //Set Commission of Player the login sends commision also but need to decide which is better 
-  DBGlobal.getCommissionPercentages(Object.UserAccountID,function(response){
+  DBGlobal.getCommissionPercentages(UserAccountID,function(response){
     let _playerToOHOCommission = playerToOHOCommission[0];
     ws.PlayerCommission = _playerToOHOCommission['pCommission'];
 
@@ -469,7 +469,7 @@ wss.on('connection', (ws, req) => {
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) {
-                  console.log("UserAccountID : "+client.UserAccountID+ " Matched "+Object.UserAccountID);
+                  console.log("UserAccountID Sender : "+client.UserAccountID+ " Matched "+Object.UserAccountID);
                   client.Money = parseInt(client.Money) - parseInt(Object.TransferAmount); //add back the money to the player
                   
             }
@@ -479,7 +479,9 @@ wss.on('connection', (ws, req) => {
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.Target) {
-                  console.log("UserAccountID : "+client.UserAccountID+ " Matched "+Object.Target);
+                
+                  
+                  console.log("UserName Reciver : "+client.UserAccountID+ " Matched "+Object.Target);
                   client.Money = parseInt(client.Money) + parseInt(Object.TransferAmount); //add back the money to the player
                   
             }
