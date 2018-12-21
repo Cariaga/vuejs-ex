@@ -21,6 +21,7 @@ const W1 = require("walletone");
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
 var Redis = require('ioredis');
+var GlobalFunctions = require('./API/SharedController/GlobalFunctions');
 
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
   no_ready_check: true,
@@ -412,7 +413,7 @@ wss.on('connection', (ws, req) => {
                     console.log("Deposit UUID"+DepositUUID);
 
                    
-                  
+                    
                 
 
                     var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
@@ -525,8 +526,10 @@ wss.on('connection', (ws, req) => {
         
       } else if (Object.Type == "Bet") { //bet event occured 
         
-        DBGlobal.getCommissionPercentages(Object.UserAccountID,function(callback){
-
+        DBGlobal.getCommissionPercentages(Object.UserAccountID,function(response){
+          let _playerToOHOCommission = playerToOHOCommission[0];
+          let pCommisssion = _playerToOHOCommission['pCommission'];
+          console.log("pCommisssion Socket :"+pCommisssion);
         });
 
         wss.clients.forEach((client) => {
