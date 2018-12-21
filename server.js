@@ -337,8 +337,15 @@ wss.on('connection', (ws, req) => {
   ws.UserAccountID = UserAccountID;
   ws.DepositNotice = "";
   ws.ParentUserAccountIDList=[];
+ 
 
+  //Set Commission of Player
+  DBGlobal.getCommissionPercentages(Object.UserAccountID,function(response){
+    let _playerToOHOCommission = playerToOHOCommission[0];
+    ws.PlayerCommission = _playerToOHOCommission['pCommission'];
 
+    console.log("pCommisssion Socket :"+pCommisssion);
+  });
   
 
 
@@ -526,11 +533,7 @@ wss.on('connection', (ws, req) => {
         
       } else if (Object.Type == "Bet") { //bet event occured 
         
-        DBGlobal.getCommissionPercentages(Object.UserAccountID,function(response){
-          let _playerToOHOCommission = playerToOHOCommission[0];
-          let pCommisssion = _playerToOHOCommission['pCommission'];
-          console.log("pCommisssion Socket :"+pCommisssion);
-        });
+
 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
