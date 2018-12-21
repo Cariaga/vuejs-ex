@@ -216,8 +216,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 
     });
   }
-  module.exports.UserAccountID = function isUserAccountIDExist(UserAccountID, callback) {
-    let _UserAccountID = UserAccountID
+  module.exports.UserAccountIDBasicInformation = function UserAccountIDBasicInformation(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID;
+    //dedicate a view for basic user information for websocket use combining user info and player table
     let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID =\'" + _UserAccountID+"\'";
     
     DBConnect.DBConnect(query,function(response){
@@ -225,7 +226,7 @@ var isNullOrEmpty = require('is-null-or-empty');
       //  console.log('UserAccountID exist');
         callback(response);
       }else{
-        callback(response);
+        callback(undefined);
         console.log('UserAccountID does not exist');
       }
     });

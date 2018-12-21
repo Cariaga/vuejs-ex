@@ -352,21 +352,21 @@ wss.on('connection', (ws, req) => {
 
   });
 
-  DBCheck.UserAccountIDUserName(UserName,function(response){
+  DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
     if(response!=undefined){
       ws.UserName = response[0]["UserName"];
     }else{
       console.log("Websocket Set Up Error 2");
     }
   });
-  
+  /* Screen Name not Done move to UserAccountID Basic Information
   DBCheck.UserAccountIDScreenName(UserAccountID,function(response){
     if(response!=undefined){
       ws.ScreenName = response[0]["ScreenName"];
     }else{
-      console.log("Websocket Set Up Error 2");
+      console.log("Websocket Set Up Error 3");
     }
-  });
+  });*/
 
 
 
