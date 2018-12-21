@@ -20,10 +20,14 @@ function ComputeRake(bettingAmount, pCommisssion, sCommission, dCommission, hoCo
   let operatingheadofficeRake = ((bettingAmount * (ohoCommisssion / 100)) - playerRake - shopRake - distributorRake - headofficeRake).toFixed(2);
   return { playerRake, shopRake, distributorRake, headofficeRake, operatingheadofficeRake };
 }
-function ComputeRakePlayer(bettingAmount, pCommisssion) {
-  let playerRake = (bettingAmount * (pCommisssion / 100)).toFixed(2);
-  return { playerRake };
-}
+
+module.exports.ComputeRake = function ComputeRakePlayer(bettingAmount, pCommisssion) {
+    let playerRake = (bettingAmount * (pCommisssion / 100)).toFixed(2);
+    return { playerRake };
+  }
+  
+
+
 
 
 
