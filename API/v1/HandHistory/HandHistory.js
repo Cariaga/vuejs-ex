@@ -8,7 +8,7 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  
+
   function AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res){
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {

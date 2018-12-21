@@ -339,7 +339,7 @@ wss.on('connection', (ws, req) => {
   ws.ParentUserAccountIDList=[];
  
 
-  //Set Commission of Player
+  //Set Commission of Player the login sends commision also but need to decide which is better 
   DBGlobal.getCommissionPercentages(Object.UserAccountID,function(response){
     let _playerToOHOCommission = playerToOHOCommission[0];
     ws.PlayerCommission = _playerToOHOCommission['pCommission'];
