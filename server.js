@@ -341,13 +341,31 @@ wss.on('connection', (ws, req) => {
 
   //Set Commission of Player the login sends commision also but need to decide which is better 
   DBGlobal.getCommissionPercentages(UserAccountID,function(response){
-    let _playerToOHOCommission = playerToOHOCommission[0];
-    ws.PlayerCommission = _playerToOHOCommission['pCommission'];
+    if(response!=undefined){
+      let _playerToOHOCommission = response.playerToOHOCommission[0];
+      ws.PlayerCommission = _playerToOHOCommission['pCommission'];
+  
+      console.log("pCommisssion Socket :"+pCommisssion);
+    }else{
+      console.log("Websocket Set Up Error 1");
+    }
 
-    console.log("pCommisssion Socket :"+pCommisssion);
   });
-  DBCheck.isUserAccountIDExist(client.UserAccountID,function(response){
-    ws.UserName = response[0]["UserName"];
+
+  DBCheck.UserAccountIDUserName(UserName,function(response){
+    if(response!=undefined){
+      ws.UserName = response[0]["UserName"];
+    }else{
+      console.log("Websocket Set Up Error 2");
+    }
+  });
+  
+  DBCheck.UserAccountIDScreenName(UserAccountID,function(response){
+    if(response!=undefined){
+      ws.ScreenName = response[0]["ScreenName"];
+    }else{
+      console.log("Websocket Set Up Error 2");
+    }
   });
 
 
@@ -482,7 +500,7 @@ wss.on('connection', (ws, req) => {
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserName == Object.Target) {//target userName
-                  console.log("UserName Reciver : "+client.UserName+ " Matched "+Object.UserName);
+                  console.log("UserName Reciver : "+client.UserName+ " Matched "+Object.Target);
                   client.Money = parseInt(client.Money) + parseInt(Object.TransferAmount); //add back the money to the player
                   
             }

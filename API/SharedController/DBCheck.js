@@ -216,6 +216,20 @@ var isNullOrEmpty = require('is-null-or-empty');
 
     });
   }
+  module.exports.UserAccountID = function isUserAccountIDExist(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID
+    let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID =\'" + _UserAccountID+"\'";
+    
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+      //  console.log('UserAccountID exist');
+        callback(response);
+      }else{
+        callback(response);
+        console.log('UserAccountID does not exist');
+      }
+    });
+  }
   module.exports.isUserAccountIDExist = function isUserAccountIDExist(UserAccountID, callback) {
     let _UserAccountID = UserAccountID
     let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID =\'" + _UserAccountID+"\'";
@@ -321,7 +335,22 @@ var isNullOrEmpty = require('is-null-or-empty');
       }
     });
   }*/
-
+  module.exports.UserAccountIDScreenName = function UserAccountIDScreenName(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID;
+    let query =
+    "SELECT * FROM `sampledb`.`players` " +
+    "WHERE UserAccountID = \'"+_UserAccountID+"\' ";
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(response);
+      }
+    });
+  }
   module.exports.isScreenNameExist = function isScreenNameExist(ScreenName, callback) {
     let _ScreenName = ScreenName;
     let query =
