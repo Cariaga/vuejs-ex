@@ -18,7 +18,11 @@ module.exports = function (app) { //MODIFY
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
                   //get commission percentages start
+
+                 
                   HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
+
+
                     if(response!=undefined){
                       //distribute rake
                       console.log(response[0]['UserAccountID'])

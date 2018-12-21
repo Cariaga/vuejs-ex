@@ -139,7 +139,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 let Security = require("./API/SharedController/Security");
 
 let DBConnect = require("./API/SharedController/DBConnect");
-
+let DBGlobal = require("./API/SharedController/DBGlobal");
 
 require('./API/v1/AccessControl/AccessControl')(app);
 
@@ -412,7 +412,7 @@ wss.on('connection', (ws, req) => {
                     console.log("Deposit UUID"+DepositUUID);
 
                    
-
+                  
                 
 
                     var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
@@ -524,6 +524,10 @@ wss.on('connection', (ws, req) => {
         });
         
       } else if (Object.Type == "Bet") { //bet event occured 
+        
+        DBGlobal.getCommissionPercentages(Object.UserAccountID,function(callback){
+
+        });
 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {

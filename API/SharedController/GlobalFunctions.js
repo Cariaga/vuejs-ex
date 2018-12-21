@@ -5,6 +5,28 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 
+
+module.exports.ComputeRake = 
+
+function ComputeRake(bettingAmount, pCommisssion, sCommission, dCommission, hoCommission, ohoCommisssion) {
+  let playerRake = (bettingAmount * (pCommisssion / 100)).toFixed(2);
+  // playerRake = playerRake.toFixed(2);
+  let shopRake = ((bettingAmount * (sCommission / 100)) - playerRake).toFixed(2);
+  // shopRake = shopRake.toFixed(2);
+  let distributorRake = ((bettingAmount * (dCommission / 100)) - playerRake - shopRake).toFixed(2);
+  // distributorRake = distributorRake.toFixed(2);
+  let headofficeRake = ((bettingAmount * (hoCommission / 100)) - playerRake - shopRake - distributorRake).toFixed(2);
+  // headofficeRake = headofficeRake.toFixed(2);
+  let operatingheadofficeRake = ((bettingAmount * (ohoCommisssion / 100)) - playerRake - shopRake - distributorRake - headofficeRake).toFixed(2);
+  return { playerRake, shopRake, distributorRake, headofficeRake, operatingheadofficeRake };
+}
+function ComputeRakePlayer(bettingAmount, pCommisssion) {
+  let playerRake = (bettingAmount * (pCommisssion / 100)).toFixed(2);
+  return { playerRake };
+}
+
+
+
 function getCurrentDate(callback){
 
     let today = new Date();
