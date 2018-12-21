@@ -8,7 +8,7 @@ var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //MODIFY
-  
+
   function AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res){
     if (!isNullOrEmpty(SeasonID)) {
       if (!isNullOrEmpty(UserAccountID)) {
@@ -18,10 +18,15 @@ module.exports = function (app) { //MODIFY
               DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
                 if (response == true) {
                   //get commission percentages start
+
+                 
                   HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
                     if(response!=undefined){
                       //distribute rake
-                      console.log(response[0]['UserAccountID'])
+                      console.log(response[0]['UserAccountID']);
+
+
+                      
                       HandHistoryModel.distributeRake(response,Amount, SeasonID, function(distributeResponse){
                         if(distributeResponse!=undefined){
                           res.send({
@@ -40,6 +45,7 @@ module.exports = function (app) { //MODIFY
                       });
                     }
                   });
+                  
                   //get commission percentages start end
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
                       if(response!=undefined){

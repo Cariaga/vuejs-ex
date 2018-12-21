@@ -21,6 +21,7 @@ const W1 = require("walletone");
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
 var Redis = require('ioredis');
+var GlobalFunctions = require('./API/SharedController/GlobalFunctions');
 
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
   no_ready_check: true,
@@ -139,8 +140,8 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 let Security = require("./API/SharedController/Security");
 
 let DBConnect = require("./API/SharedController/DBConnect");
-
-
+let DBGlobal = require("./API/SharedController/DBGlobal");
+let DBCheck = require('./API/SharedController/DBCheck');
 require('./API/v1/AccessControl/AccessControl')(app);
 
 require('./API/v1/BankInformation/BankInformation')(app);
@@ -163,6 +164,7 @@ require('./API/v1/InGameDeposit/InGameDeposit')(app);
 
 require('./API/v1/InGameNotice/InGameNotice')(app);
 require('./API/v1/InGamePlayChips/InGamePlayChips')(app);
+
 require('./API/v1/InGamePlayProfile/InGamePlayProfile')(app);
 require('./API/v1/InGamePlayRoomNotice/InGamePlayRoomNotice')(app);
 require('./API/v1/InGameRoom/InGameRoom')(app);
@@ -226,6 +228,10 @@ app.get('/',function (req, res) {
 //--Login End
 
 app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+  console.log("test");
+
+  console.log("tester2");
+
   res.send('pick version');
   redis.get('foo', function (err, result) {
     console.log(result);
@@ -233,7 +239,7 @@ app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5 
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
-
+  console.log("Game Version Retrived");
   DBConnect.DBConnect("Select GameVersion from Gameconfiguration",function(response){
     if(response!=undefined){
       res.send(response[0]);
@@ -331,9 +337,36 @@ wss.on('connection', (ws, req) => {
   ws.UserAccountID = UserAccountID;
   ws.DepositNotice = "";
   ws.ParentUserAccountIDList=[];
+ 
 
-
+  //Set Commission of Player the login sends commision also but need to decide which is better 
+  DBGlobal.getCommissionPercentages(UserAccountID,function(response){
+    if(response!=undefined){
+      let _playerToOHOCommission = response.playerToOHOCommission[0];
+      ws.PlayerCommission = _playerToOHOCommission['pCommission'];
   
+      console.log("pCommisssion Socket :"+pCommisssion);
+    }else{
+      console.log("Websocket Set Up Error 1");
+    }
+
+  });
+
+  DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
+    if(response!=undefined){
+      ws.UserName = response[0]["UserName"];
+    }else{
+      console.log("Websocket Set Up Error 2");
+    }
+  });
+  /* Screen Name not Done move to UserAccountID Basic Information
+  DBCheck.UserAccountIDScreenName(UserAccountID,function(response){
+    if(response!=undefined){
+      ws.ScreenName = response[0]["ScreenName"];
+    }else{
+      console.log("Websocket Set Up Error 3");
+    }
+  });*/
 
 
 
@@ -407,7 +440,7 @@ wss.on('connection', (ws, req) => {
                     console.log("Deposit UUID"+DepositUUID);
 
                    
-
+                    
                 
 
                     var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
@@ -452,11 +485,24 @@ wss.on('connection', (ws, req) => {
       else if (Object.Type == "Transfer") { //event trasfer room
         console.log("Transfered Money "+ Object.TransferAmount/*JSON.stringify(Object,null,2)*/);
         //console.log("LeaveRoom "+ Object.RoomID);
+        //self update money deduct 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) {
-                  console.log("UserAccountID : "+client.UserAccountID+ " Matched "+Object.UserAccountID);
+                  console.log("UserAccountID Sender : "+client.UserAccountID+ " Matched "+Object.UserAccountID);
                   client.Money = parseInt(client.Money) - parseInt(Object.TransferAmount); //add back the money to the player
+                  
+            }
+          }
+        });
+        //Target Update add Money Reciver Money
+        // slightly diffrent from above due to the reqirment of userName instead of UserAccountID
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            if (client.UserName == Object.Target) {//target userName
+                  console.log("UserName Reciver : "+client.UserName+ " Matched "+Object.Target);
+                  client.Money = parseInt(client.Money) + parseInt(Object.TransferAmount); //add back the money to the player
+                  
             }
           }
         });
@@ -519,6 +565,8 @@ wss.on('connection', (ws, req) => {
         });
         
       } else if (Object.Type == "Bet") { //bet event occured 
+        
+
 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {

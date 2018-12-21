@@ -104,31 +104,45 @@ module.exports = function (app) {
     if (!isNullOrEmpty(_UserName)) {
       if (!isNullOrEmpty(_Password)) {
         DBCheck.isUserNameExist(_UserName,function(response){
+          console.log("Exist Check "+ response);
           if(response==true){
            DBCheck.isUserNameBlocked(_UserName,function(response){
+            console.log("blocked Check "+ response);
               if(response==false){
 
                 console.log("Logging Account");
+
+                /*THIS ONLY SENDS TOKEN FInd /Game/Login for Data */
                 LoginHistoryModel.Login2(_UserName,_Password,function(response){
-                  const user = {
-                    UserAccountID:response[0].UserAccountID,
-                    UserName: response[0].AccountType,
-                    Privilege: response[0].Privilege,
-                    UserName: response[0].UserName,
-                    Commission: response[0].Commission,
-                    BankName :response[0].BankName,
-                    AccountNumber :response[0].AccountNumber
-                  }
-                  console.log("Logining in");
-                  jwt.sign({
-                    user
-                  }, 'secretkey', {
-                    expiresIn: '1d'
-                  }, (err, token) => {
-                    res.json({
-                      token
+                  if(response!=undefined){
+                    const user = {
+                      UserAccountID:response[0].UserAccountID,
+                      UserName: response[0].AccountType,
+                      Privilege: response[0].Privilege,
+                      UserName: response[0].UserName,
+                      Commission: response[0].Commission,
+                      BankName :response[0].BankName,
+                      AccountNumber :response[0].AccountNumber,
+                      ObscureBankName:response[0].ObscureBankName,
+                      ObscureAccountNumber:response[0].ObscureAccountNumber,
+                      ObscureAccountHolder:response[0].ObscureAccountHolder
+                    }
+                    console.log("Logining in");
+                    jwt.sign({
+                      user
+                    }, 'secretkey', {
+                      expiresIn: '1d'
+                    }, (err, token) => {
+                      res.json({
+                        token
+                      });
                     });
-                  });
+                  }else{
+                    console.log("Not Found D");
+                    let status = 404;
+                    res.status(status).end(http.STATUS_CODES[status]);
+                  }
+
                 });
 
              }else{
@@ -143,12 +157,12 @@ module.exports = function (app) {
           }
         });
       } else {
-        console.log("Not Found A");
+        console.log("Not Found B");
         let status = 404;
         res.status(status).end(http.STATUS_CODES[status]);
       }
     } else {
-      console.log("Not Found A");
+      console.log("Not Found C");
       let status = 404;
       res.status(status).end(http.STATUS_CODES[status]);
     }
@@ -162,53 +176,46 @@ module.exports = function (app) {
           if (!isNullOrEmpty(DeviceName)) {
             if (!isNullOrEmpty(DeviceRam)) {
               if (!isNullOrEmpty(DeviceCpu)) {
-
-                LoginHistoryModel.LoginAccount(UserName, Password, function (response) {
-                  if (response != undefined) {
-                    console.log("Login Response : "+response);
-                    let firstRow = response[0];
-                    console.log(firstRow.Verified);
-                    if (firstRow.Verified == "true") {
-                      if (firstRow.Status != "Blocked") {
-
-                        LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
-
-                          if (response3 != undefined) {
-                             console.log("Account "+firstRow.Commission);
-                            res.send({
-                              UserAccountID: firstRow.UserAccountID,
-                              OnlineStatus: firstRow.OnlineStatus,
-                              Email: firstRow.Email,
-                              PhoneNumber: firstRow.PhoneNumber,
-                              Status: firstRow.Status,
-                              AccountType: firstRow.AccountType,
-                              Privilege: firstRow.Privilege,
-                              Commission: firstRow.Commission
+                DBCheck.isUserNameBlocked(UserName,function(response){
+                  if(response==false){
+                    LoginHistoryModel.Login2(UserName, Password, function (response) {
+                      if (response != undefined) {
+                        console.log("Login Response : "+response);
+                        let firstRow = response[0];
+                            LoginHistoryModel.AddLoginHistory(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, function (response3) {
+                              if (response3 != undefined) {
+                                 console.log("Account "+firstRow.Commission);
+                                res.send({
+                                  UserAccountID: firstRow.UserAccountID,
+                                  OnlineStatus: firstRow.OnlineStatus,
+                                  AccountType: firstRow.AccountType,
+                                  Privilege: firstRow.Privilege,
+                                  Commission: firstRow.Commission,
+                                  ObscureBankName: firstRow.ObscureBankName,
+                                  ObscureAccountNumber:firstRow.ObscureAccountNumber,
+                                  ObscureAccountHolder:firstRow.ObscureAccountHolder,
+                                
+                                });
+    
+                              } else {
+                                let status = 500;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                              }
                             });
-
-                          } else {
-                            let status = 500;
-                            res.status(status).end(http.STATUS_CODES[status]);
-                          }
-                        });
                       } else {
                         res.send({
-                          AccountBlocked: true
+                          AccountNotFound: true
                         });
                       }
-                    } else {
-                      res.send({
-                        AccountUnverified: true
-                      });
-                    }
+                    });
                   } else {
                     res.send({
-                      AccountNotFound: true
+                      AccountBlocked: true
                     });
                   }
 
-
                 });
+
 
               } else {
                 res.send({

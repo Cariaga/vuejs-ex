@@ -12,7 +12,7 @@ module.exports.InGamePlayerWins = function InGamePlayerWins(UserAccountID, callb
     let query ="SELECT Count(WinPoints) as WinPoints FROM sampledb.playerfinalcard WHERE winpoints > 0 AND UserAccountID = \'"+_UserAccountID+"\'; ";
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
-          console.log(response);
+          console.log("Player Wins : "+response);
           callback(response);
         } else {
           callback(undefined);

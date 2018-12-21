@@ -216,6 +216,21 @@ var isNullOrEmpty = require('is-null-or-empty');
 
     });
   }
+  module.exports.UserAccountIDBasicInformation = function UserAccountIDBasicInformation(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID;
+    //dedicate a view for basic user information for websocket use combining user info and player table
+    let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID =\'" + _UserAccountID+"\'";
+    
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+      //  console.log('UserAccountID exist');
+        callback(response);
+      }else{
+        callback(undefined);
+        console.log('UserAccountID does not exist');
+      }
+    });
+  }
   module.exports.isUserAccountIDExist = function isUserAccountIDExist(UserAccountID, callback) {
     let _UserAccountID = UserAccountID
     let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID =\'" + _UserAccountID+"\'";
@@ -262,6 +277,18 @@ var isNullOrEmpty = require('is-null-or-empty');
       }
     });
   }
+  module.exports.isNickNameExist = function isNickNameExist(NickName, callback) {
+    let _NickName = NickName;
+    let query =
+    "SELECT * FROM `sampledb`.`useraccounts` " +
+    "WHERE UserName = \'"+_UserName+"\' ";
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      console.log(response);
+      if(response!=undefined){
+        callback(true);
+      }})}
 
   module.exports.isUserNameExistThenGetUserAccountID = function isUserNameExistThenGetUserAccountID(UserName, callback) {
     let _UserName = UserName;
@@ -309,7 +336,22 @@ var isNullOrEmpty = require('is-null-or-empty');
       }
     });
   }*/
-
+  module.exports.UserAccountIDScreenName = function UserAccountIDScreenName(UserAccountID, callback) {
+    let _UserAccountID = UserAccountID;
+    let query =
+    "SELECT * FROM `sampledb`.`players` " +
+    "WHERE UserAccountID = \'"+_UserAccountID+"\' ";
+    
+   
+    DBConnect.DBConnect(query,function(response){
+      if(response!=undefined){
+        console.log(response);
+        callback(response);
+      }else{
+        callback(response);
+      }
+    });
+  }
   module.exports.isScreenNameExist = function isScreenNameExist(ScreenName, callback) {
     let _ScreenName = ScreenName;
     let query =
@@ -436,5 +478,6 @@ module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDEx
       callback(false);
     }
   });
-}
 
+
+}

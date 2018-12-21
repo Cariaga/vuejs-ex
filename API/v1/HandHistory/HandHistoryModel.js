@@ -5,6 +5,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
+var GlobalFunction = require('../../SharedController/GlobalFunctions');
 var uuidv4 = require('uuid/v4');
 
 
@@ -76,42 +77,50 @@ module.exports.getCommissionPercentages = function getCommissionPercentages(User
     }
   });
 }
-
 module.exports.distributeRake = function distributeRake(playerToOHOCommission, bettingAmount, SeasonID, callback) {
-  let _playerToOHOCommission = playerToOHOCommission;
+  let _playerToOHOCommission = playerToOHOCommission[0];
   let _SeasonID = SeasonID;
-  let playerRake = (bettingAmount * (_playerToOHOCommission[0]['pCommission'] / 100 )).toFixed(2);
-    // playerRake = playerRake.toFixed(2);
-  let shopRake = ((bettingAmount * (_playerToOHOCommission[0]['sCommission'] / 100 )) - playerRake).toFixed(2);
-    // shopRake = shopRake.toFixed(2);
-  let distributorRake = ((bettingAmount * (_playerToOHOCommission[0]['dCommission'] / 100 )) - playerRake - shopRake).toFixed(2);
-    // distributorRake = distributorRake.toFixed(2);
-  let headofficeRake = ((bettingAmount * (_playerToOHOCommission[0]['hoCommission'] / 100 )) - playerRake - shopRake - distributorRake).toFixed(2);
-    // headofficeRake = headofficeRake.toFixed(2);
-  let operatingheadofficeRake = ((bettingAmount * (_playerToOHOCommission[0]['ohoCommission'] / 100 )) - playerRake - shopRake - distributorRake - headofficeRake).toFixed(2);
+  let pCommisssion = _playerToOHOCommission['pCommission'];
+  let sCommission = _playerToOHOCommission['sCommission'];
+  let dCommission = _playerToOHOCommission['dCommission'];
+  let hoCommission = _playerToOHOCommission['hoCommission'];
+  let ohoCommisssion = _playerToOHOCommission['ohoCommission'];
+  let PlayerUserAccountID = _playerToOHOCommission['UserAccountID'];
+  let ShopID = _playerToOHOCommission['ShopID'];
+  let DistributorID = _playerToOHOCommission['DistributorID'];
+  let HeadOfficeID = _playerToOHOCommission['HeadOfficeID'];
+  let OperatingHeadOfficeID = _playerToOHOCommission['OperatingHeadOfficeID'];
+
+  let { playerRake, shopRake, distributorRake, headofficeRake, operatingheadofficeRake } = GlobalFunction.ComputeRake(bettingAmount, pCommisssion, sCommission, dCommission, hoCommission, ohoCommisssion);
 
   console.log('player rake -> ' + playerRake);
   console.log('player rake -> ' +shopRake);
   console.log('player rake -> ' +distributorRake);
   console.log('player rake -> ' +headofficeRake);
   console.log('player rake -> ' +operatingheadofficeRake);
-  console.log(_playerToOHOCommission[0]['UserAccountID']);
-  let rakeLogQuery = "INSERT INTO `sampledb`.`handhistory_rake` (`SeasonID`, `UserAccountID`, `RakePlayer`, `RakeStore`, `RakeDistributor`,`RakeHO`,`RakeOHO`) "+
-                     "VALUES (\'"+_SeasonID+"\',\'"+_playerToOHOCommission[0]['UserAccountID']+"\',"+playerRake+", "+shopRake+", "+distributorRake+", "+headofficeRake+", "+operatingheadofficeRake+");";
-  let pquery = "UPDATE `sampledb`.`players` SET Money = Money + "+playerRake+
-              "  WHERE UserAccountID = '"+_playerToOHOCommission[0]['UserAccountID']+"';";
 
+  console.log(PlayerUserAccountID);
+
+  let rakeLogQuery = "INSERT INTO `sampledb`.`handhistory_rake` (`SeasonID`, `UserAccountID`, `RakePlayer`, `RakeStore`, `RakeDistributor`,`RakeHO`,`RakeOHO`) "+
+                     "VALUES (\'"+_SeasonID+"\',\'"+PlayerUserAccountID+"\',"+playerRake+", "+shopRake+", "+distributorRake+", "+headofficeRake+", "+operatingheadofficeRake+");";
+  let pquery = "UPDATE `sampledb`.`players` SET Money = Money + "+playerRake+
+              "  WHERE UserAccountID = '"+PlayerUserAccountID+"';";
+
+ 
   let squery = "UPDATE `sampledb`.`shops` SET CurrentPoints = CurrentPoints + "+shopRake+
-              "  WHERE ShopID = '"+_playerToOHOCommission[0]['ShopID']+"';";
+              "  WHERE ShopID = '"+ShopID+"';";
               
+ 
   let dquery = "UPDATE `sampledb`.`distributors` SET CurrentPoints = CurrentPoints + "+distributorRake+
-              "  WHERE DistributorID = '"+_playerToOHOCommission[0]['DistributorID']+"';";
+              "  WHERE DistributorID = '"+DistributorID+"';";
+
 
   let hoquery = "UPDATE `sampledb`.`headoffices` SET CurrentPoints = CurrentPoints + "+headofficeRake+
-              "  WHERE HeadOfficeID = '"+_playerToOHOCommission[0]['HeadOfficeID']+"';";
+              "  WHERE HeadOfficeID = '"+HeadOfficeID+"';";
+
 
   let ohoquery = "UPDATE `sampledb`.`operatingheadoffice` SET CurrentPoints = CurrentPoints + "+operatingheadofficeRake+
-              "  WHERE OperatingHeadOfficeID = '"+_playerToOHOCommission[0]['OperatingHeadOfficeID']+"';";
+              "  WHERE OperatingHeadOfficeID = '"+OperatingHeadOfficeID+"';";
 
   var rakeLogPromise = new Promise(function(resolve, reject) {
     DBConnect.DBConnect(rakeLogQuery, function (response) {
@@ -188,3 +197,4 @@ module.exports.distributeRake = function distributeRake(playerToOHOCommission, b
   });
 
 }
+

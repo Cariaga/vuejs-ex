@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 module.exports = function (app) {
     app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
-
+        console.log("Player Wins")
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response == true) {
                 InGamePlayerWinsModel.InGamePlayerWins(UserAccountID, function (response) {
@@ -30,7 +30,7 @@ module.exports = function (app) {
 }
 
 module.exports = function (app) {
-    app.get('/Api/v1/PlayerWins/UserAccounts/:UserAccounts/', function (req, res) {
+    app.get('/Api/v1/PlayerWins/PlayersWinLoseRake/UserAccounts/:UserAccounts/', function (req, res) {
 
         let UserAccounts = req.params.UserAccounts;
         console.log(UserAccounts);

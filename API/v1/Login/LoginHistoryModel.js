@@ -120,8 +120,14 @@ module.exports.Login2 = function(UserName,Password,callback){
   let Query = "SELECT * FROM sampledb.login_view where UserName=\'"+UserName+"\' and Password=\'"+Password+"\' limit 1;";
   console.log(Query);
   DBConnect.DBConnect(Query, function (response) {
-    console.log(response);
-     callback(response);
+   
+    if(response!=undefined){
+      callback(response);
+    }else{
+      callback(undefined);
+      console.log("Login2 Account Not Exist");
+    }
+    
   });
 }
 /*deprecated */
@@ -130,7 +136,7 @@ module.exports.LoginAccount = function(UserName,Password,callback){
   let _Password =Password;  
     function QueryLoginAccount() {
      let Query = 
-    "SELECT BL.BlackListID, UA.UserAccountID, UA.UserName, UA.OnlineStatus, UA.Verified, UA.Privilege, UI.Email, BL.BlackListID, BL.Reason, BL.Status, BL.Title, BL.ReportDate, BL.ReleaseDate, PL.Commission PlayerCommission, SH.ShopID, SH.Commission ShopCommission, DR.DistributorID, DR.Commission DistributorCommission, HO.HeadOfficeID, HO.Commission HeadOfficeCommission, OHO.OperatingHeadOfficeID, OHO.Commission OperatingHeadOfficeCommission FROM sampledb.useraccounts AS UA LEFT JOIN sampledb.userinfos AS UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist AS BL ON UA.UserAccountID = BL.UserAccountID LEFT JOIN sampledb.players AS PL ON UA.UserAccountID = PL.UserAccountID LEFT JOIN sampledb.shops AS SH ON UA.UserAccountID = SH.UserAccountID LEFT JOIN sampledb.distributors AS DR ON UA.UserAccountID = DR.UserAccountID LEFT JOIN sampledb.headoffices AS HO ON UA.UserAccountID = HO.UserAccountID LEFT JOIN sampledb.operatingheadoffice AS OHO ON UA.UserAccountID = OHO.UserAccountID WHERE UA.UserName = \'"+_UserName+"\' AND UA.Password = \'"+_Password+"\' ORDER BY BL.ReportDate DESC LIMIT 1";
+    "SELECT BL.BlackListID, UA.UserAccountID, UA.UserName, UA.OnlineStatus, UA.Verified, UA.Privilege, UI.Email, BL.BlackListID, BL.Reason, BL.Status, BL.Title, BL.ReportDate, BL.ReleaseDate, PL.Commission PlayerCommission, SH.ShopID, SH.Commission ShopCommission, DR.DistributorID, DR.Commission DistributorCommission, HO.HeadOfficeID, HO.Commission HeadOfficeCommission, OHO.OperatingHeadOfficeID, OHO.Commission OperatingHeadOfficeCommission,LV.BankName,LV.AccountNumber,LV.ObscureBankName,LV.ObscureAccountNumber,LV.AccountType FROM sampledb.useraccounts AS UA LEFT JOIN sampledb.userinfos AS UI ON UA.UserAccountID = UI.UserAccountID LEFT JOIN sampledb.blacklist AS BL ON UA.UserAccountID = BL.UserAccountID LEFT JOIN sampledb.players AS PL ON UA.UserAccountID = PL.UserAccountID LEFT JOIN sampledb.shops AS SH ON UA.UserAccountID = SH.UserAccountID LEFT JOIN sampledb.distributors AS DR ON UA.UserAccountID = DR.UserAccountID Left join login_view as LV on UA.UserAccountID = LV.UserAccountID LEFT JOIN sampledb.headoffices AS HO ON UA.UserAccountID = HO.UserAccountID LEFT JOIN sampledb.operatingheadoffice AS OHO ON UA.UserAccountID = OHO.UserAccountID where  UA.UserName='"+_UserName+"' and UA.Password ='"+_Password+"' ORDER BY BL.ReportDate limit 1";
 
       console.log("LoginAccount : "+ Query);
       return new Promise(resolve => {
@@ -188,6 +194,9 @@ module.exports.LoginAccount = function(UserName,Password,callback){
         finalresult[0].HeadOfficeCommission = result[0].HeadOfficeCommission;
         finalresult[0].OperatingHeadOfficeID = result[0].OperatingHeadOfficeID;
         finalresult[0].OperatingHeadOfficeCommission = result[0].OperatingHeadOfficeCommission;
+        finalresult[0].ObscureBankName = result[0].ObscureBankName;
+        finalresult[0].ObscureAccountNumber = result[0].ObscureAccountNumber;
+        
 
         console.log("------ShopID :"+result[0].ShopID);
         console.log("------DistributorID :"+result[0].DistributorID);

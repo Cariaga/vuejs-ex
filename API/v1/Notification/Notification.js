@@ -7,6 +7,39 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //INSERT
+
+
+  //only certain allowed paramters 
+  //for location we have ALLRoms,Room1 to 10... and NotificationType,Header,SideLeftPanel 
+  app.get('/Api/v1/Notification/Update/NotificationType/:NotificationType/Location/:Location/Title/:Title/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let NotificationType = req.params.NotificationType;
+    let Title = req.params.Title;
+    let Location = req.params.Location;
+    let Status = req.params.Status;//Intentionally Missing for now
+    let Description = req.params.Description;//Intentionally Missing for now
+    UpdateNotification(NotificationType, Title, Description, Status, Location, res);
+  });
+  app.post('/Api/v1/Notification/Update/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let NotificationType = req.body.NotificationType;
+    let Title = req.body.Title;
+    let Location = req.body.Location;
+    let Status = req.body.Status;//Intentionally Missing for now
+    let Description = req.body.Description;//Intentionally Missing for now
+    UpdateNotification(NotificationType, Title, Description, Status, Location, res);
+  });
+  function UpdateNotification(NotificationType, Title, Description, Status, Location, res) {
+    NotificationModel.NotificationUpdate2(NotificationType, Title, Description, Status, Location, function (response) {
+      if (response != undefined) {
+        res.sendStatus(200);
+      }
+      else {
+        res.sendStatus(404);
+      }
+    });
+  }
+
+/*Possibly deprecated due to new schema */
+  /*
   app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
@@ -93,5 +126,7 @@ module.exports = function (app) { //INSERT
     NotificationSearch(Column,Value,res);
     
   });
-  
+  */
 }
+
+
