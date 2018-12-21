@@ -21,16 +21,10 @@ function ComputeRake(bettingAmount, pCommisssion, sCommission, dCommission, hoCo
   return { playerRake, shopRake, distributorRake, headofficeRake, operatingheadofficeRake };
 }
 
-module.exports.ComputeRake = function ComputeRakePlayer(bettingAmount, pCommisssion) {
+module.exports.ComputeRake =function ComputeRakePlayer(bettingAmount, pCommisssion) {
     let playerRake = (bettingAmount * (pCommisssion / 100)).toFixed(2);
     return { playerRake };
   }
-  
-
-
-
-
-
 function getCurrentDate(callback){
 
     let today = new Date();

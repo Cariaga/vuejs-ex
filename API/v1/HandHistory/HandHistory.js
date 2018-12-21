@@ -21,11 +21,12 @@ module.exports = function (app) { //MODIFY
 
                  
                   HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
-
-
                     if(response!=undefined){
                       //distribute rake
-                      console.log(response[0]['UserAccountID'])
+                      console.log(response[0]['UserAccountID']);
+
+
+                      
                       HandHistoryModel.distributeRake(response,Amount, SeasonID, function(distributeResponse){
                         if(distributeResponse!=undefined){
                           res.send({
@@ -44,6 +45,7 @@ module.exports = function (app) { //MODIFY
                       });
                     }
                   });
+                  
                   //get commission percentages start end
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
                       if(response!=undefined){
