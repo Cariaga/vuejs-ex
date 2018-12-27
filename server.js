@@ -538,7 +538,7 @@ wss.on('connection', (ws, req) => {
 
         //new
         var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+ws.Rooms+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
-        console.log("RoomChange "+Object.RoomName);
+        console.log("RoomChange ");
         DBConnect.DBConnect(query3, function (response) {
           if (response != undefined) {
             
