@@ -340,7 +340,7 @@ wss.on('connection', (ws, req) => {
  
 
   //Set Commission of Player the login sends commision also but need to decide which is better 
-  DBGlobal.getCommissionPercentages(UserAccountID,function(response){
+  /*DBGlobal.getCommissionPercentages(UserAccountID,function(response){
     if(response!=undefined){
       let _playerToOHOCommission = response.playerToOHOCommission[0];
       ws.PlayerCommission = _playerToOHOCommission['pCommission'];
@@ -350,7 +350,7 @@ wss.on('connection', (ws, req) => {
       console.log("Websocket Set Up Error 1");
     }
 
-  });
+  });*/
 
   DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
     if(response!=undefined){
@@ -482,6 +482,18 @@ wss.on('connection', (ws, req) => {
           }
         });
       }
+      else if (Object.Type == "NotifyPlayerTrasferReceived") {
+        wss.clients.forEach((client) => {
+          if (client.readyState == 1) {
+            if (client.UserAccountID == Object.UserAccountID) {
+                  client.TransferNotice = ""; //clear when player confirms transfer
+                  InvokeRepeat();//force update list right away
+                 // console.log(Object.DepositNotice);
+
+            }
+          }
+        });
+      }
       else if (Object.Type == "Transfer") { //event trasfer room
         console.log("Transfered Money "+ Object.TransferAmount/*JSON.stringify(Object,null,2)*/);
         //console.log("LeaveRoom "+ Object.RoomID);
@@ -492,6 +504,7 @@ wss.on('connection', (ws, req) => {
                   console.log("UserAccountID Sender : "+client.UserAccountID+ " Matched "+Object.UserAccountID);
                   client.Money = parseInt(client.Money) - parseInt(Object.TransferAmount); //add back the money to the player
                   
+                  
             }
           }
         });
@@ -500,8 +513,10 @@ wss.on('connection', (ws, req) => {
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserName == Object.Target) {//target userName
-                  console.log("UserName Reciver : "+client.UserName+ " Matched "+Object.Target);
-                  client.Money = parseInt(client.Money) + parseInt(Object.TransferAmount); //add back the money to the player
+                
+                  client.Money = parseInt(client.Money) + parseInt(Object.TransferAmount); //add  the money to the player
+                  client.TransferNotice ="Recieved Money  "+Object.TransferAmount;//the notification to the player
+                  console.log("UserName Reciver : "+client.UserName+ " Matched "+Object.Target +" client.Money "+client.Money);
                   
             }
           }
@@ -769,6 +784,7 @@ function InvokeRepeat(){
 
         UserAccountID: client.UserAccountID,
         DepositNotice:client.DepositNotice,
+        TransferNotice:client.TransferNotice,
         Money: client.Money,
         Rooms: client.Rooms,
         CountSameAccount: count
