@@ -1,7 +1,7 @@
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.UserProfitSearch = function UserProfitSearch(UserName, StartDate, EndDate, callback) {
-    let _UserName = UserName;
+module.exports.UserProfitSearch = function UserProfitSearch(ScreenName, StartDate, EndDate, callback) {
+    let _ScreenName = ScreenName;
     let _StartDate = StartDate;
     let _EndDate = EndDate;
     
@@ -36,7 +36,7 @@ module.exports.UserProfitSearch = function UserProfitSearch(UserName, StartDate,
                 +" left join headoffices h on d.HeadOfficeID = h.HeadOfficeID"
                 +" left join useraccounts uaho on h.UserAccountID = uaho.UserAccountID" 
 
-                +" WHERE uap.UserName = \'"+_UserName+"\';";
+                +" WHERE p.ScreenName = \'"+_ScreenName+"\';";
                 
     DBConnect.DBConnect(query, function (response) {
         console.log(query)

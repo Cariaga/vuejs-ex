@@ -11,30 +11,23 @@ module.exports = function (app) {
 
 
     //userprofit search
-    app.get('/Api/v1/UserProfit/Search/UserName/:UserName/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserName = req.params.UserName;
+    app.get('/Api/v1/UserProfit/Search/ScreenName/:ScreenName/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let ScreenName = req.params.ScreenName;
     let StartDate = req.params.StartDate;
     let EndDate = req.params.EndDate;
 
-        if (!isNullOrEmpty(UserName)) {
+        if (!isNullOrEmpty(ScreenName)) {
             if(!isNullOrEmpty(StartDate)){
                 if(!isNullOrEmpty(EndDate)){
-                    DBCheck.isUserNameExist(UserName, function (response) {
-                        if(response == true){
-                            UserProfitModel.UserProfitSearch(UserName, StartDate, EndDate, function (response) {
-                                if (response != undefined) {
-                                    res.send(response);
-                                } else {
-                                    res.send({
-                                        UserProfitSearchFailed: true
-                                    });
-                                }
+                    UserProfitModel.UserProfitSearch(ScreenName, StartDate, EndDate, function (response) {
+                        if (response != undefined) {
+                            res.send(response);
+                        } else {
+                            res.send({
+                                UserProfitSearchFailed: true
                             });
-                        }else{ //isUserAccountIDExist end
-                            let status = 404;
-                            res.status(status).end(http.STATUS_CODES[status]);
                         }
-                    }); //isUserAccountIDExist function end
+                    });
                 }else{ //end date if else end
                     res.send({EndDateMissing:true});
                 }
@@ -42,7 +35,7 @@ module.exports = function (app) {
                 res.send({StartDateMissing:true});
             }
         } else { //useracccountid if else end
-            res.send({ UserAccountIDMissing: true});
+            res.send({ ScreenNameMissing: true});
         }
     }); //userprofit search end
 
