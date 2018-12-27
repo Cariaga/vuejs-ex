@@ -184,18 +184,18 @@ var isNullOrEmpty = require('is-null-or-empty');
     let _UserName = UserName;
     let query =
     "SELECT p.UserAccountID, p.ScreenName,bl.UserName,bl.Status FROM players p LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID where "+
-    "bl.UserName = \'"+_UserName+"\'  and bl.ReleaseDate is null order by bl.ReportDate desc;";
+    "bl.UserName = \'"+_UserName+"\'  or bl.ReleaseDate is null order by bl.ReportDate desc;";
     console.log(query);
     DBConnect.DBConnect(query,function(response){
       // if it was undefined it has never been blocked
       if(!isNullOrEmpty(_UserName)){
-        callback(false);
+        callback(true);
       }
       else if(response[0].newStatus=="Released"){//has been blocked before but now released
         console.log(response);
         callback(false);
       }else{//if all fails to be true its blocked
-        callback(true);
+        callback(false);
       }
 
     });
