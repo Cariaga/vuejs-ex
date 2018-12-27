@@ -11,17 +11,17 @@ module.exports = function (app) {
 
 
     //userprofit search
-    app.get('/Api/v1/UserProfit/Search/UserAccountID/:UserAccountID/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
+    app.get('/Api/v1/UserProfit/Search/UserName/:UserName/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserName = req.params.UserName;
     let StartDate = req.params.StartDate;
     let EndDate = req.params.EndDate;
 
-        if (!isNullOrEmpty(UserAccountID)) {
+        if (!isNullOrEmpty(UserName)) {
             if(!isNullOrEmpty(StartDate)){
                 if(!isNullOrEmpty(EndDate)){
-                    DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
+                    DBCheck.isUserNameExist(UserName, function (response) {
                         if(response == true){
-                            UserProfitModel.UserProfitSearch(UserAccountID, StartDate, EndDate, function (response) {
+                            UserProfitModel.UserProfitSearch(UserName, StartDate, EndDate, function (response) {
                                 if (response != undefined) {
                                     res.send(response);
                                 } else {
