@@ -535,11 +535,26 @@ wss.on('connection', (ws, req) => {
 
       else if (Object.Type == "RoomChanged") { //event withdraw room
         //console.log("LeaveRoom "+ Object.RoomID);
-        wss.clients.forEach((client) => {
+
+        //new
+        var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+ws.Rooms+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+        console.log("RoomChange ");
+        DBConnect.DBConnect(query3, function (response) {
+          if (response != undefined) {
+            
+            //console.log(response[0]);
+          }
+        });
+
+
+        //old
+       /* wss.clients.forEach((client) => {
+
           if (client.readyState == 1) {
             if (client.UserAccountID == ws.UserAccountID) {
 
               var _UserAccountID = Object.UserAccountID;
+
               var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+Object.RoomName+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
               console.log("RoomChange "+Object.RoomName);
               DBConnect.DBConnect(query3, function (response) {
@@ -550,7 +565,7 @@ wss.on('connection', (ws, req) => {
               });
             }
           }
-        });
+        });*/
       }
       else if (Object.Type == "LeaveRoom") { //event leave room
         //console.log("LeaveRoom "+ Object.RoomID);
