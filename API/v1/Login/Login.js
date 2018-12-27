@@ -189,11 +189,13 @@ module.exports = function (app) {
                                   UserAccountID: firstRow.UserAccountID,
                                   OnlineStatus: firstRow.OnlineStatus,
                                   AccountType: firstRow.AccountType,
+                                  ScreenName : firstRow.ScreenName,
                                   Privilege: firstRow.Privilege,
                                   Commission: firstRow.Commission,
                                   ObscureBankName: firstRow.ObscureBankName,
                                   ObscureAccountNumber:firstRow.ObscureAccountNumber,
                                   ObscureAccountHolder:firstRow.ObscureAccountHolder,
+
                                 
                                 });
     
