@@ -8,8 +8,14 @@ Todo:
 
   ✔ bug only updates user money on last socket transaction @done(18-12-21 14:13)
   ✔ Password hide/show
-  ☐ Optimization Of Request Origins
-  ☐ DBCheck.UserAccountIDInformation Put all the Basic User Information for websocket use during insialization or better yet move to dbGlobal
+  ✔ Optimization Of Request Origins
+  ✔ Prevent Join of players in same room
+    ✔ Lobby Removes Row if same player
+    ✔ Submit Player of PlayerChip 
+
+ // ☐ DBCheck.UserAccountIDInformation Put all the Basic User Information for websocket use during insialization or better yet move to dbGlobal
+ 
+
 
 
 
