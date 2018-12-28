@@ -93,11 +93,11 @@ module.exports.distributeRake = function distributeRake(playerToOHOCommission, b
 
   let { playerRake, shopRake, distributorRake, headofficeRake, operatingheadofficeRake } = GlobalFunction.ComputeRake(bettingAmount, pCommisssion, sCommission, dCommission, hoCommission, ohoCommisssion);
 
-  console.log('player rake -> ' + playerRake);
+ /* console.log('player rake -> ' + playerRake);
   console.log('player rake -> ' +shopRake);
   console.log('player rake -> ' +distributorRake);
   console.log('player rake -> ' +headofficeRake);
-  console.log('player rake -> ' +operatingheadofficeRake);
+  console.log('player rake -> ' +operatingheadofficeRake);*/
 
   console.log(PlayerUserAccountID);
 

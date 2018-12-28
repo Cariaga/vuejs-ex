@@ -108,6 +108,7 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 
 // configuration =================
 
+
 app.use(express.static('AdminSocket'));
 //app.use(express.static('WalletOne'));
 
@@ -338,19 +339,18 @@ wss.on('connection', (ws, req) => {
   ws.DepositNotice = "";
   ws.ParentUserAccountIDList=[];
   ws.isLobby=true;
-
-  //Set Commission of Player the login sends commision also but need to decide which is better 
-  /*DBGlobal.getCommissionPercentages(UserAccountID,function(response){
-    if(response!=undefined){
-      let _playerToOHOCommission = response.playerToOHOCommission[0];
-      ws.PlayerCommission = _playerToOHOCommission['pCommission'];
   
-      console.log("pCommisssion Socket :"+pCommisssion);
+  //Set Commission of Player the login sends commision also but need to decide which is better 
+  
+  DBGlobal.getCommissionPercentages(UserAccountID,function(response){
+    if(response!=undefined){
+     // let _playerToOHOCommission = response.playerToOHOCommission[0];
+      ws.PlayerCommission=response[0]['pCommission'];
+      console.log("pCommisssion Socket :"+response[0]['pCommission']);
     }else{
       console.log("Websocket Set Up Error 1");
     }
-
-  });*/
+  });
 
   DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
     if(response!=undefined){
@@ -618,10 +618,21 @@ wss.on('connection', (ws, req) => {
           }
         });
         
-      } else if (Object.Type == "Bet") { //bet event occured 
-        
+      }
 
+      else if (Object.Type == "ComputedBet") {
+        console.log("ComputedBet "+parseInt(Object.BetAmount));
+        console.log("Commission "+ws.PlayerCommission);
+        let result = GlobalFunctions.ComputeRakePlayer(parseInt(Object.BetAmount),parseFloat( ws.PlayerCommission)).playerRake;
+        let ConvertedBet = (parseInt(Object.BetAmount)-result);
+        console.log("ConvertedBet :" +ConvertedBet);
+        ws.send(stringify({
+          Response: "ConvertedBet",
+          ConvertedBet:ConvertedBet,
+        }, null, 0));
+      }
 
+      else if (Object.Type == "Bet") { //bet event occured 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
@@ -630,6 +641,10 @@ wss.on('connection', (ws, req) => {
                 if (client.Rooms[i].RoomID == Object.RoomID) {
                   if (parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount) >= 0) {
                     client.Rooms[i].BuyIn = parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount);
+                    ws.send(stringify({
+                      Response: "Something"
+                    }, null, 0));
+
                   } else {
                     ws.send(stringify({
                       Response: "NotEnoughMoney"
@@ -642,6 +657,7 @@ wss.on('connection', (ws, req) => {
             }
           }
         });
+        
         
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -830,7 +846,7 @@ function InvokeRepeat(){
         CountSameAccount: count
       };
       let result = stringify(ResponseData, null, 0);
-      console.table(ResponseData);
+
       totalSocketBytes+=sizeof(result);
       client.send(result);
     }

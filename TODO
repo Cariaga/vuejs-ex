@@ -13,6 +13,16 @@ Todo:
     ✔ Lobby Removes Row if same player
     ✔ Submit Player of PlayerChip 
   ✔ Rooms Socket not working
+  ✔ check nickname
+    ✔ route
+    ✔ dbcheck
+  ✔ addroom refix
+  ✔ ScreenName not showing
+  ✔ one withdraw
+  ✔ Confirm withdraw
+  ☐ Withdraw intercept Accepting 
+  ✔ Socket And ComputedBet Game (unUsed yet)
+  ☐ Not Refreshing Socket on Leave
  // ☐ DBCheck.UserAccountIDInformation Put all the Basic User Information for websocket use during insialization or better yet move to dbGlobal
  
 
