@@ -46,8 +46,8 @@ module.exports.RequestWithdraw2 = function RequestWithdraw2(UserAccountID, Amoun
     function WithdrawInsert(){
       return new Promise((resolve,reject) => {
         let query =
-      "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`) "+
-      " VALUES (\'"+_UserTransactionID+"\', (SELECT PhoneNumber FROM userinfos where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT BankName FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT AccountNumber FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1)) ;";
+      "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID`, `ContactNumber`, `BankName`, `AccountNumber`, `ExistingAmount`) "+
+      " VALUES (\'"+_UserTransactionID+"\', (SELECT PhoneNumber FROM userinfos where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT BankName FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT AccountNumber FROM bankinformations where UserAccountID ='"+_UserAccountID+"' limit 1), (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\')) ;";
       console.log(query);
       DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
