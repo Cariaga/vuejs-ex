@@ -12,7 +12,7 @@ Todo:
   ✔ Prevent Join of players in same room
     ✔ Lobby Removes Row if same player
     ✔ Submit Player of PlayerChip 
-
+  ✔ Rooms Socket not working
  // ☐ DBCheck.UserAccountIDInformation Put all the Basic User Information for websocket use during insialization or better yet move to dbGlobal
  
 
