@@ -128,6 +128,23 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
+
+  app.get('/Api/v1/UserAccount/Check/ScreenName/:ScreenName/', Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
+    let ScreenName = req.params.ScreenName;
+    if (!isNullOrEmpty(ScreenName)) {
+      DBCheck.isScreenNameExist(ScreenName, function (response) {
+        if (response==true) {
+          res.send({ScreenNameExist:true});
+        } else {
+          res.send({ScreenNameExist:false});
+        }
+      });
+    } else {
+      res.send({
+        ScreenNameExist: true
+      });
+    }
+  });
   
   app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), (req, res) => {
     let UserAccountID = req.params.UserAccountID;

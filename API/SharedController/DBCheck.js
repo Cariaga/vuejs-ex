@@ -365,7 +365,7 @@ module.exports.isScreenNameExist = function isScreenNameExist(ScreenName, callba
 
 
   DBConnect.DBConnect(query, function (response) {
-    if (response[0].ScreenName == _ScreenName) {
+    if (response != undefined) {
       console.log(response);
       callback(true);
     } else {
@@ -467,6 +467,7 @@ module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccoun
     }
   });
 }
+
 
 module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDExist(UserAccountID, SeasonID, callback) {
   let _UserAccountID = UserAccountID;
