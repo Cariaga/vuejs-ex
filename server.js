@@ -821,16 +821,16 @@ function InvokeRepeat(){
           count++;
         }
       });
-      let result = stringify({
-
+      const ResponseData = {
         UserAccountID: client.UserAccountID,
-        DepositNotice:client.DepositNotice,
-        TransferNotice:client.TransferNotice,
+        DepositNotice: client.DepositNotice,
+        TransferNotice: client.TransferNotice,
         Money: client.Money,
         Rooms: client.Rooms,
         CountSameAccount: count
-
-      }, null, 0);
+      };
+      let result = stringify(ResponseData, null, 0);
+      console.table(ResponseData);
       totalSocketBytes+=sizeof(result);
       client.send(result);
     }
