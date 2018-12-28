@@ -337,7 +337,7 @@ wss.on('connection', (ws, req) => {
   ws.UserAccountID = UserAccountID;
   ws.DepositNotice = "";
   ws.ParentUserAccountIDList=[];
- 
+  ws.isLobby=true;
 
   //Set Commission of Player the login sends commision also but need to decide which is better 
   /*DBGlobal.getCommissionPercentages(UserAccountID,function(response){
@@ -439,10 +439,6 @@ wss.on('connection', (ws, req) => {
                   if(DepositUUID!=""){
                     console.log("Deposit UUID"+DepositUUID);
 
-                   
-                    
-                
-
                     var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
 
                     console.log(query2);
@@ -535,10 +531,37 @@ wss.on('connection', (ws, req) => {
 
       else if (Object.Type == "RoomChanged") { //event withdraw room
         //console.log("LeaveRoom "+ Object.RoomID);
+        /*room player count */
+        let RoomNames=[];
+        if(ws.Rooms!=undefined&&ws.Rooms.length>0){
+          for(let i=0;i<ws.Rooms.length;++i){
+            console.log("Room "+ws.Rooms[i].RoomID);
+            RoomNames.push(ws.Rooms[i].RoomID);
+          }
+        }
 
+        /*lobby same account count */
+          var countSameAccountInLobby=0;
+          wss.clients.forEach((client) => {
+            if (client.readyState == 1) {
+              if (client.UserAccountID == Object.UserAccountID) {
+                if(client.isLobby==true){
+                  countSameAccountInLobby++;
+           
+                }
+              }
+            }
+          });
+          if(countSameAccountInLobby>0){//just put one when we find one player in lobby
+            RoomNames.push("Lobby");
+          }
         //new
-        var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+ws.Rooms+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
-        console.log("RoomChange ");
+
+        var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+RoomNames+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+        console.log("RoomChange "+Object.RoomName);
+       // console.log(Json.stringify(ws.Rooms,));
+     
+
         DBConnect.DBConnect(query3, function (response) {
           if (response != undefined) {
             
@@ -568,6 +591,7 @@ wss.on('connection', (ws, req) => {
         });*/
       }
       else if (Object.Type == "LeaveRoom") { //event leave room
+        ws.isLobby=true;
         //console.log("LeaveRoom "+ Object.RoomID);
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
@@ -650,6 +674,8 @@ wss.on('connection', (ws, req) => {
           }
         });
       } else if (Object.Type == "BuyIn") { //identify object type
+        ws.isLobby=false;
+
         var BuyInRoom = Object;
         //console.log(BuyInRoom);
         wss.clients.forEach((client) => {
@@ -795,16 +821,16 @@ function InvokeRepeat(){
           count++;
         }
       });
-      let result = stringify({
-
+      const ResponseData = {
         UserAccountID: client.UserAccountID,
-        DepositNotice:client.DepositNotice,
-        TransferNotice:client.TransferNotice,
+        DepositNotice: client.DepositNotice,
+        TransferNotice: client.TransferNotice,
         Money: client.Money,
         Rooms: client.Rooms,
         CountSameAccount: count
-
-      }, null, 0);
+      };
+      let result = stringify(ResponseData, null, 0);
+      console.table(ResponseData);
       totalSocketBytes+=sizeof(result);
       client.send(result);
     }
