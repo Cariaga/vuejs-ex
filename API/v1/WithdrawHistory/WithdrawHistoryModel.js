@@ -103,7 +103,7 @@ module.exports.isAlreadyApproved = function isAlreadyApproved(WithdrawHistoryID,
     if (response != undefined) {
       callback(true);
     } else {
-      callback(undefined);
+      callback(false);
     }
   });
 }
