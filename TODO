@@ -1,6 +1,6 @@
 
 Todo:
-  ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
+ // ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
   ✔ Transfer Not Updating Target User on socket Semi Done
     ✔ Socket refresh
     ✔ Notify Player of Money Transfer to refresh
@@ -22,9 +22,16 @@ Todo:
   ✔ Confirm withdraw
   ☐ Withdraw intercept Accepting 
   ✔ Socket And ComputedBet Game (unUsed yet)
-  ☐ Not Refreshing Socket on Leave
- // ☐ DBCheck.UserAccountIDInformation Put all the Basic User Information for websocket use during insialization or better yet move to dbGlobal
- 
+  ☐ Not Refreshing Socket on Leave cause by imporoper leaving
+    ☐ Not Refreshing On when switching socket Master
+    ☐ add back the money to the socket
+    ☐ Update Money  other same account on sudden disconnects
+  ✔ Leaving Update
+  ✔ login can't buyin only when leaving reconnecting again
+  ✔ Failed to Fully Connect Photon
+  
+  ☐ Support Not Displaying
+
 
 
 
