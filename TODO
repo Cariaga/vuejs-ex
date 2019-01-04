@@ -20,7 +20,7 @@ Todo:
   ✔ ScreenName not showing
   ✔ one withdraw
   ✔ Confirm withdraw
-  ☐ Withdraw intercept Accepting 
+  ✔ Withdraw intercept Accepting 
   ✔ Socket And ComputedBet Game (unUsed yet)
   ✔ Not Refreshing Socket on Leave cause by imporoper leaving
     ✔ Not Refreshing On when switching socket Master
@@ -30,7 +30,7 @@ Todo:
   ✔ login can't buyin only when leaving reconnecting again
   ✔ Failed to Fully Connect Photon
   ☐ Notice
-  
+  ✔ Holding Money Bug Again
   ☐ Support Not Displaying
 
 
