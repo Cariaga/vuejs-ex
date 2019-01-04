@@ -29,15 +29,23 @@ Todo:
   ✔ Leaving Update
   ✔ login can't buyin only when leaving reconnecting again
   ✔ Failed to Fully Connect Photon
-  ☐ Notice
+  ☐ Notice from tri need to be evaluated
   ✔ Holding Money Bug Again
-  ☐ Support Not Displaying
-  ☐ buyIn not clicking cancel due to 
+  ✔ Support Not Displaying on submit
+  ✔  buyIn not clicking cancel due to collider
   ☐ Same Room Check Same Account(rare)
-  ☐ Failing Game History drop
-  ☐ Language 
-  
-
+  ✔ Failing Game History drop cause schema curruption
+  ✔ Language 
+  ☐ Not Leaving On Single Player
+  ✔ Settings Suddenly close when spamming
+  ✔ Bug Tab not being clickable
+  ☐ User Side Support Must see Message when no longer pending
+    ☐ Support response UI for User
+  ✔ support not Closing on Click Out side
+  ✔ Admin Support broken UI
+  ✔ Online Status upon Registration
+  ✔ Bulk Registration
+  ☐ Schema to Query views and table creates
 
 
 
