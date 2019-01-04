@@ -15,7 +15,7 @@ var beautify = require("json-beautify");
 //const sendmail = require('sendmail')();
 const url = require('url');
 const stringify = require('json-stringify');
-const Jsoncycle = require('Json-cycle');
+
 const Enumerable = require('linq');
 var cors = require('cors');
 const W1 = require("walletone");
@@ -325,7 +325,7 @@ function LatestAndUnique(distinctlist, LookUp) {
   return Enumerable.from(distinctlist).first(x => x.UserAccountID == LookUp);
 }
 
-let jc = require('json-cycle');
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
