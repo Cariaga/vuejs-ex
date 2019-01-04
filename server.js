@@ -797,7 +797,7 @@ wss.on('connection', (ws, req) => {
 
     if(event.target.isLeadSocket==true){//when Lead leaves
       console.log("Lead Leave Total clients "+ wss.clients.size);
-      if(wss.clients.size>0){
+      if(wss.clients.size>0){//should always execute as  long as their are players
           console.log("Lead Leave with more than 1 client");
           let array = Array.from(wss.clients);
          // console.log("Array Rooms "+JSON.stringify(Jsoncycle.decycle(array),null,2));
@@ -820,11 +820,9 @@ wss.on('connection', (ws, req) => {
               }
             }
             console.log("OldBuyInOfOldLead "+OldBuyInOfOldLead);
-
-
            wss.clients.forEach((client) => {//add back the money
               if (client.readyState == 1) {
-                  client.Money=client.Money+(OldBuyInOfOldLead);
+                  client.Money=client.Money+OldBuyInOfOldLead;
               }});
 
 
@@ -840,15 +838,11 @@ wss.on('connection', (ws, req) => {
                 }
               }});
               //-------end new rooms asignment
-
-
-              
-
          }else{
            console.log("No Rooms to migrate Safe because no same account is playing");
          }
       }else{
-        console.log("Sudden Disconnected Client");
+        console.log("Sudden Disconnected Client this should never happend");
       }
     }else{
       console.log("Sudden Disconnected Non Lead")
