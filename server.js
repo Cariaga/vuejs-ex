@@ -721,7 +721,7 @@ wss.on('connection', (ws, req) => {
                   }
                 }
               }
-              client.WinPoints++;//add Win Points to Player
+              client.WinPoints++;//add Win Points to All Same Player
             }
           }
           
