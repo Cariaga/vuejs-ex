@@ -370,8 +370,9 @@ wss.on('connection', (ws, req) => {
 
   DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
     if (response != undefined) {
-      ws.PlayerWins=response[0]['PlayerWins'];
-      console.log("PlayerWins Socket :"+response[0]['PlayerWins']);
+      ws.WinPoints=response[0]['WinPoints'];
+      console.log(stringify(response,null,2));
+      console.log("PlayerWins Socket :"+response[0]['WinPoints']);
     } else {
       console.log("Websocket Set Up Error 2");
     }
@@ -857,7 +858,7 @@ wss.on('connection', (ws, req) => {
            console.log("No Rooms to migrate Safe because no same account is playing");
          }
       }else{
-        console.log("Sudden Disconnected Client this should never happend");
+        console.log("Sudden Disconnected Client this should never happend if it did server likly shut down unexpectedly or users were connected during maintainance");
       }
     }else{
       console.log("Sudden Disconnected Non Lead")
@@ -986,7 +987,7 @@ function InvokeRepeat(){
         CountSameAccount: count,
         InstanceID: client.InstanceID,
         isLeadSocket: client.isLeadSocket,
-        PlayerWins:client.PlayerWins
+        WinPoints:client.WinPoints
       };
       let result = stringify(ResponseData, null, 0);
 
