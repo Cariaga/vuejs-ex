@@ -1,6 +1,6 @@
-
+//Note Schema is broken in test server
 Todo:
-  ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
+ // ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
   ✔ Transfer Not Updating Target User on socket Semi Done
     ✔ Socket refresh
     ✔ Notify Player of Money Transfer to refresh
@@ -20,11 +20,32 @@ Todo:
   ✔ ScreenName not showing
   ✔ one withdraw
   ✔ Confirm withdraw
-  ☐ Withdraw intercept Accepting 
+  ✔ Withdraw intercept Accepting 
   ✔ Socket And ComputedBet Game (unUsed yet)
-  ☐ Not Refreshing Socket on Leave
- // ☐ DBCheck.UserAccountIDInformation Put all the Basic User Information for websocket use during insialization or better yet move to dbGlobal
- 
+  ✔ Not Refreshing Socket on Leave cause by imporoper leaving
+    ✔ Not Refreshing On when switching socket Master
+    ✔ add back the money to the socket
+    ✔ Update Money  other same account on sudden disconnects
+  ✔ Leaving Update
+  ✔ login can't buyin only when leaving reconnecting again
+  ✔ Failed to Fully Connect Photon
+  ☐ Notice from tri need to be evaluated
+  ✔ Holding Money Bug Again
+  ✔ Support Not Displaying on submit
+  ✔  buyIn not clicking cancel due to collider
+  ☐ Same Room Check Same Account(rare)
+  ✔ Failing Game History drop cause schema curruption
+  ✔ Language 
+  ☐ Not Leaving On Single Player(ru)
+  ✔ Settings Suddenly close when spamming
+  ✔ Bug Tab not being clickable
+  ☐ User Side Support Must see Message when no longer pending
+    ☐ Support response UI for User
+  ✔ support not Closing on Click Out side
+  ✔ Admin Support broken UI
+  ✔ Online Status upon Registration
+  ✔ Bulk Registration
+  ☐ Schema to Query views and table creates
 
 
 

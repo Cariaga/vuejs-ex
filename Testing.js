@@ -406,3 +406,457 @@ DBConnect.RegisterAccount2('UserAccountID', 'AccessID', 'UserName','Password', '
 
 //http://192.168.254.106:8080/Api/v1/InGameSeasonPoints/SeasonID/0e032ae4-335b-4889-808e-3ff95e4cf7f4/
 */
+[
+  {
+    "domain": null,
+    "_events": {
+      "close": [
+        null,
+        null
+      ]
+    },
+    "_eventsCount": 3,
+    "readyState": 1,
+    "protocol": "",
+    "_binaryType": "nodebuffer",
+    "_closeFrameReceived": false,
+    "_closeFrameSent": false,
+    "_closeMessage": "",
+    "_closeTimer": null,
+    "_closeCode": 1006,
+    "_extensions": {},
+    "_isServer": true,
+    "_receiver": {
+      "_writableState": {
+        "objectMode": false,
+        "highWaterMark": 16384,
+        "finalCalled": false,
+        "needDrain": false,
+        "ending": false,
+        "ended": false,
+        "finished": false,
+        "destroyed": false,
+        "decodeStrings": true,
+        "defaultEncoding": "utf8",
+        "length": 0,
+        "writing": false,
+        "corked": 0,
+        "sync": false,
+        "bufferProcessing": false,
+        "writecb": null,
+        "writelen": 0,
+        "bufferedRequest": null,
+        "lastBufferedRequest": null,
+        "pendingcb": 0,
+        "prefinished": false,
+        "errorEmitted": false,
+        "bufferedRequestCount": 0,
+        "corkedRequestsFree": {
+          "next": null,
+          "entry": null
+        }
+      },
+      "writable": true,
+      "domain": null,
+      "_events": {},
+      "_eventsCount": 6,
+      "_binaryType": "nodebuffer",
+      "_extensions": {
+        "$ref": "$[0][\"_extensions\"]"
+      },
+      "_maxPayload": 104857600,
+      "_bufferedBytes": 0,
+      "_buffers": [],
+      "_compressed": false,
+      "_payloadLength": 97,
+      "_mask": {
+        "type": "Buffer",
+        "data": [
+          0,
+          143,
+          148,
+          147
+        ]
+      },
+      "_fragmented": 0,
+      "_masked": true,
+      "_fin": true,
+      "_opcode": 1,
+      "_totalPayloadLength": 0,
+      "_messageLength": 0,
+      "_fragments": [],
+      "_state": 0,
+      "_loop": false
+    },
+    "_sender": {
+      "_extensions": {
+        "$ref": "$[0][\"_extensions\"]"
+      },
+      "_socket": {
+        "connecting": false,
+        "_hadError": false,
+        "_handle": {
+          "reading": true,
+          "owner": {
+            "$ref": "$[0][\"_sender\"][\"_socket\"]"
+          },
+          "onconnection": null,
+          "writeQueueSize": 0,
+          "_consumed": true
+        },
+        "_parent": null,
+        "_host": null,
+        "_readableState": {
+          "objectMode": false,
+          "highWaterMark": 16384,
+          "buffer": {
+            "head": null,
+            "tail": null,
+            "length": 0
+          },
+          "length": 0,
+          "pipes": null,
+          "pipesCount": 0,
+          "flowing": true,
+          "ended": false,
+          "endEmitted": false,
+          "reading": true,
+          "sync": false,
+          "needReadable": true,
+          "emittedReadable": false,
+          "readableListening": false,
+          "resumeScheduled": false,
+          "destroyed": false,
+          "defaultEncoding": "utf8",
+          "awaitDrain": 0,
+          "readingMore": false,
+          "decoder": null,
+          "encoding": null
+        },
+        "readable": true,
+        "domain": null,
+        "_events": {
+          "end": [
+            null,
+            null
+          ],
+          "error": [
+            null,
+            null
+          ]
+        },
+        "_eventsCount": 7,
+        "_writableState": {
+          "objectMode": false,
+          "highWaterMark": 16384,
+          "finalCalled": false,
+          "needDrain": false,
+          "ending": false,
+          "ended": false,
+          "finished": false,
+          "destroyed": false,
+          "decodeStrings": false,
+          "defaultEncoding": "utf8",
+          "length": 0,
+          "writing": false,
+          "corked": 0,
+          "sync": false,
+          "bufferProcessing": false,
+          "writecb": null,
+          "writelen": 0,
+          "bufferedRequest": null,
+          "lastBufferedRequest": null,
+          "pendingcb": 0,
+          "prefinished": false,
+          "errorEmitted": false,
+          "bufferedRequestCount": 0,
+          "corkedRequestsFree": {
+            "next": null,
+            "entry": null
+          }
+        },
+        "writable": true,
+        "allowHalfOpen": true,
+        "_bytesDispatched": 6487,
+        "_sockname": null,
+        "_pendingData": null,
+        "_pendingEncoding": "",
+        "server": {
+          "domain": null,
+          "_events": {
+            "request": [
+              null,
+              null
+            ]
+          },
+          "_eventsCount": 5,
+          "_connections": 2,
+          "_handle": {
+            "reading": false,
+            "owner": {
+              "$ref": "$[0][\"_sender\"][\"_socket\"][\"server\"]"
+            },
+            "onread": null,
+            "writeQueueSize": 0
+          },
+          "_usingSlaves": false,
+          "_slaves": [],
+          "_unref": false,
+          "allowHalfOpen": true,
+          "pauseOnConnect": false,
+          "httpAllowHalfOpen": false,
+          "timeout": 120000,
+          "keepAliveTimeout": 5000,
+          "_pendingResponseData": 0,
+          "maxHeadersCount": null,
+          "_connectionKey": "6::::8080"
+        },
+        "_server": {
+          "$ref": "$[0][\"_sender\"][\"_socket\"][\"server\"]"
+        },
+        "_idleTimeout": -1,
+        "_idleNext": null,
+        "_idlePrev": null,
+        "_idleStart": 1474,
+        "_destroyed": false,
+        "parser": null,
+        "_paused": false
+      },
+      "_firstFragment": true,
+      "_compress": false,
+      "_bufferedBytes": 0,
+      "_deflating": false,
+      "_queue": []
+    },
+    "_socket": {
+      "$ref": "$[0][\"_sender\"][\"_socket\"]"
+    },
+    "UserAccountID": "486798fb-6be6-4c44-a0e6-e66b65f6fa0c",
+    "InstanceID": "45eb6d6f-c4d5-4c30-98ee-dd3d5ae0eae3",
+    "DepositNotice": "",
+    "ParentUserAccountIDList": [
+      "d31a6484-5249-4faa-b7d3-aa6f93419d8c",
+      "f814f2a9-6aa9-4577-88c3-6a41d60b94a7",
+      "1b3c78a4-dc09-4a71-b0fb-ad0440992b1e",
+      "7fffe8d8-e65d-4990-9460-51e84ab9dc5e"
+    ],
+    "isLobby": true,
+    "isLeadSocket": true,
+    "UserName": "user3",
+    "PlayerCommission": 4.5,
+    "Money": 976166
+  },
+  {
+    "domain": null,
+    "_events": {
+      "close": [
+        null,
+        null
+      ]
+    },
+    "_eventsCount": 3,
+    "readyState": 1,
+    "protocol": "",
+    "_binaryType": "nodebuffer",
+    "_closeFrameReceived": false,
+    "_closeFrameSent": false,
+    "_closeMessage": "",
+    "_closeTimer": null,
+    "_closeCode": 1006,
+    "_extensions": {},
+    "_isServer": true,
+    "_receiver": {
+      "_writableState": {
+        "objectMode": false,
+        "highWaterMark": 16384,
+        "finalCalled": false,
+        "needDrain": false,
+        "ending": false,
+        "ended": false,
+        "finished": false,
+        "destroyed": false,
+        "decodeStrings": true,
+        "defaultEncoding": "utf8",
+        "length": 0,
+        "writing": false,
+        "corked": 0,
+        "sync": false,
+        "bufferProcessing": false,
+        "writecb": null,
+        "writelen": 0,
+        "bufferedRequest": null,
+        "lastBufferedRequest": null,
+        "pendingcb": 0,
+        "prefinished": false,
+        "errorEmitted": false,
+        "bufferedRequestCount": 0,
+        "corkedRequestsFree": {
+          "next": null,
+          "entry": null
+        }
+      },
+      "writable": true,
+      "domain": null,
+      "_events": {},
+      "_eventsCount": 6,
+      "_binaryType": "nodebuffer",
+      "_extensions": {
+        "$ref": "$[1][\"_extensions\"]"
+      },
+      "_maxPayload": 104857600,
+      "_bufferedBytes": 0,
+      "_buffers": [],
+      "_compressed": false,
+      "_payloadLength": 97,
+      "_mask": {
+        "type": "Buffer",
+        "data": [
+          0,
+          171,
+          3,
+          43
+        ]
+      },
+      "_fragmented": 0,
+      "_masked": true,
+      "_fin": true,
+      "_opcode": 1,
+      "_totalPayloadLength": 0,
+      "_messageLength": 0,
+      "_fragments": [],
+      "_state": 0,
+      "_loop": false
+    },
+    "_sender": {
+      "_extensions": {
+        "$ref": "$[1][\"_extensions\"]"
+      },
+      "_socket": {
+        "connecting": false,
+        "_hadError": false,
+        "_handle": {
+          "reading": true,
+          "owner": {
+            "$ref": "$[1][\"_sender\"][\"_socket\"]"
+          },
+          "onconnection": null,
+          "writeQueueSize": 0,
+          "_consumed": true
+        },
+        "_parent": null,
+        "_host": null,
+        "_readableState": {
+          "objectMode": false,
+          "highWaterMark": 16384,
+          "buffer": {
+            "head": null,
+            "tail": null,
+            "length": 0
+          },
+          "length": 0,
+          "pipes": null,
+          "pipesCount": 0,
+          "flowing": true,
+          "ended": false,
+          "endEmitted": false,
+          "reading": true,
+          "sync": false,
+          "needReadable": true,
+          "emittedReadable": false,
+          "readableListening": false,
+          "resumeScheduled": false,
+          "destroyed": false,
+          "defaultEncoding": "utf8",
+          "awaitDrain": 0,
+          "readingMore": false,
+          "decoder": null,
+          "encoding": null
+        },
+        "readable": true,
+        "domain": null,
+        "_events": {
+          "end": [
+            null,
+            null
+          ],
+          "error": [
+            null,
+            null
+          ]
+        },
+        "_eventsCount": 7,
+        "_writableState": {
+          "objectMode": false,
+          "highWaterMark": 16384,
+          "finalCalled": false,
+          "needDrain": false,
+          "ending": false,
+          "ended": false,
+          "finished": false,
+          "destroyed": false,
+          "decodeStrings": false,
+          "defaultEncoding": "utf8",
+          "length": 0,
+          "writing": false,
+          "corked": 0,
+          "sync": false,
+          "bufferProcessing": false,
+          "writecb": null,
+          "writelen": 0,
+          "bufferedRequest": null,
+          "lastBufferedRequest": null,
+          "pendingcb": 0,
+          "prefinished": false,
+          "errorEmitted": false,
+          "bufferedRequestCount": 0,
+          "corkedRequestsFree": {
+            "next": null,
+            "entry": null
+          }
+        },
+        "writable": true,
+        "allowHalfOpen": true,
+        "_bytesDispatched": 2581,
+        "_sockname": null,
+        "_pendingData": null,
+        "_pendingEncoding": "",
+        "server": {
+          "$ref": "$[0][\"_sender\"][\"_socket\"][\"server\"]"
+        },
+        "_server": {
+          "$ref": "$[0][\"_sender\"][\"_socket\"][\"server\"]"
+        },
+        "_idleTimeout": -1,
+        "_idleNext": null,
+        "_idlePrev": null,
+        "_idleStart": 26965,
+        "_destroyed": false,
+        "parser": null,
+        "_paused": false
+      },
+      "_firstFragment": true,
+      "_compress": false,
+      "_bufferedBytes": 0,
+      "_deflating": false,
+      "_queue": []
+    },
+    "_socket": {
+      "$ref": "$[1][\"_sender\"][\"_socket\"]"
+    },
+    "UserAccountID": "8c874921-e188-49f0-96c4-71bff23647a5",
+    "InstanceID": "0844eab7-43eb-420d-9781-380c070774fe",
+    "DepositNotice": "",
+    "ParentUserAccountIDList": [
+      "d31a6484-5249-4faa-b7d3-aa6f93419d8c",
+      "7b338109-2401-4aa9-8735-b3ccbf80a058",
+      "17abd2cf-9835-4b82-abae-bcde8dcc67ff",
+      "0a8cac4a-4fbb-4994-93a1-1dae96cb89c9"
+    ],
+    "isLobby": true,
+    "isLeadSocket": false,
+    "PlayerCommission": 4.5,
+    "UserName": "user1",
+    "Money": 943768,
+    "Rooms": []
+  }
+]
