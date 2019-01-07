@@ -368,6 +368,15 @@ wss.on('connection', (ws, req) => {
     }
   });
 
+  DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
+    if (response != undefined) {
+      ws.PlayerWins=response[0]['PlayerWins'];
+    } else {
+      console.log("Websocket Set Up Error 2");
+    }
+});
+
+
 
   //Get 
 
