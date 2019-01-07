@@ -1,4 +1,5 @@
 //Note Schema is broken in test server
+//https://docs.openshift.com/container-platform/3.11/dev_guide/port_forwarding.html
 Todo:
  // ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
   ✔ Transfer Not Updating Target User on socket Semi Done
@@ -46,7 +47,7 @@ Todo:
   ✔ Online Status upon Registration
   ✔ Bulk Registration
   ☐ Schema to Query views and table creates
-
+  ☐ clone schema from remote
 
 
 
