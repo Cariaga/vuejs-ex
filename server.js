@@ -717,11 +717,15 @@ wss.on('connection', (ws, req) => {
                 if (client.Rooms[i].RoomID == Object.RoomID) {
                   if (parseInt(client.Rooms[i].BuyIn) + parseInt(Object.WinAmount) >= 0) {
                     client.Rooms[i].BuyIn = parseInt(client.Rooms[i].BuyIn) + parseInt(Object.WinAmount);
+                    
                   }
                 }
               }
+              client.WinPoints++;//add Win Points to Player
             }
           }
+          
+
         });
       } else if (Object.Type == "BuyIn") { //identify object type
         ws.isLobby=false;
