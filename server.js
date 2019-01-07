@@ -356,7 +356,7 @@ wss.on('connection', (ws, req) => {
 //-------End Player Checking First Socket
 
 
-  //Set Commission of Player the login sends commision also but need to decide which is better 
+  //Get Commission of Player the login sends commision also but need to decide which is better 
   
   DBGlobal.getCommissionPercentages(UserAccountID,function(response){
     if(response!=undefined){
@@ -368,6 +368,9 @@ wss.on('connection', (ws, req) => {
     }
   });
 
+
+  //Get 
+
   DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
     if(response!=undefined){
       ws.UserName = response[0]["UserName"];
@@ -376,7 +379,7 @@ wss.on('connection', (ws, req) => {
     }
   });
 
-  
+
   /* Screen Name not Done move to UserAccountID Basic Information
   DBCheck.UserAccountIDScreenName(UserAccountID,function(response){
     if(response!=undefined){
