@@ -375,6 +375,8 @@ wss.on('connection', (ws, req) => {
       console.log("Websocket Set Up Error 2");
     }
   });
+
+  
   /* Screen Name not Done move to UserAccountID Basic Information
   DBCheck.UserAccountIDScreenName(UserAccountID,function(response){
     if(response!=undefined){

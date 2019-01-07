@@ -37,7 +37,7 @@ Todo:
   ☐ Same Room Check Same Account(rare)
   ✔ Failing Game History drop cause schema curruption
   ✔ Language 
-  ☐ Not Leaving On Single Player(ru)
+  ✔ Not Leaving On Single Player(ru)
   ✔ Settings Suddenly close when spamming
   ✔ Bug Tab not being clickable
   ☐ User Side Support Must see Message when no longer pending
@@ -46,10 +46,11 @@ Todo:
   ✔ Admin Support broken UI
   ✔ Online Status upon Registration
   ✔ Bulk Registration
-  ☐ Schema to Query views and table creates
-  ☐ clone schema from remote
-
-
+  ✔ Schema to Query views and table creates
+  ✔ clone schema from remote
+  ✔ schema exporting process imporved 
+  ✔ room no longer visble when leaving
+  ☐ Socket WinPoints
 
 
 
