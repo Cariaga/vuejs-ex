@@ -1,4 +1,4 @@
-
+//Note Schema is broken in test server
 Todo:
  // ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
   ✔ Transfer Not Updating Target User on socket Semi Done
@@ -36,7 +36,7 @@ Todo:
   ☐ Same Room Check Same Account(rare)
   ✔ Failing Game History drop cause schema curruption
   ✔ Language 
-  ☐ Not Leaving On Single Player
+  ☐ Not Leaving On Single Player(ru)
   ✔ Settings Suddenly close when spamming
   ✔ Bug Tab not being clickable
   ☐ User Side Support Must see Message when no longer pending
