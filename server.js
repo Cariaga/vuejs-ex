@@ -985,7 +985,8 @@ function InvokeRepeat(){
         Rooms: client.Rooms,
         CountSameAccount: count,
         InstanceID: client.InstanceID,
-        isLeadSocket: client.isLeadSocket
+        isLeadSocket: client.isLeadSocket,
+        PlayerWins:client.PlayerWins
       };
       let result = stringify(ResponseData, null, 0);
 

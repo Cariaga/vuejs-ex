@@ -9,6 +9,7 @@ var http = require('http');
 var Security = require('../../SharedController/Security');
 let DBGlobal = require('../../SharedController/DBGlobal');
 module.exports = function (app) {
+    /*this is likely broken need because of the socket change */
     app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         console.log("Player Wins")
