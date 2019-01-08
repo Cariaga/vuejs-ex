@@ -721,7 +721,8 @@ wss.on('connection', (ws, req) => {
                   }
                 }
               }
-              client.WinPoints++;//add Win Points to All Same Player
+              client.WinPoints=client.WinPoints+1;//add Win Points to All Same Player
+              console.log("Winz");
             }
           }
           
