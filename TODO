@@ -34,7 +34,8 @@ Todo:
   ✔ Holding Money Bug Again
   ✔ Support Not Displaying on submit
   ✔  buyIn not clicking cancel due to collider
-  ☐ Same Room Check Same Account(rare)
+  //☐ Same Room Check Same Account(vary rare)
+  //☐ Double BuyIn(very rare)
   ✔ Failing Game History drop cause schema curruption
   ✔ Language 
   ✔ Not Leaving On Single Player(ru)
@@ -53,8 +54,8 @@ Todo:
   ✔ Socket WinPoints 
     ☐ Need to validate 
   ☐ Chat bubble not showing
-  ☐ Failing to refersh photon
-  ✔ Unity Enchanced Socket
+  ✔ Failing to refersh photon
+  ✔ Unity Enchanced Socket Debugging
 
 
 
