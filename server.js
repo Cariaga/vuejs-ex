@@ -371,7 +371,7 @@ wss.on('connection', (ws, req) => {
   DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
     if (response != undefined) {
       ws.WinPoints=response[0]['WinPoints'];
-      console.log(stringify(response,null,2));
+     // console.log(stringify(response,null,2));
       console.log("PlayerWins Socket :"+response[0]['WinPoints']);
     } else {
       console.log("Websocket Set Up Error 2");
