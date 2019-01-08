@@ -862,7 +862,7 @@ wss.on('connection', (ws, req) => {
            console.log("No Rooms to migrate Safe because no same account is playing");
          }
       }else{
-        console.log("Sudden Disconnected Client this should never happend if it did server likly shut down unexpectedly or users were connected during maintainance");
+        console.log("Sudden Disconnected Client last player and also lead");
       }
     }else{
       console.log("Sudden Disconnected Non Lead")
