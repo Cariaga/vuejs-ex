@@ -50,8 +50,10 @@ Todo:
   ✔ clone schema from remote
   ✔ schema exporting process imporved 
   ✔ room no longer visble when leaving
-  ☐ Socket WinPoints 
-    ☐ Need to validate 
+  ✔ Socket WinPoints 
+    //☐ Need to validate 
+  ☐ Chat bubble not showing
+  ☐ Failing to refersh photon
 
 
 
