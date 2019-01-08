@@ -54,10 +54,11 @@ module.exports.HeadOfficeWithdrawDaily = function HeadOfficeWithdrawDaily(callba
 
 module.exports.HeadOfficeDepositDaily = function HeadOfficeDepositDaily(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_daily_deposit;";
+    "SELECT distinct UserName OfficeID,  (select sum(round(Amount)) from headoffice_daily_deposit hdd2 where hdd2.UserName = OfficeID ) Amount FROM sampledb.headoffice_daily_deposit;";
+    // "SELECT * FROM sampledb.headoffice_daily_deposit;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
-        console.log(response);
+        // console.log(response);
         callback(response);
       } else {
         callback(undefined);
@@ -70,7 +71,7 @@ module.exports.UserAccountOnline = function UserAccountOnline(callback) {
     "SELECT * FROM sampledb.useraccount_onlinecountlist;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
-        console.log(response);
+        // console.log(response);
         callback(response);
       } else {
         callback(undefined);
