@@ -64,6 +64,9 @@ Todo:
   ✔ /Api/ route fixed looping
   ✔ Empty Support null fix
   ☐ Refactoring Needed for database
+    //ALTER TABLE sampledb2.notifications 
+    COMMENT='This are all within the rooms only';
+    
 
 
 
