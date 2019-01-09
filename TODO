@@ -60,7 +60,7 @@ Todo:
   ✔ Unity Enchanced Socket Debugging
   ✔ Player Leaving and joining bug rows not updated
   ✔ Rake null on second Player Connection
-  ☐ Chat Bubble  re orientation
+  ✔  Chat Bubble  re orientation
   ✔ /Api/ route fixed looping
   ✔ Empty Support null fix
   ✔ Refactoring Needed for database
