@@ -7,8 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameNotice/', Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }),function (req, res) {
 
+    app.get('/Api/v1/InGameNotice/', Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }),function (req, res) {
+        console.log("------------Deprected uses parameter based now /Api/v1/InGameNotice/ ");
         InGameNoticeModel.InGameNotice(function(response){
             res.send(response);
         });
