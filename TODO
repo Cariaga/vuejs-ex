@@ -66,6 +66,8 @@ Todo:
   ✔ Refactoring Needed for database
   ✔  updated Deposit socket
   ✔ updated Withdraw socket
+  ✔ Network Lose Detection
+  ✔ Unity Web browser delegate error when no listener
 
 
 
