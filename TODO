@@ -30,7 +30,7 @@ Todo:
   ✔ Leaving Update
   ✔ login can't buyin only when leaving reconnecting again
   ✔ Failed to Fully Connect Photon
-  ☐ Notice from tri need to be evaluated
+  ✔ Notice from tri need to be evaluated
   ✔ Holding Money Bug Again
   ✔ Support Not Displaying on submit
   ✔  buyIn not clicking cancel due to collider
@@ -68,7 +68,7 @@ Todo:
   ✔ updated Withdraw socket
   ✔ Network Lose Detection
   ✔ Unity Web browser delegate error when no listener
-
+  ☐ Settings update  toggle 
 
 
 
