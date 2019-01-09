@@ -52,12 +52,13 @@ Todo:
   ✔ schema exporting process imporved 
   ✔ room no longer visble when leaving
   ☐ Socket WinPoints 
-    ☐ Socket Not Updating because of dealercontroller
+    ☐ Socket Not Updating because of dealercontroller or the Player Final Card is empty
     ☐ Need to validate
   ✔ Chat bubble not showing inverted
   ✔ Failing to refersh photon
   ✔ Unity Enchanced Socket Debugging
   ✔ Player Leaving and joining bug rows not updated
+  ✔ Rake null on second Player Connection
 
 
 
