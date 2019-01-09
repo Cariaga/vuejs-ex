@@ -64,6 +64,8 @@ Todo:
   ✔ /Api/ route fixed looping
   ✔ Empty Support null fix
   ✔ Refactoring Needed for database
+  ✔  updated Deposit socket
+  ✔ updated Withdraw socket
 
 
 
