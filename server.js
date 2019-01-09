@@ -137,6 +137,10 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 }));
 */
 
+
+
+
+
 //===========API===========
 
 let Security = require("./API/SharedController/Security");
@@ -222,12 +226,13 @@ function test() {
 //--testing for season based authentication END
 
 
-app.get('/',function (req, res) {
-  redis.set('foo', 'bar');
-  res.status(200);
-});
+
 
 //--Login End
+app.get('/',function (req, res) {
+  //redis.set('foo', 'bar');
+  res.sendStatus(200);
+});
 
 app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
   console.log("test");
@@ -235,9 +240,9 @@ app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5 
   console.log("tester2");
 
   res.send('pick version');
-  redis.get('foo', function (err, result) {
+  /*redis.get('foo', function (err, result) {
     console.log(result);
-  });
+  });*/
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
@@ -263,10 +268,6 @@ app.get('/SideNotice/',Security.rateLimiterMiddleware,Security.cache.route({ exp
      
   });
   //setTimeout(function(){res.send('pick version');}, 10000);
-});
-
-app.get('/Api/v1/InGameUserSupport/', function (req, res) {
-  res.status(200);
 });
 
 app.get('/Pay/UserAccountID/:UserAccountID/Amount/:Amount/',function(req,res){
