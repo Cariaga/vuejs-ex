@@ -41,7 +41,7 @@ module.exports.HeadOfficeBettingYearly = function HeadOfficeBettingYearly(callba
 
 module.exports.HeadOfficeWithdrawDaily = function HeadOfficeWithdrawDaily(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_daily_withdraw;";
+    "SELECT distinct UserName OfficeID, (select sum(round(Amount)) from headoffice_daily_withdraw hdw2 where hdw2.UserName = OfficeID ) Amount FROM sampledb.headoffice_daily_withdraw;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
