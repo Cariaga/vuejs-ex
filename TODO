@@ -51,12 +51,13 @@ Todo:
   ✔ clone schema from remote
   ✔ schema exporting process imporved 
   ✔ room no longer visble when leaving
-  ✔ Socket WinPoints 
-    ☐ Need to validate 
-  ☐ Chat bubble not showing
+  ☐ Socket WinPoints 
+    ☐ Socket Not Updating because of dealercontroller
+    ☐ Need to validate
+  ✔ Chat bubble not showing inverted
   ✔ Failing to refersh photon
   ✔ Unity Enchanced Socket Debugging
-
+  ✔ Player Leaving and joining bug rows not updated
 
 
 
