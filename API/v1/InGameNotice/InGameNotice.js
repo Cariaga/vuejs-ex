@@ -13,6 +13,13 @@ module.exports = function (app) {
             res.send(response);
         });
     });
+    app.get('/Api/v1/InGameNotice/Location/:Location/NotificationType/:NotificationType/', Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }),function (req, res) {
+        let Location =req.params.Location;
+        let NotificationType= req.params.NotificationType;
+        InGameNoticeModel.InGameNotice2(Location,NotificationType,function(response){
+            res.send(response);
+        });
+    });
     app.get('/Api/v1/InGameNotice/test',function (req, res) {
 
         InGameNoticeModel.InGameNotice(function(response){
