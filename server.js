@@ -265,6 +265,10 @@ app.get('/SideNotice/',Security.rateLimiterMiddleware,Security.cache.route({ exp
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
 
+app.get('/Api/v1/InGameUserSupport/', function (req, res) {
+  res.status(200);
+});
+
 app.get('/Pay/UserAccountID/:UserAccountID/Amount/:Amount/',function(req,res){
   let Amount =  req.params.Amount;
   let UserAccountID =  req.params.UserAccountID;

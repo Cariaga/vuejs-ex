@@ -43,6 +43,7 @@ Todo:
   ✔ Bug Tab not being clickable
   ☐ User Side Support Must see Message when no longer pending
     ☐ Support response UI for User
+    ☐  not routing
   ✔ support not Closing on Click Out side
   ✔ Admin Support broken UI
   ✔ Online Status upon Registration
@@ -59,6 +60,8 @@ Todo:
   ✔ Unity Enchanced Socket Debugging
   ✔ Player Leaving and joining bug rows not updated
   ✔ Rake null on second Player Connection
+  ☐ Chat Bubble  re orientation
+
 
 
 
