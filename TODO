@@ -70,8 +70,8 @@ Todo:
   ✔ Unity Web browser delegate error when no listener
   ✔ Settings update  toggle 
   ✔ UI Pre enabled last settings 
- // ☐ Static Debugger
+  ✔ Static Debugger
   ✔ Some Statics Not Updated on login
   ✔ Optimized Interface settings
   ✔ Text Miss alignment 
-
+  ☐ Split Debugger
