@@ -68,8 +68,10 @@ Todo:
   ✔ updated Withdraw socket
   ✔ Network Lose Detection
   ✔ Unity Web browser delegate error when no listener
-  ☐ Settings update  toggle 
+  ✔ Settings update  toggle 
+  ✔ UI Pre enabled last settings 
   ☐ Static Debugger
-  ☐ Some Statics Not Updated on login
+  ✔ Some Statics Not Updated on login
+
 
 
