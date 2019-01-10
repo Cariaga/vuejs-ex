@@ -19,9 +19,9 @@ module.exports = function (app) {
             res.send(response);
           });
       });
-    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Yearly/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 10  }), function (req, res) {
+    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Weekly/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 10  }), function (req, res) {
         res.setHeader('Content-Type', 'application/json');
-        DashBoardModel.HeadOfficeBettingYearly(function (response) {
+        DashBoardModel.HeadOfficeBettingWeekly(function (response) {
             res.send(response);
           });
       });
