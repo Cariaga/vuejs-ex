@@ -13,15 +13,15 @@ module.exports = function (app) {
             res.send(response);
           });
       });
-    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Monthly/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 10  }), function (req, res) {
-        res.setHeader('Content-Type', 'application/json');
-        DashBoardModel.HeadOfficeBettingMonthly(function (response) {
-            res.send(response);
-          });
-      });
     app.get('/Api/v1/Dashboard/HeadOffice/Betting/Weekly/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 10  }), function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.HeadOfficeBettingWeekly(function (response) {
+            res.send(response);
+        });
+    });
+    app.get('/Api/v1/Dashboard/HeadOffice/Betting/Monthly/', /*Security.rateLimiterMiddleware,*/Security.verifyToken,Security.cache.route({ expire: 10  }), function (req, res) {
+        res.setHeader('Content-Type', 'application/json');
+        DashBoardModel.HeadOfficeBettingMonthly(function (response) {
             res.send(response);
           });
       });
