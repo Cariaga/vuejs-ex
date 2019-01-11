@@ -12,7 +12,7 @@ module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback
     });
 }
 
-module.exports.HeadOfficeWeekly = function HeadOfficeWeekly(callback) {
+module.exports.HeadOfficeBettingWeekly = function HeadOfficeBettingWeekly(callback) {
   let query = "SELECT distinct UserName OfficeID, ifnull(round((select sum(round(HandAmount)) from headoffice_betting hdb2 where hdb2.UserName = OfficeID ) / ((select datediff(max(HandDateTime), min(HandDateTime)) from headoffice_betting) / 7)),0) Amount FROM sampledb.headoffice_betting;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
