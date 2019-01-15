@@ -457,7 +457,8 @@ wss.on('connection', (ws, req) => {
   
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
   // console.log("url: ", ws);
-
+  //Developer note : it seams direct editing of db money won't affect the real money of the player but it dose work without problem with an actual deposit  which is good
+  //editing the money in the db shouln't happend without updating the socket aswell
   ws.onmessage = function (event) {
     //clients.size to get the length of the sockets connections
 
