@@ -78,6 +78,7 @@ module.exports = function (app) {
             res.send(response);
           });
       });
+      
       app.get('/Api/v1/Dashboard/TotalTransactionRecent/',Security.verifyToken,Security.cache.route({ expire: 10 }), function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         DashBoardModel.TotalTransactionRecent(function (response) {
