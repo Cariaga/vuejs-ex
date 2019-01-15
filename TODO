@@ -1,4 +1,4 @@
-//Note Schema is broken in test server
+
 //https://docs.openshift.com/container-platform/3.11/dev_guide/port_forwarding.html
 Todo:
  // ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
@@ -75,3 +75,14 @@ Todo:
   ✔ Optimized Interface settings
   ✔ Text Miss alignment 
   ☐ Split Debugger
+  ☐ last Player Leave During Gameplay can't leave(rare)
+  ☐ Instasiating cards even when not counted as player possible solution ones cards are being passed now don't animate on non playing players
+  ✔ chat text gets too small
+  ✔ chat orentation
+  ✔ blue card not showing
+  ✔ chat bubble gets too small
+  ✔ lobby money not sync runs out false alam
+  ✔ resolution controller bug
+  ✔ input bar bug
+  ✔ Highlight on start
+  ✔ Notice Login close click bug
