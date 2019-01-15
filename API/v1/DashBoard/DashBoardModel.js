@@ -114,6 +114,19 @@ module.exports.TotalRegisteredUsersToday = function TotalRegisteredUsers(callbac
     });
 }
 
+module.exports.TotalDepositToday = function TotalDepositToday(callback) {
+  let query =
+    "SELECT * FROM sampledb.total_recent_registered;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
 module.exports.TotalWithdrawDepositProfit = function TotalWithdrawDepositProfit(callback) {
   let query =
     "SELECT * FROM sampledb.withdraw_deposit_porfit_total;";
