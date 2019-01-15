@@ -827,7 +827,7 @@ wss.on('connection', (ws, req) => {
           console.log("Lead Leave with more than 1 client");
           let array = Array.from(wss.clients);
          // console.log("Array Rooms "+JSON.stringify(Jsoncycle.decycle(array),null,2));
-         if(array.length>0){
+         if(array.length!=undefined&&array.length>0){
           let LeadRooms =array[0].Rooms;// first index
           
           // console.log("Room :" +JSON.stringify(Jsoncycle.decycle(array[1].Rooms),null,2));

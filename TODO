@@ -34,7 +34,7 @@ Todo:
   ✔ Holding Money Bug Again
   ✔ Support Not Displaying on submit
   ✔  buyIn not clicking cancel due to collider
-  //☐ Same Room Check Same Account(vary rare)
+  ✔ Same Room Check Same Account(vary rare)
   //☐ Double BuyIn(very rare)
   ✔ Failing Game History drop cause schema curruption
   ✔ Language 
@@ -74,9 +74,9 @@ Todo:
   ✔ Some Statics Not Updated on login
   ✔ Optimized Interface settings
   ✔ Text Miss alignment 
-  ☐ Split Debugger
+  //☐ Split Debugger
   ☐ last Player Leave During Gameplay can't leave(rare)
-  ☐ Instasiating cards even when not counted as player possible solution ones cards are being passed now don't animate on non playing players
+  ✔ Instasiating cards even when not counted as player possible solution ones cards are being passed now don't animate on non playing players
   ✔ chat text gets too small
   ✔ chat orentation
   ✔ blue card not showing
@@ -86,3 +86,9 @@ Todo:
   ✔ input bar bug
   ✔ Highlight on start
   ✔ Notice Login close click bug
+  ✔ Leaving last Player and simultaneous new player bug becomes persistent problem when last leaves while joining
+    ✔ ( caused by a new game state) IdleMaster
+
+  ✔ Speed up process between scenes editor
+  ✔ Speed up process between scripts modifications
+  ☐ Socket Server Onclose last player last socket leave error length
