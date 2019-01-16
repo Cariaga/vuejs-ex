@@ -1,5 +1,9 @@
 // server.js
 "use strict";
+
+//ServerMode
+let ServerMode = "Debug";
+
 // set up ========================
 var helmet = require('helmet');
 //var sqlinjection = require('sql-injection');// disable because it blocks token access
@@ -1109,8 +1113,32 @@ stats.on('request', function (req) {
 
 /*this catches everything and prevent node application from compleatly shutting down */
 process.on('uncaughtException', function (err) {
+
+
   console.log("Catch everything: "+err);
-}); 
+
+  if(ServerMode=="Debug"){
+  /*send the error to the connected clients not needed in Server Production Mode*/
+  wss.clients.forEach((client) => {
+    if (client.readyState == 1) {
+      var count = 0;
+      wss.clients.forEach((client2) => {
+        if (client2.UserAccountID == client.UserAccountID) {
+          count++;
+        }
+      });
+      const ResponseData = {
+        ServerError:err,
+      };
+      let result = stringify(ResponseData, null, 0);
+      totalSocketBytes+=sizeof(result);
+      client.send(result);
+    }
+    // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
+  });
+  }
+});
+
 
 //to show all routes 
 /*
