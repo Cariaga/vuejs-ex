@@ -97,4 +97,5 @@ Todo:
   ✔ Support Server client updated db
   ✔ Need Debugger for Websocket at unity
   ☐ Need Code architecture
-  ☐ Editor Documentation Tool for Unity
+  ✔ Editor Object Notes Tool for Unity
+    ✔ Editor between scripts and scenes
