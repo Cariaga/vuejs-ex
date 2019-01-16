@@ -96,4 +96,5 @@ Todo:
   ✔ User Support Updated
   ✔ Support Server client updated db
   ✔ Need Debugger for Websocket at unity
-  ☐ Need referance Diagram for c#
+  ☐ Need Code architecture
+  ☐ Editor Documentation Tool for Unity
