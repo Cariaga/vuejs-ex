@@ -41,9 +41,9 @@ Todo:
   ✔ Not Leaving On Single Player(ru)
   ✔ Settings Suddenly close when spamming
   ✔ Bug Tab not being clickable
-  ☐ User Side Support Must see Message when no longer pending
-    ☐ Support response UI for User
-    ☐  not routing
+  ✔ User Side Support Must see Message when no longer pending
+    ✔ Support response UI for User
+    ✔  not routing
   ✔ support not Closing on Click Out side
   ✔ Admin Support broken UI
   ✔ Online Status upon Registration
