@@ -42,7 +42,7 @@ let query =
 }
 module.exports.HandHistorySeasonID = function HandHistorySeasonID(SeasonID, callback) {
   let _SeasonID = SeasonID;
-  let query = "SELECT * FROM sampledb.handhistory where SeasonID=\'"+_SeasonID+"\';";
+  let query = "SELECT * FROM sampledb.gamerounds_list where SeasonID=\'"+_SeasonID+"\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       console.log(response);
