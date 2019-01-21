@@ -6,15 +6,16 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card,CardAtHand, callback) {
+module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card,CardsAtHand, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let _Rank = Rank;
     let _Score = Score;
     let _Card = Card;
-    let _CardAtHand = CardAtHand;
+    let _CardsAtHand = CardsAtHand;
+    console.log("Card At Hand "+_CardsAtHand);
     let query = "INSERT INTO `sampledb`.`playerfinalcard` " +
-    "SET UserAccountID = \'" + _UserAccountID + "\', SeasonID = \'" + _SeasonID + "\', `Rank` = \'" + _Rank + "\', Score = \'" + _Score + "\', Card = \'" + _Card + "\',DateTime=now();";
+    "SET UserAccountID = \'" + _UserAccountID + "\', SeasonID = \'" + _SeasonID + "\', `Rank` = \'" + _Rank + "\', Score = \'" + _Score + "\', Card = \'" + _Card + "\',DateTime=now(), CardAtHand='"+_CardsAtHand+"' ;";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
