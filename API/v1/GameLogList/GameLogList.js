@@ -55,6 +55,7 @@ module.exports = function (app) {
                     if (response != undefined) {
                         res.send(response);
                     } else {
+                        console.log('gamelog failed')
                         let status = 404;
                         res.status(status).end(http.STATUS_CODES[status]);
                     }
