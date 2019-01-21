@@ -16,8 +16,12 @@ module.exports.PaginationCount = function PaginationCount(index, callback) {
       'loginhistory_list',
       'headoffice_list'
     ]
-
-    let query ="SELECT count(*) as ID FROM sampledb."+page[index];
+    let query = "";
+    if(index == 2){
+      query ="SELECT count(*) as ID FROM sampledb."+page[index]+" where BeforePoints and AfterPoints and WinPoints != 0;";
+    }else{
+      query ="SELECT count(*) as ID FROM sampledb."+page[index];
+    }
     DBConnect.DBConnect(query,function(response){
       if(response!=undefined){
         // console.log(response);

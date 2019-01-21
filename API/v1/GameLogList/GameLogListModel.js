@@ -5,7 +5,7 @@ module.exports.GameLogList = function GameLogList(limit,offset,callback) {
     let _limit = limit;
     let _offset = offset;
     if(_offset!=undefined&&_limit!=undefined){
-        let query = "SELECT * FROM sampledb.gamelog_list limit "+_limit+" offset "+_offset;
+        let query = "SELECT * FROM sampledb.gamelog_list where BeforePoints and WinPoints and AfterPoints != 0 limit "+_limit+" offset "+_offset;
 
         DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -16,7 +16,7 @@ module.exports.GameLogList = function GameLogList(limit,offset,callback) {
         }
     });
     }else{
-        let query = "SELECT * FROM sampledb.gamelog_list;";
+        let query = "SELECT * FROM sampledb.gamelog_list where BeforePoints and WinPoints and AfterPoints != 0;";
 
         DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
@@ -35,7 +35,7 @@ module.exports.GameLogSearch = function GameLogSearch(Column, Value, callback) {
     let _Column = Column;
     let _Value = Value;
     let query = 
-    "SELECT * FROM sampledb.gamelog_list where "+_Column+" like \'%"+_Value+"%\';";
+    "SELECT * FROM sampledb.gamelog_list where "+_Column+" like \'%"+_Value+"%\' and BeforePoints and WinPoints and AfterPoints != 0;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
