@@ -6,14 +6,16 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card, callback) {
+//upon game start the cards are set both deck and best card and card at hand
+module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card,CardsAtHand, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let _Rank = Rank;
     let _Score = Score;
     let _Card = Card;
+    let _CardsAtHand = CardsAtHand;
     let query = "INSERT INTO `sampledb`.`playerfinalcard` " +
-    "SET UserAccountID = \'" + _UserAccountID + "\', SeasonID = \'" + _SeasonID + "\', `Rank` = \'" + _Rank + "\', Score = \'" + _Score + "\', Card = \'" + _Card + "\',DateTime=now();";
+    "SET UserAccountID = \'" + _UserAccountID + "\', SeasonID = \'" + _SeasonID + "\', `Rank` = \'" + _Rank + "\', Score = \'" + _Score + "\', Card = \'" + _Card + "\',DateTime=now() , CardsAtHand= \'"+_CardsAtHand+"\'  ;";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -24,6 +26,7 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
       }
     });
   }
+  //scores are updated before and after points
   module.exports.UpdatePlayerFinalCard = function UpdatePlayerFinalCard(UserAccountID,SeasonID,CurrentPoints,WinPoints,AfterPoints,BeforePoints, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
