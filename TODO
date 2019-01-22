@@ -76,6 +76,8 @@ Todo:
   ✔ Text Miss alignment 
   //☐ Split Debugger
   ☐ last Player Leave During Gameplay can't leave(rare)
+
+  ✔ MasterClientSwitcher
   ✔ Instasiating cards even when not counted as player possible solution ones cards are being passed now don't animate on non playing players
   ✔ chat text gets too small
   ✔ chat orentation
@@ -97,11 +99,18 @@ Todo:
   ✔ Support Server client updated db
   ✔ Need Debugger for Websocket at unity
   ✔ Need Code Generic Dependencies for monitoring complexities at run time
-  ☐ Need Static Dependencies for monitoring Getter and setter referances
-  ☐ Need Web API Dependencies for monitoring
+  //☐ Need Static Dependencies for monitoring Getter and setter referances
+ // ☐ Need Web API Dependencies for monitoring
+  // ☐ Monitor Invokers
   ✔ Editor Object Notes Tool for Unity
     ✔ Editor between scripts and scenes
 
-  ☐ Need to Document Win Points in db comment 
-  ☐ need to re confirm if the players in season are the current playing players
+  ✔ Need to Document some tables
+  ✔ need to re confirm if the players in season are the current playing players
   ☐ it seams the player is submiting the final without updating the other players season db
+  ✔ Get Values is submitted multiple times in game
+  ✔ Detector warning when suddenly requesting new season
+  ✔ Dealer causes disconnection when buffing next deal which is needed by the playerfinalcard
+  ✔ chat modify displayed name
+  ✔ it seams the chat box design need to be sliced between the box and the arrow head or we can do two designs for the large quantity text vs smaller quantity or split the text in time per bubble. update fastest solution was to split it in sequence prevents chat screen spamming too
+

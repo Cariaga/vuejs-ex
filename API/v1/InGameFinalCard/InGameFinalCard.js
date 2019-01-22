@@ -13,7 +13,10 @@ module.exports = function (app) {
         
         if(Json!=undefined){
             console.log("---------");
+            console.log(Json);
             let JsonRow = JSON.parse(Json);
+          
+
             let length = JsonRow.length;
                    /*for loop promise based */
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
@@ -30,6 +33,7 @@ module.exports = function (app) {
                     console.log("Error Occured " + error);
                 });
             } else {
+                console.log("Somthing new ");
                 p = p.then(_ => new Promise((resolve, reject) => {
                     let Hand = JsonRow[i].hand;
                     let Score = JsonRow[i].score;
@@ -37,6 +41,7 @@ module.exports = function (app) {
                     let UserAccountID = JsonRow[i].UserAccountID;//make sure the correct UserAccountID is recived by the route before checking query is wrong
                     let SeasonID = JsonRow[i].SeasonID;
                     let CardsAtHand = JsonRow[i].CardsAtHand;
+                   
 
                     if (SeasonID != undefined && UserAccountID != undefined) { //if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
                     
@@ -49,6 +54,7 @@ module.exports = function (app) {
                                                 console.log("UserAccount or SeasonID dosn't Exist");
                                             } else {
                                                 resolve();
+                                                console.log("Resolved Final Card");
                                             }
                                         })
 
