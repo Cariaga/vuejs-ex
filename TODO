@@ -74,7 +74,6 @@ Todo:
   ✔ Some Statics Not Updated on login
   ✔ Optimized Interface settings
   ✔ Text Miss alignment 
-  //☐ Split Debugger
   ☐ last Player Leave During Gameplay can't leave(rare)
 
   ✔ MasterClientSwitcher
@@ -108,6 +107,7 @@ Todo:
   ✔ Need to Document some tables
   ✔ need to re confirm if the players in season are the current playing players
   ☐ it seams the player is submiting the final without updating the other players season db
+  
   ✔ Get Values is submitted multiple times in game
   ✔ Detector warning when suddenly requesting new season
   ✔ Dealer causes disconnection when buffing next deal which is needed by the playerfinalcard
