@@ -47,21 +47,30 @@ module.exports.TransferHistory = function TransferHistory(Limit,Offset,callback)
   }
 }
 
-module.exports.TransferSearch = function TransferSearch(Column, Value, StartDate, EndDate, callback) {
-  let _Column = Column;
+module.exports.TransferSearch = function TransferSearch(Indexx, Value, StartDate, EndDate, callback) {
+  let _Index = Indexx;
   let _Value = Value;
   let _StartDate = StartDate;
   let _EndDate = EndDate;
-  let query =
-    "SELECT * FROM sampledb.transferhistories as TH where " + _Column + " like \'%" + _Value + "%\' and (TH.TransferedDateTime BETWEEN \'" + _StartDate + "\' AND \'" + _EndDate + "\');";
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
-    } else {
-      callback(undefined);
-    }
-  });
+  let Column = ['USender','Sender','UReceiver','Receiver'];
+
+  if(Indexx >= 0 && Indexx <= 3 ){
+    let query =
+      "SELECT * FROM sampledb.transferhistories_list where " +Column[_Index]  + " like \'%" + _Value + "%\' and (TransferedDateTime BETWEEN \'" + _StartDate + "\' AND \'" + _EndDate + "\');";
+    DBConnect.DBConnect(query, function (response) {
+      console.log(query)
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        console.log('transfer search failed')
+        callback(undefined);
+      }
+    });
+  }else{
+    callback(undefined)
+  }
+
 }
 module.exports.TransferHistoryStatusUpdate = function TransferHistoryStatusUpdate(TransferHistoryUUID, Status, callback) {
   let _TransferHistoryUUID = TransferHistoryUUID;
