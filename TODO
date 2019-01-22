@@ -76,6 +76,7 @@ Todo:
   ✔ Text Miss alignment 
   //☐ Split Debugger
   ☐ last Player Leave During Gameplay can't leave(rare)
+
     ✔ MasterClientSwitcher
   ✔ Instasiating cards even when not counted as player possible solution ones cards are being passed now don't animate on non playing players
   ✔ chat text gets too small
@@ -108,4 +109,4 @@ Todo:
   ☐ it seams the player is submiting the final without updating the other players season db
   ☐ Get Values is submitted multiple times in game
     ☐ Detector check 
-
+  ☐ Dealer causes disconnection when buffing next deal which is needed by the playerfinalcard
