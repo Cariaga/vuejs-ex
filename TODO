@@ -77,7 +77,7 @@ Todo:
   //☐ Split Debugger
   ☐ last Player Leave During Gameplay can't leave(rare)
 
-    ✔ MasterClientSwitcher
+  ✔ MasterClientSwitcher
   ✔ Instasiating cards even when not counted as player possible solution ones cards are being passed now don't animate on non playing players
   ✔ chat text gets too small
   ✔ chat orentation
@@ -108,5 +108,5 @@ Todo:
   ✔ need to re confirm if the players in season are the current playing players
   ☐ it seams the player is submiting the final without updating the other players season db
   ✔ Get Values is submitted multiple times in game
-  ☐ Detector warning when suddenly requesting new season
+  ✔ Detector warning when suddenly requesting new season
   ✔ Dealer causes disconnection when buffing next deal which is needed by the playerfinalcard
