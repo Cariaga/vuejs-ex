@@ -107,7 +107,7 @@ Todo:
   ✔ Need to Document some tables
   ✔ need to re confirm if the players in season are the current playing players
   ☐ it seams the player is submiting the final without updating the other players season db
-  
+    ☐ its actually updating the database but the behavior of the computeplayerchip is based on tagController instead of Player
   ☐ Get Values is submitted multiple times in game
     ☐ random disconnections after adding next deal SendNextDeal
     ☐ Show Winner listener need to be added
@@ -116,3 +116,4 @@ Todo:
   ✔ chat modify displayed name
   ✔ it seams the chat box design need to be sliced between the box and the arrow head or we can do two designs for the large quantity text vs smaller quantity or split the text in time per bubble. update fastest solution was to split it in sequence prevents chat screen spamming too
 
+  ☐ table.GetComponent<ComputePlayerChipsController>().FinalizeWinningList(); table.GetComponent<ComputePlayerChipsController>().addList(); table.GetComponent<ComputePlayerChipsController>().getBeforePoints();
