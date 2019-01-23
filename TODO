@@ -52,9 +52,9 @@ Todo:
   ✔ clone schema from remote
   ✔ schema exporting process imporved 
   ✔ room no longer visble when leaving
-  ☐ Socket WinPoints 
-    ☐ Socket Not Updating because of dealercontroller or the Player Final Card is empty
-    ☐ Need to validate
+  ✔ Socket WinPoints 
+    ✔ Socket Not Updating because of dealercontroller or the Player Final Card is empty
+    ✔ Need to validate
   ✔ Chat bubble not showing inverted
   ✔ Failing to refersh photon
   ✔ Unity Enchanced Socket Debugging
@@ -117,3 +117,6 @@ Todo:
   ✔ it seams the chat box design need to be sliced between the box and the arrow head or we can do two designs for the large quantity text vs smaller quantity or split the text in time per bubble. update fastest solution was to split it in sequence prevents chat screen spamming too
 
   ☐ table.GetComponent<ComputePlayerChipsController>().FinalizeWinningList(); table.GetComponent<ComputePlayerChipsController>().addList(); table.GetComponent<ComputePlayerChipsController>().getBeforePoints();
+  ✔ Updated remote schema since gamerounds
+  ☐ PlayerMenuController
+  ☐
