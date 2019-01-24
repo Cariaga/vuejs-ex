@@ -99,7 +99,7 @@ module.exports = function (app) { //INSERT
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Commission = req.body.Commission;
-    let OperatingHeadOfficeUserAccountID = req.body.OperatingHeadOfficeUserAccountID;
+    let OperatingHeadOfficeUserAccountID = req.body.ParentUserAccountID;
       AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res);
   });
   //STRUCTURE

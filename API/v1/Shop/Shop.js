@@ -81,7 +81,7 @@ module.exports = function (app) { //MODIFY
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Commission = req.body.Commission;
-    let DistributorUserAccountID = req.body.DistributorUserAccountID;
+    let DistributorUserAccountID = req.body.ParentUserAccountID;
     AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res);
   });
   
