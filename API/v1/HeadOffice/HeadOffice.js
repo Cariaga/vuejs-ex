@@ -107,6 +107,7 @@ module.exports = function (app) { //INSERT
 }
 
 function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res) {
+
   if (!isNullOrEmpty(UserAccountID)) {
     if (!isNullOrEmpty(Name)) {
       if (!isNullOrEmpty(PhoneNumber)) {
@@ -132,6 +133,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                           });
                       }
                       else {
+                        console.log('failed here')
                         // res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
                         // operating head office useraccountid not found, http bad request
                         let status = 400;
@@ -140,6 +142,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                     });
                   }
                   else {
+                    console.log('failed here')
                     // useraccountid already exist, http conflict
                     let status = 409;
                     res.status(status).end(http.STATUS_CODES[status]);
@@ -149,7 +152,9 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                   }
                 });
                 }else{
+
                   // username already exist, http conflict
+                  console.log('failed here')
                   let status = 409;
                   res.status(status).end(http.STATUS_CODES[status]);
                 }
@@ -157,6 +162,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
 
             }
             else {
+              console.log('failed here')
               // res.send({
               //   CommissionMissing: true
               // });
@@ -166,6 +172,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
             }
           }
           else {
+            console.log('failed here')
             // res.send({
             //   PasswordMissing: true
             // });
@@ -175,6 +182,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
           }
         }
         else {
+          console.log('failed here')
           // res.send({
           //   UserNameMissing: true
           // });
@@ -184,6 +192,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
         }
       }
       else {
+        console.log('failed here')
         // res.send({
         //   PhoneNumberMissing: true
         // });
@@ -193,6 +202,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
       }
     }
     else {
+      console.log('failed here')
       // res.send({
       //   NameMissing: true
       // });
@@ -202,6 +212,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
     }
   }
   else {
+    console.log('failed here')
     // res.send({
     //   UserAccountIDMissing: true
     // });
