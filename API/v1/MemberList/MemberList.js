@@ -21,6 +21,43 @@ module.exports = function (app) { //SELECTION
       }
     }
   }
+
+  function MembersListLimitOffsetOrder(Limit,Offset,Order,Direction,res){
+    if(!isNullOrEmpty(Limit)){
+      if(!isNullOrEmpty(Offset)){
+        if(!isNullOrEmpty(Direction)){
+          if(!isNullOrEmpty(Order)){
+            MemberListModel.MemberList2(Limit,Offset,Order,Direction,function(response){
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);}
+            });
+          }else{
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]); }
+
+        }else{
+          let status = 404;
+          res.status(status).end(http.STATUS_CODES[status]); }
+      }else{
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]); }
+    }else{
+      let status = 404;
+      res.status(status).end(http.STATUS_CODES[status]); }
+  }
+
+  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    MembersListLimitOffsetOrder(Limit,Offset,Order,Direction, res);
+  });
+
+
   app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;

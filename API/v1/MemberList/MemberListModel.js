@@ -22,6 +22,25 @@ module.exports.MemberList = function MemberList(Limit, Offset, callback) {
       }
     });
   }
+
+module.exports.MemberList2 = function MemberList2(Limit, Offset, Order, Direction, callback) {
+    let _Limit = Limit;
+    let _Offset = Offset;
+    let _Order = Order;
+    let _Direction = Direction;
+    let query = 
+    "SELECT * FROM sampledb.member_list order by "+_Order+" "+_Direction+" limit "+_Limit+" Offset "+_Offset;
+    // "SELECT member_list.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, PlayerCurrentPoints, OnlineStatus, RegisteredDateTime, LoginDateTime FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+  }
+
 module.exports.MemberListSearch = function MemberListSearch(Column, Value, callback) {
     let _Column = Column;
     let _Value = Value;
