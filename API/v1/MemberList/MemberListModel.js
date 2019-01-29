@@ -41,18 +41,25 @@ module.exports.MemberList2 = function MemberList2(Limit, Offset, Order, Directio
     });
   }
 
-module.exports.MemberListSearch = function MemberListSearch(Column, Value, callback) {
-    let _Column = Column;
+module.exports.MemberListSearch = function MemberListSearch(Indexx, Value, callback) {
+    let _Index = Indexx;
     let _Value = Value;
-    let query = 
-    "SELECT * FROM sampledb.member_list where \`"+_Column+"\` like \'%"+_Value+"%\';";
-    console.log(query);
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-       
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
+    let Column = ['PlayerID','ScreenName','ShopID'];
+
+    if(_Index >= 0 && _Index <= 2 ){
+      let query = 
+      "SELECT * FROM sampledb.member_list where \`"+Column[_Index]+"\` like \'%"+_Value+"%\';";
+      console.log(query);
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+         
+          callback(response);
+        } else {
+          console.log('not exist')
+          callback(undefined);
+        }
+      });
+    }else{
+      callback(undefined)
+    }
   }
