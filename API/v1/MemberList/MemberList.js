@@ -7,20 +7,20 @@ var MemberListModel = require('../MemberList/MemberListModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 module.exports = function (app) { //SELECTION
-  function MembersListLimitOffset(Limit,Offset,res){
-    if(!isNullOrEmpty(Limit)){
-      if(!isNullOrEmpty(Offset)){
-        MemberListModel.MemberList(Limit,Offset,function(response){
-          if (response != undefined) {
-            res.send(response);
-          } else {
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
-          }
-        });
-      }
-    }
-  }
+  // function MembersListLimitOffset(Limit,Offset,res){
+  //   if(!isNullOrEmpty(Limit)){
+  //     if(!isNullOrEmpty(Offset)){
+  //       MemberListModel.MemberList(Limit,Offset,function(response){
+  //         if (response != undefined) {
+  //           res.send(response);
+  //         } else {
+  //           let status = 404;
+  //           res.status(status).end(http.STATUS_CODES[status]);
+  //         }
+  //       });
+  //     }
+  //   }
+  // }
 
   function MembersListLimitOffsetOrder(Limit,Offset,Order,Direction,res){
     if(!isNullOrEmpty(Limit)){
@@ -57,17 +57,25 @@ module.exports = function (app) { //SELECTION
     MembersListLimitOffsetOrder(Limit,Offset,Order,Direction, res);
   });
 
-
-  app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/MembersList/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
-    MembersListLimitOffset(Limit,Offset,res);
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    MembersListLimitOffsetOrder(Limit,Offset,Order,Direction, res);
   });
-  app.post('/Api/v1/MembersList/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    let Limit = req.body.Limit;
-    let Offset = req.body.Offset;
-    MembersListLimitOffset(Limit,Offset,res);
-  });
+
+
+  // app.get('/Api/v1/MembersList/Limit/:Limit/Offset/:Offset', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  //   let Limit = req.params.Limit;
+  //   let Offset = req.params.Offset;
+  //   MembersListLimitOffset(Limit,Offset,res);
+  // });
+  // app.post('/Api/v1/MembersList/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  //   let Limit = req.body.Limit;
+  //   let Offset = req.body.Offset;
+  //   MembersListLimitOffset(Limit,Offset,res);
+  // });
   function MemberListSearch(Column,Value,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
