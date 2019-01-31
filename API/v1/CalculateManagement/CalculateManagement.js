@@ -57,5 +57,33 @@ module.exports = function (app) {
         } else { 
             res.send({ PaginationMissing: true}); }
     });
-    
+
+    app.get('/Api/v1/CalculateManage/Search/LowRank/:LowRank/Office/:Office/StartDateTime/:StartDateTime/EndDateTime/:EndDateTime', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
+    let LowRank = req.params.LowRank;
+    let Office = req.params.Office;
+    let StartDateTime = req.params.StartDateTime;
+    let EndDateTime = req.params.EndDateTime;
+
+        if (!isNullOrEmpty(LowRank)) {
+            if(!isNullOrEmpty(Office)){
+                if(!isNullOrEmpty(StartDateTime)){
+                    if(!isNullOrEmpty(EndDateTime)){
+                        CalculateManagementModel.Search(LowRank, Office, StartDateTime, EndDateTime, function (response) {
+                            if (response != undefined) {
+                                res.send(response);
+                            } else {
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]); }
+                        });
+                
+                    }else{
+                    res.send({ EndDateTimeMissing: true}); }
+                }else{
+                    res.send({ StartDateTimeMissing: true}); }
+            }else{
+                res.send({ OfficeMissing: true}); }
+        } else { 
+            res.send({ PaginationMissing: true}); }
+    });
+
 }
