@@ -41,6 +41,7 @@ module.exports = function (app) {
             // if(BestIndex==1){
                 let bestScore = PokerModel.PokerHandCompute2(req.params[propName], TotalCards);
                 //--do recommend on current selected player if we want it to win
+                //console.log(req.params[propName] +" : "+JSON.stringify(bestScore));
                 let PlayerToMakeWin = InTableCard(req.params[propName], bestScore);//what ever we select in the main loop is the selected best player we want to increase chance on pre flop
                   //--do recommend on current selected player if we want it to win
                   console.log("Player to make win");
@@ -54,7 +55,7 @@ module.exports = function (app) {
                 for (var propName2 in req.params) {//main loop
                 if (req.params.hasOwnProperty(propName2)&&req.params[propName2]!=undefined) 
                   {
-                   
+                    console.log("Se "+req.params[propName2]);
                     let bestScore2 = PokerModel.PokerHandCompute2(req.params[propName2], TotalCards);
                 
                     
@@ -68,7 +69,7 @@ module.exports = function (app) {
                     SuggestedForNonWinningPlayers.D = PlayerToMakeWin.TurnCardRecommended;
                     SuggestedForNonWinningPlayers.E = PlayerToMakeWin.RiverRecommended;
                   // console.log("Player to make lose from ");
-                    
+                    console.log("parm "+req.params[propName2]);
                     SuggestForNonWinners(req.params[propName2], bestScore2,SuggestedForNonWinningPlayers,function(response){
                       if(response!=undefined){
                         BestPreFlopByPlayer.push(response);
@@ -177,8 +178,13 @@ function SuggestForNonWinners(PlayerCard, BestPlayerScores,SuggestedForNonWinnin
 
 
 function InTableCard(PlayerCard, BestPlayerScores) {//Recomend a preflop for player with the highest chance on a card
+
   let ObjectFirstCards = PlayerCard.replace(/['"]+/g, '').split(",").slice(0, 5); //In Table Card
+  console.log(ObjectFirstCards);
+  
   let PlayerCardAtHand = PlayerCard.replace(/['"]+/g, '').split(",").slice(5, 7);
+  console.log(PlayerCardAtHand);
+
   let cmb = Combinatorics.permutation(ObjectFirstCards, 5);
   let FlopChances = [];
   while (a = cmb.next()) {
