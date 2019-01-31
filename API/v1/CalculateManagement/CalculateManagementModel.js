@@ -43,12 +43,15 @@ module.exports.Pagination = function Pagination(LowRank, Office, callback) {
 
 module.exports.Search = function Search(LowRank, Office, StartDateTime, EndDateTime, callback) {
     let _LowRank = LowRank;
-	console.log('TCL: Search -> _LowRank', _LowRank);
     let _Office = Office;
     let _StartDateTime = StartDateTime;
     let _EndDateTime = EndDateTime;
     let query = "";
-
+    
+	console.log('TCL: Search -> _Office', _Office)
+	console.log('TCL: Search -> _LowRank', _LowRank)
+	console.log('TCL: Search -> _StartDateTime', _StartDateTime)
+	console.log('TCL: Search -> _EndDateTime', _EndDateTime)
 
     if(_LowRank >= 1 && _LowRank <= 3){
         if(_LowRank == 1){
@@ -57,17 +60,17 @@ module.exports.Search = function Search(LowRank, Office, StartDateTime, EndDateT
             +" ifnull((select sum(Amount) from deposit_list where HeadOfficeID = uaho.UserName and TransactionStatus = 'approved' and "
             +"      ApprovedDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\'),0) AS deposit,"
             +" ifnull((select sum(Amount) from money_received_histories where HeadOfficeID = ho.HeadOfficeID and "
-            +"      TransferedDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' ),0) AS depositTransfer,"
-            +" ifnull((select sum(Applicatioom money_sent_histories where HeadOfficeID = ho.HeadOfficeID and "
-            +"      TransferedDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' ),0) AS withdrawTransfer,"
-            +" ifnull((select sum(HandAmountnAmount) from withdraw_list where HeadOfficeID = ho.HeadOfficeID and TransactionStatus = 'approved' and"
-            +"      ApprovedDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\'),0) AS withdraw,"
-            +" ifnull((select sum(Amount) fr) from player_to_oho_handamount where HeadOfficeID = ho.HeadOfficeID and "
-            +"      HandDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' ),0) AS bettingAmount,"
+            +"      TransferedDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' ),0) AS depositTransfer, "
+            +" ifnull((select sum(Amount) from money_sent_histories where HeadOfficeID = ho.HeadOfficeID and "
+            +"      TransferedDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' ),0) AS withdrawTransfer, "
+            +" ifnull((select sum(ApplicationAmount) from withdraw_list where HeadOfficeID = ho.HeadOfficeID and TransactionStatus = 'approved' and "
+            +"      ApprovedDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\'),0) AS withdraw, "
+            +" ifnull((select sum(HandAmount) from player_to_oho_handamount where HeadOfficeID = ho.HeadOfficeID and "
+            +"      HandDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' ),0) AS bettingAmount, "
             +" ifnull(round((select sum(HandAmount) from player_to_oho_handamount "
             +"      where HeadOfficeID = ho.HeadOfficeID and "
-            +"      HandDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\') * 0.045,2),0) AS rake,"
-            +" ifnull((select sum(PlayerMoney) from total_rake_overall"
+            +"      HandDateTime between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\') * 0.045,2),0) AS rake, "
+            +" ifnull((select sum(PlayerMoney) from total_rake_overall "
             +"      where HeadOfficeID = ho.HeadOfficeID and "
             +"      RecentGame between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' and LastGame between \'"+_StartDateTime+"\' and \'"+_EndDateTime+"\' ),0) AS userHoldingMoney, "
             +" ifnull(round((select sum(hrt.RakeOHO) from handhistory_rake_time hrt " 
@@ -106,12 +109,11 @@ module.exports.Search = function Search(LowRank, Office, StartDateTime, EndDateT
     }
 
     DBConnect.DBConnect(query, function (response) {
-        console.log(query)
+
         if (response != undefined) {
-        console.log(response);
-        callback(response);
+            callback(response);
         } else {
-        callback(undefined);
+            callback(undefined);
         }
     });
 }

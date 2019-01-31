@@ -57,8 +57,8 @@ module.exports = function (app) {
         } else { 
             res.send({ PaginationMissing: true}); }
     });
-
-    app.get('/Api/v1/CalculateManage/Search/LowRank/:LowRank/Office/:Office/StartDateTime/:StartDateTime/EndDateTime/:EndDateTime', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
+    // Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+    app.get('/Api/v1/CalculateManage/Search/LowRank/:LowRank/Office/:Office/StartDateTime/:StartDateTime/EndDateTime/:EndDateTime',  function (req, res) {
     let LowRank = req.params.LowRank;
     let Office = req.params.Office;
     let StartDateTime = req.params.StartDateTime;
