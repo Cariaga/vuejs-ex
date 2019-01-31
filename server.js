@@ -293,7 +293,7 @@ app.get('/Pay/UserAccountID/:UserAccountID/Amount/:Amount/',function(req,res){
     return '<input name="' + name + '" value="' + value + '" type="hidden">';
   };
   let result = "";
-  for(var i =0;i<fields.length;++i){
+  for(var i =0;i<fields.Length;++i){
     result+=createInput(fields[i].name,fields[i].value);
   }
   res.send('<body onload="document.frm1.submit()"> <form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8" name="frm1">' + result + '</form> </body>');
@@ -351,17 +351,17 @@ wss.on('connection', (ws, req) => {
   ws.DepositNotice = "";
   ws.ParentUserAccountIDList=[];
   ws.isLobby=true;
-
+  //ws.Rooms=[];
 
 //--------Start Player Checking First Socket
   ws.isLeadSocket=true;//becomes false instead if an  existing player same account is found
   wss.clients.forEach((client) => {
     if (client.UserAccountID ==UserAccountID&& ws.InstanceID!=client.InstanceID) {//makes sure i'm not checking my self and check if anothor same account exist
      ws.isLeadSocket=false;
-    
       //console.log(client.UserAccountID); 
     }
   });
+
 //-------End Player Checking First Socket
 
 
@@ -579,7 +579,7 @@ wss.on('connection', (ws, req) => {
         let RoomNames=[];
         if(ws.Rooms!=undefined&&ws.Rooms.length>0){
           for(let i=0;i<ws.Rooms.length;++i){
-            console.log("Room "+ws.Rooms[i].RoomID);
+         //   console.log("Room "+ws.Rooms[i].RoomID);
             RoomNames.push(ws.Rooms[i].RoomID);
           }
         }
@@ -679,15 +679,25 @@ wss.on('connection', (ws, req) => {
       else if (Object.Type == "Bet") { //bet event occured 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
+            if (client.UserAccountID == Object.UserAccountID&&client.isLeadSocket==true) { //we sync all same account bet value only updates one lead must exist in all instances
               console.log("Socket Bet");
+         
               for (var i = 0; i < client.Rooms.length; ++i) {
                 if (client.Rooms[i].RoomID == Object.RoomID) {
                   if (parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount) >= 0) {
                     client.Rooms[i].BuyIn = parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount);
-                    ws.send(stringify({
+
+                   /* ws.send(stringify({
                       Response: "Something"
-                    }, null, 0));
+                    }, null, 0));*/
+
+                    var NewRooms = client.Rooms;// lead room
+
+                    wss.clients.forEach((client2) => {
+                      if(client2.UserAccountID==ws.UserAccountID){
+                        client2.Rooms = NewRooms;//copy lead to children
+                      }
+                    });
 
                   } else {
                     ws.send(stringify({
@@ -721,7 +731,7 @@ wss.on('connection', (ws, req) => {
       } else if (Object.Type == "Win") { //Win event occured 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) { //we sync all same account win value
+            if (client.UserAccountID == Object.UserAccountID&&client.isLeadSocket==true) { //we sync all same account win value only updates one lead must exist in all instances
               console.log("Socket Won");
               for (var i = 0; i < client.Rooms.length; ++i) {
                 if (client.Rooms[i].RoomID == Object.RoomID) {
@@ -731,12 +741,21 @@ wss.on('connection', (ws, req) => {
                   }
                 }
               }
-              client.WinPoints++;//add Win Points to All Same Player
+              var NewRooms = client.Rooms;//the lead room
+              wss.clients.forEach((client2) => {
+                if(client2.UserAccountID==ws.UserAccountID){
+                  client2.Rooms = NewRooms;//copy lead to children
+                }
+              });
               console.log("Winz");
             }
-          }
+
+            if(client.UserAccountID==ws.UserAccountID){//only add to te same Account but diffrent instances
+              client.WinPoints++;//add Win Points to All Same Player no need to filter lead
+            }
           
 
+          }
         });
       } else if (Object.Type == "BuyIn") { //identify object type
         ws.isLobby=false;
@@ -745,12 +764,12 @@ wss.on('connection', (ws, req) => {
         //console.log(BuyInRoom);
         wss.clients.forEach((client) => {
           //existing buyin
-          if (client.UserAccountID == Object.UserAccountID) {
+          if (client.UserAccountID == Object.UserAccountID&&client.isLeadSocket==true) {//the lead role must always be passed when it leaves if not this code wont execute
             //  console.log("Buyin Money "+ Object.BuyIn);
             if (client.Rooms == undefined) { //when empty must inisialize only then the one bellow it can push
               client.Rooms = [];
             }
-            if (client.Rooms.length == 0) { //must be if
+            if (client.Rooms.length == 0) { //when no child or parent in room same account instances
               client.Rooms.push({
                 RoomID: Object.RoomID,
                 BuyIn: Object.BuyIn,
@@ -760,19 +779,30 @@ wss.on('connection', (ws, req) => {
               client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
               
             } else {
-              // new buyin 
-              if (client.Money - Object.BuyIn) {
+              // new buyin update or insert
+              if (client.Money - Object.BuyIn>0) {//the top must be an isleadScoket
                 var NotFound = true;
-                for (var i = 0; i < client.Rooms.length; ++i) {
-                  if (client.Rooms[i].RoomID == Object.RoomID) { //Match Found Update Instead
+                var NewRooms = [];//the new rooms from is lead above
+
+                for (var i = 0; i < client.Rooms.length; ++i) {//updates the lead accout
+                  if (client.Rooms[i].RoomID == Object.RoomID&&client.UserAccountID==ws.UserAccountID) { //Match Found Update Instead
                     console.log("Match Found Update Instead");
-                    client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
-                    client.Rooms[i].BuyIn =parseInt(client.Rooms[i].BuyIn) + parseInt(Object.BuyIn);
+                    client.Money = (parseInt(client.Money) - parseInt(Object.BuyIn));
+                    client.Rooms[i].BuyIn =(parseInt(client.Rooms[i].BuyIn) + parseInt(Object.BuyIn));
                     //console.log(client.Rooms[i].BuyIn + Object.BuyIn);
                     NotFound = false;
                     // break;
                   }
                 }
+
+                NewRooms= client.Rooms;//pass the new value to childrens
+
+                wss.clients.forEach((client) => {
+                  if(client.UserAccountID==ws.UserAccountID){
+                    client.Rooms = NewRooms;
+                  }
+                
+                });
                 if (NotFound == true) { // nothing found so we add it instead
                   client.Rooms.push({
                     RoomID: Object.RoomID,
@@ -827,7 +857,10 @@ wss.on('connection', (ws, req) => {
 
 
     if(event.target.isLeadSocket==true){//when Lead leaves
-      console.log("Lead Leave Total clients "+ wss.clients.size);
+
+      console.log("--------Sudden Disconnected Lead--------");
+
+    //  console.log("Lead Leave Total clients "+ wss.clients.size);
       if(wss.clients.size>0){//should always execute as  long as their are players
           console.log("Lead Leave with more than 1 client");
           let array = Array.from(wss.clients);
@@ -876,46 +909,23 @@ wss.on('connection', (ws, req) => {
         console.log("Sudden Disconnected Client last player and also lead");
       }
     }else{
-      console.log("Sudden Disconnected Non Lead")
+      console.log("----------Sudden Disconnected Non Lead------------");
       wss.clients.forEach((client) => {
-        if (client.readyState == 1) {
-  
-          if (client.UserAccountID == Object.UserAccountID) {
-            if(client.Rooms!=undefined){
-              let Rooms = client.Rooms;
-           
-              /*Remove from Room when sudden Disconnected*/
-              var filteredAry = client.Rooms.filter(e => e !== DisconnectedInstanceID);
-              client.Rooms = filteredAry;
-  
-  
-             /* for(let i =0; i<Rooms.length;++i){
-                
-                console.log("InstanceID In Client Rooms list "+Rooms[i].InstanceID);
-              }*/
-  
-  
-  
-             var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
-                return value.RoomID == Object.RoomID;
-              });
-              if (filtered.length > 0) {
-                if (filtered[0].BuyIn != undefined) { // LeaveRoom the oldest is basically the first item we find from 0 to N.. 
-                  client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
-  
-                  var NewArrayfiltered = client.Rooms.filter(function (value) {
-                    return value.RoomID !== Object.RoomID;
-                  });
-  
-                  client.Rooms = NewArrayfiltered;
-                }
-              } else {
-                console.log("LeaveRoom but and last Player");
+        if(client.isLeadSocket==true){//we get the lead account it must exist 
+          var rooms = client.Rooms;
+          if(rooms!=undefined){
+            for(let i =0;i<rooms.length;++i){
+              if(rooms[i].InstanceID==DisconnectedInstanceID){
+                client.Money = (client.Money)+ (rooms[i].BuyIn);
+               // console.log((DisconnectedInstanceID)+"  Instance Exit with room " + (stringify(client.Rooms,null,0)));
               }
             }
           }
         }
-      });
+      })
+
+      //clearance check
+   
     }
 
 
@@ -967,6 +977,7 @@ wss.on('connection', (ws, req) => {
    // console.log(JSON.stringify(jc.decycle(event.target.UserAccountID)));
 
     ConnectedUsers--;
+    DeadInstanceIDCleanUp();//call clean up and update clients right away after a disconnect occurs
   //  console.log('Client disconnected ' + ConnectedUsers+" UserAccount That Disconnected : "+event.target.UserAccountID);
   };
 });
@@ -975,8 +986,69 @@ wss.on('connection', (ws, req) => {
 setInterval(() => {
   InvokeRepeat();
 }, 1000);
+function DeadInstanceIDCleanUp(){//accessed by a InvokeRepeat aswell
+    //dead InstanceID clean Up which accessed by the onError of websocket
+    wss.clients.forEach((client) => {
 
-function InvokeRepeat(){
+      let UserAccountID = client.UserAccountID;
+  
+      if(client.isLeadSocket==true){
+        let InstanceID = client.InstanceID;//Lead InstanceID
+   
+      //  console.log("Lead InstanceID "+InstanceID);
+        let LeadRooms = client.Rooms;//we get the oldest instanceid it is also likely tag as isLeadSocket
+        
+        var NewRooms = [];
+   
+        wss.clients.forEach((client2) => {
+          
+          let ChildInstanceID = client2.InstanceID;
+          if(LeadRooms!=undefined){
+            //this filters out dead InstanceID Across Active InstanceID 
+            for(let i =0;i<LeadRooms.length;++i){
+              if(ChildInstanceID == LeadRooms[i].InstanceID){
+              
+                NewRooms.push(LeadRooms[i]);
+              }
+  
+            }
+          }
+        });
+        var DeadInstanceAtRoom=[];
+        if(LeadRooms!=undefined){
+          for(let i2=0;i2<LeadRooms.length;++i2){
+            let found =false;
+            for(let j=0;j<NewRooms.length;++j){
+              if(NewRooms[j].InstanceID==LeadRooms[i2].InstanceID){
+                found=true;
+                break;
+              }
+            }
+            DeadInstanceAtRoom.push(LeadRooms[i2]);
+          }
+        }
+  
+        
+        //copy new Rooms Instances
+        wss.clients.forEach((client3) => {
+          if(client3.UserAccountID==UserAccountID){
+            client3.Rooms = NewRooms;
+          }
+        });
+       // console.log("Expected new List  from lead " + stringify(NewRooms,null,0));
+        if(DeadInstanceAtRoom.length>0){
+       //   console.log("DeadInstanceAtRoom  from lead " + stringify(DeadInstanceAtRoom,null,0));
+        }
+    
+      }
+    });
+}
+function InvokeRepeat(){//this is also accessed by OnError of websocket just in case
+ 
+
+  DeadInstanceIDCleanUp();
+
+
   let array = Array.from(wss.clients);
   var distinctlist = Enumerable.from(array);
 

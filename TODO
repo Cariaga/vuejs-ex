@@ -106,17 +106,31 @@ Todo:
 
   ✔ Need to Document some tables
   ✔ need to re confirm if the players in season are the current playing players
-  ☐ it seams the player is submiting the final without updating the other players season db
-    ☐ its actually updating the database but the behavior of the computeplayerchip is based on tagController instead of Player
-  ☐ Get Values is submitted multiple times in game
-    ☐ random disconnections after adding next deal SendNextDeal
-    ☐ Show Winner listener need to be added
+  ✔ it seams the player is submiting the final without updating the other players season db
+    ✔ its actually updating the database but the behavior of the computeplayerchip is based on tagController instead of Player
+  ✔  Get Values is submitted multiple times in game
+  ☐ random disconnections after adding next deal SendNextDeal
+    ✔ Show Winner listener need to be added
   ✔ Detector warning when suddenly requesting new season
   ✔ Dealer causes disconnection when buffing next deal which is needed by the playerfinalcard
   ✔ chat modify displayed name
   ✔ it seams the chat box design need to be sliced between the box and the arrow head or we can do two designs for the large quantity text vs smaller quantity or split the text in time per bubble. update fastest solution was to split it in sequence prevents chat screen spamming too
 
-  ☐ table.GetComponent<ComputePlayerChipsController>().FinalizeWinningList(); table.GetComponent<ComputePlayerChipsController>().addList(); table.GetComponent<ComputePlayerChipsController>().getBeforePoints();
+  ✔ table.GetComponent<ComputePlayerChipsController>().FinalizeWinningList(); table.GetComponent<ComputePlayerChipsController>().addList(); table.GetComponent<ComputePlayerChipsController>().getBeforePoints();
   ✔ Updated remote schema since gamerounds
   ☐ PlayerMenuController
-  ☐
+  ✔ when sudden disconnected doubles the money when joining the same room
+  ✔ Sudden Disconnect not clearing on non leads
+  ✔ added copy from lead buyin
+  ✔ check multiple accounts if its also 8000 on buy in the buyin becomes exponential bug solution was to make it only follow the lead instance variable
+  ☐ quiting lead not updating list rooms Cause by Editor but not on application mode
+  ✔ check Lead leave with multiple login accounts if the money is valid
+  ✔ Money only updates on last leave
+  ✔ Empty BuyIn
+  ☐  both non lead leaves at the same time
+  ☐ both lead and non lead leaves at the same time
+  ☐ Game need reshuffling
+  ✔ Sockets  rooms are wrongly passed across all accounts which is not part of them
+  ☐ Bet is copying over socket all accounts wrong
+
+

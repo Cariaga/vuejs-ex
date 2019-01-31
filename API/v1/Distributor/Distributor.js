@@ -199,7 +199,7 @@ module.exports = function (app) { //SELECTION
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Commission = req.body.Commission;
-    let HeadOfficeUserAccountID = req.body.HeadOfficeUserAccountID;
+    let HeadOfficeUserAccountID = req.body.ParentUserAccountID;
 
     AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeUserAccountID, res);
   });
@@ -235,17 +235,21 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
                           else {
                             // res.send({ HeadOfficeUserAccountIDNotFound: true });
                             // bad request useraccountid not found
+                            console.log('UserAccountID = '+HeadOfficeUserAccountID)
+                            console.log('failed here');
                             let status = 400;
                             res.status(status).end(http.STATUS_CODES[status]);
                           }
                         });
                       }
                       else {
+                        console.log('failed here');
                         let status = 404;
                         res.status(status).end(http.STATUS_CODES[status]);
                       }
                     });
                   }else{
+                    console.log('failed here');
                     // res.send({UserNameAlreadyExist:true});
                     let status = 409;
                     res.status(status).end(http.STATUS_CODES[status]);
@@ -256,10 +260,12 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
 
               }
               else {
+                console.log('failed here');
                 // res.send({
                 //   HeadOfficeIDMissing: true
                 // });
                 // empty request = bad request
+                console.log('failed here');
                 let status = 400;
                 res.status(status).end(http.STATUS_CODES[status]);
               }
@@ -269,6 +275,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
               //   CommissionMissing: true
               // });
               // empty request = bad request
+              console.log('failed here');
               let status = 400;
               res.status(status).end(http.STATUS_CODES[status]);
             }
@@ -278,6 +285,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
             //   PasswordMissing: true
             // });
             // empty request = bad request
+            console.log('failed here');
             let status = 400;
             res.status(status).end(http.STATUS_CODES[status]);
           }
@@ -287,6 +295,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
           //   UserNameMissing: true
           // });
           // empty request = bad request
+          console.log('failed here');
           let status = 400;
           res.status(status).end(http.STATUS_CODES[status]);
         }
@@ -296,6 +305,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
         //   PhoneNumberMissing: true
         // });
         // empty request = bad request
+        console.log('failed here');
         let status = 400;
         res.status(status).end(http.STATUS_CODES[status]);
       }
@@ -305,6 +315,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
       //   NameMissing: true
       // });
       // empty request = bad request
+      console.log('failed here');
       let status = 400;
       res.status(status).end(http.STATUS_CODES[status]);
     }
@@ -314,6 +325,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
     //   UserAccountIDMissing: true
     // });
     // empty request = bad request
+    console.log('failed here');
     let status = 400;
     res.status(status).end(http.STATUS_CODES[status]);
   }
