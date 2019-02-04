@@ -39,6 +39,40 @@ module.exports = function (app) {
             res.send({ LimitMissing: true}); }
     });
 
+    // select order by
+    app.get('/Api/v1/CalculateManage/LowRank/:LowRank/Office/:Office/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
+    let LowRank = req.params.LowRank;
+    let Office = req.params.Office;
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+
+        if (!isNullOrEmpty(Limit)) {
+            if(!isNullOrEmpty(Offset)){
+                if(!isNullOrEmpty(LowRank)){
+                    if(LowRank >= 1 && LowRank <= 3){
+                        if(!isNullOrEmpty(Office)){
+                            CalculateManagementModel.LowRank1(LowRank, Office, Limit, Offset,  function (response) {
+                                if (response != undefined) {
+                                    res.send(response);
+                                } else {
+                                    let status = 404;
+                                    res.status(status).end(http.STATUS_CODES[status]); }
+                            });
+                        }else{ 
+                            res.send({InvalidLowRank:true}); }
+                    }else{ 
+                        res.send({InvalidLowRank:true}); }
+                }else{ 
+                    res.send({LowRankMissing:true}); }
+            }else{ 
+                res.send({OffsetMissing:true}); }
+        } else { 
+            res.send({ LimitMissing: true}); }
+    });
+
+    // pagination
     app.get('/Api/v1/CalculateManage/Pagination/:Pagination/Office/:Office', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
     let Pagination = req.params.Pagination;
     let Office = req.params.Office;
@@ -57,7 +91,8 @@ module.exports = function (app) {
         } else { 
             res.send({ PaginationMissing: true}); }
     });
-    // Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+
+    // Search
     app.get('/Api/v1/CalculateManage/Search/LowRank/:LowRank/Office/:Office/StartDateTime/:StartDateTime/EndDateTime/:EndDateTime', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let LowRank = req.params.LowRank;
     let Office = req.params.Office;
