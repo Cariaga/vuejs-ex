@@ -60,4 +60,37 @@ module.exports = function (app) {
             res.send({ LimitMissing: true});
         }
     }); //userprofit search end
+
+    //order by
+    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',  Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+
+        if (!isNullOrEmpty(Limit)) {
+            if(!isNullOrEmpty(Offset)){
+                if(!isNullOrEmpty(Order)){
+                    if(!isNullOrEmpty(Direction)){
+                        UserProfitModel.UserProfit2(Limit, Offset, Order, Direction, function (response) {
+                            if (response != undefined) {
+                                res.send(response);
+                            } else {
+                                let status = 404;
+                                res.status(status).end(http.STATUS_CODES[status]);
+                            }
+                        });
+                    }else{
+                        res.send({OrderMissing:true});
+                    }
+                }else{
+                    res.send({DirectionMissing:true});
+                }
+            }else{ 
+                res.send({OffsetMissing:true});
+            }
+        } else { 
+            res.send({ LimitMissing: true});
+        }
+    }); //userprofit search end
 }

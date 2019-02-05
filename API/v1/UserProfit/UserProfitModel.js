@@ -67,3 +67,23 @@ module.exports.UserProfit = function UserProfit(Limit, Offset, callback) {
     });
       
 }
+
+module.exports.UserProfit2 = function UserProfit2(Limit, Offset, Order, Direction, callback) {
+    let _Offset = Offset;
+    let _Limit = Limit;
+    let _Order = Order;
+    let _Direction = Direction;
+    
+    let query = "select * from player_profit_overall order by "+_Order+" "+_Direction+" LIMIT "+_Limit+" OFFSET "+_Offset;
+                
+    DBConnect.DBConnect(query, function (response) {
+        console.log(query)
+        if (response != undefined) {
+        console.log(response);
+        callback(response);
+        } else {
+        callback(undefined);
+        }
+    });
+      
+}
