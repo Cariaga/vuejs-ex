@@ -23,7 +23,7 @@ module.exports.UserProfitSearch = function UserProfitSearch(ScreenName, StartDat
                 +" AND HandDateTime BETWEEN \'"+_StartDate+"\' AND \'"+_EndDate+"\'),0)  BettingAmount,"
                 //rake
                 +" ifnull((select sum(TotalRake) from handhistory_rake_time where UserAccountID = p.UserAccountID"
-                +" AND HandDateTime BETWEEN \'"+_StartDate+"\' AND \'"+_EndDate+"\') ,0) rake,"
+                +" AND HandDateTime BETWEEN \'"+_StartDate+"\' AND \'"+_EndDate+"\') ,0) TotalRake,"
                 //money
                 +" money"
                 +" from players p"

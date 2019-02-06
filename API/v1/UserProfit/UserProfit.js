@@ -23,9 +23,8 @@ module.exports = function (app) {
                         if (response != undefined) {
                             res.send(response);
                         } else {
-                            res.send({
-                                UserProfitSearchFailed: true
-                            });
+                            let status = 404;
+                            res.status(status).end(http.STATUS_CODES[status]);
                         }
                     });
                 }else{ //end date if else end
