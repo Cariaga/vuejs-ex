@@ -134,7 +134,7 @@ module.exports.isPlayerAccountBlocked = function isPlayerAccountBlocked(Indexx, 
       ' FROM players p' +
       ' LEFT JOIN useraccounts uap on p.UserAccountID = uap.UserAccountID' +
       ' LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID' +
-      ' HAVING '+_Column[Indexx]+' = "' + _Value + '"AND newStatus != "Blocked"';
+      ' HAVING '+_Column[Indexx]+' = "' + _Value + '" AND newStatus != "Blocked"';
     console.log('blacklist query: ' + query)
     DBConnect.DBConnect(query, function (response) {
       if (response) {
