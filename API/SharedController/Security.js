@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 // Verify Token
 module.exports.verifyToken = function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
+	console.log('TCL: verifyToken -> bearerHeader', bearerHeader)
   // Check if bearer is undefined
   
   if (typeof bearerHeader !== 'undefined') {
