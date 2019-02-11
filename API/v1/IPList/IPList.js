@@ -81,7 +81,6 @@ module.exports = function (app) {//SELECTION
 
       function UserInfoCheck(callback) {
 
-
         console.log("2");
         DBCheck.UserInfoUserAccountID(UserAccountID, function (response) {
           if (response != undefined) {
@@ -142,29 +141,73 @@ module.exports = function (app) {//SELECTION
     }
   });
 
-  function IPListLimitOffset(Limit,Offset,res){
-    IPListModel.IPList(Limit,Offset, function (response) {
-      if (response != undefined) {
-        res.send(response);
-      } else {
-        let status = 404;
-        res.status(status).end(http.STATUS_CODES[status]);
-      }
-    });
-  }
+  // function IPListLimitOffset(Limit,Offset,res){
+  //   IPListModel.IPList(Limit,Offset, function (response) {
+  //     if (response != undefined) {
+  //       res.send(response);
+  //     } else {
+  //       let status = 404;
+  //       res.status(status).end(http.STATUS_CODES[status]);
+  //     }
+  //   });
+  // }
 
-  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
+  // app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
+  //   let Limit =req.params.Limit;
+  //   let Offset = req.params.Offset;
+  //   IPListLimitOffset(Limit,Offset,res);
+    
+  // });
+
+  // app.post('/Api/v1/IPList/',Security.verifyToken, function (req, res) {//OK
+  //   let Limit =req.body.Limit;
+  //   let Offset = req.body.Offset;
+  //   IPListLimitOffset(Limit,Offset,res);
+  // });
+
+  app.post('/Api/v1/IPList/',Security.verifyToken, function (req, res) {//OK
     let Limit =req.params.Limit;
     let Offset = req.params.Offset;
-    IPListLimitOffset(Limit,Offset,res);
-    
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;    
+    IPListLimitOffsetOrder(Limit,Offset,Order,Direction, res);
   });
+
+  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
+    let Limit =req.params.Limit;
+    let Offset = req.params.Offset;
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    IPListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
+  });
+
+  function IPListLimitOffsetOrder(Limit,Offset,Order,Direction,res){
+    if(!isNullOrEmpty(Limit)){
+      if(!isNullOrEmpty(Offset)){
+        if(!isNullOrEmpty(Direction)){
+          if(!isNullOrEmpty(Order)){
+            IPListModel.IPList2(Limit,Offset,Order,Direction,function(response){
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);}
+            });
+          }else{
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]); }
+        }else{
+          let status = 404;
+          res.status(status).end(http.STATUS_CODES[status]); }
+      }else{
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]); }
+    }else{
+      let status = 404;
+      res.status(status).end(http.STATUS_CODES[status]); }
+  }
   
-  app.post('/Api/v1/IPList/',Security.verifyToken, function (req, res) {//OK
-    let Limit =req.body.Limit;
-    let Offset = req.body.Offset;
-    IPListLimitOffset(Limit,Offset,res);
-  });
+
   function IPListSearch(Column,Value,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
