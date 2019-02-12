@@ -157,6 +157,22 @@ module.exports = function (app) {
     BlackListSearch(Column,Value,res);
 
   });
+
+
+  //user inquire Username AND Screen name
+  app.get('/Api/v1/BlackList/Check/Blocked/UserName/:UserName/ScreenName/:ScreenName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserName = req.params.UserName;
+    let ScreenName = req.params.ScreenName;
+    BlackListUserAccount(UserName,ScreenName,res);   
+  });
+  
+  
+  app.post('/Api/v1/BlackList/Check/Blocked/2', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    let UserName = req.params.UserName;
+    let ScreenName = req.params.ScreenName;
+    BlackListUserAccount(UserName,ScreenName,res);   
+  });
+
   function BlackListUserAccount(UserName, ScreenName, res){
     if (!isNullOrEmpty(UserName)) {
       if(!isNullOrEmpty(ScreenName)){
@@ -179,16 +195,43 @@ module.exports = function (app) {
       });
     }
   }
-  app.get('/Api/v1/BlackList/Check/Blocked/UserName/:UserName/ScreenName/:ScreenName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserName = req.params.UserName;
-    let ScreenName = req.params.ScreenName;
-    BlackListUserAccount(UserName,ScreenName,res);   
+  // user inquire end
+
+  //user inquire Username OR Screen name
+  app.get('/Api/v1/BlackList/Check/Blocked/1/Column/:Column/Value/:Value/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+    CheckIfBlocked(Column,Value,res);   
   });
   
-  //user inquire
-  app.post('/Api/v1/BlackList/Check/Blocked/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    let UserName = req.params.UserName;
-    let ScreenName = req.params.ScreenName;
-    BlackListUserAccount(UserName,ScreenName,res);   
+  app.post('/Api/v1/BlackList/Check/Blocked/1', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    let Column = req.params.Column;
+    let Value = req.params.Value;
+    CheckIfBlocked(Column,Value,res);   
   });
+
+  function CheckIfBlocked(Column, Value, res){
+    if (!isNullOrEmpty(Column)) {
+      if(!isNullOrEmpty(Value)){
+        DBCheck.isPlayerAccountBlocked(Column, Value, function (response) {
+          if (response != undefined) {
+            res.send(response);
+          } else {
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]);
+          }
+        });
+      }else{
+        res.send({
+          ValueIsEmpty: true
+        });
+      }
+    } else {
+      res.send({
+        ColumnIsEmpty: true
+      });
+    }
+  }
+  // user inquire end
+
 }

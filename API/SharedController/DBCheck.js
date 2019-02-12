@@ -101,7 +101,7 @@ module.exports.isPhoneNumberExist = function isPhoneNumberExist(PhoneNumber, cal
     }
   });
 }
-//used by inquire
+//used by inquire 1
 module.exports.isUserAccountIDUserNameBlocked = function isUserAccountIDUserNameBlocked(UserName, ScreenName, callback) {
   let _UserName = UserName;
   let _ScreenName = ScreenName;
@@ -114,16 +114,43 @@ module.exports.isUserAccountIDUserNameBlocked = function isUserAccountIDUserName
   console.log('blacklist query: ' + query)
   DBConnect.DBConnect(query, function (response) {
     if (response) {
-      // console.log('query has response XXXXXXXXXXXXXXXXXXX')
       if (response[0].UserName == _UserName) {
         console.log(response);
         callback(true);
       }
     } else {
       callback(false);
-      // console.log('query has no response XXXXXXXXXXXXXXXXXXX')
     }
   });
+}
+
+//used by inquire 2
+module.exports.isPlayerAccountBlocked = function isPlayerAccountBlocked(Indexx, Value, callback) {
+  let _Column = ['uap.UserName','ScreenName'];
+  let _Value = Value;
+  if(Indexx == 0 || Indexx == 1){
+    let query =
+      'SELECT p.UserAccountID, p.ScreenName, uap.UserName, IFNULL(bl.Status,"Fresh") as newStatus' +
+      ' FROM players p' +
+      ' LEFT JOIN useraccounts uap on p.UserAccountID = uap.UserAccountID' +
+      ' LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID' +
+      ' HAVING '+_Column[Indexx]+' = "' + _Value + '" AND newStatus != "Blocked"';
+    console.log('blacklist query: ' + query)
+    DBConnect.DBConnect(query, function (response) {
+      if (response) {
+        // if (response[0].UserName == _Value) {
+          console.log(response);
+          callback(response);
+        // }
+      } else {
+        callback(false);
+        console.log('failed here')
+      }
+    });
+  }else{
+    console.log('failed here')
+    callback(false);
+  }
 }
 
 
@@ -469,21 +496,21 @@ module.exports.CheckUserAccountIDKey = function CheckUserAccountIDKey(UserAccoun
 }
 
 
-module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDExist(UserAccountID, SeasonID, callback) {
-  let _UserAccountID = UserAccountID;
-  let _SeasonID = SeasonID;
-  let query =
-    "SELECT UserAccountID, SeasonID FROM `sampledb`.`playerfinalcard` " +
-    "WHERE UserAccountID = '" + _UserAccountID + "' AND SeasonID = \'" + _SeasonID + "\' ";
+  module.exports.isUserAccountInSeasonIDExist = function isUserAccountInSeasonIDExist(UserAccountID, SeasonID, callback) {
+    let _UserAccountID = UserAccountID;
+    let _SeasonID = SeasonID;
+    let query =
+      "SELECT UserAccountID, SeasonID FROM `sampledb`.`playerfinalcard` " +
+      "WHERE UserAccountID = '" + _UserAccountID + "' AND SeasonID = \'" + _SeasonID + "\' ";
 
-  DBConnect.DBConnect(query, function (response) {
-    if (response[0].UserAccountID == _UserAccountID && response[0].SeasonID == _SeasonID) {
-      console.log(response);
-      callback(true);
-    } else {
-      callback(false);
-    }
-  });
+    DBConnect.DBConnect(query, function (response) {
+      if (response[0].UserAccountID == _UserAccountID && response[0].SeasonID == _SeasonID) {
+        console.log(response);
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
+  }
 
 
-}
