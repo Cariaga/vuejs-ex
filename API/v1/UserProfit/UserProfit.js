@@ -7,11 +7,12 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var async = require("async");
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
 
 
     //userprofit search
-    app.get('/Api/v1/UserProfit/Search/ScreenName/:ScreenName/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/UserProfit/Search/ScreenName/:ScreenName/StartDate/:StartDate/EndDate/:EndDate', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let ScreenName = req.params.ScreenName;
     let StartDate = req.params.StartDate;
     let EndDate = req.params.EndDate;
@@ -38,7 +39,7 @@ module.exports = function (app) {
         }
     }); //userprofit search end
 
-    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset',  Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset',  Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
 
@@ -61,7 +62,7 @@ module.exports = function (app) {
     }); //userprofit search end
 
     //order by
-    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',  Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',  Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     let Order = req.params.Order;

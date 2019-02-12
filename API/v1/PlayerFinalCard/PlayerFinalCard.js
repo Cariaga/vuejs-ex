@@ -7,6 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 //Deprecated by InGameFinalCard
 module.exports = function (app) {
 

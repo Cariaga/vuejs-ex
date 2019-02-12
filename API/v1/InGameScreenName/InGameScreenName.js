@@ -7,8 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameScreenName/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/InGameScreenName/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         InGameScreenNameModel.InGameScreeName(UserAccountID,function(response){
             if(response!=undefined){

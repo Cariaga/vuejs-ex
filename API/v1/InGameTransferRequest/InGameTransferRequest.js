@@ -10,6 +10,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let InGameTransferRequestModel = require('./InGameTransferRequestModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
     function InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName,Password, res) {
         if (!isNullOrEmpty(UserAccountIDSender)) {
@@ -146,7 +147,7 @@ module.exports = function (app) {
         }
     }
 
-    app.post('/Api/v1/InGameTransferRequest/', Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.post('/Api/v1/InGameTransferRequest/', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountIDSender = req.body.UserAccountIDSender;
         let Amount =req.body.Amount;
         let UserName = req.body.UserName;
@@ -154,7 +155,7 @@ module.exports = function (app) {
         InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName,Password, res);
     });
 
-    app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/Password/:Password', Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/Password/:Password', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountIDSender = req.params.UserAccountIDSender;
         let Amount = parseInt(req.params.Amount);
         let UserName = req.params.UserName;

@@ -7,10 +7,11 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 let DBGlobal = require('../../SharedController/DBGlobal');
 module.exports = function (app) {
     /*this is likely broken need because of the socket change */
-    app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
+    app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         console.log("Player Wins")
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

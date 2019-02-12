@@ -6,8 +6,9 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {//MODIFY
-  app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let BankInformationID = req.params.BankInformationID;
     let UserAccountID = req.params.UserAccountID;
     let BankName = req.params.BankName;
@@ -69,7 +70,7 @@ module.exports = function (app) {//MODIFY
     }
   });
 //INSERT
-  app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;
     let BankName = req.params.BankName;
@@ -133,7 +134,7 @@ module.exports = function (app) {//MODIFY
   });
 
 //SELECTION
-  app.get('/Api/v1/BankInformation/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BankInformation/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -179,7 +180,7 @@ module.exports = function (app) {//MODIFY
     }
     //res.send("BankInformation "+Offset+" "+ Limit+" "+Sort);
   });
-  app.get('/Api/v1/BankInformation/Describe', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BankInformation/Describe',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     Models.BankInformation.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     Models.BankInformation.describe().then(result => {
@@ -188,7 +189,7 @@ module.exports = function (app) {//MODIFY
   });
 
 //STRUCTURE
-  app.get('/Api/v1/BankInformation/Clear', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BankInformation/Clear',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     Models.BankInformation.destroy({
         where: {},
         truncate: true
@@ -200,7 +201,7 @@ module.exports = function (app) {//MODIFY
         res.send("Truncate " + err);
       });
   });
-  app.get('/Api/v1/BankInformation/Delete', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BankInformation/Delete',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     Models.BankInformation.sync({
       force: true
     }).then(function (result) {

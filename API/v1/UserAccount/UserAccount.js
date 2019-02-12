@@ -7,6 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) { //SELECTION
 
   app.get('/Api/v1/UserAccount/',Security.cache.route({ expire: 5  }), function (req, res) {
@@ -63,7 +64,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
     let UserAccountID = uuidv4(); //generated
@@ -112,7 +113,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', Management.RouteCalled,Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
     let UserName = req.params.UserName;
     if (!isNullOrEmpty(UserName)) {
       DBCheck.isUserNameExist(UserName, function (response) {
@@ -129,7 +130,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Check/ScreenName/:ScreenName/', Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/ScreenName/:ScreenName/', Management.RouteCalled,Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
     let ScreenName = req.params.ScreenName;
     if (!isNullOrEmpty(ScreenName)) {
       DBCheck.isScreenNameExist(ScreenName, function (response) {
@@ -146,7 +147,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   
-  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), (req, res) => {
+  app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
     if (!isNullOrEmpty(UserAccountID)) {
@@ -165,7 +166,7 @@ module.exports = function (app) { //SELECTION
     }
   });
 
-  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Privilege/:Privilege/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Privilege/:Privilege/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Privilege = req.params.Privilege;
     if(!isNullOrEmpty(UserAccountID)){
@@ -176,7 +177,7 @@ module.exports = function (app) { //SELECTION
       }
     }
   });
-  app.post('/Api/v1/UserAccount/Update/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/UserAccount/Update/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Privilege = req.body.Privilege;
     if(!isNullOrEmpty(UserAccountID)){

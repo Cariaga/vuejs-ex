@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
   function BlackListLimitOffset(Limit,Offset,res){
     if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
@@ -19,25 +20,25 @@ module.exports = function (app) {
     }
   }
   //SELECTION
-  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
-  app.get('/Api/v1/BlackList/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
+  app.get('/Api/v1/BlackList/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
   });
-  app.get('/Api/v1/BlackList/withtoken', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
+  app.get('/Api/v1/BlackList/withtoken', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
   });
-  app.post('/Api/v1/BlackList/withtokenpost', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
+  app.post('/Api/v1/BlackList/withtokenpost', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
   });
-  app.post('/Api/v1/BlackList/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/BlackList/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.body.Limit;
     let Offset = req.body.Offset;
@@ -69,7 +70,7 @@ module.exports = function (app) {
 
   }
   //MODIFY / release
-  app.get('/Api/v1/BlackList/Update/UserName/:UserName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BlackList/Update/UserName/:UserName/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
     BlackListUpdate(UserName,res);
   });
@@ -79,7 +80,7 @@ module.exports = function (app) {
   });
 
   //add user to black list
-  app.get('/Api/v1/BlackList/Add/UserName/:UserName/Reason/:Reason/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //OK
+  app.get('/Api/v1/BlackList/Add/UserName/:UserName/Reason/:Reason/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //OK
     let UserName = req.params.UserName;
     let Reason = req.params.Reason;
     if (!isNullOrEmpty(UserName)) {
@@ -144,14 +145,14 @@ module.exports = function (app) {
       });
     }
   }
-  // Security.rateLimiterMiddleware,
-  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value', Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  // Management.RouteCalled,Security.rateLimiterMiddleware,
+  app.get('/Api/v1/BlackList/Search/Column/:Column/Value/:Value',Management.RouteCalled, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
 
     BlackListSearch(Column,Value,res);
   });
-  app.post('/Api/v1/BlackList/Search/',Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/BlackList/Search/',Management.RouteCalled,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     BlackListSearch(Column,Value,res);
@@ -160,14 +161,14 @@ module.exports = function (app) {
 
 
   //user inquire Username AND Screen name
-  app.get('/Api/v1/BlackList/Check/Blocked/UserName/:UserName/ScreenName/:ScreenName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BlackList/Check/Blocked/UserName/:UserName/ScreenName/:ScreenName/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
     let ScreenName = req.params.ScreenName;
     BlackListUserAccount(UserName,ScreenName,res);   
   });
   
   
-  app.post('/Api/v1/BlackList/Check/Blocked/2', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/BlackList/Check/Blocked/2', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
     let ScreenName = req.params.ScreenName;
     BlackListUserAccount(UserName,ScreenName,res);   
@@ -198,13 +199,13 @@ module.exports = function (app) {
   // user inquire end
 
   //user inquire Username OR Screen name
-  app.get('/Api/v1/BlackList/Check/Blocked/1/Column/:Column/Value/:Value/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BlackList/Check/Blocked/1/Column/:Column/Value/:Value/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     CheckIfBlocked(Column,Value,res);   
   });
   
-  app.post('/Api/v1/BlackList/Check/Blocked/1', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/BlackList/Check/Blocked/1', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     CheckIfBlocked(Column,Value,res);   

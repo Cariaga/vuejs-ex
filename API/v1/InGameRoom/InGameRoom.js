@@ -6,8 +6,9 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
-    app.get('/Api/v1/InGameRoom/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/InGameRoom/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let CurrentRoomName = req.params.CurrentRoomName;
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

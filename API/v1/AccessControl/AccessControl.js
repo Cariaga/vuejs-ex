@@ -6,9 +6,11 @@ let http = require('http');
 let AccessControlModel = require("./AccessControlModel");
 var isNullOrEmpty = require('is-null-or-empty');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
+var Management = require('../../SharedController/Management');
 module.exports = function(app) {//MODIFY
   
-  app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags',Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
     
     let AccessControlID = req.params.AccessControlID;
     let AccessID = req.params.AccessID;
@@ -49,7 +51,7 @@ module.exports = function(app) {//MODIFY
     }
   });
 //INSERT
-  app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let AccessID = req.params.AccessID;
     let AccessName = req.params.AccessName;
     let AccessTags = req.params.AccessTags;

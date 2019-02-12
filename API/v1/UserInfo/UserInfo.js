@@ -7,8 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Email = req.params.Email;
     let UserAccountIDExist = false;
@@ -130,7 +131,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //Insert
-  app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', Security.rateLimiterMiddleware, function (req, res) {
+  app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
     //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
     //Tests for foreignKey should result in  foreign key constraint fails Error
@@ -247,7 +248,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-  app.get('/Api/v1/UserInfo/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), function (req, res) {
+  app.get('/Api/v1/UserInfo/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;

@@ -2,9 +2,10 @@ var AccountVerificationModel = require('./AccountVerificationModel');
 let DBCheck = require("../../SharedController/DBCheck");
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
   //MODIFY
-  app.get('/Api/v1/AccountVerification/Update/UserAccountID/:UserAccountID/Key/:Key', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/AccountVerification/Update/UserAccountID/:UserAccountID/Key/:Key', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Key = req.params.Key;
     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

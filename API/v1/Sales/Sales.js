@@ -7,13 +7,14 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 
 module.exports = function (app) {
     //OHO = operating head office
-    // Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+    // ManagementSecurity.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
 
     //head office
-    app.get('/Api/v1/Sales/HeadOfficeList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', function (req, res) {
+    app.get('/Api/v1/Sales/HeadOfficeList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let ParentID = req.params.ParentID;
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
@@ -48,7 +49,7 @@ module.exports = function (app) {
     });
 
     //distributors
-    app.get('/Api/v1/Sales/DistributorList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', function (req, res) {
+    app.get('/Api/v1/Sales/DistributorList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let ParentID = req.params.ParentID;
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
@@ -83,7 +84,7 @@ module.exports = function (app) {
     });
 
     //shops
-    app.get('/Api/v1/Sales/ShopList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', function (req, res) {
+    app.get('/Api/v1/Sales/ShopList/ParentID/:ParentID/Limit/:Limit/Offset/:Offset', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),function (req, res) {
         let ParentID = req.params.ParentID;
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
@@ -118,7 +119,7 @@ module.exports = function (app) {
     });
 
     //pagination
-    app.get('/Api/v1/Sales/Pagination/Page/:Page', function (req, res) {
+    app.get('/Api/v1/Sales/Pagination/Page/:Page', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let Page = req.params.Page;
 
             if (!isNullOrEmpty(Page)) {
@@ -187,12 +188,12 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRank/HeadOfficeID/:HeadOfficeID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/Sales/LowRank/HeadOfficeID/:HeadOfficeID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let HeadOfficeID = req.params.HeadOfficeID;
         LowRank(HeadOfficeID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRank/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.post('/Api/v1/Sales/LowRank/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let HeadOfficeID = req.body.HeadOfficeID;
         LowRank(HeadOfficeID,res);
     });
@@ -213,12 +214,12 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRankDistributor/DistributorID/:DistributorID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/Sales/LowRankDistributor/DistributorID/:DistributorID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let DistributorID = req.params.DistributorID;
         LowRankDistributor(DistributorID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRankDistributor/', Security.rateLimiterMiddleware, function (req, res) {
+    app.post('/Api/v1/Sales/LowRankDistributor/', Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
         let DistributorID = req.body.DistributorID;
         LowRankDistributor(DistributorID,res);
     });
@@ -239,12 +240,12 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }    
-    app.get('/Api/v1/Sales/LowRankShop/ShopID/:ShopID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/Sales/LowRankShop/ShopID/:ShopID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
         let ShopID = req.params.ShopID;
         LowRankShop(ShopID,res);
     });
 
-    app.post('/Api/v1/Sales/LowRankShop/', Security.rateLimiterMiddleware, function (req, res) {
+    app.post('/Api/v1/Sales/LowRankShop/', Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
         let ShopID = req.body.ShopID;
         LowRankShop(ShopID,res);
     });

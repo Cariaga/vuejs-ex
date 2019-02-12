@@ -7,9 +7,10 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var async = require("async");
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
     
-    // app.get('/Api/v1/CalculateManage/LowRank/:LowRank/Office/:Office/Limit/:Limit/Offset/:Offset', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
+    // app.get('/Api/v1/CalculateManage/LowRank/:LowRank/Office/:Office/Limit/:Limit/Offset/:Offset', Security.verifyToken,Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
     // let Limit = req.params.Limit;
     // let Offset = req.params.Offset;
     // let LowRank = req.params.LowRank;
@@ -40,7 +41,7 @@ module.exports = function (app) {
     // });
 
     // select order by
-    app.get('/Api/v1/CalculateManage/LowRank/:LowRank/Office/:Office/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',  function (req, res) {
+    app.get('/Api/v1/CalculateManage/LowRank/:LowRank/Office/:Office/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',  Management.RouteCalled,function (req, res) {
     let LowRank = req.params.LowRank;
     let Office = req.params.Office;
     let Limit = req.params.Limit;
@@ -85,7 +86,7 @@ module.exports = function (app) {
     });
 
     // pagination
-    app.get('/Api/v1/CalculateManage/Pagination/:Pagination/Office/:Office', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
+    app.get('/Api/v1/CalculateManage/Pagination/:Pagination/Office/:Office', Management.RouteCalled,Security.verifyToken,Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),  function (req, res) {
     let Pagination = req.params.Pagination;
     let Office = req.params.Office;
 
@@ -105,7 +106,7 @@ module.exports = function (app) {
     });
 
     // Search
-    app.get('/Api/v1/CalculateManage/Search/LowRank/:LowRank/Office/:Office/StartDateTime/:StartDateTime/EndDateTime/:EndDateTime', Security.verifyToken,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/CalculateManage/Search/LowRank/:LowRank/Office/:Office/StartDateTime/:StartDateTime/EndDateTime/:EndDateTime', Management.RouteCalled,Security.verifyToken,Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let LowRank = req.params.LowRank;
     let Office = req.params.Office;
     let StartDateTime = req.params.StartDateTime;

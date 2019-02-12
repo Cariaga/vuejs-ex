@@ -7,6 +7,7 @@ var uuidv4 = require('uuid/v4');
 let OneOnOneModel = require('../OneOnOne/OneOnOneModel')
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) { //SELECTION
   function OneOnOneOffetLimit(Limit, Offset,res){
     OneOnOneModel.OneOnOne(Limit, Offset, function (response) {
@@ -18,7 +19,7 @@ module.exports = function (app) { //SELECTION
       }
     });
   }
-  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) { //OK
+  app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) { //OK
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     OneOnOneOffetLimit(Limit,Offset,res);
@@ -98,7 +99,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   }
-  app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/OneOnOne/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
     let UserAccountID = req.params.UserAccountID;
     let Answer = req.params.Answer;
@@ -113,7 +114,7 @@ module.exports = function (app) { //SELECTION
 
   });
   //write notice 
-  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/SupportTicketID/:SupportTicketID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/OneOnOne/UserAccountID/:UserAccountID/SupportTicketID/:SupportTicketID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let SupportTicketID = req.params.SupportTicketID;
 
@@ -145,7 +146,7 @@ module.exports = function (app) { //SELECTION
     }
   });
   //write notice 
-  app.get('/Api/v1/OneOnOne/WriteSupportAnswer/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/OneOnOne/WriteSupportAnswer/SupportTicketID/:SupportTicketID/UserAccountID/:UserAccountID/Answer/:Answer/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let SupportTicketID = req.params.SupportTicketID;
     let UserAccountID = req.params.UserAccountID;
     let Answer = req.params.Answer;

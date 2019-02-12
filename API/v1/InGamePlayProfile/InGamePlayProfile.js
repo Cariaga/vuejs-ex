@@ -4,6 +4,7 @@ let http = require('http');
 var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
   /*  app.get('/Api/v1/InGamePlayProfile/UserAccountID/:UserAccountID/SeasonID/:SeasonID/',Security.verifyToken, function (req, res) {
         /*should return the points for that current season of a player*/

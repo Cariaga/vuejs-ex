@@ -148,6 +148,8 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 //===========API===========
 
 let Security = require("./API/SharedController/Security");
+let Management = require("./API/SharedController/Management");
+require('./API/v1/ServerManagement/ServerManagement')(app);
 
 let DBConnect = require("./API/SharedController/DBConnect");
 let DBGlobal = require("./API/SharedController/DBGlobal");
@@ -229,16 +231,13 @@ function test() {
 }
 //--testing for season based authentication END
 
-
-
-
 //--Login End
 app.get('/',function (req, res) {
   //redis.set('foo', 'bar');
   res.sendStatus(200);
 });
 
-app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+app.get('/Api/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
   console.log("test");
 
   console.log("tester2");
@@ -249,7 +248,7 @@ app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5 
   });*/
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
-app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+app.get('/GameVersion/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
   console.log("Game Version Retrived");
   DBConnect.DBConnect("Select GameVersion from Gameconfiguration",function(response){
     if(response!=undefined){
@@ -261,7 +260,7 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
   });
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
-app.get('/SideNotice/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+app.get('/SideNotice/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
 
   DBConnect.DBConnect("SELECT notice as Notice, title as Title, `Date` as `Date`, enddate as EndDate FROM sampledb.sidenotice where EndDate>Now() order by id limit 1 ",function(response){
     if(response!=undefined){
@@ -312,7 +311,7 @@ app.get('/fail',function(req,res){
 
 
 /*
-app.get('/Api/v1', Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
+app.get('/Api/v1', Management.RouteCalled,Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
   res.send('Api v1 version');
 });*/
 //---POKER ROUTING START

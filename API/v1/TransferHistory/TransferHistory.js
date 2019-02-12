@@ -7,8 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/Status/:Status/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/TransferHistory/Update/TransferHistoryUUID/:TransferHistoryUUID/Status/:Status/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let TransferHistoryUUID = req.params.TransferHistoryUUID;
     let Status = req.params.Status;
     if(!isNullOrEmpty(TransferHistoryUUID)){
@@ -27,7 +28,7 @@ module.exports = function (app) { //MODIFY
   });
 
   // Security.cache.route({ expire: 5  })
-  app.get('/Api/v1/TransferHistoryList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/TransferHistoryList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let limit = req.params.Limit;
     let offset = req.params.Offset;
@@ -60,7 +61,7 @@ module.exports = function (app) { //MODIFY
 
 
   //INSERT
-  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
     let UserAccountIDSender = req.params.UserAccountIDSender;
@@ -97,7 +98,7 @@ module.exports = function (app) { //MODIFY
     }
   });
   //SELECTION
-  app.get('/Api/v1/TransferHistoryList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/TransferHistoryList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     let StartDate = req.params.StartDate;

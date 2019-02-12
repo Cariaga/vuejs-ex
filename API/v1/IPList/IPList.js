@@ -7,8 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 var IPListModel = require('./IPListModel');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {//SELECTION
-  app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let UserAccountIDExist = false;
@@ -152,7 +153,7 @@ module.exports = function (app) {//SELECTION
   //   });
   // }
 
-  // app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
+  // app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
   //   let Limit =req.params.Limit;
   //   let Offset = req.params.Offset;
   //   IPListLimitOffset(Limit,Offset,res);
@@ -172,12 +173,13 @@ module.exports = function (app) {//SELECTION
     let Direction = req.params.Direction;    
     IPListLimitOffsetOrder(Limit,Offset,Order,Direction, res);
   });
-
-  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
+  // 
+  app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
     let Limit =req.params.Limit;
     let Offset = req.params.Offset;
     let Order = req.params.Order;
     let Direction = req.params.Direction;
+    
     IPListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
   });
 
@@ -230,12 +232,12 @@ module.exports = function (app) {//SELECTION
       });
     }
   }
-  app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     IPListSearch(Column,Value,res);
   });
-  app.post('/Api/v1/IPList/Search/', Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.post('/Api/v1/IPList/Search/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;
     IPListSearch(Column,Value,res);
