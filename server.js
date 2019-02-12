@@ -675,7 +675,7 @@ wss.on('connection', (ws, req) => {
           ConvertedBet:ConvertedBet,
         }, null, 0));
       }
-
+     
       else if (Object.Type == "Bet") { //bet event occured 
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
