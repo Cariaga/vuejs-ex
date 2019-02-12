@@ -148,7 +148,7 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                                                         console.log("UserAccount or SeasonID dosn't Exist");
                                                     } else {
                                                         if(WinPoints>0){//only winners get to update their points
-                                                            InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, WinPoints, function (response) {
+                                                            InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, AfterPoints, function (response) {
                                                                 if(response!=undefined){
                                                                     console.log("UpdatePlayerMoney Somebody Won" +UserAccountID);
                                                                     resolve();

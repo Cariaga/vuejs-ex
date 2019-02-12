@@ -1,0 +1,8 @@
+☐ Detect if Socket got terminated or dosn't match the game values
+✔ timer is now imporved  performace so its much faster now 
+✔ Notify player instances of joining room(not needed solution from second lower line is better)
+✔ Socket early enter room but no buyin just register the player entering the room
+☐ raise is broken
+☐ Notice support text discriptions and other db
+✔ need to confirm if the computation is still sent after updating null list
+   ✔  next round is broken
