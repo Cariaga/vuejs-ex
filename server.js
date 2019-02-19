@@ -350,6 +350,9 @@ wss.on('connection', (ws, req) => {
   ws.DepositNotice = "";
   ws.ParentUserAccountIDList=[];
   ws.isLobby=true;
+  ws.WinPoints = 0;
+  ws.PlayerCommission = 0;
+  
   //ws.Rooms=[];
 
 //--------Start Player Checking First Socket
@@ -366,25 +369,9 @@ wss.on('connection', (ws, req) => {
 
   //Get Commission of Player the login sends commision also but need to decide which is better 
   
-  DBGlobal.getCommissionPercentages(UserAccountID,function(response){
-    if(response!=undefined){
-     // let _playerToOHOCommission = response.playerToOHOCommission[0];
-      ws.PlayerCommission=response[0]['pCommission'];
-      console.log("pCommisssion Socket :"+response[0]['pCommission']);
-    }else{
-      console.log("Websocket Set Up Error 1");
-    }
-  });
 
-  DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
-    if (response != undefined) {
-      ws.WinPoints=response[0]['WinPoints'];
-     // console.log(stringify(response,null,2));
-      console.log("PlayerWins Socket :"+response[0]['WinPoints']);
-    } else {
-      console.log("Websocket Set Up Error 2");
-    }
-});
+
+
 
 
 
@@ -393,6 +380,28 @@ wss.on('connection', (ws, req) => {
   DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
     if(response!=undefined){
       ws.UserName = response[0]["UserName"];
+
+      DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
+        if (response != undefined) {
+          ws.WinPoints=response[0]['WinPoints'];
+          DBGlobal.getCommissionPercentages(UserAccountID,function(response){
+            if(response!=undefined){
+             // let _playerToOHOCommission = response.playerToOHOCommission[0];
+              ws.PlayerCommission=response[0]['pCommission'];
+        
+              console.log("pCommisssion Socket :"+response[0]['pCommission']);
+            }else{
+              console.log("Websocket Set Up Error 1");
+            }
+          });
+         // console.log(stringify(response,null,2));
+          console.log("PlayerWins Socket :"+response[0]['WinPoints']);
+        } else {
+          console.log("Websocket Set Up Error 2");
+        }
+    });
+
+
     }else{
       console.log("Websocket Set Up Error 2");
     }

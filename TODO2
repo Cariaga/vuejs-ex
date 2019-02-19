@@ -1,8 +1,15 @@
-☐ Detect if Socket got terminated or dosn't match the game values
+✔ Detect if Socket got terminated or dosn't match the game values
 ✔ timer is now imporved  performace so its much faster now 
 ✔ Notify player instances of joining room(not needed solution from second lower line is better)
 ✔ Socket early enter room but no buyin just register the player entering the room
 ☐ raise is broken
 ☐ Notice support text discriptions and other db
 ✔ need to confirm if the computation is still sent after updating null list
-   ✔  next round is broken
+   ✔ next round is broken
+
+☐ Card Animation Blind rgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+☐ ArgumentNullException: String reference not set to an instance of a String.
+   ☐ Season Started Too Sooon
+☐ Socket Win concurrent issue
+✔ Updated All Lobby Controllers from dead http's
+
