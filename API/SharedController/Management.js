@@ -2,13 +2,29 @@ let logs = []
 module.exports.RouteCalled = function RouteCalled(req, res, next) {
      
     let url2 = req.url.slice(req.url.search('v1') + 3, req.url.length);
+    console.log('url:' + req.url)
+    console.log(req.params)
+    console.log(Object.values(req.params).length)
+    // get -> url2.slice(0,url2.search('/'))
+
+    // insert first log if log is zero
     if(logs.length == 0){
       logs.push(
         {
-          title: url2.slice(0,url2.search('/')), 
+          title: GetTitle(), // Sales, Blacklist, etc...
+          datetime: Date.now(),
+          url: GetURL(),
           data : [
-            {url:req.url.toString(),datetime: Date.now()}
-            ]
+            { 
+              label: GetTitle(), 
+              data: "Pictures Folder",
+              expandedIcon: "fa fa-folder-open",
+              collapsedIcon: "fa fa-folder",
+              children : 
+                GetChildren() //values of limit, offset, etc...
+              
+            }
+          ]
         }
       );
 
@@ -18,24 +34,69 @@ module.exports.RouteCalled = function RouteCalled(req, res, next) {
       if(indexFound < 0){
         logs.push(
           {
-            title: url2.slice(0,url2.search('/')), 
+            title: GetTitle(), // Sales, Blacklist, etc...
+            datetime: Date.now(),
+            url: GetURL(),
             data : [
-              {url:req.url.toString(),datetime: Date.now()}
-              ]
+              { 
+                label: GetTitle(), 
+                data: "Pictures Folder",
+                expandedIcon: "fa fa-folder-open",
+                collapsedIcon: "fa fa-folder",
+                children : 
+                  GetChildren() //values of limit, offset, etc...
+                
+              }
+            ]
           }
         );
-      }else{
-        logs[indexFound].data.push({url:req.url.toString(),datetime: Date.now()});
+      }else{//to avoid title duplication, if title is found we get the index then add data to that title
+        logs[indexFound].data.push(
+          { 
+            label: GetTitle(), 
+            data: "Pictures Folder",
+            expandedIcon: "fa fa-folder-open",
+            collapsedIcon: "fa fa-folder",
+            children : GetChildren() //values of limit, offset, etc...
+          }
+        );
       }
     }
 
 
     function CheckIfDuplicate(element) {
-      return element.title === url2.slice(0,url2.search('/'))
+      return element.title === GetTitle()
     }
 
+    function GetTitle(){
+      return url2.slice(0,url2.search('/'))
+    }
+
+    function GetURL(){
+      return req.url.toString()
+    }
+
+    function GetChildren(){
+      let output = []
+      if(Object.keys(req.params).length > 0){
+        for(i = 0; i < Object.keys(req.params).length; i++ ){
+          output.push({
+            label: Object.keys(req.params)[i],
+            expandedIcon: "fa fa-folder-open",
+            collapsedIcon: "fa fa-folder",
+            children : [
+              {label: Object.values(req.params)[i], icon: "fa fa-angle-right" }
+            ]
+          });
+        }
+        return output
+      }else{
+        return {label: 'none', icon: "fa fa-angle-right", data: 'none'}
+      }
       
-    next();
+    }
+
+  next();
 }
 
 module.exports.GetLogs = function GetLogs() {
