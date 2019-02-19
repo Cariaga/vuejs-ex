@@ -12,11 +12,12 @@ module.exports.RouteCalled = function RouteCalled(req, res, next) {
       logs.push(
         {
           title: GetTitle(), // Sales, Blacklist, etc...
-          datetime: Date.now(),
+          show : true,
+          datetime: GetDateTimeNow(),
           url: GetURL(),
           data : [
             { 
-              label: GetTitle(), 
+              label: GetDateTimeNow(), 
               data: "Pictures Folder",
               expandedIcon: "fa fa-folder-open",
               collapsedIcon: "fa fa-folder",
@@ -35,11 +36,12 @@ module.exports.RouteCalled = function RouteCalled(req, res, next) {
         logs.push(
           {
             title: GetTitle(), // Sales, Blacklist, etc...
-            datetime: Date.now(),
+            show : true,
+            datetime: GetDateTimeNow(),
             url: GetURL(),
             data : [
               { 
-                label: GetTitle(), 
+                label: GetDateTimeNow(), 
                 data: "Pictures Folder",
                 expandedIcon: "fa fa-folder-open",
                 collapsedIcon: "fa fa-folder",
@@ -53,7 +55,7 @@ module.exports.RouteCalled = function RouteCalled(req, res, next) {
       }else{//to avoid title duplication, if title is found we get the index then add data to that title
         logs[indexFound].data.push(
           { 
-            label: GetTitle(), 
+            label: GetDateTimeNow(), 
             data: "Pictures Folder",
             expandedIcon: "fa fa-folder-open",
             collapsedIcon: "fa fa-folder",
@@ -76,6 +78,10 @@ module.exports.RouteCalled = function RouteCalled(req, res, next) {
       return req.url.toString()
     }
 
+    function GetDateTimeNow(){
+      let d = Date.now()
+      return new Date(d).toLocaleString('en-GB', { timeZone: 'UTC' })
+    }
     function GetChildren(){
       let output = []
       if(Object.keys(req.params).length > 0){
