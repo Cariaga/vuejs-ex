@@ -9,24 +9,72 @@ var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {
 
-  function DepositListLimitOffet(limit,offset,res){
-    DepositListModel.DepositList(limit, offset, function (response) {
-      res.send(response);
-    });
+  // function DepositListLimitOffet(limit,offset,res){
+  //   DepositListModel.DepositList(limit, offset, function (response) {
+  //     res.send(response);
+  //   });
+  // }
+
+  function DepositListLimitOffsetOrder(Limit,Offset,Order,Direction,res){
+    if(!isNullOrEmpty(Limit)){
+      if(!isNullOrEmpty(Offset)){
+        if(!isNullOrEmpty(Direction)){
+          if(!isNullOrEmpty(Order)){
+            DepositListModel.DepositList2(Limit,Offset,Order,Direction,function(response){
+              if (response != undefined) {
+                res.send(response);
+              } else {
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);}
+            });
+          }else{
+            let status = 404;
+            res.status(status).end(http.STATUS_CODES[status]); }
+
+        }else{
+          let status = 404;
+          res.status(status).end(http.STATUS_CODES[status]); }
+      }else{
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]); }
+    }else{
+      let status = 404;
+      res.status(status).end(http.STATUS_CODES[status]); }
   }
-  app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+
+  
+  app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    let limit = req.params.Limit;
-    let offset = req.params.Offset;
-    DepositListLimitOffet(limit,offset,res);
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    DepositListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
   });
   
   app.post('/Api/v1/DepositList/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    let limit = req.params.Limit;
-    let offset = req.params.Offset;
-    DepositListLimitOffet(limit,offset,res);
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    DepositListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
   });
+  
+  // app.get('/Api/v1/DepositList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  //   res.setHeader('Content-Type', 'application/json');
+  //   let limit = req.params.Limit;
+  //   let offset = req.params.Offset;
+  //   DepositListLimitOffet(limit,offset,res);
+  // });
+  
+  // app.post('/Api/v1/DepositList/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  //   res.setHeader('Content-Type', 'application/json');
+  //   let limit = req.params.Limit;
+  //   let offset = req.params.Offset;
+  //   DepositListLimitOffet(limit,offset,res);
+  // });
+
   function DepositListSearch(Column,Value,StartDate,EndDate,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
