@@ -80,7 +80,7 @@ module.exports.RouteCalled = function RouteCalled(req, res, next) {
 
     function GetDateTimeNow(){
       let d = Date.now()
-      return new Date(d).toLocaleString('en-GB', { timeZone: 'UTC' })
+      return new Date(d).toLocaleString('en-GB', { timeZone: 'Asia/Shanghai' })
     }
     function GetChildren(){
       let output = []
