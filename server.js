@@ -150,6 +150,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 let Security = require("./API/SharedController/Security");
 let Management = require("./API/SharedController/Management");
 require('./API/v1/ServerManagement/ServerManagement')(app);
+require('./API/v1/Photon/Photon')(app);
 
 let DBConnect = require("./API/SharedController/DBConnect");
 let DBGlobal = require("./API/SharedController/DBGlobal");
