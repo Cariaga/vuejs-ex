@@ -60,7 +60,7 @@ module.exports = function (app) {
   });
 
   app.get('/Api/v1/photon/sample', function (req, res) {
-      res.send({sample : photonvariables.length});
+      res.send(photonvariables);
   });
 
 
