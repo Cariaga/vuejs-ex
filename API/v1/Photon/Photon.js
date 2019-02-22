@@ -9,7 +9,7 @@ var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {
 
-  app.get('/Api/v1/photon', function (req, res) {
+  app.post('/Api/v1/photon', function (req, res) {
       console.log('you called photon')
       console.log(Object.values(req.params))
       res.send('ok')
