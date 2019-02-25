@@ -34,7 +34,6 @@ var uuidv4 = require('uuid/v4');
         })
     }
 }*/
-
 module.exports.IPList2 = function IPList2(Limit, Offset, Order, Direction, callback) {
     let _Limit = Limit;
     let _Offset = Offset;
@@ -49,13 +48,10 @@ module.exports.IPList2 = function IPList2(Limit, Offset, Order, Direction, callb
             callback(undefined);
         }
     })
-
-    
 }
 module.exports.IPListSearch = function IPListSearch(Indexx, Value, callback) {
     let _Column = ['PlayerID','ScreenName','IP'];
     let _Value = Value;
-
     if(Indexx >= 0 && Indexx <= 2){
         let query = 
         "SELECT * FROM sampledb.ip_list where ip_list."+_Column[Indexx]+" like \'%"+_Value+"%\';";
