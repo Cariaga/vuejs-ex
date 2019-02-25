@@ -19,8 +19,7 @@ module.exports = function (app) {
     //   console.log('you called photon');
       photonActions.push('you called photon')
 
-      var status = 200;
-      res.status(status).end(http.STATUS_CODES[status]);
+      res.send({ "Message" : "ok", "ResultCode" : 0 });
 
   });
 
@@ -30,7 +29,7 @@ module.exports = function (app) {
       photonParams.push(req.params);
       photonvariables.push({Actor : req.params.ActorNr, UserId: req.params.UserId, NickName: req.params.NickName});
       
-        res.sendStatus(200);
+        res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/create', function (req, res) {
@@ -39,32 +38,32 @@ module.exports = function (app) {
        photonParams.push(req.params);
       photonvariables.push({Actor : req.params.ActorNr, UserId: req.params.UserId, NickName: req.params.NickName});
 
-        res.sendStatus({ "State" : "", "ResultCode" : 0 });
+        res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/event', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/event');
-        res.sendStatus(200);
+        res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/properties', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/properties');
-        res.sendStatus(200);
+        res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/join', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/join');
-        res.sendStatus(200);
+        res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/leave', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/leave');
     
-        res.sendStatus(200);
+        res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.get('/Api/v1/photon/getActions', function (req, res) {
