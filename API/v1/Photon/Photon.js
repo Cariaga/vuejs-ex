@@ -11,14 +11,14 @@ var Management = require('../../SharedController/Management');
 let photonvariables = [];
 let photonActions = [];
 let photonParams = [];
-
+let keys = []
 module.exports = function (app) {
 
   app.post('/Api/v1/photon', function (req, res) {
       console.log('you called photon')
     //   console.log('you called photon');
       photonActions.push('you called photon')
-
+      keys.push(Object.keys(req.params).length);
       res.send({ "Message" : "ok", "ResultCode" : 0 });
 
   });
@@ -27,8 +27,8 @@ module.exports = function (app) {
       console.log('you called photon');
       photonActions.push('you called photon/close');
       photonParams.push(req.params);
-      photonvariables.push({Actor : req.params.ActorNr, UserId: req.params.UserId, NickName: req.params.NickName});
-      
+      photonvariables.push(req.params.PathClose);
+      keys.push(Object.keys(req.params).length);
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
@@ -36,34 +36,41 @@ module.exports = function (app) {
       console.log('you called photon');
       photonActions.push('you called photon/create');
        photonParams.push(req.params);
-      photonvariables.push({Actor : req.params.ActorNr, UserId: req.params.UserId, NickName: req.params.NickName});
-
+      photonvariables.push(req.params.PathCreate);
+      keys.push(Object.keys(req.params).length);
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/event', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/event');
+      keys.push(Object.keys(req.params).length);
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/properties', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/properties');
+      keys.push(Object.keys(req.params).length);
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/join', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/join');
-        res.send({ "Message" : "ok", "ResultCode" : 0 });
-  });
+      photonvariables.push(req.params.PathJoin);
+      keys.push(Object.keys(req.params).length);
+      res.send({ "Message" : "ok", "ResultCode" : 0 });
 
-  app.post('/Api/v1/photon/leave', function (req, res) {
-      console.log('you called photon');
-      photonActions.push('you called photon/leave');
+    });
     
-        res.send({ "Message" : "ok", "ResultCode" : 0 });
+  app.post('/Api/v1/photon/leave', function (req, res) {
+    console.log('you called photon');
+    photonActions.push('you called photon/leave');
+    
+    // photonvariables.push(Object.keys(req.params).length);
+    keys.push(Object.keys(req.params).length);
+      res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
   app.get('/Api/v1/photon/getActions', function (req, res) {
@@ -74,6 +81,9 @@ module.exports = function (app) {
   });
   app.get('/Api/v1/photon/getParams', function (req, res) {
       res.send(photonParams);
+  });
+  app.get('/Api/v1/photon/getKeys', function (req, res) {
+      res.send(keys);
   });
 
 
