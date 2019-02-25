@@ -40,8 +40,7 @@ module.exports.IPList2 = function IPList2(Limit, Offset, Order, Direction, callb
     let _Offset = Offset;
     let _Order = Order;
     let _Direction = Direction;
-    
-    let query = "SELECT * FROM sampledb.ip_list order by "+_Order+" "+_Direction+" limit "+_Limit+" Offset "+_Offset;;
+    let query = "SELECT * FROM sampledb.ip_list order by "+_Order+" "+_Direction+" limit "+_Limit+" Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             // console.log(response);
