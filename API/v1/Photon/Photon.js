@@ -31,7 +31,7 @@ module.exports = function (app) {
   app.post('/Api/v1/photon/create', function (req, res) {
       console.log('you called photon');
       photonvariables.push('you called photon/create');
-        res.sendStatus(200);
+        res.sendStatus({ "State" : "ok", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/event', function (req, res) {
