@@ -47,7 +47,7 @@ module.exports = function (app) {
             });
         }
     }
-
+    /*request a game deposit that requires approval  */
     app.post('/Api/v1/InGameDeposit/Request/', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.body.UserAccountID;
         let Name = req.body.Name;

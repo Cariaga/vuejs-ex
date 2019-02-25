@@ -10,7 +10,9 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {
+
   //approved deposit
+  /* deposit approval of a user AccountID both userTransactionID and UserAccountID must be vaild to be accepted for security*/
   app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     let UserAccountID = req.params.UserAccountID;
@@ -69,6 +71,7 @@ module.exports = function (app) {
   });
 
   //archived deposit
+  /*to archive  a transaction of a deposit in the admin page */
   app.get('/Api/v1/DepositHistory/Archived/UserTransactionID/:UserTransactionID',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     if (!isNullOrEmpty(UserTransactionID)) {
@@ -87,7 +90,8 @@ module.exports = function (app) {
       });
     }
   });
-
+  /*currently unsed in the admin */
+  /*to update in the admin if the account is still being processed */
   app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
@@ -134,6 +138,7 @@ module.exports = function (app) {
       });
     }
   });
+  /* */
   app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
@@ -369,6 +374,7 @@ module.exports = function (app) {
     }
   });
 
+  /*this route updates the status of the user account ID  only approved processing rejected is accepted for the status */
   app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;

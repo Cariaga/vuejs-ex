@@ -113,6 +113,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });*/
+  /*update the current room name of a user account id */
   app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let CurrentRoomName = req.params.CurrentRoomName;
@@ -168,6 +169,8 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
+  /*currently not needed only for maintainace */
+  /*update the Player Information of a User Account Id it must be a player */
   app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let PlayersID = req.params.PlayersID;
     let UserAccountID = req.params.UserAccountID;

@@ -8,6 +8,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {
+    /*get list of admin questions of a player */
     app.get('/Api/v1/InGameAdminSupport/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         InGameAdminSupportModel.InGameAdminSupport(function(response){
             res.send(response);

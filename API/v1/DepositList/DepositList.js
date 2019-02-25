@@ -7,6 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
+/*this routes are all for viewing only no actual insert happends here */
 module.exports = function (app) {
 
   // function DepositListLimitOffet(limit,offset,res){
@@ -51,7 +52,7 @@ module.exports = function (app) {
     let Direction = req.params.Direction;
     DepositListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
   });
-  
+  /*to retrive a list of deposit in the admin page */
   app.post('/Api/v1/DepositList/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.params.Limit;
@@ -110,6 +111,7 @@ module.exports = function (app) {
       });
     }
   }
+  /*to search a specific Column in the database under the deposit list with time and date filter*/
   app.get('/Api/v1/DepositList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
@@ -118,6 +120,7 @@ module.exports = function (app) {
     DepositListSearch(Column,Value,StartDate,EndDate,res);
 
   });
+  
   app.post('/Api/v1/DepositList/Search/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;

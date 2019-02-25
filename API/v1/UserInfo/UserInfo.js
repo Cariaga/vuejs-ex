@@ -9,6 +9,8 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
+  /*Maintainace Use */
+  /*updating of User Info */
   app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Email = req.params.Email;

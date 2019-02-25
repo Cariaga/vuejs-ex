@@ -14,6 +14,7 @@ let UUID = require('uuid/v4');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {
+    /*generate a room this generates during the game start not during the join room a user account is needed */
     app.get('/Api/v1/InGameRoomConfiguration/Request/UserAccountID/:UserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {

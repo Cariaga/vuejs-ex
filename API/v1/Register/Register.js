@@ -9,7 +9,7 @@ var http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {
-
+  /*to sign up a new user account the shop ID must exist */
   app.get('/Api/v1/Register/Add/ScreenName/:ScreenName/UserName/:UserName/Password/:Password/Name/:Name/SurName/:SurName/Email/:Email/PhoneNumber/:PhoneNumber/BankName/:BankName/SecurityCode/:SecurityCode/AccountNumber/:AccountNumber/AccountHolder/:AccountHolder/ShopID/:ShopID/', Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
     let ScreenName = req.params.ScreenName;
     let UserName = req.params.UserName;
