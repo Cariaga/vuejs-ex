@@ -56,13 +56,15 @@ module.exports = function (app) {
   app.post('/Api/v1/photon/join', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/join');
-        res.send({ "Message" : "ok", "ResultCode" : 0 });
-  });
-
-  app.post('/Api/v1/photon/leave', function (req, res) {
+      photonvariables.push(req.params.PathJoin);
+      res.send({ "Message" : "ok", "ResultCode" : 0 });
+    });
+    
+    app.post('/Api/v1/photon/leave', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/leave');
-    
+      
+      photonvariables.push(req.params.PathLeave);
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
