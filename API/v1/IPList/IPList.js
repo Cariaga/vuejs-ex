@@ -10,7 +10,7 @@ var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {//SELECTION
   /*ip list of a user account ID */
-  app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+ /* app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let UserAccountIDExist = false;
@@ -141,7 +141,7 @@ module.exports = function (app) {//SELECTION
         });
       }
     }
-  });
+  });*/
 
   // function IPListLimitOffset(Limit,Offset,res){
   //   IPListModel.IPList(Limit,Offset, function (response) {

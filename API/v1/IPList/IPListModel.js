@@ -7,7 +7,7 @@ const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 var uuidv4 = require('uuid/v4');
 
-module.exports.IPList = function IPList(limit, offset, callback) {
+/*module.exports.IPList = function IPList(limit, offset, callback) {
     let _limit = limit;
     let _offset = offset;
 
@@ -33,7 +33,7 @@ module.exports.IPList = function IPList(limit, offset, callback) {
             }
         })
     }
-}
+}*/
 
 module.exports.IPList2 = function IPList2(Limit, Offset, Order, Direction, callback) {
     let _Limit = Limit;
