@@ -64,7 +64,7 @@ module.exports = function (app) { //MODIFY
   //INSERT
   /*currently used in game but for maintainace use */
   /*adding of a new transfer specifying a user account id of both reciever and sender */
-  app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+ /* app.get('/Api/v1/TransferHistory/Add/UserAccountIDReceiver/:UserAccountIDReceiver/UserAccountIDSender/:UserAccountIDSender/Amount/:Amount/Reason/:Reason/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountIDReceiver = req.params.UserAccountIDReceiver;
     let UserAccountIDSender = req.params.UserAccountIDSender;
@@ -99,7 +99,7 @@ module.exports = function (app) { //MODIFY
         })
       }
     }
-  });
+  });*/
   //SELECTION
   app.get('/Api/v1/TransferHistoryList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
