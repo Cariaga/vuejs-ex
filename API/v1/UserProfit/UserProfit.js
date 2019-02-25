@@ -61,6 +61,8 @@ module.exports = function (app) {
         }
     }); //userprofit search end
 
+    /*profit per user filters with limit offset order direction
+    the direction is the order type */
     //order by
     app.get('/Api/v1/UserProfit/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',  Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.params.Limit;

@@ -64,6 +64,8 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
+  /*currently for maintainace */
+  /*updates the basic user information it can be a player or non player account type */
   app.get('/Api/v1/UserInfo/Update/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber',Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Email = req.params.Email;
@@ -133,7 +135,10 @@ module.exports = function (app) { //MODIFY
     }
   });
   //Insert
-  app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
+  /*maintainace only */
+  /*deprecated */
+  /*add new user account basic information */
+  /*app.get('/Api/v1/UserInfo/Add/UserAccountID/:UserAccountID/Email/:Email/PhoneNumber/:PhoneNumber/TelephoneNumber/:TelephoneNumber/', Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
     //USAGE /Api/v1/UserInfo/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Email/Cariagajkl.info@gmail.com/PhoneNumber/02121547894/TelephoneNumber/1324579/
 
     //Tests for foreignKey should result in  foreign key constraint fails Error
@@ -248,14 +253,16 @@ module.exports = function (app) { //MODIFY
         UserAccountIDMissing: true
       });
     }
-  });
+  });*/
   //SELECTION
-  app.get('/Api/v1/UserInfo/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), function (req, res) {
+  /*get user */
+  /*deprecated */
+  /*app.get('/Api/v1/UserInfo/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
     let Sort = req.query.Sort;
-    Models.UserInfo.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.UserInfo.sync( /*{alter:true} ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
       Models.UserInfo.sync();
       let result = Models.UserInfo.findAll({
@@ -281,13 +288,13 @@ module.exports = function (app) { //MODIFY
     if (isNullOrEmpty(Offset) && !isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && !isNullOrEmpty(Sort)) {}
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {}
-  });
+  });*/
   //STRUCTURE
-  app.get('/Api/v1/UserInfo/Describe', function (req, res) {
+  /*app.get('/Api/v1/UserInfo/Describe', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    Models.UserInfo.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.UserInfo.sync( /*{alter:true} ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     Models.UserInfo.describe().then(result => {
       res.send(beautify(result, null, 2, 100));
     });
-  });
+  });*/
 }

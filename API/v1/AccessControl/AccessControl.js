@@ -13,6 +13,7 @@ var Management = require('../../SharedController/Management');
 module.exports = function(app) {//MODIFY
   /*this updates the properties of a route you need to specifiy the access id to be able to set the access name and access tags
   the access tags are techically equivalent to which UI are avilable for access for a group of accounts the access tags are reuseable */
+ /* unused for maintainace
   app.get('/Api/v1/AccessControl/Update/AccessControlID/:AccessControlID/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags',Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
     
     let AccessControlID = req.params.AccessControlID;
@@ -52,7 +53,7 @@ module.exports = function(app) {//MODIFY
         AccessControlIDMissing: true
       });
     }
-  });
+  });*/
 //INSERT
 /*this is used for addding new access tags */
   app.get('/Api/v1/AccessControl/Add/AccessID/:AccessID/AccessName/:AccessName/AccessTags/:AccessTags', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {

@@ -10,12 +10,13 @@ var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //SELECTION
 
+  /* deprecated
   app.get('/Api/v1/UserAccount/',Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
     let Sort = req.query.Sort;
-    Models.UserAccount.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.UserAccount.sync( /*{alter:true} ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
       Models.UserAccount.sync();
       let result = Models.UserAccount.findAll({
@@ -34,7 +35,7 @@ module.exports = function (app) { //SELECTION
         res.send("Error " + result);
       });
     }
-  });
+  });*/
 
 
   //SELECTION
