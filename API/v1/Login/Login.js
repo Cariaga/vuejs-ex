@@ -272,6 +272,7 @@ module.exports = function (app) {
  // app.options('/Api/v1/Game/Login/', cors());
 
   //Post : only possible when its authorized
+
   app.post('/Api/v1/Game/Login/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -291,7 +292,7 @@ module.exports = function (app) {
     let GraphicsDevice = req.body.GraphicsDevice;
     Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
   });
-
+/*test only */
   app.post('/Api/v1/Admin/Fake/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");
