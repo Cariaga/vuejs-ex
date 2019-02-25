@@ -10,7 +10,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
- 
+  
   app.get('/Api/v1/GameHistory/Update/GameHistoryID/:GameHistoryID/UserAccountID/:UserAccountID/RoundID/:RoundID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/Time/:Time/Date/:Date/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/', /*Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
 
     let GameHistoryID = req.params.GameHistoryID;
@@ -164,12 +164,13 @@ module.exports = function (app) { //MODIFY
       }*/
   });
   //SELECTION
-  app.get('/Api/v1/GameHistory', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  //Deprecated
+  /*app.get('/Api/v1/GameHistory', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
     let Sort = req.query.Sort;
-    Models.GameHistory.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+  //  Models.GameHistory.sync(); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
       GameHistoryModel.GameHistory(function (response) {
         if (response != undefined) {
@@ -180,5 +181,5 @@ module.exports = function (app) { //MODIFY
 
       });
     }
-  });
+  });*/
 }
