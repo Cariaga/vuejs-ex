@@ -12,6 +12,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //selection
+  /*get both transfer history sent and recived of a user account  */
   app.get('/Api/v1/InGameTransferHistory/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     DBCheck.isUserAccountIDExist(UserAccountID, function (response) {

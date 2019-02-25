@@ -17,6 +17,7 @@ module.exports = function (app) {
     let WithdrawPassword = req.params.WithdrawPassword;//now is user password
     Request2(UserAccountID,Amount,WithdrawPassword,res);
   });
+  /*to request a user withdraw acccepts only the user account ID */
   app.post('/Api/v1/WithdrawHistory/Request/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Amount = parseInt(req.body.Amount);
@@ -71,6 +72,7 @@ module.exports = function (app) {
       res.send({InvalidUserAccountID:true});
     }
   }
+  /*deprectated */
   app.get('/Api/v1/WithdrawHistoryOLD/Request/UserAccountID/:UserAccountID/Amount/:Amount/Bank/:Bank/AccountNumber/:AccountNumber/Name/:Name/WithdrawPassword/:WithdrawPassword/ContactNumber/:ContactNumber/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }),*/ function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Amount = parseInt(req.params.Amount);
@@ -83,7 +85,7 @@ module.exports = function (app) {
 
   });
 
-
+  /*deprectated */
   app.post('/Api/v1/WithdrawHistoryOLD/Request/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 1  }), */function (req, res) {
     let UserAccountID = req.body.UserAccountID;
     let Amount = parseInt(req.body.Amount);

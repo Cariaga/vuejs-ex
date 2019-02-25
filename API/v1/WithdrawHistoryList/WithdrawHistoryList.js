@@ -9,6 +9,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {//SELECTION
+
   function WithdrawHistoryListSearch(Column,Value,StartDate,EndDate,res){
     if (!isNullOrEmpty(Column)) {
       if (!isNullOrEmpty(Value)) {
@@ -45,6 +46,7 @@ module.exports = function (app) {//SELECTION
       });
     }
   }
+  /*filtering of Withdraw History List Specifying column and date */
   app.get('/Api/v1/WithdrawHistoryList/Search/Column/:Column/Value/:Value/StartDate/:StartDate/EndDate/:EndDate', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;

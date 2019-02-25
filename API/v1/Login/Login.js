@@ -6,6 +6,7 @@ let http = require('http');
 let Security = require("../../SharedController/Security");
 
 module.exports = function (app) {
+  //test
   app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
@@ -18,6 +19,7 @@ module.exports = function (app) {
       }
     });
   });
+  //test
   app.get('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
@@ -30,6 +32,7 @@ module.exports = function (app) {
       }
     });
   });
+  //loging out of an account
   app.get('/Api/v1/logout', function (req, res) {
     res.send("logout success!");
   });

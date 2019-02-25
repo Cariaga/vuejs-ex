@@ -12,6 +12,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+/*not used but we have an equivalent of this in in the shared controller as a security route */
 module.exports = function (app) {//MODIFY
     var auth = function (req, res, next) {
         if (req.session && req.session.UserName === "amy")

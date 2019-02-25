@@ -20,6 +20,7 @@ module.exports = function (app) { //INSERT
     let Description = req.params.Description;//Intentionally Missing for now
     UpdateNotification(NotificationType, Title, Description, Status, Location, res);
   });
+  //updating notification on specific column and location
   app.post('/Api/v1/Notification/Update/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationType = req.body.NotificationType;
     let Title = req.body.Title;

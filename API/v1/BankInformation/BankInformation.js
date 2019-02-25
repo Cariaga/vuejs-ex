@@ -7,7 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
+/*this routes can either happend in game or the admin site */
 module.exports = function (app) {//MODIFY
+  /*to update the UserAccount Bank Information Date time expiration security code */
   app.get('/Api/v1/BankInformation/Update/:BankInformationID/:UserAccountID/:BankName/:SecurityCode/:Expiration/:Time/:Date', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let BankInformationID = req.params.BankInformationID;
     let UserAccountID = req.params.UserAccountID;
@@ -70,6 +72,7 @@ module.exports = function (app) {//MODIFY
     }
   });
 //INSERT
+/*to add new bank information of a user account*/
   app.get('/Api/v1/BankInformation/Add/:UserAccountID/:BankName/:SecurityCode/:Valid/:Expiration/:Time/:Date',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Uasge /Api/v1/BankInformation/Add/UserAccountID/BankName/SecurityCode/Valid/2018-06-27/01:57:17/2018-06-27
     let UserAccountID = req.params.UserAccountID;

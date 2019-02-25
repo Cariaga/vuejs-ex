@@ -9,6 +9,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {//SELECTION
+  /*ip list of a user account ID */
   app.get('/Api/v1/IPList/UserAccountID/:UserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -174,6 +175,7 @@ module.exports = function (app) {//SELECTION
     IPListLimitOffsetOrder(Limit,Offset,Order,Direction, res);
   });
   // 
+  /*ip list with filtering of offset limit and direction the direction is for the order type */
   app.get('/Api/v1/IPList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction',Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {//OK
     let Limit =req.params.Limit;
     let Offset = req.params.Offset;
@@ -232,6 +234,7 @@ module.exports = function (app) {//SELECTION
       });
     }
   }
+  /*filitering specific column or proprety with a specific value */
   app.get('/Api/v1/IPList/Search/Column/:Column/Value/:Value', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;

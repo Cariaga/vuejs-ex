@@ -5,6 +5,7 @@ var beautify = require("json-beautify");
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) {
+  /*transaction status of a transaction id */
   app.get('/Api/v1/TransactionHistory/UserTransactionID/:UserTransactionID/TransactionStatus/:TransactionStatus/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     let TransactionStatus = req.params.TransactionStatus;
