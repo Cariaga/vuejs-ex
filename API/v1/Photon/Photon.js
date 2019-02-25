@@ -11,7 +11,7 @@ var Management = require('../../SharedController/Management');
 let photonvariables = [];
 let photonActions = [];
 let photonParams = [];
-
+let keys = []
 module.exports = function (app) {
 
   app.post('/Api/v1/photon', function (req, res) {
@@ -64,7 +64,8 @@ module.exports = function (app) {
       console.log('you called photon');
       photonActions.push('you called photon/leave');
       
-      photonvariables.push(req.params.PathLeave);
+      // photonvariables.push(Object.keys(req.params).length);
+      keys.push(Object.keys(req.params).length);
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
@@ -76,6 +77,9 @@ module.exports = function (app) {
   });
   app.get('/Api/v1/photon/getParams', function (req, res) {
       res.send(photonParams);
+  });
+  app.get('/Api/v1/photon/getKeys', function (req, res) {
+      res.send(keys);
   });
 
 
