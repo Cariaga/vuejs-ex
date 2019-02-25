@@ -27,7 +27,7 @@ module.exports = function (app) {
       console.log('you called photon');
       photonActions.push('you called photon/close');
       photonParams.push(req.params);
-      photonvariables.push({Actor : req.params.ActorNr, UserId: req.params.UserId, NickName: req.params.NickName});
+      photonvariables.push(req.params.PathClose);
       
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
@@ -36,7 +36,7 @@ module.exports = function (app) {
       console.log('you called photon');
       photonActions.push('you called photon/create');
        photonParams.push(req.params);
-      photonvariables.push({Actor : req.params.ActorNr, UserId: req.params.UserId, NickName: req.params.NickName});
+      photonvariables.push(req.params.PathCreate);
 
         res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
