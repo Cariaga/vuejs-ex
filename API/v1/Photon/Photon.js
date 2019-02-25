@@ -26,6 +26,7 @@ module.exports = function (app) {
   app.post('/Api/v1/photon/close', function (req, res) {
       console.log('you called photon');
       photonActions.push('you called photon/close');
+      photonvariables.push({Actor : req.params.ActorNr, UserId: req.params.UserId, NickName: req.params.NickName});
       
         res.sendStatus(200);
   });
