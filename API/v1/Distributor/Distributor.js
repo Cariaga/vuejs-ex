@@ -57,7 +57,8 @@ module.exports = function (app) { //SELECTION
     }
     //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
   });*/
- /* app.get('/Api/v1/Distributor/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
+ /* deprecated
+  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       DBCheck.isDistributorUserAccountIDExist(UserAccountID, function (response) {
@@ -166,7 +167,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   });*/
-/*
+/*deprecated
   app.get('/Api/v1/Shop/DistributorID/:DistributorID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let DistributorID = req.params.DistributorID;
