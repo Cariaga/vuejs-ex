@@ -59,7 +59,7 @@ module.exports = function (app) {
       console.log('you called photon');
       photonActions.push('you called photon/join');
       photonvariables.push(req.params.PathJoin);
-      keys.push(Object.keys(req.params).length);
+      keys.push(Object.keys(req.params)[0]);
       res.send({ "Message" : "ok", "ResultCode" : 0 });
 
     });
@@ -68,8 +68,7 @@ module.exports = function (app) {
     console.log('you called photon');
     photonActions.push('you called photon/leave');
     
-    // photonvariables.push(Object.keys(req.params).length);
-    keys.push(Object.keys(req.params).length);
+    keys.push(Object.keys(req.params)[0]);
       res.send({ "Message" : "ok", "ResultCode" : 0 });
   });
 
