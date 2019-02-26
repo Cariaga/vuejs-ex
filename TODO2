@@ -12,4 +12,6 @@
    ☐ Season Started Too Sooon
 ☐ Socket Win concurrent issue
 ✔ Updated All Lobby Controllers from dead http's
+✔ need to refactor check playing players
+☐  Unknown column 'LosePoints' in 'field list'
 
