@@ -33,7 +33,7 @@ module.exports = function (app) {
   app.post('/Api/v1/photon/create', function (req, res) {
     photonActions.push('create called');
     photonCreate.push(req.body);
-    res.send({ "Message" : "ok", "ResultCode" : 0 });
+    res.send({ "State" : "", "ResultCode" : 0 });
   });
 
   app.post('/Api/v1/photon/event', function (req, res) {
@@ -88,6 +88,20 @@ module.exports = function (app) {
   app.get('/Api/v1/photon/getLeave', function (req, res) {
       res.send(photonLeave);
   });
+
+  app.get('/Api/v1/photon/restart', function (req, res) {
+    photonActions = [];
+    photonBase = []
+    photonClose = [];
+    photonCreate = [];
+    photonEvent = [];
+    photonProperties = [];
+    photonJoin = [];
+    photonLeave = [];
+    res.send('ok');
+  });
+
+
 
 
 
