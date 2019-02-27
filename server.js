@@ -379,6 +379,7 @@ wss.on('connection', (ws, req) => {
   //Get 
 
   DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
+    
     if(response!=undefined){
       ws.UserName = response[0]["UserName"];
 
@@ -404,7 +405,7 @@ wss.on('connection', (ws, req) => {
 
 
     }else{
-      console.log("Websocket Set Up Error 2");
+      console.log("Websocket Set Up Error 3");
     }
   });
 
