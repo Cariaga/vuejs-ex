@@ -404,15 +404,7 @@ wss.on('connection', (ws, req) => {
     var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
     DBConnect.DBConnect(query2, function (response) {
       if (response != undefined) {
-        var _UserAccountID = UserAccountID;
-        var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
-        DBConnect.DBConnect(query, function (response) {
-          if (response != undefined) {
-            ws.Money = parseInt(response[0].Money);
-            
-            //console.log(response[0]);
-          }
-        });
+        
       }
     });
     
@@ -445,9 +437,16 @@ wss.on('connection', (ws, req) => {
     SyncRoomVar = undefined;
   }
   //console.log(ws.Money);
-
-
-  ParentListOfPlayer();
+  
+  var _UserAccountID = UserAccountID;
+  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
+  DBConnect.DBConnect(query, function (response) {
+    if (response != undefined) {
+      ws.Money = parseInt(response[0].Money);
+      ParentListOfPlayer();
+      //console.log(response[0]);
+    }
+  });
   function ParentListOfPlayer(){
     var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
     //console.log(ParentsUserAccountsQuery);
