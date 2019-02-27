@@ -1157,9 +1157,7 @@ console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
 
-console.log(beautify(process, null, 2, 100));
-
-
+console.log(beautify(process.env, null, 2, 100));
 const pretty = require('prettysize');
 var stats = requestStats(server);
 var AllHttpBytes = 0;
