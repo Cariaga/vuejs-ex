@@ -428,7 +428,7 @@ wss.on('connection', (ws, req) => {
     SyncRoomVar = undefined;
   }
   //console.log(ws.Money);
-  
+
   var _UserAccountID = UserAccountID;
   var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
   DBConnect.DBConnect(query, function (response) {
@@ -438,7 +438,7 @@ wss.on('connection', (ws, req) => {
       var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
       DBConnect.DBConnect(query2, function (response) {
         if (response != undefined) {
-          callback(true);
+          ParentListOfPlayer();
         }
       });
 
