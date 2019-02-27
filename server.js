@@ -434,17 +434,25 @@ wss.on('connection', (ws, req) => {
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       ws.Money = parseInt(response[0].Money);
-      UpdateStatus();
+      UpdateStatus(function(response){
+        if(response==true){
+          ParentListOfPlayer();
+        }else{
+          ParentListOfPlayer();
+        }
+       
+      });
       //console.log(response[0]);
     }
   });
 
-  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
 
-  function UpdateStatus(){
+
+  function UpdateStatus(callback){
+    var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
     DBConnect.DBConnect(query2, function (response) {
       if (response != undefined) {
-        ParentListOfPlayer();
+        callback(true);
       }
     });
   }
