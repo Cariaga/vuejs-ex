@@ -27,7 +27,7 @@ const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
 //var Redis = require('ioredis');
 var GlobalFunctions = require('./API/SharedController/GlobalFunctions');
-
+/*
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
   no_ready_check: true,
   auth_pass: 'eastcoast',
@@ -37,7 +37,7 @@ var redis = new Redis(new Redis({ enableOfflineQueue: false,
   // name: 'mymaster',
   // no_ready_check: true,
   // auth_pass:'eastcoast'
-  }));
+  }));*/
 
 var beautify = require('json-beautify');
 //app.use(sqlinjection);// disable because it blocks token access
