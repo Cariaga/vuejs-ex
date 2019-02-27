@@ -165,14 +165,15 @@ redisClient.on('error', err => {
 
 
 module.exports.rateLimiterMiddleware = (req, res, next) => {
-  rateLimiter.consume(req.connection.remoteAddress)
+  next();
+ /* rateLimiter.consume(req.connection.remoteAddress)
     .then(() => {
    
       next();
     })
     .catch((rejRes) => {
       res.status(429).send('Too Many Requests');
-    });
+    });*/
 };
 
 var cache = require('express-redis-cache')({
