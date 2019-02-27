@@ -309,7 +309,7 @@ app.get('/fail',function(req,res){
 });
 
 var redis = require("redis"),
-    client = redis.createClient({ host: process.env.REDIS_PORT_6379_TCP_ADDR,password:""});
+    client = redis.createClient({ host: process.env.REDIS_PORT_6379_TCP_ADDR,password:"eastcoast"});
  
 // if you'd like to select database 3, instead of 0 (default), call
 // client.select(3, function() { /* ... */ });
