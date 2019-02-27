@@ -27,7 +27,7 @@ const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
 //var Redis = require('ioredis');
 var GlobalFunctions = require('./API/SharedController/GlobalFunctions');
-/*
+/* redis io is buggy
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
   no_ready_check: true,
   auth_pass: 'eastcoast',
@@ -393,7 +393,7 @@ wss.on('connection', (ws, req) => {
              // console.log(stringify(response,null,2));
               console.log("PlayerWins Socket :"+response[0]['WinPoints']);
             } else {
-
+              //if the user never won anything this will occur
               console.log("Websocket Set Up Error 2");
 
             }
@@ -403,9 +403,6 @@ wss.on('connection', (ws, req) => {
           console.log("Websocket Set Up Error 1");
         }
       });
-
-
-
     }else{
       console.log("Websocket Set Up Error 3");
     }
@@ -1159,6 +1156,8 @@ console.log("Redis :"+process.env.REDIS_PORT_6379_TCP_ADDR);
 console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
+
+console.log(beautify(process.env, null, 2, 100));
 
 
 const pretty = require('prettysize');
