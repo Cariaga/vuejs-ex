@@ -382,26 +382,26 @@ wss.on('connection', (ws, req) => {
     
     if(response!=undefined){
       ws.UserName = response[0]["UserName"];
-
-      DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
-        if (response != undefined) {
-          ws.WinPoints=response[0]['WinPoints'];
-          DBGlobal.getCommissionPercentages(UserAccountID,function(response){
-            if(response!=undefined){
-             // let _playerToOHOCommission = response.playerToOHOCommission[0];
-              ws.PlayerCommission=response[0]['pCommission'];
-        
-              console.log("pCommisssion Socket :"+response[0]['pCommission']);
-            }else{
-              console.log("Websocket Set Up Error 1");
+      DBGlobal.getCommissionPercentages(UserAccountID,function(response){
+        if(response!=undefined){
+         // let _playerToOHOCommission = response.playerToOHOCommission[0];
+          ws.PlayerCommission=response[0]['pCommission'];
+          DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
+            if (response != undefined) {
+              ws.WinPoints=response[0]['WinPoints'];
+    
+             // console.log(stringify(response,null,2));
+              console.log("PlayerWins Socket :"+response[0]['WinPoints']);
+            } else {
+              console.log("Websocket Set Up Error 2");
             }
-          });
-         // console.log(stringify(response,null,2));
-          console.log("PlayerWins Socket :"+response[0]['WinPoints']);
-        } else {
-          console.log("Websocket Set Up Error 2");
+        });
+          console.log("pCommisssion Socket :"+response[0]['pCommission']);
+        }else{
+          console.log("Websocket Set Up Error 1");
         }
-    });
+      });
+
 
 
     }else{
