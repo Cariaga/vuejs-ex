@@ -163,6 +163,7 @@ redisClient.on('error', err => {
  // global.console.log("redis Limiter Error "+err.message)
 });     */                                 
 
+//needs a newer version due to redisio error specific to openshift
 
 module.exports.rateLimiterMiddleware = (req, res, next) => {
   next();
