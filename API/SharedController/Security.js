@@ -147,12 +147,12 @@ const redisClient = new Redis({ enableOfflineQueue: false,
   // redisClient.auth('eastcoast');
 const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
 
-
+/*
 const opts = {
   storeClient: redisClient,
   points: 5000, // Number of points
   duration: 18000, // Per second(s)
-};
+};*/
  
 /*const rateLimiter = new RateLimiterMemory(opts);
 
