@@ -25,7 +25,7 @@ var cors = require('cors');
 const W1 = require("walletone");
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
-var Redis = require('ioredis');
+//var Redis = require('ioredis');
 var GlobalFunctions = require('./API/SharedController/GlobalFunctions');
 
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
@@ -395,7 +395,7 @@ wss.on('connection', (ws, req) => {
             } else {
 
               console.log("Websocket Set Up Error 2");
-              
+
             }
         });
           console.log("pCommisssion Socket :"+response[0]['pCommission']);
