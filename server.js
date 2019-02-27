@@ -400,6 +400,7 @@ wss.on('connection', (ws, req) => {
     ws.UserName = BasicInformation.UserName;
     ws.WinPoints = BasicInformation.WinPoints;
     ws.PlayerCommission = BasicInformation.PlayerCommission;
+    /*New location of money see Old location see old location of code*/
     var _UserAccountID = UserAccountID;
     var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
     DBConnect.DBConnect(query, function (response) {
@@ -445,7 +446,7 @@ wss.on('connection', (ws, req) => {
   }
   //console.log(ws.Money);
 
-
+/*Old location placed here of above see new location of code*/
 
   function ParentListOfPlayer(){
     var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
