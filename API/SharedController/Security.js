@@ -104,7 +104,7 @@ module.exports.DecompileToken = function DecompileToken(req, res) {
   }
 }
 
-/*
+/*never used
 var failCallback = function (req, res, next, nextValidRequestDate) {
   console.log("DDOS Attempt Ip now Blocked");
   res.sendStatus(429); // brute force protection triggered, send them back to the login page
@@ -123,7 +123,7 @@ var handleStoreError = function (error) {
       parent: error.parent
   };
 }
-
+//never used
 module.exports.globalBruteforce = new ExpressBrute(store, {
   freeRetries: 1000,
   attachResetToRequest: false,
@@ -135,7 +135,9 @@ module.exports.globalBruteforce = new ExpressBrute(store, {
   handleStoreError: handleStoreError
 });
 */
+
 /*
+ //temporarly disable because of redisio error
 const Redis = require('ioredis');
 const redisClient = new Redis({ enableOfflineQueue: false,
    host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
@@ -153,7 +155,7 @@ const opts = {
   points: 5000, // Number of points
   duration: 18000, // Per second(s)
 };*/
- 
+ //temporarly disable because of redisio error
 /*const rateLimiter = new RateLimiterMemory(opts);
 
 redisClient.on('connect', () => {   
