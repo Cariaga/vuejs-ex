@@ -1013,7 +1013,7 @@ wss.on('connection', (ws, req) => {
 //websocket constant InvokeRepeat
 setInterval(() => {
   InvokeRepeat();
-}, 1000);
+}, 500);
 function DeadInstanceIDCleanUp(){//accessed by a InvokeRepeat aswell
     //dead InstanceID clean Up which accessed by the onError of websocket
     wss.clients.forEach((client) => {
