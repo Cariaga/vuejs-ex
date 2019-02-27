@@ -388,8 +388,19 @@ wss.on('connection', (ws, req) => {
 
 
   //Get Commission of Player the login sends commision also but need to decide which is better 
+  
+
+
+
+
+
+
   //Get 
-  SetUpBasicInformation(UserAccountID, ws);
+  GetBasicInformation(UserAccountID,function(BasicInformation){
+    ws.UserName = BasicInformation.UserName;
+    ws.WinPoints = BasicInformation.WinPoints;
+    ws.PlayerCommission = BasicInformation.PlayerCommission;
+  });
 
 
   /* Screen Name not Done move to UserAccountID Basic Information
@@ -978,29 +989,28 @@ wss.on('connection', (ws, req) => {
 setInterval(() => {
   InvokeRepeat();
 }, 500);
-
-//passed a websocket and the user accountID on start of socket
-function SetUpBasicInformation(UserAccountID, ws) {
-  let BasicUserInformation = {};
+function GetBasicInformation(UserAccountID,callback) {
+  let BasicUserInformation ={};
   DBCheck.UserAccountIDBasicInformation(UserAccountID, function (response) {
     if (response != undefined) {
-      ws.UserName = response[0]["UserName"];
+      //  ws.UserName = response[0]["UserName"];
       BasicUserInformation.UserName = response[0]["UserName"];
       DBGlobal.getCommissionPercentages(UserAccountID, function (response) {
         if (response != undefined) {
           // let _playerToOHOCommission = response.playerToOHOCommission[0];
-          ws.PlayerCommission = response[0]['pCommission'];
+          //ws.PlayerCommission=response[0]['pCommission'];
           BasicUserInformation.PlayerCommission = response[0]['pCommission'];
           DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
             if (response != undefined) {
-              ws.WinPoints = response[0]['WinPoints'];
+              //   ws.WinPoints=response[0]['WinPoints'];
               BasicUserInformation.WinPoints = response[0]['WinPoints'];
               // console.log(stringify(response,null,2));
               console.log("PlayerWins Socket :" + response[0]['WinPoints']);
+              callback(BasicUserInformation);
             }
             else {
               //if the user never won anything this will occur
-              console.log("Websocket Set Up Error 2");
+              callback(BasicUserInformation);
             }
           });
           console.log("pCommisssion Socket :" + response[0]['pCommission']);
