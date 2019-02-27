@@ -393,7 +393,9 @@ wss.on('connection', (ws, req) => {
              // console.log(stringify(response,null,2));
               console.log("PlayerWins Socket :"+response[0]['WinPoints']);
             } else {
+
               console.log("Websocket Set Up Error 2");
+              
             }
         });
           console.log("pCommisssion Socket :"+response[0]['pCommission']);
