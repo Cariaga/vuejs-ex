@@ -434,28 +434,17 @@ wss.on('connection', (ws, req) => {
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       ws.Money = parseInt(response[0].Money);
-      UpdateStatus(function(response){
-        if(response==true){
-          ParentListOfPlayer();
-        }else{
-          ParentListOfPlayer();
+
+      var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+      DBConnect.DBConnect(query2, function (response) {
+        if (response != undefined) {
+          callback(true);
         }
-       
       });
+      
       //console.log(response[0]);
     }
   });
-
-
-
-  function UpdateStatus(callback){
-    var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
-    DBConnect.DBConnect(query2, function (response) {
-      if (response != undefined) {
-        callback(true);
-      }
-    });
-  }
 
   function ParentListOfPlayer(){
     var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
