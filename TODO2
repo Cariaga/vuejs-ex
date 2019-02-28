@@ -13,7 +13,6 @@
 ☐ Socket Win concurrent issue
    ✔ caused by no actual winners because the player win points is empty
 ✔ Updated All Lobby Controllers from dead http's
-<<<<<<< HEAD
 ☐ buy in on inisialize not working photon not updating
 ✔ 105 accounts added
 ✔ 32 accounts no local lag 60 ping constant and no disconnection
@@ -23,9 +22,3 @@
 // retriving all accounts select concat("cd /d D:\\Unity\\Holdem\\Holdem ","start Holdem.exe"," -U ",UserName," -P ",Password)  from useraccounts where Recommended='11'; for batch file
 you need to view as text in dbreaver a buttton is avilable on when you query called text
 //select concat("UserName.text = \"",UserName,"\";","Password.text = \"",Password,"\";") from useraccounts where Recommended='11'; retriving of accounts for c#
-=======
-✔ need to refactor check playing players
-✔  Unknown column 'LosePoints' in 'field list' db was not updated
-☐ web socket is not shared accross virtual machine not scalable so do not scale to prevent bugs during connection
-
->>>>>>> 09dcf2c87d959cd520efb2408c89243301039e8d
