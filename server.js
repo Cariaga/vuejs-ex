@@ -396,18 +396,35 @@ wss.on('connection', (ws, req) => {
 
 
   //Get 
-  GetBasicInformation(UserAccountID,function(BasicInformation){
-    ws.UserName = BasicInformation.UserName;
-    ws.WinPoints = BasicInformation.WinPoints;
-    ws.PlayerCommission = BasicInformation.PlayerCommission;
 
-    var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
-    DBConnect.DBConnect(query2, function (response) {
-      if (response != undefined) {
-        
-      }
-    });
+  DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
     
+    if(response!=undefined){
+      ws.UserName = response[0]["UserName"];
+      DBGlobal.getCommissionPercentages(UserAccountID,function(response){
+        if(response!=undefined){
+         // let _playerToOHOCommission = response.playerToOHOCommission[0];
+          ws.PlayerCommission=response[0]['pCommission'];
+          DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
+            if (response != undefined) {
+              ws.WinPoints=response[0]['WinPoints'];
+    
+             // console.log(stringify(response,null,2));
+              console.log("PlayerWins Socket :"+response[0]['WinPoints']);
+            } else {
+              //if the user never won anything this will occur
+              console.log("Websocket Set Up Error 2");
+
+            }
+        });
+          console.log("pCommisssion Socket :"+response[0]['pCommission']);
+        }else{
+          console.log("Websocket Set Up Error 1");
+        }
+      });
+    }else{
+      console.log("Websocket Set Up Error 3");
+    }
   });
 
 
@@ -424,7 +441,6 @@ wss.on('connection', (ws, req) => {
 
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
-  
   wss.clients.forEach((client) => {
     if (SyncRoomVar == undefined && client.UserAccountID == ws.UserAccountID) { //matching user account connecting to a diffrent application instance
       SyncRoomVar = client.Rooms;
@@ -437,18 +453,26 @@ wss.on('connection', (ws, req) => {
     SyncRoomVar = undefined;
   }
   //console.log(ws.Money);
-
   var _UserAccountID = UserAccountID;
   var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
+
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       ws.Money = parseInt(response[0].Money);
-      ParentListOfPlayer();
-
-
+      UpdateStatus();
       //console.log(response[0]);
     }
   });
+
+  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+
+  function UpdateStatus(){
+    DBConnect.DBConnect(query2, function (response) {
+      if (response != undefined) {
+        ParentListOfPlayer();
+      }
+    });
+  }
 
   function ParentListOfPlayer(){
     var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
@@ -990,43 +1014,6 @@ wss.on('connection', (ws, req) => {
 setInterval(() => {
   InvokeRepeat();
 }, 500);
-function GetBasicInformation(UserAccountID,callback) {
-  let BasicUserInformation ={};
-  DBCheck.UserAccountIDBasicInformation(UserAccountID, function (response) {
-    if (response != undefined) {
-      //  ws.UserName = response[0]["UserName"];
-      BasicUserInformation.UserName = response[0]["UserName"];
-      DBGlobal.getCommissionPercentages(UserAccountID, function (response) {
-        if (response != undefined) {
-          // let _playerToOHOCommission = response.playerToOHOCommission[0];
-          //ws.PlayerCommission=response[0]['pCommission'];
-          BasicUserInformation.PlayerCommission = response[0]['pCommission'];
-          DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
-            if (response != undefined) {
-              //   ws.WinPoints=response[0]['WinPoints'];
-              BasicUserInformation.WinPoints = response[0]['WinPoints'];
-              // console.log(stringify(response,null,2));
-              console.log("PlayerWins Socket :" + response[0]['WinPoints']);
-              callback(BasicUserInformation);
-            }
-            else {
-              //if the user never won anything this will occur
-              callback(BasicUserInformation);
-            }
-          });
-          console.log("pCommisssion Socket :" + response[0]['pCommission']);
-        }
-        else {
-          console.log("Websocket Set Up Error 1");
-        }
-      });
-    }
-    else {
-      console.log("Websocket Set Up Error 3");
-    }
-  });
-}
-
 function DeadInstanceIDCleanUp(){//accessed by a InvokeRepeat aswell
     //dead InstanceID clean Up which accessed by the onError of websocket
     wss.clients.forEach((client) => {
