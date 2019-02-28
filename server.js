@@ -321,17 +321,14 @@ client.on("error", function (err) {
     console.log("Error " + err);
 });
  
-client.set("string key", "string val", redis.print);
-client.hset("hash key", "hashtest 1", "some value", redis.print);
-client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
-client.hkeys("hash key", function (err, replies) {
-  /*  console.log(replies.length + " replies:");
-    replies.forEach(function (reply, i) {
-        console.log("    " + i + ": " + reply);
-    });*/
-    client.quit();
+client.set("string key",process.env.OPENSHIFT_BUILD_COMMIT, redis.print);
+
+client.get("string key", function(err, reply) {
+  // reply is null when the key is missing
+  console.log(reply);
 });
 
+client.quit();
 
 /*
 app.get('/Api/v1', Management.RouteCalled,Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
