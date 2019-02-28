@@ -155,6 +155,7 @@ require('./API/v1/Photon/Photon')(app);
 let DBConnect = require("./API/SharedController/DBConnect");
 let DBGlobal = require("./API/SharedController/DBGlobal");
 let DBCheck = require('./API/SharedController/DBCheck');
+let ConnectionMode=require('./API/SharedController/ConnectionMode');
 require('./API/v1/AccessControl/AccessControl')(app);
 
 require('./API/v1/BankInformation/BankInformation')(app);
@@ -222,6 +223,8 @@ require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 require('./API/v1/Sales/Sales')(app);
 require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
+
+
 require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
 var uuidv4 = require('uuid/v4');
 function test() {
@@ -395,6 +398,7 @@ wss.on('connection', (ws, req) => {
 
 
 
+
   //Get 
   GetBasicInformation(UserAccountID,function(BasicInformation){
     ws.UserName = BasicInformation.UserName;
@@ -425,11 +429,13 @@ wss.on('connection', (ws, req) => {
   //--inisialization to Same Account instances // similar to all buffer
   var SyncRoomVar = undefined;
 
+
   wss.clients.forEach((client) => {
     if (SyncRoomVar == undefined && client.UserAccountID == ws.UserAccountID) { //matching user account connecting to a diffrent application instance
       SyncRoomVar = client.Rooms;
       //console.log(client.UserAccountID); 
     }
+   
   });
   if (SyncRoomVar != undefined) {
 
@@ -447,6 +453,7 @@ wss.on('connection', (ws, req) => {
       //console.log(response[0]);
     }
   });
+
   function ParentListOfPlayer(){
     var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
     //console.log(ParentsUserAccountsQuery);
@@ -1186,7 +1193,7 @@ console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
 
-//console.log(beautify(process.env, null, 2, 100));
+console.log(beautify(process.env, null, 2, 100));
 
 const pretty = require('prettysize');
 var stats = requestStats(server);
