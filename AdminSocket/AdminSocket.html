@@ -1,7 +1,7 @@
 <head>
     <script type="text/javascript">
     // admin useraccountid
-        var ws = new WebSocket("ws://localhost:8080/?UserAccountID=cdf61833-66e1-4a92-a46c-0782ed77c203");
+        var ws = new WebSocket("ws://localhost:8080/?UserAccountID=1571028c-eec2-47ac-a1bf-0a62086551d2");
 
         function WebSocketTest() {
 
@@ -33,9 +33,9 @@
         function WebSocketMessage() {
             if ("WebSocket" in window) {
 
-                var MessageReceiver = "622875a1-fd51-48a4-a700-c384ba5a382d";
+                var MessageReceiver = "fa513ab6-e029-45fb-ab8f-ebba251aa9df";
                 var Amount ="";//for pop up message in game only
-                var DepositUUID ="c8dafb54-6ecb-4189-b725-19f783acf88f";
+                var DepositUUID ="50132299-7ff6-49c6-8505-5f33c9dde87f";
                 var DepositNotice = "Deposit Approved Amount "+Amount;
                 var message = "{\"Type\":\"NotifyPlayerDeposit\",\"MessageReceiver\" :\"" + MessageReceiver +
                     "\",\"DepositNotice\":\"" + DepositNotice + "\",\"DepositUUID\":\"" + DepositUUID + "\"}";

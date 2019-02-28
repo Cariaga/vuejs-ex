@@ -245,13 +245,15 @@ module.exports.isSeasonEnded = function isSeasonEnded(SeasonID, callback) {
 
   });
 }
+//Note: this part is not a view because it may need to be changed in the future
 module.exports.UserAccountIDBasicInformation = function UserAccountIDBasicInformation(UserAccountID, callback) {
-  let _UserAccountID = UserAccountID;
-  //dedicate a view for basic user information for websocket use combining user info and player table
-  let query = "SELECT * FROM sampledb.useraccounts WHERE useraccounts.UserAccountID =\'" + _UserAccountID + "\'";
 
+  //dedicate a view for basic user information for websocket use combining user info and player table
+  let query = "SELECT ua.UserAccountID,ua.UserName,ua.OnlineStatus,ua.Privilege,pl.Commission,pl.Money,pl.ScreenName,GROUP_CONCAT(pti.ParentUserAccountID) as ParentUserAccountID FROM sampledb.useraccounts as ua join sampledb.players as pl on ua.UserAccountID=pl.UserAccountID join sampledb.player_treebranch_indirect as pti on ua.UserAccountID=pti.PlayerUserAccountID where ua.UserAccountID='"+UserAccountID+"';";
+  console.log("Query : "+query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
+      
       //  console.log('UserAccountID exist');
       callback(response);
     } else {

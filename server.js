@@ -19,7 +19,7 @@ var beautify = require("json-beautify");
 //const sendmail = require('sendmail')();
 const url = require('url');
 const stringify = require('json-stringify');
-
+var request = require('request');
 const Enumerable = require('linq');
 var cors = require('cors');
 const W1 = require("walletone");
@@ -308,8 +308,81 @@ console.log("ConnectionMode : "+ConnectionMode.getMainAddressByProductionMode())
 app.get('/success',function(req,res,next){
   res.sendStatus(200);
 });
+
 app.get('/fail',function(req,res){
 });
+
+const http = require('http');
+
+
+//used by the socket from another server
+app.get('/GetBasicInformation/UserAccountID/:UserAccountID',function(req,res){
+  let UserAccountID = req.params.UserAccountID;
+  res.setHeader('Content-Type', 'application/json');
+  let Result = {};
+  GetBasicInformation(UserAccountID,function(BasicInformation){
+    Result.UserName = BasicInformation.UserName;
+    Result.ScreenName = BasicInformation.Result;
+    Result.Money = BasicInformation.Money;
+    Result.WinPoints = BasicInformation.WinPoints;
+    Result.PlayerCommission = BasicInformation.PlayerCommission;
+    Result.ParentUserAccountID = BasicInformation.ParentUserAccountID;
+//temporarly here to update 
+    var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
+    DBConnect.DBConnect(query2, function (response) {
+      if (response != undefined) {
+        res.json(Result);
+      }
+    });
+  });
+});
+//this is accessed by the websocket to indicate online offline status of a player from the socket server
+app.get('/Connection/Status/:Status/UserAccountID/:UserAccountID/',function(req,res){
+  let UserAccountID = req.params.UserAccountID;
+  let Status = req.params.Status;
+  res.setHeader('Content-Type', 'application/json');
+  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = \'"+Status+"\' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
+  DBConnect.DBConnect(query2, function (response) {
+    if (response != undefined) {
+      res.sendStatus(200);
+    }else{
+      console.log("------Failed to update Player Online Status on DB-------");
+    }
+  });
+});
+//this is accessed by the websocket to set the room names of a user account
+app.get('/PlayerRooms/Rooms/:RoomNames/UserAccountID/:UserAccountID/',function(req,res){
+  let UserAccountID = req.params.UserAccountID;
+  let RoomNames = req.params.RoomNames;
+  res.setHeader('Content-Type', 'application/json');
+  var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+RoomNames+"\' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
+  console.log("RoomChange "+Object.RoomName);
+ // console.log(Json.stringify(ws.Rooms,));
+  DBConnect.DBConnect(query3, function (response) {
+    if (response != undefined) {
+      //console.log(response[0]);
+      res.sendStatus(200);
+    }else{
+      console.log("------Failed to update rooms on db player-------");
+    }
+  });
+});
+
+//Check Approved validate used by socket for db confirmation
+app.get('/DepositApproveCheck/UserTransactionID/:UserTransactionID/',function(req,res){
+  let UserTransactionID = req.params.UserTransactionID;
+  res.setHeader('Content-Type', 'application/json');
+  var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+UserTransactionID+"\';";
+  console.log(query2);
+  DBConnect.DBConnect(query2, function (response) {
+    if (response != undefined) {
+      res.sendStatus(200);
+    }else{
+      console.log('---------May have executed before the api route of aproval----------');
+    }
+  });
+});
+
 
 var redis = require("redis"),
     client = redis.createClient({ host: process.env.REDIS_PORT_6379_TCP_ADDR,password:"eastcoast"});
@@ -320,11 +393,19 @@ var redis = require("redis"),
 client.on("error", function (err) {
     console.log("Error " + err);
 });
+
+ var isProduction="";
+ if( process.env.NODE_ENV=="production"){
+  isProduction="production";
+ }else{
+   isProduction="";
+ }
  
-client.set("string key",process.env.NODE_ENV, redis.print);
+//important redis dosn't allow undefined so we delcare as empty or valued
+client.set("string key",isProduction, redis.print);
 client.get("string key", function(err, reply) {
   // reply is null when the key is missing
-  console.log(reply);
+  console.log("Redis result :" + reply);
   client.quit();
 });
 
@@ -359,6 +440,7 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
+
 wss.on('connection', (ws, req) => {
   ConnectedUsers++;
   console.log('Client connected ' + ConnectedUsers);
@@ -387,40 +469,42 @@ wss.on('connection', (ws, req) => {
 //-------End Player Checking First Socket
 
 
-  //Get Commission of Player the login sends commision also but need to decide which is better 
-  
+ 
+//the http approch is used because direct to database access is not allowed
+request(ConnectionMode.getMainAddressByProductionMode()+'/GetBasicInformation/UserAccountID/'+UserAccountID, function (error, response, result) {
+   // console.log('error:', error); // Print the error if one occurred
+   // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    let body =  JSON.parse(result);
+    ws.UserName = body.UserName;
+    ws.WinPoints = body.WinPoints;
+    ws.PlayerCommission = body.PlayerCommission;
+    ws.Money = body.Money;
+    ws.ScreenName = body.ScreenName;
 
+    let ParentUserAccountIDList = body.ParentUserAccountID; 
+    ws.ParentUserAccountIDList = ParentUserAccountIDList;
 
+   // ParentListOfPlayer();
+    //console.log('body result:', body); 
+  });
 
 
 
 
 
   //Get 
-  GetBasicInformation(UserAccountID,function(BasicInformation){
+  /*GetBasicInformation(UserAccountID,function(BasicInformation){
     ws.UserName = BasicInformation.UserName;
     ws.WinPoints = BasicInformation.WinPoints;
     ws.PlayerCommission = BasicInformation.PlayerCommission;
 
-    var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+    var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
     DBConnect.DBConnect(query2, function (response) {
       if (response != undefined) {
         
       }
     });
-    
-  });
-
-
-  /* Screen Name not Done move to UserAccountID Basic Information
-  DBCheck.UserAccountIDScreenName(UserAccountID,function(response){
-    if(response!=undefined){
-      ws.ScreenName = response[0]["ScreenName"];
-    }else{
-      console.log("Websocket Set Up Error 3");
-    }
   });*/
-
 
 
   //--inisialization to Same Account instances // similar to all buffer
@@ -441,17 +525,18 @@ wss.on('connection', (ws, req) => {
   }
   //console.log(ws.Money);
   
-  var _UserAccountID = UserAccountID;
-  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
+  
+/*
+  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + UserAccountID + "\';";
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
-      ws.Money = parseInt(response[0].Money);
-      ParentListOfPlayer();
+      //ws.Money = parseInt(response[0].Money);
+      
       //console.log(response[0]);
     }
-  });
+  });*/
 
-  function ParentListOfPlayer(){
+  /*function ParentListOfPlayer(){//this is needed by the websocket debugger  no loger used because newer version is under request(ConnectionMode.getMainAddressByProductionMode()+'/GetBasicInformation/UserAccountID/
     var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
     //console.log(ParentsUserAccountsQuery);
     DBConnect.DBConnect(ParentsUserAccountsQuery, function (response) {
@@ -461,7 +546,8 @@ wss.on('connection', (ws, req) => {
       //  console.log("Ok "+ParentUserAccountIDList.length);
       }
     });
-  }
+  }*/
+
 
   
   // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
@@ -488,7 +574,19 @@ wss.on('connection', (ws, req) => {
                   if(DepositUUID!=""){
                     console.log("Deposit UUID"+DepositUUID);
 
-                    var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
+
+                    //newer version
+                    //DepositApproveCheck/UserTransactionID/:UserTransactionID/
+                    request(ConnectionMode.getMainAddressByProductionMode()+'/DepositApproveCheck/UserTransactionID/'+DepositUUID, function (error, response, result) {
+
+                      if(response.statusCode==200){
+                        client.Money = (parseInt(client.Money)+parseInt(response[0].Amount));
+                      }
+                    });
+
+                   /*
+                   old
+                   var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
 
                     console.log(query2);
                     DBConnect.DBConnect(query2, function (response) {
@@ -499,7 +597,7 @@ wss.on('connection', (ws, req) => {
                       }else{
                         console.log('May have executed before the api route of aproval');
                       }
-                    });
+                    });*/
 
                   }else{
                     console.log("UUID EMpty");
@@ -605,8 +703,14 @@ wss.on('connection', (ws, req) => {
             RoomNames.push("Lobby");
           }
         //new
+          ///PlayerRooms/Rooms/:RoomNames/UserAccountID/:UserAccountID/
+          request(ConnectionMode.getMainAddressByProductionMode()+'/PlayerRooms/Rooms/'+RoomNames+'/UserAccountID/'+UserAccountID, function (error, response, result) {
 
-        var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+RoomNames+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+          });
+
+
+     /*//old
+        var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+RoomNames+"\' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
         console.log("RoomChange "+Object.RoomName);
        // console.log(Json.stringify(ws.Rooms,));
      
@@ -616,7 +720,7 @@ wss.on('connection', (ws, req) => {
             
             //console.log(response[0]);
           }
-        });
+        });*/
 
 
         //old
@@ -967,14 +1071,19 @@ wss.on('connection', (ws, req) => {
 
     if(CountSameAccount==0){
       console.log("Last Instance Of : "+DisconnectedUserAccountID +" Disconnected");
-      var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Offline' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+      request(ConnectionMode.getMainAddressByProductionMode()+'/Connection/Status/Offline/UserAccountID/'+UserAccountID, function (error, response, result) {
+
+      });
+
+     /* var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Offline' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
       function UpdateStatus(){
         DBConnect.DBConnect(query2, function (response) {
           if (response != undefined) {
           }
         });
       }
-      UpdateStatus();
+      UpdateStatus();*/
+
     }
 
 
@@ -997,6 +1106,10 @@ function GetBasicInformation(UserAccountID,callback) {
     if (response != undefined) {
       //  ws.UserName = response[0]["UserName"];
       BasicUserInformation.UserName = response[0]["UserName"];
+      BasicUserInformation.Money = response[0]["Money"];
+      BasicUserInformation.ScreenName = response[0]["ScreenName"];
+      BasicUserInformation.ParentUserAccountID = response[0]["ParentUserAccountID"].split(",");
+    //  console.log("ParentUserAccountID : "+BasicUserInformation.ParentUserAccountID);
       DBGlobal.getCommissionPercentages(UserAccountID, function (response) {
         if (response != undefined) {
           // let _playerToOHOCommission = response.playerToOHOCommission[0];
