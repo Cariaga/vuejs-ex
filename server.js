@@ -323,15 +323,22 @@ client.on("error", function (err) {
  
 //client.set("string key", "string val", redis.print);
 
-client.set("hash key",  process.env.OPENSHIFT_BUILD_COMMIT, redis.print);
+client.hset("hash key",  process.env.OPENSHIFT_BUILD_COMMIT, redis.print);
 
 
 //client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
 client.hkeys("hash key", function (err, replies) {
+  if(replies.length!=undefined){
     console.log(replies.length + " replies:");
+  }else{
+    console.log("test redis empty");
+  }
+
+
     replies.forEach(function (reply, i) {
         console.log("    " + i + ": " + reply);
     });
+
     client.quit();
 });
 
