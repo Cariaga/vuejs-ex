@@ -326,7 +326,7 @@ client.on("error", function (err) {
 client.hset("hash key",  process.env.OPENSHIFT_BUILD_COMMIT, redis.print);
 
 
-//client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
+client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
 client.hkeys("hash key", function (err, replies) {
   if(replies.length!=undefined){
     console.log(replies.length + " replies:");
