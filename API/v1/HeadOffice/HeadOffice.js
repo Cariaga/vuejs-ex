@@ -83,6 +83,8 @@ module.exports = function (app) { //INSERT
     }
   });
   // Security.verifyToken, Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+  /*to add new head office specifying its Operating main head office ID
+  The head office also requires a phone number user name password and commission */
   app.get('/Api/v1/HeadOffice/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/OperatingHeadOfficeUserAccountID/:OperatingHeadOfficeUserAccountID', function (req, res) {
     let UserAccountID = uuidv4();
     let Name = req.params.Name;

@@ -15,6 +15,7 @@ var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 /*the FinalCard Current Points is the points to the current season only ones someone won it returns to zero */
 module.exports = function (app) { //selection
+    /*to request a season afer requesting a room the room must exist in order to start a season */
     app.get('/Api/v1/InGameSeason/Request/UserAccountID/:UserAccountID/RoomID/:RoomID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let RoomID = req.params.RoomID;
@@ -39,7 +40,7 @@ module.exports = function (app) { //selection
             }
         }
     });
-    
+    /*to offically end a season */
     app.post('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let SeasonID = req.params.SeasonID;
         if(!isNullOrEmpty(SeasonID)){

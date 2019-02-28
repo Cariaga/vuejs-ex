@@ -33,6 +33,7 @@ module.exports = function (app) {
 }
 
 module.exports = function (app) {
+    /*win lose rate of a user acccount */
     app.get('/Api/v1/PlayerWins/PlayersWinLoseRake/UserAccounts/:UserAccounts/', function (req, res) {
 
         let UserAccounts = req.params.UserAccounts;

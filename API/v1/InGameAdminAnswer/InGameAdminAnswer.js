@@ -29,6 +29,7 @@ module.exports = function (app) {
             res.status(status).end(http.STATUS_CODES[status]);
         }
     }
+    /*for the admin page in game the support Ticket ID is needed in order to aswer a specific question */
     app.get('/Api/v1/InGameAdminAnswer/SupportTicketID/:SupportTicketID/Answer/:Answer', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let SupportTicketID = req.params.SupportTicketID;
         let Answer = req.params.Answer;

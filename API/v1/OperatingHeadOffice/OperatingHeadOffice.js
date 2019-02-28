@@ -10,6 +10,7 @@ var Management = require('../../SharedController/Management');
 var uuidv4 = require('uuid/v4');
 
 module.exports = function (app) { //INSERT
+  // deprecated
   //   app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
   //     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
   //     let UserAccountID = req.params.UserAccountID;

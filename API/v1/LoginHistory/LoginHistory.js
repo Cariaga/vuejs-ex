@@ -174,6 +174,7 @@ module.exports = function (app) { //MODIFT
         res.send("Error " + result);
       });
     }
+    //getting specific login history of a user account ID
     app.get('/Api/v1/LoginHistory/UserAccountID/:UserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
       res.setHeader('Content-Type', 'application/json');
       let UserAccountID = req.params.UserAccountID;

@@ -9,7 +9,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let ShopID = req.params.ShopID;
     let UserAccountID = req.params.UserAccountID;
     let DistributorID = req.params.DistributorID;
@@ -58,7 +58,7 @@ module.exports = function (app) { //MODIFY
     } else {
       res.send("Missing params");
     }
-  });
+  });*/
   //INSERT
 
   //useraccount being created must not exist already
@@ -86,7 +86,7 @@ module.exports = function (app) { //MODIFY
     AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res);
   });
   
-  app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
     let DistributorID = req.params.DistributorID;
@@ -118,7 +118,7 @@ module.exports = function (app) { //MODIFY
         UserAccountIDMissing: true
       });
     }
-  });
+  });*/
 }
 
 function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res) {

@@ -12,7 +12,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.InGamePlayersWinLoseRake = function InGamePlayersWinLoseRake(UserAccountIDList, callback) {
   let _UserAccountIDList = UserAccountIDList;
-  let query ="select * from Player_winlose where UserAccountID IN("+_UserAccountIDList+"); ";
+  let query ="select * from player_winlose where UserAccountID IN("+_UserAccountIDList+"); ";
   DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);

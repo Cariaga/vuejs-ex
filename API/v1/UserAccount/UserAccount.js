@@ -10,12 +10,13 @@ var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //SELECTION
 
+  /* deprecated
   app.get('/Api/v1/UserAccount/',Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
     let Sort = req.query.Sort;
-    Models.UserAccount.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+    Models.UserAccount.sync( /*{alter:true} ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
     if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
       Models.UserAccount.sync();
       let result = Models.UserAccount.findAll({
@@ -34,10 +35,12 @@ module.exports = function (app) { //SELECTION
         res.send("Error " + result);
       });
     }
-  });
+  });*/
 
 
   //SELECTION
+  /*used for maintainace */
+  /*Selecting of a user account ID*/
   app.get('/Api/v1/UserAccount/AccountType/:UserAccountID',Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -63,7 +66,8 @@ module.exports = function (app) { //SELECTION
       res.send("Missing params");
     }
   });
-
+  /*for Maintainace */
+  /*Adding of user account ID with Acccess ID control */
   app.get('/Api/v1/UserAccount/Add/AccessID/:AccessID/UserName/:UserName/Password/:Password/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //USAGE
     //Api/v1/UserAccount/Add/AccessID/UserName/Password/true/ValidKey/2018-06-27/01:57:17
@@ -112,7 +116,8 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
-
+  /*check if user account exist */
+  /* used in game during registration */
   app.get('/Api/v1/UserAccount/Check/UserName/:UserName/', Management.RouteCalled,Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
     let UserName = req.params.UserName;
     if (!isNullOrEmpty(UserName)) {
@@ -129,7 +134,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
-
+  /* used in game during registration */
   app.get('/Api/v1/UserAccount/Check/ScreenName/:ScreenName/', Management.RouteCalled,Security.rateLimiterMiddleware,/*Security.verifyToken,*/Security.cache.route({ expire: 20  }), (req, res) => {
     let ScreenName = req.params.ScreenName;
     if (!isNullOrEmpty(ScreenName)) {
@@ -146,7 +151,8 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
-  
+  /*Used for maintainace */
+  /*Checking of user Account ID */
   app.get('/Api/v1/UserAccount/Check/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 20  }), (req, res) => {
     let UserAccountID = req.params.UserAccountID;
 
@@ -165,7 +171,7 @@ module.exports = function (app) { //SELECTION
       });
     }
   });
-
+  /*updating of a user account Privilege such as admin rights */
   app.get('/Api/v1/UserAccount/Update/UserAccountID/:UserAccountID/Privilege/:Privilege/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Privilege = req.params.Privilege;

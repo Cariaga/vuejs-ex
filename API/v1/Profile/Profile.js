@@ -11,7 +11,6 @@ var Management = require('../../SharedController/Management');
 module.exports = function (app) {
     app.get('/Api/v1/Profile/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountID = req.params.UserAccountID;
-
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response == true) {
                 ProfileModel.Profile(UserAccountID, function (response) {
@@ -28,6 +27,7 @@ module.exports = function (app) {
             }
         });
     });
+    /*set in game when the player set new settings such as cards table and avatar pictures */
     app.get('/Api/v1/Profile/Settings/Update/UserAccountID/:UserAccountID/DeviceUUID/:DeviceUUID/BackDeck/:BackDeck/Avatar/:Avatar/FrontDeck/:FrontDeck/Felt/:Felt/Background/:Background/', /*Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         let DeviceUUID = req.params.DeviceUUID;

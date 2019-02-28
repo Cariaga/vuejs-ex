@@ -99,11 +99,13 @@ module.exports = function (app) { //SELECTION
       });
     }
   }
+  //retriving and filitering a specific value on a specific column
   app.get('/Api/v1/MembersList/Search/Column/:Column/Value/:Value', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     MemberListSearch(Column,Value,res);
   });
+  
   app.post('/Api/v1/MembersList/Search/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.body.Column;
     let Value = req.body.Value;

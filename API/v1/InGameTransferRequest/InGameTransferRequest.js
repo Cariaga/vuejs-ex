@@ -146,7 +146,7 @@ module.exports = function (app) {
             });
         }
     }
-
+  
     app.post('/Api/v1/InGameTransferRequest/', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountIDSender = req.body.UserAccountIDSender;
         let Amount =req.body.Amount;
@@ -154,7 +154,7 @@ module.exports = function (app) {
         let Password = req.body.Password;
         InGameTransferHistoryRequest(UserAccountIDSender, Amount, UserName,Password, res);
     });
-
+  /*request a transfer specifying the senders user account id and the target user name to send to */
     app.get('/Api/v1/InGameTransferRequest/UserAccountIDSender/:UserAccountIDSender/UserName/:UserName/Amount/:Amount/Password/:Password', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let UserAccountIDSender = req.params.UserAccountIDSender;
         let Amount = parseInt(req.params.Amount);

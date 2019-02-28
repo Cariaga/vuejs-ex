@@ -11,6 +11,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
+  /*to update exist room notice */
   app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/RoomNotice/:RoomNotice/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let RoomID = req.params.RoomID;
     let RoomNotice = req.params.RoomNotice;
@@ -22,6 +23,8 @@ module.exports = function (app) { //MODIFY
       }
     }
   });
+  /*for maintainace */
+  /*to update game information of an existing user room */
   app.get('/Api/v1/RoomConfiguration/Update/RoomID/:RoomID/SmallBlind/:SmallBlind/BigBlind/:BigBlind/Speed/:Speed/GameType/:GameType', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let RoomID = req.params.RoomID;
     let SmallBlind =parseInt(req.params.SmallBlind);

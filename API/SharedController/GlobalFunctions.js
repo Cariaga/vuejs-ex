@@ -7,7 +7,6 @@ const Collection = require('linqjs');
 
 
 module.exports.ComputeRake = 
-
 function ComputeRake(bettingAmount, pCommisssion, sCommission, dCommission, hoCommission, ohoCommisssion) {
   let playerRake = (bettingAmount * (pCommisssion / 100)).toFixed(2);
   // playerRake = playerRake.toFixed(2);

@@ -7,6 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
+/*this routes is for retriving and filtering a list of black list of user accounts  */
 module.exports = function (app) {
   function BlackListLimitOffset(Limit,Offset,res){
     if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
@@ -20,12 +21,14 @@ module.exports = function (app) {
     }
   }
   //SELECTION
+  /*selection of blacklist accounts limit is the number of rows while offset is the starting point of the array */
   app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
+  /*this route is for testing only */
   app.get('/Api/v1/BlackList/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
     BlackListLimitOffset(10,0,res);
@@ -70,6 +73,7 @@ module.exports = function (app) {
 
   }
   //MODIFY / release
+  /*to update and release the user account from the black list */
   app.get('/Api/v1/BlackList/Update/UserName/:UserName/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
     BlackListUpdate(UserName,res);
@@ -80,6 +84,7 @@ module.exports = function (app) {
   });
 
   //add user to black list
+  /*to add a new blacklist account given the username exist and reason for blocking the user account */
   app.get('/Api/v1/BlackList/Add/UserName/:UserName/Reason/:Reason/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //OK
     let UserName = req.params.UserName;
     let Reason = req.params.Reason;
@@ -87,7 +92,7 @@ module.exports = function (app) {
       if (!isNullOrEmpty(Reason)) {
         DBCheck.isUserNameBlocked(UserName, function (response) {
           if (response == false) {
-            DBCheck.isUserNameExistThenGetUserAccountID(UserName, function(response){
+            DBCheck.isUserNameExistThenGetUserAccountID(UserName, function(response){// we check if the user account exist but we also return the user account ID
               if(response != undefined){
                 console.log('username exists');
                 let UserAccountID = response[0].UserAccountID;
@@ -167,7 +172,7 @@ module.exports = function (app) {
     BlackListUserAccount(UserName,ScreenName,res);   
   });
   
-  
+  /*test only */
   app.post('/Api/v1/BlackList/Check/Blocked/2', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
     let ScreenName = req.params.ScreenName;
@@ -199,12 +204,13 @@ module.exports = function (app) {
   // user inquire end
 
   //user inquire Username OR Screen name
+  /*test only */
   app.get('/Api/v1/BlackList/Check/Blocked/1/Column/:Column/Value/:Value/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     CheckIfBlocked(Column,Value,res);   
   });
-  
+  /*test only */
   app.post('/Api/v1/BlackList/Check/Blocked/1', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;

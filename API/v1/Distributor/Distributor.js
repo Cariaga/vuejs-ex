@@ -10,6 +10,8 @@ var Management = require('../../SharedController/Management');
 var uuidv4 = require('uuid/v4');
 
 module.exports = function (app) { //SELECTION
+
+/* deprecated
   app.get('/Api/v1/Distributor/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
@@ -54,7 +56,8 @@ module.exports = function (app) { //SELECTION
 
     }
     //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
-  });
+  });*/
+ /* deprecated
   app.get('/Api/v1/Distributor/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -72,9 +75,10 @@ module.exports = function (app) { //SELECTION
     } else {
       res.send("Missing params");
     }
-  });
+  });*/
   //MODIFY
-  app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  //deprecated
+  /*app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DistributorID = req.params.DistributorID;
     let UserAccountID = req.params.UserAccountID;
     let HeadOfficeID = req.params.HeadOfficeID;
@@ -120,9 +124,9 @@ module.exports = function (app) { //SELECTION
         DistributorIDFailed: true
       });
     }
-  });
+  });*/
   //INSERT
-  app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
     let UserAccountID = req.params.UserAccountID;
     let HeadOfficeID = req.params.HeadOfficeID;
@@ -162,8 +166,8 @@ module.exports = function (app) { //SELECTION
         UserAccountIDMissing: true
       });
     }
-  });
-
+  });*/
+/*deprecated
   app.get('/Api/v1/Shop/DistributorID/:DistributorID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let DistributorID = req.params.DistributorID;
@@ -180,7 +184,7 @@ module.exports = function (app) { //SELECTION
         DistributorIDMissing: true
       });
     }
-  });
+  });*/
 
   app.get('/Api/v1/Distributor/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeUserAccountID/:HeadOfficeUserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = uuidv4();

@@ -23,7 +23,7 @@ module.exports.getCommissionPercentages = function getCommissionPercentages(User
   
   module.exports.InGamePlayerWins = function InGamePlayerWins(UserAccountID, callback) {
     let _UserAccountID = UserAccountID;
-    let query ="SELECT WinPoints,LosePoints,UserAccountID from sampledb.player_winlose where UserAccountID = \'"+_UserAccountID+"\'; ";
+    let query ="SELECT WinPoints,UserAccountID from sampledb.player_winlose where UserAccountID = \'"+_UserAccountID+"\'; ";
 
     //old
     //let query ="SELECT Count(WinPoints) as WinPoints FROM sampledb.playerfinalcard WHERE winpoints > 0 AND UserAccountID = \'"+_UserAccountID+"\'; ";

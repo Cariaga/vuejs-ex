@@ -19,6 +19,7 @@ module.exports = function (app) { //SELECTION
       }
     });
   }
+
   app.get('/Api/v1/OneOnOne/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) { //OK
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;

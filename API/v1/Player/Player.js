@@ -9,7 +9,7 @@ let http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
- /*
+ /* deprecated
   app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/AddPoint/:Point', function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Point = req.params.Point;
@@ -113,7 +113,8 @@ module.exports = function (app) { //MODIFY
       });
     }
   });*/
-  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*update the current room name of a user account id */
+  /*app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let CurrentRoomName = req.params.CurrentRoomName;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -167,8 +168,10 @@ module.exports = function (app) { //MODIFY
         UserAccountIDEmpty: true
       });
     }
-  });
-  app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  });*/
+  /*currently not needed only for maintainace */
+  /*update the Player Information of a User Account Id it must be a player */
+  /*app.get('/Api/v1/Player/Update/PlayersID/:PlayersID/UserAccountID/:UserAccountID/ShopID/:ShopID/ScreenName/:ScreenName/Name/:Name/Surname/:Surname/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let PlayersID = req.params.PlayersID;
     let UserAccountID = req.params.UserAccountID;
     let ShopID = req.params.ShopID;
@@ -235,7 +238,7 @@ module.exports = function (app) { //MODIFY
         PlayersIDMissing: true
       });
     }
-  });
+  });*/
   app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/SubtractPoint/:Point', Management.RouteCalled,Security.rateLimiterMiddleware, Security.cache.route({ expire: 5  }),function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let Point = req.params.Point;
@@ -347,7 +350,7 @@ module.exports = function (app) { //MODIFY
       });
     }
   });
-  app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*app.get('/Api/v1/Player/Update/UserAccountID/:UserAccountID/CurrentRoomName/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = req.params.UserAccountID;
     let CurrentRoomName = req.params.CurrentRoomName;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -402,7 +405,8 @@ module.exports = function (app) { //MODIFY
         UserAccountIDEmpty: true
       });
     }
-  });
+  });*/
+  /*deprecated
   app.get('/Api/v1/Player/ShopID/:ShopID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let ShopID = req.params.ShopID;
@@ -419,7 +423,7 @@ module.exports = function (app) { //MODIFY
         ShopIDMissing: true
       });
     }
-  });
+  });*/
   app.get('/Api/v1/Player/UserAccountID/:UserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //ok
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -448,13 +452,14 @@ module.exports = function (app) { //MODIFY
     }
 
   });
+  /*deprecated
   app.get('/Api/v1/Player/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
     let Sort = req.query.Sort;
-    Models.Player.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
+    Models.Player.sync( /*{alter:true} ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+   /* if (isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
 
       let result = Models.Player.findAll({
         where: {
@@ -492,8 +497,10 @@ module.exports = function (app) { //MODIFY
     if (!isNullOrEmpty(Offset) && isNullOrEmpty(Limit) && isNullOrEmpty(Sort)) {
       res.send("Player " + Offset + " " + Limit + " " + Sort);
     }
-  });
+  });*/
+
   //INSERT
+  /*deprecated
   app.get('/Api/v1/Player/Add/:UserAccountID/:ShopID/:ScreenName/:Name/:Surname/:CurrentRoomName', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //USAGE /Api/v1/Player/Add/528861d4-3e49-4223-9b1a-913d72112112/1/ScreenName/Name/Surname/CurrentRoomName
     let UserAccountID = req.params.UserAccountID;
@@ -555,8 +562,9 @@ module.exports = function (app) { //MODIFY
         UserAccountIDMissing: true
       });
     }
-  });
+  });*/
 
+ /* deprecated
   app.get('/Api/v1/Player/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     res.setHeader('Content-Type', 'application/json');
@@ -603,9 +611,9 @@ module.exports = function (app) { //MODIFY
   });
   app.get('/Api/v1/Player/Describe', Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    Models.Player.sync( /*{alter:true}*/ ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
-    Models.Player.describe().then(result => {
+    Models.Player.sync( /*{alter:true} ); //Never call Alter and force during a sequelize.query alter table without matching the model with the database first if you do records will be nulled alter is only safe when it matches the database
+   /* Models.Player.describe().then(result => {
       res.send(beautify(result, null, 2, 100));
     });
-  });
+  });*/
 }

@@ -9,6 +9,7 @@ var http = require('http');
 var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 //Deprecated by InGameFinalCard
+//newer version is ----------Api/v1/PlayerFinalCard/Update/Json--------
 module.exports = function (app) {
 
    /* app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/', function (req, res) {
@@ -55,7 +56,7 @@ module.exports = function (app) {
     });*/
 
 
-
+//newer version is ----------Api/v1/PlayerFinalCard/Update/Json--------
     /*
         app.get('/Api/v1/UserAccountID/:UserAccountID/SeasonID/:SeasonID/Rank/:Rank/Score/:Score/Card/:Card/BeforePoints/:BeforePoints/AfterPoints/:AfterPoints/WinPoints/:WinPoints/', function (req, res) {
             let UserAccountID = req.params.UserAccountID;

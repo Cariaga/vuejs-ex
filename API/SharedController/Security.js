@@ -104,7 +104,7 @@ module.exports.DecompileToken = function DecompileToken(req, res) {
   }
 }
 
-/*
+/*never used
 var failCallback = function (req, res, next, nextValidRequestDate) {
   console.log("DDOS Attempt Ip now Blocked");
   res.sendStatus(429); // brute force protection triggered, send them back to the login page
@@ -123,7 +123,7 @@ var handleStoreError = function (error) {
       parent: error.parent
   };
 }
-
+//never used
 module.exports.globalBruteforce = new ExpressBrute(store, {
   freeRetries: 1000,
   attachResetToRequest: false,
@@ -136,6 +136,8 @@ module.exports.globalBruteforce = new ExpressBrute(store, {
 });
 */
 
+/*
+ //temporarly disable because of redisio error
 const Redis = require('ioredis');
 const redisClient = new Redis({ enableOfflineQueue: false,
    host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
@@ -143,36 +145,38 @@ const redisClient = new Redis({ enableOfflineQueue: false,
    // name: 'mymaster',
    // no_ready_check: true,
    // auth_pass:'eastcoast'
-   });
+   });*/
   // redisClient.auth('eastcoast');
-const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
+//const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
 
-
+/*
 const opts = {
   storeClient: redisClient,
   points: 5000, // Number of points
   duration: 18000, // Per second(s)
-};
- 
-const rateLimiter = new RateLimiterMemory(opts);
+};*/
+ //temporarly disable because of redisio error
+/*const rateLimiter = new RateLimiterMemory(opts);
 
 redisClient.on('connect', () => {   
  // global.console.log("connected");
 });
 redisClient.on('error', err => {       
  // global.console.log("redis Limiter Error "+err.message)
-});                                      
+});     */                                 
 
+//needs a newer version due to redisio error specific to openshift
 
 module.exports.rateLimiterMiddleware = (req, res, next) => {
-  rateLimiter.consume(req.connection.remoteAddress)
+  next();
+ /* rateLimiter.consume(req.connection.remoteAddress)
     .then(() => {
    
       next();
     })
     .catch((rejRes) => {
       res.status(429).send('Too Many Requests');
-    });
+    });*/
 };
 
 var cache = require('express-redis-cache')({

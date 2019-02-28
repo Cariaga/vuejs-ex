@@ -25,9 +25,9 @@ var cors = require('cors');
 const W1 = require("walletone");
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
-var Redis = require('ioredis');
+//var Redis = require('ioredis');
 var GlobalFunctions = require('./API/SharedController/GlobalFunctions');
-
+/* redis io is buggy
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
   no_ready_check: true,
   auth_pass: 'eastcoast',
@@ -37,7 +37,7 @@ var redis = new Redis(new Redis({ enableOfflineQueue: false,
   // name: 'mymaster',
   // no_ready_check: true,
   // auth_pass:'eastcoast'
-  }));
+  }));*/
 
 var beautify = require('json-beautify');
 //app.use(sqlinjection);// disable because it blocks token access
@@ -150,6 +150,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 let Security = require("./API/SharedController/Security");
 let Management = require("./API/SharedController/Management");
 require('./API/v1/ServerManagement/ServerManagement')(app);
+require('./API/v1/Photon/Photon')(app);
 
 let DBConnect = require("./API/SharedController/DBConnect");
 let DBGlobal = require("./API/SharedController/DBGlobal");
@@ -307,7 +308,26 @@ app.get('/success',function(req,res,next){
 app.get('/fail',function(req,res){
 });
 
-
+var redis = require("redis"),
+    client = redis.createClient({ host: process.env.REDIS_PORT_6379_TCP_ADDR,password:"eastcoast"});
+ 
+// if you'd like to select database 3, instead of 0 (default), call
+// client.select(3, function() { /* ... */ });
+ 
+client.on("error", function (err) {
+    console.log("Error " + err);
+});
+ 
+client.set("string key", "string val", redis.print);
+client.hset("hash key", "hashtest 1", "some value", redis.print);
+client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
+client.hkeys("hash key", function (err, replies) {
+    console.log(replies.length + " replies:");
+    replies.forEach(function (reply, i) {
+        console.log("    " + i + ": " + reply);
+    });
+    client.quit();
+});
 
 
 /*
@@ -378,12 +398,27 @@ wss.on('connection', (ws, req) => {
   //Get 
 
   DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
+    
     if(response!=undefined){
       ws.UserName = response[0]["UserName"];
+      DBGlobal.getCommissionPercentages(UserAccountID,function(response){
+        if(response!=undefined){
+         // let _playerToOHOCommission = response.playerToOHOCommission[0];
+          ws.PlayerCommission=response[0]['pCommission'];
+          DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
+            if (response != undefined) {
+              ws.WinPoints=response[0]['WinPoints'];
+    
+             // console.log(stringify(response,null,2));
+              console.log("PlayerWins Socket :"+response[0]['WinPoints']);
+            } else {
+              //if the user never won anything this will occur
+              console.log("Websocket Set Up Error 2");
 
+<<<<<<< HEAD
       DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
         if (response != undefined) {
-          ws.WinPoints=response[0]['WinPoints'];
+          ws.WinPoints= parseInt(response[0].WinPoints);
           DBGlobal.getCommissionPercentages(UserAccountID,function(response){
             if(response!=undefined){
              // let _playerToOHOCommission = response.playerToOHOCommission[0];
@@ -392,18 +427,17 @@ wss.on('connection', (ws, req) => {
               console.log("pCommisssion Socket :"+response[0]['pCommission']);
             }else{
               console.log("Websocket Set Up Error 1");
+=======
+>>>>>>> 09dcf2c87d959cd520efb2408c89243301039e8d
             }
-          });
-         // console.log(stringify(response,null,2));
-          console.log("PlayerWins Socket :"+response[0]['WinPoints']);
-        } else {
-          console.log("Websocket Set Up Error 2");
+        });
+          console.log("pCommisssion Socket :"+response[0]['pCommission']);
+        }else{
+          console.log("Websocket Set Up Error 1");
         }
-    });
-
-
+      });
     }else{
-      console.log("Websocket Set Up Error 2");
+      console.log("Websocket Set Up Error 3");
     }
   });
 
@@ -993,7 +1027,7 @@ wss.on('connection', (ws, req) => {
 //websocket constant InvokeRepeat
 setInterval(() => {
   InvokeRepeat();
-}, 1000);
+}, 500);
 function DeadInstanceIDCleanUp(){//accessed by a InvokeRepeat aswell
     //dead InstanceID clean Up which accessed by the onError of websocket
     wss.clients.forEach((client) => {
@@ -1156,6 +1190,7 @@ console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
 
+//console.log(beautify(process.env, null, 2, 100));
 
 const pretty = require('prettysize');
 var stats = requestStats(server);

@@ -127,9 +127,9 @@ Todo:
   ✔ check Lead leave with multiple login accounts if the money is valid
   ✔ Money only updates on last leave
   ✔ Empty BuyIn
-  ☐  both non lead leaves at the same time
-  ☐ both lead and non lead leaves at the same time
-  ☐ Game need reshuffling
+  ✔  both non lead leaves at the same time
+  ✔ both lead and non lead leaves at the same time
+  ✔ Game need reshuffling
   ✔ Sockets  rooms are wrongly passed across all accounts which is not part of them
   ☐ Bet is copying over socket all accounts wrong
 
