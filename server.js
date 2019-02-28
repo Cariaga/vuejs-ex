@@ -322,7 +322,7 @@ client.on("error", function (err) {
 });
  
 client.set("string key", "string val", redis.print);
-client.hset("hash key",  process.env.OPENSHIFT_BUILD_COMMIT, redis.print);
+client.hset("'"+process.env.OPENSHIFT_BUILD_COMMIT+"'", redis.print);
 
 
 client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
