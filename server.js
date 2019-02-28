@@ -321,14 +321,14 @@ client.on("error", function (err) {
     console.log("Error " + err);
 });
  
-client.set("string key",process.env.OPENSHIFT_BUILD_COMMIT, redis.print);
-
+client.set("string key","TEST", redis.print);
 client.get("string key", function(err, reply) {
   // reply is null when the key is missing
   console.log(reply);
+  client.quit();
 });
 
-client.quit();
+
 
 /*
 app.get('/Api/v1', Management.RouteCalled,Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
