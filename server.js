@@ -302,7 +302,7 @@ app.get('/Pay/UserAccountID/:UserAccountID/Amount/:Amount/',function(req,res){
   res.send('<body onload="document.frm1.submit()"> <form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8" name="frm1">' + result + '</form> </body>');
 });
 
-
+console.log("ConnectionMode : "+ConnectionMode.getMainAddressByProductionMode());
 
 
 app.get('/success',function(req,res,next){
@@ -1190,7 +1190,7 @@ console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
 
-console.log(beautify(process.env, null, 2, 100));
+//console.log(beautify(process.env, null, 2, 100));
 
 const pretty = require('prettysize');
 var stats = requestStats(server);
