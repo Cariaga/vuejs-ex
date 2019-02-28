@@ -415,20 +415,6 @@ wss.on('connection', (ws, req) => {
               //if the user never won anything this will occur
               console.log("Websocket Set Up Error 2");
 
-<<<<<<< HEAD
-      DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
-        if (response != undefined) {
-          ws.WinPoints= parseInt(response[0].WinPoints);
-          DBGlobal.getCommissionPercentages(UserAccountID,function(response){
-            if(response!=undefined){
-             // let _playerToOHOCommission = response.playerToOHOCommission[0];
-              ws.PlayerCommission=response[0]['pCommission'];
-        
-              console.log("pCommisssion Socket :"+response[0]['pCommission']);
-            }else{
-              console.log("Websocket Set Up Error 1");
-=======
->>>>>>> 09dcf2c87d959cd520efb2408c89243301039e8d
             }
         });
           console.log("pCommisssion Socket :"+response[0]['pCommission']);
