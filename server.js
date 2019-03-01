@@ -114,7 +114,7 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 // configuration =================
 
 
-app.use(express.static('AdminSocket'));
+//app.use(express.static('AdminSocket'));
 //app.use(express.static('WalletOne'));
 
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -371,7 +371,7 @@ app.get('/PlayerRooms/Rooms/:RoomNames/UserAccountID/:UserAccountID/',function(r
 //Check Approved validate used by socket for db confirmation
 app.get('/DepositApproveCheck/UserTransactionID/:UserTransactionID/',function(req,res){
   let UserTransactionID = req.params.UserTransactionID;
-  res.setHeader('Content-Type', 'application/json');
+ 
   var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+UserTransactionID+"\';";
   console.log(query2);
   DBConnect.DBConnect(query2, function (response) {
@@ -379,6 +379,7 @@ app.get('/DepositApproveCheck/UserTransactionID/:UserTransactionID/',function(re
       res.sendStatus(200);
     }else{
       console.log('---------May have executed before the api route of aproval----------');
+      res.sendStatus(403);
     }
   });
 });
@@ -455,22 +456,22 @@ wss.on('connection', (ws, req) => {
   ws.WinPoints = 0;
   ws.PlayerCommission = 0;
   
-  //ws.Rooms=[];
+  /*ws.Rooms=[];*/
 
-//--------Start Player Checking First Socket
+/*--------Start Player Checking First Socket*/
   ws.isLeadSocket=true;//becomes false instead if an  existing player same account is found
   wss.clients.forEach((client) => {
     if (client.UserAccountID ==UserAccountID&& ws.InstanceID!=client.InstanceID) {//makes sure i'm not checking my self and check if anothor same account exist
      ws.isLeadSocket=false;
-      //console.log(client.UserAccountID); 
+      /*console.log(client.UserAccountID); */
     }
   });
 
-//-------End Player Checking First Socket
+/*-------End Player Checking First Socket*/
 
 
  
-//the http approch is used because direct to database access is not allowed
+/*the http approch is used because direct to database access is not allowed*/
 request(ConnectionMode.getMainAddressByProductionMode()+'/GetBasicInformation/UserAccountID/'+UserAccountID, function (error, response, result) {
    // console.log('error:', error); // Print the error if one occurred
    // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
@@ -569,6 +570,8 @@ request(ConnectionMode.getMainAddressByProductionMode()+'/GetBasicInformation/Us
         wss.clients.forEach((client) => {
           if (client.readyState == 1) {
             if (client.UserAccountID == Object.MessageReceiver) {
+                  /*do not update client.Money on this.
+                   the client will update it self from the current money on the db upon notification */
                   client.DepositNotice = Object.DepositNotice; 
                   let DepositUUID = Object.DepositUUID;
                   if(DepositUUID!=""){
@@ -578,10 +581,9 @@ request(ConnectionMode.getMainAddressByProductionMode()+'/GetBasicInformation/Us
                     //newer version
                     //DepositApproveCheck/UserTransactionID/:UserTransactionID/
                     request(ConnectionMode.getMainAddressByProductionMode()+'/DepositApproveCheck/UserTransactionID/'+DepositUUID, function (error, response, result) {
-
-                      if(response.statusCode==200){
-                        client.Money = (parseInt(client.Money)+parseInt(response[0].Amount));
-                      }
+                    /*do not update client.Money on this.
+                     the client will update it self from the current money on the db upon notification */
+                     
                     });
 
                    /*
@@ -1108,32 +1110,35 @@ function GetBasicInformation(UserAccountID,callback) {
       BasicUserInformation.UserName = response[0]["UserName"];
       BasicUserInformation.Money = response[0]["Money"];
       BasicUserInformation.ScreenName = response[0]["ScreenName"];
-      BasicUserInformation.ParentUserAccountID = response[0]["ParentUserAccountID"].split(",");
+      BasicUserInformation.ParentUserAccountID = response[0]["ParentUserAccountID"];
     //  console.log("ParentUserAccountID : "+BasicUserInformation.ParentUserAccountID);
-      DBGlobal.getCommissionPercentages(UserAccountID, function (response) {
+    DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
+      if (response != undefined) {
+        //   ws.WinPoints=response[0]['WinPoints'];
+        BasicUserInformation.WinPoints = response[0]['WinPoints'];
+        // console.log(stringify(response,null,2));
+        console.log("PlayerWins Socket :" + response[0]['WinPoints']);
+        callback(BasicUserInformation);
+      }
+      else {
+        //if the user never won anything this will occur
+        callback(BasicUserInformation);
+      }
+      });
+
+    /*  DBGlobal.getCommissionPercentages(UserAccountID, function (response) {
         if (response != undefined) {
           // let _playerToOHOCommission = response.playerToOHOCommission[0];
           //ws.PlayerCommission=response[0]['pCommission'];
           BasicUserInformation.PlayerCommission = response[0]['pCommission'];
-          DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
-            if (response != undefined) {
-              //   ws.WinPoints=response[0]['WinPoints'];
-              BasicUserInformation.WinPoints = response[0]['WinPoints'];
-              // console.log(stringify(response,null,2));
-              console.log("PlayerWins Socket :" + response[0]['WinPoints']);
-              callback(BasicUserInformation);
-            }
-            else {
-              //if the user never won anything this will occur
-              callback(BasicUserInformation);
-            }
-          });
+         
           console.log("pCommisssion Socket :" + response[0]['pCommission']);
         }
         else {
           console.log("Websocket Set Up Error 1");
         }
-      });
+      });*/
+
     }
     else {
       console.log("Websocket Set Up Error 3");
@@ -1261,14 +1266,6 @@ function IsJsonString(str) {
   return true;
 }
 
-function IsJsonString(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
 
 var path = require('path');
 var mime = require('mime');
