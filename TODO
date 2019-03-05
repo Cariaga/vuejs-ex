@@ -123,7 +123,7 @@ Todo:
   ✔ Sudden Disconnect not clearing on non leads
   ✔ added copy from lead buyin
   ✔ check multiple accounts if its also 8000 on buy in the buyin becomes exponential bug solution was to make it only follow the lead instance variable
-  ☐ quiting lead not updating list rooms Cause by Editor but not on application mode
+  ✔ quiting lead not updating list rooms Cause by Editor but not on application mode
   ✔ check Lead leave with multiple login accounts if the money is valid
   ✔ Money only updates on last leave
   ✔ Empty BuyIn
@@ -131,6 +131,6 @@ Todo:
   ✔ both lead and non lead leaves at the same time
   ✔ Game need reshuffling
   ✔ Sockets  rooms are wrongly passed across all accounts which is not part of them
-  ☐ Bet is copying over socket all accounts wrong
-
+  ✔ Bet is copying over socket all accounts wrong
+  ✔ Shortcut bug on joining room too fast between application it actually a bug in the editor because buttons naviation was automatic
 
