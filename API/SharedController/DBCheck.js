@@ -133,15 +133,15 @@ module.exports.isPlayerAccountBlocked = function isPlayerAccountBlocked(Indexx, 
       'SELECT p.UserAccountID, p.ScreenName, uap.UserName, IFNULL(bl.Status,"Fresh") as newStatus' +
       ' FROM players p' +
       ' LEFT JOIN useraccounts uap on p.UserAccountID = uap.UserAccountID' +
-      ' LEFT JOIN player_black_list bl on bl.UserAccountID = p.UserAccountID' +
-      ' HAVING '+_Column[Indexx]+' = "' + _Value + '" AND newStatus != "Blocked"';
+      ' LEFT JOIN (select * from player_black_list pbl inner join (select max(ReportDate) as lastReport from player_black_list)' +
+      ' pbl2 on pbl.ReportDate = pbl2.lastReport WHERE pbl.BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list ' +
+      ' GROUP BY UserAccountID)) bl on bl.UserAccountID = p.UserAccountID ' +
+      ' HAVING '+_Column[Indexx]+' = \"' + _Value + '\" ';
     console.log('blacklist query: ' + query)
     DBConnect.DBConnect(query, function (response) {
       if (response) {
-        // if (response[0].UserName == _Value) {
-          console.log(response);
-          callback(response);
-        // }
+        console.log(response);
+        callback(response);
       } else {
         callback(false);
         console.log('failed here')
