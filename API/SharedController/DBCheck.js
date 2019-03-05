@@ -133,7 +133,8 @@ module.exports.isPlayerAccountBlocked = function isPlayerAccountBlocked(Indexx, 
       'SELECT p.UserAccountID, p.ScreenName, uap.UserName, IFNULL(bl.Status,"Fresh") as newStatus' +
       ' FROM players p' +
       ' LEFT JOIN useraccounts uap on p.UserAccountID = uap.UserAccountID' +
-      ' LEFT JOIN (select * from player_black_list pbl inner join (select max(ReportDate) as lastReport from player_black_list)' +
+      ' LEFT JOIN (select * from player_black_list pbl inner join (select max(ReportDate) as lastReport from player_black_list' +
+      ' where UserName = \"' + _Value + '\" or ScreenName = \"' + _Value + '\" )' +
       ' pbl2 on pbl.ReportDate = pbl2.lastReport WHERE pbl.BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list ' +
       ' GROUP BY UserAccountID)) bl on bl.UserAccountID = p.UserAccountID ' +
       ' HAVING '+_Column[Indexx]+' = \"' + _Value + '\" ';
