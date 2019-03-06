@@ -133,4 +133,4 @@ Todo:
   ✔ Sockets  rooms are wrongly passed across all accounts which is not part of them
   ✔ Bet is copying over socket all accounts wrong
   ✔ Shortcut bug on joining room too fast between application it actually a bug in the editor because buttons naviation was automatic
-
+  ☐ Latest room after exit not listing
