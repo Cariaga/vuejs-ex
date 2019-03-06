@@ -56,7 +56,7 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(UserAccoun
   let query = 
   "UPDATE `sampledb`.`blacklist` "+
   " SET Status = 'Released', ReleaseDate=now()"+
-  " WHERE UserAccountID=\'"+_UserAccountID+"\';"
+  " WHERE UserAccountID=\'"+_UserAccountID+"\' AND ReleaseDate IS NULL;"
 
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {

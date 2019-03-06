@@ -55,6 +55,7 @@ module.exports = function (app) {
             BlackListModel.BlackListStatusUpdate(UserAccountID, function (response) {
               console.log("Status Set");
               if (response != undefined) {
+                console.log(response)
                 res.send(response);
               } else {
                 res.send({
@@ -74,12 +75,12 @@ module.exports = function (app) {
   }
   //MODIFY / release
   /*to update and release the user account from the black list */
-  app.get('/Api/v1/BlackList/Update/UserName/:UserName/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/BlackList/Release/UserName/:UserName/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
     BlackListUpdate(UserName,res);
   });
-  app.post('/Api/v1/BlackList/Update/',Security.verifyToken, function (req, res) {
-    let UserAccountID = req.params.UserAccountID;
+  app.post('/Api/v1/BlackList/Release/',Security.verifyToken, function (req, res) {
+    let UserAccountID = req.body.UserAccountID;
     BlackListUpdate(UserAccountID,res);
   });
 
