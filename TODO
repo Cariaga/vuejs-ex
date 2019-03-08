@@ -1,5 +1,6 @@
 
 //https://docs.openshift.com/container-platform/3.11/dev_guide/port_forwarding.html
+    //the big blind small blind is sent like a bet so they are also subjected to 4.5
 Todo:
  // ☐ HandHistory Websocket GlobalFunctions find a way to update the money with repect to commission 
   ✔ Transfer Not Updating Target User on socket Semi Done
@@ -133,4 +134,7 @@ Todo:
   ✔ Sockets  rooms are wrongly passed across all accounts which is not part of them
   ✔ Bet is copying over socket all accounts wrong
   ✔ Shortcut bug on joining room too fast between application it actually a bug in the editor because buttons naviation was automatic
-  ☐ Latest room after exit not listing
+  ✔ Latest room after exit not listing caused by leaving not updating the room controller by the LobbyReturnController
+    ✔ need to fix room leave to call only ones
+  ✔  all in bug not betting for socket
+  ☐ BuyIn not Enough Money wrong validation
