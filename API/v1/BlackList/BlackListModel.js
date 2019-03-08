@@ -59,9 +59,10 @@ module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(UserAccoun
   " WHERE UserAccountID=\'"+_UserAccountID+"\' AND ReleaseDate IS NULL;"
 
   DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      console.log(response);
-      callback(response);
+    console.log(query)
+    console.log(response)
+    callback(response);
+    if (response.affectedRows > 0) {
     } else {
       callback(undefined);
     }

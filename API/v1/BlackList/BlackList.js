@@ -47,42 +47,38 @@ module.exports = function (app) {
     let Offset = req.body.Offset;
     BlackListLimitOffset(Limit,Offset,res);
   });
-  function BlackListUpdate(UserName){
-      if (!isNullOrEmpty(UserName)) {
-        DBCheck.isUserNameExistThenGetUserAccountID(UserName, function (response) {
-          if (response != undefined) {
-            let UserAccountID = response[0].UserAccountID
-            BlackListModel.BlackListStatusUpdate(UserAccountID, function (response) {
-              console.log("Status Set");
-              if (response != undefined) {
-                console.log(response)
-                res.send(response);
-              } else {
-                res.send({
-                  BlackListStatusUpdateFailed: true
-                });
-              }
-            });
-          } else {
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
-          }
-        });
-      } else {
-        res.send("Missing UserName " + UserName);
-      }
 
-  }
+
   //MODIFY / release
   /*to update and release the user account from the black list */
   app.get('/Api/v1/BlackList/Release/UserName/:UserName/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserName = req.params.UserName;
-    BlackListUpdate(UserName,res);
+
+    if (!isNullOrEmpty(UserName)) {
+      DBCheck.isUserNameExistThenGetUserAccountID(UserName, function (response) {
+        if (response != undefined) {
+          let UserAccountID = response[0].UserAccountID
+          BlackListModel.BlackListStatusUpdate(UserAccountID, function (response) {
+            if (response) {
+              res.send(response);
+            } else {
+              res.send({
+                BlackListStatusUpdateFailed: true
+              });
+            }
+          });
+        } else {
+          let status = 404;
+          res.status(status).end(http.STATUS_CODES[status]);
+        }
+      });
+    } else {
+      res.send("Missing UserName " + UserName);
+    }
+  
   });
-  app.post('/Api/v1/BlackList/Release/',Security.verifyToken, function (req, res) {
-    let UserAccountID = req.body.UserAccountID;
-    BlackListUpdate(UserAccountID,res);
-  });
+
+
 
   //add user to black list
   /*to add a new blacklist account given the username exist and reason for blocking the user account */
