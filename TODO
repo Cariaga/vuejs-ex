@@ -137,4 +137,6 @@ Todo:
   ✔ Latest room after exit not listing caused by leaving not updating the room controller by the LobbyReturnController
     ✔ need to fix room leave to call only ones
   ✔  all in bug not betting for socket
-  ☐ BuyIn not Enough Money wrong validation
+  ✔ BuyIn not Enough Money wrong validation
+  ☐ idlemaster may not be nessesary because players should be able join anytime
+    The OnComputation,and on going might be ok but players should be able to join regardless of what is computing 

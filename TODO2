@@ -1,3 +1,7 @@
+//redis is a message broker
+//time series data is best used for when it was changed usually time series data is high redudancy of insert and keeps a record of last insert and latest insert
+// time series data isn't about timestamp or having a time column but an exact record on that time and no updates on that column should occur it can be used of analytics or behaviour
+
 ✔ Detect if Socket got terminated or dosn't match the game values
 ✔ timer is now imporved  performace so its much faster now 
 ✔ Notify player instances of joining room(not needed solution from second lower line is better)
@@ -22,3 +26,6 @@
 // retriving all accounts select concat("cd /d D:\\Unity\\Holdem\\Holdem ","start Holdem.exe"," -U ",UserName," -P ",Password)  from useraccounts where Recommended='11'; for batch file
 you need to view as text in dbreaver a buttton is avilable on when you query called text
 //select concat("UserName.text = \"",UserName,"\";","Password.text = \"",Password,"\";") from useraccounts where Recommended='11'; retriving of accounts for c#
+
+☐ Negative pot and UI did not update bug on sudden leave
+✔ RPC monitor
