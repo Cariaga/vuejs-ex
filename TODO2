@@ -1,7 +1,7 @@
 //redis is a message broker
 //time series data is best used for when it was changed usually time series data is high redudancy of insert and keeps a record of last insert and latest insert
 // time series data isn't about timestamp or having a time column but an exact record on that time and no updates on that column should occur it can be used of analytics or behaviour
-
+// inserts are faster than update because no look up time occurs when deciding a code sequence in application layer it is faster to insert first then perform an update e.g on the same route
 ✔ Detect if Socket got terminated or dosn't match the game values
 ✔ timer is now imporved  performace so its much faster now 
 ✔ Notify player instances of joining room(not needed solution from second lower line is better)
