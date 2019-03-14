@@ -6,7 +6,7 @@ let DBConnect = require("../../SharedController/DBConnect");
 //     let _Limit = Limit;
 //     let _Offset = Offset;
     
-//     let query = "select * from calculateManage_"+_LowRank+" WHERE ParentID = \'"+_Office+"\' LIMIT "+_Limit+" OFFSET "+_Offset ;
+//     let query = "select * from calculatemanage_"+_LowRank+" WHERE ParentID = \'"+_Office+"\' LIMIT "+_Limit+" OFFSET "+_Offset ;
 //     DBConnect.DBConnect(query, function (response) {
 //         console.log(query)
 //         if (response != undefined) {
@@ -26,7 +26,7 @@ module.exports.LowRank = function LowRank(LowRank, Office, Limit, Offset, Order,
     let _Offset = Offset;
     let _Order = Order;
     let _Direction = Direction;
-    let query = "select * from calculateManage_"+_LowRank+" WHERE ParentID = \'"+_Office+"\' order by "+_Order+" "+_Direction+" LIMIT "+_Limit+" OFFSET "+_Offset+";" ;
+    let query = "select * from calculatemanage_"+_LowRank+" WHERE ParentID = \'"+_Office+"\' order by "+_Order+" "+_Direction+" LIMIT "+_Limit+" OFFSET "+_Offset+";" ;
     console.log(query)
     DBConnect.DBConnect(query, function (response) {
         console.log(query)
@@ -46,7 +46,7 @@ module.exports.Pagination = function Pagination(LowRank, Office, callback) {
 	console.log('TCL: Pagination -> _LowRank', _LowRank)
 
     if(_LowRank >= 1 && _LowRank <= 3){
-        let query = "select count(*) as ID from calculateManage_"+_LowRank+" WHERE ParentID = \'"+_Office+"\'";
+        let query = "select count(*) as ID from calculatemanage_"+_LowRank+" WHERE ParentID = \'"+_Office+"\'";
                     
         DBConnect.DBConnect(query, function (response) {
             console.log(query)
