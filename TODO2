@@ -27,5 +27,12 @@
 you need to view as text in dbreaver a buttton is avilable on when you query called text
 //select concat("UserName.text = \"",UserName,"\";","Password.text = \"",Password,"\";") from useraccounts where Recommended='11'; retriving of accounts for c#
 
-☐ Negative pot and UI did not update bug on sudden leave
+✔ Negative pot and UI did not update bug on sudden leave
 ✔ RPC monitor
+☐ Chat Record Game
+☐ Add Chips Request Auto pop up
+// Custom mouse design
+// slide entire UI for Add Chips
+// winner particle snow if possible
+✔ Player Name differ text to message
+✔ batch kick accounts via UUID currently no Front end interface for player but we now have a way to kick via socket

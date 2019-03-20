@@ -3,3 +3,6 @@
 // The API-server the most low level access 
 
 //We need to archive Money when leaving and entering game
+
+
+//columnar databases are often used in reporting databases, but rarely used in more real time databases which is row based
