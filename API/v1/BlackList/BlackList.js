@@ -9,25 +9,46 @@ var Security = require('../../SharedController/Security');
 var Management = require('../../SharedController/Management');
 /*this routes is for retriving and filtering a list of black list of user accounts  */
 module.exports = function (app) {
-  function BlackListLimitOffset(Limit,Offset,res){
-    if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
-      BlackListModel.BlackList(Limit, Offset, function (response) {
-        res.send(response);
-      });
-    } else if (isNullOrEmpty(Limit) && isNullOrEmpty(Offset)) {
-      BlackListModel.BlackList(undefined, undefined, function (response) {
-        res.send(response);
-      });
-    }
-  }
+  // function BlackListLimitOffset(Limit,Offset,res){
+  //   if (!isNullOrEmpty(Limit) && !isNullOrEmpty(Offset)) {
+  //     BlackListModel.BlackList(Limit, Offset, function (response) {
+  //       res.send(response);
+  //     });
+  //   } else if (isNullOrEmpty(Limit) && isNullOrEmpty(Offset)) {
+  //     BlackListModel.BlackList(undefined, undefined, function (response) {
+  //       res.send(response);
+  //     });
+  //   }
+  // }
   //SELECTION
   /*selection of blacklist accounts limit is the number of rows while offset is the starting point of the array */
-  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    let Limit = req.params.Limit;
+  // app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  //   res.setHeader('Content-Type', 'application/json');
+  //   let Limit = req.params.Limit;
+  //   let Offset = req.params.Offset;
+  //   BlackListLimitOffset(Limit,Offset,res);
+  // });
+
+  /*selection of blacklist accounts limit is the number of rows while offset is the starting point of the array */
+  app.get('/Api/v1/BlackList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction', Security.verifyToken, Management.RouteCalled, Security.checkValues, Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+    let Limit =req.params.Limit;
     let Offset = req.params.Offset;
-    BlackListLimitOffset(Limit,Offset,res);
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    BlackListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
   });
+
+  function BlackListLimitOffsetOrder(Limit,Offset,Order,Direction,res){
+    BlackListModel.BlackList2(Limit, Offset, Order, Direction, function (response) {
+      if(response != undefined){
+        res.status(200).send(response);
+      }else{
+        res.status(404).send('Not Found')
+      }
+    });
+  }
+  
+
   /*this route is for testing only */
   app.get('/Api/v1/BlackList/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {//test connection only
     res.setHeader('Content-Type', 'application/json');
@@ -205,8 +226,20 @@ module.exports = function (app) {
   app.get('/Api/v1/BlackList/Check/Blocked/1/Column/:Column/Value/:Value/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
-    CheckIfBlocked(Column,Value,res);   
+    CheckIfBlocked(Column,Value,res);
   });
+
+  app.get('/Api/v1/BlackList/CheckSample/Blocked/1/Column/:Column/Value/:Value/', Security.checkValues, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    
+  });
+
+  app.post('/Api/v1/BlackList/CheckSample/Blocked/1', Security.checkValues, function (req, res) {
+    let Column = req.body.Column;
+    let Value = req.body.Value;
+    res.setHeader('Content-Type', 'application/json');
+  });
+
   /*test only */
   app.post('/Api/v1/BlackList/Check/Blocked/1', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
