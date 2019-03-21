@@ -17,38 +17,31 @@ module.exports = function (app) {
         });
 
     });
-    function GameLogListLimitOffset(Limit,Offset, res){
-        if (!isNullOrEmpty(Limit)) {
-            if (!isNullOrEmpty(Offset)) {
-                GameLogListModel.GameLogList(Limit, Offset, function (response) {
-                    if (response != undefined) {
-                        res.send(response);
-                    } else {
-                        let status = 404;
-                        res.status(status).end(http.STATUS_CODES[status]);
-                    }
-                });
+
+    function GameLogListLimitOffsetOrder(Limit,Offset,Order,Direction, res){
+        GameLogListModel.GameLogList(Limit,Offset,Order,Direction, function (response) {
+            if (response != undefined) {
+                res.send(response);
             } else {
-                res.send({
-                    OffsetMissing: true
-                });
+                let status = 404;
+                res.status(status).end(http.STATUS_CODES[status]);
             }
-        } else {
-            res.send({
-                LimitMissing: true
-            });
-        }
+        });
     }
     /*game log list of a user account with offset and limit */
-    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset', /* Management.RouteCalled,Security.rateLimiterMiddleware, */Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/GameLogList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction', Security.verifyToken, Security.checkValues, Management.RouteCalled,Security.rateLimiterMiddleware, Security.cache.route({ expire: 5  }), function (req, res) {
         let Limit = req.params.Limit;
         let Offset = req.params.Offset;
-        GameLogListLimitOffset(Limit,Offset,res);
+        let Order = req.params.Order;
+        let Direction = req.params.Direction;
+        GameLogListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
     });
-    app.post('/Api/v1/GameLogList/',Security.verifyToken, function (req, res) {
+    app.post('/Api/v1/GameLogList/',Security.verifyToken, Security.checkValues, Management.RouteCalled,Security.rateLimiterMiddleware, Security.cache.route({ expire: 5  }), function (req, res) {
         let Limit = req.body.Limit;
         let Offset = req.body.Offset;
-        GameLogListLimitOffset(Limit,Offset,res);
+        let Order = req.body.Order;
+        let Direction = req.body.Direction;
+        GameLogListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
     });
     
     function GameLogListSearch(Column,Value,res){

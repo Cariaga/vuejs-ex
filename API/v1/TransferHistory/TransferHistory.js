@@ -26,38 +26,27 @@ module.exports = function (app) { //MODIFY
       }
     }
   });
-
+  
+  function TransferHistoryListLimitOffsetOrder(Limit,Offset,Order,Direction,res){
+    TransferHistoryModel.TransferHistoryList(Limit,Offset,Order,Direction, function(response){
+      if(response!= undefined){
+        res.send(response);
+      }else{
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
+    })
+  }
   // Security.cache.route({ expire: 5  })
   // list of transfer history with limit offset
-  app.get('/Api/v1/TransferHistoryList/Limit/:Limit/Offset/:Offset/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/TransferHistoryList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction', Security.verifyToken, Security.checkValues, Management.RouteCalled,Security.rateLimiterMiddleware, function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    let limit = req.params.Limit;
-    let offset = req.params.Offset;
-    
-    if(!isNullOrEmpty(limit)){
-      if(!isNullOrEmpty(offset)){
-        TransferHistoryModel.TransferHistoryList(limit, offset, function(response){
-          if(response!= undefined){
-            res.send(response);
-          }else{
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
-          }
-        })
-      }else{
-        // let status = 400;
-        // res.status(status).end(http.STATUS_CODES[status]);
-        res.send([{
-          OffsetMissing: true
-        }]);
-      }
-    }else{
-      // let status = 400;
-      // res.status(status).end(http.STATUS_CODES[status]);
-      res.send([{
-        LimitMissing: true
-      }]);
-    }
+    let Limit = req.params.Limit;
+    let Offset = req.params.Offset;
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+
+    TransferHistoryListLimitOffsetOrder(Limit,Offset,Order,Direction,res);
   });
 
 

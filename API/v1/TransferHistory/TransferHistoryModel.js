@@ -6,10 +6,12 @@ var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
 
-module.exports.TransferHistoryList = function TransferHistoryList(limit, Offset, callback) {
-  let _limit = limit;
+module.exports.TransferHistoryList = function TransferHistoryList(Limit,Offset,Order,Direction, callback) {
+  let _Limit = Limit;
   let _Offset = Offset;
-  let query = "select * from transferhistories_list limit " + _limit + " Offset " + _Offset;
+  let _Order = Order;
+  let _Direction = Direction;
+  let query = "select * from transferhistories_list order by "+_Order+" "+_Direction+" limit " + _Limit + " Offset " + _Offset;
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       // console.log(response);
