@@ -61,38 +61,30 @@ module.exports = function (app) {//SELECTION
     let EndDate = req.body.EndDate;
     WithdrawHistoryListSearch(Column,Value,StartDate,EndDate,res);
   });
-  function WithdrawHistoryListLimitOffet(Limit,Offset,res){
-    if (!isNullOrEmpty(Limit)) {
-      if (!isNullOrEmpty(Offset)) {
-        WithdrawHistoryListModel.Withdraw(Limit, Offset, function (response) {
-          if (response != undefined) {
-            res.send(response);
-          } else {
-            // res.send({});
-            let status = 404;
-            res.status(status).end(http.STATUS_CODES[status]);
-          }
-        });
+  function WithdrawHistoryListLimitOffetOrderDirection(Limit,Offset,Order,Direction,res){
+    WithdrawHistoryListModel.Withdraw(Limit,Offset,Order,Direction, function (response) {
+      if (response != undefined) {
+        res.send(response);
       } else {
-        res.send({
-          InvalidValue: true
-        });
+        // res.send({});
+        let status = 404;
+        res.status(status).end(http.STATUS_CODES[status]);
       }
-    } else {
-      res.send({
-        InvalidColumn: true
-      });
-    }
+    });
   }
   /* get Withdraw History List Limit Offset */
-  app.get('/Api/v1/WithdrawHistoryList/Limit/:Limit/Offset/:Offset', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/WithdrawHistoryList/Limit/:Limit/Offset/:Offset/Order/:Order/Direction/:Direction', Security.verifyToken, Security.checkValues, Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let Limit = req.params.Limit;
     let Offset = req.params.Offset;
-    WithdrawHistoryListLimitOffet(Limit,Offset,res);
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    WithdrawHistoryListLimitOffetOrderDirection(Limit,Offset,Order,Direction,res);
   });
   app.post('/Api/v1/WithdrawHistoryList/',Security.verifyToken, function (req, res) {
     let Limit = req.body.Limit;
     let Offset = req.body.Offset;
-    WithdrawHistoryListLimitOffet(Limit,Offset,res);
+    let Order = req.params.Order;
+    let Direction = req.params.Direction;
+    WithdrawHistoryListLimitOffetOrderDirection(Limit,Offset,Order,Direction,res);
   });
 }
