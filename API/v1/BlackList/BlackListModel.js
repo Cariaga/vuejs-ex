@@ -11,11 +11,13 @@ let DBConnect = require("../../SharedController/DBConnect");
 module.exports.BlackList = function BlackList(limit , offset, callback) {
   let _limit = limit;
   let _offset = offset;
-  if(limit!=undefined&&_offset!=undefined){
-    // select player_black_list where select only the latest black list id of the user (with limit and offset)
-    let query =
-    " select un.hoUserName HeadOfficeID, un.dUserName DistributorID, un.sUserName ShopID, pbl.UserName UserAccountID, pbl.ScreenName, pbl.RegisteredDateTime, pbl.ReleaseDate, pbl.Reason, pbl.Status FROM sampledb.player_black_list pbl left join player_to_oho_username un on pbl.UserAccountID = un.pUserAccountID WHERE pbl.BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID) "
-    +" limit "+_limit+" offset "+_offset;
+  // select player_black_list where select only the latest black list id of the user (with limit and offset)
+  let query =
+  " select un.hoUserName HeadOfficeID, un.dUserName DistributorID, un.sUserName ShopID, pbl.UserName "
+  +" UserAccountID, pbl.ScreenName, pbl.RegisteredDateTime, pbl.ReleaseDate, pbl.Reason, pbl.Status "
+  +" FROM sampledb.player_black_list pbl left join player_to_oho_username un on pbl.UserAccountID = un.pUserAccountID"
+  +" WHERE pbl.BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID) "
+  +" limit "+_limit+" offset "+_offset;
     console.log(query)
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -25,10 +27,22 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
         callback(undefined);
       }
     });
-  }
-  else if(limit!=undefined&&_offset!=undefined){
-    let query =
-    "SELECT BlackListID, HeadOfficeID, DistributorID, ShopID, UserAccountID, ScreenName, RegisteredDateTime, ReleaseDate, Reason FROM sampledb.player_black_list";
+}
+
+module.exports.BlackList2 = function BlackList2(Limit, Offset, Order, Direction, callback) {
+  let _Limit = Limit;
+  let _Offset = Offset;
+  let _Order = Order;
+  let _Direction = Direction;
+  // select player_black_list where select only the latest black list id of the user (with limit and offset)
+  let query =
+  " select un.hoUserName HeadOfficeID, un.dUserName DistributorID, un.sUserName ShopID, pbl.UserName "
+  +" UserAccountID, pbl.ScreenName, pbl.RegisteredDateTime, pbl.ReleaseDate, pbl.Reason, pbl.Status "
+  +" FROM sampledb.player_black_list pbl left join player_to_oho_username un on pbl.UserAccountID = un.pUserAccountID"
+  +" WHERE pbl.BlackListID IN ( SELECT MAX(BlackListID) FROM player_black_list GROUP BY UserAccountID) "
+  +" order by "+_Order+" "+_Direction
+  +" limit "+_Limit+" offset "+_Offset;
+    console.log(query)
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -37,18 +51,8 @@ module.exports.BlackList = function BlackList(limit , offset, callback) {
         callback(undefined);
       }
     });
-  }
-  
 }
 
-/**
- *
- *
- * @param {*} BlackListID
- * @param {*} UserAccountID
- * @param {*} Status
- * @param {*} callback
- */
 
  //Released
 module.exports.BlackListStatusUpdate = function BlackListStatusUpdate(UserAccountID, callback) {

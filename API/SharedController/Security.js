@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+var isNullOrEmpty = require('is-null-or-empty');
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>
 // Verify Token
@@ -177,6 +178,34 @@ module.exports.rateLimiterMiddleware = (req, res, next) => {
     .catch((rejRes) => {
       res.status(429).send('Too Many Requests');
     });*/
+};
+
+module.exports.checkValues = (req, res, next) => {
+    let request = req.method == 'POST' ? req.body
+                  : req.method == 'GET' ? req.params : null;
+
+    if(Object.values(request).length > 0){
+      let keysCount = Object.keys(request).length;
+      let valuesPassed = 0;
+      for(i = 0; i < Object.values(request).length; i++ ){
+        if(!isNullOrEmpty(Object.values(request)[i])){
+          valuesPassed += 1;
+          console.log(Object.values(request)[i])
+        }else{
+          valuesPassed += 0;
+        }
+      }
+
+      if(keysCount == valuesPassed){
+        next();
+      }else{
+        res.status(404).send('something is empty')
+      }
+    }else{
+      res.status(404).send('NOT FOUND')
+    }
+
+  // next();
 };
 
 var cache = require('express-redis-cache')({
