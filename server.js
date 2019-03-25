@@ -420,7 +420,9 @@ app.get('/DepositApproveCheck/UserTransactionID/:UserTransactionID/',function(re
   console.log(query2);
   DBConnect.DBConnect(query2, function (response) {
     if (response != undefined) {
-      res.sendStatus(200);
+      let ToSend = {UserTransactionID:UserTransactionID,Amount:response[0].Amount};
+      console.log(ToSend);
+      res.json(ToSend);
     }else{
       console.log('---------May have executed before the api route of aproval----------');
       res.sendStatus(403);

@@ -36,3 +36,5 @@ you need to view as text in dbreaver a buttton is avilable on when you query cal
 // winner particle snow if possible
 ✔ Player Name differ text to message
 ✔ batch kick accounts via UUID currently no Front end interface for player but we now have a way to kick via socket
+//internal lobby notification
+☐ money not updating again
