@@ -30,7 +30,7 @@ you need to view as text in dbreaver a buttton is avilable on when you query cal
 ✔ Negative pot and UI did not update bug on sudden leave
 ✔ RPC monitor
 ☐ Chat Record Game
-☐ Add Chips Request Auto pop up
+✔ Add Chips Request Auto pop up
 // Custom mouse design
 // slide entire UI for Add Chips
 // winner particle snow if possible
@@ -39,3 +39,4 @@ you need to view as text in dbreaver a buttton is avilable on when you query cal
 //internal lobby notification
 ✔ money not updating again
 ✔ timing consistent timing speed ui in game
+☐ show full money in game
