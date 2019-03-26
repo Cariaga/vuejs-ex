@@ -346,7 +346,7 @@ function GetBasicInformation(UserAccountID,callback) {
       BasicUserInformation.Money = response[0]["Money"];
       BasicUserInformation.ScreenName = response[0]["ScreenName"];
       BasicUserInformation.ParentUserAccountID = response[0]["ParentUserAccountID"];
-    //  console.log("ParentUserAccountID : "+BasicUserInformation.ParentUserAccountID);
+      console.log("GetBasicInformation ParentUserAccountID : "+BasicUserInformation.ParentUserAccountID);
     DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
       if (response != undefined) {
         //   ws.WinPoints=response[0]['WinPoints'];

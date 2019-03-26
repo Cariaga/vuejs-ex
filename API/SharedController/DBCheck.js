@@ -251,7 +251,7 @@ module.exports.UserAccountIDBasicInformation = function UserAccountIDBasicInform
 
   //dedicate a view for basic user information for websocket use combining user info and player table
   let query = "SELECT ua.UserAccountID,ua.UserName,ua.OnlineStatus,ua.Privilege,pl.Commission,pl.Money,pl.ScreenName,GROUP_CONCAT(pti.ParentUserAccountID) as ParentUserAccountID FROM sampledb.useraccounts as ua join sampledb.players as pl on ua.UserAccountID=pl.UserAccountID join sampledb.player_treebranch_indirect as pti on ua.UserAccountID=pti.PlayerUserAccountID where ua.UserAccountID='"+UserAccountID+"';";
-  console.log("Query : "+query);
+  console.log("Query  UserAccountIDBasicInformation : "+query);
   DBConnect.DBConnect(query, function (response) {
     if (response != undefined) {
       

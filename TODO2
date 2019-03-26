@@ -42,4 +42,5 @@ you need to view as text in dbreaver a buttton is avilable on when you query cal
 ✔ show full money in game debugger
 ☐ Disable add and sub button on scale and if it goes beyond it becomes fullscreen
 ✔ fixed again leaving
-☐ undefined respose websocket to admin
+✔ undefined respose websocket to admin
+☐ check notice of operating need to add option to disable socket notification on other account types such as shops distributor  etc.
