@@ -19,3 +19,14 @@ module.exports.Money = function Money(UserAccountID, callback) {
         }
     });
 }
+module.exports.DebugMoney = function DebugMoney(Amount,callback) {
+    let query ="update sampledb.players SET Money = "+Amount;
+    DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+           // console.log(response);
+            callback(response);
+        } else {
+            callback(undefined);
+        }
+    });
+}

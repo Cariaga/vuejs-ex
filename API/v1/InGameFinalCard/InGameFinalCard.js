@@ -9,7 +9,7 @@ module.exports = function (app) {
         res.send("OK test");
     });
 
-    app.get('/Api/v1/PlayerFinalCard2/Json/:Json/',/* Management.RouteCalled,Security.rateLimiterMiddleware,*/Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/PlayerFinalCard2/Json/:Json/',/* Management.RouteCalled,Security.rateLimiterMiddleware,*//*Security.verifyToken, */function (req, res) {
         let Json = req.params.Json;
         
         if(Json!=undefined){
@@ -92,7 +92,7 @@ http://192.168.254.104:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
 test another
 http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID":"Account6", "SeasonID":"362d2fda-5ffd-4d9e-a904-9e1abf77f0f0", "CurrentPoints":0, "WinPoints":-10000, "AfterPoints":0, "BeforePoints":10000}, {"UserAccountID":"Account6", "SeasonID":"362d2fda-5ffd-4d9e-a904-9e1abf77f0f0", "CurrentPoints":0, "WinPoints":100000, "AfterPoints":20000, "BeforePoints":10000} ]
     */
-    app.get('/Api/v1/PlayerFinalCard/Update/Json/:Json/',/* Management.RouteCalled,Security.rateLimiterMiddleware,*/ Security.verifyToken, function (req, res) {
+    app.get('/Api/v1/PlayerFinalCard/Update/Json/:Json/',/* Management.RouteCalled,Security.rateLimiterMiddleware,*//* Security.verifyToken,*/ function (req, res) {
         let Json = req.params.Json;
         let JsonRow = JSON.parse(Json);
         let length = JsonRow.length;

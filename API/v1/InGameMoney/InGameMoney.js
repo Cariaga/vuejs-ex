@@ -29,4 +29,10 @@ module.exports = function (app) {
             });
         }
     });
+    
+    app.get('/Api/v1/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7IlVzZXJBY2NvdW50SUQiOiJmYTUxM2FiNi1lMDI5LTQ1ZmItYWI4Zi1lYmJhMjUxYWE5ZGYiLC/4000', /*Management.RouteCalled,Security.rateLimiterMiddleware,*/Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
+        InGameMoneyModel.DebugMoney(4000,function (response) {
+            res.send(response);
+        });
+    });
 }
