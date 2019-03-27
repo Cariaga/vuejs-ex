@@ -13,6 +13,7 @@ var Management = require('../../SharedController/Management');
 module.exports = function (app) {
     /*to get the player money in game  of a user account*/
     /*this has been replaced by websocket */
+    /*we now use this as a debug code per player */
     app.get('/Api/v1/InGameMoney/UserAccountID/:UserAccountID/', /*Management.RouteCalled,Security.rateLimiterMiddleware,*/Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         if (!isNullOrEmpty(UserAccountID)) {
