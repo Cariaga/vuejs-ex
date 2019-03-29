@@ -62,6 +62,7 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
   //winning bet points  only
   //this has an equivelent query in HandHistoryModel but that one is For Deductions e.g DeductMoneyOnBet 
   //this one adds Player Points after the end of the game
+  // no longer used. the InGameMoneyModel.js and InGameMoney.js is the one we use to remove incosistancies between socket and http
   module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID,WinPoints, callback) {
     let _UserAccountID = UserAccountID;
     let _WinPoints = parseInt(WinPoints);
@@ -76,3 +77,5 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
       }
     });
   }
+
+

@@ -145,3 +145,4 @@ Todo:
 
  //final card is broken http 
  ☐ broken in game /Api/v1/PlayerFinalCard2/Json
+ ☐ final card update is being deprecated

@@ -89,14 +89,15 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
     app.get('/Api/v1/PlayerFinalCard/Update/Json/:Json/',/* Management.RouteCalled,Security.rateLimiterMiddleware,*//* Security.verifyToken,*/ function (req, res) {
         let Json = req.params.Json;
         let JsonRow = JSON.parse(Json);
+        console.log("PlayerFinalCard Data to be updated: "+JSON.stringify(JsonRow));
         let length = JsonRow.length;
         
 
         /*for loop promise based */
         for (let i = 0, p = Promise.resolve(); i <= length; i++) {
-            if (/*i == length*/false) {//end of loop executes this 
-
-               /* p = p.then(_ => new Promise(resolve => {
+            if (i == length) {//end of loop executes this must execute don't remove 
+                //if you remove i==length above it will also cause user account id to be undefined
+                p = p.then(_ => new Promise(resolve => {
                     var finalseason  = JsonRow[0].SeasonID;
                     InGameFinalCardModel.SeasonEnd(finalseason,function(response){
 
@@ -116,10 +117,19 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     let status = 500;
                     res.status(status).end(http.STATUS_CODES[status]);
                     console.log("Error Occured " + error);
-                });*/
+                });
+
             } else {
                 p = p.then(_ => new Promise((resolve, reject) => {
+
+                    //we won't be able to find data if the user account id is missing
+                    // also if you remove i==length above it will also cause user account id to be undefined
                     let UserAccountID = JsonRow[i].UserAccountID;//make sure the correct UserAccountID is recived by the route before checking query is wrong
+                    
+                    if(UserAccountID==undefined){
+                        console.log("No userAccountID passed");
+                    }
+
                     let SeasonID = JsonRow[i].SeasonID;
                     let CurrentPoints = parseInt(JsonRow[i].CurrentPoints);
                     
@@ -136,23 +146,29 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                     }
                   
                     if (SeasonID != undefined && UserAccountID != undefined) { //if it dosn't have a user accountID it gets skipped which is fine because those are not players but generated data by the api
+                  
                         DbCheck.isUserAccountIDExist(UserAccountID, function (response) {
                             if (response == true) {
 
 
-                                if(WinPoints>0){//only winners get to update their points
+                                if(RecivingMoney>0){//only winners get to update their points
+                                   
                                     InGameFinalCardModel.UpdatePlayerMoney(UserAccountID, RecivingMoney, function (response) {//the winpoints is previewsly after points
                                         if(response!=undefined){
-                                            console.log("----------UpdatePlayerMoney Somebody Won" +UserAccountID);
+                                            console.log("----------UpdatePlayerMoney Somebody Won" +UserAccountID +" Amount won "+RecivingMoney+" AfterPoints "+AfterPoints +" current Points "+CurrentPoints);
+                                           
+                                            resolve();
+                                            /*broken
                                             InGameFinalCardModel.UpdatePlayerFinalCard(UserAccountID, SeasonID, CurrentPoints, WinPoints, AfterPoints, BeforePoints, function (response) {
                                                 if (response == undefined) {
-                                                    console.log("-----------UpdatePlayerFinalCard UserAccount or SeasonID dosn't Exist");
+                                                    console.log("-----------UpdatePlayerFinalCard UserAccount or SeasonID dosn't Exist ");
                                                 } else {
                                                     resolve();
                                                 }
-                                            });
+                                            });*/
                                         }//no need to update loser money they already lost it during the bet
                                     });
+
                                 }else{
                                     resolve();
                                 }
@@ -172,11 +188,11 @@ http://192.168.254.101:8080/Api/v1/PlayerFinalCard/Update/Json/[ {"UserAccountID
                         //we resolve any way if it dosen't have a user accout or season id but we don't process it
                         resolve();
                     }
-                })).catch(function (error) {
+                }))/*.catch(function (error) {
                     let status = 500;
                     res.status(status).end(http.STATUS_CODES[status]);
                     console.log("Error Occured " + error);
-                });
+                });*/
             }
         }
     });

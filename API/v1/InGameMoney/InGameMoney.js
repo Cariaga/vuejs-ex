@@ -35,4 +35,13 @@ module.exports = function (app) {
             res.send(response);
         });
     });
+    //(this feature not implemented)only accessed by socket not acccessed by anything or external only a server to server communication 
+  /* not used uness we remove both bet deduction in handhistory and playerfinalcard
+    app.get('/Api/v1/InGameMoney/UserAccountID/:UserAccountID/Money/:Money', function (req, res) {
+        let Money = req.params.Money;
+        let UserAccountID = req.params.UserAccountID;
+        InGameMoneyModel.UpdatePlayerMoney2(UserAccountID,Money,function (response) {
+            res.send(response);
+        });
+    });*/
 }
