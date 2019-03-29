@@ -20,7 +20,7 @@ module.exports = function (app) { //MODIFY
                 if (response == true) {
                   //get commission percentages start
 
-                 
+                 if(MoveHand!="BigBlind"&&MoveHand!="SmallBlind"){
                   HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
                     if(response!=undefined){
                       //distribute rake
@@ -46,6 +46,10 @@ module.exports = function (app) { //MODIFY
                       });
                     }
                   });
+                 }else{
+                   console.log("No commision because its big and small blind")
+                 }
+
                   
                   //get commission percentages start end
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){

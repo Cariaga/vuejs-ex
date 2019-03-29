@@ -140,3 +140,8 @@ Todo:
   ✔ BuyIn not Enough Money wrong validation
   ✔ idlemaster may not be nessesary because players should be able join anytime
     The OnComputation,and on going might be ok but players should be able to join regardless of what is computing 
+//Important The Http Money Socket Money and Photon Money should all be balanced
+ if no other same account is active this is the only way to verify winning and bet money upon leaving to lobby and logining out and back in
+
+ //final card is broken http 
+ ☐ broken in game /Api/v1/PlayerFinalCard2/Json

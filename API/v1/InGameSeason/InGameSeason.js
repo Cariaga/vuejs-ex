@@ -41,6 +41,8 @@ module.exports = function (app) { //selection
         }
     });
     /*to offically end a season */
+    /* */
+    /*deprecated */
     app.post('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let SeasonID = req.params.SeasonID;
         if(!isNullOrEmpty(SeasonID)){
@@ -48,7 +50,7 @@ module.exports = function (app) { //selection
             res.status(status).end(http.STATUS_CODES[status]);
         }
     });
-
+      /*deprecated */
     app.get('/Api/v1/InGameSeason/SeasonEnd/SeasonID/:SeasonID/', Security.verifyToken, /*Security.cache.route({ expire: 5  }),*/function (req, res) {
         let SeasonID = req.params.SeasonID;
         if(!isNullOrEmpty(SeasonID)){
