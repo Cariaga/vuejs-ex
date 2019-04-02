@@ -145,4 +145,6 @@ Todo:
 
  //final card is broken http 
  ☐ broken in game /Api/v1/PlayerFinalCard2/Json
- ☐ final card update is being deprecated
+// //the HTTPMoney in MasterClientCheck.cs is not 1 is to 1 with socket unless we buyin 4000 at room 4000 with 4000
+// dc cause doubles money
+// did not deduct money on blinds over http
