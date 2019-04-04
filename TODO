@@ -147,7 +147,9 @@ Todo:
 // did not deduct money on blinds over http
 //PlayerFinalCardSetUp needs to be called before blinds
 
-☐ did not recived the losers finalcard
+✔ did not recived the losers finalcard
 ✔ early validation of money before joining in
 ✔ memory over flow
-☐ all in is wrong send playerfinalcard
+✔ all in is wrong send playerfinalcard
+ // final card can become zero if the the player left without updating the record winners should still be able to recive money
+ 30 GiB RAM to handle 1 million Connection
