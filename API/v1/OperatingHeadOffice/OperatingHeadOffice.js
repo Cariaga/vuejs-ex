@@ -6,10 +6,12 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 var uuidv4 = require('uuid/v4');
 
 module.exports = function (app) { //INSERT
-  //   app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  // deprecated
+  //   app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
   //     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
   //     let UserAccountID = req.params.UserAccountID;
   //     let Name = req.params.Name;
@@ -42,7 +44,7 @@ module.exports = function (app) { //INSERT
   //       });
   //     }
   //   });
-  //   app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
+  //   app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
   //     let UserAccountID = req.params.UserAccountID;
   //     if (!isNullOrEmpty(UserAccountID)) {
   //       DBCheck.isHeadOfficeUserAccountIDExist(UserAccountID, function (response) {
@@ -61,7 +63,7 @@ module.exports = function (app) { //INSERT
   //     }
   //   });
 
-  app.get('/Api/v1/OperatingHeadOffice/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/', Security.verifyToken, Security.rateLimiterMiddleware, Security.cache.route({
+  app.get('/Api/v1/OperatingHeadOffice/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/', Security.verifyToken, Management.RouteCalled,Security.rateLimiterMiddleware, Security.cache.route({
     expire: 5
   }), function (req, res) {
     let UserAccountID = uuidv4();
@@ -72,7 +74,7 @@ module.exports = function (app) { //INSERT
     let Commission = req.params.Commission;
     AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, res);
   });
-  app.post('/Api/v1/OperatingHeadOffice/', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+  app.post('/Api/v1/OperatingHeadOffice/', /*Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
     let UserAccountID = uuidv4();
     let Name = req.body.Name;
     let PhoneNumber = req.body.PhoneNumber;

@@ -43,7 +43,10 @@ const pool = mysql.createPool({
 /*pooling version*/
 module.exports.DBConnect = function DBConnect(RawQuery,callback){
   pool.getConnection(function(err, conn) {
-    console.log(err);
+    if(err!=null){
+      console.log(err);
+    }
+    
     if(RawQuery!=undefined&&err==undefined){
       // Do something with the connection
     conn.query(RawQuery,

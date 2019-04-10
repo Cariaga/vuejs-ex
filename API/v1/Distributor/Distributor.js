@@ -6,10 +6,13 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 var uuidv4 = require('uuid/v4');
 
 module.exports = function (app) { //SELECTION
-  app.get('/Api/v1/Distributor/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+
+/* deprecated
+  app.get('/Api/v1/Distributor/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let Offset = req.query.Offset;
     let Limit = req.query.Limit;
@@ -53,8 +56,9 @@ module.exports = function (app) { //SELECTION
 
     }
     //res.send("Distributor "+Offset+" "+ Limit+" "+Sort);
-  });
-  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
+  });*/
+ /* deprecated
+  app.get('/Api/v1/Distributor/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       DBCheck.isDistributorUserAccountIDExist(UserAccountID, function (response) {
@@ -71,9 +75,10 @@ module.exports = function (app) { //SELECTION
     } else {
       res.send("Missing params");
     }
-  });
+  });*/
   //MODIFY
-  app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  //deprecated
+  /*app.get('/Api/v1/Distributor/Update/DistributorID/:DistributorID/UserAccountID/:UserAccountID/HeadOfficeID/:HeadOfficeID/Name/:Name/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DistributorID = req.params.DistributorID;
     let UserAccountID = req.params.UserAccountID;
     let HeadOfficeID = req.params.HeadOfficeID;
@@ -119,9 +124,9 @@ module.exports = function (app) { //SELECTION
         DistributorIDFailed: true
       });
     }
-  });
+  });*/
   //INSERT
-  app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*app.get('/Api/v1/Distributor/Add/:UserAccountID/:HeadOfficeID/:Name/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Usage /Api/v1/Distributor/Add/UserAccountID/HeadOfficeID/Name/
     let UserAccountID = req.params.UserAccountID;
     let HeadOfficeID = req.params.HeadOfficeID;
@@ -161,9 +166,9 @@ module.exports = function (app) { //SELECTION
         UserAccountIDMissing: true
       });
     }
-  });
-
-  app.get('/Api/v1/Shop/DistributorID/:DistributorID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  });*/
+/*deprecated
+  app.get('/Api/v1/Shop/DistributorID/:DistributorID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let DistributorID = req.params.DistributorID;
     if (!isNullOrEmpty(DistributorID)) {
@@ -179,9 +184,9 @@ module.exports = function (app) { //SELECTION
         DistributorIDMissing: true
       });
     }
-  });
+  });*/
 
-  app.get('/Api/v1/Distributor/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeUserAccountID/:HeadOfficeUserAccountID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/Distributor/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/HeadOfficeUserAccountID/:HeadOfficeUserAccountID', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = uuidv4();
     let Name = req.params.Name;
     let PhoneNumber = req.params.PhoneNumber;
@@ -192,14 +197,14 @@ module.exports = function (app) { //SELECTION
 
     AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeUserAccountID, res);
   });
-  app.post('/Api/v1/Distributor/Add', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.post('/Api/v1/Distributor/Add', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserAccountID = uuidv4();
     let Name = req.body.Name;
     let PhoneNumber = req.body.PhoneNumber;
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Commission = req.body.Commission;
-    let HeadOfficeUserAccountID = req.body.HeadOfficeUserAccountID;
+    let HeadOfficeUserAccountID = req.body.ParentUserAccountID;
 
     AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, HeadOfficeUserAccountID, res);
   });
@@ -235,17 +240,21 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
                           else {
                             // res.send({ HeadOfficeUserAccountIDNotFound: true });
                             // bad request useraccountid not found
+                            console.log('UserAccountID = '+HeadOfficeUserAccountID)
+                            console.log('failed here');
                             let status = 400;
                             res.status(status).end(http.STATUS_CODES[status]);
                           }
                         });
                       }
                       else {
+                        console.log('failed here');
                         let status = 404;
                         res.status(status).end(http.STATUS_CODES[status]);
                       }
                     });
                   }else{
+                    console.log('failed here');
                     // res.send({UserNameAlreadyExist:true});
                     let status = 409;
                     res.status(status).end(http.STATUS_CODES[status]);
@@ -256,10 +265,12 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
 
               }
               else {
+                console.log('failed here');
                 // res.send({
                 //   HeadOfficeIDMissing: true
                 // });
                 // empty request = bad request
+                console.log('failed here');
                 let status = 400;
                 res.status(status).end(http.STATUS_CODES[status]);
               }
@@ -269,6 +280,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
               //   CommissionMissing: true
               // });
               // empty request = bad request
+              console.log('failed here');
               let status = 400;
               res.status(status).end(http.STATUS_CODES[status]);
             }
@@ -278,6 +290,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
             //   PasswordMissing: true
             // });
             // empty request = bad request
+            console.log('failed here');
             let status = 400;
             res.status(status).end(http.STATUS_CODES[status]);
           }
@@ -287,6 +300,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
           //   UserNameMissing: true
           // });
           // empty request = bad request
+          console.log('failed here');
           let status = 400;
           res.status(status).end(http.STATUS_CODES[status]);
         }
@@ -296,6 +310,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
         //   PhoneNumberMissing: true
         // });
         // empty request = bad request
+        console.log('failed here');
         let status = 400;
         res.status(status).end(http.STATUS_CODES[status]);
       }
@@ -305,6 +320,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
       //   NameMissing: true
       // });
       // empty request = bad request
+      console.log('failed here');
       let status = 400;
       res.status(status).end(http.STATUS_CODES[status]);
     }
@@ -314,6 +330,7 @@ function AddDistributor(UserAccountID, Name, PhoneNumber, UserName, Password, Co
     //   UserAccountIDMissing: true
     // });
     // empty request = bad request
+    console.log('failed here');
     let status = 400;
     res.status(status).end(http.STATUS_CODES[status]);
   }

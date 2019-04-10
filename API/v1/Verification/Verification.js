@@ -7,6 +7,7 @@ var uuidv4 = require('uuid/v4');
 let VerificationModel = require("./VerificationModel");
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
   //deprected
   /*app.get('/Verify/UserName/:UserName/Key/:Key', function (req, res) {

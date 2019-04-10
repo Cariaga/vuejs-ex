@@ -35,14 +35,16 @@ module.exports.AddWithdrawHistory = function AddWithdrawHistory(UserTransactionI
   let query =
   "INSERT INTO `sampledb`.`transactions` (`UserAccountID`,`UserTransactionID`, `Amount`, `TransactionType`)"+
   "VALUES (\'"+_UserAccountID+"\',\'"+_UserTransactionID+"\', "+_ApplicationAmount+", \'withdraw\');";
-
+  console.log(query)
   let query2 =
   "INSERT INTO `sampledb`.`transactioninfo` (`UserTransactionID`,`AccountHolder`, `RequestedDateTime`)"+
   "VALUES (\'"+_UserTransactionID+"\',\'"+_UserName+"\', now());";
-
+  
+  console.log(query2)
   let query3 =
   "INSERT INTO `sampledb`.`withdraw` (`UserTransactionID` ,`ContactNumber`, `BankName`, `AccountNumber`,`RemainingAmount`,`ExistingAmount`) "+
-  " VALUES (\'"+_UserTransactionID+"\', \'"+_ContactNumber+"\',\'"+_BankName+"\', \'"+_AccountNumber+"\', 0 , 0);";
+  " VALUES (\'"+_UserTransactionID+"\', \'"+_ContactNumber+"\',\'"+_BankName+"\', \'"+_AccountNumber+"\', 0 , (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\') );";
+  console.log(query3)
 
   var promise = new Promise(function(resolve, reject) {
     DBConnect.DBConnect(query, function (response) {
@@ -103,7 +105,7 @@ module.exports.isAlreadyApproved = function isAlreadyApproved(WithdrawHistoryID,
     if (response != undefined) {
       callback(true);
     } else {
-      callback(undefined);
+      callback(false);
     }
   });
 }
@@ -133,7 +135,8 @@ module.exports.WithdrawHistoryUpdateApproved = function WithdrawHistoryUpdateApp
   });
 
   var promise2 = new Promise(function(resolve, reject) {
-    let query2 = "UPDATE `sampledb`.`withdraw` SET `ExistingAmount` = (SELECT Amount FROM sampledb.transactions where UserTransactionID =\'"+_WithdrawHistoryID+"\'), `RemainingAmount` = (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\') WHERE (`UserTransactionID` = \'"+_WithdrawHistoryID+"\');";
+    let query2 = "UPDATE `sampledb`.`withdraw` SET `RemainingAmount` = (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\') WHERE (`UserTransactionID` = \'"+_WithdrawHistoryID+"\');";
+    // let query2 = "UPDATE `sampledb`.`withdraw` SET `ExistingAmount` = (SELECT Amount FROM sampledb.transactions where UserTransactionID =\'"+_WithdrawHistoryID+"\'), `RemainingAmount` = (SELECT Money FROM sampledb.players where UserAccountID=\'"+_UserAccountID+"\') WHERE (`UserTransactionID` = \'"+_WithdrawHistoryID+"\');";
     DBConnect.DBConnect(query2, function (response) {
       if (response != undefined) {
         resolve(response);

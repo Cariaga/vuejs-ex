@@ -7,8 +7,9 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
-  app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*app.get('/Api/v1/Shop/Update/:ShopID/:UserAccountID/:DistributorID/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let ShopID = req.params.ShopID;
     let UserAccountID = req.params.UserAccountID;
     let DistributorID = req.params.DistributorID;
@@ -37,7 +38,7 @@ module.exports = function (app) { //MODIFY
         });
     }
   });
-  app.get('/Api/v1/Shop/Validate/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
+  app.get('/Api/v1/Shop/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
@@ -57,12 +58,12 @@ module.exports = function (app) { //MODIFY
     } else {
       res.send("Missing params");
     }
-  });
+  });*/
   //INSERT
 
   //useraccount being created must not exist already
   //but the Upper level should exist
-  app.get('/Api/v1/Shop/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorUserAccountID/:DistributorUserAccountID/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+  app.get('/Api/v1/Shop/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/DistributorUserAccountID/:DistributorUserAccountID/',/* Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
 
     let UserAccountID = uuidv4();
     let Name = req.params.Name;
@@ -73,7 +74,7 @@ module.exports = function (app) { //MODIFY
     let DistributorUserAccountID = req.params.DistributorUserAccountID;
     AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res);
   });
-  app.post('/Api/v1/Shop/Add/',/* Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+  app.post('/Api/v1/Shop/Add/',/* Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
 
     let UserAccountID = uuidv4();
     let Name = req.body.Name;
@@ -81,11 +82,11 @@ module.exports = function (app) { //MODIFY
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Commission = req.body.Commission;
-    let DistributorUserAccountID = req.body.DistributorUserAccountID;
+    let DistributorUserAccountID = req.body.ParentUserAccountID;
     AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res);
   });
   
-  app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*app.get('/Api/v1/Shop/Add/:UserAccountID/:DistributorID/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Api/v1/Shop/Add/528861d4-3e49-4223-9b1a-913d72112112/1/Description/
     let UserAccountID = req.params.UserAccountID;
     let DistributorID = req.params.DistributorID;
@@ -117,7 +118,7 @@ module.exports = function (app) { //MODIFY
         UserAccountIDMissing: true
       });
     }
-  });
+  });*/
 }
 
 function AddShop(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, DistributorUserAccountID, res) {

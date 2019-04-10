@@ -8,9 +8,12 @@ var async = require("async");
 var uuidv4 = require('uuid/v4');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
+
   //approved deposit
-  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /* deposit approval of a user AccountID both userTransactionID and UserAccountID must be vaild to be accepted for security*/
+  app.get('/Api/v1/DepositHistory/Approved/UserTransactionID/:UserTransactionID/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     let UserAccountID = req.params.UserAccountID;
 
@@ -68,7 +71,8 @@ module.exports = function (app) {
   });
 
   //archived deposit
-  app.get('/Api/v1/DepositHistory/Archived/UserTransactionID/:UserTransactionID', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*to archive  a transaction of a deposit in the admin page */
+  app.get('/Api/v1/DepositHistory/Archived/UserTransactionID/:UserTransactionID',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let UserTransactionID = req.params.UserTransactionID;
     if (!isNullOrEmpty(UserTransactionID)) {
       DepositHistoryModel.DepositHistoryUpdateArchived(UserTransactionID, function (response) {
@@ -86,8 +90,9 @@ module.exports = function (app) {
       });
     }
   });
-
-  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*currently unsed in the admin */
+  /*to update in the admin if the account is still being processed */
+  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Processing/ProcessingDATE/:ProcessingDATE/ProcessingTIME/:ProcessingTIME/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let ProcessingDATE = req.params.ProcessingDATE;
@@ -133,7 +138,8 @@ module.exports = function (app) {
       });
     }
   });
-  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /* */
+  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Status/Rejected/RejectedDATE/:RejectedDATE/RejectedTIME/:RejectedTIME/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let RejectedDATE = req.params.RejectedDATE;
@@ -179,7 +185,7 @@ module.exports = function (app) {
       });
     }
   });
-  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/DepositHistory/Update/DepositHistoryID/:DepositHistoryID/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let DepositHistoryID = req.params.DepositHistoryID;
     let UserAccountID = req.params.UserAccountID;
     let Amount = req.params.Amount;
@@ -368,7 +374,8 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  /*this route updates the status of the user account ID  only approved processing rejected is accepted for the status */
+  app.get('/Api/v1/DepositHistory/UserAccount/UserAccountID/:UserAccountID/Status/:Status/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     let Status = req.params.Status;
@@ -411,7 +418,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/AccountHolder/:AccountHolder', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/AccountHolder/:AccountHolder', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
     //       /Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount
     let UserAccountID = req.params.UserAccountID;
@@ -480,7 +487,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/
    
     async.series([], function (error, response) {
@@ -491,7 +498,7 @@ module.exports = function (app) {
    
     
   });
-app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+app.get('/Api/v1/DepositHistory/Add/UserAccountID/:UserAccountID/Amount/:Amount/BankNameUsed/:BankNameUsed/SecurityCodeUsed/:SecurityCodeUsed/Status/:Status/RequestedDATE/:RequestedDATE/ApprovedDATE/:ApprovedDATE/RejectedDATE/:RejectedDATE/ProcessingDATE/:ProcessingDATE/RequestedTIME/:RequestedTIME/ApprovedTIME/:ApprovedTIME/RejectedTIME/:RejectedTIME/ProcessingTIME/:ProcessingTIME', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
   // Usage /Api/v1/DepositHistory/Add/UserAccountID/6f6776bd-3fd6-4dcb-a61d-ba90b5b35dc6/Amount/0/BankNameUsed/BankNameUsed/SecurityCodeUsed/SecurityCodeUsed/Status/Processing/RequestedDATE/2018-06-26/ApprovedDATE/2018-06-26/RejectedDATE/2018-06-26/ProcessingDATE/2018-06-26/RequestedTIME/01:59:17/ApprovedTIME/01:59:17/RejectedTIME/01:59:17/ProcessingTIME/01:59:17
   let UserAccountID = req.params.UserAccountID;
   let Amount = req.params.Amount;

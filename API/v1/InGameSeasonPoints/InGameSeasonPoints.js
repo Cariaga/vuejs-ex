@@ -7,10 +7,11 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) {
     //SELECT UserAccountID,SeasonID,CurrentPoints FROM sampledb.playerfinalcard where SeasonID='0e032ae4-335b-4889-808e-3ff95e4cf7f4';
 
-    app.get('/Api/v1/InGameSeasonPoints/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+    app.get('/Api/v1/InGameSeasonPoints/SeasonID/:SeasonID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
         let SeasonID = req.params.SeasonID;
         InGameSeasonPointsModel.InGameSeasonPoints(SeasonID, function (response) {
             if (response != undefined) {

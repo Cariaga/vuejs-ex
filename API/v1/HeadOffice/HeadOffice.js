@@ -6,6 +6,7 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 var uuidv4 = require('uuid/v4');
 
 module.exports = function (app) { //INSERT
@@ -30,7 +31,7 @@ module.exports = function (app) { //INSERT
 
   });
 
-  app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/HeadOffice/Add/:UserAccountID/:Name/:Description/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     //Usage Api/v1/HeadOffice/Add/UserAccountID/Name/Description/
     let UserAccountID = req.params.UserAccountID;
     let Name = req.params.Name;
@@ -63,7 +64,7 @@ module.exports = function (app) { //INSERT
       });
     }
   });
-  app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
+  app.get('/Api/v1/HeadOffice/Validate/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) { //check for validation only
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
       DBCheck.isHeadOfficeUserAccountIDExist(UserAccountID, function (response) {
@@ -81,7 +82,9 @@ module.exports = function (app) { //INSERT
       res.send("Missing params");
     }
   });
-  // Security.verifyToken, Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+  // Security.verifyToken, Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),
+  /*to add new head office specifying its Operating main head office ID
+  The head office also requires a phone number user name password and commission */
   app.get('/Api/v1/HeadOffice/Add/Name/:Name/PhoneNumber/:PhoneNumber/UserName/:UserName/Password/:Password/Commission/:Commission/OperatingHeadOfficeUserAccountID/:OperatingHeadOfficeUserAccountID', function (req, res) {
     let UserAccountID = uuidv4();
     let Name = req.params.Name;
@@ -92,14 +95,14 @@ module.exports = function (app) { //INSERT
     let OperatingHeadOfficeUserAccountID = req.params.OperatingHeadOfficeUserAccountID;
       AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res);
   });
-  app.post('/Api/v1/HeadOffice/Add', /*Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
+  app.post('/Api/v1/HeadOffice/Add', /*Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),*/ function (req, res) {
     let UserAccountID = uuidv4();
     let Name = req.body.Name;
     let PhoneNumber = req.body.PhoneNumber;
     let UserName = req.body.UserName;
     let Password = req.body.Password;
     let Commission = req.body.Commission;
-    let OperatingHeadOfficeUserAccountID = req.body.OperatingHeadOfficeUserAccountID;
+    let OperatingHeadOfficeUserAccountID = req.body.ParentUserAccountID;
       AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res);
   });
   //STRUCTURE
@@ -107,6 +110,7 @@ module.exports = function (app) { //INSERT
 }
 
 function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Commission, OperatingHeadOfficeUserAccountID, res) {
+
   if (!isNullOrEmpty(UserAccountID)) {
     if (!isNullOrEmpty(Name)) {
       if (!isNullOrEmpty(PhoneNumber)) {
@@ -132,6 +136,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                           });
                       }
                       else {
+                        console.log('failed here')
                         // res.send({ OperatingHeadOfficeUserAccountIDNotFound: true });
                         // operating head office useraccountid not found, http bad request
                         let status = 400;
@@ -140,6 +145,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                     });
                   }
                   else {
+                    console.log('failed here')
                     // useraccountid already exist, http conflict
                     let status = 409;
                     res.status(status).end(http.STATUS_CODES[status]);
@@ -149,7 +155,9 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
                   }
                 });
                 }else{
+
                   // username already exist, http conflict
+                  console.log('failed here')
                   let status = 409;
                   res.status(status).end(http.STATUS_CODES[status]);
                 }
@@ -157,6 +165,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
 
             }
             else {
+              console.log('failed here')
               // res.send({
               //   CommissionMissing: true
               // });
@@ -166,6 +175,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
             }
           }
           else {
+            console.log('failed here')
             // res.send({
             //   PasswordMissing: true
             // });
@@ -175,6 +185,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
           }
         }
         else {
+          console.log('failed here')
           // res.send({
           //   UserNameMissing: true
           // });
@@ -184,6 +195,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
         }
       }
       else {
+        console.log('failed here')
         // res.send({
         //   PhoneNumberMissing: true
         // });
@@ -193,6 +205,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
       }
     }
     else {
+      console.log('failed here')
       // res.send({
       //   NameMissing: true
       // });
@@ -202,6 +215,7 @@ function AddHeadOffice(UserAccountID, Name, PhoneNumber, UserName, Password, Com
     }
   }
   else {
+    console.log('failed here')
     // res.send({
     //   UserAccountIDMissing: true
     // });

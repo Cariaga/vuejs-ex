@@ -6,14 +6,16 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let DBConnect = require("../../SharedController/DBConnect");
-module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card, callback) {
+module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, SeasonID, Rank, Score, Card,CardsAtHand, callback) {
     let _UserAccountID = UserAccountID;
     let _SeasonID = SeasonID;
     let _Rank = Rank;
     let _Score = Score;
     let _Card = Card;
+    let _CardsAtHand = CardsAtHand;
+    console.log("Card At Hand "+_CardsAtHand);
     let query = "INSERT INTO `sampledb`.`playerfinalcard` " +
-    "SET UserAccountID = \'" + _UserAccountID + "\', SeasonID = \'" + _SeasonID + "\', `Rank` = \'" + _Rank + "\', Score = \'" + _Score + "\', Card = \'" + _Card + "\',DateTime=now();";
+    "SET UserAccountID = \'" + _UserAccountID + "\', SeasonID = \'" + _SeasonID + "\', `Rank` = \'" + _Rank + "\', Score = \'" + _Score + "\', Card = \'" + _Card + "\',DateTime=now(), CardAtHand='"+_CardsAtHand+"' ;";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -33,7 +35,7 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
     let _BeforePoints = BeforePoints;
 
     let query = "UPDATE `sampledb`.`playerfinalcard` SET `CurrentPoints`=\'"+_CurrentPoints+"\',`BeforePoints` = \'"+_BeforePoints+"\', `WinPoints` = \'"+_WinPoints+"\', `AfterPoints` = \'"+_AfterPoints+"\' WHERE (`SeasonID` = \'"+_SeasonID+"\' and `UserAccountID`=\'"+_UserAccountID+"\');";
-    console.log(query);
+    console.log("UpdatePlayerFinalCard "+query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -60,10 +62,11 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
   //winning bet points  only
   //this has an equivelent query in HandHistoryModel but that one is For Deductions e.g DeductMoneyOnBet 
   //this one adds Player Points after the end of the game
+  // no longer used. the InGameMoneyModel.js and InGameMoney.js is the one we use to remove incosistancies between socket and http
   module.exports.UpdatePlayerMoney = function UpdatePlayerMoney(UserAccountID,WinPoints, callback) {
     let _UserAccountID = UserAccountID;
     let _WinPoints = parseInt(WinPoints);
-    let query = "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID=\'"+_UserAccountID+"\' limit 1) as t)+\'"+_WinPoints+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
+    let query = "UPDATE `sampledb`.`players` SET `Money` = (select t.Money from (SELECT Money FROM sampledb.players as t where UserAccountID=\'"+_UserAccountID+"\' limit 1) as t)+"+_WinPoints+" WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
     console.log(query);
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -74,3 +77,5 @@ module.exports.AddPlayerFinalCard = function AddPlayerFinalCard(UserAccountID, S
       }
     });
   }
+
+

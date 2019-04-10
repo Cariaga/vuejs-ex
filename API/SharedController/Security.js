@@ -1,9 +1,11 @@
 var jwt = require('jsonwebtoken');
+var isNullOrEmpty = require('is-null-or-empty');
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>
 // Verify Token
 module.exports.verifyToken = function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
+//	console.log('TCL: verifyToken -> bearerHeader', bearerHeader)
   // Check if bearer is undefined
   
   if (typeof bearerHeader !== 'undefined') {
@@ -103,7 +105,7 @@ module.exports.DecompileToken = function DecompileToken(req, res) {
   }
 }
 
-/*
+/*never used
 var failCallback = function (req, res, next, nextValidRequestDate) {
   console.log("DDOS Attempt Ip now Blocked");
   res.sendStatus(429); // brute force protection triggered, send them back to the login page
@@ -122,7 +124,7 @@ var handleStoreError = function (error) {
       parent: error.parent
   };
 }
-
+//never used
 module.exports.globalBruteforce = new ExpressBrute(store, {
   freeRetries: 1000,
   attachResetToRequest: false,
@@ -135,6 +137,8 @@ module.exports.globalBruteforce = new ExpressBrute(store, {
 });
 */
 
+/*
+ //temporarly disable because of redisio error
 const Redis = require('ioredis');
 const redisClient = new Redis({ enableOfflineQueue: false,
    host: process.env.REDIS_PORT_6379_TCP_ADDR||'localhost',
@@ -142,36 +146,66 @@ const redisClient = new Redis({ enableOfflineQueue: false,
    // name: 'mymaster',
    // no_ready_check: true,
    // auth_pass:'eastcoast'
-   });
+   });*/
   // redisClient.auth('eastcoast');
-const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
+//const { RateLimiterRedis, RateLimiterMemory } = require('rate-limiter-flexible');
 
-
+/*
 const opts = {
   storeClient: redisClient,
   points: 5000, // Number of points
   duration: 18000, // Per second(s)
-};
- 
-const rateLimiter = new RateLimiterMemory(opts);
+};*/
+ //temporarly disable because of redisio error
+/*const rateLimiter = new RateLimiterMemory(opts);
 
 redisClient.on('connect', () => {   
  // global.console.log("connected");
 });
 redisClient.on('error', err => {       
  // global.console.log("redis Limiter Error "+err.message)
-});                                      
+});     */                                 
 
+//needs a newer version due to redisio error specific to openshift
 
 module.exports.rateLimiterMiddleware = (req, res, next) => {
-  rateLimiter.consume(req.connection.remoteAddress)
+  next();
+ /* rateLimiter.consume(req.connection.remoteAddress)
     .then(() => {
    
       next();
     })
     .catch((rejRes) => {
       res.status(429).send('Too Many Requests');
-    });
+    });*/
+};
+
+module.exports.checkValues = (req, res, next) => {
+    let request = req.method == 'POST' ? req.body
+                  : req.method == 'GET' ? req.params : null;
+
+    if(Object.values(request).length > 0){
+      let keysCount = Object.keys(request).length;
+      let valuesPassed = 0;
+      for(i = 0; i < Object.values(request).length; i++ ){
+        if(!isNullOrEmpty(Object.values(request)[i])){
+          valuesPassed += 1;
+          console.log(Object.values(request)[i])
+        }else{
+          valuesPassed += 0;
+        }
+      }
+
+      if(keysCount == valuesPassed){
+        next();
+      }else{
+        res.status(404).send('something is empty')
+      }
+    }else{
+      res.status(404).send('NOT FOUND')
+    }
+
+  // next();
 };
 
 var cache = require('express-redis-cache')({

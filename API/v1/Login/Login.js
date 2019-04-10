@@ -6,6 +6,7 @@ let http = require('http');
 let Security = require("../../SharedController/Security");
 
 module.exports = function (app) {
+  //test
   app.post('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
@@ -18,6 +19,7 @@ module.exports = function (app) {
       }
     });
   });
+  //test
   app.get('/Api/v1/ContentTest/', Security.verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
@@ -30,6 +32,7 @@ module.exports = function (app) {
       }
     });
   });
+  //loging out of an account
   app.get('/Api/v1/logout', function (req, res) {
     res.send("logout success!");
   });
@@ -90,7 +93,7 @@ module.exports = function (app) {
       res.status(status).end(http.STATUS_CODES[status]);
     }
   });
-  app.get('/Api/v1/Admin/Login/Token', Security.verifyToken, function (req, res) {
+  app.get('/Api/v1/Admin/Login/Token', function (req, res) {
     Security.DecompileToken(req,res);
   });
   
@@ -189,11 +192,13 @@ module.exports = function (app) {
                                   UserAccountID: firstRow.UserAccountID,
                                   OnlineStatus: firstRow.OnlineStatus,
                                   AccountType: firstRow.AccountType,
+                                  ScreenName : firstRow.ScreenName,
                                   Privilege: firstRow.Privilege,
                                   Commission: firstRow.Commission,
                                   ObscureBankName: firstRow.ObscureBankName,
                                   ObscureAccountNumber:firstRow.ObscureAccountNumber,
                                   ObscureAccountHolder:firstRow.ObscureAccountHolder,
+
                                 
                                 });
     
@@ -267,6 +272,7 @@ module.exports = function (app) {
  // app.options('/Api/v1/Game/Login/', cors());
 
   //Post : only possible when its authorized
+
   app.post('/Api/v1/Game/Login/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -286,7 +292,7 @@ module.exports = function (app) {
     let GraphicsDevice = req.body.GraphicsDevice;
     Login(UserName, Password, IP, DeviceName, DeviceRam, DeviceCpu, res);
   });
-
+/*test only */
   app.post('/Api/v1/Admin/Fake/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader("Access-Control-Allow-Credentials", "true");

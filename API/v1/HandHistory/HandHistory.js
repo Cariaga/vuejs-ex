@@ -7,6 +7,7 @@ var isNullOrEmpty = require('is-null-or-empty');
 var async = require("async");
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) { //MODIFY
 
   function AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res){
@@ -19,11 +20,11 @@ module.exports = function (app) { //MODIFY
                 if (response == true) {
                   //get commission percentages start
 
-                 
+                 if(MoveHand!="BigBlind"&&MoveHand!="SmallBlind"){
                   HandHistoryModel.getCommissionPercentages(UserAccountID, function(response){
                     if(response!=undefined){
                       //distribute rake
-                      console.log(response[0]['UserAccountID']);
+                     // console.log(response[0]['UserAccountID']);
 
 
                       
@@ -45,6 +46,10 @@ module.exports = function (app) { //MODIFY
                       });
                     }
                   });
+                 }else{
+                   console.log("No commision because its big and small blind")
+                 }
+
                   
                   //get commission percentages start end
                   HandHistoryModel.DeductMoneyOnBet(UserAccountID,Amount,function(response){
@@ -101,7 +106,7 @@ module.exports = function (app) { //MODIFY
   }
   //INSERT
   // Security.verifyToken,
-  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount', Security.rateLimiterMiddleware, Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) { //ok
+  app.get('/Api/v1/HandHistory/Add/UserAccountID/:UserAccountID/MoveHand/:MoveHand/SeasonID/:SeasonID/Amount/:Amount', Management.RouteCalled,Security.rateLimiterMiddleware, Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) { //ok
     let UserAccountID = req.params.UserAccountID;
     let MoveHand = req.params.MoveHand;
     let SeasonID = req.params.SeasonID;
@@ -109,7 +114,7 @@ module.exports = function (app) { //MODIFY
     AddHandHistory(SeasonID,UserAccountID,MoveHand,Amount,res);
   });
 
-  app.post('/Api/v1/HandHistory/Add/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) { 
+  app.post('/Api/v1/HandHistory/Add/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) { 
     let UserAccountID = req.body.UserAccountID;
     let MoveHand = req.body.MoveHand;
     let SeasonID = req.body.SeasonID;
@@ -119,7 +124,7 @@ module.exports = function (app) { //MODIFY
   });
 
   //SELECTION
-  app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/HandHistory/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let UserAccountID = req.params.UserAccountID;
     if (!isNullOrEmpty(UserAccountID)) {
@@ -142,12 +147,12 @@ module.exports = function (app) { //MODIFY
       });
     }
   }
-  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,/*Security.cache.route({ expire: 5  }), */ function (req, res) {
+  app.get('/Api/v1/HandHistory/SeasonID/:SeasonID/', Management.RouteCalled,Security.rateLimiterMiddleware,/*Security.cache.route({ expire: 5  }), */ function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let SeasonID = req.params.SeasonID;
     HandHistorySeasonID(SeasonID,res);
   });
-  app.post('/Api/v1/HandHistory/SeasonID/:SeasonID/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
+  app.post('/Api/v1/HandHistory/SeasonID/:SeasonID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let SeasonID = req.params.SeasonID;
     HandHistorySeasonID(SeasonID,res);

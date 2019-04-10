@@ -12,6 +12,7 @@ var async = require("async");
 var moment = require('moment');
 const Collection = require('linqjs');
 let GlobalFunctions = require("../../SharedController/GlobalFunctions");
+/*not used but we have an equivalent of this in in the shared controller as a security route */
 module.exports = function (app) {//MODIFY
     var auth = function (req, res, next) {
         if (req.session && req.session.UserName === "amy")
@@ -20,7 +21,7 @@ module.exports = function (app) {//MODIFY
           return res.sendStatus(401);
       };
       // Get content endpoint
-        app.get('/content', auth, function (req, res) {
+        app.get('/content', auth, Management.RouteCalled,function (req, res) {
             res.send("You can only see this after you've logged in.");
         });
 
@@ -28,7 +29,7 @@ module.exports = function (app) {//MODIFY
 
 
       //--testing for authetication API key START
-      app.post('/Api/v1/Content', verifyToken, (req, res) => {
+      app.post('/Api/v1/Content', verifyToken,Management.RouteCalled, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
           if (err) {
             res.sendStatus(403);
@@ -40,7 +41,7 @@ module.exports = function (app) {//MODIFY
           }
         });
       });
-      app.post('/Api/v1/authenticate', (req, res) => {
+      app.post('/Api/v1/authenticate',Management.RouteCalled, (req, res) => {
         // Mock user
         const user = {
           id: 1,
@@ -83,7 +84,7 @@ module.exports = function (app) {//MODIFY
       //--testing for authetication API key END
       //--testing for season based authentication START
       // Login endpoint
-      app.post('/authenticate', function (req, res) {
+      app.post('/authenticate', Management.RouteCalled,function (req, res) {
         if (!req.body.UserName) {
           res.send('login failed');
         } else if (req.body.UserName === "amy") {
@@ -92,7 +93,7 @@ module.exports = function (app) {//MODIFY
         }
       });
       // Logout endpoint
-      app.get('/logout', function (req, res) {
+      app.get('/logout',Management.RouteCalled, function (req, res) {
         req.session.destroy();
         res.send("logout success!");
       });

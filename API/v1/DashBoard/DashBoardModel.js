@@ -1,8 +1,19 @@
 let DBConnect = require("../../SharedController/DBConnect");
 
 module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback) {
-  let query =
-    "SELECT * FROM sampledb.headoffice_daily_betting;";
+  let query = "SELECT distinct UserName OfficeID, ifnull(round((select sum(round(HandAmount)) from headoffice_betting hdb2 where hdb2.UserName = OfficeID ) / (select datediff(max(HandDateTime), min(HandDateTime)) from headoffice_betting)),0) Amount FROM sampledb.headoffice_betting;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
+module.exports.HeadOfficeBettingWeekly = function HeadOfficeBettingWeekly(callback) {
+  let query = "SELECT distinct UserName OfficeID, ifnull(round((select sum(round(HandAmount)) from headoffice_betting hdb2 where hdb2.UserName = OfficeID ) / ((select datediff(max(HandDateTime), min(HandDateTime)) from headoffice_betting) / 7)),0) Amount FROM sampledb.headoffice_betting;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -14,8 +25,7 @@ module.exports.HeadOfficeBettingDaily = function HeadOfficeBettingDaily(callback
 }
 
 module.exports.HeadOfficeBettingMonthly = function HeadOfficeBettingMonthly(callback) {
-  let query =
-    "SELECT * FROM sampledb.headoffice_monthly_betting;";
+  let query = "SELECT distinct UserName OfficeID, ifnull(round((select sum(round(HandAmount)) from headoffice_betting hdb2 where hdb2.UserName = OfficeID ) / ((select datediff(max(HandDateTime), min(HandDateTime)) from headoffice_betting) / 30.42)),0) Amount FROM sampledb.headoffice_betting;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -26,22 +36,10 @@ module.exports.HeadOfficeBettingMonthly = function HeadOfficeBettingMonthly(call
     });
 }
 
-module.exports.HeadOfficeBettingYearly = function HeadOfficeBettingYearly(callback) {
-  let query =
-    "SELECT * FROM sampledb.headoffice_yearly_betting;";
-    DBConnect.DBConnect(query, function (response) {
-      if (response != undefined) {
-        console.log(response);
-        callback(response);
-      } else {
-        callback(undefined);
-      }
-    });
-}
 
 module.exports.HeadOfficeWithdrawDaily = function HeadOfficeWithdrawDaily(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_daily_withdraw;";
+    "SELECT distinct UserName OfficeID, (select sum(round(Amount)) from headoffice_daily_withdraw hdw2 where hdw2.UserName = OfficeID ) Amount FROM sampledb.headoffice_daily_withdraw;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
         console.log(response);
@@ -54,10 +52,11 @@ module.exports.HeadOfficeWithdrawDaily = function HeadOfficeWithdrawDaily(callba
 
 module.exports.HeadOfficeDepositDaily = function HeadOfficeDepositDaily(callback) {
   let query =
-    "SELECT * FROM sampledb.headoffice_daily_deposit;";
+    "SELECT distinct UserName OfficeID,  (select sum(round(Amount)) from headoffice_daily_deposit hdd2 where hdd2.UserName = OfficeID ) Amount FROM sampledb.headoffice_daily_deposit;";
+    // "SELECT * FROM sampledb.headoffice_daily_deposit;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
-        console.log(response);
+        // console.log(response);
         callback(response);
       } else {
         callback(undefined);
@@ -70,7 +69,7 @@ module.exports.UserAccountOnline = function UserAccountOnline(callback) {
     "SELECT * FROM sampledb.useraccount_onlinecountlist;";
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
-        console.log(response);
+        // console.log(response);
         callback(response);
       } else {
         callback(undefined);
@@ -103,6 +102,19 @@ module.exports.TotalRegisteredUsers = function TotalRegisteredUsers(callback) {
 }
 
 module.exports.TotalRegisteredUsersToday = function TotalRegisteredUsers(callback) {
+  let query =
+    "SELECT * FROM sampledb.total_recent_registered;";
+    DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+        console.log(response);
+        callback(response);
+      } else {
+        callback(undefined);
+      }
+    });
+}
+
+module.exports.TotalDepositToday = function TotalDepositToday(callback) {
   let query =
     "SELECT * FROM sampledb.total_recent_registered;";
     DBConnect.DBConnect(query, function (response) {

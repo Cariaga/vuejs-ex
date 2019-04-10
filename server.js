@@ -1,5 +1,9 @@
 // server.js
 "use strict";
+
+//ServerMode
+let ServerMode = "Debug";
+
 // set up ========================
 var helmet = require('helmet');
 //var sqlinjection = require('sql-injection');// disable because it blocks token access
@@ -15,14 +19,15 @@ var beautify = require("json-beautify");
 //const sendmail = require('sendmail')();
 const url = require('url');
 const stringify = require('json-stringify');
+var request = require('request');
 const Enumerable = require('linq');
 var cors = require('cors');
 const W1 = require("walletone");
 const busboy = require('express-busboy');
 const notifyRouter = busboy.extend(express.Router());
-var Redis = require('ioredis');
+//var Redis = require('ioredis');
 var GlobalFunctions = require('./API/SharedController/GlobalFunctions');
-
+/* redis io is buggy
 var redis = new Redis(new Redis({ enableOfflineQueue: false,
   no_ready_check: true,
   auth_pass: 'eastcoast',
@@ -32,7 +37,7 @@ var redis = new Redis(new Redis({ enableOfflineQueue: false,
   // name: 'mymaster',
   // no_ready_check: true,
   // auth_pass:'eastcoast'
-  }));
+  }));*/
 
 var beautify = require('json-beautify');
 //app.use(sqlinjection);// disable because it blocks token access
@@ -108,7 +113,8 @@ app.options('*', cors());//to support webgl request and resolve post routing to 
 
 // configuration =================
 
-app.use(express.static('AdminSocket'));
+
+//app.use(express.static('AdminSocket'));
 //app.use(express.static('WalletOne'));
 
 //app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -135,13 +141,21 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 }));
 */
 
+
+
+
+
 //===========API===========
 
 let Security = require("./API/SharedController/Security");
+let Management = require("./API/SharedController/Management");
+require('./API/v1/ServerManagement/ServerManagement')(app);
+require('./API/v1/Photon/Photon')(app);
 
 let DBConnect = require("./API/SharedController/DBConnect");
 let DBGlobal = require("./API/SharedController/DBGlobal");
 let DBCheck = require('./API/SharedController/DBCheck');
+let ConnectionMode=require('./API/SharedController/ConnectionMode');
 require('./API/v1/AccessControl/AccessControl')(app);
 
 require('./API/v1/BankInformation/BankInformation')(app);
@@ -209,8 +223,10 @@ require('./API/v1/InGameBuyIn/InGameBuyIn')(app);
 require('./API/v1/Sales/Sales')(app);
 require('./API/v1/UserProfit/UserProfit')(app);
 require('./API/v1/CalculateManagement/CalculateManagement')(app);
-require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
 
+
+require('./API/v1/OperatingHeadOffice/OperatingHeadOffice')(app);
+var uuidv4 = require('uuid/v4');
 function test() {
   let RegisterModel = require('./API/v1/Register/RegisterModel');
   RegisterModel.RegisterAccount('UserAccountID' + Math.random(), 'AccessID', 'UserName', 'Password', 'ValidKey', 'Email', 'PhoneNumber', 'BankName', 'AccountNumber', 'SecurityCode', 'Valid', 'Expiration', function (response) {
@@ -219,26 +235,24 @@ function test() {
 }
 //--testing for season based authentication END
 
-
+//--Login End
 app.get('/',function (req, res) {
-  redis.set('foo', 'bar');
-  res.status(200);
+  //redis.set('foo', 'bar');
+  res.sendStatus(200);
 });
 
-//--Login End
-
-app.get('/Api/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+app.get('/Api/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
   console.log("test");
 
   console.log("tester2");
 
   res.send('pick version');
-  redis.get('foo', function (err, result) {
+  /*redis.get('foo', function (err, result) {
     console.log(result);
-  });
+  });*/
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
-app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+app.get('/GameVersion/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
   console.log("Game Version Retrived");
   DBConnect.DBConnect("Select GameVersion from Gameconfiguration",function(response){
     if(response!=undefined){
@@ -250,7 +264,7 @@ app.get('/GameVersion/',Security.rateLimiterMiddleware,Security.cache.route({ ex
   });
   //setTimeout(function(){res.send('pick version');}, 10000);
 });
-app.get('/SideNotice/',Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
+app.get('/SideNotice/',Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }),/*Security.cache,*/function (req, res) {
 
   DBConnect.DBConnect("SELECT notice as Notice, title as Title, `Date` as `Date`, enddate as EndDate FROM sampledb.sidenotice where EndDate>Now() order by id limit 1 ",function(response){
     if(response!=undefined){
@@ -282,26 +296,170 @@ app.get('/Pay/UserAccountID/:UserAccountID/Amount/:Amount/',function(req,res){
     return '<input name="' + name + '" value="' + value + '" type="hidden">';
   };
   let result = "";
-  for(var i =0;i<fields.length;++i){
+  for(var i =0;i<fields.Length;++i){
     result+=createInput(fields[i].name,fields[i].value);
   }
   res.send('<body onload="document.frm1.submit()"> <form method="POST" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8" name="frm1">' + result + '</form> </body>');
 });
 
-
+console.log("ConnectionMode : "+ConnectionMode.getMainAddressByProductionMode());
 
 
 app.get('/success',function(req,res,next){
   res.sendStatus(200);
 });
+
 app.get('/fail',function(req,res){
+});
+
+const http = require('http');
+
+
+//used by the socket from another server
+app.get('/GetBasicInformation/UserAccountID/:UserAccountID',function(req,res){
+  let UserAccountID = req.params.UserAccountID;
+  res.setHeader('Content-Type', 'application/json');
+  let Result = {};
+  GetBasicInformation(UserAccountID,function(BasicInformation){
+    Result.UserName = BasicInformation.UserName;
+    Result.ScreenName = BasicInformation.Result;
+    Result.Money = BasicInformation.Money;
+    Result.WinPoints = BasicInformation.WinPoints;
+    Result.PlayerCommission = BasicInformation.PlayerCommission;
+    Result.ParentUserAccountID = BasicInformation.ParentUserAccountID;
+//temporarly here to update 
+    var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
+    DBConnect.DBConnect(query2, function (response) {
+      if (response != undefined) {
+        res.json(Result);
+      }
+    });
+  });
+});
+
+function GetBasicInformation(UserAccountID,callback) {
+  let BasicUserInformation ={};
+  DBCheck.UserAccountIDBasicInformation(UserAccountID, function (response) {
+    if (response != undefined) {
+      //  ws.UserName = response[0]["UserName"];
+      BasicUserInformation.UserName = response[0]["UserName"];
+      BasicUserInformation.Money = response[0]["Money"];
+      BasicUserInformation.ScreenName = response[0]["ScreenName"];
+      BasicUserInformation.ParentUserAccountID = response[0]["ParentUserAccountID"];
+      console.log("GetBasicInformation ParentUserAccountID : "+BasicUserInformation.ParentUserAccountID);
+    DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
+      if (response != undefined) {
+        //   ws.WinPoints=response[0]['WinPoints'];
+        BasicUserInformation.WinPoints = response[0]['WinPoints'];
+        // console.log(stringify(response,null,2));
+        console.log("PlayerWins Socket :" + response[0]['WinPoints']);
+        callback(BasicUserInformation);
+      }
+      else {
+        //if the user never won anything this will occur
+        callback(BasicUserInformation);
+      }
+      });
+
+    /*  DBGlobal.getCommissionPercentages(UserAccountID, function (response) {
+        if (response != undefined) {
+          // let _playerToOHOCommission = response.playerToOHOCommission[0];
+          //ws.PlayerCommission=response[0]['pCommission'];
+          BasicUserInformation.PlayerCommission = response[0]['pCommission'];
+         
+          console.log("pCommisssion Socket :" + response[0]['pCommission']);
+        }
+        else {
+          console.log("Websocket Set Up Error 1");
+        }
+      });*/
+
+    }
+    else {
+      console.log("Websocket Set Up Error 3");
+    }
+  });
+}
+//this is accessed by the websocket to indicate online offline status of a player from the socket server
+app.get('/Connection/Status/:Status/UserAccountID/:UserAccountID/',function(req,res){
+  let UserAccountID = req.params.UserAccountID;
+  let Status = req.params.Status;
+  res.setHeader('Content-Type', 'application/json');
+  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = \'"+Status+"\' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
+  DBConnect.DBConnect(query2, function (response) {
+    if (response != undefined) {
+      res.sendStatus(200);
+    }else{
+      console.log("------Failed to update Player Online Status on DB-------");
+    }
+  });
+});
+//this is accessed by the websocket to set the room names of a user account
+app.get('/PlayerRooms/Rooms/:RoomNames/UserAccountID/:UserAccountID/',function(req,res){
+  let UserAccountID = req.params.UserAccountID;
+  let RoomNames = req.params.RoomNames;
+  res.setHeader('Content-Type', 'application/json');
+  var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+RoomNames+"\' WHERE (`UserAccountID` = \'"+UserAccountID+"\');";
+  console.log("RoomChange "+Object.RoomName);
+ // console.log(Json.stringify(ws.Rooms,));
+  DBConnect.DBConnect(query3, function (response) {
+    if (response != undefined) {
+      //console.log(response[0]);
+      res.sendStatus(200);
+    }else{
+      console.log("------Failed to update rooms on db player-------");
+    }
+  });
+});
+
+//Check Approved validate used by socket for db confirmation
+app.get('/DepositApproveCheck/UserTransactionID/:UserTransactionID/',function(req,res){
+  let UserTransactionID = req.params.UserTransactionID;
+ 
+  var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+UserTransactionID+"\';";
+  console.log(query2);
+  DBConnect.DBConnect(query2, function (response) {
+    if (response != undefined) {
+      let ToSend = {UserTransactionID:UserTransactionID,Amount:response[0].Amount};
+      console.log(ToSend);
+      res.json(ToSend);
+    }else{
+      console.log('---------May have executed before the api route of aproval----------');
+      res.sendStatus(403);
+    }
+  });
+});
+
+
+var redis = require("redis"),
+    client = redis.createClient({ host: process.env.REDIS_PORT_6379_TCP_ADDR,password:"eastcoast"});
+ 
+// if you'd like to select database 3, instead of 0 (default), call
+// client.select(3, function() { /* ... */ });
+ 
+client.on("error", function (err) {
+    console.log("Error " + err);
+});
+
+ var isProduction="";
+ if( process.env.NODE_ENV=="production"){
+  isProduction="production";
+ }else{
+   isProduction="";
+ }
+ 
+//important redis dosn't allow undefined so we delcare as empty or valued
+client.set("string key",isProduction, redis.print);
+client.get("string key", function(err, reply) {
+  // reply is null when the key is missing
+  console.log("Redis result :" + reply);
+  client.quit();
 });
 
 
 
-
 /*
-app.get('/Api/v1', Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
+app.get('/Api/v1', Management.RouteCalled,Security.rateLimiterMiddleware,cache.route({ expire: 100  }),function (req, res) {
   res.send('Api v1 version');
 });*/
 //---POKER ROUTING START
@@ -316,504 +474,8 @@ const server = app
 const wss = new SocketServer({
   server
 });
-let ConnectedUsers = 0;
 
 
-function LatestAndUnique(distinctlist, LookUp) {
-  return Enumerable.from(distinctlist).first(x => x.UserAccountID == LookUp);
-}
-
-let jc = require('json-cycle');
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
-}
-wss.on('connection', (ws, req) => {
-  ConnectedUsers++;
-  console.log('Client connected ' + ConnectedUsers);
-  const parameters = url.parse(req.url, true);
-  var UserAccountID = parameters.query.UserAccountID;
-  ws.UserAccountID = UserAccountID;
-  ws.DepositNotice = "";
-  ws.ParentUserAccountIDList=[];
- 
-
-  //Set Commission of Player the login sends commision also but need to decide which is better 
-  DBGlobal.getCommissionPercentages(UserAccountID,function(response){
-    if(response!=undefined){
-      let _playerToOHOCommission = response.playerToOHOCommission[0];
-      ws.PlayerCommission = _playerToOHOCommission['pCommission'];
-  
-      console.log("pCommisssion Socket :"+pCommisssion);
-    }else{
-      console.log("Websocket Set Up Error 1");
-    }
-
-  });
-
-  DBCheck.UserAccountIDBasicInformation(UserAccountID,function(response){
-    if(response!=undefined){
-      ws.UserName = response[0]["UserName"];
-    }else{
-      console.log("Websocket Set Up Error 2");
-    }
-  });
-  /* Screen Name not Done move to UserAccountID Basic Information
-  DBCheck.UserAccountIDScreenName(UserAccountID,function(response){
-    if(response!=undefined){
-      ws.ScreenName = response[0]["ScreenName"];
-    }else{
-      console.log("Websocket Set Up Error 3");
-    }
-  });*/
-
-
-
-  //--inisialization to Same Account instances // similar to all buffer
-  var SyncRoomVar = undefined;
-  wss.clients.forEach((client) => {
-    if (SyncRoomVar == undefined && client.UserAccountID == ws.UserAccountID) { //matching user account connecting to a diffrent application instance
-      SyncRoomVar = client.Rooms;
-      //console.log(client.UserAccountID); 
-    }
-  });
-  if (SyncRoomVar != undefined) {
-
-    ws.Rooms = SyncRoomVar;
-    SyncRoomVar = undefined;
-  }
-  //console.log(ws.Money);
-  var _UserAccountID = UserAccountID;
-  var query = "SELECT `Money` FROM sampledb.players WHERE `UserAccountID` = \'" + _UserAccountID + "\';";
-
-  DBConnect.DBConnect(query, function (response) {
-    if (response != undefined) {
-      ws.Money = parseInt(response[0].Money);
-      UpdateStatus();
-      //console.log(response[0]);
-    }
-  });
-
-  var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Online' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
-
-  function UpdateStatus(){
-    DBConnect.DBConnect(query2, function (response) {
-      if (response != undefined) {
-        ParentListOfPlayer();
-      }
-    });
-  }
-
-  function ParentListOfPlayer(){
-    var ParentsUserAccountsQuery = "SELECT ParentUserAccountID FROM sampledb.player_treebranch_indirect where PlayerUserAccountID=\'"+UserAccountID+"\';";
-    //console.log(ParentsUserAccountsQuery);
-    DBConnect.DBConnect(ParentsUserAccountsQuery, function (response) {
-      if (response != undefined) {
-        let ParentUserAccountIDList = response.map(x=>x.ParentUserAccountID); 
-        ws.ParentUserAccountIDList = ParentUserAccountIDList;
-      //  console.log("Ok "+ParentUserAccountIDList.length);
-      }
-    });
-  }
-
-  
-  // Update Player variables Listing upon inisialization of a same useraccount to match the oldest index useraccount
-  // console.log("url: ", ws);
-
-  ws.onmessage = function (event) {
-    //console.log(event.data);
-    if (IsJsonString(event.data)) {
-
-      totalSocketBytes +=sizeof(event.data);
-      let Object = JSON.parse(event.data);
-      //console.log(Object);
-   
-         /*admin related */
-      if (Object.Type == "NotifyPlayerDeposit") {
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == Object.MessageReceiver) {
-                  client.DepositNotice = Object.DepositNotice; 
-                  let DepositUUID = Object.DepositUUID;
-                  if(DepositUUID!=""){
-                    console.log("Deposit UUID"+DepositUUID);
-
-                   
-                    
-                
-
-                    var query2 = "SELECT Amount FROM sampledb.transactions where TransactionStatus='approved' and TransactionType='deposit' and UserTransactionID=\'"+DepositUUID+"\';";
-
-                    console.log(query2);
-                    DBConnect.DBConnect(query2, function (response) {
-                      if (response != undefined) {
-
-                        client.Money = (parseInt(client.Money)+parseInt(response[0].Amount));
-                        console.log("New Client Money "+(parseInt(client.Money)+parseInt(response[0].Amount)));
-                      }else{
-                        console.log('May have executed before the api route of aproval');
-                      }
-                    });
-
-                  }else{
-                    console.log("UUID EMpty");
-                  }
-                 // console.log("Amount Deposit Approved "+Object.DepositUUID);
-                 // console.log(Object.DepositNotice);
-
-            }
-          }
-        });
-      }
-
-
-      /*player related */
-       
-      else if (Object.Type == "NotifyPlayerDepositReceived") {
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) {
-                  client.DepositNotice = ""; 
-                  InvokeRepeat();//force update list right away
-                 // console.log(Object.DepositNotice);
-
-            }
-          }
-        });
-      }
-      else if (Object.Type == "Transfer") { //event trasfer room
-        console.log("Transfered Money "+ Object.TransferAmount/*JSON.stringify(Object,null,2)*/);
-        //console.log("LeaveRoom "+ Object.RoomID);
-        //self update money deduct 
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) {
-                  console.log("UserAccountID Sender : "+client.UserAccountID+ " Matched "+Object.UserAccountID);
-                  client.Money = parseInt(client.Money) - parseInt(Object.TransferAmount); //add back the money to the player
-                  
-            }
-          }
-        });
-        //Target Update add Money Reciver Money
-        // slightly diffrent from above due to the reqirment of userName instead of UserAccountID
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserName == Object.Target) {//target userName
-                  console.log("UserName Reciver : "+client.UserName+ " Matched "+Object.Target);
-                  client.Money = parseInt(client.Money) + parseInt(Object.TransferAmount); //add back the money to the player
-                  
-            }
-          }
-        });
-      }
-      else if (Object.Type == "Withdraw") { //event withdraw room
-        //console.log("LeaveRoom "+ Object.RoomID);
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) {
-                  client.Money = parseInt(client.Money) - parseInt(Object.WithdrawAmount); //add back the money to the player
-            }
-          }
-        });
-      }
-
-      else if (Object.Type == "RoomChanged") { //event withdraw room
-        //console.log("LeaveRoom "+ Object.RoomID);
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == ws.UserAccountID) {
-
-              var _UserAccountID = Object.UserAccountID;
-              var query3 = "UPDATE `sampledb`.`players` SET `CurrentRoomName` = \'"+Object.RoomName+"\' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
-              console.log("RoomChange "+Object.RoomName);
-              DBConnect.DBConnect(query3, function (response) {
-                if (response != undefined) {
-                  
-                  //console.log(response[0]);
-                }
-              });
-            }
-          }
-        });
-      }
-      else if (Object.Type == "LeaveRoom") { //event leave room
-        //console.log("LeaveRoom "+ Object.RoomID);
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) {
-              if(client.Rooms!=undefined){
-                var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
-                  return value.RoomID == Object.RoomID;
-                });
-                if (filtered.length > 0) {
-                  if (filtered[0].BuyIn != undefined) { // LeaveRoom the oldest is basically the first item we find from 0 to N.. 
-                    client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
-  
-                    var NewArrayfiltered = client.Rooms.filter(function (value) {
-                      return value.RoomID !== Object.RoomID;
-                    });
-  
-                    client.Rooms = NewArrayfiltered;
-                  }
-                } else {
-                  console.log("LeaveRoom but and last Player");
-                }
-              }
-            }
-          }
-        });
-        
-      } else if (Object.Type == "Bet") { //bet event occured 
-        
-
-
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) { //we sync all same account bet value
-              console.log("Socket Bet");
-              for (var i = 0; i < client.Rooms.length; ++i) {
-                if (client.Rooms[i].RoomID == Object.RoomID) {
-                  if (parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount) >= 0) {
-                    client.Rooms[i].BuyIn = parseInt(client.Rooms[i].BuyIn) - parseInt(Object.BetAmount);
-                  } else {
-                    ws.send(stringify({
-                      Response: "NotEnoughMoney"
-                    }, null, 0)); //pops up only to the local player trying to bet
-                    //target.send();
-                    console.log("Tried to bet with no money");
-                  }
-                }
-              }
-            }
-          }
-        });
-        
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            for(let i=0;i<ws.ParentUserAccountIDList.length;++i){
-              if(ws.ParentUserAccountIDList.includes(client.UserAccountID)){
-                console.log("Parent To Notify "+client.UserAccountID);
-                client.send(stringify({
-                  Response: "PlayerBet"
-                }, null, 0));
-              }
-            }
-          }
-        });
-
-     
-
-      } else if (Object.Type == "Win") { //Win event occured 
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            if (client.UserAccountID == Object.UserAccountID) { //we sync all same account win value
-              console.log("Socket Won");
-              for (var i = 0; i < client.Rooms.length; ++i) {
-                if (client.Rooms[i].RoomID == Object.RoomID) {
-                  if (parseInt(client.Rooms[i].BuyIn) + parseInt(Object.WinAmount) >= 0) {
-                    client.Rooms[i].BuyIn = parseInt(client.Rooms[i].BuyIn) + parseInt(Object.WinAmount);
-                  }
-                }
-              }
-            }
-          }
-        });
-      } else if (Object.Type == "BuyIn") { //identify object type
-        var BuyInRoom = Object;
-        //console.log(BuyInRoom);
-        wss.clients.forEach((client) => {
-          if (client.UserAccountID == Object.UserAccountID) {
-            //  console.log("Buyin Money "+ Object.BuyIn);
-            if (client.Rooms == undefined) { //when empty must inisialize only then the one bellow it can push
-              client.Rooms = [];
-            }
-            if (client.Rooms.length == 0) { //must be if
-              client.Rooms.push({
-                RoomID: Object.RoomID,
-                BuyIn: Object.BuyIn
-              });
-              //console.log(client.Rooms);
-              client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
-            } else {
-
-              if (client.Money - Object.BuyIn) {
-                var NotFound = true;
-                for (var i = 0; i < client.Rooms.length; ++i) {
-                  if (client.Rooms[i].RoomID == Object.RoomID) { //Match Found Update Instead
-                    console.log("Match Found Update Instead");
-                    client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
-                    client.Rooms[i].BuyIn =parseInt(client.Rooms[i].BuyIn) + parseInt(Object.BuyIn);
-                    //console.log(client.Rooms[i].BuyIn + Object.BuyIn);
-                    NotFound = false;
-                    // break;
-                  }
-                }
-                if (NotFound == true) { // nothing found so we add it instead
-                  client.Rooms.push({
-                    RoomID: Object.RoomID,
-                    BuyIn: Object.BuyIn
-                  });
-                  //console.log(client.Rooms);
-                  client.Money = parseInt(client.Money) - parseInt(Object.BuyIn);
-                }
-              } else {
-                console.log("Not Enough Money");
-              }
-
-            }
-          }
-        });
-        console.log("Buyin : " + BuyInRoom);
-
-        wss.clients.forEach((client) => {
-          if (client.readyState == 1) {
-            for(let i=0;i<ws.ParentUserAccountIDList.length;++i){
-              if(ws.ParentUserAccountIDList.includes(client.UserAccountID)){
-                console.log("Parent To Notify "+client.UserAccountID);
-                client.send(stringify({
-                  Response: "PlayerBuyIn"
-                }, null, 0));
-              }
-            }
-          }
-        });
-      }
-    } else {
-      //possibly a diffrent message type
-      console.log("some message : " + event.data);
-    }
-
-  }
-
-  ws.onerror = function (event) {
-
-    console.debug("WebSocket Error message received:", event);
-  };
-  ws.onclose = function (event) {
-    let DisconnectedUserAccountID= event.target.UserAccountID;
-
-    wss.clients.forEach((client) => {
-      if (client.readyState == 1) {
-        if (client.UserAccountID == Object.UserAccountID) {
-          if(client.Rooms!=undefined){
-            var filtered = client.Rooms.filter(function (value) { //the oldest user account with the roomID // the oldest is basically the first item we find from 0 to N.. 
-              return value.RoomID == Object.RoomID;
-            });
-            if (filtered[0].BuyIn != undefined) { //Onclose the oldest is basically the first item we find from 0 to N.. 
-              client.Money = parseInt(client.Money) + parseInt(filtered[0].BuyIn); //add back the money to the player
-  
-              var NewArrayfiltered = client.Rooms.filter(function (value) {
-                return value.RoomID !== Object.RoomID;
-              });
-  
-              client.Rooms = NewArrayfiltered;
-            }
-          }
-        }
-      }
-    });
-    let CountSameAccount =0;
-    wss.clients.forEach((client) => {
-      if (client.readyState == 1) {
-        if (client.UserAccountID == DisconnectedUserAccountID) {
-          CountSameAccount++;
-        }
-      }
-    });
-
-    if(CountSameAccount==0){
-      console.log("Last Instance Of : "+DisconnectedUserAccountID +" Disconnected");
-      var query2 = "UPDATE `sampledb`.`useraccounts` SET `OnlineStatus` = 'Offline' WHERE (`UserAccountID` = \'"+_UserAccountID+"\');";
-      function UpdateStatus(){
-        DBConnect.DBConnect(query2, function (response) {
-          if (response != undefined) {
-          }
-        });
-      }
-      UpdateStatus();
-    }
-
-
-
-   // console.log(JSON.stringify(jc.decycle(event.target.UserAccountID)));
-
-    ConnectedUsers--;
-    console.log('Client disconnected ' + ConnectedUsers+" UserAccount That Disconnected : "+event.target.UserAccountID);
-  };
-});
-
-//websocket constant InvokeRepeat
-setInterval(() => {
-  InvokeRepeat();
-}, 1000);
-
-function InvokeRepeat(){
-  let array = Array.from(wss.clients);
-  var distinctlist = Enumerable.from(array);
-
-  wss.clients.forEach((client) => {
-
-    client.Money = parseInt(LatestAndUnique(distinctlist, client.UserAccountID).Money);
-    // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
-  });
-  wss.clients.forEach((client) => {
-    if (client.readyState == 1) {
-      var count = 0;
-      wss.clients.forEach((client2) => {
-        if (client2.UserAccountID == client.UserAccountID) {
-          count++;
-        }
-      });
-      let result = stringify({
-
-        UserAccountID: client.UserAccountID,
-        DepositNotice:client.DepositNotice,
-        Money: client.Money,
-        Rooms: client.Rooms,
-        CountSameAccount: count
-
-      }, null, 0);
-      totalSocketBytes+=sizeof(result);
-      client.send(result);
-    }
-    // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
-  });
-
-  // console.log(array.length);
-
-  /*wss.clients.forEach((client) => {
-      if(client.readyState==1){
-     
-        client.send(stringify({
-          UserAccountID:client.UserAccountID,
-          Money:client.Money
-        },null,0));
-      }
-  });*/
-}
-
-function IsJsonString(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
-
-function IsJsonString(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
-
-var path = require('path');
-var mime = require('mime');
-var fs = require('fs');
 
 app.get('/download/:Name', function(req, res){
   let requestfile = req.params.Name;
@@ -844,6 +506,7 @@ console.log("Redis Port :"+process.env.REDIS_PORT_6379_TCP_PORT);*/
 
 var requestStats = require('request-stats');
 
+//console.log(beautify(process.env, null, 2, 100));
 
 const pretty = require('prettysize');
 var stats = requestStats(server);
@@ -881,8 +544,32 @@ stats.on('request', function (req) {
 
 /*this catches everything and prevent node application from compleatly shutting down */
 process.on('uncaughtException', function (err) {
+
+
   console.log("Catch everything: "+err);
-}); 
+
+  if(ServerMode=="Debug"){
+  /*send the error to the connected clients not needed in Server Production Mode*/
+  wss.clients.forEach((client) => {
+    if (client.readyState == 1) {
+      var count = 0;
+      wss.clients.forEach((client2) => {
+        if (client2.UserAccountID == client.UserAccountID) {
+          count++;
+        }
+      });
+      const ResponseData = {
+        ServerError:err,
+      };
+      let result = stringify(ResponseData, null, 0);
+      totalSocketBytes+=sizeof(result);
+      client.send(result);
+    }
+    // console.log("UserAccountID "+client.UserAccountID+" "+client.Money);
+  });
+  }
+});
+
 
 //to show all routes 
 /*

@@ -11,7 +11,7 @@ module.exports.MemberList = function MemberList(Limit, Offset, callback) {
     let _Limit = Limit;
     let _Offset = Offset;
     let query = 
-    "SELECT HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, PlayerCurrentPoints, OnlineStatus, RegisteredDateTime, LoginDateTime FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
+    "SELECT * FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
     // "SELECT member_list.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, PlayerCurrentPoints, OnlineStatus, RegisteredDateTime, LoginDateTime FROM sampledb.member_list limit "+_Limit+" Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
@@ -22,18 +22,43 @@ module.exports.MemberList = function MemberList(Limit, Offset, callback) {
       }
     });
   }
-module.exports.MemberListSearch = function MemberListSearch(Column, Value, callback) {
-    let _Column = Column;
-    let _Value = Value;
+
+module.exports.MemberList2 = function MemberList2(Limit, Offset, Order, Direction, callback) {
+    let _Limit = Limit;
+    let _Offset = Offset;
+    let _Order = Order;
+    let _Direction = Direction;
     let query = 
-    "SELECT * FROM sampledb.member_list where \`"+_Column+"\` like \'%"+_Value+"%\';";
-    console.log(query);
+    "SELECT * FROM sampledb.member_list order by "+_Order+" "+_Direction+" limit "+_Limit+" Offset "+_Offset;
     DBConnect.DBConnect(query, function (response) {
       if (response != undefined) {
-       
+        console.log(response);
         callback(response);
       } else {
         callback(undefined);
       }
     });
+  }
+
+module.exports.MemberListSearch = function MemberListSearch(Indexx, Value, callback) {
+    let _Index = Indexx;
+    let _Value = Value;
+    let Column = ['PlayerID','ScreenName','ShopID'];
+
+    if(_Index >= 0 && _Index <= 2 ){
+      let query = 
+      "SELECT * FROM sampledb.member_list where \`"+Column[_Index]+"\` like \'%"+_Value+"%\';";
+      console.log(query);
+      DBConnect.DBConnect(query, function (response) {
+        if (response != undefined) {
+         
+          callback(response);
+        } else {
+          console.log('not exist')
+          callback(undefined);
+        }
+      });
+    }else{
+      callback(undefined)
+    }
   }

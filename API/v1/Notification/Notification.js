@@ -6,12 +6,13 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 let http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
 module.exports = function (app) { //INSERT
 
 
   //only certain allowed paramters 
   //for location we have ALLRoms,Room1 to 10... and NotificationType,Header,SideLeftPanel 
-  app.get('/Api/v1/Notification/Update/NotificationType/:NotificationType/Location/:Location/Title/:Title/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/Notification/Update/NotificationType/:NotificationType/Location/:Location/Title/:Title/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Location = req.params.Location;
@@ -19,7 +20,8 @@ module.exports = function (app) { //INSERT
     let Description = req.params.Description;//Intentionally Missing for now
     UpdateNotification(NotificationType, Title, Description, Status, Location, res);
   });
-  app.post('/Api/v1/Notification/Update/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  //updating notification on specific column and location
+  app.post('/Api/v1/Notification/Update/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationType = req.body.NotificationType;
     let Title = req.body.Title;
     let Location = req.body.Location;
@@ -40,7 +42,7 @@ module.exports = function (app) { //INSERT
 
 /*Possibly deprecated due to new schema */
   /*
-  app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/Notification/Add/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
     let Description = req.params.Description;
@@ -82,7 +84,7 @@ module.exports = function (app) { //INSERT
     }
   });
   //MODIFY
-  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status/', Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/Notification/Update/NotificationID/:NotificationID/NotificationType/:NotificationType/Title/:Title/Description/:Description/Status/:Status/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.cache.route({ expire: 5  }), function (req, res) {
     let NotificationID = req.params.NotificationID;
     let NotificationType = req.params.NotificationType;
     let Title = req.params.Title;
@@ -114,7 +116,7 @@ module.exports = function (app) { //INSERT
       });
     }
   }
-  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value', Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
+  app.get('/Api/v1/Notification/Search/Column/:Column/Value/:Value', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,Security.cache.route({ expire: 5  }), function (req, res) {
     let Column = req.params.Column;
     let Value = req.params.Value;
     NotificationSearch(Column,Value,res);

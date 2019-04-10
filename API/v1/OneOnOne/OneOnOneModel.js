@@ -5,33 +5,20 @@ var beautify = require("json-beautify");
 var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 
-module.exports.OneOnOne = function OneOnOne(Limit,Offset,callback) {
-    let _Limit = Limit;
-    let _Offset = Offset;
-    if(Limit!=undefined&&Offset!=undefined){
-    let query = "SELECT HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, Title, Status, RegisteredDateTime, DateTime, SupportTicketID FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset; 
-    // let query = "SELECT player_supportlist.row_number, HeadOfficeID, DistributorID, ShopID, PlayerUserAccountID, ScreenName, Title, Status, RegisteredDateTime, DateTime, SupportTicketID FROM sampledb.player_supportlist Limit "+_Limit+ " Offset "+_Offset; 
-    DBConnect.DBConnect(query, function (response) {
-        if (response != undefined) {
-            console.log(response);
-            callback(response);
-        } else {
-            callback(undefined);
-        }
-    });
-    } 
-    else if(Limit==undefined&&Offset==undefined){
-        let query = "SELECT * FROM sampledb.player_supportlist ";
-        DBConnect.DBConnect(query, function (response) {
-        if (response != undefined) {
-            console.log(response);
-            callback(response);
-        } else {
-            callback(undefined);
-        }
-    });
-    }
-    
+module.exports.OneOnOne = function OneOnOne(Limit,Offset,Order,Direction,callback) {
+  let _Limit = Limit;
+  let _Offset = Offset;
+  let _Order = Order;
+  let _Direction = Direction;
+  let query = "SELECT * FROM sampledb.player_supportlist order by "+_Order+" "+_Direction+" Limit "+_Limit+ " Offset "+_Offset; 
+  DBConnect.DBConnect(query, function (response) {
+      if (response != undefined) {
+          console.log(response);
+          callback(response);
+      } else {
+          callback(undefined);
+      }
+  });
 }
 module.exports.SupportSearchSupportTicketUserAccountID = function SupportSearchSupportTicketUserAccountID(SupportTicketID, UserAccountID,callback) {
     let _SupportTicketID = SupportTicketID;
@@ -69,11 +56,11 @@ module.exports.WriteSupportAnswerUpdate = function WriteSupportAnswerUpdate(Supp
     let _Answer = Answer;
     let query = 
     "UPDATE `sampledb`.`supporttickets` " +
-    "SET Answer = \'"+_Answer+"\', `DateTime` = now(),`Status` = 'Done' " +
+    "SET Answer = \'"+_Answer+"\', `AnswerDateTime` = now(),`Status` = 'Done' " +
     " WHERE SupportTicketID = "+
     _SupportTicketID +
     " AND UserAccountID = "+
-    "\'"+UserAccountID+"\'" ;
+    "\'"+_UserAccountID+"\'" ;
     DBConnect.DBConnect(query, function (response) {
         if (response != undefined) {
             console.log(response);

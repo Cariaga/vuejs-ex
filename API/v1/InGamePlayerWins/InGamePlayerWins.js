@@ -7,13 +7,16 @@ var isNullOrEmpty = require('is-null-or-empty');
 var uuidv4 = require('uuid/v4');
 var http = require('http');
 var Security = require('../../SharedController/Security');
+var Management = require('../../SharedController/Management');
+let DBGlobal = require('../../SharedController/DBGlobal');
 module.exports = function (app) {
-    app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
+    /*this is likely broken need because of the socket change */
+    app.get('/Api/v1/PlayerWins/UserAccountID/:UserAccountID/', Management.RouteCalled,Security.rateLimiterMiddleware,Security.verifyToken,/*Security.cache.route({ expire: 5  }),*/ function (req, res) {
         let UserAccountID = req.params.UserAccountID;
         console.log("Player Wins")
         DBCheck.isUserAccountIDExist(UserAccountID, function (response) {
             if (response == true) {
-                InGamePlayerWinsModel.InGamePlayerWins(UserAccountID, function (response) {
+                DBGlobal.InGamePlayerWins(UserAccountID, function (response) {
                     if (response != undefined) {
                         res.send(response);
                     } else {
@@ -30,6 +33,7 @@ module.exports = function (app) {
 }
 
 module.exports = function (app) {
+    /*win lose rate of a user acccount */
     app.get('/Api/v1/PlayerWins/PlayersWinLoseRake/UserAccounts/:UserAccounts/', function (req, res) {
 
         let UserAccounts = req.params.UserAccounts;
