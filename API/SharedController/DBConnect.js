@@ -31,7 +31,7 @@ module.exports.DBConnectTest = function DBConnectTest(){
 
 const pool = mysql.createPool({
   host:process.env.MARIADB_SERVICE_HOST|| 'localhost',
-  user: 'user',
+  user: 'root',
   password: 'user',
   database: 'sampledb',
   waitForConnections: true,
